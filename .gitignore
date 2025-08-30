@@ -1,0 +1,36 @@
+/log/
+/output/
+/tests/
+
+# 所有 .log 文件
+*.log
+# IntelliJ / PyCharm 的项目配置文件（.iml 文件等）
+*.iml
+
+# IDE 配置目录
+.idea/
+
+# 模型和日志文件
+log/model.txt
+
+# 版本控制配置和补丁
+misc.xml
+profiles_settings.xml
+Project_Default.xml
+shelved.patch
+vcs.xml
+workspace.xml
+__pycache__/
+*.pyc
+data/bot_prompt.txt
+diff_from_mainCSP.patch
+github.bat
+server.bat
+TODO.md
+server.bat
+
+.vscode/
+build/
+dist/
+
+session.json
