@@ -65,21 +65,13 @@ class Value2M(AbstractClueValue):
                 neighbor_vars.append(var)
 
         # 添加约束：周围雷数等于count+-1
-        if neighbor_vars:
-            neighbor_sum = sum(neighbor_vars)
+        if not neighbor_vars:
+            return
 
-            b1 = model.NewBoolVar(f"[2M]b1")
-            b2 = model.NewBoolVar(f"[2M]b2")
-            b3 = model.NewBoolVar(f"[2M]b3")
+        sum_var = model.NewIntVar(0, 8, "sum")
+        model.Add(sum_var == sum(neighbor_vars))
 
-            # 将布尔变量与表达式绑定
-            model.Add(neighbor_sum == self.count).OnlyEnforceIf([b1, s])
-            model.Add(neighbor_sum != self.count).OnlyEnforceIf([b1.Not(), s])
-
-            model.Add(neighbor_sum == self.count + 3).OnlyEnforceIf([b2, s])
-            model.Add(neighbor_sum != self.count + 3).OnlyEnforceIf([b2.Not(), s])
-
-            model.Add(neighbor_sum == self.count + 6).OnlyEnforceIf([b3, s])
-            model.Add(neighbor_sum != self.count + 6).OnlyEnforceIf([b3.Not(), s])
-
-            model.AddBoolOr([b1, b2, b3]).OnlyEnforceIf(s)
+        # 正确的模约束写法
+        mod_var = model.NewIntVar(0, 2, "mod_result")
+        model.AddModuloEquality(mod_var, sum_var, 3)
+        model.Add(mod_var == self.count).OnlyEnforceIf(s)
