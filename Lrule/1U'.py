@@ -5,7 +5,7 @@
 # @Author  : Wu_RH
 # @FileName: 1U.py
 """
-[1U] 一元 (Unary)：所有雷不能与其他雷相邻
+[1U'] 一元 (Unary')：所有雷不能与其他雷相邻或对角相邻
 """
 import itertools
 from ....abs.Lrule import AbstractMinesRule
