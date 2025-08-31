@@ -13,6 +13,7 @@ main_rules = ["V", "1M", "1L", "1N", "1X", "1P", "1E", "1K", "1W'", "2D", "2M"]
 
 NAME_C_SHARP = "C#"
 
+
 class RuleCSharp(AbstractClueSharp):
     name = ["C#", "加密标签", "Encrypted Tag"]
     doc = "标签被字母所取代，每个字母对应一个线索，且每个标签对应一个字母"
@@ -118,7 +119,7 @@ class ValueCsharp(AbstractClueValue):
     
     def web_component(self, board) -> Dict:
         # TODO
-        return super().web_component(board)
+        return Number(str(self.value))
     
     def tag(self, board) -> bytes:
         return RuleCSharp.label_x(self.rule).encode("ascii")
