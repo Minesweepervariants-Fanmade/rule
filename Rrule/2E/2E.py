@@ -7,6 +7,7 @@
 """
 [2E]加密: 线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母
 """
+
 from typing import List, Dict
 
 from minesweepervariants.utils.image_create import get_text, get_col, get_dummy
