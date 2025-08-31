@@ -16,7 +16,7 @@ class Rule1H(AbstractMinesRule):
     name = ["1U'", "一元'", "Unary'"]
     doc = "所有雷不能与其他雷相邻或对角相邻"
     subrules = [
-        [True, "[1U]一元'"]
+        [True, "[1U']一元'"]
     ]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
