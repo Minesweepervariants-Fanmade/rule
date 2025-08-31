@@ -1,6 +1,7 @@
 from typing import Dict
 from minesweepervariants.abs.board import AbstractBoard
 from . import AbstractClueSharp
+from minesweepervariants.impl.summon.solver import Switch
 from ....utils.tool import get_random, get_logger
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....abs.board import AbstractBoard, AbstractPosition
@@ -29,7 +30,7 @@ class RuleCSharp(AbstractClueSharp):
             self.rules = data.split(";")
         super().__init__(self.rules, board)
         get_logger().info(f"Init C# with rules {self.rules}")
-        board.generate_board(NAME_C_SHARP, size=((len(self.rules), len(self.rules))), labels=self.rules)
+        board.generate_board(NAME_C_SHARP, size=(len(self.rules), len(self.rules)), labels=self.rules)
         board.set_config(NAME_C_SHARP, "pos_label", True)
         for key in board.get_interactive_keys():
             board.set_config(key, "by_mini", True)
@@ -96,6 +97,7 @@ class RuleCSharp(AbstractClueSharp):
             except AttributeError:
                 raise RuntimeError("Unsupported clue " + clue.type().decode("utf-8", "ignore"))
 
+
 class ValueCsharp(AbstractClueValue):
     def __init__(self, pos: "AbstractPosition", value: int = 0, rule: int = 0, code: bytes = None) -> None:
         super().__init__(pos)
@@ -131,9 +133,10 @@ class ValueCsharp(AbstractClueValue):
         return bytes([self.value, self.rule])
     
     def create_constraints(self, board: 'AbstractBoard', switch):
-        rules : list[str] = board.get_config(NAME_C_SHARP, "labels")
+        rules: list[str] = board.get_config(NAME_C_SHARP, "labels")
         s = switch.get(board.get_model(), self)
         model = board.get_model()
+        temp_list = []
         for i, rule in enumerate(rules):
             clue_code = bytearray()
             clue_code.extend(rule.encode("ascii"))
@@ -141,12 +144,18 @@ class ValueCsharp(AbstractClueValue):
             clue_code.extend(bytes([self.value]))
             clue: AbstractClueValue = get_value(self.pos, bytes(clue_code))
             temp = model.NewBoolVar(f"temp_{self.pos}_{rule}")
-            model.Add(temp == 1).OnlyEnforceIf([board.get_variable(board.get_pos(self.rule, i, NAME_C_SHARP)), s])
+            model.Add(temp == 1).OnlyEnforceIf(
+                [board.get_variable(board.get_pos(i, self.rule, NAME_C_SHARP)), s]
+            )
             clue.create_constraints(board, FakeSwitch(temp))
+            temp_list.append(temp)
+        model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
 
-class FakeSwitch:
+
+class FakeSwitch(Switch):
     def __init__(self, var) -> None:
         self.var = var
+        super().__init__()
 
-    def get(self, model, value):
+    def get(self, model, obj, index=None):
         return self.var
