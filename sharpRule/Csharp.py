@@ -10,14 +10,17 @@ from ....impl.impl_obj import get_value
 from ....utils.image_create import get_text, get_image, get_dummy, get_col
 from ....utils.web_template import Number
 
-main_rules = ["V", "1M", "1L", "1N", "1X", "1P", "1E", "1K", "1W'", "2D", "2M"]
+main_rules = ["V", "1M", "1L", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "2D", "2M", "2X'"]
 
 NAME_C_SHARP = "C#"
 
 
 class RuleCSharp(AbstractClueSharp):
     name = ["C#", "加密标签", "Encrypted Tag"]
-    doc = "标签被字母所取代，每个字母对应一个线索，且每个标签对应一个字母"
+    doc = ("标签被字母所取代，每个字母对应一个线索，且每个标签对应一个字母\n"
+              "通过C#:<rule1>;<rule2>;...来指定使用的规则及其顺序\n"
+              "默认包含以下规则且随机顺序选取：\n"
+              "V, 1M, 1L, 1N, 1X, 1P, 1E, 1X', 1K, 1W', 2D, 2M, 2X'\n")
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         if not data:
