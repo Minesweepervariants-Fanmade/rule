@@ -117,8 +117,7 @@ class ValueCsharp(AbstractClueValue):
         )
     
     def web_component(self, board) -> Dict:
-        # TODO
-        return super().web_component(board)
+        return Number(str(self.value))
     
     def tag(self, board) -> bytes:
         return RuleCSharp.label_x(self.rule).encode("ascii")
