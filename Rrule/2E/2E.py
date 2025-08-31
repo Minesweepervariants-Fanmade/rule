@@ -9,7 +9,7 @@
 """
 from typing import List, Dict
 
-from minesweepervariants.utils.image_create import get_text
+from minesweepervariants.utils.image_create import get_text, get_col, get_dummy
 from minesweepervariants.utils.web_template import Number
 from .....abs.board import AbstractBoard, AbstractPosition
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
@@ -95,8 +95,16 @@ class Value2E(AbstractClueValue):
             board.get_pos(0, self.value, NAME_2E)
         ), mode="type")
         if "F" in line:
-            return get_text(str(line.index("F")))
-        return get_text("ABCDEFGHI"[self.value])
+            return get_col(
+                get_dummy(height=0.3),
+                get_text(str(line.index("F"))),
+                get_dummy(height=0.3),
+            )
+        return get_col(
+                get_dummy(height=0.3),
+                get_text("ABCDEFGHI"[self.value]),
+                get_dummy(height=0.3),
+            )
 
     def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition']:
         return self.neighbors
