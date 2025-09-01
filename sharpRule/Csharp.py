@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 from minesweepervariants.abs.board import AbstractBoard
 from . import AbstractClueSharp
 from minesweepervariants.impl.summon.solver import Switch
@@ -17,7 +17,7 @@ NAME_C_SHARP = "C#"
 
 class RuleCSharp(AbstractClueSharp):
     name = ["C#", "加密标签", "Encrypted Tag"]
-    doc = ("标签被字母所取代，每个字母对应一个线索，且每个标签对应一个字母\n"
+    doc = ("标签被字母所取代，每个字母对应一个标签，且每个标签对应一个字母\n"
               "通过C#:<rule1>;<rule2>;...来指定使用的规则及其顺序\n"
               "默认包含以下规则且随机顺序选取：\n"
               "V, 1M, 1L, 1N, 1X, 1P, 1E, 1X', 1K, 1W', 2D, 2M, 2X'\n")
@@ -69,20 +69,21 @@ class RuleCSharp(AbstractClueSharp):
     
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
-        s = switch.get(model, self)
+        s_row = switch.get(model, self, '↔')
+        s_col = switch.get(model, self, '↕')
         bound = board.boundary(key=NAME_C_SHARP)
 
         row = board.get_row_pos(bound)
         for pos in row:
             line = board.get_col_pos(pos)
             var = board.batch(line, mode="variable")
-            model.Add(sum(var) == 1).OnlyEnforceIf(s)
+            model.Add(sum(var) == 1).OnlyEnforceIf(s_col)
 
         col = board.get_col_pos(bound)
         for pos in col:
             line = board.get_row_pos(pos)
             var = board.batch(line, mode="variable")
-            model.Add(sum(var) == 1).OnlyEnforceIf(s)
+            model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
 
     def init_clear(self, board: 'AbstractBoard'):
         for pos, _ in board(key=NAME_C_SHARP):
@@ -126,11 +127,32 @@ class ValueCsharp(AbstractClueValue):
         # TODO
         return Number(str(self.value))
     
-    def tag(self, board) -> bytes:
+    def tag(self, board: AbstractBoard) -> bytes:
+        line = board.batch(board.get_col_pos(
+            board.get_pos(0, self.rule, NAME_C_SHARP)
+        ), mode="type")
+        if "F" in line:
+            return board.get_config(NAME_C_SHARP, "labels")[line.index("F")].encode("ascii")
         return RuleCSharp.label_x(self.rule).encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value, self.rule])
+    
+    def high_light(self, board: AbstractBoard) -> List[AbstractPosition] | None:
+        positions: set[AbstractPosition] = set()
+        line = board.batch(board.get_col_pos(
+            board.get_pos(0, self.rule, NAME_C_SHARP)
+        ), mode="type")
+        for i, type in enumerate(line):
+            rule = board.get_config(NAME_C_SHARP, "labels")[i]
+            if type == 'N':
+                high_light = self.get_clue(rule).high_light(board)
+                if high_light is not None:
+                    positions.update(high_light)
+            elif type == 'F':
+                return self.get_clue(rule).high_light(board)
+        return list(positions)
+
     
     def create_constraints(self, board: 'AbstractBoard', switch):
         rules: list[str] = board.get_config(NAME_C_SHARP, "labels")
@@ -138,11 +160,7 @@ class ValueCsharp(AbstractClueValue):
         model = board.get_model()
         temp_list = []
         for i, rule in enumerate(rules):
-            clue_code = bytearray()
-            clue_code.extend(rule.encode("ascii"))
-            clue_code.extend(b'|')
-            clue_code.extend(bytes([self.value]))
-            clue: AbstractClueValue = get_value(self.pos, bytes(clue_code))
+            clue: AbstractClueValue = self.get_clue(rule)
             temp = model.NewBoolVar(f"temp_{self.pos}_{rule}")
             model.Add(temp == 1).OnlyEnforceIf(
                 [board.get_variable(board.get_pos(i, self.rule, NAME_C_SHARP)), s]
@@ -150,6 +168,13 @@ class ValueCsharp(AbstractClueValue):
             clue.create_constraints(board, FakeSwitch(temp))
             temp_list.append(temp)
         model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
+
+    def get_clue(self, rule: str) -> AbstractClueValue:
+        clue_code = bytearray()
+        clue_code.extend(rule.encode("ascii"))
+        clue_code.extend(b'|')
+        clue_code.extend(bytes([self.value]))
+        return get_value(self.pos, bytes(clue_code))
 
 
 class FakeSwitch(Switch):
