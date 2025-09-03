@@ -105,7 +105,6 @@ class Value1X(AbstractClueValue):
             data = self.data
             bool_list = decode_bools_7bit(data)
         self.neighbor = []
-        print(bool_list)
         for n, b in enumerate(bool_list[::-1]):
             if not b:
                 continue
