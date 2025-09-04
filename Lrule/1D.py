@@ -31,4 +31,11 @@ class Rule1D(AbstractMinesRule):
     def suggest_total(self, info: dict):
         def a(model, total):
             model.AddModuloEquality(0, total, 2)
+
+        ub = 0
+        for key in info["interactive"]:
+            size = info["size"][key]
+            ub += size[0] * size[1]
+
+        info["soft_fn"](ub * 0.33, 0)
         info["hard_fns"].append(a)

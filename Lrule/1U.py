@@ -32,3 +32,10 @@ class Rule1H(AbstractMinesRule):
                 model.Add(board.get_variable(pos.right()) == 0).OnlyEnforceIf([var, s])
             if board.in_bounds(pos.left()):
                 model.Add(board.get_variable(pos.left()) == 0).OnlyEnforceIf([var, s])
+
+    def suggest_total(self, info: dict):
+        ub = 0
+        for key in info["interactive"]:
+            size = info["size"][key]
+            ub += size[0] * size[1]
+        info["soft_fn"](ub * 0.33, 0)

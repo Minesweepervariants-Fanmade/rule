@@ -29,3 +29,10 @@ class Rule1A(AbstractMinesRule):
             var_list = board.batch(pos_list, mode="variable", drop_none=True)
             for _var in var_list:
                 model.AddBoolOr([_var.Not(), var.Not()]).OnlyEnforceIf(b)
+
+    def suggest_total(self, info: dict):
+        ub = 0
+        for key in info["interactive"]:
+            size = info["size"][key]
+            ub += size[0] * size[1]
+        info["soft_fn"](ub * 0.33, 0)
