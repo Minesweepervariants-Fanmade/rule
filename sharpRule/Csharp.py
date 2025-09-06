@@ -55,7 +55,7 @@ class RuleCSharp(AbstractClueSharp):
         boards : list[AbstractBoard] = []
         for rule in self.shape_rule.rules:
             boards.append(rule.fill(board.clone()))
-        for key in board.get_board_keys():
+        for key in board.get_interactive_keys():
             for pos, _ in board("N", key=key):
                 values = [_board.get_value(pos) for _board in boards]
                 if not values:
