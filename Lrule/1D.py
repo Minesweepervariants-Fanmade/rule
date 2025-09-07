@@ -37,5 +37,5 @@ class Rule1D(AbstractMinesRule):
             size = info["size"][key]
             ub += size[0] * size[1]
 
-        info["soft_fn"](ub * 0.33, 0)
+        info["soft_fn"](ub * 0.3, 0)
         info["hard_fns"].append(a)

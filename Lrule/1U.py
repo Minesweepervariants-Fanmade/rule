@@ -38,4 +38,4 @@ class Rule1H(AbstractMinesRule):
         for key in info["interactive"]:
             size = info["size"][key]
             ub += size[0] * size[1]
-        info["soft_fn"](ub * 0.33, 0)
+        info["soft_fn"](ub * 0.3, 0)
