@@ -11,11 +11,19 @@
 import itertools
 from typing import List, Tuple, Optional
 
+from ortools.sat.python.cp_model import CpModel
+
 from minesweepervariants.abs.rule import AbstractRule
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....abs.board import AbstractBoard, AbstractPosition
 
 from ....utils.tool import get_logger
+
+
+UN_FLAG = 0
+GROUP_4 = 1
+GROUP_3 = 2
+CONNECT = 4
 
 
 class Rule2A(AbstractClueRule):
@@ -24,7 +32,7 @@ class Rule2A(AbstractClueRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)
-        self.flag_1S = None
+        self.flag = UN_FLAG
 
     def combine(self, rules: List[Tuple['AbstractRule', Optional[str]]]):
         """
@@ -43,13 +51,22 @@ class Rule2A(AbstractClueRule):
 
             if (name in ["1S", "3Y", "1S'", "1S^"] and
                (data is None or all(x == "1" or "1:1" in x for x in data.split(";")))):
-                self.flag_1S = True
+                self.flag = CONNECT
+
+            if name == "2G" and data is None:
+                self.flag = GROUP_4
+
+            if name == "2G'" and data is None:
+                self.flag = GROUP_3
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()
         for pos, _ in board("N"):
-            if self.flag_1S:
-                code = b'\x00\x00' if board.batch(pos.neighbors(1), "type").count("F") > 0 else b'\x00'
+            if self.flag == CONNECT:
+                if board.batch(pos.neighbors(1), "type").count("F") > 0:
+                    code = b'\x04'
+                else:
+                    code = b'\x05'
                 board.set_value(pos, Value2A(pos, code))
                 continue
             checked = [[False for _ in range(20)] for _ in range(20)]
@@ -74,7 +91,7 @@ class Rule2A(AbstractClueRule):
                 for j in range(20):
                     if checked[i][j]:
                         cnt += 1
-            board.set_value(pos, Value2A(pos, bytes([cnt])))
+            board.set_value(pos, Value2A(pos, bytes([self.flag, cnt])))
             logger.debug(f"Set {pos} to 2A[{cnt}]")
         return board
 
@@ -82,13 +99,22 @@ class Rule2A(AbstractClueRule):
 class Value2A(AbstractClueValue):
     def __init__(self, pos: 'AbstractPosition', code: bytes = None):
         super().__init__(pos, code)
-        self.value = code[0] if len(code) == 1 else None
-        self.neighbor = pos.neighbors(1)
-        self.pos = pos
+        if code[0] >= CONNECT:
+            self.flag = CONNECT
+            if code[0] == 4:
+                self.value = 0
+            else:
+                self.value = 1
+        else:
+            self.flag = code[0]
+            self.value = code[1]
 
     def __repr__(self) -> str:
-        if self.value is None:
-            return ">0"
+        if self.flag == CONNECT:
+            if self.value is 1:
+                return ">0"
+            else:
+                return "0"
         return f"{self.value}"
 
     @classmethod
@@ -96,19 +122,96 @@ class Value2A(AbstractClueValue):
         return Rule2A.name[0].encode("ascii")
 
     def code(self) -> bytes:
-        if self.value is None:
-            return b'\x00\x00'
-        return bytes([self.value])
+        if self.flag == CONNECT:
+            if self.value == 1:
+                return b'\x04'
+            else:
+                return b'\x05'
+        return bytes([self.flag, self.value])
+
+    def create_constraints_connect(self, model, board, switch):
+        var_list = board.batch(self.pos.neighbors(1), "var", drop_none=True)
+        model.AddBoolOr(var_list).OnlyEnforceIf(switch)
+
+    def create_constraints_group_4(self, model, board, s):
+        value = self.value // 4
+        return self.create_constraints_group(value, model, board, s)
+
+    def create_constraints_group_3(self, model, board, s):
+        value = self.value // 3
+        return self.create_constraints_group(value, model, board, s)
+
+    def create_constraints_group(self, value, model: CpModel, board, s):
+        var_a = board.get_variable(self.pos.up().left())
+        var_b = board.get_variable(self.pos.up().right())
+        var_c = board.get_variable(self.pos.down().right())
+        var_d = board.get_variable(self.pos.down().left())
+
+        var_1 = board.get_variable(self.pos.up())
+        var_2 = board.get_variable(self.pos.right())
+        var_3 = board.get_variable(self.pos.down())
+        var_4 = board.get_variable(self.pos.left())
+
+        var_dict = {}
+        """
+        A 1 B
+        4 ? 2
+        D 3 C
+        """
+
+        for __var_1, __var_2, __var_3, ap_n in [
+            (var_a, var_1, var_4, "A"),
+            (var_b, var_1, var_2, "B"),
+            (var_c, var_3, var_2, "C"),
+            (var_d, var_3, var_4, "D"),
+        ]:
+            if __var_1 is None or __var_2 is None or __var_3 is None:
+                continue
+            var_X = model.NewBoolVar(f"{__var_1}")
+            model.Add(var_X == 1).OnlyEnforceIf([__var_1, __var_2, __var_3])
+            model.Add(var_X == 0).OnlyEnforceIf(__var_1.Not())
+            model.Add(var_X == 0).OnlyEnforceIf(__var_2.Not())
+            model.Add(var_X == 0).OnlyEnforceIf(__var_3.Not())
+            var_dict[ap_n] = var_X
+
+        for var_n, ap_1, ap_2 in [
+            (var_1, "A", "B"),
+            (var_2, "C", "B"),
+            (var_3, "D", "C"),
+            (var_4, "A", "D"),
+        ]:
+            if var_n is None:
+                continue
+            if ap_1 not in var_dict and ap_2 not in var_dict:
+                Var_n = var_n
+            elif ap_1 not in var_dict:
+                Var_n = model.NewBoolVar(f"{var_n}")
+                model.Add(Var_n == var_n).OnlyEnforceIf(var_dict[ap_2].Not())
+                model.Add(Var_n == 0).OnlyEnforceIf(var_dict[ap_2])
+            elif ap_2 not in var_dict:
+                Var_n = model.NewBoolVar(f"{var_n}")
+                model.Add(Var_n == var_n).OnlyEnforceIf(var_dict[ap_1].Not())
+                model.Add(Var_n == 0).OnlyEnforceIf(var_dict[ap_1])
+            else:
+                Var_n = model.NewBoolVar(f"{var_n}")
+                model.Add(Var_n == var_n).OnlyEnforceIf([var_dict[ap_1].Not(), var_dict[ap_2].Not()])
+                model.Add(Var_n == 0).OnlyEnforceIf(var_dict[ap_1])
+                model.Add(Var_n == 0).OnlyEnforceIf(var_dict[ap_2])
+            var_dict[var_n] = Var_n
+
+        model.Add(sum(var_dict.values()) == value).OnlyEnforceIf(s)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         # 跳过已有的线索格
         model = board.get_model()
         s = switch.get(model, self)
 
-        if self.value is None:
-            var_list = board.batch(self.pos.neighbors(1), "var", drop_none=True)
-            model.AddBoolOr(var_list).OnlyEnforceIf(s)
-            return
+        if self.flag == CONNECT:
+            return self.create_constraints_connect(model, board, s)
+        elif self.flag == GROUP_4:
+            return self.create_constraints_group_4(model, board, s)
+        elif self.flag == GROUP_3:
+            return self.create_constraints_group_3(model, board, s)
 
         def dfs(
                 deep: int,
@@ -154,4 +257,3 @@ class Value2A(AbstractClueValue):
             tmp_list.append(tmp)
         model.AddBoolOr(tmp_list).OnlyEnforceIf(s)
         get_logger().trace(f"position:{self.pos}, value:{self}, 枚举所有可能性共:{len(tmp_list)}个")
-
