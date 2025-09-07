@@ -18,11 +18,12 @@ from ....abs.board import AbstractPosition, AbstractBoard
 def block1(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPosition]:
     b_pos = a_pos.left().left().up()
     c_pos = b_pos.up().up().right()
-    d_pos = c_pos.down().down().left()
+    d_pos = c_pos.right().right().down()
 
     if not board.in_bounds(b_pos) or not board.in_bounds(c_pos) or not board.in_bounds(d_pos):
         return []
     return [a_pos, b_pos, c_pos, d_pos]
+
 
 def block2(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPosition]:
     b_pos = a_pos.left().up().up()
