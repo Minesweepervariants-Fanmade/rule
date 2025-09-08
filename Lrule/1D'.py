@@ -144,17 +144,16 @@ class Rule1Dp(AbstractMinesRule):
                             model.Add(v_len_var == v_length[(x, y - 1)] + 1).OnlyEnforceIf(
                                 [cell_var, up_var, s])
 
-                    # === 长度上限约束 ===
-                    # 当战舰达到最大长度(4)时，下一格必须不能是雷
-                    # 水平方向
-                    # if x < max_x - 1:  # 确保有下一格
-                    #     next_right = board.get_pos(x + 1, y, key)
-                    #     next_right_var = board.get_variable(next_right)
-                    #     # 如果当前长度=4，下一格必须不是雷
-                    #     model.Add(next_right_var == 0).OnlyEnforceIf(h_len_var == 4)
-                    #
-                    # # 垂直方向
-                    # if y < max_y - 1:
-                    #     next_down = board.get_pos(x, y + 1, key)
-                    #     next_down_var = board.get_variable(next_down)
-                    #     model.Add(next_down_var == 0).OnlyEnforceIf(v_len_var == 4)
+    def suggest_total(self, info):
+
+        ub = 0
+        for key in info["interactive"]:
+            total = info["total"][key]
+            ub += total
+        def a(model, total):
+            s = model.NewIntVar(0, 2, "s")
+            model.AddModuloEquality(s, total, 2)
+            model.AddHint(s, 0)
+            model.Add(s != 1)
+        info["soft_fn"](ub * 0.29, 0)
+        info["hard_fns"].append(a)

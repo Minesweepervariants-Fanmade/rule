@@ -27,6 +27,12 @@ class Rule1H(AbstractMinesRule):
     def suggest_total(self, info: dict):
         ub = 0
         for key in info["interactive"]:
-            size = info["size"][key]
-            ub += size[0] * size[1]
-        info["soft_fn"](ub * 0.3, 0)
+            total = info["total"][key]
+            ub += total
+        def a(model, total):
+            s = model.NewIntVar(0, 2, "s")
+            model.AddModuloEquality(s, total, 2)
+            model.AddHint(s, 0)
+            model.Add(s != 1)
+        info["soft_fn"](ub * 0.29, 0)
+        info["hard_fns"].append(a)
