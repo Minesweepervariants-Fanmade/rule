@@ -115,4 +115,10 @@ class Rule2G(AbstractMinesRule):
         def hard_constraint(m, total):
             m.AddModuloEquality(0, total, self.value)
 
+        ub = 0
+        for key in info["interactive"]:
+            total = info["total"][key]
+            ub += total
+        
+        info["soft_fn"](ub * 0.335, 0)
         info["hard_fns"].append(hard_constraint)
