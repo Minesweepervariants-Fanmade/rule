@@ -11,8 +11,6 @@
 import itertools
 from typing import List, Tuple, Optional
 
-from ortools.sat.python.cp_model import CpModel
-
 from minesweepervariants.abs.rule import AbstractRule
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....abs.board import AbstractBoard, AbstractPosition
@@ -111,7 +109,7 @@ class Value2A(AbstractClueValue):
 
     def __repr__(self) -> str:
         if self.flag == CONNECT:
-            if self.value is 1:
+            if self.value == 1:
                 return ">0"
             else:
                 return "0"
@@ -130,6 +128,8 @@ class Value2A(AbstractClueValue):
         return bytes([self.flag, self.value])
 
     def create_constraints_connect(self, model, board, switch):
+        if self.value == 0:
+            return
         var_list = board.batch(self.pos.neighbors(1), "var", drop_none=True)
         model.AddBoolOr(var_list).OnlyEnforceIf(switch)
 
@@ -141,7 +141,7 @@ class Value2A(AbstractClueValue):
         value = self.value // 3
         return self.create_constraints_group(value, model, board, s)
 
-    def create_constraints_group(self, value, model: CpModel, board, s):
+    def create_constraints_group(self, value, model, board, s):
         var_a = board.get_variable(self.pos.up().left())
         var_b = board.get_variable(self.pos.up().right())
         var_c = board.get_variable(self.pos.down().right())
