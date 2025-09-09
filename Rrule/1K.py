@@ -18,7 +18,7 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 class Rule1K(AbstractClueRule):
     name = ["1K", "K", "骑士", "Knight"]
-    doc = "每个位置代表其马步位置格子的总雷数"
+    doc = "线索表示马步位置 8 个格子中的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

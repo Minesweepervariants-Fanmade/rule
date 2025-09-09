@@ -5,7 +5,7 @@
 # @Author  : Wu_RH
 # @FileName: 2B.py
 """
-[2B] 桥 (Bridge)：所有雷构成若干组桥。桥是从题版左边界八连通连接（水平或斜角连接）到右边界，宽度为 1、长度与题版宽度相等的一条路径
+[2B] 桥 (Bridge)：所有雷构成若干组桥。桥是从题版左边界八连通连接（水平或斜角连接）到右边界，宽度为 1、长度与题版相等的一条路径
 """
 from ....abs.Lrule import AbstractMinesRule
 from ....abs.board import AbstractBoard
@@ -13,7 +13,7 @@ from ....abs.board import AbstractBoard
 
 class Rule2B(AbstractMinesRule):
     name = ["2B", "桥", "Bridge"]
-    doc = "所有雷构成若干组桥。桥是从题版左边界八连通连接（水平或斜角连接）到右边界，宽度为 1、长度与题版宽度相等的一条路径"
+    doc = "所有雷构成若干组桥。桥是从题版左边界八连通连接（水平或斜角连接）到右边界，宽度为 1、长度与题版相等的一条路径"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         """

@@ -17,7 +17,7 @@ NAME_2I = "2I"
 
 
 class Rule2I(AbstractClueRule):
-    name = ["2I", "残缺"]
+    name = ["2I", "残缺", "Incomplete"]
     doc = "数字表示周围8格中某7格的雷数。7格的方位被当前题板所有线索共享"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

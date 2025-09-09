@@ -22,8 +22,8 @@ def alpha(n: int) -> str:
 
 
 class Rule2Ep(AbstractClueRule):
-    name = ["2E'", "自指"]
-    doc = "如果字母X周围8格内有N个雷，则标有X=N的格子必定是雷。"
+    name = ["2E'", "自指", "Self-Referential"]
+    doc = "如果字母 X 的 3x3 范围内有 N 个雷，则 X=N 所在的格子为雷"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__()

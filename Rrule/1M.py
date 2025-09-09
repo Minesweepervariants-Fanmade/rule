@@ -14,8 +14,8 @@ from ....utils.tool import get_logger
 
 
 class Rule1M(AbstractClueRule):
-    name = ["1M", "M", "多雷"]
-    doc = "每个染色格的雷被视为两个(总雷数不受限制)"
+    name = ["1M", "M", "多雷", "Multiple"]
+    doc = "每个染色格中的雷视为 2 个（不影响总雷数）"
 
     def fill(self, board: 'AbstractBoard'):
         logger = get_logger()

@@ -12,7 +12,7 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1H(AbstractMinesRule):
-    name = ["1U", "一元", "Unary"]
+    name = ["1U", "U", "一元", "Unary"]
     doc = "所有雷不能与其他雷相邻"
     subrules = [
         [True, "[1U]一元"]
