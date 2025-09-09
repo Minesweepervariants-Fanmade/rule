@@ -17,10 +17,20 @@ NAME_2Ip = "2I'"
 
 class Rule2I(AbstractClueRule):
     name = ["2I'", "残缺'"]
-    doc = "数字表示周围8格中某n格的雷数。n格的方位被当前题板所有线索共享"
+    doc = "数字表示周围8格中某N格的雷数。N格的方位被当前题板所有线索共享"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
+
+        self.remaining = 0
+        if data is not None:
+            try:
+                value = int(data)
+                if 2 <= value <= 7:
+                    self.remaining = value
+            except Exception:
+                pass
+
         board.generate_board(NAME_2Ip, (3, 3))
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -38,7 +48,8 @@ class Rule2I(AbstractClueRule):
         board[pos] = Value2I_Quess(pos)
 
         pos_list = [pos for pos, _ in board("N", key=NAME_2Ip)]
-        pos_list = random.sample(pos_list, int(random.random() * 6 + 2))
+        self.remaining = self.remaining or int(random.random() * 6 + 2) # 2~7
+        pos_list = random.sample(pos_list, self.remaining)
         offsets = []
         for pos in pos_list:
             board[pos] = VALUE_CIRCLE
