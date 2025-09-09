@@ -93,62 +93,44 @@ class Value1X_(AbstractClueValue):
         direction_images = ['up', 'right', 'down', 'left']
 
         if self.direction in [0, 2]:  # 上或下
-            if self.count == 1:
-                return get_row(
-                        get_dummy(width=0.175),
-                        get_text("1"),
-                        get_image(direction_images[self.direction]),
-                        get_dummy(width=0.175),
-                    )
-
             return get_row(
-                    get_text(str(self.count)),
-                    get_image(direction_images[self.direction]),
-                    spacing=-0.1,
-                )
+                get_dummy(width=0.15),
+                get_image(direction_images[self.direction]),
+                get_dummy(width=-0.15),
+                get_text(str(self.count)),
+                get_dummy(width=0.15),
+            )
         else:  # 左或右
             return get_col(
-                    get_dummy(height=0.1),
-                    get_image(
-                        direction_images[self.direction],
-                        image_height=0.2,
-                        image_width=0.7
-                    ),
-                    get_dummy(height=-0.05),
-                    get_text(str(self.count)),
-                    get_dummy(height=0.2)
-                )
+                get_image(
+                    direction_images[self.direction],
+                    image_height=0.4,
+                ),
+                get_dummy(height=-0.1),
+                get_text(str(self.count))
+            )
 
     def compose(self, board) -> Dict:
         """生成可视化组件"""
         direction_images = ['up', 'right', 'down', 'left']
 
         if self.direction in [0, 2]:  # 上或下
-            if self.count == 1:
-                return get_row(
-                        get_dummy(width=0.175),
-                        get_text("1"),
-                        get_image(direction_images[self.direction]),
-                        get_dummy(width=0.175),
-                    )
-
             return get_row(
-                    get_text(str(self.count)),
-                    get_image(direction_images[self.direction]),
-                    spacing=-0.1,
-                )
+                get_dummy(width=0.15),
+                get_image(direction_images[self.direction]),
+                get_dummy(width=-0.15),
+                get_text(str(self.count)),
+                get_dummy(width=0.15),
+            )
         else:  # 左或右
             return get_col(
-                    get_dummy(height=0.1),
-                    get_image(
-                        direction_images[self.direction],
-                        image_height=0.2,
-                        image_width=0.7
-                    ),
-                    get_dummy(height=-0.05),
-                    get_text(str(self.count)),
-                    get_dummy(height=0.2)
-                )
+                get_image(
+                    direction_images[self.direction],
+                    image_height=0.4,
+                ),
+                get_dummy(height=-0.1),
+                get_text(str(self.count))
+            )
 
     def deduce_cells(self, board: 'AbstractBoard') -> bool:
         """逻辑推理"""
