@@ -3,7 +3,7 @@ from minesweepervariants.utils.impl_obj import VALUE_CROSS, VALUE_CIRCLE
 from minesweepervariants.impl.rule.Rrule.V import ValueV
 from minesweepervariants.utils.tool import get_random
 
-NAME_2I = "2I1C"
+NAME_2I = "2I"
 
 class Rule2I1C(AbstractMinesRule):
     name = ["2I1C", "残缺联通"]
@@ -12,7 +12,7 @@ class Rule2I1C(AbstractMinesRule):
     def __init__(self, board = None, data=None):
         super().__init__(board, data)
         board.generate_board(NAME_2I, (3, 3))
-        self.value = 6 if data is None else None
+        self.value = 6 if data is None else int(data)
         if self.value % 2 == 1:
             raise ValueError("2I1C的雷数必须为偶数")
 

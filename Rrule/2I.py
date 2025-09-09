@@ -25,7 +25,7 @@ class Rule2I(AbstractClueRule):
         board.generate_board(NAME_2I, (3, 3))
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
-        self.init_clear(board)
+        self.init_clear(board)  # 如果需要共用2I副板那么就注释该行
         def apply_offsets(_pos: AbstractPosition):
             nonlocal offsets
             result = []
@@ -35,19 +35,20 @@ class Rule2I(AbstractClueRule):
 
         random = get_random()
         logger = get_logger()
-        pos = board.get_pos(1, 1, NAME_2I)
-        board[pos] = Value2I_7(pos)
 
-        pos_list = [pos for pos, _ in board("N", key=NAME_2I)]
-        pos_list = random.sample(pos_list, 7)
-        offsets = []
-        for pos in pos_list:
-            board[pos] = VALUE_CIRCLE
-            offsets.append(pos.up().left())
-            logger.debug(f"[2I] put O at {pos}")
-        for pos, _ in board("N", key=NAME_2I):
-            board[pos] = VALUE_CROSS
-            logger.debug(f"[2I] put X at {pos}")
+        if not [_ for _, _ in board("CF", key=NAME_2I)]:
+            pos = board.get_pos(1, 1, NAME_2I)
+            board[pos] = Value2I_7(pos)
+            # 如果不存在任何东西的话
+            pos_list = [pos for pos, _ in board("N", key=NAME_2I)]
+            pos_list = random.sample(pos_list, 7)
+            for pos in pos_list:
+                board[pos] = VALUE_CIRCLE
+                logger.debug(f"[2I] put O at {pos}")
+            for pos, _ in board("N", key=NAME_2I):
+                board[pos] = VALUE_CROSS
+                logger.debug(f"[2I] put X at {pos}")
+        offsets = [pos.up().left() for pos, _ in board(key=NAME_2I) if board.get_type(pos) == "F"]
 
         for pos, _ in board("N"):
             positions = apply_offsets(pos)
@@ -60,7 +61,11 @@ class Rule2I(AbstractClueRule):
 
     def init_clear(self, board: 'AbstractBoard'):
         for pos, obj in board(mode="object", key=NAME_2I):
-            if isinstance(obj, Value2I_7):
+            if type(obj) not in (
+                type(VALUE_CIRCLE),
+                type(VALUE_CROSS),
+                type(None)
+            ):
                 continue
             board[pos] = None
 
@@ -100,7 +105,11 @@ class Value2I(AbstractClueValue):
         # 初始化对照表
         neighbors = []
         for pos2, obj in board(key=NAME_2I):
-            if isinstance(obj, Value2I_7):
+            if type(obj) not in (
+                type(VALUE_CIRCLE),
+                type(VALUE_CROSS),
+                type(None)
+            ):
                 continue
             # 题板上的位置和共享的偏移位置
             _positions = [self.pos.deviation(pos2).up().left(), pos2]
@@ -119,7 +128,7 @@ class Value2I(AbstractClueValue):
             # 如果偏移变量为假 那么tmp为0
             model.Add(tmp == 0).OnlyEnforceIf([cond.Not(), s])
             sum_vers.append(tmp)
-            logger.trace(f"[2E'2I] new tempVar: {tmp} = if {cond} -> {var_to_sum}")
+            logger.trace(f"[2I] new tempVar: {tmp} = if {cond} -> {var_to_sum}")
 
         model.Add(sum(sum_vers) == self.value).OnlyEnforceIf(s)
 
