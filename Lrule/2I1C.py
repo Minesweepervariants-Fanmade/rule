@@ -12,17 +12,13 @@ class Rule2I1C(AbstractMinesRule):
     def __init__(self, board = None, data=None):
         super().__init__(board, data)
         board.generate_board(NAME_2I, (3, 3))
-        self.value = int(data) if data is not None else 7
+        self.value = 7 if data is None else None
 
     def init_board(self, board):
         random = get_random()
         pos = board.get_pos(1, 1, NAME_2I)
         obj = Value2I1C(pos, count=self.value)
         board[pos] = obj
-        pos_list = [pos for pos, obj in board(key=NAME_2I) if not isinstance(obj, Value2I1C)]
-        pos_list = random.sample(pos_list, k=self.value)
-        for p in pos_list:
-            board[p] = VALUE_CIRCLE
         for p, _ in board("N", key=NAME_2I):
             board[p] = VALUE_CROSS
 
@@ -51,6 +47,7 @@ class Rule2I1C(AbstractMinesRule):
             model.Add(sum(root_vars[pos] for pos, _ in board(key=key)) == 1)
         
         tag_pos = board.get_pos(1, 1, NAME_2I)
+        print(board)
         model.Add(sum(board.get_variable(pos) for pos in tag_pos.neighbors(2)) == self.value).OnlyEnforceIf(s2)
         model.Add(board.get_variable(tag_pos) == 0).OnlyEnforceIf(s2)
 
