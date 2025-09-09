@@ -107,5 +107,6 @@ class Value2I1C(ValueV):
     def create_constraints(self, board, switch):
         pass
 
-    def type(self) -> bytes:
+    @classmethod
+    def type(cls) -> bytes:
         return Rule2I1C.name[0].encode()
