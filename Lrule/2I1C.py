@@ -106,3 +106,6 @@ class Rule2I1C(AbstractMinesRule):
 class Value2I1C(ValueV):
     def create_constraints(self, board, switch):
         pass
+
+    def type(self) -> bytes:
+        return Rule2I1C.name[0].encode()
