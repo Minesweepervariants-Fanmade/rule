@@ -34,6 +34,8 @@ class Rule2Ep2I(AbstractClueRule):
                 result.append(_pos.deviation(dpos))
             return result
 
+        self.init_clear(board)
+
         pos = board.get_pos(1, 1, NAME_2I)
         logger = get_logger()
         random = get_random()

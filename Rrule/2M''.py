@@ -62,7 +62,8 @@ class Rule2M(AbstractClueRule):
         logger = get_logger()
         boundary = board.boundary()
         keys = board.get_interactive_keys()
-
+        self.init_clear(board)
+        
         matrix = []
         for x in range(boundary.x + 1):
             row = []

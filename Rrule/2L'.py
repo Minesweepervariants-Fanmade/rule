@@ -64,6 +64,7 @@ class Rule2L(AbstractClueRule):
         board.generate_board(NAME_2L, (bound.x + 1, bound.y + 1))
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+        self.init_clear(board)
         random = get_random()
         logger = get_logger()
         boundary = board.boundary()

@@ -29,6 +29,7 @@ class Rule1M(AbstractClueRule):
             self.value = data
 
     def fill(self, board: 'AbstractBoard'):
+        self.init_clear(board)
         def apply_offsets(_pos: AbstractPosition):
             nonlocal offsets
             result = []
@@ -45,7 +46,7 @@ class Rule1M(AbstractClueRule):
         else:
             board[pos] = Value2I_7(pos, bytes([int(self.value)]))
 
-        pos_list = [pos for pos, _ in board("N", key=BOARD_NAME)]
+        pos_list = [pos for pos, _ in board(key=BOARD_NAME)]
 
         if self.value == "":
             pos_list = random.sample(pos_list, int(random.random() * 9))

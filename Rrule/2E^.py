@@ -28,6 +28,7 @@ class Rule2Eq(AbstractClueRule):
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()
+        self.init_clear(board)
         while True:
             shuffled_nums = [i // 2 for i in range(min(18, (board.boundary().x + 1) * 2))]
             number_map = {i: [] for i in range(min(9, (board.boundary().x + 1)))}

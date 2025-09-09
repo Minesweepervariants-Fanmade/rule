@@ -43,6 +43,7 @@ class RuleCSharp(AbstractClueSharp):
         return self.rules[y] if 0 <= y < len(self.rules) else ''
     
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+        self.init_clear(board)
         random = get_random()
         shuffled_nums = [i for i in range(len(self.rules))]
         random.shuffle(shuffled_nums)

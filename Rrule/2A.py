@@ -97,15 +97,8 @@ class Rule2A(AbstractClueRule):
 class Value2A(AbstractClueValue):
     def __init__(self, pos: 'AbstractPosition', code: bytes = None):
         super().__init__(pos, code)
-        if code[0] >= CONNECT:
-            self.flag = CONNECT
-            if code[0] == 4:
-                self.value = 0
-            else:
-                self.value = 1
-        else:
-            self.flag = code[0]
-            self.value = code[1]
+        self.flag = code[0]
+        self.value = code[1]
 
     def __repr__(self) -> str:
         if self.flag == CONNECT:
@@ -120,11 +113,6 @@ class Value2A(AbstractClueValue):
         return Rule2A.name[0].encode("ascii")
 
     def code(self) -> bytes:
-        if self.flag == CONNECT:
-            if self.value == 1:
-                return b'\x04'
-            else:
-                return b'\x05'
         return bytes([self.flag, self.value])
 
     def create_constraints_connect(self, model, board, switch):
@@ -134,10 +122,16 @@ class Value2A(AbstractClueValue):
         model.AddBoolOr(var_list).OnlyEnforceIf(switch)
 
     def create_constraints_group_4(self, model, board, s):
+        if self.value % 4 != 0:
+            model.Add(s == 0)
+            return
         value = self.value // 4
         return self.create_constraints_group(value, model, board, s)
 
     def create_constraints_group_3(self, model, board, s):
+        if self.value % 3 != 0:
+            model.Add(s == 0)
+            return
         value = self.value // 3
         return self.create_constraints_group(value, model, board, s)
 

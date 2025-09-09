@@ -35,6 +35,8 @@ class Rule2E(AbstractClueRule):
         random = get_random()
         shuffled_nums = [i for i in range(min(9, board.boundary().x + 1))]
         random.shuffle(shuffled_nums)
+        self.init_clear(board)
+        
         for pos, _ in board("N"):
             count = board.batch(pos.neighbors(2), mode="type").count("F")
             if count not in shuffled_nums:

@@ -44,6 +44,7 @@ class Rule4V2Ep2Ip(AbstractClueRule):
             return result
 
         random = get_random()
+        self.init_clear(board)
 
         pos_list = [pos for pos, _ in board("N", key=NAME_4V_2Ip)]
         pos_list = random.sample(pos_list, int(random.random() * 6 + 3))

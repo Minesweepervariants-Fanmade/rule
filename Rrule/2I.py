@@ -25,6 +25,7 @@ class Rule2I(AbstractClueRule):
         board.generate_board(NAME_2I, (3, 3))
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+        self.init_clear(board)
         def apply_offsets(_pos: AbstractPosition):
             nonlocal offsets
             result = []

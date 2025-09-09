@@ -44,6 +44,7 @@ class Rule2ESharp(AbstractClueSharp):
         board.set_config(NAME_2E, "pos_label", True)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+        self.init_clear(board)
         random = get_random()
         shuffled_nums = [i for i in range(min(9, board.boundary().x + 1))]
         random.shuffle(shuffled_nums)
@@ -53,65 +54,73 @@ class Rule2ESharp(AbstractClueSharp):
 
         for pos, _ in board("N", key=NAME_2E):
             board.set_value(pos, VALUE_CROSS)
-
         boards : list[AbstractBoard] = []
         for rule in self.shape_rule.rules:
             boards.append(rule.fill(board.clone()))
-        for key in board.get_board_keys():
-            for pos, _ in board("N", key=key):
-                clues: list[AbstractClueValue] = [_board.get_value(pos) for _board in boards]
-                select_queue = clues.copy()
-                while len(select_queue) > 0:
-                    clue = random.choice(select_queue)
-                    select_queue.remove(clue)
-                    type = clue.type().decode("ascii")
-                    if (type == '2X'):
-                        count = clue.count
-                        value1 = shuffled_nums[count // 10]
-                        value2 = shuffled_nums[count % 10]
-                        board.set_value(pos, Value2E2X(pos, count=value1 * 10 + value2))
-                        break
-                    elif (type == '2P'):
-                        value_a, value_b = rule2P.sqrt_form(clue.value)
-                        # A√B
-                        if value_a in shuffled_nums and value_b in shuffled_nums:
-                            board.set_value(pos, Value2E2P(pos, a=shuffled_nums[value_a], b=shuffled_nums[value_b]))
-                            break
-                        # A
-                        elif value_a in shuffled_nums and value_b == -1:
-                            if value_a in [1, 2]:
-                                # 1/3 概率以 sqrt(A^2) 形式出现
-                                if random.randint(0, 2) == 0:
-                                    board.set_value(pos, Value2E2P(pos, a=-1, b=shuffled_nums[value_a * value_a]))
-                                else:
-                                    board.set_value(pos, Value2E2P(pos, a=shuffled_nums[value_a], b=-1))
-                                break
-                        # √B
-                        elif value_b in shuffled_nums and value_a == -1:
-                            board.set_value(pos, Value2E2P(pos, a=-1, b=shuffled_nums[value_b]))
-                            break
+        for pos, _ in board("N"):
+            clues: list[AbstractClueValue] = [_board.get_value(pos) for _board in boards]
+            select_queue = clues.copy()
+            while len(select_queue) > 0:
+                clue = random.choice(select_queue)
+                select_queue.remove(clue)
+                if clue is None:
+                    continue
+                type = clue.type().decode("ascii")
+                if (type == '2A'):
+                    flag = clue.flag
+                    if flag == 4:
                         continue
-                    elif (type == "1E'"):
-                        value = clue.value
-                        if value == 0:
-                            board.set_value(pos, Value2E1EN(pos, value=shuffled_nums[0], arrow=random.randint(0, 1) == 1))
-                            break
-                        else:
-                            board.set_value(pos, Value2E1EN(pos, value=shuffled_nums[abs(value)], arrow=value > 0))
-                            break
-                    elif (type == '1W'):
-                        # 跳过有多个数字的 1W 线索
-                        if '.' in clue.__repr__():
-                            continue
-                    
-                    value = int(clue.__repr__())
+                    value = clue.value
                     if value in shuffled_nums:
-                        board.set_value(pos, Value2ESharp(pos, value=shuffled_nums[value], rule=type))
+                        board.set_value(pos, Value2E2A(pos, value=shuffled_nums[value], flag=flag))
+                    break
+                elif (type == '2X'):
+                    count = clue.count
+                    value1 = shuffled_nums[count // 10]
+                    value2 = shuffled_nums[count % 10]
+                    board.set_value(pos, Value2E2X(pos, count=value1 * 10 + value2))
+                    break
+                elif (type == '2P'):
+                    value_a, value_b = rule2P.sqrt_form(clue.value)
+                    # A√B
+                    if value_a in shuffled_nums and value_b in shuffled_nums:
+                        board.set_value(pos, Value2E2P(pos, a=shuffled_nums[value_a], b=shuffled_nums[value_b]))
                         break
-                
-                # 如果没有成功选择线索加密，就不加密随机选择一个线索
-                if (board.get_type(pos) == "N"):
-                    board.set_value(pos, random.choice(clues))
+                    # A
+                    elif value_a in shuffled_nums and value_b == -1:
+                        if value_a in [1, 2]:
+                            # 1/3 概率以 sqrt(A^2) 形式出现
+                            if random.randint(0, 2) == 0:
+                                board.set_value(pos, Value2E2P(pos, a=-1, b=shuffled_nums[value_a * value_a]))
+                            else:
+                                board.set_value(pos, Value2E2P(pos, a=shuffled_nums[value_a], b=-1))
+                            break
+                    # √B
+                    elif value_b in shuffled_nums and value_a == -1:
+                        board.set_value(pos, Value2E2P(pos, a=-1, b=shuffled_nums[value_b]))
+                        break
+                    continue
+                elif (type == "1E'"):
+                    value = clue.value
+                    if value == 0:
+                        board.set_value(pos, Value2E1EN(pos, value=shuffled_nums[0], arrow=random.randint(0, 1) == 1))
+                        break
+                    else:
+                        board.set_value(pos, Value2E1EN(pos, value=shuffled_nums[abs(value)], arrow=value > 0))
+                        break
+                elif (type == '1W'):
+                    # 跳过有多个数字的 1W 线索
+                    if '.' in clue.__repr__():
+                        continue
+
+                value = int(clue.__repr__())
+                if value in shuffled_nums:
+                    board.set_value(pos, Value2ESharp(pos, value=shuffled_nums[value], rule=type))
+                    break
+            
+            # 如果没有成功选择线索加密，就不加密随机选择一个线索
+            if (board.get_type(pos) == "N"):
+                board.set_value(pos, random.choice(clues))
 
         return board
 
@@ -136,6 +145,7 @@ class Rule2ESharp(AbstractClueSharp):
     def init_clear(self, board: 'AbstractBoard'):
         for pos, _ in board(key=NAME_2E):
             board.set_value(pos, None)
+
 
 class Value2ESharp(AbstractClueValue):
     def __init__(self, pos: AbstractPosition, value: int = 0, rule: str = '', code: bytes = None) -> None:
@@ -209,6 +219,23 @@ class Value2ESharp(AbstractClueValue):
         clue_code.extend(b'|')
         clue_code.extend(bytes([value]))
         return get_value(self.pos, bytes(clue_code))
+    
+class Value2E2A(Value2ESharp):
+    def __init__(self, pos: AbstractPosition, value: int = 0, code: bytes = None, flag = 4) -> None:
+        super().__init__(pos, value, '2A', code)
+        self.flag = flag
+
+    @classmethod
+    def type(cls):
+        return "2E2A".encode("ascii")
+    
+    def get_clue(self, value) -> AbstractClueValue:
+        clue_code = bytearray()
+        clue_code.extend(self.rule.encode("ascii"))
+        clue_code.extend(b'|')
+        clue_code.extend(bytes([self.flag, value]))
+        return get_value(self.pos, bytes(clue_code))
+
     
 class Value2E2X(AbstractClueValue):
     def __init__(self, pos: 'AbstractPosition', count: int = 0, code: bytes = None):
