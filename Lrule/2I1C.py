@@ -7,12 +7,14 @@ NAME_2I = "2I1C"
 
 class Rule2I1C(AbstractMinesRule):
     name = ["2I1C", "残缺联通"]
-    doc = "1.所有雷都必须根据副板指示进行联通至一个根节点, 2.雷只有7种联通方法"
+    doc = "1.所有雷都必须根据副板指示的4对联通方向进行联通, 2.雷只有3种联通方法(上下/左右/对角/副对角)"
 
     def __init__(self, board = None, data=None):
         super().__init__(board, data)
         board.generate_board(NAME_2I, (3, 3))
-        self.value = 7 if data is None else None
+        self.value = 6 if data is None else None
+        if self.value % 2 == 1:
+            raise ValueError("2I1C的雷数必须为偶数")
 
     def init_board(self, board):
         random = get_random()
@@ -47,8 +49,22 @@ class Rule2I1C(AbstractMinesRule):
             model.Add(sum(root_vars[pos] for pos, _ in board(key=key)) == 1)
         
         tag_pos = board.get_pos(1, 1, NAME_2I)
-        print(board)
         model.Add(sum(board.get_variable(pos) for pos in tag_pos.neighbors(2)) == self.value).OnlyEnforceIf(s2)
+
+        # tag_pos 上下/左右/两个对角的var相等约束
+        neighbors = [
+            ((-1, 0), (1, 0)),   # 上下
+            ((0, -1), (0, 1)),   # 左右
+            ((-1, -1), (1, 1)),  # 主对角线
+            ((-1, 1), (1, -1)),  # 副对角线
+        ]
+        for (dx1, dy1), (dx2, dy2) in neighbors:
+            p1 = tag_pos.shift(dx1, dy1)
+            p2 = tag_pos.shift(dx2, dy2)
+            if board.is_valid(p1) and board.is_valid(p2):
+                v1 = board.get_variable(p1)
+                v2 = board.get_variable(p2)
+                model.Add(v1 == v2).OnlyEnforceIf(s2)
         model.Add(board.get_variable(tag_pos) == 0).OnlyEnforceIf(s2)
 
         for pos, var in board(mode="var"):
