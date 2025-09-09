@@ -14,8 +14,8 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1B(AbstractMinesRule):
-    name = ["1B", "平衡"]
-    doc = "1.每一列的雷数相同 且2.每一行的雷数相同"
+    name = ["1B", "B", "平衡", "Balance"]
+    doc = "(1) 每行雷数相等；(2) 每列雷数相等"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

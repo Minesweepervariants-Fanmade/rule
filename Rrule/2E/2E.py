@@ -21,7 +21,7 @@ NAME_2E = "2E"
 
 
 class Rule2E(AbstractClueRule):
-    name = ["2E", "加密"]
+    name = ["2E", "加密", "Encrypted"]
     doc = "线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母"
 
     def __init__(self, data=None, board: 'AbstractBoard' = None):

@@ -15,8 +15,8 @@ from ....utils.tool import get_logger
 
 
 class Rule2D(AbstractClueRule):
-    name = ["2D", "偏移"]
-    doc = "线索表示上方一格为中心的3x3区域内的总雷数"
+    name = ["2D", "偏移", "Deviation"]
+    doc = "线索表示以正上方一格为中心，3x3 范围内的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

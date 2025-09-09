@@ -12,7 +12,7 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1Dp(AbstractMinesRule):
-    name = ["1D'", "战舰", "Battleship"]
+    name = ["1D'", "D'", "战舰", "Battleship"]
     doc = "每个雷区域为宽度为 1、长度不超过 4 的矩形，矩形不能对角相邻"
 
     def create_constraints(self, board: AbstractBoard, switch):

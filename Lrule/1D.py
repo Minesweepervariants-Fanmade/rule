@@ -13,8 +13,8 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1D(AbstractMinesRule):
-    name = ["1D", "D", "对偶"]
-    doc = "雷均有1x2或2x1的矩阵组成"
+    name = ["1D", "D", "对偶", "Dual"]
+    doc = "每个雷区域为 1x2 或 2x1 的矩形"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
