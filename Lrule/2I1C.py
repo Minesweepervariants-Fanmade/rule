@@ -25,9 +25,6 @@ class Rule2I1C(AbstractMinesRule):
             board[p] = VALUE_CIRCLE
         for p, _ in board("N", key=NAME_2I):
             board[p] = VALUE_CROSS
-        print("="*100, board)
-        print("="*100, board)
-        print("="*100, board)
 
     def init_clear(self, board):
         for pos, obj in board(key=NAME_2I):
@@ -90,7 +87,6 @@ class Rule2I1C(AbstractMinesRule):
                     model.Add(tmp == 0).OnlyEnforceIf(t_var.Not())
                     tmp_list.append(tmp)
 
-            # print(tmp_list)
             model.Add(sum(tmp_list) == 1).OnlyEnforceIf([var, root_vars[pos].Not(), s1])
 
 
