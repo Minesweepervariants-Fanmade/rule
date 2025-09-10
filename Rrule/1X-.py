@@ -11,6 +11,7 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
 from ....utils.impl_obj import MINES_TAG, VALUE_QUESS
 from ....utils.tool import get_random, get_logger
+from ....utils.web_template import StrWithArrow
 
 
 class Rule1X_(AbstractClueRule):
@@ -90,25 +91,8 @@ class Value1X_(AbstractClueValue):
         return self.target_positions
 
     def web_component(self, board) -> Dict:
-        direction_images = ['up', 'right', 'down', 'left']
-
-        if self.direction in [0, 2]:  # 上或下
-            return get_row(
-                get_dummy(width=0.15),
-                get_image(direction_images[self.direction]),
-                get_dummy(width=-0.15),
-                get_text(str(self.count)),
-                get_dummy(width=0.15),
-            )
-        else:  # 左或右
-            return get_col(
-                get_image(
-                    direction_images[self.direction],
-                    image_height=0.4,
-                ),
-                get_dummy(height=-0.1),
-                get_text(str(self.count))
-            )
+        """生成可视化组件"""
+        return StrWithArrow(str(self.count), ["up", "right", "down", "left"][self.direction])
 
     def compose(self, board) -> Dict:
         """生成可视化组件"""

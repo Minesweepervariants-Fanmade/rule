@@ -5,6 +5,7 @@ from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
 from minesweepervariants.abs.board import AbstractPosition, AbstractBoard
 from ....utils.tool import get_random, get_logger
 from ....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
+from ....utils.web_template import StrWithArrow
 
 class Rule1F(AbstractClueRule):
     name = ["1F", "远视", "Farsight"]
@@ -73,25 +74,8 @@ class Value1F(AbstractClueValue):
         return bytes([self.direction, self.count])
     
     def web_component(self, board) -> Dict:
-        direction_images = ['up', 'right', 'down', 'left']
-
-        if self.direction in [0, 2]:  # 上或下
-            return get_row(
-                get_dummy(width=0.15),
-                get_image(direction_images[self.direction]),
-                get_dummy(width=-0.15),
-                get_text(str(self.count)),
-                get_dummy(width=0.15),
-            )
-        else:  # 左或右
-            return get_col(
-                get_image(
-                    direction_images[self.direction],
-                    image_height=0.4,
-                ),
-                get_dummy(height=-0.1),
-                get_text(str(self.count))
-            )
+        """生成可视化组件"""
+        return StrWithArrow(str(self.count), ["up", "right", "down", "left"][self.direction])
 
     def compose(self, board) -> Dict:
         """生成可视化组件"""
@@ -116,9 +100,37 @@ class Value1F(AbstractClueValue):
             )
 
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition'] | None:
-        # TODO
-        return None
-    
+        path = [self.pos]
+        path_defined = True
+        moves = [
+            lambda p: p.up(),
+            lambda p: p.right(),
+            lambda p: p.down(),
+            lambda p: p.left()
+        ]
+        while board.in_bounds(path[-1]):
+            path.append(moves[self.direction](path[-1]))
+            type = board.get_type(path[-1])
+            if type == "F":
+                break
+            elif type == "N":
+                path_defined = False
+        if not path_defined:
+            return path[1:-1]
+        else:
+            perpendicular_start_pos = path[-2]
+            if self.direction in (0, 2):
+                perpendicular_moves = [lambda p: p.left(), lambda p: p.right()]
+            else:
+                perpendicular_moves = [lambda p: p.up(), lambda p: p.down()]
+            perpendicular_path = []
+            for move in perpendicular_moves:
+                curr = move(perpendicular_start_pos)
+                while board.in_bounds(curr) and board.get_type(curr) != "F":
+                    perpendicular_path.append(curr)
+                    curr = move(curr)
+            return perpendicular_path + path[1:-1]
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         def add_perpendicular_constraints(model: CpModel, board: AbstractBoard, start_pos, d, target, cond_var, switch_var):
             # 方向 d 的垂直方向
