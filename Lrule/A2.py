@@ -9,4 +9,4 @@ class RuleA2(AbstractMinesRule):
         s = switch.get(model, self)
 
         for key in board.get_interactive_keys():
-            model.Add(board.get_variable(board.get_pos(1, 2, key)) == 1).OnlyEnforceIf(s)
+            model.Add(board.get_variable(board.get_pos(2, 1, key)) == 1).OnlyEnforceIf(s)
