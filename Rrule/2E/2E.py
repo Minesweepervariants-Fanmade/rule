@@ -32,10 +32,10 @@ class Rule2E(AbstractClueRule):
         board.set_config(NAME_2E, "pos_label", True)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+        self.init_clear(board)
         random = get_random()
         shuffled_nums = [i for i in range(min(9, board.boundary().x + 1))]
         random.shuffle(shuffled_nums)
-        self.init_clear(board)
         
         for pos, _ in board("N"):
             count = board.batch(pos.neighbors(2), mode="type").count("F")
