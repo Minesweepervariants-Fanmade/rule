@@ -3,7 +3,7 @@ from minesweepervariants.utils.impl_obj import VALUE_CROSS, VALUE_CIRCLE
 from minesweepervariants.impl.rule.Rrule.V import ValueV
 from minesweepervariants.utils.tool import get_random
 
-NAME_2I = "2I"
+NAME_2I = "2I1C"
 
 class Rule2I1C(AbstractMinesRule):
     name = ["2I1C", "残缺联通"]
