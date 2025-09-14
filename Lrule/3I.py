@@ -5,7 +5,6 @@ from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
 from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
-import traceback
 
 class Rule3I(AbstractMinesRule):
     name = ["3I", "反相"]
@@ -33,10 +32,6 @@ class Rule3I(AbstractMinesRule):
 
     @staticmethod
     def get_type(board: 'AbstractBoard', pos: 'AbstractPosition', *args, **kwargs) -> str:
-        s = "".join(traceback.format_stack())
-        if "V.py" not in s:
-            print(s)
-            input()
         value = board.get_type(pos, special='raw')
         if board.get_dyed(pos):
             if value == "C":
