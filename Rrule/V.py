@@ -20,10 +20,10 @@ class RuleV(AbstractClueRule):
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()
-        for pos, _ in board("N"):
-            value = board.batch(pos.neighbors(2), "type").count("F")
+        for pos, _ in board("N", special='raw'):
+            value = board.batch(pos.neighbors(2), "type")
+            value = value.count("F")
             board.set_value(pos, ValueV(pos, count=value))
-            logger.debug(f"Set {pos} to V[{value}]")
         return board
 
 
@@ -52,7 +52,7 @@ class ValueV(AbstractClueValue):
         return bytes([self.count])
 
     def invalid(self, board: 'AbstractBoard') -> bool:
-        return board.batch(self.neighbor, mode="type").count("N") == 0
+        return board.batch(self.neighbor, mode="type", special='raw').count("N") == 0
 
     def deduce_cells(self, board: 'AbstractBoard') -> bool:
         type_dict = {"N": [], "F": []}
