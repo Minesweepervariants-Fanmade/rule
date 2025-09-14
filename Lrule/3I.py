@@ -12,10 +12,15 @@ class Rule3I(AbstractMinesRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
+        self.enforce = False
+        if data == '!':
+            self.enforce = True
+        self.onboard_init(board)
 
+    def onboard_init(self, board: 'AbstractBoard'):
         board.register_type_special('3I', self.get_type)
 
-        if data == '!':
+        if self.enforce:
             board.set_default_special('3I')
 
 
