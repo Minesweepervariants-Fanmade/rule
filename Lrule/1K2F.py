@@ -28,3 +28,15 @@ class Rule1K2F(AbstractMinesRule):
             # val 为1时，vals中必须有且仅有一个1
             # 约束：val=1 => sum(vals) == 1
             model.Add(sum_vals == 1).OnlyEnforceIf([val, s])
+
+    def suggest_total(self, info: dict):
+        def a(model, total):
+            model.AddModuloEquality(0, total, 2)
+
+        ub = 0
+        for key in info["interactive"]:
+            total = info["total"][key]
+            ub += total
+
+        info["soft_fn"](ub * 0.29, 0)
+        info["hard_fns"].append(a)
