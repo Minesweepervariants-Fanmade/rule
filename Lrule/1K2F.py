@@ -38,5 +38,5 @@ class Rule1K2F(AbstractMinesRule):
             total = info["total"][key]
             ub += total
 
-        info["soft_fn"](ub * 0.29, 0)
+        info["soft_fn"](ub * 0.30, 0)
         info["hard_fns"].append(a)

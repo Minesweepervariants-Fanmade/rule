@@ -34,5 +34,5 @@ class Rule1H(AbstractMinesRule):
             model.AddModuloEquality(s, total, 2)
             model.AddHint(s, 0)
             model.Add(s != 1)
-        info["soft_fn"](ub * 0.29, 0)
+        info["soft_fn"](ub * 0.30, 0)
         info["hard_fns"].append(a)
