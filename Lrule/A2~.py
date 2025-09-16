@@ -16,8 +16,8 @@ def parse(s: str) -> list[tuple[int, int]]:
     return result
 
 class RuleA2(AbstractMinesRule):
-    name = ["A2", "A2", "A2 格是雷"]
-    doc = "A2 格是雷"
+    name = ["A2~", "A2~", "A2 格非雷"]
+    doc = "A2 格非雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
@@ -35,4 +35,4 @@ class RuleA2(AbstractMinesRule):
 
         for key in board.get_interactive_keys():
             for pos in self.values:
-                model.Add(board.get_variable(board.get_pos(*pos, key)) == 1).OnlyEnforceIf(s)
+                model.Add(board.get_variable(board.get_pos(*pos, key)) == 0).OnlyEnforceIf(s)

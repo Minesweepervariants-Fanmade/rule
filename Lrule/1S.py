@@ -16,6 +16,12 @@ class Rule1S(AbstractMinesRule):
     name = ["1S", "S", "蛇", "Snake"]
     doc = "所有雷构成一条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉"
 
+    def __init__(self, board=None, data=None) -> None:
+        super().__init__(board, data)
+        self._3I = False
+        if data == '3I':
+            self._3I = True
+
     def create_constraints(self, board, switch):
         model = board.get_model()
         s = switch.get(model, self)
@@ -26,12 +32,13 @@ class Rule1S(AbstractMinesRule):
             connect_value=1,
             nei_value=1,
             switch=s,
+            special='' if not self._3I else '3I',
         )
 
         tmp_list = []
-        for pos, var in board(mode="variable"):
+        for pos, var in board(mode="variable", special='' if not self._3I else '3I'):
             tmp_bool = model.NewBoolVar("tmp")
-            var_list = board.batch(pos.neighbors(1), mode="variable", drop_none=True)
+            var_list = board.batch(pos.neighbors(1), mode="variable", drop_none=True, special='' if not self._3I else '3I')
             model.Add(sum(var_list) > 0).OnlyEnforceIf([var, s])
             model.Add(sum(var_list) < 3).OnlyEnforceIf([var, s])
             model.Add(sum(var_list) == 1).OnlyEnforceIf([tmp_bool, s])

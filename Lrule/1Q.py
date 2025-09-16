@@ -39,14 +39,22 @@ class Rule1Q(AbstractMinesRule):
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
         self.nei_values = []
-        self.rule_name = self.name[0]
+        self._3I = False
+
         if data is None:
             self.nei_values = [(0,0), (1,0), (0,1), (1,1)]
             return
+        if data.startswith("3I"):
+            self._3I  = True
+            if data[0] == ":":
+                data = data[3:]
+            else:
+                if len(data) > 2:
+                    raise ValueError(f"Invalid format: {data}")
+                self.nei_values = [(0,0), (1,0), (0,1), (1,1)]
+                return
 
         self.nei_values = parse(data)
-        print(self.nei_values)
-        self.rule_name += "(" + data + ")"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
@@ -58,5 +66,8 @@ class Rule1Q(AbstractMinesRule):
                 for i_pos in board.get_row_pos(b_pos):
                     if not (pos_block := block(i_pos, self.nei_values, board)):
                         continue
-                    var_list = [board.get_variable(pos) for pos in pos_block]
+                    if self._3I:
+                        var_list = [board.get_variable(pos, "3I") for pos in pos_block]
+                    else:
+                        var_list = [board.get_variable(pos) for pos in pos_block]
                     model.AddBoolOr(var_list).OnlyEnforceIf(s)
