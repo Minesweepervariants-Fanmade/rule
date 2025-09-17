@@ -20,11 +20,11 @@ class Rule3I(AbstractMinesRule):
     def onboard_init(self, board: 'AbstractBoard'):
         board.register_type_special('3I', self.get_type)
 
-        if self.enforce:
+        if self.enforce and board.default_special != "3I":
             board.set_default_special('3I')
 
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
         model = board.get_model()
         s = switch.get(model, self)
         for key in board.get_interactive_keys():
