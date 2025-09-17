@@ -19,11 +19,15 @@ class Rule1C(AbstractMinesRule):
     doc = "雷区域八连通"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+        self.invert = False
         super().__init__(board, data)
         self.nei_values = []
         if data is None:
             self.nei_values = [tuple([1, 2])]
             return
+        if data[0]=='~':
+            self.invert = True
+            data = data[1:]
         nei_values = data.split(";")
         for nei_value in nei_values:
             if ":" in nei_value:
@@ -52,7 +56,7 @@ class Rule1C(AbstractMinesRule):
         connect(
             model=model,
             board=board,
-            connect_value=1,
+            connect_value=0 if self.invert else 1,
             nei_value=self.nei_pos,
             switch=switch.get(model, self)
         )
