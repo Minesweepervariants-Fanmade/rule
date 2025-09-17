@@ -1,5 +1,5 @@
 """
-[4Q] 方形：线索表示包含该格且包含雷的 2x2 区域数
+[4Q] 方格：线索表示包含该格且包含雷的 2x2 区域数
 """
 from typing import Dict
 
@@ -11,7 +11,7 @@ from ....utils.image_create import get_text, get_row
 from ....utils.tool import get_logger
 
 class Rule4Q(AbstractClueRule):
-    name = ["4Q", "方形"]
+    name = ["4Q", "方格"]
     doc = "线索表示包含该格且包含雷的 2x2 区域数"
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
