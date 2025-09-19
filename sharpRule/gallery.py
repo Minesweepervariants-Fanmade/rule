@@ -25,8 +25,19 @@ class RuleGallery(AbstractClueRule):
             self.left_rules = predefined_left_rules[:x - 1]
             self.right_rules = predefined_right_rules[:y - 1]
         else:
-            # TODO
-            raise ValueError("暂不支持自定义规则")
+            rules = data.split(";")
+            self.left_rules = []
+            self.right_rules = []
+            for rule in rules:
+                rule_type = get_rule(rule)
+                if issubclass(rule_type, AbstractMinesRule):
+                    self.left_rules.append(rule)
+                elif issubclass(rule_type, AbstractClueRule):
+                    self.right_rules.append(rule)
+                else:
+                    raise ValueError(f"不支持的规则 {rule}")
+        if len(self.left_rules) != board.boundary().x or len(self.right_rules) != board.boundary().y:
+            raise ValueError("规则数量与边界不符")
         
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         boards : list[AbstractBoard] = []
