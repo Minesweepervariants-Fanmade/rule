@@ -32,13 +32,12 @@ class Rule1S(AbstractMinesRule):
             connect_value=1,
             nei_value=(5, 5),
             switch=s,
-            special='' if not self._3I else '3I',
         )
 
         tmp_list = []
-        for pos, var in board(mode="variable", special='' if not self._3I else '3I'):
+        for pos, var in board(mode="variable"):
             tmp_bool = model.NewBoolVar("tmp")
-            var_list = board.batch(pos.neighbors(5, 5), mode="variable", drop_none=True, special='' if not self._3I else '3I')
+            var_list = board.batch(pos.neighbors(5, 5), mode="variable", drop_none=True)
             model.Add(sum(var_list) < 3).OnlyEnforceIf([var, s])
             model.Add(sum(var_list) == 1).OnlyEnforceIf([tmp_bool, s])
             model.Add(var == 1).OnlyEnforceIf([tmp_bool, s])

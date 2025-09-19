@@ -21,11 +21,10 @@ def connect(
         nei_value: Union[int, tuple, Callable] = 2,  # 1=四连通，2=八连通
         root_vars: List[IntVar] = None,  # 允许提供根节点变量
         positions_vars: List[tuple[AbstractPosition, IntVar]] = None,
-        special='',
 ):
     # 获取题板上所有位置及其对应的布尔变量
     if positions_vars is None:
-        positions_vars = [(pos, var) for pos, var in board("always", mode="variable", special=special)]
+        positions_vars = [(pos, var) for pos, var in board("always", mode="variable")]
     if not positions_vars:
         return
 
