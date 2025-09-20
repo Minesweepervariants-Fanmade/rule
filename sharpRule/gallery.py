@@ -8,23 +8,28 @@ from ....utils.impl_obj import VALUE_QUESS
 from ....impl.impl_obj import get_rule
 from ....impl.board.version3.board import Board
 from ....impl.summon.solver import Switch
+from minesweepervariants.utils.tool import get_random
 
 predefined_left_rules = ['1Q', '1C', '1T', '1O', '1D', '1S', '1B', '1A']
 predefined_right_rules = ['V', '1M', '1L', '1N', '1X', '1P', '1E', '1K']
 
 class RuleGallery(AbstractClueRule):
     name = ["Gallery", "画廊", "Gallery"]
-    doc = "每行每列的规则不同，在左上边界表明。左线规则只影响所在行及相邻行。（1B 只有行平衡）"
+    doc = "每行每列的规则不同，在左上边界表明。左线规则只影响所在行及上下相邻的行。（1B 只有行平衡）"
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)
         if len(board.get_interactive_keys()) != 1:
             raise ValueError("目前一主板限定")
+        x, y = board.get_config(MASTER_BOARD, 'size')
+        randomize = False
         if data is None:
-            x, y = board.get_config(MASTER_BOARD, 'size')
             self.left_rules = predefined_left_rules[:x - 1]
             self.right_rules = predefined_right_rules[:y - 1]
         else:
+            if len(data) > 0 and data[0] == '!':
+                randomize = True
+                data = data[1:]
             rules = data.split(";")
             self.left_rules = []
             self.right_rules = []
@@ -36,8 +41,16 @@ class RuleGallery(AbstractClueRule):
                     self.right_rules.append(rule)
                 else:
                     raise ValueError(f"不支持的规则 {rule}")
+            if len(self.left_rules) == 0:
+                self.left_rules = predefined_left_rules[:x - 1]
+            if len(self.right_rules) == 0:
+                self.right_rules = predefined_right_rules[:y - 1]
         if len(self.left_rules) != board.boundary().x or len(self.right_rules) != board.boundary().y:
-            raise ValueError("规则数量与边界不符")
+            raise ValueError(f"Expected {board.boundary().x} left rules and {board.boundary().y} right rules, got {len(self.left_rules)} left rules and {len(self.right_rules)} right rules")
+        if randomize:
+            random = get_random()
+            random.shuffle(self.left_rules)
+            random.shuffle(self.right_rules)
         
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         boards : list[AbstractBoard] = []
@@ -94,7 +107,7 @@ class RuleRuleTag(AbstractClueValue):
     
     @classmethod
     def type(cls) -> bytes:
-        return "Gallery".encode("ascii")
+        return "".encode("ascii")
     
     def code(self) -> bytes:
         return self.value.encode("ascii")
