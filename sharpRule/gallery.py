@@ -33,11 +33,12 @@ class RuleGallery(AbstractClueRule):
         else:
             if len(data) == 0:
                 random_rules = True
-            elif data[0] == "!":
+            elif data[0] == "?":
                 randomize = True
                 data = data[1:]
-            elif data[0] == "?":
+            elif data[0] == "!":
                 random_rules = True
+                data = data[1:]
             if len(data) > 0:
                 rules = data.split(";")
                 self.left_rules = []
