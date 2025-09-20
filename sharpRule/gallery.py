@@ -30,17 +30,19 @@ class RuleGallery(AbstractClueRule):
             self.right_rules = predefined_right_rules[:y - 1]
         else:
             random = get_random()
+            rand_order = False
+            rand_rules = False
             if len(data) == 0:
-                random_rules = True
-            if len(data) > 1 and (data[:2] == "!?" or data[:2] == "?!" ):
-                randomize = True
-                random_rules = True
+                rand_rules = True
+            elif len(data) > 1 and (data[:2] == "!?" or data[:2] == "?!" ):
+                rand_order = True
+                rand_rules = True
                 data = data[2:]
             elif data[0] == "?":
-                randomize = True
+                rand_order = True
                 data = data[1:]
             elif data[0] == "!":
-                random_rules = True
+                rand_rules = True
                 data = data[1:]
             if len(data) > 0:
                 rules = data.split(";")
@@ -55,13 +57,13 @@ class RuleGallery(AbstractClueRule):
                     else:
                         raise ValueError(f"不支持的规则 {rule}")
                 if len(self.left_rules) == 0:
-                    self.left_rules = random.sample(all_left_rules, x - 1) if random_rules else predefined_left_rules[:x - 1]
+                    self.left_rules = random.sample(all_left_rules, x - 1) if rand_rules else predefined_left_rules[:x - 1]
                 if len(self.right_rules) == 0:
-                    self.right_rules = random.sample(all_right_rules, y - 1) if random_rules else predefined_right_rules[:y - 1]
+                    self.right_rules = random.sample(all_right_rules, y - 1) if rand_rules else predefined_right_rules[:y - 1]
             else:
-                self.left_rules = random.sample(all_left_rules, x - 1) if random_rules else predefined_left_rules[:x - 1]
-                self.right_rules = random.sample(all_right_rules, y - 1) if random_rules else predefined_right_rules[:y - 1]
-            if randomize:
+                self.left_rules = random.sample(all_left_rules, x - 1) if rand_rules else predefined_left_rules[:x - 1]
+                self.right_rules = random.sample(all_right_rules, y - 1) if rand_rules else predefined_right_rules[:y - 1]
+            if rand_order:
                 random.shuffle(self.left_rules)
                 random.shuffle(self.right_rules)
         if len(self.left_rules) != board.boundary().x or len(self.right_rules) != board.boundary().y:
