@@ -25,14 +25,17 @@ class RuleGallery(AbstractClueRule):
         if len(board.get_interactive_keys()) != 1:
             raise ValueError("目前一主板限定")
         x, y = board.get_config(MASTER_BOARD, 'size')
-        randomize = False
-        random = get_random()
         if data is None:
             self.left_rules = predefined_left_rules[:x - 1]
             self.right_rules = predefined_right_rules[:y - 1]
         else:
+            random = get_random()
             if len(data) == 0:
                 random_rules = True
+            if len(data) > 1 and (data[:2] == "!?" or data[:2] == "?!" ):
+                randomize = True
+                random_rules = True
+                data = data[2:]
             elif data[0] == "?":
                 randomize = True
                 data = data[1:]
@@ -52,16 +55,12 @@ class RuleGallery(AbstractClueRule):
                     else:
                         raise ValueError(f"不支持的规则 {rule}")
                 if len(self.left_rules) == 0:
-                    self.left_rules = predefined_left_rules[:x - 1]
+                    self.left_rules = random.sample(all_left_rules, x - 1) if random_rules else predefined_left_rules[:x - 1]
                 if len(self.right_rules) == 0:
-                    self.right_rules = predefined_right_rules[:y - 1]
+                    self.right_rules = random.sample(all_right_rules, y - 1) if random_rules else predefined_right_rules[:y - 1]
             else:
-                if random_rules:
-                    self.left_rules = random.sample(all_left_rules, x - 1)
-                    self.right_rules = random.sample(all_right_rules, y - 1)
-                else:
-                    self.left_rules = predefined_left_rules[:x - 1]
-                    self.right_rules = predefined_right_rules[:y - 1]
+                self.left_rules = random.sample(all_left_rules, x - 1) if random_rules else predefined_left_rules[:x - 1]
+                self.right_rules = random.sample(all_right_rules, y - 1) if random_rules else predefined_right_rules[:y - 1]
             if randomize:
                 random.shuffle(self.left_rules)
                 random.shuffle(self.right_rules)
