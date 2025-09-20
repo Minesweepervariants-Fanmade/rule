@@ -124,7 +124,7 @@ class RuleRuleTag(AbstractClueValue):
     
     @classmethod
     def type(cls) -> bytes:
-        return "".encode("ascii")
+        return "#".encode("ascii")
     
     def code(self) -> bytes:
         return self.value.encode("ascii")
