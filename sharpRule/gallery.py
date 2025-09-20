@@ -18,7 +18,7 @@ all_right_rules = ['V', '1M', '1L', '1W', '1N', '1X', '1P', '1E', '1X\'', '1K', 
 
 class RuleGallery(AbstractClueRule):
     name = ["Gallery", "画廊", "Gallery"]
-    doc = "每行每列的规则不同，在左上边界表明。左线规则只影响所在行及上下相邻的行。（1B 只有行平衡）"
+    doc = "每行每列的规则不同，在左上边界表明。左线规则只影响所在行及上下相邻的行。(1B 只有行平衡)。在:后面添加参数，?表示随机顺序，!表示随机规则，这之后添加指定规则，规则间用;分隔，可只指定左线或只指定有线规则。空的:相当于:?!。"
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)
