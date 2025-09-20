@@ -32,7 +32,7 @@ class RuleGallery(AbstractClueRule):
             self.right_rules = predefined_right_rules[:y - 1]
         else:
             if len(data) == 0:
-                randomize = True
+                random_rules = True
             elif data[0] == "!":
                 randomize = True
                 data = data[1:]
