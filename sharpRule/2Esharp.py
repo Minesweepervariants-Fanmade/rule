@@ -19,7 +19,7 @@ class Rule2ESharp(AbstractClueSharp):
     doc = ("线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母\n"
               "通过2E#:<rule1>;<rule2>;...来指定使用的规则及其顺序\n"
               "默认同二代\n"
-              "可添加 1# 1#' 2# 2#''\n")
+              "可添加 1# 1#' 2# 2#' 2#':\n")
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         self.rules = set()
         if not data:
@@ -35,6 +35,8 @@ class Rule2ESharp(AbstractClueSharp):
                     self.rules.update(["V", "2X", "2D", "2P", "2M", "2A"])
                 elif rule == "2#'":
                     self.rules.update(["V", "2X", "2D", "2P", "2M", "2A", "2X'"])
+                elif rule == "2#':":
+                    self.rules.update(["V", "2X", "2D", "2P", "2M", "2X'"])
                 else:
                     self.rules.add(rule)
         super().__init__(list(self.rules), board)
