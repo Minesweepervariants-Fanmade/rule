@@ -34,7 +34,7 @@ class RuleGallery(AbstractClueRule):
             rand_order = False
             if len(data) == 0:
                 rand_rules = True
-            if len(data) > 1 and (data[:2] == "!?" or data[:2] == "?!" ):
+            elif len(data) > 1 and (data[:2] == "!?" or data[:2] == "?!" ):
                 rand_order = True
                 rand_rules = True
                 data = data[2:]
