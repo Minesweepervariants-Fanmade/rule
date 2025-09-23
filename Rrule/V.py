@@ -21,7 +21,7 @@ class RuleV(AbstractClueRule):
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()
         for pos, _ in board("N"):
-            value = board.batch(pos.neighbors(2), "type")
+            value = board.batch(board.neighbors(pos, 2), "type")
             value = value.count("F")
             board.set_value(pos, ValueV(pos, count=value))
         return board
@@ -36,14 +36,16 @@ class ValueV(AbstractClueValue):
         else:
             # 直接初始化
             self.count = count
-        self.neighbor = self.pos.neighbors(2)
+        self.neighbor = None
 
     def __repr__(self):
         return f"{self.count}"
 
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+        if self.neighbor:
+            self.neighbor = board.neighbors(self.pos, 2)
         return self.neighbor
-
+    
     @classmethod
     def type(cls) -> bytes:
         return b'V'
@@ -55,6 +57,8 @@ class ValueV(AbstractClueValue):
         return board.batch(self.neighbor, mode="type").count("N") == 0
 
     def deduce_cells(self, board: 'AbstractBoard') -> bool:
+        if self.neighbor:
+            self.neighbor = board.neighbors(self.pos, 2)
         type_dict = {"N": [], "F": []}
         for pos in self.neighbor:
             t = board.get_type(pos)
@@ -78,6 +82,8 @@ class ValueV(AbstractClueValue):
     def create_constraints(self, board: 'AbstractBoard', switch):
         """创建CP-SAT约束: 周围雷数等于count"""
         model = board.get_model()
+        if self.neighbor:
+            self.neighbor = board.neighbors(self.pos, 2)
 
         # 收集周围格子的布尔变量
         neighbor_vars = []
