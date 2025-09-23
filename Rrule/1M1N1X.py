@@ -18,7 +18,7 @@ def cross_neighbors(pos : AbstractPosition) -> list[AbstractPosition]:
     ]
 
 class Rule1M1N1X(AbstractClueRule):
-    name = ["1M1N1X", "MNX", "多雷 + 负雷 + 十字", "Multiple + Negative + Cross"]
+    name = ["1MNX", "MNX", "多雷 + 负雷 + 十字", "Multiple + Negative + Cross", "1M1N1X"]
     doc = ""
 
     def clue_class(self):
