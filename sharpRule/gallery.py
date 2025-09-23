@@ -18,7 +18,7 @@ all_right_rules = ['V', '1M', '1L', '1W', '1N', '1X', '1P', '1E', '1X\'', '1K', 
 
 class RuleGallery(AbstractClueRule):
     name = ["Gallery", "画廊", "Gallery"]
-    doc = "每行每列的规则不同，在左上边界表明。左线规则只影响所在行及上下相邻的行。(1B 只有行平衡)。在:后面添加参数，?表示随机顺序，!表示随机规则，这之后添加指定规则，规则间用;分隔，可只指定左线或只指定有线规则。空的:相当于:?!。"
+    doc = "每行每列的规则不同，在左上边界表明。左线规则只影响所在行及上下相邻的行。(1B 只有行平衡）"
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)
@@ -30,11 +30,11 @@ class RuleGallery(AbstractClueRule):
             self.right_rules = predefined_right_rules[:y - 1]
         else:
             random = get_random()
-            rand_order = False
             rand_rules = False
+            rand_order = False
             if len(data) == 0:
                 rand_rules = True
-            elif len(data) > 1 and (data[:2] == "!?" or data[:2] == "?!" ):
+            if len(data) > 1 and (data[:2] == "!?" or data[:2] == "?!" ):
                 rand_order = True
                 rand_rules = True
                 data = data[2:]
@@ -124,7 +124,7 @@ class RuleRuleTag(AbstractClueValue):
     
     @classmethod
     def type(cls) -> bytes:
-        return "#".encode("ascii")
+        return "".encode("ascii")
     
     def code(self) -> bytes:
         return self.value.encode("ascii")
