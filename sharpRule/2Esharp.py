@@ -6,7 +6,7 @@ from minesweepervariants.impl.summon.solver import Switch
 from ....utils.tool import get_random, get_logger
 from ....abs.Rrule import AbstractClueValue
 from ....abs.board import AbstractBoard, AbstractPosition
-from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
+from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS, VALUE_QUESS
 from ....impl.impl_obj import get_value
 from ....utils.image_create import get_text, get_image, get_dummy, get_col, get_row
 from ....utils.web_template import Number, MultiNumber, StrWithArrow
@@ -113,7 +113,12 @@ class Rule2ESharp(AbstractClueSharp):
                 elif (type == '1W'):
                     # 跳过有多个数字的 1W 线索
                     if '.' in clue.__repr__():
-                        continue
+                        # 如果是 2E1W，则将多数字线索替换为问号
+                        if len(self.shape_rule.rules) == 1:
+                            board.set_value(pos, VALUE_QUESS)
+                            break
+                        else:
+                            continue
 
                 value = int(clue.__repr__())
                 if value in shuffled_nums:
