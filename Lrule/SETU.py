@@ -22,8 +22,6 @@ class RuleSETU(AbstractMinesRule):
         if data:
             payload["tags"] = data.split(";")
 
-        print(payload)
-
         for server in servers:
             try:
                 result = requests.get(server, params=payload).json()
@@ -34,8 +32,6 @@ class RuleSETU(AbstractMinesRule):
             break
         else:
             raise ConnectionError("No server available")
-
-        print(result)
 
         IMAGE_CONFIG["background"]["image"] = url
         IMAGE_CONFIG["white_base"] = True
