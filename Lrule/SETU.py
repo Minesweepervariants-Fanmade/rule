@@ -15,13 +15,32 @@ class RuleSETU(AbstractMinesRule):
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)
 
-        result = requests.get("https://api.lolicon.app/setu/v2", json={"size":"small"}).json()
+        servers = ["https://api.lolicon.app/setu/v2", "https://setu.yuban10703.xyz/setu"]
+
+        payload = {"r18": 0, "num": 1, "size": "large", "replace_url": "https://i.pixiv.cat"}
+
+        if data:
+            payload["tags"] = data.split(";")
+
+        print(payload)
+
+        for server in servers:
+            try:
+                result = requests.get(server, params=payload).json()
+                urls = result["data"][0]["urls"]
+                url = urls.get("large") or next(iter(urls.values()))
+            except:
+                continue
+            break
+        else:
+            raise ConnectionError("No server available")
+
         print(result)
 
-        urls: dict = result["data"][0]["urls"]
-        url = urls.get("small") or next(iter(urls.values()))
-
         IMAGE_CONFIG["background"]["image"] = url
+        IMAGE_CONFIG["white_base"] = True
+
+
 
     def create_constraints(self, board, switch):
         return
