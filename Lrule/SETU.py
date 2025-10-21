@@ -17,7 +17,7 @@ class RuleSETU(AbstractMinesRule):
 
         servers = ["https://api.lolicon.app/setu/v2", "https://setu.yuban10703.xyz/setu"]
 
-        payload = {"r18": 0, "num": 1, "size": "large", "replace_url": "https://i.pixiv.cat"}
+        payload = {"r18": 0, "num": 1, "replace_url": "https://i.pixiv.cat"}
 
         if data:
             payload["tags"] = data.split(";")
