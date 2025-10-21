@@ -20,7 +20,7 @@ class RuleSETU(AbstractMinesRule):
         payload = {"r18": 0, "num": 1, "replace_url": "https://i.pixiv.cat"}
 
         if data:
-            payload["tag"] = data.replace(","，"|").split(":")
+            payload["tag"] = data.replace(",", "|").split(":")
 
         for server in servers:
             try:
