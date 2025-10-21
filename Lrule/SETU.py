@@ -20,11 +20,11 @@ class RuleSETU(AbstractMinesRule):
         payload = {"r18": 0, "num": 1, "replace_url": "https://i.pixiv.cat"}
 
         if data:
-            payload["tag"] = "&".join(data.split(";"))
+            payload["tag"] = data.split(";")
 
         for server in servers:
             try:
-                result = requests.get(server, params=payload).json()
+                result = requests.post(server, json=payload).json()
                 urls = result["data"][0]["urls"]
                 url = urls.get("large") or next(iter(urls.values()))
             except:
