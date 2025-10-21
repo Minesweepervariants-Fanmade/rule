@@ -15,12 +15,12 @@ class RuleSETU(AbstractMinesRule):
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)
 
-        servers = ["https://api.lolicon.app/setu/v2", "https://setu.yuban10703.xyz/setu"]
+        servers = ["https://api.lolicon.app/setu/v2"]
 
         payload = {"r18": 0, "num": 1, "replace_url": "https://i.pixiv.cat"}
 
         if data:
-            payload["tags"] = data.split(";")
+            payload["tag"] = "&".join(data.split(";"))
 
         for server in servers:
             try:
