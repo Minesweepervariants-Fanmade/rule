@@ -31,9 +31,9 @@ class Rule3I(AbstractMinesRule):
             for pos, _ in board(key=key):
                 inverted_var = board.get_variable(pos, special="3I")
                 if board.get_dyed(pos):
-                    model.Add(inverted_var == board.get_variable(pos, special='raw').Not()).OnlyEnforceIf(s)
+                    model.Add(inverted_var == board.get_variable(pos, special='raw').Not())
                 else:
-                    model.Add(inverted_var == board.get_variable(pos, special='raw')).OnlyEnforceIf(s)
+                    model.Add(inverted_var == board.get_variable(pos, special='raw'))
 
     @staticmethod
     def get_type(board: 'AbstractBoard', pos: 'AbstractPosition', *args, **kwargs) -> str:

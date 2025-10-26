@@ -5,7 +5,7 @@
 # @Author  : Wu_RH
 # @FileName: V.py
 """
-[V']雷值：每个数字标明周围八格内雷值之和。
+[V'']雷绝对值: 每个数字标明周围八格内雷值之和之绝对值
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....abs.board import AbstractBoard, AbstractPosition
@@ -24,8 +24,8 @@ def decode_bytes_7bit(data: bytes) -> int:
     return int(s)
 
 class RuleV(AbstractClueRule):
-    name = ["V'", "雷值", "Value"]
-    doc = "每个数字标明周围八格内雷值之和"
+    name = ["V''", "雷绝对值", "Absolute"]
+    doc = "每个数字标明周围八格内雷值之和之绝对值"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
@@ -66,8 +66,14 @@ class RuleV(AbstractClueRule):
 
                 # 添加约束：周围雷数等于count
                 if neighbor_vars:
-                    model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(switch.get(model, self.pos))
-                    get_logger().trace(f"[V'] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")
+                    ge = model.NewBoolVar('ge')
+                    le = model.NewBoolVar('le')
+
+                    model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(ge)
+                    model.Add(sum(neighbor_vars) == -self.count).OnlyEnforceIf(le)
+
+                    model.AddBoolOr([ge, le])
+                    get_logger().trace(f"[V''] Value[{self.pos}: {self.count}] add: {neighbor_vars} == ±{self.count}")
 
         self.ValueV = ValueV
 
@@ -77,5 +83,5 @@ class RuleV(AbstractClueRule):
         for pos, _ in board("N", special='raw'):
             value = board.batch(pos.neighbors(2), "type", special=self.rule)
             value = sum(v or 0 for v in value)
-            board.set_value(pos, self.ValueV(pos, count=value, rule=self.rule))
+            board.set_value(pos, self.ValueV(pos, count=abs(value), rule=self.rule))
         return board
