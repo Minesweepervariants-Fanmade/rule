@@ -39,7 +39,7 @@ class RuleV(AbstractClueRule):
 
             @classmethod
             def type(cls) -> bytes:
-                return b"V'"
+                return self.rule.encode()
 
             def code(self) -> bytes:
                 return bytes([self.count])
@@ -58,7 +58,7 @@ class RuleV(AbstractClueRule):
                 # 添加约束：周围雷数等于count
                 if neighbor_vars:
                     model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(switch.get(model, self.pos))
-                    get_logger().warning(f"[V'] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")
+                    get_logger().trace(f"[V'] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")
 
         self.ValueV = ValueV
 
@@ -67,7 +67,6 @@ class RuleV(AbstractClueRule):
         logger = get_logger()
         for pos, _ in board("N", special='raw'):
             value = board.batch(pos.neighbors(2), "type", special=self.rule)
-            print(value)
             value = sum(v or 0 for v in value)
             board.set_value(pos, self.ValueV(pos, count=value, rule=self.rule))
         return board
