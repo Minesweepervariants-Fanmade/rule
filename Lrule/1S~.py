@@ -14,7 +14,7 @@ class Rule1S(AbstractMinesRule):
         root_vars = []
         one_connect_vars = []
 
-        for pos, obj in board(mode="object"):
+        for pos, _ in board(mode="object"):
             root_vars.append(model.NewBoolVar(f"root_{pos}"))
             one_connect_vars.append(model.NewBoolVar(f"one_connect_{pos}"))
 
