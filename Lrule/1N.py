@@ -43,3 +43,10 @@ class Rule1N(AbstractMinesRule):
                 if board.get_dyed(pos):
                     model.Add(det == -raw).OnlyEnforceIf(mine)
                 model.Add(det == 0).OnlyEnforceIf(mine.Not())
+
+
+    def get_deps(self) -> list[str]:
+        if self.rule == 'raw':
+            return []
+        else:
+            return [self.rule]
