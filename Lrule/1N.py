@@ -9,6 +9,7 @@ from ortools.sat.python.cp_model import CpModel
 class Rule1N(AbstractMinesRule):
     name = ["1N", "N", "负雷", "Negative"]
     doc = "染色格中雷值取负"
+    lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

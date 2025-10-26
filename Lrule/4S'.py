@@ -9,6 +9,7 @@ from ortools.sat.python.cp_model import CpModel
 class Rule3I(AbstractMinesRule):
     name = ["4S'", "阶梯'"]
     doc = "雷值等于行号与列号之和, 但从0开始"
+    lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
