@@ -1,5 +1,5 @@
 """
-[4S]阶梯: 所有雷被视为 X 个雷（X 为其的行列数之和）
+[SCREAM]尖叫：雷值等于其相邻四格雷数的阶乘
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
@@ -8,7 +8,7 @@ from ortools.sat.python.cp_model import CpModel
 
 class Rule3I(AbstractMinesRule):
     name = ["SCREAM", "尖叫"]
-    doc = ""
+    doc = "雷值等于其相邻四格雷数的阶乘"
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
