@@ -94,6 +94,7 @@ class Value2Ep(AbstractClueValue):
         # print(self.neighbors)
         line = board.batch(line, mode="variable")
         sum_vers = sum(board.batch(self.neighbors, mode="variable", drop_none=True))
+        model.Add(sum_vers < len(line)).OnlyEnforceIf(s)
         for index in range(min(9, len(line))):
             var = line[index]
             model.Add(sum_vers != index).OnlyEnforceIf(var.Not()).OnlyEnforceIf(s)
