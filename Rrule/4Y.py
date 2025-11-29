@@ -64,14 +64,10 @@ class Value4Y(AbstractClueValue):
         # O(m^2n^2) 优化是什么，开摆
         is_max_rect = []
 
-        for x1 in range(rows):
-            for y1 in range(cols):
-                for x2 in range(x1, rows):
-                    for y2 in range(y1, cols):
-
-                        if not (x1 <= x0 <= x2 and y1 <= y0 <= y2):
-                            continue
-
+        for x1 in range(0, x0 + 1):
+            for x2 in range(x0, rows):
+                for y1 in range(0, y0 + 1):
+                    for y2 in range(y0, cols):
                         positions = board.get_pos_box(
                             board.get_pos(x1, y1, self.pos.board_key),
                             board.get_pos(x2, y2, self.pos.board_key)
