@@ -40,12 +40,9 @@ class Rule4Y(AbstractClueRule):
         return board
     
 class Value4Y(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = None):
+    def __init__(self, pos: 'AbstractPosition', code: bytes):
         super().__init__(pos, code)
-        if code is not None:
-            self.value = code[0]
-        else:
-            self.value = area
+        self.value = code[0]
 
     def __repr__(self):
         return f"{self.value}"
