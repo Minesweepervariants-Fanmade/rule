@@ -16,12 +16,16 @@ class RuleNSharp(AbstractClueSharp):
     name = ["N#", "标签", "Tag"]
     doc = "线索只有一个取值"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
-        self.value = int(data)
-        if (self.value == 0):
-            rules_name = ["1L", "1N", "1E'", "1M1N", "1N1X", "2M", "2X'"]
+    def __init__(self, board: "AbstractBoard" = None, data: str =None) -> None:
+        if data.__contains__(";"):
+            self.value = int(data.split(";")[0])
+            rules_name = data.split(";")[1:]
         else:
-            rules_name = ["V", "1M", "1L", "1W", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "1E'", "1M1N", "1L1M", "1M1X", "1N1X", "2X", "2D", "2P", "2M", "2A", "2X'"]
+            self.value = int(data)
+            if (self.value == 0):
+                rules_name = ["1L", "1N", "1E'", "1M1N", "1N1X", "2M", "2X'"]
+            else:
+                rules_name = ["V", "1M", "1L", "1W", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "1E'", "1M1N", "1L1M", "1M1X", "1N1X", "2X", "2D", "2P", "2M", "2A", "2X'"]
         super().__init__(rules_name, board, data)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
