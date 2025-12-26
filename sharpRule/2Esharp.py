@@ -124,7 +124,7 @@ class Rule2ESharp(AbstractClueSharp):
                 if value in shuffled_nums:
                     board.set_value(pos, Value2ESharp(pos, value=shuffled_nums[value], rule=type))
                     break
-            
+
             # 如果没有成功选择线索加密，就不加密随机选择一个线索
             if (board.get_type(pos) == "N"):
                 board.set_value(pos, random.choice(clues))
@@ -190,7 +190,7 @@ class Value2ESharp(AbstractClueValue):
                 get_text("ABCDEFGHI"[self.value]),
                 get_dummy(height=0.3),
             )
-    
+
     def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
         return self.get_clue(1).high_light(board)
 
@@ -200,10 +200,10 @@ class Value2ESharp(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.value]) + self.rule.encode("ascii")
-    
+
     def tag(self, board) -> bytes:
         return self.rule.encode("ascii")
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)
@@ -226,7 +226,7 @@ class Value2ESharp(AbstractClueValue):
         clue_code.extend(b'|')
         clue_code.extend(bytes([value]))
         return get_value(self.pos, bytes(clue_code))
-    
+
 class Value2E2A(Value2ESharp):
     def __init__(self, pos: AbstractPosition, value: int = 0, code: bytes = None, flag = 4) -> None:
         super().__init__(pos, value, '2A', code)
@@ -235,7 +235,7 @@ class Value2E2A(Value2ESharp):
     @classmethod
     def type(cls):
         return "2E2A".encode("ascii")
-    
+
     def get_clue(self, value) -> AbstractClueValue:
         clue_code = bytearray()
         clue_code.extend(self.rule.encode("ascii"))
@@ -243,7 +243,7 @@ class Value2E2A(Value2ESharp):
         clue_code.extend(bytes([self.flag, value]))
         return get_value(self.pos, bytes(clue_code))
 
-    
+
 class Value2E2X(AbstractClueValue):
     def __init__(self, pos: 'AbstractPosition', count: int = 0, code: bytes = None):
         super().__init__(pos, code)
@@ -256,10 +256,10 @@ class Value2E2X(AbstractClueValue):
     def __repr__(self) -> str:
         map = "ABCDEFGHI"
         return f"{map[self.count // 10]} {map[self.count % 10]}"
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         return self.neighbor
-    
+
     @classmethod
     def type(cls) -> bytes:
         return "2E2X".encode("ascii")
@@ -276,7 +276,7 @@ class Value2E2X(AbstractClueValue):
             get_text(text_a),
             get_text(text_b)
         )
-    
+
     def web_component(self, board) -> Dict:
         text_a, text_b = self.get_display_text(board)
         return MultiNumber([text_a, text_b])
@@ -290,7 +290,7 @@ class Value2E2X(AbstractClueValue):
         texts = [(str(l.index("F")) if "F" in l else map[v]) for l, v in zip(lines, values)]
         texts.sort()
         return texts
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)
@@ -359,7 +359,7 @@ class Value2E2P(AbstractClueValue):
         if self.value_b != -1:
             r += f"√{map[self.value_b]}"
         return r
-    
+
     @classmethod
     def type(cls) -> bytes:
         return "2E2P".encode("ascii")
@@ -369,7 +369,7 @@ class Value2E2P(AbstractClueValue):
 
     def tag(self, board) -> bytes:
         return "2P".encode("ascii")
-    
+
     def compose(self, board) -> Dict:
         value_a, value_b = self.get_display_text(board)
         if value_b is None:
@@ -391,7 +391,7 @@ class Value2E2P(AbstractClueValue):
                 get_text(str(value_b)),
                 spacing=-0.2
             )
-        
+
     def web_component(self, board) -> Dict:
         value_a, value_b = self.get_display_text(board)
         if value_b is None:
@@ -406,7 +406,7 @@ class Value2E2P(AbstractClueValue):
                 "\\sqrt{" + str(value_b) +
                 "}$"
             )
-    
+
     def get_display_text(self, board) -> tuple[str | None, str | None]:
         part_a = part_b = None
         map = "ABCDEFGHI"
@@ -437,7 +437,7 @@ class Value2E2P(AbstractClueValue):
             else:
                 part_b = map[self.value_b]
         return part_a, part_b
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         s = switch.get(board.get_model(), self)
         model = board.get_model()
@@ -481,7 +481,7 @@ class Value2E2P(AbstractClueValue):
         if value > 254:
             return rule2P.Value2P(pos=self.pos, code=bytes([value // 255, value % 255]))
         return rule2P.Value2P(pos=self.pos, code=bytes([value]))
-    
+
 class Value2E1EN(AbstractClueValue):
     # arrow True 上下箭头，False 左右箭头
     def __init__(self, pos: 'AbstractPosition', value: int = 0, arrow: bool = True, code: bytes = None):
@@ -499,7 +499,7 @@ class Value2E1EN(AbstractClueValue):
             return f"{map[self.value]}"
         else:
             return f"-{map[self.value]}"
-        
+
     @classmethod
     def type(cls) -> bytes:
         return "2E1E'".encode("ascii")
@@ -509,10 +509,10 @@ class Value2E1EN(AbstractClueValue):
 
     def tag(self, board) -> bytes:
         return "1E'".encode("ascii")
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition'] | None:
         return self.create1EN(0).high_light(board)
-    
+
     def web_component(self, board) -> Dict:
         line = board.batch(board.get_col_pos(
             board.get_pos(0, self.value, NAME_2E)
@@ -555,7 +555,7 @@ class Value2E1EN(AbstractClueValue):
                     get_text(num),
                     get_dummy(width=0.15),
             )
-        
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)
@@ -571,7 +571,7 @@ class Value2E1EN(AbstractClueValue):
             self.create1EN(index).create_constraints(board, FakeSwitch(temp))
             temp_list.append(temp)
         model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
-        
+
     def create1EN(self, value) -> AbstractClueValue:
         clue_code = bytearray()
         clue_code.extend("1E'".encode("ascii"))
@@ -583,8 +583,8 @@ class Value2E1EN(AbstractClueValue):
         else:
             clue_code.extend(bytes([-value + 128]))
         return get_value(self.pos, bytes(clue_code))
-        
-    
+
+
 class FakeSwitch(Switch):
     def __init__(self, var) -> None:
         self.var = var
