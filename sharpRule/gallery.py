@@ -68,18 +68,18 @@ class RuleGallery(AbstractClueRule):
                 random.shuffle(self.right_rules)
         if len(self.left_rules) != board.boundary().x or len(self.right_rules) != board.boundary().y:
             raise ValueError(f"Expected {board.boundary().x} left rules and {board.boundary().y} right rules, got {len(self.left_rules)} left rules and {len(self.right_rules)} right rules")
-        
+
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         boards : list[AbstractBoard] = []
         for rule in self.right_rules:
-            boards.append(get_rule(rule)(board=board,data=None).fill(board.clone()))
+            boards.append(board.get_rule_instance(rule, data=None).fill(board.clone()))
         for pos, _ in board("N"):
             x, y = pos.x, pos.y
             if x == 0 or y == 0:
                 continue
             board.set_value(pos, boards[y - 1].get_value(pos))
         return board
-    
+
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         origin_pos = board.get_pos(0, 0)
@@ -108,7 +108,7 @@ class RuleGallery(AbstractClueRule):
         if name == "1B" or name == "B":
             return Rule1B(board=sub_board, data=None)
         else:
-            return get_rule(name)(board=sub_board, data=None)
+            return sub_board.get_rule_instance(name, data=None)
 
     def suggest_total(self, info: dict):
         size = info["size"][MASTER_BOARD]
@@ -121,14 +121,14 @@ class RuleRuleTag(AbstractClueValue):
 
     def __repr__(self):
         return self.value
-    
+
     @classmethod
     def type(cls) -> bytes:
         return "".encode("ascii")
-    
+
     def code(self) -> bytes:
         return self.value.encode("ascii")
-    
+
 class FakeSwitch(Switch):
     def __init__(self, var) -> None:
         self.var = var
@@ -136,7 +136,7 @@ class FakeSwitch(Switch):
 
     def get(self, model, obj, index=None):
         return self.var
-    
+
 class SubBoard(AbstractBoard):
     def __init__(self, parent: AbstractBoard, from_pos: AbstractPosition, to_pos: AbstractPosition) -> None:
         self.parent = parent
@@ -175,10 +175,10 @@ class SubBoard(AbstractBoard):
 
     def get_real_pos(self, pos: AbstractPosition) -> AbstractPosition | None:
         return self.parent.get_pos(pos.x + self.from_pos.x, pos.y + self.from_pos.y) if self.in_bounds(pos) else None
-    
+
     def get_model(self) -> CpModel:
         return self.parent.get_model()
-    
+
     def get_variable(self, pos: AbstractPosition, special: str = ""):
         real_pos = self.get_real_pos(pos)
         return self.parent.get_variable(real_pos, special=special) if real_pos else None
@@ -196,17 +196,17 @@ class SubBoard(AbstractBoard):
             return self.size
         else:
             return self.parent.get_config(board_key, config_name)
-        
+
     def set_config(self, board_key: str, config_name: str, value: bool):
         return self.parent.set_config(board_key, config_name, value)
-        
+
     def boundary(self, key=MASTER_BOARD) -> AbstractPosition:
         return self.get_pos(self.size[0] - 1, self.size[1] - 1, key)
-    
+
     def get_dyed(self, pos: AbstractPosition) -> bool:
         real_pos = self.get_real_pos(pos)
         return self.parent.get_dyed(real_pos) if real_pos else False
-    
+
     def batch(self, positions: List[AbstractPosition], mode: str, drop_none: bool = False, *args, **kwargs) -> List[Any]:
         result = []
         for pos in positions:
@@ -227,16 +227,16 @@ class SubBoard(AbstractBoard):
             else:
                 raise ValueError(f"Unsupported mode: {mode}")
         return result
-    
+
     def get_pos(self, x, y, key=MASTER_BOARD) -> AbstractPosition:
         return self.parent.get_pos(x, y, key)
-    
+
     def get_row_pos(self, pos: AbstractPosition) -> List[AbstractPosition]:
         return [self.get_pos(x, pos.y) for x in range(0, self.boundary().x + 1)]
-    
+
     def get_col_pos(self, pos: AbstractPosition) -> List[AbstractPosition]:
         return [self.get_pos(pos.x, y) for y in range(0, self.boundary().y + 1)]
-    
+
     def get_pos_box(self, pos1: AbstractPosition, pos2: AbstractPosition) -> List[AbstractPosition]:
         return self.parent.get_pos_box(pos1, pos2)
 
@@ -270,7 +270,11 @@ class SubBoard(AbstractBoard):
 
     def pos_label(self, pos: AbstractPosition) -> str:
         raise NotImplementedError
-    
+
+    def get_rule_instance(self, rule_name: str, data: str|None = None, add: bool = True) -> 'AbstractRule | None':
+        # 均为左线目前没有问题
+        return get_rule(rule_name)(board=self, data=data)
+
 class Rule1B(AbstractMinesRule):
     name = ["1B-", "B-", "行平衡", "Row Balance"]
     doc = "每行雷数相等"
