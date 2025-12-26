@@ -53,9 +53,10 @@ class AbstractClueSharp(AbstractClueRule, ABC):
     def __init__(self, rules: list[str], board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
         rule_list = []
+
         for name in rules:
             try:
-                rule_list.append(get_rule(name)(board=board, data=None))
+                rule_list.append(board.get_rule_instance(name, data))
             except Exception as e:
                 get_logger().warn(f"加载规则:[{name}]失败")
                 get_logger().warn(f"ERROR: {e}")
@@ -78,4 +79,3 @@ class AbstractClueSharp(AbstractClueRule, ABC):
 
     def suggest_total(self, info: dict):
         return self.shape_rule.suggest_total(info=info)
-
