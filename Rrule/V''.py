@@ -15,13 +15,11 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 
 def encode_int_7bit(n: int) -> bytes:
-    s = str(n)
-    return s.encode()
+    return n.to_bytes((n.bit_length() + 7) // 8 or 1, byteorder='big')
 
 
 def decode_bytes_7bit(data: bytes) -> int:
-    s = data.decode()
-    return int(s)
+    return int.from_bytes(data, byteorder='big')
 
 class RuleV(AbstractClueRule):
     name = ["V''", "雷绝对值", "Absolute"]
@@ -56,6 +54,7 @@ class RuleV(AbstractClueRule):
             def create_constraints(self, board: 'AbstractBoard', switch):
                 """创建CP-SAT约束: 周围雷数等于count"""
                 model = board.get_model()
+                s = switch.get(model, self.pos)
 
                 # 收集周围格子的布尔变量
                 neighbor_vars = []
@@ -72,7 +71,7 @@ class RuleV(AbstractClueRule):
                     model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(ge)
                     model.Add(sum(neighbor_vars) == -self.count).OnlyEnforceIf(le)
 
-                    model.AddBoolOr([ge, le])
+                    model.AddBoolOr([ge, le]).OnlyEnforceIf(s)
                     get_logger().trace(f"[V''] Value[{self.pos}: {self.count}] add: {neighbor_vars} == ±{self.count}")
 
         self.ValueV = ValueV

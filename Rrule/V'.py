@@ -56,6 +56,7 @@ class RuleV(AbstractClueRule):
             def create_constraints(self, board: 'AbstractBoard', switch):
                 """创建CP-SAT约束: 周围雷数等于count"""
                 model = board.get_model()
+                s = switch.get(model, self.pos)
 
                 # 收集周围格子的布尔变量
                 neighbor_vars = []
@@ -66,7 +67,7 @@ class RuleV(AbstractClueRule):
 
                 # 添加约束：周围雷数等于count
                 if neighbor_vars:
-                    model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(switch.get(model, self.pos))
+                    model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(s)
                     get_logger().trace(f"[V'] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")
 
         self.ValueV = ValueV
