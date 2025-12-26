@@ -43,6 +43,8 @@ class Rule1N(AbstractMinesRule):
                 det = board.get_variable(pos, special='1N')
                 if board.get_dyed(pos):
                     model.Add(det == -raw).OnlyEnforceIf(mine)
+                else:
+                    model.Add(det == raw).OnlyEnforceIf(mine)
                 model.Add(det == 0).OnlyEnforceIf(mine.Not())
 
 
