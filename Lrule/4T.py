@@ -37,7 +37,7 @@ class Rule4T(AbstractMinesRule):
         self.map = []
         deny_map = {}
         for key in board.get_interactive_keys():
-            size = board.get_config(key, "size")
+            size = board.board_size(key)
             positions = [pos for pos, _ in board(key=key)]
             attr_index = 3
             for x in range(100, -1, -1):
