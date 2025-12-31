@@ -11,6 +11,7 @@ from typing import List
 
 from ....abs.Lrule import AbstractMinesRule
 from ....abs.board import AbstractBoard, AbstractPosition
+from ....impl.board.version3 import Board
 from .connect import connect
 
 
@@ -28,39 +29,41 @@ class Rule1O(AbstractMinesRule):
     doc = "非雷区域四连通；每个雷区域以四连通连接到题版边界"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
-        positions_vars = [(pos, var) for pos, var in board("always", mode="variable")]
+        for key in board.get_interactive_keys():
+            if len(board.get_config(key, "mask")) > 0:
+                raise ValueError("1O 不支持异形题板")
+
         model = board.get_model()
         s = switch.get(model, self)
+
+        # 非雷四连通
         connect(
             model,
             board,
-            ub=len(positions_vars),
             connect_value=0,
             nei_value=1,
             switch=s,
         )
-        root_list = [model.NewBoolVar(f'root_{i}') for i in range(len(positions_vars))]
-        for index, (pos, var) in enumerate(positions_vars):
-            model.Add(var == 1).OnlyEnforceIf(root_list[index])
-            flag = True
-            for _pos in pos.neighbors(1):
-                if not board.in_bounds(_pos):
-                    flag = False
-                    break
-            if flag:
-                model.Add(root_list[index] == 0)
-                continue
-            model.Add(root_list[index] == 1).OnlyEnforceIf(var)
-            model.Add(root_list[index] == 0).OnlyEnforceIf(var.Not())
+
+        # 雷区连通到边界，相当于在题板外圈添加一圈雷后四连通
+        border_board = Board(size=(board.boundary().x + 2, board.boundary().y + 2), rules=None)
+        border_positions_vars = []
+        for pos, var in board("always", mode="variable"):
+            border_positions_vars.append((border_board.get_pos(pos.x + 1, pos.y + 1), var))
+        for x in range(border_board.boundary().x):
+            for y in range(border_board.boundary().y):
+                pos = border_board.get_pos(x, y)
+                if x == 0 or x == border_board.boundary().x or y == 0 or y == border_board.boundary().y:
+                    border_positions_vars.append((pos, model.NewConstant(1)))  # 边界全为雷
         connect(
             model,
-            board,
+            border_board,
             connect_value=1,
             nei_value=1,
-            root_vars=root_list,
-            ub=len(positions_vars),
             switch=s,
+            positions_vars=border_positions_vars,
         )
+
         # 1O大定式
         for pos, _ in board():
             pos_list = block(pos, board)

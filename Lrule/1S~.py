@@ -13,9 +13,9 @@ class Rule1S(AbstractMinesRule):
         
         root_vars = []
         one_connect_vars = []
+        component_num = model.NewIntVar(0, len([pos for pos, _ in board(mode="object")]), "snake_components")
 
         for pos, _ in board(mode="object"):
-            root_vars.append(model.NewBoolVar(f"root_{pos}"))
             one_connect_vars.append(model.NewBoolVar(f"one_connect_{pos}"))
 
         connect(
@@ -24,7 +24,7 @@ class Rule1S(AbstractMinesRule):
             connect_value=0,
             nei_value=1,
             switch=s,
-            root_vars=root_vars
+            component_num=component_num,
         )
 
         for i, (pos, var) in enumerate(board(mode="variable")):
@@ -34,4 +34,4 @@ class Rule1S(AbstractMinesRule):
             model.Add(sum(var_list) == 1).OnlyEnforceIf([one_connect_vars[i], s])
             model.Add(var == 0).OnlyEnforceIf([one_connect_vars[i], s])
 
-        model.Add(sum(one_connect_vars) == 2 * sum(root_vars)).OnlyEnforceIf(s)
+        model.Add(sum(one_connect_vars) == 2 * component_num).OnlyEnforceIf(s)
