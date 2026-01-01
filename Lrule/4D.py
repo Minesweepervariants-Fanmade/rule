@@ -3,7 +3,7 @@ from ....abs.board import AbstractBoard
 
 from .connect import connect
 
-class Rule1S(AbstractMinesRule):
+class Rule4D(AbstractMinesRule):
     name = ["4D", "对角"]
     doc = "不同四连通雷区不可对角相邻"
 
