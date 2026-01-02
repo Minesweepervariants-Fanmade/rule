@@ -21,7 +21,7 @@ class RuleBIN(AbstractClueRule):
 
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
-        rules = board.get_rule_instance(self.rule[0]), board.get_rule_instance(self.rule[1])
+        rules = [board.get_rule_instance(self.rule[0]), board.get_rule_instance(self.rule[1])]
         if not all(rules):
             raise ValueError("Sub-rules for BIN are not properly defined")
         boards: List[AbstractBoard] = []
@@ -45,7 +45,7 @@ class ValueBIN(AbstractClueValue):
             self.rule = rule
         else:
             self.value = (code[0], code[1])
-            split_index = code.index(b'\x00')
+            split_index = code.index(b',')
             self.rule = (code[2:split_index].decode("ascii"), code[split_index + 1:].decode("ascii"))
 
     def __repr__(self):
@@ -58,7 +58,7 @@ class ValueBIN(AbstractClueValue):
     def code(self) -> bytes:
         rule_bytes_1 = self.rule[0].encode("ascii")
         rule_bytes_2 = self.rule[1].encode("ascii")
-        return bytes([self.value[0], self.value[1]]) + rule_bytes_1 + b'\x00' + rule_bytes_2
+        return bytes([self.value[0], self.value[1]]) + rule_bytes_1 + b',' + rule_bytes_2
     
     def high_light(self, board: AbstractBoard) -> List[AbstractPosition]:
         positions = set()
