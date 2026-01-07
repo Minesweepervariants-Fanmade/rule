@@ -15,19 +15,19 @@ def connect(
         model: cp_model.CpModel,
         board: AbstractBoard,
         switch: IntVar,     
-        component_num: Union[int, IntVar] = 1,   # 允许的连通块数量
+        component_num: Union[int, IntVar, None] = 1,   # 允许的连通块数量，填 None 表示不限制
         ub=False, # 最长连通上限
         connect_value=1, # 1 雷连通 0 非雷连通
         nei_value: Union[int, tuple[int, int], Callable[[AbstractPosition], List[AbstractPosition]]] = 2, # 连通方向定义，1 四连通 2 八连通
         root_vars: List[IntVar] | None = None,
         positions_vars: List[tuple[AbstractPosition, IntVar]] | None = None,
         special='',
-):
+) -> List[IntVar]: # 返回表示各位置所属连通块 ID 的列表
     # 获取题板上所有位置及其对应的布尔变量
     if positions_vars is None:
         positions_vars = [(pos, var) for pos, var in board("always", mode="variable", special=special)]
     if not positions_vars:
-        return
+        return []
 
     pos_list, var_list = zip(*positions_vars)
     n = len(pos_list)
@@ -94,12 +94,13 @@ def connect(
         model.Add(component_ids[i] == i).OnlyEnforceIf([self_parent_bools[i], switch])
 
     # 根数量 = component_num
-    if isinstance(component_num, int):
-        if component_num < 0 or component_num > n:
-            raise ValueError("component_num 超出可行范围")
-        model.Add(sum(root_vars) == component_num).OnlyEnforceIf(switch)
-    else:
-        model.Add(sum(root_vars) == component_num).OnlyEnforceIf(switch)
+    if component_num is not None:
+        if isinstance(component_num, int):
+            if component_num < 0 or component_num > n:
+                raise ValueError("component_num 超出可行范围")
+            model.Add(sum(root_vars) == component_num).OnlyEnforceIf(switch)
+        else:
+            model.Add(sum(root_vars) == component_num).OnlyEnforceIf(switch)
 
     # 层级变量（用于防环并保证根可达）：非 active 为 0；根为 1；子 = 父 + 1
     level_vars = [model.NewIntVar(0, (ub if ub else n + 1), f'level_{i}') for i in range(n)]
@@ -126,3 +127,5 @@ def connect(
             if i < j and (i, j) not in seen_pairs:
                 model.Add(component_ids[i] == component_ids[j]).OnlyEnforceIf([active_vars[i], active_vars[j], switch])
                 seen_pairs.add((i, j))
+
+    return component_ids
