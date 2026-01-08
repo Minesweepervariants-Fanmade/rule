@@ -67,11 +67,10 @@ class Rule3G(AbstractMinesClueRule):
             nei_value=1,
         )
         clues = [(pos, clue) for pos, clue in board("always", mode="object") if isinstance(clue, MinesValue3G)]
+    
 
-        for pos1, clue1 in clues:
-            for pos2, clue2 in clues:
-                if (clue1 == clue2):
-                    continue
+        for i, (pos1, clue1) in enumerate(clues):
+            for pos2, clue2 in clues[i + 1:]:
                 s1 = switch.get(model, clue1)
                 s2 = switch.get(model, clue2)
                 if clue1.value == clue2.value:
