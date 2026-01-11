@@ -49,12 +49,12 @@ class RuleGallery(AbstractClueRule):
                 self.left_rules = []
                 self.right_rules = []
                 for rule in rules:
-                    rule_type = board.get_rule_instance(rule)
-                    if not rule_type:
+                    rule_instance = board.get_rule_instance(rule)
+                    if not rule_instance:
                         raise ValueError(f"未知规则 {rule}")
-                    if issubclass(rule_type, AbstractMinesRule):
+                    if isinstance(rule_instance, AbstractMinesRule):
                         self.left_rules.append(rule)
-                    elif issubclass(rule_type, AbstractClueRule):
+                    elif isinstance(rule_instance, AbstractClueRule):
                         self.right_rules.append(rule)
                     else:
                         raise ValueError(f"不支持的规则 {rule}")
