@@ -78,7 +78,13 @@ class BINGO(AbstractMinesRule):
             self.rules.append(rule)
         positions = random.sample(positions, len(positions) * tagRate // 100)
         get_logger().info(f"Init 4B choose positions {positions}")
-        self.label_dict = {pos: random.choice(self.rules) for pos in positions}
+        self.label_dict = {}
+        _rules = []
+        for pos in positions:
+            if not _rules:
+                _rules = self.rules.copy()
+                random.shuffle(_rules)
+            self.label_dict[pos] = _rules.pop()
         _label_dict = {pos: self.label_dict[pos].get_name() for pos in self.label_dict}
         for key in board.get_interactive_keys():
             board.set_config(key, "labels", _label_dict)
@@ -97,6 +103,7 @@ class BINGO(AbstractMinesRule):
         for rule in set(self.label_dict.values()):
             bool_var = model.NewBoolVar(f"switch[{rule.get_name()}]")
             rule.create_constraints(board, FakeSwitch(bool_var))
+            get_logger().trace(f"4B: {rule.get_name()} create constraints")
             for switch_pos_var in switch_map[rule]:
                 model.Add(bool_var == 1).OnlyEnforceIf(switch_pos_var)
 
