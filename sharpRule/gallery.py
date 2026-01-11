@@ -48,8 +48,9 @@ class RuleGallery(AbstractClueRule):
                 rules = data.split(";")
                 self.left_rules = []
                 self.right_rules = []
+                temp_board = board.clone()
                 for rule in rules:
-                    rule_instance = board.get_rule_instance(rule)
+                    rule_instance = temp_board.get_rule_instance(rule, add=False)
                     if not rule_instance:
                         raise ValueError(f"未知规则 {rule}")
                     if isinstance(rule_instance, AbstractMinesRule):
@@ -74,7 +75,8 @@ class RuleGallery(AbstractClueRule):
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         boards : list[AbstractBoard] = []
         for rule in self.right_rules:
-            boards.append(board.get_rule_instance(rule, data=None).fill(board.clone()))
+            new_board = board.clone()
+            boards.append(new_board.get_rule_instance(rule, data=None).fill(new_board))
         for pos, _ in board("N"):
             x, y = pos.x, pos.y
             if x == 0 or y == 0:
