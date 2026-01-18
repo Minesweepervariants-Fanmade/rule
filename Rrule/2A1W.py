@@ -101,7 +101,7 @@ class Rule2A1W(AbstractClueRule):
                 model.Add(area_var == sum(in_nei_area_vars)).OnlyEnforceIf(nei_var, unique_var, s)
 
             possible_areas: List[List[int]] = []
-            areas = clue_obj.values
+            areas = list(clue_obj.values)
             if len(clue_obj.values) < len(neis):
                 areas += [0] * (len(neis) - len(clue_obj.values))
             for perm in permutations(areas):
