@@ -1,3 +1,6 @@
+"""
+[2A1W'] 面积 + 最大数墙： 线索表示四方向最大相邻雷区域的面积。
+"""
 from typing import List, Dict, Set
 
 from minesweepervariants.impl.summon.solver import Switch

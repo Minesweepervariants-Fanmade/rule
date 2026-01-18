@@ -1,3 +1,6 @@
+"""
+[2A1P] 面积 + 划分: 线索表示四方向相邻雷区域的数量。
+"""
 from typing import List, Dict, Set
 
 from minesweepervariants.impl.summon.solver import Switch
@@ -8,7 +11,7 @@ from ...rule.Lrule.connect import connect
 
 class Rule2A1P(AbstractClueRule):
     name = ["2A1P", "面积 + 划分", "Area + Partition"]
-    doc = "线索表示四方向各相邻雷区域的数量"
+    doc = "线索表示四方向相邻雷区域的数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int]):
