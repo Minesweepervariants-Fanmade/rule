@@ -1,11 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
-#
-# @Time    : 2025/07/08 11:12
-# @Author  : Wu_RH
-# @FileName: 2G.py
 """
-[2G] 四连块 (Group)：(1) 所有四连通雷区域的面积为 4 (2) 且它们形状不同（S Z 型视为相同形状）
+[2G*] 互异四连块：(1) 所有四连通雷区域的面积为 4 (2) 且它们形状不同（SZ 和 JL 型视为相同形状）
 """
 from typing import Callable
 from ....abs.Lrule import AbstractMinesRule
@@ -56,7 +50,7 @@ def nei_pos_S(pos: AbstractPosition) -> list[list[AbstractPosition]]:
 
 class Rule2GStar(AbstractMinesRule):
     name = ["2G*", "互异四连块", "Group*"]
-    doc = "(1) 所有四连通雷区域的面积为 4 (2) 且它们形状不同（S Z 型视为相同形状）"
+    doc = "(1) 所有四连通雷区域的面积为 4 (2) 且它们形状不同（SZ 和 JL 型视为相同形状）"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
