@@ -19,7 +19,7 @@ class RulePM(AbstractMinesRule):
                 for i in range(reduced_size):
                     model.Add(sum(last_vars[reduced_size * i:reduced_size * (i + 1)]) == 1).OnlyEnforceIf(only_mine_flags[i], s)
                     model.Add(sum(last_vars[reduced_size * i:reduced_size * (i + 1)]) != 1).OnlyEnforceIf(only_mine_flags[i].Not(), s)
-                model.Add(sum(only_mine_flags) == 1).OnlyEnforceIf(s)
+                model.AddBoolOr(only_mine_flags).OnlyEnforceIf(s)
                 model.AddElement(only_mine_var, only_mine_flags, 1)
                 unique_mine_pos = model.NewIntVar(0, reduced_size - 1, f"[PM]unique_mine_pos_{key}_{reduced_size}")
                 pos_index_var = model.NewIntVar(0, reduced_size * reduced_size - 1, f"[PM]pos_index_{key}_{reduced_size}")
