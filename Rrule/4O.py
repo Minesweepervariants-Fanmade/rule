@@ -1,5 +1,5 @@
 """
-[4O] 近视：线索以上下左右箭头而非数字呈现，箭头指向距离其最近的雷，同时存在多个雷距离最近时会显示全部箭头。
+[4O] 近视：线索以上下左右箭头而非数字呈现，箭头指向距离其四方向最近的雷，同时存在多个雷距离最近时会显示全部箭头。四方向都不存在雷时显示零。
 """
 
 from typing import Dict
@@ -11,7 +11,7 @@ from ....utils.image_create import get_dummy, get_image, get_col, get_row, get_t
 
 class Rule4O(AbstractClueRule):
     name = ["4O", "近视", "Myopia"]
-    doc = "线索以上下左右箭头而非数字呈现，箭头指向距离其最近的雷，同时存在多个雷距离最近时会显示全部箭头。四方向都不存在雷时显示零。"
+    doc = "线索以上下左右箭头而非数字呈现，箭头指向四方向距离其最近的雷，同时存在多个雷距离最近时会显示全部箭头。四方向都不存在雷时显示零。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):
@@ -186,11 +186,11 @@ class Value4O(AbstractClueValue):
         ),
         # 上下右
         get_row(
-            get_image("left", image_height=0.25),
             get_col(
                 get_image("up"),
                 get_image("down"),
-            )
+            ),
+            get_image("right", image_height=0.25),
         ),
         # 左右
         get_col(
