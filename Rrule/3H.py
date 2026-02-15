@@ -10,6 +10,13 @@ class Rule3H(AbstractClueRule):
     name = ["3H", "六角", "Hexagon"]
     doc = "线索表示这些周围格子的雷数：上 下 左 右，奇数列额外包括左上 右上；偶数列额外包括左下 右下"
 
+    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+        super().__init__(board, data)
+        if board is None:
+            return
+        for key in board.get_board_keys():
+            board.set_config(key, "grid_type", "hex")
+
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()
         for pos, _ in board("N"):
