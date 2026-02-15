@@ -1,5 +1,6 @@
 """
-[3H] 六角 (Hexagon): 线索表示这些周围格子的雷数：上 下 左 右，奇数列额外包括左上 右上；偶数列额外包括左下 右下
+[3H] 六角 (Hexagon): 线索表示六边形网格中与线索距离为1的格子中的雷数
+线索表示正方形网格中这些周围格子的雷数：上 下 左 右，奇数列(B,D,F,...)额外包括左上 右上；偶数列(A,C,E,...)额外包括左下 右下
 """
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
@@ -8,7 +9,8 @@ from ....utils.tool import get_logger
 
 class Rule3H(AbstractClueRule):
     name = ["3H", "六角", "Hexagon"]
-    doc = "线索表示这些周围格子的雷数：上 下 左 右，奇数列额外包括左上 右上；偶数列额外包括左下 右下"
+    doc = """线索表示六边形网格中与线索距离为1的格子中的雷数
+线索表示正方形网格中这些周围格子的雷数：上 下 左 右，奇数列(B,D,F,...)额外包括左上 右上；偶数列(A,C,E,...)额外包括左下 右下"""
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
