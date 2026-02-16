@@ -6,7 +6,6 @@ from minesweepervariants.abs import rule
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.abs.board import AbstractBoard
 from ....config.config import IMAGE_CONFIG
-import requests
 
 THEME = {
     "default": {
@@ -153,7 +152,7 @@ def update_dict(d: dict, u: dict):
             d[k] = v
     return d
 
-class RuleSETU(AbstractMinesRule):
+class RuleTheme(AbstractMinesRule):
     name = ["THEME", "主题"]
     doc = "设置题板主题"
 

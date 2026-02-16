@@ -43,7 +43,7 @@ class RuleV(AbstractClueRule):
 
             @classmethod
             def type(cls) -> bytes:
-                return self.rule.encode()
+                return "1K".encode("ascii")
 
             def code(self) -> bytes:
                 return encode_int_7bit(self.count)

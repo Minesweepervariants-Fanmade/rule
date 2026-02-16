@@ -86,116 +86,40 @@ class Value1E(AbstractClueValue):
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)
-
-        direction_funcs = [
-            lambda n: type(self.pos)(self.pos.x + n, self.pos.y, self.pos.board_key),  # 右
-            lambda n: type(self.pos)(self.pos.x - n, self.pos.y, self.pos.board_key),  # 左
-            lambda n: type(self.pos)(self.pos.x, self.pos.y + n, self.pos.board_key),  # 上
-            lambda n: type(self.pos)(self.pos.x, self.pos.y - n, self.pos.board_key)   # 下
+        n = max(board.boundary().x, board.boundary().y)
+        sight_vars = [
+            model.NewIntVar(0, n + 1, f"up_{self.pos}"),
+            model.NewIntVar(0, n + 1, f"down_{self.pos}"),
+            model.NewIntVar(0, n + 1, f"left_{self.pos}"),
+            model.NewIntVar(0, n + 1, f"right_{self.pos}"),
         ]
-
-        def max_steps(fn):
-            n = 1
-            while True:
-                p = fn(n)
-                if not board.in_bounds(p):
-                    return n - 1
-                if board.get_variable(p) is None:
-                    return n - 1
-                n += 1
-
-        def collect_dir(fn, steps):
-            _t_positions = []
-            if steps == 0:
-                p_block = fn(1)
-                f_var = board.get_variable(p_block) if board.in_bounds(p_block) else None
-                return _t_positions, f_var, True
-
-            for k in range(1, steps + 1):
-                p = fn(k)
-                if not board.in_bounds(p):
-                    return [], None, False
-                var = board.get_variable(p)
-                if var is None:
-                    return [], None, False
-                _t_positions.append(p)
-
-            p_block = fn(steps + 1)
-            f_var = board.get_variable(p_block) if board.in_bounds(p_block) else None
-            return _t_positions, f_var, True
-
-        max_right = max_steps(direction_funcs[0])
-        max_left = max_steps(direction_funcs[1])
-        max_up = max_steps(direction_funcs[2])
-        max_down = max_steps(direction_funcs[3])
-
-        possible_list = []  # 每项 (set_of_T_positions, list_of_F_vars_or_None)
-
-        max_steps_list = [max_right, max_left, max_up, max_down]
-
-        possible_list = []
-
-        def enum_counts(idx: int, counts: list[int], accum_T: list, accum_F: list):
-            # 计算当前已确定的 delta 与剩余方向的可达范围
-            current_delta = (counts[0] + counts[1]) - (counts[2] + counts[3])
-            # 计算剩余最大可增加的横向与纵向
-            horiz_remain = 0
-            vert_remain = 0
-            for j in range(idx, 4):
-                if j < 2:
-                    horiz_remain += max_steps_list[j]
+        moves = [
+            lambda p: p.up(),
+            lambda p: p.down(),
+            lambda p: p.left(),
+            lambda p: p.right()
+        ]
+        for sight_var, move in zip(sight_vars, moves):
+            prev_cont_var = None
+            curr = move(self.pos)
+            cont_vars = []
+            while board.in_bounds(curr):
+                cont_var = model.NewBoolVar(f"cont_{curr}")
+                if (prev_cont_var is None):
+                    # 连续非雷段的起始：当前位置是非雷
+                    model.Add(cont_var == 1).OnlyEnforceIf([board.get_variable(curr).Not(), s])
+                    model.Add(cont_var == 0).OnlyEnforceIf([board.get_variable(curr), s])
                 else:
-                    vert_remain += max_steps_list[j]
-
-            min_possible = current_delta - vert_remain
-            max_possible = current_delta + horiz_remain
-            if not (min_possible <= self.value <= max_possible):
-                return
-
-            if idx == 4:
-                if (counts[0] + counts[1]) - (counts[2] + counts[3]) == self.value:
-                    # 复制 accum_F，因为里面可能包含 None
-                    possible_list.append((set(accum_T), list(accum_F)))
-                return
-
-            fn = direction_funcs[idx]
-            max_n = max_steps_list[idx]
-            for steps in range(0, max_n + 1):
-                t_pos, f_var, ok = collect_dir(fn, steps)
-                if not ok:
-                    continue
-
-                # push
-                added = len(t_pos)
-                accum_T.extend(t_pos)
-                accum_F.append(f_var)
-                counts[idx] = steps
-
-                enum_counts(idx + 1, counts, accum_T, accum_F)
-
-                # pop
-                for _ in range(added):
-                    accum_T.pop()
-                accum_F.pop()
-                counts[idx] = 0
-
-        enum_counts(0, [0, 0, 0, 0], [], [])
-
-        tmp_list = []
-        for t_positions, f_vars in possible_list:
-            vars_t = board.batch(t_positions, mode="variable") if t_positions else []
-            vars_f = [v for v in f_vars if v is not None]
-
-            tmp = model.NewBoolVar(f"tmp_1E_{self.pos.x}_{self.pos.y}_{len(tmp_list)}")
-            # 当 tmp 和 线索开关 s 同时成立时，T 位置均为非雷（sum == 0）
-            model.Add(sum(vars_t) == 0).OnlyEnforceIf([tmp, s])
-            # 阻挡位置（若有变量）全部为雷
-            if vars_f:
-                model.AddBoolAnd(vars_f).OnlyEnforceIf([tmp, s])
-            tmp_list.append(tmp)
-
-        if tmp_list:
-            model.AddBoolOr(tmp_list).OnlyEnforceIf(s)
+                    # 连续非雷段的延续：前一个位置在连续非雷段，且当前位置是非雷
+                    model.Add(cont_var == 1).OnlyEnforceIf([prev_cont_var, board.get_variable(curr).Not(), s])
+                    model.Add(cont_var == 0).OnlyEnforceIf([prev_cont_var.Not(), s])
+                    model.Add(cont_var == 0).OnlyEnforceIf([board.get_variable(curr), s])
+                cont_vars.append(cont_var)
+                prev_cont_var = cont_var
+                curr = move(curr)
+            model.Add(sum(cont_vars) == sight_var).OnlyEnforceIf(s)
+        
+        model.Add(sight_vars[0] + sight_vars[1] - sight_vars[2] - sight_vars[3] == self.value).OnlyEnforceIf(s)
 
     def web_component(self, board) -> Dict:
         if self.value == 0:

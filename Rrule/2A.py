@@ -67,7 +67,7 @@ class Rule2A(AbstractClueRule):
                     code = b'\x05'
                 board.set_value(pos, Value2A(pos, code))
                 continue
-            checked = [[False for _ in range(20)] for _ in range(20)]
+            checked = [[False for _ in range(50)] for _ in range(50)]
 
             def dfs(p: 'AbstractPosition', _checked):
                 if not board.in_bounds(p): return None
@@ -85,8 +85,8 @@ class Rule2A(AbstractClueRule):
             dfs(pos.up(1), checked)
             dfs(pos.down(1), checked)
             cnt = 0
-            for i in range(20):
-                for j in range(20):
+            for i in range(50):
+                for j in range(50):
                     if checked[i][j]:
                         cnt += 1
             board.set_value(pos, Value2A(pos, bytes([self.flag, cnt])))
