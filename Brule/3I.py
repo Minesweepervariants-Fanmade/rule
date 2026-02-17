@@ -3,10 +3,12 @@
 """
 from minesweepervariants.abs.Brule import AbstractProxyBoard, AbstractBoardRule
 
+
 class Rule3I(AbstractBoardRule):
     @classmethod
     def get_board(cls):
         return Board3I
+
 
 class Board3I(AbstractProxyBoard):
     def get_type(self, pos):
