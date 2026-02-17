@@ -1,6 +1,7 @@
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
 from .....abs.board import AbstractBoard, AbstractPosition
 from .....utils.tool import get_random
+from minesweepervariants.abs.board import MASTER_BOARD
 
 def liar_1E(value: int, random, sizx: int, sizy: int) -> int:
     max_eyesight = sizx + sizy - 1
@@ -24,7 +25,7 @@ class Rule1L1E(AbstractClueRule):
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()
-        sizx, sizy = board.get_config("1", "size")
+        sizx, sizy = board.board_size(MASTER_BOARD)
         for pos, _ in board("N"):
             value = 1  # 包括自身
             # 四方向的函数
@@ -131,7 +132,7 @@ class Value1E(AbstractClueValue):
         s = switch.get(model, self)
         possible_list = []
 
-        sizx, sizy = board.get_config("1", "size")
+        sizx, sizy = board.board_size(MASTER_BOARD)
         tmp_list = []
         for raw_value in unliar_1E(self.value, sizx, sizy):
             dfs(value=raw_value)
