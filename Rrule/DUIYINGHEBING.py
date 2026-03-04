@@ -5,9 +5,9 @@
 # @Author  : Wu_RH
 # @FileName: DUIYINGHEBING.py
 """
-[DUIYINGHEBING]对映合并: 周围八格相对的两个雷视为一个
+[4D']对映合并: 周围八格相对的两个雷视为一个
 作者:NT (2201963934)
-最后编辑时间:2026-03-04 23:18:53
+最后编辑时间:2026-03-05 00:39
 """
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
@@ -22,7 +22,7 @@ OPPSITE_PAIRS = [
 
 
 class RuleDUIYINGHEBING(AbstractClueRule):
-    name = ["DUIYINGHEBING", "对映合并"]
+    name = ["4D'", "对映合并"]
     doc = "每个数字标明周围八格内雷的数量。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
