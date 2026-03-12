@@ -35,13 +35,22 @@ class Rule1C(AbstractMinesRule):
                     int(nei_value.split(":")[0]),
                     int(nei_value.split(":")[1])
                 ]))
+            elif "," in nei_value:
+                self.nei_values.append(tuple([-1,
+                    int(nei_value.split(",")[0]),
+                    int(nei_value.split(",")[1])
+                ]))
             else:
                 self.nei_values.append(tuple([int(nei_value)]))
 
     def nei_pos(self, pos: AbstractPosition):
         positions = []
         for nei_value in self.nei_values:
-            if len(nei_value) == 1:
+            if nei_value[0] == -1:
+                positions.extend(
+                    pos.neighbors(nei_value[0], nei_value[1], nei_value[2])
+                )
+            elif len(nei_value) == 1:
                 positions.extend(
                     pos.neighbors(nei_value[0], nei_value[0])
                 )
