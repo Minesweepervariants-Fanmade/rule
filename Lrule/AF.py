@@ -1,3 +1,6 @@
+"""
+[AF]下落: 雷区与题板下边缘四连通
+"""
 from ....abs.Lrule import AbstractMinesRule
 from .connect import connect_legacy as connect
 
