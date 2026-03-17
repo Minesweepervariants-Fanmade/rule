@@ -1,5 +1,5 @@
-"""
-[SETU]涩图
+﻿"""
+[SETU]娑╁浘
 """
 
 from minesweepervariants.abs import rule
@@ -9,8 +9,8 @@ from ....config.config import IMAGE_CONFIG
 import requests
 
 class RuleSETU(AbstractMinesRule):
-    name = ["SETU", "涩图"]
-    doc = "不许涩涩!"
+    name = ["SETU", "娑╁浘"]
+    doc = "涓嶈娑╂订!"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)
