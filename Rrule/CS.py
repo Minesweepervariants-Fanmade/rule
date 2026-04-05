@@ -5,12 +5,13 @@ from typing import List, Dict, Set
 
 from minesweepervariants.impl.summon.solver import Switch
 
-from ....abs.Rrule import AbstractClueRule, AbstractClueValue
+from ....abs.Rrule import AbstractClueRule, AbstractClueValue, AbstractValue
 from ....abs.board import AbstractBoard, AbstractPosition
 from ...rule.Lrule.connect import connect
 
 from ....utils.tool import get_logger, get_random
 from ....utils.image_create import get_col, get_row, get_text
+from ...impl_obj import VALUE_QUESS
 
 MISSING_VALUE = 250
 UP = 0
@@ -66,10 +67,6 @@ class RuleCS(AbstractClueRule):
                     values[LEFT] += 1
                 elif p.y > pos.y:
                     values[RIGHT] += 1
-            for i in range(4):
-                if get_random().randint(0, 1) == 0:
-                    values[i] = MISSING_VALUE
-
             board.set_value(pos, ValueCS(pos, values))
 
         return board
@@ -105,6 +102,18 @@ class ValueCS(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes(self.values)
+    
+    def weaker(self, board: AbstractBoard) -> AbstractValue:
+        if self.weaker_times() == 1:
+            return VALUE_QUESS
+
+        valid_indexes = [i for i in range(4) if self.values[i] != MISSING_VALUE]
+        new_values = self.values[:]
+        new_values[get_random().choice(valid_indexes)] = MISSING_VALUE
+        return ValueCS(self.pos, new_values)
+
+    def weaker_times(self) -> int:
+        return sum(1 for v in self.values if v != MISSING_VALUE)
     
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
