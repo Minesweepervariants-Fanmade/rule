@@ -12,7 +12,7 @@ from ...rule.Lrule.connect import connect
 from ....utils.tool import get_logger, get_random
 from ....utils.image_create import get_col, get_row, get_text
 
-MISSING_VALUE = -2
+MISSING_VALUE = 250
 UP = 0
 RIGHT = 1
 DOWN = 2
@@ -20,7 +20,7 @@ LEFT = 3
 
 class RuleCS(AbstractClueRule):
     name = ["CS", "罗盘", "Compass"]
-    doc = "线索表示四方向各相邻雷或非雷区域中，在所示方向上比线索本身更远的单元格数量。"
+    doc = "线索表示四方向各相邻雷区域中，在所示方向上比线索本身更远的单元格数量。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int], check_mine: bool):
@@ -66,10 +66,13 @@ class RuleCS(AbstractClueRule):
                     values[LEFT] += 1
                 elif p.y > pos.y:
                     values[RIGHT] += 1
+            for i in range(4):
+                if get_random().randint(0, 1) == 0:
+                    values[i] = MISSING_VALUE
+
             board.set_value(pos, ValueCS(pos, values))
 
         return board
-
     
 class ValueCS(AbstractClueValue):
     def __init__(self, pos: AbstractPosition, values: list[int] = [MISSING_VALUE, MISSING_VALUE, MISSING_VALUE, MISSING_VALUE], code: bytes = None):
