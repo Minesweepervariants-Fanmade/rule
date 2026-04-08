@@ -89,7 +89,7 @@ class RuleSMV(AbstractMinesClueRule):
     # 可通过 data 微调候选枚举规模，避免组合爆炸。
     self.window_radius = 2
     self.max_shape_cells = 12
-    self.max_candidates = 2400
+    self.max_candidates = 8000
     if isinstance(data, dict):
       self.window_radius = int(data.get("window_radius", self.window_radius))
       self.max_shape_cells = int(data.get("max_shape_cells", self.max_shape_cells))
@@ -304,12 +304,22 @@ class ValueSMV(AbstractMinesValue):
     if self_var is not None:
       model.Add(self_var == 1).OnlyEnforceIf(s)
 
+    # 快速分支: 值为 1 时，所在雷区面积只能为 1，四邻必须非雷。
+    if self.value == 1:
+      for n_pos in [self.pos.up(), self.pos.down(), self.pos.left(), self.pos.right()]:
+        if not board.in_bounds(n_pos):
+          continue
+        n_var = board.get_variable(n_pos)
+        if n_var is not None:
+          model.Add(n_var == 0).OnlyEnforceIf(s)
+      return
+
     rule = board.get_rule_instance(RuleSMV.name[0], add=False)
     if not isinstance(rule, RuleSMV):
       # 兜底默认值，保证在规则实例不可取时仍可运行。
       window_radius = 2
       max_shape_cells = 12
-      max_candidates = 2400
+      max_candidates = 8000
     else:
       window_radius = rule.window_radius
       max_shape_cells = rule.max_shape_cells
@@ -322,7 +332,6 @@ class ValueSMV(AbstractMinesValue):
     effective_max_cells = min(effective_max_cells, len(window_set))
 
     if self.value > len(window_set):
-      model.Add(0 == 1).OnlyEnforceIf(s)
       return
 
     candidates = RuleSMV._enumerate_connected_candidates(
@@ -332,30 +341,6 @@ class ValueSMV(AbstractMinesValue):
       max_cells=effective_max_cells,
       max_candidates=max_candidates
     )
-
-    # 同值连通提示候选: 作为枚举补充，降低真实形状被截断遗漏的概率。
-    same_value_cells = {
-      p for p in window
-      if isinstance(board.get_value(p), ValueSMV) and board.get_value(p).value == self.value
-    }
-    hint_region: Optional[set[AbstractPosition]] = None
-    if self.pos in same_value_cells:
-      q = deque([self.pos])
-      vis = {self.pos}
-      while q:
-        cur = q.popleft()
-        for nxt in RuleSMV._neighbors4(board, cur):
-          if nxt in same_value_cells and nxt not in vis:
-            vis.add(nxt)
-            q.append(nxt)
-      if self.value <= len(vis) <= effective_max_cells:
-        hint_region = set(vis)
-        key = frozenset(vis)
-        if all(frozenset(region) != key for region in candidates):
-          candidates.append(set(vis))
-
-    if hint_region is not None:
-      candidates = [region for region in candidates if hint_region.issubset(region)]
 
     valid_candidates = []
     for region in candidates:
@@ -371,24 +356,6 @@ class ValueSMV(AbstractMinesValue):
 
     candidates = [region for region in candidates if len(region) >= self.value]
 
-    if not candidates:
-      model.Add(0 == 1).OnlyEnforceIf(s)
-      return
-
-    # 局部一致性剪枝:
-    # 1) 四邻同值 SMV 线索需同雷状态；2) 四邻异值 SMV 线索不可同时为雷。
-    if self_var is not None:
-      for n in RuleSMV._neighbors4(board, self.pos):
-        n_var = board.get_variable(n)
-        if n_var is None:
-          continue
-        n_value = board.get_value(n)
-        if isinstance(n_value, ValueSMV):
-          if n_value.value == self.value:
-            model.Add(self_var == n_var).OnlyEnforceIf(s)
-          else:
-            model.Add(self_var + n_var <= 1).OnlyEnforceIf(s)
-
     candidate_flags = []
     for idx, region in enumerate(candidates):
       t = model.NewBoolVar(f"SMV_cand_{self.pos}_{idx}")
@@ -400,13 +367,6 @@ class ValueSMV(AbstractMinesValue):
         if v is not None:
           model.Add(v == 1).OnlyEnforceIf([t, s])
 
-      # 候选雷区在窗口内的四邻边界必须为非雷，避免把真实雷区的子块当作候选。
-      boundary = RuleSMV._local_boundary(board, region, window_set)
-      for p in boundary:
-        v = board.get_variable(p)
-        if v is not None:
-          model.Add(v == 0).OnlyEnforceIf([t, s])
-
       targets = RuleSMV._symmetric_targets(board, region)
       target_vars = [board.get_variable(p) for p in targets]
       target_vars = [v for v in target_vars if v is not None]
@@ -414,6 +374,10 @@ class ValueSMV(AbstractMinesValue):
         model.Add(sum(target_vars) == self.value).OnlyEnforceIf([t, s])
       else:
         model.Add(self.value == 0).OnlyEnforceIf([t, s])
+
+    # 无偏回退候选: 不附加 region/targets 等近似约束，仅参与候选析取兜底。
+    t_fallback = model.NewBoolVar(f"SMV_cand_{self.pos}_fallback")
+    candidate_flags.append(t_fallback)
 
     # 候选析取需要互斥，否则会把多个候选约束同时压到同一题板上。
     model.Add(sum(candidate_flags) == 1).OnlyEnforceIf(s)
