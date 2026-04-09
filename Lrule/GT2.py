@@ -3,9 +3,13 @@
 
 参数化语义:
 - 默认时，所有四连通雷/非雷区域面积都至少为 3。
-- 传入 data 后，只改变雷区域面积约束；非雷区域仍保持面积至少为 3。
-- data 支持比较串与组合串，例如 ">3"、">=2"、"<5"、"<=4"、"!=3"、">5,<=8"、">=2,<5"。
+- 传入 data 后，可通过前缀定向控制目标区域：
+    - `#` 前缀仅作用于雷区域，例如 `#1..4`。
+    - `?` 前缀仅作用于非雷区域，例如 `?1..4`。
+    - 无前缀子句默认同时作用于雷区域与非雷区域。
+- data 支持区间串与组合串，例如 "1..2"、"..5"、"1.."，其中 `..` 表示左右端点都包含。
 - 组合语义为 AND，同一连通块面积必须同时满足所有子条件。
+- data 为空字符串时，等价于未传参数，保留默认语义，不应报错。
 """
 
 from __future__ import annotations
@@ -26,35 +30,94 @@ class RuleGT2(AbstractMinesRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
-        self.mine_area_conditions: list[tuple[str, int]] = self._parse_data(data)
+        self.mine_area_conditions, self.safe_area_conditions = self._parse_data(data)
+
+    @staticmethod
+    def _parse_int(text: str, raw_data: str) -> int:
+        try:
+            return int(text)
+        except ValueError as exc:
+            raise ValueError(f"GT2 data 数值非法: {raw_data!r}") from exc
 
     @classmethod
-    def _parse_data(cls, data) -> list[tuple[str, int]]:
+    def _parse_interval_clause(cls, item: str, raw_data: str) -> list[tuple[str, int]] | None:
+        if ".." not in item:
+            return None
+
+        if item.count("..") != 1:
+            raise ValueError(f"GT2 data 区间子句非法: {raw_data!r}")
+
+        left, right = item.split("..", 1)
+        left = left.strip()
+        right = right.strip()
+
+        if not left and not right:
+            raise ValueError(f"GT2 data 区间子句不能为空: {raw_data!r}")
+
+        conditions: list[tuple[str, int]] = []
+        lower = None
+        upper = None
+
+        if left:
+            lower = cls._parse_int(left, raw_data)
+            conditions.append((">=", lower))
+
+        if right:
+            upper = cls._parse_int(right, raw_data)
+            conditions.append(("<=", upper))
+
+        if lower is not None and upper is not None and lower > upper:
+            raise ValueError(f"GT2 data 区间上下界非法: {raw_data!r}")
+
+        return conditions
+
+    @classmethod
+    def _parse_data(cls, data) -> tuple[list[tuple[str, int]], list[tuple[str, int]]]:
         if data is None:
-            return []
+            return [], []
 
         if not isinstance(data, str):
-            raise ValueError(f"GT2 data 必须是比较字符串, 但收到: {data!r}")
+            raise ValueError(f"GT2 data 必须是字符串, 但收到: {data!r}")
 
         text = data.strip()
         if not text:
-            return []
+            return [], []
 
-        conditions: list[tuple[str, int]] = []
+        mine_conditions: list[tuple[str, int]] = []
+        safe_conditions: list[tuple[str, int]] = []
         for part in text.split(","):
             item = part.strip()
             if not item:
-                raise ValueError(f"GT2 data 中存在空比较子句: {data!r}")
+                raise ValueError(f"GT2 data 中存在空子句: {data!r}")
+
+            target = "both"
+            if item[0] in ("#", "?"):
+                target = item[0]
+                item = item[1:].strip()
+                if not item:
+                    raise ValueError(f"GT2 data 子句缺少条件: {data!r}")
+
+            interval_conditions = cls._parse_interval_clause(item, data)
+            if interval_conditions is not None:
+                if target in ("both", "#"):
+                    mine_conditions.extend(interval_conditions)
+                if target in ("both", "?"):
+                    safe_conditions.extend(interval_conditions)
+                continue
 
             match = cls._COMPARATOR_RE.fullmatch(item)
             if match is None:
                 raise ValueError(f"GT2 data 格式非法: {data!r}")
 
-            conditions.append((match.group(1), int(match.group(2))))
+            condition = (match.group(1), int(match.group(2)))
+            if target in ("both", "#"):
+                mine_conditions.append(condition)
+            if target in ("both", "?"):
+                safe_conditions.append(condition)
 
-        return conditions
+        return mine_conditions, safe_conditions
 
-    def _enforce_min_area(self, model, s, component_ids, root_vars, active_vars, prefix: str):
+    def _enforce_min_area(self, model, s, component_ids, root_vars, active_vars, conditions, prefix: str):
         n = len(active_vars)
         if n == 0:
             return
@@ -76,7 +139,7 @@ class RuleGT2(AbstractMinesRule):
             model.Add(size_var == sum(member_flags)).OnlyEnforceIf(s)
 
             model.Add(size_var >= 3).OnlyEnforceIf([root_vars[i], s])
-            for op, value in self.mine_area_conditions:
+            for op, value in conditions:
                 if op == ">":
                     model.Add(size_var > value).OnlyEnforceIf([root_vars[i], s])
                 elif op == ">=":
@@ -137,5 +200,21 @@ class RuleGT2(AbstractMinesRule):
             active_mines = [var for _, var in positions_vars]
             active_safe = safe_vars
 
-            self._enforce_min_area(model, s, mine_component_ids, root_mines, active_mines, f"gt2_{key}_mine")
-            self._enforce_min_area(model, s, safe_component_ids, root_safe, active_safe, f"gt2_{key}_safe")
+            self._enforce_min_area(
+                model,
+                s,
+                mine_component_ids,
+                root_mines,
+                active_mines,
+                self.mine_area_conditions,
+                f"gt2_{key}_mine",
+            )
+            self._enforce_min_area(
+                model,
+                s,
+                safe_component_ids,
+                root_safe,
+                active_safe,
+                self.safe_area_conditions,
+                f"gt2_{key}_safe",
+            )
