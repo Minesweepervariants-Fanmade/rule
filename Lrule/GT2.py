@@ -1,6 +1,16 @@
 """
 [GT2] 所有四连通雷/非雷区域面积大于 2。
+
+参数化语义:
+- 默认时，所有四连通雷/非雷区域面积都至少为 3。
+- 传入 data 后，只改变雷区域面积约束；非雷区域仍保持面积至少为 3。
+- data 支持比较串与组合串，例如 ">3"、">=2"、"<5"、"<=4"、"!=3"、">5,<=8"、">=2,<5"。
+- 组合语义为 AND，同一连通块面积必须同时满足所有子条件。
 """
+
+from __future__ import annotations
+
+import re
 
 from ....abs.Lrule import AbstractMinesRule
 from ....abs.board import AbstractBoard
@@ -11,6 +21,38 @@ from .connect import connect
 class RuleGT2(AbstractMinesRule):
     name = ["GT2", "所有四连通雷/非雷区域面积大于 2", "GT2"]
     doc = "所有四连通雷/非雷区域面积大于 2"
+
+    _COMPARATOR_RE = re.compile(r"^(>=|<=|!=|>|<)\s*(-?\d+)$")
+
+    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+        super().__init__(board, data)
+        self.mine_area_conditions: list[tuple[str, int]] = self._parse_data(data)
+
+    @classmethod
+    def _parse_data(cls, data) -> list[tuple[str, int]]:
+        if data is None:
+            return []
+
+        if not isinstance(data, str):
+            raise ValueError(f"GT2 data 必须是比较字符串, 但收到: {data!r}")
+
+        text = data.strip()
+        if not text:
+            return []
+
+        conditions: list[tuple[str, int]] = []
+        for part in text.split(","):
+            item = part.strip()
+            if not item:
+                raise ValueError(f"GT2 data 中存在空比较子句: {data!r}")
+
+            match = cls._COMPARATOR_RE.fullmatch(item)
+            if match is None:
+                raise ValueError(f"GT2 data 格式非法: {data!r}")
+
+            conditions.append((match.group(1), int(match.group(2))))
+
+        return conditions
 
     def _enforce_min_area(self, model, s, component_ids, root_vars, active_vars, prefix: str):
         n = len(active_vars)
@@ -32,7 +74,21 @@ class RuleGT2(AbstractMinesRule):
                 member_flags.append(member)
 
             model.Add(size_var == sum(member_flags)).OnlyEnforceIf(s)
+
             model.Add(size_var >= 3).OnlyEnforceIf([root_vars[i], s])
+            for op, value in self.mine_area_conditions:
+                if op == ">":
+                    model.Add(size_var > value).OnlyEnforceIf([root_vars[i], s])
+                elif op == ">=":
+                    model.Add(size_var >= value).OnlyEnforceIf([root_vars[i], s])
+                elif op == "<":
+                    model.Add(size_var < value).OnlyEnforceIf([root_vars[i], s])
+                elif op == "<=":
+                    model.Add(size_var <= value).OnlyEnforceIf([root_vars[i], s])
+                elif op == "!=":
+                    model.Add(size_var != value).OnlyEnforceIf([root_vars[i], s])
+                else:
+                    raise ValueError(f"GT2 不支持的比较符号: {op!r}")
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
