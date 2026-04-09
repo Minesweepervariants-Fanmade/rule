@@ -34,7 +34,7 @@ from ....abs.board import AbstractBoard
 
 class RuleGM(AbstractMinesRule):
     name = ["GM", "棍木"]
-    doc = "GM 规则的占位实现：进入持续等待，不添加任何约束，不修改 board"
+    doc = ""
 
     def create_constraints(self, board: "AbstractBoard", switch):
         while True:
