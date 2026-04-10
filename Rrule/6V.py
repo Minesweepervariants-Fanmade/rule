@@ -45,6 +45,7 @@ class Rule6V(AbstractClueRule):
     doc = "已给线索值命中周围雷数的非线索格必须为雷"
 
     dynamic_dig_enabled = True
+    dynamic_dig_use_visibility_optimizer = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
@@ -85,61 +86,6 @@ class Rule6V(AbstractClueRule):
 
     def dynamic_on_visibility_changed(self, board, visibility_state, changed_positions):
         self._rebuild_visible_values(board, visibility_state)
-
-    def dynamic_dig_visibility_candidates(self, board, visibility_state):
-        interactive_keys = board.get_interactive_keys()
-        clue_counts_by_key: dict[str, dict[tuple[int, int], int]] = {
-            key: {} for key in interactive_keys
-        }
-        all_clue_values: set[int] = set()
-
-        for key in interactive_keys:
-            for pos, obj in board(key=key):
-                if not isinstance(obj, Value6V):
-                    continue
-                clue_counts_by_key[key][(pos.x, pos.y)] = obj.count
-                all_clue_values.add(obj.count)
-
-        clue_values = sorted(all_clue_values)
-        candidates: list[dict[str, tuple[tuple[bool, ...], ...]]] = []
-        seen: set[tuple[tuple[str, tuple[tuple[bool, ...], ...]], ...]] = set()
-
-        for mask in range(1 << len(clue_values)):
-            kept_values = {
-                clue_values[i]
-                for i in range(len(clue_values))
-                if (mask >> i) & 1
-            }
-
-            pattern: dict[str, tuple[tuple[bool, ...], ...]] = {}
-            for key in interactive_keys:
-                key_visibility = visibility_state.get(key, {})
-                key_clues = clue_counts_by_key.get(key, {})
-                width, height = board.get_config(key, "size")
-
-                rows: list[tuple[bool, ...]] = []
-                for y in range(height):
-                    row: list[bool] = []
-                    for x in range(width):
-                        state = key_visibility.get((x, y), None)
-                        clue_count = key_clues.get((x, y), None)
-                        visible = (
-                            state is not None and
-                            clue_count is not None and
-                            clue_count in kept_values
-                        )
-                        row.append(visible)
-                    rows.append(tuple(row))
-
-                pattern[key] = tuple(rows)
-
-            signature = tuple((key, pattern[key]) for key in interactive_keys)
-            if signature in seen:
-                continue
-            seen.add(signature)
-            candidates.append(pattern)
-
-        return candidates
 
     def fill(self, board: "AbstractBoard") -> "AbstractBoard":
         for key in board.get_interactive_keys():
