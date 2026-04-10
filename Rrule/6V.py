@@ -41,7 +41,7 @@ from ....abs.board import AbstractBoard, AbstractPosition
 
 
 class Rule6V(AbstractClueRule):
-    name = ["6V", "经典扫雷(全标)", "Vanilla(All Given)"]
+    name = ["6V", "经典扫雷(全标)", "Vanilla(Full Marking)"]
     doc = "盘面上的数字线索标识周围八格的雷数。盘面上所有已给出的数字均已给出。其他格子不可能再出现已经给出的数字。"
 
     dynamic_dig_enabled = True
