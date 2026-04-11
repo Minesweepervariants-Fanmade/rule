@@ -9,6 +9,23 @@ import ast
 from typing import Dict, Union
 
 
+def _extract_author_text(node) -> str | None:
+    if isinstance(node, ast.Constant):
+        if isinstance(node.value, (str, int)):
+            return str(node.value).strip()
+        return None
+    if isinstance(node, (ast.List, ast.Tuple)):
+        parts = []
+        for elt in node.elts:
+            text = _extract_author_text(elt)
+            if text:
+                parts.append(text)
+        if len(parts) == 2 and parts[1].isdigit():
+            return f"{parts[0]}({parts[1]})"
+        return None
+    return None
+
+
 def extract_module_docstring(filepath) -> Union[Dict, None]:
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
@@ -82,6 +99,13 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                         # 处理单个字符串的情况
                         doc_val = stmt.value.s.strip()
                         info["doc"] = doc_val
+                    if (
+                        isinstance(target, ast.Name) and
+                        target.id == "author"
+                    ):
+                        author_val = _extract_author_text(stmt.value)
+                        if author_val:
+                            info["author"] = author_val
         if "names" in info:
             return info
     return None
@@ -100,14 +124,15 @@ def scan_module_docstrings(directory):
                 x = pck.get('x', 0)
                 names = pck.get('names', [])
                 doc = pck.get('doc', "")
-                results.append((m_doc, doc, x, names))
+                author = pck.get('author', "")
+                results.append((m_doc, doc, x, names, author))
     return results
 
 
 def get_all_rules():
     results = {"R": {}, "M": {}, "L": {}, "O": {}}
     dir_path = os.path.dirname(os.path.abspath(__file__))
-    for m_doc, doc, x, names in scan_module_docstrings(dir_path):
+    for m_doc, doc, x, names, author in scan_module_docstrings(dir_path):
         if not names:
             continue
         name, names = names[0], names[1:]
@@ -124,5 +149,6 @@ def get_all_rules():
             "names": names,
             "doc": doc,
             "module_doc": m_doc,
+            "author": author,
         }
     return results
