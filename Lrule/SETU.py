@@ -16,6 +16,71 @@ def _looks_like_path(text: str) -> bool:
     return lower.endswith((".png", ".jpg", ".jpeg", ".webp", ".bmp", ".gif"))
 
 
+def _unwrap_outer_braces(text: str) -> str:
+    s = text.strip()
+    while s.startswith("{") and s.endswith("}"):
+        depth = 0
+        wrapped = True
+        for idx, ch in enumerate(s):
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth < 0:
+                    wrapped = False
+                    break
+                if depth == 0 and idx != len(s) - 1:
+                    wrapped = False
+                    break
+        if not wrapped or depth != 0:
+            break
+        s = s[1:-1].strip()
+    return s
+
+
+def split_setu_parts(data) -> list[str]:
+    if not data:
+        return []
+    text = str(data)
+    parts = []
+    current = []
+    brace_depth = 0
+    for ch in text:
+        if ch == "{":
+            brace_depth += 1
+            current.append(ch)
+            continue
+        if ch == "}":
+            brace_depth = max(0, brace_depth - 1)
+            current.append(ch)
+            continue
+        if ch == ";" and brace_depth == 0:
+            item = "".join(current).strip()
+            if item:
+                parts.append(item)
+            current = []
+            continue
+        current.append(ch)
+    item = "".join(current).strip()
+    if item:
+        parts.append(item)
+    return parts
+
+
+def split_setu_key_value(part: str) -> tuple[str | None, str | None]:
+    brace_depth = 0
+    for idx, ch in enumerate(part):
+        if ch == "{":
+            brace_depth += 1
+            continue
+        if ch == "}":
+            brace_depth = max(0, brace_depth - 1)
+            continue
+        if ch == "=" and brace_depth == 0:
+            return part[:idx], part[idx + 1:]
+    return None, None
+
+
 def parse_setu_image_data(data) -> tuple[str | None, str | None]:
     image_source = None
     keyword = None
@@ -23,19 +88,20 @@ def parse_setu_image_data(data) -> tuple[str | None, str | None]:
     if not data:
         return image_source, keyword
 
-    parts = [x.strip() for x in str(data).split(";") if x.strip()]
+    parts = split_setu_parts(data)
     if not parts:
         return image_source, keyword
 
-    if "=" not in parts[0]:
-        image_source = parts[0]
+    k0, v0 = split_setu_key_value(parts[0])
+    if k0 is None:
+        image_source = _unwrap_outer_braces(parts[0])
 
     for part in parts[1:] if image_source else parts:
-        if "=" not in part:
+        key, val = split_setu_key_value(part)
+        if key is None:
             continue
-        key, val = part.split("=", 1)
         key = key.strip().lower()
-        val = val.strip().strip("\"'")
+        val = _unwrap_outer_braces(val.strip().strip("\"'"))
         if not val:
             continue
         if key in ("a", "url", "path", "source"):
@@ -61,7 +127,7 @@ def _fetch_setu_url(keyword: str | None = None, rule_name: str = "SETU"):
 
 
 def _load_image_from_link(link: str, rule_name: str = "SETU"):
-    link = link.strip().strip("\"'")
+    link = _unwrap_outer_braces(link.strip().strip("\"'"))
     if link.startswith(("http://", "https://")):
         resp = requests.get(link, timeout=10)
         resp.raise_for_status()
@@ -86,7 +152,7 @@ def resolve_setu_image_ref(
     default_random: bool = True,
 ) -> str | None:
     if image_source:
-        source = image_source.strip().strip("\"'")
+        source = _unwrap_outer_braces(image_source.strip().strip("\"'"))
         if source.startswith(("http://", "https://")):
             return source
         if source.startswith("file://"):
@@ -120,7 +186,7 @@ def resolve_setu_image(
     default_random: bool = True,
 ):
     if image_source:
-        source = image_source.strip().strip("\"'")
+        source = _unwrap_outer_braces(image_source.strip().strip("\"'"))
         if source.startswith(("http://", "https://", "file://")):
             return _load_image_from_link(source, rule_name=rule_name)
 

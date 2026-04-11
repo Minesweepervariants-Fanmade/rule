@@ -5,7 +5,12 @@ from minesweepervariants.abs.board import AbstractBoard
 from minesweepervariants.utils.convert_images_to_rgba import convert_images_to_rgba
 from minesweepervariants.utils.image_create import register_final_image_postprocess_callback
 from minesweepervariants.utils.tool import get_logger
-from .SETU import parse_setu_image_data, resolve_setu_image
+from .SETU import (
+    parse_setu_image_data,
+    resolve_setu_image,
+    split_setu_parts,
+    split_setu_key_value,
+)
 
 
 class RuleSETUHat(AbstractMinesRule):
@@ -43,11 +48,11 @@ class RuleSETUHat(AbstractMinesRule):
         self.image_a_source, self.image_a_keyword = parse_setu_image_data(data)
         if not data:
             return
-        parts = [x.strip() for x in str(data).split(";") if x.strip()]
+        parts = split_setu_parts(data)
         for part in parts[1:] if self.image_a_source else parts:
-            if "=" not in part:
+            key, val = split_setu_key_value(part)
+            if key is None:
                 continue
-            key, val = part.split("=", 1)
             key = key.strip().lower()
             val = val.strip().strip("\"'")
             try:
