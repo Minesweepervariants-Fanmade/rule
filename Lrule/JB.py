@@ -97,6 +97,7 @@ def _diag_corners(a: RectTemplate, b: RectTemplate) -> Tuple[int, int] | None:
 class RuleJB(AbstractMinesRule):
     name = ["JB", "格调", "Adick"]
     doc = "每组恰好由 1 个非方形矩形和 2 个方形矩形组成；短边两端分别与两个方形矩形对角接触，且组间完全不接触"
+    author = ('NT', 2201963934)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
