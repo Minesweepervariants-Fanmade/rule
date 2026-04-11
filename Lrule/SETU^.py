@@ -53,14 +53,12 @@ class RuleSETUHat(AbstractMinesRule):
             try:
                 if key == "white_pct":
                     self.white_pct = float(val)
+                    self.auto_tune_top = False
                 elif key == "black_pct":
                     self.black_pct = float(val)
+                    self.auto_tune_black = False
                 elif key == "invert_b":
                     self.invert_b = val.lower() in ("1", "true", "yes", "y", "on")
-                elif key == "auto_tune_top":
-                    self.auto_tune_top = val.lower() in ("1", "true", "yes", "y", "on")
-                elif key == "auto_tune_black":
-                    self.auto_tune_black = val.lower() in ("1", "true", "yes", "y", "on")
             except Exception as exc:
                 get_logger().warning(f"SETU^ 参数解析失败[{part}]: {exc}")
 
