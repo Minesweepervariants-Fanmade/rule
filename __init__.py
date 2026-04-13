@@ -9,7 +9,7 @@ import ast
 from typing import Dict, Union
 
 
-def _extract_author_text(node) -> str | None:
+def _extract_author_text(node) -> tuple[str, str] | str | None:
     if isinstance(node, ast.Constant):
         if isinstance(node.value, (str, int)):
             return str(node.value).strip()
@@ -21,7 +21,7 @@ def _extract_author_text(node) -> str | None:
             if text:
                 parts.append(text)
         if len(parts) == 2 and parts[1].isdigit():
-            return f"{parts[0]}({parts[1]})"
+            return parts[0], parts[1]
         return None
     return None
 
@@ -124,7 +124,7 @@ def scan_module_docstrings(directory):
                 x = pck.get('x', 0)
                 names = pck.get('names', [])
                 doc = pck.get('doc', "")
-                author = pck.get('author', "")
+                author = pck.get('author', ())
                 results.append((m_doc, doc, x, names, author))
     return results
 
