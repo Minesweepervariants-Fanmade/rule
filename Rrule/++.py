@@ -8,7 +8,8 @@ from ....utils.tool import get_logger
 
 class Rule3H(AbstractClueRule):
     name = ["++", "艹", "plusplus"]
-    doc = "线索表示周围这些格子的雷数LL;LU;LD;L;RR;RU;RD;RR"
+    doc = "线索表示周围这些格子的雷数LL;LU;LD;L;RR;RU;RD;R"
+    author = ("NT", 2201963934)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()
