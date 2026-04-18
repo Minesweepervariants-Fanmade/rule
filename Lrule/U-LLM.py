@@ -34,12 +34,15 @@ import json
 import os
 import random
 
-from openai import OpenAI
-from openai import APIError as OpenAIAPIError
-from openai import APIConnectionError as OpenAIConnectionError
-from openai import AuthenticationError as OpenAIAuthenticationError
-from openai import RateLimitError as OpenAIRateLimitError
-from openai import Timeout as OpenAITimeout
+try:
+    from openai import OpenAI
+    from openai import APIError as OpenAIAPIError
+    from openai import APIConnectionError as OpenAIConnectionError
+    from openai import AuthenticationError as OpenAIAuthenticationError
+    from openai import RateLimitError as OpenAIRateLimitError
+    from openai import Timeout as OpenAITimeout
+except ImportError:
+    pass
 
 from ....abs.Lrule import AbstractMinesRule
 from ....abs.board import AbstractBoard

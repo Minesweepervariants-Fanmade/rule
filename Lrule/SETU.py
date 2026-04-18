@@ -3,6 +3,11 @@ from pathlib import Path
 
 import requests
 
+try:
+    from PIL import Image
+except ImportError:
+    pass
+
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.abs.board import AbstractBoard
 from ....config.config import IMAGE_CONFIG
@@ -126,7 +131,6 @@ def _fetch_setu_url(keyword: str | None = None, rule_name: str = "SETU"):
 
 
 def _load_image_from_link(link: str, rule_name: str = "SETU"):
-    from PIL import Image
     link = _unwrap_outer_braces(link.strip().strip("\"'"))
     if link.startswith(("http://", "https://")):
         resp = requests.get(link, timeout=10)
@@ -194,7 +198,6 @@ def resolve_setu_image(
         if not path.is_absolute():
             path = Path.cwd() / path
         if path.exists():
-            from PIL import Image
             return Image.open(path).convert("RGB")
 
         if _looks_like_path(source):
