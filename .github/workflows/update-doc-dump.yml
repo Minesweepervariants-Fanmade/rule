@@ -25,17 +25,27 @@ jobs:
           set -euo pipefail
 
           tmp_dir="$(mktemp -d)"
+          tmp_raw="${tmp_dir}/dump.raw.json"
+          tmp_json="${tmp_dir}/dump.json"
           git clone --recursive https://github.com/Minesweepervariants-Fanmade/MinesweeperVariants "${tmp_dir}/upstream"
 
           python -m pip install --upgrade pip
           python -m pip install "${tmp_dir}/upstream"
 
+          pushd "${tmp_dir}/upstream" >/dev/null
+          python -m minesweepervariants list --json > "${tmp_raw}"
+          popd >/dev/null
+
+          echo "----- BEGIN GENERATED RAW OUTPUT -----"
+          cat "${tmp_raw}"
+          echo "----- END GENERATED RAW OUTPUT -----"
+
+          python -m json.tool "${tmp_raw}" > "${tmp_json}"
+          test -s "${tmp_json}"
+
           # Keep doc branch content strictly to dump.json.
           find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
-
-          pushd "${tmp_dir}/upstream" >/dev/null
-          python -m minesweepervariants list --json > "${GITHUB_WORKSPACE}/dump.json"
-          popd >/dev/null
+          mv "${tmp_json}" "${GITHUB_WORKSPACE}/dump.json"
 
       - name: Validate dump.json
         shell: bash
