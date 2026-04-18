@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MinesweeperVariants Rule Dump</title>
+</head>
+<body>
+  <h1>Rule Dump</h1>
+  <p>Data source: dump.json</p>
+  <div id="app">Loading...</div>
+
+  <script>
+    (function () {
+      var IMAGE_BASE = "https://raw.githubusercontent.com/Minesweepervariants-Fanmade/rule/master/image/";
+      var RULE_LINES = ["L", "M", "R"];
+
+      function text(value) {
+        return value == null ? "" : String(value);
+      }
+
+      function appendTextElement(parent, tagName, content) {
+        var el = document.createElement(tagName);
+        el.textContent = content;
+        parent.appendChild(el);
+        return el;
+      }
+
+      function buildImageUrl(imageName) {
+        return new URL(imageName.trim(), IMAGE_BASE).href;
+      }
+
+      function makeRuleItem(rule) {
+        var item = document.createElement("li");
+
+        var title = document.createElement("h3");
+        title.textContent = "[" + text(rule.name) + "] " + text(rule.display || "");
+        item.appendChild(title);
+
+        var names = (rule.names || []).join(", ");
+        appendTextElement(item, "p", "别名: " + names);
+
+        var authorName = text(rule.author && rule.author.name);
+        var authorId = text(rule.author && rule.author.id);
+        appendTextElement(item, "p", "作者: " + (authorName || "(空)") + (authorId ? " (" + authorId + ")" : ""));
+
+        appendTextElement(item, "p", "说明: " + text(rule.doc));
+
+        var imageName = text(rule.image).trim();
+        if (imageName) {
+          var imageTitle = document.createElement("p");
+          imageTitle.textContent = "图片: " + imageName;
+          item.appendChild(imageTitle);
+
+          var imageStatus = document.createElement("p");
+          imageStatus.textContent = "加载中...";
+          item.appendChild(imageStatus);
+
+          var img = document.createElement("img");
+          img.alt = imageName;
+          var current = buildImageUrl(imageName);
+          imageStatus.textContent = "尝试: " + current;
+          img.src = current;
+
+          img.addEventListener("load", function () {
+            imageStatus.textContent = "已加载: " + img.src;
+          });
+
+          img.addEventListener("error", function () {
+            imageStatus.textContent = "图片加载失败: " + current;
+          });
+          item.appendChild(img);
+        }
+
+        return item;
+      }
+
+      function render(root, data) {
+        root.textContent = "";
+
+        for (var i = 0; i < RULE_LINES.length; i++) {
+          var line = RULE_LINES[i];
+          var section = document.createElement("section");
+          var list = Array.isArray(data[line]) ? data[line] : [];
+
+          appendTextElement(section, "h2", line + " Rules (" + list.length + ")");
+
+          var ul = document.createElement("ul");
+          for (var j = 0; j < list.length; j++) {
+            ul.appendChild(makeRuleItem(list[j]));
+          }
+          section.appendChild(ul);
+          root.appendChild(section);
+        }
+      }
+
+      function renderError(root, message) {
+        root.textContent = "";
+        appendTextElement(root, "p", "加载失败: " + message);
+      }
+
+      var app = document.getElementById("app");
+      fetch("dump.json", { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) {
+            throw new Error("HTTP " + res.status);
+          }
+          return res.json();
+        })
+        .then(function (data) {
+          render(app, data);
+        })
+        .catch(function (err) {
+          renderError(app, err && err.message ? err.message : String(err));
+        });
+    })();
+  </script>
+</body>
+</html>
