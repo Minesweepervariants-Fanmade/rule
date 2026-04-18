@@ -1,0 +1,160 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f4ee;
+  --panel: #ffffff;
+  --panel-2: #f1ebe1;
+  --text: #1f1a17;
+  --muted: #6e6258;
+  --accent: #7d4f24;
+  --border: #d9cbb7;
+  --shadow: 0 12px 30px rgba(58, 40, 24, 0.08);
+}
+
+html {
+  background: linear-gradient(180deg, #faf7f2 0%, #f3ede3 100%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.page-body {
+  margin: 0;
+  padding: 32px 20px 48px;
+  color: var(--text);
+  font: 16px/1.6 "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+
+.page-title,
+.rule-line-title,
+.rule-title,
+.rule-alias,
+.rule-author,
+.rule-doc-text,
+.rule-doc,
+.rule-error {
+  margin: 0;
+}
+
+.page-title {
+  max-width: 1100px;
+  margin: 0 auto 8px;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.rule-app {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.rule-section {
+  margin-top: 28px;
+}
+
+.rule-line-title {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 1.25rem;
+}
+
+.rule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  column-width: 320px;
+  column-gap: 16px;
+}
+
+.rule-item {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 16px 18px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.rule-title {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  color: var(--accent);
+}
+
+.rule-alias,
+.rule-author {
+  margin-top: 6px;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.rule-doc {
+  padding: 10px 12px;
+  margin-top: 10px;
+  background: var(--panel-2);
+  border-radius: 10px;
+  color: var(--muted);
+}
+
+.rule-doc-text {
+  color: var(--muted);
+  word-break: break-word;
+}
+
+.rule-image {
+  display: block;
+  max-width: min(100%, 420px);
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.rule-error {
+  color: #b2291f;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .page-body {
+    padding: 20px 14px 36px;
+    font-size: 15px;
+  }
+
+  .rule-section {
+    margin-top: 20px;
+  }
+
+  .rule-list {
+    column-count: 1;
+    column-gap: 0;
+  }
+
+  .rule-item {
+    border-radius: 14px;
+    padding: 15px 15px 14px;
+    margin-bottom: 14px;
+  }
+
+  .rule-image {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1040px) {
+  .rule-list {
+    column-width: 360px;
+    column-gap: 20px;
+  }
+
+  .rule-item {
+    padding: 18px 20px 16px;
+  }
+}

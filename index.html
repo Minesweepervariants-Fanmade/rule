@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MinesweeperVariants Rule Dump</title>
+  <title>MinesweeperVariants 规则列表</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-  <h1>Rule Dump</h1>
-  <p>Data source: dump.json</p>
-  <div id="app">Loading...</div>
+<body class="page-body">
+  <h1 class="page-title">规则列表</h1>
+  <div id="app" class="rule-app">Loading...</div>
 
   <script>
     (function () {
@@ -19,8 +19,11 @@
         return value == null ? "" : String(value);
       }
 
-      function appendTextElement(parent, tagName, content) {
+      function appendTextElement(parent, tagName, content, className) {
         var el = document.createElement(tagName);
+        if (className) {
+          el.className = className;
+        }
         el.textContent = content;
         parent.appendChild(el);
         return el;
@@ -32,44 +35,37 @@
 
       function makeRuleItem(rule) {
         var item = document.createElement("li");
+        item.className = "rule-item";
 
         var title = document.createElement("h3");
-        title.textContent = "[" + text(rule.name) + "] " + text(rule.display || "");
-        item.appendChild(title);
-
+        title.className = "rule-title";
         var names = (rule.names || []).join(", ");
-        appendTextElement(item, "p", "别名: " + names);
+        title.textContent = "[" + text(rule.name) + "]" + (names ? " " + names : "");
+        item.appendChild(title);
 
         var authorName = text(rule.author && rule.author.name);
         var authorId = text(rule.author && rule.author.id);
-        appendTextElement(item, "p", "作者: " + (authorName || "(空)") + (authorId ? " (" + authorId + ")" : ""));
+        appendTextElement(item, "p", "作者: " + (authorName || "(未知)") + (authorId ? " (" + authorId + ")" : ""), "rule-author");
 
-        appendTextElement(item, "p", "说明: " + text(rule.doc));
-
+        var docContent = text(rule.doc || "(无说明)").trim();
         var imageName = text(rule.image).trim();
-        if (imageName) {
-          var imageTitle = document.createElement("p");
-          imageTitle.textContent = "图片: " + imageName;
-          item.appendChild(imageTitle);
+        if (docContent || imageName) {
+          var docContainer = document.createElement("div");
+          docContainer.className = "rule-doc";
 
-          var imageStatus = document.createElement("p");
-          imageStatus.textContent = "加载中...";
-          item.appendChild(imageStatus);
+          if (docContent) {
+            appendTextElement(docContainer, "p", docContent, "rule-doc-text");
+          }
 
+          if (imageName) {
           var img = document.createElement("img");
+          img.className = "rule-image";
           img.alt = imageName;
-          var current = buildImageUrl(imageName);
-          imageStatus.textContent = "尝试: " + current;
-          img.src = current;
+          img.src = buildImageUrl(imageName);
+            docContainer.appendChild(img);
+          }
 
-          img.addEventListener("load", function () {
-            imageStatus.textContent = "已加载: " + img.src;
-          });
-
-          img.addEventListener("error", function () {
-            imageStatus.textContent = "图片加载失败: " + current;
-          });
-          item.appendChild(img);
+          item.appendChild(docContainer);
         }
 
         return item;
@@ -81,11 +77,13 @@
         for (var i = 0; i < RULE_LINES.length; i++) {
           var line = RULE_LINES[i];
           var section = document.createElement("section");
+          section.className = "rule-section";
           var list = Array.isArray(data[line]) ? data[line] : [];
 
-          appendTextElement(section, "h2", line + " Rules (" + list.length + ")");
+          appendTextElement(section, "h2", line + " Rules (" + list.length + ")", "rule-line-title");
 
           var ul = document.createElement("ul");
+          ul.className = "rule-list";
           for (var j = 0; j < list.length; j++) {
             ul.appendChild(makeRuleItem(list[j]));
           }
@@ -96,7 +94,7 @@
 
       function renderError(root, message) {
         root.textContent = "";
-        appendTextElement(root, "p", "加载失败: " + message);
+        appendTextElement(root, "p", "加载失败: " + message, "rule-error");
       }
 
       var app = document.getElementById("app");
