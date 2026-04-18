@@ -42,11 +42,12 @@ jobs:
           python -m minesweepervariants list --json > "${tmp_raw}"
           popd >/dev/null
 
-          echo "----- BEGIN GENERATED RAW OUTPUT -----"
-          cat "${tmp_raw}"
-          echo "----- END GENERATED RAW OUTPUT -----"
-
-          python -m json.tool "${tmp_raw}" > "${tmp_json}"
+          if ! python -m json.tool "${tmp_raw}" > "${tmp_json}"; then
+            echo "----- BEGIN GENERATED RAW OUTPUT (ON FAILURE) -----"
+            cat "${tmp_raw}"
+            echo "----- END GENERATED RAW OUTPUT (ON FAILURE) -----"
+            exit 1
+          fi
           test -s "${tmp_json}"
 
           # Keep doc branch content strictly to dump.json.
