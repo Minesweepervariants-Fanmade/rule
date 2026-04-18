@@ -3,7 +3,7 @@ name: Update doc dump.json
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: write
