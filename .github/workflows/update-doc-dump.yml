@@ -29,6 +29,12 @@ jobs:
           tmp_json="${tmp_dir}/dump.json"
           git clone --recursive https://github.com/Minesweepervariants-Fanmade/MinesweeperVariants "${tmp_dir}/upstream"
 
+          pushd "${tmp_dir}/upstream/minesweepervariants/impl/rule" >/dev/null
+          git fetch origin master
+          git checkout master
+          git pull --ff-only origin master
+          popd >/dev/null
+
           python -m pip install --upgrade pip
           python -m pip install "${tmp_dir}/upstream"
 
