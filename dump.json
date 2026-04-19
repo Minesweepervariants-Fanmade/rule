@@ -2056,6 +2056,20 @@
         },
         {
             "rule_line": "R",
+            "name": "DJ",
+            "names": [
+                "\u4e0d\u76f8\u4ea4"
+            ],
+            "author": {
+                "name": "",
+                "id": ""
+            },
+            "image": "",
+            "doc": "\u5b58\u5728\u4e24\u4e2a\u4e3b\u677f\uff0c\u4e24\u4e2a\u4e3b\u677f\u540c\u4e00\u4f4d\u7f6e\u7684\u683c\u5b50\u4e0d\u80fd\u90fd\u662f\u96f7\u3002DJ:A+B;C+D \u8868\u793a\u5de6\u677f\u4e3a A B \u89c4\u5219\uff0c\u53f3\u677f\u4e3a C D \u89c4\u5219",
+            "display": "[DJ]\u4e0d\u76f8\u4ea4: \u5b58\u5728\u4e24\u4e2a\u4e3b\u677f\uff0c\u4e24\u4e2a\u4e3b\u677f\u540c\u4e00\u4f4d\u7f6e\u7684\u683c\u5b50\u4e0d\u80fd\u90fd\u662f\u96f7\u3002DJ:A+B;C+D \u8868\u793a\u5de6\u677f\u4e3a A B \u89c4\u5219\uff0c\u53f3\u677f\u4e3a C D \u89c4\u5219"
+        },
+        {
+            "rule_line": "R",
             "name": "BT",
             "names": [
                 "\u526f\u677f\u5171\u7528"
