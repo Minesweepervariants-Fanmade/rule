@@ -2381,6 +2381,20 @@
         },
         {
             "rule_line": "R",
+            "name": "3A^",
+            "names": [
+                "\u5170\u987f\u8682\u8681\u00b7\u5f02\u6216"
+            ],
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "doc": "\u5c06\u5170\u987f\u8682\u8681[3A]\u56db\u4e2a\u65b9\u5411\u7684\u7ed3\u679c\u505a\u5f02\u6216\u64cd\u4f5c \u82e5\u7ed3\u679c\u4e3a\u65e0\u7a77\u5927\u5219\u4f7f\u7528\u8865\u7801\u5f62\u5f0f\u663e\u793a",
+            "display": "[3A^]\u5170\u987f\u8682\u8681\u00b7\u5f02\u6216[@Author=\u96fe(3140864122)]: \u5c06\u5170\u987f\u8682\u8681[3A]\u56db\u4e2a\u65b9\u5411\u7684\u7ed3\u679c\u505a\u5f02\u6216\u64cd\u4f5c \u82e5\u7ed3\u679c\u4e3a\u65e0\u7a77\u5927\u5219\u4f7f\u7528\u8865\u7801\u5f62\u5f0f\u663e\u793a"
+        },
+        {
+            "rule_line": "R",
             "name": "V'",
             "names": [
                 "\u96f7\u503c",
