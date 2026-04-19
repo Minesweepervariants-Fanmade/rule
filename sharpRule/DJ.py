@@ -9,7 +9,7 @@ from ..Rrule.sharp import RuleSharp as ClueSharp
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 class RuleDJ(AbstractClueRule):
-    name = ["DJ", "不相交"]
+    name = ["DJ", "不相交", "Disjoint"]
     doc = "存在两个主板，两个主板同一位置的格子不能都是雷。DJ:A+B;C+D 表示左板为 A B 规则，右板为 C D 规则"
 
     def __init__(self, board: AbstractBoard = None, data: str = 'V;V') -> None:
