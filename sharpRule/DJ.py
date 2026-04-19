@@ -4,6 +4,7 @@ from typing import Any, Generator, List
 from ....abs.board import MASTER_BOARD, AbstractPosition
 
 from ....abs.Rrule import AbstractClueRule
+from ....impl.rule.Rrule.V import RuleV
 from ....abs.board import AbstractBoard
 from ..Rrule.sharp import RuleSharp as ClueSharp
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
@@ -38,6 +39,10 @@ class RuleDJ(AbstractClueRule):
                 self.right_rules.append(board.get_rule_instance(data, add=False))
         self.left_rule = ClueSharp(board=board, data=[rule for rule in self.left_rules if isinstance(rule, AbstractClueRule)])
         self.right_rule = ClueSharp(board=board, data=[rule for rule in self.right_rules if isinstance(rule, AbstractClueRule)])
+        if not self.left_rule.rules:
+            self.left_rule = RuleV()
+        if not self.right_rule.rules:
+            self.right_rule = RuleV()
         board.set_config('1', "by_mini", sum(1 for rule in self.left_rules if isinstance(rule, AbstractClueRule)) > 1)
         board.set_config('2', "by_mini", sum(1 for rule in self.right_rules if isinstance(rule, AbstractClueRule)) > 1)
         
