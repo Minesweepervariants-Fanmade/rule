@@ -1,11 +1,11 @@
 from ortools.sat.python.cp_model import CpModel, IntVar
 from typing import Any, Generator, List
 
-from minesweepervariants.abs.board import MASTER_BOARD, AbstractPosition
+from ....abs.board import MASTER_BOARD, AbstractPosition
 
 from ....abs.Rrule import AbstractClueRule
 from ....abs.board import AbstractBoard
-from ....impl.rule.Rrule.sharp import RuleSharp as ClueSharp
+from ..Rrule.sharp import RuleSharp as ClueSharp
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 class RuleDJ(AbstractClueRule):
