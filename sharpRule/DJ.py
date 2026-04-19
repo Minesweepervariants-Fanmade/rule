@@ -76,7 +76,7 @@ class SubBoard(AbstractBoard):
         self.key = key
 
     def __call__(self, target: str | None = "always", mode: str = "object", key: str | None = '1', *args, **kwargs) -> Generator[tuple[AbstractPosition, Any], Any, None]:
-        for pos, value in self.board(target=target, mode=mode, key=key, *args, **kwargs):
+        for pos, value in self.board(target=target, mode=mode, key=self.key, *args, **kwargs):
             yield pos, value
 
     def get_value(self, pos):
