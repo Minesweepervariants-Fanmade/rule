@@ -36,7 +36,7 @@ class RuleMate(AbstractClueRule):
             self.rules.append(rule)
         for _ in range(len(board.get_interactive_keys()) - len(self.name)):
             self.rules.append(RuleV())
-        size = board.get_config(MASTER_BOARD, "size")
+        size = board.board_size(MASTER_BOARD)
         for key in board.get_interactive_keys():
             board.set_config(key, "by_mini", True)
         for i in range(
@@ -65,9 +65,9 @@ class RuleMate(AbstractClueRule):
         return board
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
-        size = board.get_config(MASTER_BOARD, "size")
+        size = board.board_size(MASTER_BOARD)
         for key in board.get_interactive_keys():
-            if board.get_config(key, "size") != size:
+            if board.board_size(key) != size:
                 raise ValueError("题板尺寸不匹配")
         model = board.get_model()
         for rule in self.rules:

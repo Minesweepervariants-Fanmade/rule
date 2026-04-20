@@ -50,7 +50,7 @@ class Rule2A(AbstractClueRule):
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()
         for key in board.get_interactive_keys():
-            size = board.get_config(key, "size")
+            size = board.board_size(key)
             for pos, _ in board("N", key=key):
                 if self.flag:
                     board[pos] = VALUE_QUESS
