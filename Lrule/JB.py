@@ -124,6 +124,24 @@ class RuleJB(AbstractMinesRule):
                     covering = [active_vars[idx] for idx in cell_cover[(x, y)]]
                     model.Add(sum(covering) == mine_var).OnlyEnforceIf(s)
 
+            for x in range(boundary.x):
+                for y in range(boundary.y):
+                    pos_tl = board.get_pos(x, y, key)
+                    pos_tr = board.get_pos(x, y + 1, key)
+                    pos_bl = board.get_pos(x + 1, y, key)
+                    pos_br = board.get_pos(x + 1, y + 1, key)
+
+                    if not all(board.in_bounds(pos) for pos in (pos_tl, pos_tr, pos_bl, pos_br)):
+                        continue
+
+                    model.Add(
+                        board.get_variable(pos_tl)
+                        + board.get_variable(pos_tr)
+                        + board.get_variable(pos_bl)
+                        + board.get_variable(pos_br)
+                        != 3
+                    ).OnlyEnforceIf(s)
+
             diag_neighbors: List[List[int]] = [[] for _ in templates]
             corner_neighbors: List[List[List[int]]] = [[[] for _ in range(4)] for _ in templates]
 
