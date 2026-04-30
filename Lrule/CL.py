@@ -11,7 +11,7 @@ def block(a_pos: AbstractPosition, board: AbstractBoard) -> list[AbstractPositio
 
 class RuleCL(AbstractMinesRule):
     name = ["CL", "海岸线", "Coastline"]
-    doc = "雷区域与非雷区域不存在长度大于等于 2 的直线边界"
+    doc = "雷区域与非雷区域之间不存在长度大于等于 2 的直线分界线"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
