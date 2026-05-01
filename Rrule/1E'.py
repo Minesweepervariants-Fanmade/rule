@@ -18,7 +18,8 @@ class Rule1E(AbstractClueRule):
     aliases = ("E'",)
     name = "Eyesight'"
     name.zh_CN = "视差"
-    doc = "线索表示纵向和横向的视野之差，箭头指示视野更长的方向"
+    doc = "Clue shows the difference between vertical and horizontal eyesight, with an arrow indicating the direction with longer sight"
+    doc.zh_CN = "线索表示纵向和横向的视野之差，箭头指示视野更长的方向"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

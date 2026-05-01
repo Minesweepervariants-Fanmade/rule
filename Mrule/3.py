@@ -36,7 +36,8 @@ def get_text(
 
 class Rule3P(AbstractMinesClueRule):
     id = "3"
-    name = "3"
+    name = "Pointing"
+    name.zh_CN = "指向"
     doc = "In the direction the mine points to, there exist n mines (not including itself)"
     doc.zh_CN = "雷指向的方向存在n个雷(不包括自己)"
 

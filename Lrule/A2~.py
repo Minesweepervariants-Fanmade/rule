@@ -17,7 +17,7 @@ def parse(s: str) -> list[tuple[int, int]]:
 
 class RuleA2(AbstractMinesRule):
     id = "A2~"
-    name = "A2~"
+    name = "A2 is not a mine"
     name.zh_CN = "A2 格非雷"
     doc = "A2 格非雷"
 

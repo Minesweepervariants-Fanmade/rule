@@ -16,7 +16,8 @@ class Rule3H1A(AbstractMinesRule):
     id = "3H1A"
     name = "Anti-Knight-Hex"
     name.zh_CN = "六角无马步"
-    doc = "六角无马步: 所有雷的UN UE NW ES DW DS的位置不能有雷"
+    doc = "No mines exist in the UN, UE, NW, ES, DW, or DS positions relative to any mine (anti-knight pattern for hex grid)"
+    doc.zh_CN = "六角无马步: 所有雷的UN UE NW ES DW DS的位置不能有雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

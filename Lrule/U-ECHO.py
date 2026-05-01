@@ -14,7 +14,8 @@ class RuleUECHO(AbstractMinesRule):
     id = "U-ECHO"
     name = "echo"
     name.zh_CN = "回声"
-    doc = "回声：抛出参数。"
+    doc = "Echo: outputs the parameter"
+    doc.zh_CN = "回声：抛出参数。"
     author = ("NT", 2201963934)
 
     def __init__(self, board: AbstractBoard, data=None):

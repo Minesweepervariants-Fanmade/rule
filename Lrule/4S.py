@@ -10,7 +10,8 @@ class Rule3I(AbstractMinesRule):
     id = "4S"
     name = "Staircase"
     name.zh_CN = "阶梯"
-    doc = "所有雷被视为 X 个雷（X 为其的行列数之和）"
+    doc = "Each mine counts as X mines (X is the sum of its row and column numbers)"
+    doc.zh_CN = "所有雷被视为 X 个雷（X 为其的行列数之和）"
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

@@ -6,7 +6,7 @@ from .connect import connect_legacy as connect
 
 class RuleAF(AbstractMinesRule):
     id = "AF"
-    name = "AF"
+    name = "Falling"
     name.zh_CN = "下落"
     doc = "雷区与题板下边缘四连通"
 

@@ -14,7 +14,8 @@ from ....abs.board import AbstractBoard
 
 class RuleGd(AbstractMinesRule):
     id = "Gd"
-    name = "GD"
+    name = "Descending"
+    name.zh_CN = "递增"
     doc = "1.每行值不大于上一行 2.每列值不大于左一列"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

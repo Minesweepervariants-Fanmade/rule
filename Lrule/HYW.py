@@ -17,7 +17,8 @@ class Rule1D(AbstractMinesRule):
     id = "HYW"
     name = "??"
     name.zh_CN = "何意味"
-    doc = ""
+    doc = "\"What does it mean?\""
+    doc.zh_CN = "何意味"
 
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

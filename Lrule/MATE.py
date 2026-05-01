@@ -24,8 +24,9 @@ from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
 class RuleMate(AbstractClueRule):
     id = "MATE"
     name = "Mate"
-    name.zh_CN = "元"
-    doc = "题板具有多块主板,多块主板的雷位置完全相同,但是题板具有不同的规则,规则将按照顺序标出"
+    name.zh_CN = "原神"
+    doc = "Board has multiple master boards with identical mine positions but different rules; rules are labeled in sequence"
+    doc.zh_CN = "题板具有多块主板,多块主板的雷位置完全相同,但是题板具有不同的规则,规则将按照顺序标出"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

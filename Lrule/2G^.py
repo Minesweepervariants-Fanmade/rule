@@ -11,7 +11,8 @@ class Rule2G(AbstractMinesRule):
     id = "2G^"
     name = "Group^"
     name.zh_CN = "互异连块"
-    doc = " 四连通雷区域的面积为 1 到 N 各一个。(N = 题板尺寸 - 1)"
+    doc = "Each four-connected mine area has a unique size from 1 to N (N = board size - 1)"
+    doc.zh_CN = "四连通雷区域的面积为 1 到 N 各一个。(N = 题板尺寸 - 1)"
 
     def create_constraints(self, board: AbstractBoard, switch):
         positions = [pos for pos, _ in board("always", mode="variable")]

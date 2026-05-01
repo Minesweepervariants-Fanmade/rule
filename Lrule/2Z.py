@@ -15,7 +15,8 @@ class Rule2Z(AbstractMinesRule):
     id = "2Z"
     name = "Zero-Sum"
     name.zh_CN = "零和"
-    doc = "每行的染色格与非染色格的雷数相等"
+    doc = "Equal number of mines in dyed and undyed cells in each row"
+    doc.zh_CN = "每行的染色格与非染色格的雷数相等"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
