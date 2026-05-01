@@ -123,8 +123,8 @@ class Value4Vp(AbstractClueValue):
             return
 
         # 创建选择变量：选择哪两组分别对应值A和值B
-        a_group = model.NewIntVar(0, num_groups - 1, f"[{Rule4Vp.name}]a_group")
-        b_group = model.NewIntVar(0, num_groups - 1, f"[{Rule4Vp.name}]b_group")
+        a_group = model.NewIntVar(0, num_groups - 1, f"[{Rule4Vp.id}]a_group")
+        b_group = model.NewIntVar(0, num_groups - 1, f"[{Rule4Vp.id}]b_group")
 
         # 确保选择的组不同
         model.Add(a_group != b_group).OnlyEnforceIf(s)

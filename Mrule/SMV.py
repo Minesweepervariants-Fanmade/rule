@@ -315,7 +315,7 @@ class ValueSMV(AbstractMinesValue):
           model.Add(n_var == 0).OnlyEnforceIf(s)
       return
 
-    rule = board.get_rule_instance(RuleSMV.name[0], add=False)
+    rule = board.get_rule_instance(RuleSMV.id, add=False)
     if not isinstance(rule, RuleSMV):
       # 兜底默认值，保证在规则实例不可取时仍可运行。
       window_radius = 2

@@ -142,7 +142,7 @@ class Value4V2Ep2Ip(AbstractClueValue):
             _pos = self.pos.clone()
             _pos.board_key = key
 
-            b = model.NewBoolVar(f"[{Rule4V2Ep2Ip.name}]tmp")
+            b = model.NewBoolVar(f"[{Rule4V2Ep2Ip.id}]tmp")
             sum_var.append(b)
 
             # 初始化位置对象 位于X列

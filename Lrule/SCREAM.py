@@ -17,7 +17,7 @@ class Rule3I(AbstractMinesRule):
         self.onboard_init(board)
 
     def onboard_init(self, board: 'AbstractBoard'):
-        board.register_type_special(self.name[0], self.get_type)
+        board.register_type_special(self.id, self.get_type)
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
         model = board.get_model()
@@ -25,7 +25,7 @@ class Rule3I(AbstractMinesRule):
         for key in board.get_interactive_keys():
             for pos, _ in board(key=key):
                 raw = board.get_variable(pos, special='raw')
-                det = board.get_variable(pos, special=self.name[0])
+                det = board.get_variable(pos, special=self.id)
 
                 neighbor_vars = board.batch(pos.neighbors(1), "var", special='raw', drop_none=True)
                 # If there are no neighbor variables, the sum is 0 -> treated as <=1
@@ -35,19 +35,19 @@ class Rule3I(AbstractMinesRule):
                     neighbor_sum = sum(neighbor_vars)
 
                     # create BoolVars that are equivalent to the comparisons
-                    b_le1 = model.NewBoolVar(f"{self.name[0]}_le1_{key}_{pos}")
+                    b_le1 = model.NewBoolVar(f"{self.id}_le1_{key}_{pos}")
                     model.Add(neighbor_sum <= 1).OnlyEnforceIf(b_le1)
                     model.Add(neighbor_sum > 1).OnlyEnforceIf(b_le1.Not())
 
-                    b_eq2 = model.NewBoolVar(f"{self.name[0]}_eq2_{key}_{pos}")
+                    b_eq2 = model.NewBoolVar(f"{self.id}_eq2_{key}_{pos}")
                     model.Add(neighbor_sum == 2).OnlyEnforceIf(b_eq2)
                     model.Add(neighbor_sum != 2).OnlyEnforceIf(b_eq2.Not())
 
-                    b_eq3 = model.NewBoolVar(f"{self.name[0]}_eq3_{key}_{pos}")
+                    b_eq3 = model.NewBoolVar(f"{self.id}_eq3_{key}_{pos}")
                     model.Add(neighbor_sum == 3).OnlyEnforceIf(b_eq3)
                     model.Add(neighbor_sum != 3).OnlyEnforceIf(b_eq3.Not())
 
-                    b_ge4 = model.NewBoolVar(f"{self.name[0]}_ge4_{key}_{pos}")
+                    b_ge4 = model.NewBoolVar(f"{self.id}_ge4_{key}_{pos}")
                     model.Add(neighbor_sum >= 4).OnlyEnforceIf(b_ge4)
                     model.Add(neighbor_sum < 4).OnlyEnforceIf(b_ge4.Not())
 

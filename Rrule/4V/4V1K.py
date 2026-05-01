@@ -109,7 +109,7 @@ class Value4V1K(AbstractClueValue):
         for neighbor in self.neighbors_list:
             var_list = board.batch(neighbor, mode="variable", drop_none=True)
             if var_list:
-                b = model.NewBoolVar(f"[{Rule4V1K.name}]tmp")
+                b = model.NewBoolVar(f"[{Rule4V1K.id}]tmp")
                 model.Add(sum(var_list) == self.value).OnlyEnforceIf([b, s])
                 model.Add(sum(var_list) != self.value).OnlyEnforceIf([b.Not(), s])
                 sum_var.append(b)

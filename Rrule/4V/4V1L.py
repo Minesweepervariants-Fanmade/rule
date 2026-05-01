@@ -97,12 +97,12 @@ class Value4V(AbstractClueValue):
         s = switch.get(model, self)
 
         sum_var = []
-        a = model.NewBoolVar(f"[{Rule4V.name}]tmp")
-        b = model.NewBoolVar(f"[{Rule4V.name}]tmp")
+        a = model.NewBoolVar(f"[{Rule4V.id}]tmp")
+        b = model.NewBoolVar(f"[{Rule4V.id}]tmp")
         for neighbor in self.neighbors_list:
             var_list = board.batch(neighbor, mode="variable", drop_none=True)
             if var_list:
-                t = model.NewBoolVar(f"[{Rule4V.name}]tmp")
+                t = model.NewBoolVar(f"[{Rule4V.id}]tmp")
                 model.Add(sum(var_list) == self.value + 1).OnlyEnforceIf([t, a, s])
                 model.Add(sum(var_list) != self.value + 1).OnlyEnforceIf([t.Not(), a, s])
 

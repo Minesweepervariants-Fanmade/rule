@@ -56,12 +56,12 @@ class BINGO(AbstractMinesRule):
         if "ALL" in rule_list:
             rule_list.remove("ALL")
             for rule_class in AbstractMinesRule.__subclasses__():
-                if rule_class.name[0] in [
+                if rule_class.id in [
                     "HYW", "OR", "AND", "", "0", "3E", "2I1C", "SETU", "4B",
                     "1N", "1M", "3D", "3I", "4S''", "4S'", "4S", "SCREAM", "3U"
                 ]:
                     continue
-                rule_list.append(rule_class.name[0])
+                rule_list.append(rule_class.id)
         get_logger().info(f"Init 4B with rules {rule_list}")
         self.rules = []
         for rule in rule_list:
