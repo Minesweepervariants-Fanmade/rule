@@ -4,6 +4,7 @@ from minesweepervariants.impl.summon.solver import Switch
 
 class RulePM(AbstractMinesRule):
     id = "PM"
+    name = "Pure Matrix"
     name.zh_CN = "独一无二"
     doc = "恰有一种方式从每行每列恰好选取一雷"
 

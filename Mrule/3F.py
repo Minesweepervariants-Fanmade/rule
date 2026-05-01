@@ -16,6 +16,7 @@ from ....utils.tool import get_logger
 
 class Rule3F(AbstractMinesClueRule):
     id = "3F"
+    name = "Not-V"
     name.zh_CN = "不是V"
     doc = "雷线索表示附近八个格子内的非雷格数"
 

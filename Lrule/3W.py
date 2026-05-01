@@ -17,6 +17,7 @@ from minesweepervariants.impl.summon.solver import Switch
 
 class Rule3W(AbstractMinesRule):
     id = "3W"
+    name = "Wind-and-Cloud"
     name.zh_CN = "风云"
     doc = "每行雷数不同，每列中最高的雷的高度不低于它左边一列的最高的雷的高度（特殊情况：如果某一列没有雷，那么它左边所有列都没有雷）。"
 

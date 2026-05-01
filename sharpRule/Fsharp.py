@@ -11,7 +11,8 @@ from . import AbstractMinesSharp
 
 class RuleFsharp(AbstractMinesSharp):
     id = "F#"
-    name.zh_CN = "标签"
+    name = "Mineclue Label"
+    name.zh_CN = "雷线索标签"
     doc = "包含以下规则: [*3T], [3], [3F]"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

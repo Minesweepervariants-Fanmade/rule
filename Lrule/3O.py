@@ -13,6 +13,7 @@ from ....abs.board import AbstractBoard
 
 class Rule3O(AbstractMinesRule):
     id = "3O"
+    name = "Orthogonal"
     name.zh_CN = "横纵"
     doc = "雷从四个方向中的任意一个连到题板外"
 

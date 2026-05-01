@@ -19,6 +19,7 @@ from ....utils.tool import get_logger
 
 class Rule3S(AbstractClueRule):
     id = "3S"
+    name = "Shell"
     name.zh_CN = "贝壳"
     doc = "线索代表相邻的8个格子中， 中间偏上5格范围和中间偏下5格范围里的雷数(顺序不确定)"
 

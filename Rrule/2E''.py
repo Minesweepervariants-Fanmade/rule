@@ -19,6 +19,7 @@ NAME_2Epp = "2E''"
 
 class Rule2Ep(AbstractClueRule):
     id = "2E''"
+    name = "Mutual Indication"
     name.zh_CN = "互指"
     doc = "如果线索X周围有N个雷 则另一个题板的X=N的格子必定为雷"
 

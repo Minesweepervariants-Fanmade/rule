@@ -15,6 +15,7 @@ from minesweepervariants.impl.summon.solver import Switch
 
 class Rule(AbstractMinesRule):
     id = "2S'"
+    name = "Segmented'"
     name.zh_CN = "分段'"
     doc = "每行连续雷长度不同"
 

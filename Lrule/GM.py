@@ -34,6 +34,7 @@ from ....abs.board import AbstractBoard
 
 class RuleGM(AbstractMinesRule):
     id = "GM"
+    name = "OttoMom"
     name.zh_CN = "棍木"
     doc = "棍木"
 

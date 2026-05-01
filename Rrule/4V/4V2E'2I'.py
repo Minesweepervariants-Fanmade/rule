@@ -21,6 +21,7 @@ ALPHABET = "ABCDEFGHIJ"
 
 class Rule4V2Ep2Ip(AbstractClueRule):
     id = "4V2E'2I'"
+    name = "Self-Referential Incomplete Mapping"
     name.zh_CN = "自指残缺映射"
     doc = "字母X是两个题板中相同位置为中心其中一个的3x3区域中某?格的雷总数为N。则该对应位置所属的题板在标有X=N的位置必然是雷, 且?格的位置全局共享"
 

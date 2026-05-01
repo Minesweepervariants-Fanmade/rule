@@ -8,6 +8,7 @@ from ortools.sat.python.cp_model import CpModel
 
 class Rule3I(AbstractMinesRule):
     id = "3I"
+    name = "Inverted"
     name.zh_CN = "反相"
     doc = "染色格中非雷视为雷，雷视为非雷"
 

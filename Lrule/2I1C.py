@@ -7,6 +7,7 @@ NAME_2I = "2I1C"
 
 class Rule2I1C(AbstractMinesRule):
     id = "2I1C"
+    name = "Incomplete-Connectivity"
     name.zh_CN = "残缺联通"
     doc = "1.所有雷都必须根据副板指示的4对联通方向进行联通, 2.雷只有3种联通方法(上下/左右/对角/副对角)"
 

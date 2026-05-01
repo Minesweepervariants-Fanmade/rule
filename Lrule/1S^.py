@@ -15,6 +15,7 @@ from .connect import connect
 class Rule1S(AbstractMinesRule):
     id = "1S^"
     aliases = ("S^",)
+    name = "Bicursal Snake"
     name.zh_CN = "双头蛇"
     doc = "所有雷构成一条双头蛇。蛇是一条宽度为 1 的四连通路径，不存在环、交叉, 只存在一个分叉"
 

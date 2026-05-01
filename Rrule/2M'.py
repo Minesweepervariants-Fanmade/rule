@@ -15,6 +15,7 @@ from ....utils.tool import get_logger
 
 class Rule1M(AbstractClueRule):
     id = "2M'"
+    name = "Multi-Mine'"
     name.zh_CN = "多雷'"
     doc = "每个下方是雷的雷被视为两个(总雷数不受限制)"
 

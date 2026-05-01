@@ -49,6 +49,7 @@ from ....abs.board import AbstractBoard
 
 class RuleMB(AbstractMinesRule):
     id = "MB"
+    name = "Mass-Balance"
     name.zh_CN = "平衡点"
     doc = "所有雷的平均位置是整点"
 

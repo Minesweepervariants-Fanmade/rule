@@ -8,6 +8,7 @@ from ortools.sat.python.cp_model import CpModel
 
 class RuleRAW(AbstractMinesRule):
     id = "RAW"
+    name = "Raw Mine Value"
     name.zh_CN = "原始雷值"
     doc = "原始雷值"
     lib_only = True

@@ -8,6 +8,7 @@ from ortools.sat.python.cp_model import CpModel
 
 class Rule3I(AbstractMinesRule):
     id = "SCREAM"
+    name = "Scream"
     name.zh_CN = "尖叫"
     doc = "雷值等于其相邻四格雷数的阶乘"
     lib_only = True

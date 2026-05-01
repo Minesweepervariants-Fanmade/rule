@@ -13,6 +13,7 @@ from ....abs.board import AbstractBoard
 
 class RuleBM(AbstractMinesRule):
     id = "BM"
+    name = "Multi-Balance"
     name.zh_CN = "多雷平衡"
     doc = "染色格被视为两个雷, 每行每列的“多雷雷值”相同。(线索格不一定是多雷规则) (1).列平衡, (2).行平衡"
 

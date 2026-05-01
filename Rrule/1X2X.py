@@ -24,6 +24,7 @@ def cross_neighbors(pos : AbstractPosition) -> list[AbstractPosition]:
 
 class Rule1X2X(AbstractClueRule):
     id = "1X2X"
+    name = "Cross"
     name.zh_CN = "十字"
     doc = "线索代表半径为 2 的十字范围内中，染色和非染色格里的雷数(顺序不确定)"
 

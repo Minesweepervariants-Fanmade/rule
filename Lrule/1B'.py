@@ -16,6 +16,7 @@ from ....abs.board import AbstractBoard
 class Rule1B(AbstractMinesRule):
     id = "1B'"
     aliases = ("B'",)
+    name = "Unbalance"
     name.zh_CN = "失衡"
     doc = "每行每列雷数均不相同 1.每列雷数不相同 2.每行雷数不相同"
 

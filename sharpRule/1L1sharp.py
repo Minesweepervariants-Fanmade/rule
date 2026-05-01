@@ -3,6 +3,7 @@ from . import AbstractClueSharp
 
 class Rule1L1sharp(AbstractClueSharp):
     id = "1L1#"
+    name = "Error + Label"
     name.zh_CN = "误差 + 标签"
     doc = ("包含以下规则: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E]\n"
               "使用[1L1#:]以去除[1L1W]")

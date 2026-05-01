@@ -14,6 +14,7 @@ from . import AbstractClueSharp
 
 class Rule2sharp(AbstractClueSharp):
     id = "2#'"
+    name = "Label'"
     name.zh_CN = "标签'"
     doc = "包含以下规则: [V], [2X], [2X'], [2D], [2P], [2M], [2A]"
 

@@ -16,6 +16,7 @@ from ....abs.board import AbstractBoard
 class Rule1Tpp(AbstractMinesRule):
     id = "1T''"
     aliases = ("T''",)
+    name = "Pure Triple"
     name.zh_CN = "纯三连"
     doc = "每个雷属于唯一的三连组(横/竖/斜)"
 

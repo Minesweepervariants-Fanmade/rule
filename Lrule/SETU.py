@@ -215,6 +215,7 @@ def resolve_setu_image(
 
 class RuleSETU(AbstractMinesRule):
     id = "SETU"
+    name = "Waifu Picture"
     name.zh_CN = "涩图"
     doc = "禁止涩涩！"
 

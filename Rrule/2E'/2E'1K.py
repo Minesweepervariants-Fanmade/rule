@@ -18,6 +18,7 @@ ALPHABET = "ABCDEFGHI"
 
 class Rule1K2Ep(AbstractClueRule):
     id = "1K2E'"
+    name = "Horse Stance Self-Reference"
     name.zh_CN = "马步自指"
     doc = "如果字母X马步8格内有N个雷，则标有X=N的格子必定是雷。"
 

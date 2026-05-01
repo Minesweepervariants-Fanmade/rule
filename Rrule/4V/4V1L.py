@@ -18,6 +18,7 @@ from . import BOARD_NAME_4V
 
 class Rule4V(AbstractClueRule):
     id = "4V1L"
+    name = "Mapping Liar"
     name.zh_CN = "误差映射"
     doc = "线索表示数字是两个题板中相同位置的其中一个范围中心3*3区域的雷总数 线索均比真实值大1或小1"
 

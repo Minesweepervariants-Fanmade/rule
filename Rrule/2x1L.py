@@ -17,6 +17,7 @@ from ....utils.tool import get_logger, get_random
 
 class Rule1Lo(AbstractClueRule):
     id = "2*1L"
+    name = "Double Liar"
     name.zh_CN = "2倍误差"
     doc = "所有线索均比真实值大2或小2或者不变"
 

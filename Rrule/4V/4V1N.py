@@ -17,6 +17,7 @@ from . import BOARD_NAME_4V
 
 class Rule1N(AbstractClueRule):
     id = "4V1N"
+    name = "Mapping Negative"
     name.zh_CN = "负雷映射"
     doc = "线索表示数字是两个题板中相同位置的其中一个3x3范围内染色格与非染色格的雷数差"
 

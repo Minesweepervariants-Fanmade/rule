@@ -19,6 +19,7 @@ from . import BOARD_NAME_4V
 
 class Rule4V(AbstractClueRule):
     id = "4V"
+    name = "Mapping"
     name.zh_CN = "映射"
     doc = "线索表示数字是两个题板中相同位置的其中一个范围中心3*3区域的雷总数"
 

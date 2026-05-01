@@ -13,6 +13,7 @@ from ....abs.board import AbstractBoard
 
 class Rule1H(AbstractMinesRule):
     id = "1H2H"
+    name = "Horizontal-Horizontal"
     name.zh_CN = "横横向向"
     doc = "在每一行中, 要么都没有横向相邻的雷，要么都至少有一个横向相邻的雷。"
 

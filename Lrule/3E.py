@@ -18,8 +18,8 @@ NAME_3E = ["3E_x", "3E_y"]
 
 class Rule3E(AbstractMinesRule):
     id = "3E"
+    name = "Evolution"
     name.zh_CN = "演化"
-    name.zh_CN = "迭代"
     doc = "每个3x1区域决定其中间下方1格是否为雷，演化被当前题板所有区域共享。"
 
     def __init__(self, board: AbstractBoard, data=None):

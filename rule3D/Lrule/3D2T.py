@@ -15,6 +15,7 @@ from .....abs.board import AbstractBoard
 
 class Rule2T(Abstract3DMinesRule):
     id = "3D2T"
+    name = "3D No Triple 2"
     name.zh_CN = "无三连"
     doc = "(1)雷不能在横竖上下向构成三连, (2)非雷不能在横竖上下向构成三连"
 

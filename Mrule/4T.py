@@ -15,6 +15,7 @@ COUNT = 0
 
 class Rule4T(AbstractMinesClueRule):
     id = "*3T"
+    name = "Triple-Mine"
     name.zh_CN = "雷三连"
     doc = "雷线索指示包含自身的雷三连数量。雷三连允许部分重合"
 

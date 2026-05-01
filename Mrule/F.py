@@ -14,5 +14,6 @@ from ....abs.Mrule import Rule0F as AbstractRule0F
 
 class RuleF(AbstractRule0F):
     id = "F"
+    name = "Mine"
     name.zh_CN = "雷"
     doc = "线索表示该格是一个非雷"

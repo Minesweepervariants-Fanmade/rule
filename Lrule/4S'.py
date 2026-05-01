@@ -8,6 +8,7 @@ from ortools.sat.python.cp_model import CpModel
 
 class Rule3I(AbstractMinesRule):
     id = "4S'"
+    name = "Staircase"
     name.zh_CN = "阶梯'"
     doc = "雷值等于行号与列号之和, 但从0开始"
     lib_only = True

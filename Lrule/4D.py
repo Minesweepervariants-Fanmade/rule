@@ -5,6 +5,7 @@ from .connect import connect
 
 class Rule4D(AbstractMinesRule):
     id = "4D"
+    name = "Diagonal"
     name.zh_CN = "对角"
     doc = "不同四连通雷区不可对角相邻"
 

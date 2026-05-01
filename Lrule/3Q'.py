@@ -6,6 +6,7 @@ from minesweepervariants.impl.summon.solver import Switch
 
 class Rule3Q(AbstractMinesRule):
     id = "3Q'"
+    name = "No-Quadrilateral"
     name.zh_CN = "无方"
     doc = "任意四个雷不能作为一个横平竖直的矩形的顶点"
 

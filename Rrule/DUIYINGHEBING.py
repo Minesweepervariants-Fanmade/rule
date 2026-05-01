@@ -23,6 +23,7 @@ OPPSITE_PAIRS = [
 
 class RuleDUIYINGHEBING(AbstractClueRule):
     id = "4D'"
+    name = "Mapping"
     name.zh_CN = "对映合并"
     doc = "每个数字标明周围八格内雷的数量。"
 

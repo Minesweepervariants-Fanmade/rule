@@ -21,6 +21,7 @@ NAME_4Vp = ["4Va", "4Vb"]
 
 class Rule4Vp(AbstractClueRule):
     id = "4V'"
+    name = "Mapping'"
     name.zh_CN = "映射'"
     doc = "线索表示数字是三个题板中相同位置的其中某两个范围中心3*3区域的雷总数"
 

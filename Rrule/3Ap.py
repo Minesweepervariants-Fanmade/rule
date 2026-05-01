@@ -41,6 +41,7 @@ def put(board, pos: 'AbstractPosition', path):
 
 class Rule3Ap(AbstractClueRule):
     id = "3A^"
+    name = "Langton's Ant - XOR"
     name.zh_CN = "兰顿蚂蚁·异或"
     doc = "将兰顿蚂蚁[3A]四个方向的结果做异或操作 若结果为无穷大则使用补码形式显示"
     author = ("雾", 3140864122)

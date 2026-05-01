@@ -12,6 +12,7 @@ from ....utils.tool import get_logger
 
 class Rule4Q(AbstractClueRule):
     id = "4Q"
+    name = "Quadrant"
     name.zh_CN = "方格"
     doc = "线索表示包含该格且包含雷的 2x2 区域数"
 

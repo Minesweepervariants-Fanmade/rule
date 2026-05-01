@@ -14,6 +14,7 @@ from ....abs.board import AbstractBoard
 
 class Rule1T(AbstractMinesRule):
     id = "3T"
+    name = "No-Triple"
     name.zh_CN = "无三连"
     doc = "任意三个雷不能等距排布"
 

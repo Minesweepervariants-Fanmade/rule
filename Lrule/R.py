@@ -14,5 +14,6 @@ from ....abs.Lrule import Rule0R
 
 class RuleR(Rule0R):
     id = "R"
+    name = "Total Mines"
     name.zh_CN = "总雷数"
     doc = "有时你会需要用到总雷数来推理"

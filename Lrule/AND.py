@@ -20,6 +20,7 @@ CONFIG.update(PUZZLE_CONFIG)
 
 class RuleOR(AbstractMinesRule):
     id = "AND"
+    name = "AND"
     name.zh_CN = "与"
     doc = "你可以在后面输入多个左线来表示或关系(题板将按照A规则或B规则)"
 

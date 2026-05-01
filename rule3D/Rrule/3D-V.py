@@ -20,6 +20,7 @@ from .....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 class Rule3DV(Abstract3DClueRule):
     id = "3DV"
+    name = "3D Vanilla"
     name.zh_CN = "3D标准扫雷"
     doc = "每个数字标明周围26格内雷的数量。"
 

@@ -2,5 +2,6 @@ from minesweepervariants.abs.Rrule import AbstractClueRule
 
 class RuleBT(AbstractClueRule):
     id = "BT"
+    name = "Board-Shared"
     name.zh_CN = "副板共用"
     doc = "不同副板规则的副板共用"

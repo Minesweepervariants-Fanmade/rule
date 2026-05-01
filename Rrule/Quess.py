@@ -16,6 +16,7 @@ from ....utils.tool import get_random
 
 class RuleQuess(AbstractClueRule):
     id = "?"
+    name = "Quess"
     name.zh_CN = "问号"
     doc = "线索表示该格是一个非雷"
 

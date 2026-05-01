@@ -16,6 +16,7 @@ from .....abs.Rrule import AbstractClueValue
 
 class Rule3D1X(Abstract3DClueRule):
     id = "3D1X'"
+    name = "3D Cross'"
     name.zh_CN = "三维十字'"
     doc = "线索表示半径为 1 的十字范围内的雷数(上下左右前后)"
 
