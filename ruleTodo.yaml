@@ -1210,3 +1210,8 @@
   doc: '距离禁区(Neighbor Distance): 左线规则。任意两个雷格的曼哈顿距离不得小于线索格上标注的数字（若无统一数字则默认为3）。'
   name: ND
   time: 1777661021.4746313
+- author_name: NT
+  author_uid: 2201963934
+  doc: '异矩(SlashArrow): 中线规则。每个箭头指向一个与其不同的异形矩形区域面积。'
+  name: AR
+  time: 1777661104.4282932
