@@ -1250,3 +1250,8 @@
   doc: 线索是一个随机生成的数字
   name: RAND
   time: 1777666405.339903
+- author_name: NT
+  author_uid: 2201963934
+  doc: 圈地：所有雷格都在一个八联通雷格环上或其内部
+  name: LC
+  time: 1777671840.231917
