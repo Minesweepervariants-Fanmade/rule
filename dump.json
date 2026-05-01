@@ -1073,7 +1073,8 @@
                 "zh_CN": "A2 \u683c\u662f\u96f7"
             },
             "doc": {
-                "default": "A2 \u683c\u662f\u96f7"
+                "default": "A2 is a mine",
+                "zh_CN": "A2 \u683c\u662f\u96f7"
             },
             "author": {
                 "name": "",
@@ -1954,7 +1955,8 @@
                 "zh_CN": "A2 \u683c\u975e\u96f7"
             },
             "doc": {
-                "default": "A2 \u683c\u975e\u96f7"
+                "default": "A2 is not a mine",
+                "zh_CN": "A2 \u683c\u975e\u96f7"
             },
             "author": {
                 "name": "",
@@ -3432,7 +3434,8 @@
                 "zh_CN": "\u4e8c\u53c9'"
             },
             "doc": {
-                "default": "BIN':X;Y \u8868\u793a\u7ebf\u7d22\u4e3a X \u6216 Y \u89c4\u5219\u4e0b\u7684\u503c"
+                "default": "BIN':X;Y Clue indicates values under either rule X or Y (order not fixed)",
+                "zh_CN": "BIN':X;Y \u8868\u793a\u7ebf\u7d22\u4e3a X \u6216 Y \u89c4\u5219\u4e0b\u7684\u503c"
             },
             "author": {
                 "name": "",
@@ -3598,7 +3601,8 @@
                 "zh_CN": "\u516d\u89d2"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u516d\u8fb9\u5f62\u7f51\u683c\u4e2d\u4e0e\u7ebf\u7d22\u8ddd\u79bb\u4e3a1\u7684\u683c\u5b50\u4e2d\u7684\u96f7\u6570\n\u7ebf\u7d22\u8868\u793a\u6b63\u65b9\u5f62\u7f51\u683c\u4e2d\u8fd9\u4e9b\u5468\u56f4\u683c\u5b50\u7684\u96f7\u6570\uff1a\u4e0a \u4e0b \u5de6 \u53f3\uff0c\u5947\u6570\u5217(B,D,F,...)\u989d\u5916\u5305\u62ec\u5de6\u4e0a \u53f3\u4e0a\uff1b\u5076\u6570\u5217(A,C,E,...)\u989d\u5916\u5305\u62ec\u5de6\u4e0b \u53f3\u4e0b"
+                "default": "Clue indicates the number of mines in the cells at distance 1 from the clue in a hexagonal grid.\nIn a square grid, the clue indicates the number of mines in the surrounding cells: up, down, left, right; odd columns (B,D,F,...) additionally include upper left and upper right; even columns (A,C,E,...) additionally include lower left and lower right.",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u516d\u8fb9\u5f62\u7f51\u683c\u4e2d\u4e0e\u7ebf\u7d22\u8ddd\u79bb\u4e3a1\u7684\u683c\u5b50\u4e2d\u7684\u96f7\u6570\n\u7ebf\u7d22\u8868\u793a\u6b63\u65b9\u5f62\u7f51\u683c\u4e2d\u8fd9\u4e9b\u5468\u56f4\u683c\u5b50\u7684\u96f7\u6570\uff1a\u4e0a \u4e0b \u5de6 \u53f3\uff0c\u5947\u6570\u5217(B,D,F,...)\u989d\u5916\u5305\u62ec\u5de6\u4e0a \u53f3\u4e0a\uff1b\u5076\u6570\u5217(A,C,E,...)\u989d\u5916\u5305\u62ec\u5de6\u4e0b \u53f3\u4e0b"
             },
             "author": {
                 "name": "",
@@ -3614,7 +3618,8 @@
                 "zh_CN": "\u4e8c\u53c9"
             },
             "doc": {
-                "default": "BIN:X;Y \u8868\u793a\u7ebf\u7d22\u4e3a X \u4e0e Y \u89c4\u5219\u4e0b\u7684\u503c\uff08\u987a\u5e8f\u4e0d\u786e\u5b9a\uff09"
+                "default": "BIN:X;Y Clue indicates values under two rules X and Y (order not fixed)",
+                "zh_CN": "BIN:X;Y \u8868\u793a\u7ebf\u7d22\u4e3a X \u4e0e Y \u89c4\u5219\u4e0b\u7684\u503c\uff08\u987a\u5e8f\u4e0d\u786e\u5b9a\uff09"
             },
             "author": {
                 "name": "",
@@ -4431,7 +4436,8 @@
                 "zh_CN": "\u8bef\u5dee + \u6807\u7b7e"
             },
             "doc": {
-                "default": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L2X], [1L2D], [1L2M], [1L2A]\n\u4f7f\u7528[1L2#:]\u4ee5\u53bb\u9664[1L2A]"
+                "default": "Includes the following rules: [1L], [1L2X], [1L2D], [1L2M], [1L2A]\nUse [1L2#:] to exclude [1L2A]",
+                "zh_CN": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L2X], [1L2D], [1L2M], [1L2A]\n\u4f7f\u7528[1L2#:]\u4ee5\u53bb\u9664[1L2A]"
             },
             "author": {
                 "name": "",
@@ -4447,7 +4453,8 @@
                 "zh_CN": "\u8bef\u5dee + \u6807\u7b7e'"
             },
             "doc": {
-                "default": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L2X], [1L2D], [1L2M], [1L2A], [1L2X']\n\u4f7f\u7528[1L2#':]\u4ee5\u53bb\u9664[1L2A]"
+                "default": "Includes the following rules: [1L], [1L2X], [1L2D], [1L2M], [1L2X']\nUse [1L2#':] to exclude [1L2A]",
+                "zh_CN": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L2X], [1L2D], [1L2M], [1L2X']\n\u4f7f\u7528[1L2#':]\u4ee5\u53bb\u9664[1L2A]"
             },
             "author": {
                 "name": "",
@@ -4531,7 +4538,8 @@
                 "zh_CN": "\u52a0\u5bc6 + \u6807\u7b7e"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u88ab\u5b57\u6bcd\u6240\u53d6\u4ee3\uff0c\u6bcf\u4e2a\u5b57\u6bcd\u5bf9\u5e94\u4e00\u4e2a\u7ebf\u7d22\uff0c\u4e14\u6bcf\u4e2a\u7ebf\u7d22\u5bf9\u5e94\u4e00\u4e2a\u5b57\u6bcd\n\u901a\u8fc72E#:<rule1>;<rule2>;...\u6765\u6307\u5b9a\u4f7f\u7528\u7684\u89c4\u5219\u53ca\u5176\u987a\u5e8f\n\u9ed8\u8ba4\u540c\u4e8c\u4ee3\n\u53ef\u6dfb\u52a0 1# 1#' 2# 2#' 2#':"
+                "default": "Clues are replaced by letters, each letter corresponds to a clue, and each clue corresponds to a letter\nSpecify the rules used and their order through 2E#:<rule1>;<rule2>;...\nDefault is the same as the second generation\nYou can add 1# 1#' 2# 2#' 2#':",
+                "zh_CN": "\u7ebf\u7d22\u88ab\u5b57\u6bcd\u6240\u53d6\u4ee3\uff0c\u6bcf\u4e2a\u5b57\u6bcd\u5bf9\u5e94\u4e00\u4e2a\u7ebf\u7d22\uff0c\u4e14\u6bcf\u4e2a\u7ebf\u7d22\u5bf9\u5e94\u4e00\u4e2a\u5b57\u6bcd\n\u901a\u8fc72E#:<rule1>;<rule2>;...\u6765\u6307\u5b9a\u4f7f\u7528\u7684\u89c4\u5219\u53ca\u5176\u987a\u5e8f\n\u9ed8\u8ba4\u540c\u4e8c\u4ee3\n\u53ef\u6dfb\u52a0 1# 1#' 2# 2#' 2#':"
             },
             "author": {
                 "name": "",
@@ -4615,7 +4623,8 @@
                 "zh_CN": "\u8bef\u5dee + \u6807\u7b7e"
             },
             "doc": {
-                "default": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E]\n\u4f7f\u7528[1L1#:]\u4ee5\u53bb\u9664[1L1W]"
+                "default": "Includes the following rules: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E]\nUse [1L1#:] to exclude [1L1W]",
+                "zh_CN": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E]\n\u4f7f\u7528[1L1#:]\u4ee5\u53bb\u9664[1L1W]"
             },
             "author": {
                 "name": "",
@@ -4631,7 +4640,8 @@
                 "zh_CN": "\u52a0\u5bc6\u6807\u7b7e"
             },
             "doc": {
-                "default": "\u6807\u7b7e\u88ab\u5b57\u6bcd\u6240\u53d6\u4ee3\uff0c\u6bcf\u4e2a\u5b57\u6bcd\u5bf9\u5e94\u4e00\u4e2a\u6807\u7b7e\uff0c\u4e14\u6bcf\u4e2a\u6807\u7b7e\u5bf9\u5e94\u4e00\u4e2a\u5b57\u6bcd\n\u901a\u8fc7C#:<rule1>;<rule2>;...\u6765\u6307\u5b9a\u4f7f\u7528\u7684\u89c4\u5219\u53ca\u5176\u987a\u5e8f\n\u9ed8\u8ba4\u5305\u542b\u4ee5\u4e0b\u89c4\u5219\u4e14\u968f\u673a\u987a\u5e8f\u9009\u53d6\uff1a\nV, 1M, 1L, 1N, 1X, 1P, 1E, 1X', 1K, 1W', 2D, 2M, 2X'"
+                "default": "Clues are replaced by letters, each letter corresponds to a clue, and each clue corresponds to a letter\nSpecify the rules used and their order through C#:<rule1>;<rule2>;...\nBy default, the following rules are included and randomly selected in order:\nV, 1M, 1L, 1N, 1X, 1P, 1E, 1X', 1K, 1W', 2D, 2M, 2X'",
+                "zh_CN": "\u6807\u7b7e\u88ab\u5b57\u6bcd\u6240\u53d6\u4ee3\uff0c\u6bcf\u4e2a\u5b57\u6bcd\u5bf9\u5e94\u4e00\u4e2a\u6807\u7b7e\uff0c\u4e14\u6bcf\u4e2a\u6807\u7b7e\u5bf9\u5e94\u4e00\u4e2a\u5b57\u6bcd\n\u901a\u8fc7C#:<rule1>;<rule2>;...\u6765\u6307\u5b9a\u4f7f\u7528\u7684\u89c4\u5219\u53ca\u5176\u987a\u5e8f\n\u9ed8\u8ba4\u5305\u542b\u4ee5\u4e0b\u89c4\u5219\u4e14\u968f\u673a\u987a\u5e8f\u9009\u53d6\uff1a\nV, 1M, 1L, 1N, 1X, 1P, 1E, 1X', 1K, 1W', 2D, 2M, 2X'"
             },
             "author": {
                 "name": "",
@@ -4647,7 +4657,8 @@
                 "zh_CN": "\u6807\u7b7e'"
             },
             "doc": {
-                "default": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E], [1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]"
+                "default": "Includes the following rules: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E], [1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]",
+                "zh_CN": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E], [1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]"
             },
             "author": {
                 "name": "",
@@ -4663,7 +4674,8 @@
                 "zh_CN": "\u8bef\u5dee + \u6807\u7b7e'"
             },
             "doc": {
-                "default": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\n\u4f7f\u7528[1L1#':]\u4ee5\u53bb\u9664[1L1W]"
+                "default": "Includes the following rules: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\nUse [1L1#':] to exclude [1L1W]",
+                "zh_CN": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\n\u4f7f\u7528[1L1#':]\u4ee5\u53bb\u9664[1L1W]"
             },
             "author": {
                 "name": "",
