@@ -48,7 +48,7 @@ class Value1X(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule1Xp.name[0].encode("ascii")
+        return Rule1Xp.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.count])

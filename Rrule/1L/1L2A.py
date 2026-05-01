@@ -103,7 +103,7 @@ class Value1L2A(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule1L2A.name[0].encode("ascii")
+        return Rule1L2A.id.encode("ascii")
 
     def code(self) -> bytes:
         if self.value is None:

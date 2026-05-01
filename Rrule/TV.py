@@ -62,7 +62,7 @@ class ValueTV(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return RuleTV.name[0].encode("ascii")
+        return RuleTV.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

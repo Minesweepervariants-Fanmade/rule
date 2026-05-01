@@ -256,7 +256,7 @@ class ValueAVG(AbstractClueValue):
 
   @classmethod
   def type(cls) -> bytes:
-    return RuleAVG.name[0].encode("ascii")
+    return RuleAVG.id.encode("ascii")
 
   def code(self) -> bytes:
     if self.value.denominator == 1:

@@ -70,7 +70,7 @@ class Value1F(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule1F.name[0].encode("ascii")
+        return Rule1F.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.direction, self.count])

@@ -33,7 +33,7 @@ class ValueSG(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return RuleSG.name[0].encode()
+        return RuleSG.id.encode()
 
     def code(self) -> bytes:
         return bytes([self.value])

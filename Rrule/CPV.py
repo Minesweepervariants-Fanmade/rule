@@ -216,7 +216,7 @@ class ValueCPV(AbstractClueValue):
 
   @classmethod
   def type(cls) -> bytes:
-    return RuleCPV.name[0].encode("ascii")
+    return RuleCPV.id.encode("ascii")
 
   def code(self) -> bytes:
     return bytes([self.count])

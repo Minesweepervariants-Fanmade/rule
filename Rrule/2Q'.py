@@ -71,7 +71,7 @@ class Value2QPrime(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2QPrime.name[0].encode("ascii")
+        return Rule2QPrime.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.count])

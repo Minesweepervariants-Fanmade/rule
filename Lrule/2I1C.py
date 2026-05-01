@@ -110,4 +110,4 @@ class Value2I1C(ValueV):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2I1C.name[0].encode()
+        return Rule2I1C.id.encode()

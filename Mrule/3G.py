@@ -91,7 +91,7 @@ class MinesValue3G(AbstractMinesValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule3G.name[0].encode("ascii")
+        return Rule3G.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

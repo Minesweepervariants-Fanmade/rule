@@ -92,7 +92,7 @@ class ValueUP(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return RuleUP.name[0].encode("ascii")
+        return RuleUP.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

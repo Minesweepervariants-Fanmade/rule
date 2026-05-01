@@ -48,7 +48,7 @@ class Value4Q(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule4Q.name[0].encode("ascii")
+        return Rule4Q.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

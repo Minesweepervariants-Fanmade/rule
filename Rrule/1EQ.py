@@ -36,4 +36,4 @@ class Value1EQ(AbstractEyesightClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule1EQ.name[0].encode("ascii")
+        return Rule1EQ.id.encode("ascii")

@@ -131,7 +131,7 @@ class Value3Ap(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule3Ap.name[0].encode("ascii")
+        return Rule3Ap.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value + 128])

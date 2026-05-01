@@ -41,7 +41,7 @@ class MinesValue3F(AbstractMinesValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule3F.name[0].encode("ascii")
+        return Rule3F.id.encode("ascii")
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

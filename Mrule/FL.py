@@ -248,7 +248,7 @@ class ValueFL(AbstractMinesValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return RuleFL.name[0].encode("ascii")
+        return RuleFL.id.encode("ascii")
 
     def code(self) -> bytes:
         return int(self.value).to_bytes(2, "big")

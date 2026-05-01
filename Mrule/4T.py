@@ -91,7 +91,7 @@ class Value4T(AbstractMinesValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule4T.name[0].encode("ascii")
+        return Rule4T.id.encode("ascii")
 
     def create_constraints_(self, model, var_list: list, s):
         model.Add(sum(var_list) == self.value).OnlyEnforceIf(s)

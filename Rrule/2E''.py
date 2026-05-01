@@ -77,7 +77,7 @@ class Value2Ep(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2Ep.name[0].encode("ascii")
+        return Rule2Ep.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

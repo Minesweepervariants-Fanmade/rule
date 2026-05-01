@@ -198,7 +198,7 @@ class Value2ESharp(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2ESharp.name[0].encode("ascii")
+        return Rule2ESharp.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value]) + self.rule.encode("ascii")

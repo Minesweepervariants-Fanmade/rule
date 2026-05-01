@@ -40,7 +40,7 @@ class ValueMC(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return RuleMC.name[0].encode()
+        return RuleMC.id.encode()
 
     def code(self) -> bytes:
         return bytes([self.value])

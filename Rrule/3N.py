@@ -197,7 +197,7 @@ class BaseValue3N(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return cls.name.encode('ascii')
+        return cls.id.encode('ascii')
 
     def code(self) -> bytes:
         if self.p == '00':

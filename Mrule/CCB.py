@@ -52,7 +52,7 @@ class ValueCB(AbstractMinesValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return RuleCB.name[0].encode()
+        return RuleCB.id.encode()
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

@@ -50,7 +50,7 @@ class ValuePF(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return RulePF.name[0].encode()
+        return RulePF.id.encode()
 
     def code(self) -> bytes:
         return bytes([self.value])

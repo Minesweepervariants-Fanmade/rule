@@ -44,7 +44,7 @@ class Value1L2D(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule1L2D.name[0].encode("ascii")
+        return Rule1L2D.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

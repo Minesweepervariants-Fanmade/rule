@@ -57,7 +57,7 @@ class Value1M1N1X(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule1M1N1X.name[0].encode("ascii")
+        return Rule1M1N1X.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

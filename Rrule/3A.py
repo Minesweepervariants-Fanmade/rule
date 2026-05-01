@@ -222,7 +222,7 @@ class Value3A(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule3A.name[0].encode("ascii")
+        return Rule3A.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.dir, self.value])

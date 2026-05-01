@@ -49,7 +49,7 @@ class Value2D(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2D.name[0].encode("ascii")
+        return Rule2D.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.count])

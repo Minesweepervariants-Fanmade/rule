@@ -47,7 +47,7 @@ class Valuex1F(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rulex1F.name[0].encode("ascii")
+        return Rulex1F.id.encode("ascii")
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

@@ -73,7 +73,7 @@ class Value2P(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2P.name[0].encode("ascii")
+        return Rule2P.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

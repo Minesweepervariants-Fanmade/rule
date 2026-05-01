@@ -54,7 +54,7 @@ class Value1LMNX(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule1LMNX.name[0].encode("ascii")
+        return Rule1LMNX.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

@@ -114,7 +114,7 @@ class Value4V2Ep2Ip(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule4V2Ep2Ip.name[0].encode("ascii")
+        return Rule4V2Ep2Ip.id.encode("ascii")
 
     def __repr__(self) -> str:
         return f"{ALPHABET[self.value]}"

@@ -47,7 +47,7 @@ class Value2Dp(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2Dp.name[0].encode("ascii")
+        return Rule2Dp.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.count])

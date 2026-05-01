@@ -39,7 +39,7 @@ class Value2KPrime(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2KPrime.name[0].encode("ascii")
+        return Rule2KPrime.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.count])

@@ -139,7 +139,7 @@ class Value6V(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule6V.name[0].encode("ascii")
+        return Rule6V.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.count])

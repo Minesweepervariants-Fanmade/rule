@@ -73,7 +73,7 @@ class Value4V1K(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule4V1K.name[0].encode("ascii")
+        return Rule4V1K.id.encode("ascii")
 
     def __repr__(self) -> str:
         return f"{self.value}"

@@ -165,7 +165,7 @@ class Value3P(AbstractMinesValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule3P.name[0].encode("ascii")
+        return Rule3P.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value | self.dir << 6])

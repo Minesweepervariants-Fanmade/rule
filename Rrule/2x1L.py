@@ -60,7 +60,7 @@ class Value1Lo(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule1Lo.name[0].encode("ascii")
+        return Rule1Lo.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.count])

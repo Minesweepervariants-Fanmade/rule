@@ -94,7 +94,7 @@ class Value2I(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2I.name[0].encode("ascii")
+        return Rule2I.id.encode("ascii")
 
     def code(self):
         return bytes([self.value])
@@ -149,7 +149,7 @@ class Value2I_7(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2I.name[0].encode("ascii") + b"_7"
+        return Rule2I.id.encode("ascii") + b"_7"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

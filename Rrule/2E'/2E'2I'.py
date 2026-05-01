@@ -102,7 +102,7 @@ class Value2Ep2I(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2Ep2I.name[0].encode("ascii")
+        return Rule2Ep2I.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])
@@ -161,4 +161,4 @@ class Value2Ep2I_Quess(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2Ep2I.name[0].encode("ascii") + b"_?"
+        return Rule2Ep2I.id.encode("ascii") + b"_?"

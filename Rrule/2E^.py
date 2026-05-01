@@ -103,7 +103,7 @@ class Value2Eq(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule2Eq.name[0].encode("ascii")
+        return Rule2Eq.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])

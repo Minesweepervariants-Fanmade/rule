@@ -290,7 +290,7 @@ class ValueSMV(AbstractMinesValue):
 
   @classmethod
   def type(cls) -> bytes:
-    return RuleSMV.name[0].encode("ascii")
+    return RuleSMV.id.encode("ascii")
 
   def weaker(self, board: "AbstractBoard"):
     return self

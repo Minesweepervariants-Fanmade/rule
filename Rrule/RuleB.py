@@ -65,7 +65,7 @@ class ValueC(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return RuleC.name[0].encode()
+        return RuleC.id.encode()
 
     def create_constraints_(self, model: CpModel, var_list: list, switch: 'IntVar'):
         model.Add(sum(var_list) == self.value).OnlyEnforceIf(switch)

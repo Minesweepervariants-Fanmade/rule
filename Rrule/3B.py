@@ -98,7 +98,7 @@ class Value3B(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule3B.name[0].encode("ascii")
+        return Rule3B.id.encode("ascii")
 
     def code(self) -> bytes:
         return self.__code

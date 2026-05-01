@@ -38,7 +38,7 @@ class ValueK(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule3D1K.name[0].encode("ascii")
+        return Rule3D1K.id.encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])
