@@ -11,6 +11,7 @@
 from ....abs.Rrule import AbstractClueRule, ValueQuess
 from ....abs.board import AbstractBoard
 from ....utils.impl_obj import VALUE_QUESS
+from ....utils.tool import get_random
 
 
 class RuleQuess(AbstractClueRule):
@@ -20,7 +21,7 @@ class RuleQuess(AbstractClueRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
-        self.clear = data is not None
+        self.data = -1 if data is None else (int(data) if data else 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):
@@ -28,8 +29,14 @@ class RuleQuess(AbstractClueRule):
         return board
 
     def init_clear(self, board: 'AbstractBoard'):
-        if self.clear:
+        if self.data == -1:
             for pos, obj in board("C"):
                 if obj is not VALUE_QUESS:
                     continue
+                board.set_value(pos, None)
+        else:
+            positions = [pos for pos, obj in board("C") if obj is VALUE_QUESS]
+            random = get_random()
+            positions = random.sample(positions, k=len(positions) - self.data)
+            for pos in positions:
                 board.set_value(pos, None)
