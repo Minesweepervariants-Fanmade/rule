@@ -20,7 +20,7 @@ class RuleSharp(AbstractClueRule):
     name = "Tag"
     name.zh_CN = "标签"
     doc = "Clues have different rules, each clue's rule will be marked separately"
-  doc.zh_CN = "线索会有不同的规则, 每个线索的规则会单独标出"
+    doc.zh_CN = "线索会有不同的规则, 每个线索的规则会单独标出"
 
     def __init__(self, board: AbstractBoard, data: list[AbstractClueRule]):
         super().__init__(board, None)

@@ -11,7 +11,7 @@ class Rule3H(AbstractClueRule):
     name = "Big Triangle"
     name.zh_CN = "大三角"
     doc = "Clue shows the number of mines: 8 adjacent cells plus left-left and right-right; odd rows additionally include top-left-top and top-right-top; even rows additionally include bottom-left-bottom and bottom-right-bottom"
-  doc.zh_CN = "线索表示这些周围格子的雷数：周围八格 左左 右右，奇数列额外包括左左上 右右上；偶数列额外包括左左下 右右下"
+    doc.zh_CN = "线索表示这些周围格子的雷数：周围八格 左左 右右，奇数列额外包括左左上 右右上；偶数列额外包括左左下 右右下"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

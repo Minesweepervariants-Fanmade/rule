@@ -17,7 +17,7 @@ class RuleNSharp(AbstractClueSharp):
     name = "Tag"
     name.zh_CN = "标签"
     doc = "Clue has only one possible value"
-  doc.zh_CN = "线索只有一个取值"
+    doc.zh_CN = "线索只有一个取值"
 
     def __init__(self, board: "AbstractBoard" = None, data: str =None) -> None:
         if data.__contains__(";"):

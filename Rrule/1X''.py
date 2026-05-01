@@ -20,7 +20,7 @@ class Rule1Xp(AbstractClueRule):
     name = "X''"
     name.zh_CN = "双十字"
     doc = "Clue shows the total mines in distance 1 and distance 2√2 regions"
-  doc.zh_CN = "线索表示距离为1和距离为2√2区域的总雷数"
+    doc.zh_CN = "线索表示距离为1和距离为2√2区域的总雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

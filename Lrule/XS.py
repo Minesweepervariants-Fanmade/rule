@@ -42,7 +42,7 @@ class RuleXS(AbstractMinesRule):
    name = "Segment Split"
    name.zh_CN = "分段"
    doc = "Uses sub-board to represent row segment boundaries: no boundary means same value, different sides must be boundary, boundary count increases from bottom up with row inheritance"
-  doc.zh_CN = "用副板表示行分段边界：无边界同值、两侧不同必为边界，边界数自底向上递增并满足行间继承"
+   doc.zh_CN = "用副板表示行分段边界：无边界同值、两侧不同必为边界，边界数自底向上递增并满足行间继承"
 
    @staticmethod
    def _sub_key(key: str) -> str:

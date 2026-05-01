@@ -10,7 +10,7 @@ class Rule4L(AbstractMinesRule):
     id = "TEST-L02"
     name = "TEST-L02"
     doc = "All mines form L-shapes: mines always form L-shapes with width 1 and one turn, L-shapes can be diagonally adjacent but not horizontally or vertically adjacent"
-  doc.zh_CN = "所有雷组成L形：雷总是组成L形，L形是宽度为1，拐弯一次的形状，L形可以斜角相邻但不能横竖相邻"
+    doc.zh_CN = "所有雷组成L形：雷总是组成L形，L形是宽度为1，拐弯一次的形状，L形可以斜角相邻但不能横竖相邻"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

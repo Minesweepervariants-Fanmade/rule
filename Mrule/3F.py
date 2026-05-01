@@ -19,7 +19,7 @@ class Rule3F(AbstractMinesClueRule):
     name = "Not-V"
     name.zh_CN = "不是V"
     doc = "Mines clue indicates the number of non-mine cells in the surrounding 8 cells"
-  doc.zh_CN = "雷线索表示附近八个格子内的非雷格数"
+    doc.zh_CN = "雷线索表示附近八个格子内的非雷格数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("F"):

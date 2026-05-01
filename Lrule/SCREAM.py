@@ -11,7 +11,7 @@ class Rule3I(AbstractMinesRule):
     name = "Scream"
     name.zh_CN = "尖叫"
     doc = "Mine value equals the factorial of the number of mines in its 4 adjacent cells"
-  doc.zh_CN = "雷值等于其相邻四格雷数的阶乘"
+    doc.zh_CN = "雷值等于其相邻四格雷数的阶乘"
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

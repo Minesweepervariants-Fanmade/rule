@@ -18,7 +18,7 @@ class Rule(Abstract3DMinesRule):
     name = "3D Layer Balance"
     name.zh_CN = "3D 面平衡"
     doc = "Total mines on all parallel planes are equal"
-  doc.zh_CN = "所有平行面的总雷数均相等"
+    doc.zh_CN = "所有平行面的总雷数均相等"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

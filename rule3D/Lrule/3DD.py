@@ -12,7 +12,7 @@ class Rule3DD(Abstract3DMinesRule):  # type: ignore
     name = "3D1D"
     name.zh_CN = "蛆"
     doc = "All mines form 1x2x1, 2x1x1, or 1x1x2 3D rectangles"
-  doc.zh_CN = "所有雷均形成1x2x1、2x1x1或1x1x2的三维矩形"
+    doc.zh_CN = "所有雷均形成1x2x1、2x1x1或1x1x2的三维矩形"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

@@ -34,7 +34,7 @@ class Rule2QPrime(AbstractClueRule):
     name = "Octopus"
     name.zh_CN = "章鱼"
     doc = "Clue shows the number of directions (out of 8) where the nearest 2 cells contain a mine"
-  doc.zh_CN = "线索表示八方向上最近的2格有雷的方向数量"
+    doc.zh_CN = "线索表示八方向上最近的2格有雷的方向数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

@@ -45,7 +45,7 @@ class Rule6V(AbstractClueRule):
     name = "Vanilla(Full Marking)"
     name.zh_CN = "经典扫雷(全标)"
     doc = "Clue shows the number of mines in the surrounding 8 cells. All numbers shown on the board are already given. Other cells cannot have any of the shown numbers."
-  doc.zh_CN = "盘面上的数字线索标识周围八格的雷数。盘面上所有已给出的数字均已给出。其他格子不可能再出现已经给出的数字。"
+    doc.zh_CN = "盘面上的数字线索标识周围八格的雷数。盘面上所有已给出的数字均已给出。其他格子不可能再出现已经给出的数字。"
 
     dynamic_dig_enabled = True
     dynamic_dig_use_visibility_optimizer = True

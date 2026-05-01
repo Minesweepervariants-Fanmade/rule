@@ -17,7 +17,7 @@ class Rule2F(Abstract3DMinesRule):
     name = "3D Flower Field"
     name.zh_CN = "三维花田"
     doc = "Mines in dyed cells must have exactly 1 mine in their 6 adjacent cells"
-  doc.zh_CN = "染色格中的雷周围六格内恰好有1个雷"
+    doc.zh_CN = "染色格中的雷周围六格内恰好有1个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

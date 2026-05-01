@@ -22,7 +22,7 @@ class Rule2Ep(AbstractClueRule):
     name = "Mutual Indication"
     name.zh_CN = "互指"
     doc = "If clue X has N mines around it, then the cell with X=N on the other board must be a mine"
-  doc.zh_CN = "如果线索X周围有N个雷 则另一个题板的X=N的格子必定为雷"
+    doc.zh_CN = "如果线索X周围有N个雷 则另一个题板的X=N的格子必定为雷"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__()

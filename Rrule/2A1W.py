@@ -18,7 +18,7 @@ class Rule2A1W(AbstractClueRule):
     name = "Area + Wall"
     name.zh_CN = "面积 + 数墙"
     doc = "Clue shows the areas of the four adjacent mine regions in the four directions"
-  doc.zh_CN = "线索表示四方向各相邻雷区域的面积"
+    doc.zh_CN = "线索表示四方向各相邻雷区域的面积"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int]):

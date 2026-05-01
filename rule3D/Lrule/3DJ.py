@@ -13,7 +13,7 @@ class Rule3DJ(Abstract3DMinesRule):  # type: ignore
     name = "Jujubecake"
     name.zh_CN = "枣糕"
     doc = "All non-mine cells form 1x2x1, 2x1x1, or 1x1x2 3D rectangles, i.e., each non-mine cell has exactly one 6-connected neighbor (all holes!!!)"
-  doc.zh_CN = "所有非雷格均形成1x2x1、2x1x1或1x1x2的三维矩形，即每个非雷格恰好有一个六连通相邻的非雷格(全是洞啊!!!)"
+    doc.zh_CN = "所有非雷格均形成1x2x1、2x1x1或1x1x2的三维矩形，即每个非雷格恰好有一个六连通相邻的非雷格(全是洞啊!!!)"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

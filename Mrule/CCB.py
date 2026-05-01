@@ -17,7 +17,7 @@ class RuleCB(AbstractMinesClueRule):
     name = "CCB"
     name.zh_CN = "连击"
     doc = "Mines clue indicates the total combo value in four directions; n consecutive mines in the same direction have combo values from 1 to n"
-  doc.zh_CN = "雷线索指示四方向的连击总值和，同方向相邻的n个雷连击值为1-n"
+    doc.zh_CN = "雷线索指示四方向的连击总值和，同方向相邻的n个雷连击值为1-n"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, obj in board("F"):

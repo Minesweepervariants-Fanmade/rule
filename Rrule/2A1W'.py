@@ -18,7 +18,7 @@ class Rule2A1Wl(AbstractClueRule):
     name = "Area + Largest Wall"
     name.zh_CN = "面积 + 最大数墙"
     doc = "Clue shows the maximum area of the four adjacent mine regions in the four directions"
-  doc.zh_CN = "线索表示四方向最大相邻雷区域的面积"
+    doc.zh_CN = "线索表示四方向最大相邻雷区域的面积"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int]):

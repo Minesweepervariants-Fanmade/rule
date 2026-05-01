@@ -51,7 +51,7 @@ class RuleFL(AbstractMinesClueRule):
     name = "Perimeter"
     name.zh_CN = "周长"
     doc = "Mines clue value represents the perimeter of its mine region"
-  doc.zh_CN = "雷线索值表示所在雷区周长"
+    doc.zh_CN = "雷线索值表示所在雷区周长"
 
     @staticmethod
     def _neighbors4(pos: AbstractPosition) -> list[AbstractPosition]:
