@@ -5,6 +5,7 @@ from .connect import connect
 
 class Rule1C(AbstractMinesRule):
     id = "1C^"
+    aliases = ("C^",)
     name = "Root"
     name.zh_CN = "树根"
     doc = "所有雷形成一个树根结构。该结构是由第一行的一个雷开始向下、左下、右下延伸而成的。"

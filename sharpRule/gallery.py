@@ -283,6 +283,7 @@ class SubBoard(AbstractBoard):
 
 class Rule1B(AbstractMinesRule):
     id = "1B-"
+    aliases = ("B-",)
     name = "Row Balance"
     name.zh_CN = "行平衡"
     doc = "每行雷数相等"

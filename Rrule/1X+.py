@@ -36,6 +36,7 @@ def _get_row_col_positions(board: 'AbstractBoard', pos: AbstractPosition):
 
 class Rule1XPlus(AbstractClueRule):
     id = "1X+"
+    aliases = ("X+",)
     name = "Castle"
     name.zh_CN = "城堡"
     doc = "线索数表示与其同行或同列的所有格子中的雷数"

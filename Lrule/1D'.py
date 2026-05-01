@@ -13,6 +13,7 @@ from ....abs.board import AbstractBoard
 
 class Rule1Dp(AbstractMinesRule):
     id = "1D'"
+    aliases = ("D'",)
     name = "Battleship"
     name.zh_CN = "战舰"
     doc = "每个雷区域为宽度为 1、长度不超过 4 的矩形，矩形不能对角相邻"

@@ -49,6 +49,7 @@ def get_line(board: AbstractBoard, pos: AbstractPosition):
 
 class Rule1Bpp(AbstractMinesRule):
     id = "1B''"
+    aliases = ("B''",)
     name.zh_CN = "后平衡"
     doc = "雷八方向上的总雷数均相等"
 

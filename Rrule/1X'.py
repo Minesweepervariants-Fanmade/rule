@@ -16,6 +16,7 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 class Rule1Xp(AbstractClueRule):
     id = "1X'"
+    aliases = ("X'",)
     name = "Mini Cross"
     name.zh_CN = "小十字"
     doc = "线索表示半径为 1 的十字范围内的雷数"

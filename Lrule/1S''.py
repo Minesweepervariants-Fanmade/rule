@@ -5,6 +5,7 @@ from .connect import connect
 
 class Rule1S(AbstractMinesRule):
     id = "1S''"
+    aliases = ("S''",)
     name = "Portal Snake"
     name.zh_CN = "传送门蛇"
     doc = "所有雷构成一条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉。题板的上下左右视为连通。"

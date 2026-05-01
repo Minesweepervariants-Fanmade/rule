@@ -10,6 +10,7 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 class Rule1Xr(AbstractClueRule):
     id = "1X^"
+    aliases = ("X^",)
     name = "Rhombus"
     name.zh_CN = "菱形"
     doc = "线索表示距离为 √2 和距离为 2 区域的总雷数"

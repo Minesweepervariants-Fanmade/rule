@@ -23,6 +23,7 @@ from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
 
 class Rule1Dpp(AbstractMinesRule):
     id = "1D''"
+    aliases = ("D''",)
     name = "RectDiag"
     name.zh_CN = "矩形对角线"
     doc = "所有雷必须是1x1~1x4矩形或者长度2~4的对角线的一部分，这些形状之间不能互相接触（对角也不行）。"

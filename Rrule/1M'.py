@@ -18,6 +18,7 @@ BOARD_NAME = "1M'"
 
 class Rule1M(AbstractClueRule):
     id = "1M'"
+    aliases = ("M'",)
     name.zh_CN = "多雷'"
     doc = "每个线索的多雷位置相对于线索固定 且位置全盘共享（不影响总雷数）"
 

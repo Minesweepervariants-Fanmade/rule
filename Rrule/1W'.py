@@ -59,6 +59,7 @@ def MineStatus_1W(clue: list) -> list[int]:
 
 class Rule1Wp(AbstractClueRule):
     id = "1W'"
+    aliases = ("W'",)
     name = "Longest Wall"
     name.zh_CN = "最长数墙"
     doc = "线索表示 3x3 范围内最长的连续雷的长度"

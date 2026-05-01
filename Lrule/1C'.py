@@ -5,6 +5,7 @@ from .connect import connect
 
 class Rule1C(AbstractMinesRule):
     id = "1C'"
+    aliases = ("C'",)
     name = "Connected'"
     name.zh_CN = "八连通'"
     doc = "(1) 染色格的雷和 (2) 非染色格的雷各自八连通。染色区域和非染色区域至少有一个雷。"
