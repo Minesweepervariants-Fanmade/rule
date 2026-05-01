@@ -235,31 +235,128 @@ def scan_module_docstrings(directory):
     return results
 
 
+def _text_from_value(value) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value.strip()
+    return str(value).strip()
+
+
+def _iter_text_values(value):
+    if isinstance(value, dict):
+        for item in value.values():
+            text = _text_from_value(item)
+            if text:
+                yield text
+        return
+    if isinstance(value, (list, tuple)):
+        for item in value:
+            text = _text_from_value(item)
+            if text:
+                yield text
+        return
+    text = _text_from_value(value)
+    if text:
+        yield text
+
+
+def _first_text(value) -> str:
+    for text in _iter_text_values(value):
+        return text
+    return ""
+
+
+def _normalize_i18n_map(value, fallback_text=""):
+    if isinstance(value, dict):
+        result = {}
+        for key, item in value.items():
+            text = _text_from_value(item)
+            if text:
+                result[str(key)] = text
+        if result:
+            return result
+    elif isinstance(value, (list, tuple)):
+        values = [_text_from_value(item) for item in value]
+        values = [item for item in values if item]
+        if values:
+            return {"default": values[0]}
+    else:
+        text = _text_from_value(value)
+        if text:
+            return {"default": text}
+    return {"default": fallback_text} if fallback_text else {}
+
+
+def _normalize_author(author):
+    author_name = ""
+    author_id = ""
+    if isinstance(author, (list, tuple)):
+        if len(author) > 0:
+            author_name = _text_from_value(author[0])
+        if len(author) > 1:
+            author_id = _text_from_value(author[1])
+    elif isinstance(author, dict):
+        author_name = _text_from_value(author.get("name", ""))
+        author_id = _text_from_value(author.get("id", ""))
+    else:
+        author_name = _text_from_value(author)
+    return {
+        "name": author_name,
+        "id": author_id,
+    }
+
+
+def _format_author_display(author):
+    author_name = author.get("name", "") if isinstance(author, dict) else ""
+    author_id = author.get("id", "") if isinstance(author, dict) else ""
+    if author_name and author_id:
+        return f"{author_name}({author_id})"
+    return author_name or author_id
+
+
+def _pick_image_name(rule_key, image_names):
+    if not rule_key:
+        return ""
+    prefix = f"{rule_key}_"
+    for candidate in image_names:
+        if candidate.startswith(prefix):
+            return candidate
+    return ""
+
+
+def _build_display(rule_key, names, doc, author, image_name=""):
+    name_values = list(_iter_text_values(names))
+    display_name = name_values[0] if name_values else rule_key
+    other_names = [value for value in name_values[1:] if value and value != display_name]
+    if other_names:
+        display_name = f"{display_name}({', '.join(other_names)})"
+    author_text = _format_author_display(author)
+    author_part = f"[@Author={author_text}]" if author_text else ""
+    image_part = f"[@Image={image_name}]" if image_name else ""
+    doc_text = _first_text(doc)
+    return f"[{rule_key}]{display_name}{author_part}{image_part}: {doc_text}"
+
+
 def get_all_rules():
-    results = {"R": {}, "M": {}, "L": {}, "O": {}}
+    results = {"L": [], "M": [], "R": []}
     dir_path = os.path.dirname(os.path.abspath(__file__))
+    image_dir = os.path.join(dir_path, "image")
+    image_names = []
+    if os.path.isdir(image_dir):
+        image_names = sorted(
+            name for name in os.listdir(image_dir)
+            if os.path.isfile(os.path.join(image_dir, name))
+        )
+
     for m_doc, doc, x, names, author, rule_id in scan_module_docstrings(dir_path):
         if not names:
             continue
-        # determine the rule key: prefer explicit id, otherwise fall back to first name
-        if rule_id:
-            key_name = rule_id
-            remaining = names
-        else:
-            if isinstance(names, dict):
-                # if names is i18n dict, take an arbitrary first value as display name
-                items = list(names.items())
-                if items:
-                    key_name = items[0][1]
-                    remaining = [v for _, v in items[1:]]
-                else:
-                    continue
-            elif isinstance(names, list):
-                key_name = names[0]
-                remaining = names[1:]
-            else:
-                key_name = str(names)
-                remaining = []
+
+        rule_key = _first_text(rule_id) or _first_text(names)
+        if not rule_key:
+            continue
+
         rule_line = None
         if x == 1:
             rule_line = "L"
@@ -269,28 +366,19 @@ def get_all_rules():
             rule_line = "R"
         if rule_line is None:
             continue
-        # Normalize output: always include full i18n dicts if present
-        entry_names = []
-        names_i18n = {}
-        if isinstance(names, dict):
-            names_i18n = names
-            # derive a fallback list of display names from dict values
-            entry_names = [v for _, v in names.items()]
-        elif isinstance(names, list):
-            entry_names = names
-        else:
-            entry_names = [str(names)]
 
-        entry_doc = doc if isinstance(doc, str) else (next(iter(doc.values())) if isinstance(doc, dict) and doc else "")
-        doc_i18n = doc if isinstance(doc, dict) else {}
+        name_map = _normalize_i18n_map(names, fallback_text=rule_key)
+        doc_map = _normalize_i18n_map(doc)
+        author_map = _normalize_author(author)
+        image_name = _pick_image_name(rule_key, image_names)
 
-        results[rule_line][key_name] = {
-            "names": entry_names,
-            "names_i18n": names_i18n,
-            "doc": entry_doc,
-            "doc_i18n": doc_i18n,
-            "module_doc": m_doc,
-            "author": author,
-            "id": rule_id,
-        }
+        results[rule_line].append({
+            "rule_line": rule_line,
+            "id": _text_from_value(rule_id) or rule_key,
+            "name": name_map,
+            "doc": doc_map,
+            "author": author_map,
+            "image": image_name,
+            "display": _build_display(rule_key, names, doc, author_map, image_name),
+        })
     return results
