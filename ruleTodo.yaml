@@ -1220,3 +1220,8 @@
   doc: '孤矩(Isolated Rectangle): 左线规则。所有雷格恰好构成一个或多个矩形，且任意两个矩形的边或角互不接触（至少间隔一格）。'
   name: NR
   time: 1777661334.7663343
+- author_name: NT
+  author_uid: 2201963934
+  doc: '异雷(Different Mine): 每个非雷格周围八格雷排布互不相同。'
+  name: DF
+  time: 1777661481.43697
