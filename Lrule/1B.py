@@ -15,6 +15,7 @@ from ....abs.board import AbstractBoard
 
 class Rule1B(AbstractMinesRule):
     id = "1B"
+    aliases = ("B",)
     name = "Balance"
     name.zh_CN = "平衡"
     doc = "(1) 每行雷数相等；(2) 每列雷数相等"
