@@ -20,7 +20,8 @@ class Rule2Eq(AbstractClueRule):
     id = "2E^"
     name = "Encrypted^"
     name.zh_CN = "加密^"
-    doc = "线索被字母替代，每个字母对应两个线索，且每个线索对应两个字母"
+    doc = "Clues are replaced by letters, each letter corresponds to two clues, and each clue corresponds to two letters"
+  doc.zh_CN = "线索被字母替代，每个字母对应两个线索，且每个线索对应两个字母"
 
     def __init__(self, data=None, board: 'AbstractBoard' = None):
         super().__init__(board, data)

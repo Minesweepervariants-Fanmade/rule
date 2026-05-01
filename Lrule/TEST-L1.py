@@ -8,7 +8,8 @@ from ....abs.board import AbstractBoard
 class Rule1HX(AbstractMinesRule):
     id = "TEST-L1"
     name = "TEST-L1"
-    doc = "如果一个格子是雷，其水平对称格不是雷"
+    doc = "If a cell is a mine, its horizontally symmetric cell is not a mine"
+  doc.zh_CN = "如果一个格子是雷，其水平对称格不是雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

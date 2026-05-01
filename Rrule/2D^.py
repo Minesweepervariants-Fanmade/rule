@@ -18,7 +18,8 @@ class Rule2D(AbstractClueRule):
     id = "2D^"
     name = "Deviation^"
     name.zh_CN = "偏移^"
-    doc = "线索表示 Nx3 范围内的雷数，N 为正上连续非雷格数量"
+    doc = "Clue shows the number of mines in an Nx3 area, where N is the number of consecutive non-mine cells directly above"
+  doc.zh_CN = "线索表示 Nx3 范围内的雷数，N 为正上连续非雷格数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

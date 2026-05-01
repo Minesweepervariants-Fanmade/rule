@@ -63,7 +63,8 @@ class RuleCPV(AbstractClueRule):
   id = "CPV"
   name = "Clue Partition Value"
   name.zh_CN = "划分雷值"
-  doc = "线索格表示周围八格雷数, 且每个格子在其可见候选线索集合中必须唯一归属。"
+  doc = "Clue cells show the number of mines belonging to them in the 8 adjacent cells, and each cell must belong to exactly one visible clue."
+  doc.zh_CN = "线索格表示周围八格雷数, 且每个格子在其可见候选线索集合中必须唯一归属。"
 
   dynamic_dig_enabled = True
 

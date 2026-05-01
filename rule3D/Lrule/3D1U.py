@@ -11,7 +11,8 @@ class Rule3D1U(Abstract3DMinesRule):
     id = "3D1U"
     name = "3DU"
     name.zh_CN = "三维一元"
-    doc = "所有雷不能与其他雷相邻"
+    doc = "No two mines can be adjacent to each other"
+  doc.zh_CN = "所有雷不能与其他雷相邻"
 
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()

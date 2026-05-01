@@ -19,7 +19,8 @@ class Rule2M(AbstractClueRule):
     id = "2M^"
     name = "Mod^"
     name.zh_CN = "取模^"
-    doc = "线索与周围8格的雷数除以2的余数相同"
+    doc = "Clue has the same remainder as the number of mines in the 8 adjacent cells divided by 2"
+  doc.zh_CN = "线索与周围8格的雷数除以2的余数相同"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

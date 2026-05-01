@@ -17,7 +17,8 @@ class RuleSETUHat(AbstractMinesRule):
     id = "SETU^"
     name = "SETUH"
     name.zh_CN = "涩图融合"
-    doc = "参数链接(支持URL/文件路径)作为A图，与已生成题板图B融合并替换最终题板图"
+    doc = "Parameter image URL (supporting URL/file path) as image A, merged with generated board image B and replacing final board image"
+  doc.zh_CN = "参数链接(支持URL/文件路径)作为A图，与已生成题板图B融合并替换最终题板图"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

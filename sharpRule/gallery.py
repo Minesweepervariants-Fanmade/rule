@@ -287,7 +287,8 @@ class Rule1B(AbstractMinesRule):
     aliases = ("B-",)
     name = "Row Balance"
     name.zh_CN = "行平衡"
-    doc = "每行雷数相等"
+    doc = "Each row has the same number of mines"
+  doc.zh_CN = "每行雷数相等"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

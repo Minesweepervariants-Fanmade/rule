@@ -39,7 +39,8 @@ class Rule1XPlus(AbstractClueRule):
     aliases = ("X+",)
     name = "Castle"
     name.zh_CN = "城堡"
-    doc = "线索数表示与其同行或同列的所有格子中的雷数"
+    doc = "Clue shows the number of mines in all cells in the same row or column"
+  doc.zh_CN = "线索数表示与其同行或同列的所有格子中的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

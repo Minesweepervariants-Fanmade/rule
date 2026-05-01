@@ -21,7 +21,8 @@ class Rule1M(AbstractClueRule):
     aliases = ("M'",)
     name = "Multi-Mine'"
     name.zh_CN = "多雷'"
-    doc = "每个线索的多雷位置相对于线索固定 且位置全盘共享（不影响总雷数）"
+    doc = "Each clue's multi-mine positions are fixed relative to the clue and shared across the board"
+  doc.zh_CN = "每个线索的多雷位置相对于线索固定 且位置全盘共享（不影响总雷数）"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

@@ -36,7 +36,8 @@ class Rule2P(AbstractClueRule):
     id = "2P'"
     name = "Journey"
     name.zh_CN = "旅程"
-    doc = "线索表示距离最近的 2 个雷的曼哈顿距离之和"
+    doc = "Clue shows the sum of Manhattan distances to the nearest 2 mines"
+  doc.zh_CN = "线索表示距离最近的 2 个雷的曼哈顿距离之和"
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         if len([_ for _ in board("F")]) < 2:
