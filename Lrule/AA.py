@@ -16,7 +16,8 @@ class RuleAA(AbstractMinesRule):
     id = "AA"
     name = "Attraction"
     name.zh_CN = "吸引"
-    doc = "场上不存在横竖方向上的雷—空—雷"
+    doc = "No mine-empty-mine pattern exists horizontally or vertically"
+    doc.zh_CN = "场上不存在横竖方向上的雷—空—雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

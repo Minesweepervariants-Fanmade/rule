@@ -83,7 +83,8 @@ from ....abs.board import AbstractBoard, AbstractPosition
 class RuleSMV(AbstractMinesClueRule):
   id = "SMV"
   name = ""
-  doc = "对称雷值: 雷线索表示所在雷区中心对称范围内的雷数"
+  doc = "Mines clue represents the number of mines in the central symmetric range of its mine region"
+  doc.zh_CN = "对称雷值: 雷线索表示所在雷区中心对称范围内的雷数"
 
   def __init__(self, board: "AbstractBoard" = None, data=None) -> None:  # type: ignore[assignment]
     super().__init__(board, data)

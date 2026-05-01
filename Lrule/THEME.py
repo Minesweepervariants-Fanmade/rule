@@ -157,7 +157,8 @@ class RuleSETU(AbstractMinesRule):
     id = "THEME"
     name = "Theme"
     name.zh_CN = "主题"
-    doc = "设置题板主题"
+    doc = "Sets the board theme"
+  doc.zh_CN = "设置题板主题"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

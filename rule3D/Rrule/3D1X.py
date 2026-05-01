@@ -18,7 +18,8 @@ class Rule3D1X(Abstract3DClueRule):
     id = "3D1X"
     name = "3D Cross"
     name.zh_CN = "三维十字"
-    doc = "线索表示(上下左右前后)2格的十字范围内的雷数"
+    doc = "Clue shows the number of mines in a 2-cell cross range (up, down, left, right, front, back)"
+  doc.zh_CN = "线索表示(上下左右前后)2格的十字范围内的雷数"
 
     def __init__(self, board: AbstractBoard, data: str = None):
         super().__init__(board, data)

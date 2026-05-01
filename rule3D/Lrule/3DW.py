@@ -77,7 +77,8 @@ class Rule3DW(Abstract3DMinesRule):
     id = "3DW"
     name = "Wave"
     name.zh_CN = "海浪"
-    doc = """所有层的同一行列中有且只有一格有雷, 且所有雷的水平邻居中每一个的上下偏移一格以内的范围内必定有雷.
+    doc = """For each (x,y), exactly one cell across all layers has a mine. If (x0,y0,z0) has a mine, the number of mines in {(x, y, z)| |x - x0| <= 1, |y - y0| <= 1, |z - z0| <= 1} equals its 2D neighbor count + 1"""
+  doc.zh_CN = """所有层的同一行列中有且只有一格有雷, 且所有雷的水平邻居中每一个的上下偏移一格以内的范围内必定有雷.
 1. 对于任意x,y, 存在唯一z使得(x,y,z)有雷
 2. 若(x0,y0,z0)有雷, 则{(x, y, z)| |x - x0| <= 1, |y - y0| <= 1, |z - z0| <= 1}中的雷格数为其2D邻格个数+1"""
 
