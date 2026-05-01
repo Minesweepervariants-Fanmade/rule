@@ -19,6 +19,21 @@
         return value == null ? "" : String(value);
       }
 
+      function firstValue(map) {
+        if (!map || typeof map !== "object") {
+          return "";
+        }
+        for (var key in map) {
+          if (Object.prototype.hasOwnProperty.call(map, key)) {
+            var value = text(map[key]).trim();
+            if (value) {
+              return value;
+            }
+          }
+        }
+        return "";
+      }
+
       function appendTextElement(parent, tagName, content, className) {
         var el = document.createElement(tagName);
         if (className) {
@@ -39,15 +54,16 @@
 
         var title = document.createElement("h3");
         title.className = "rule-title";
-        var names = (rule.names || []).join(", ");
-        title.textContent = "[" + text(rule.name) + "]" + (names ? " " + names : "");
+        var ruleId = text(rule.id).trim();
+        var ruleName = firstValue(rule.name);
+        title.textContent = "[" + ruleId + "]" + (ruleName ? " " + ruleName : "");
         item.appendChild(title);
 
-        var authorName = text(rule.author && rule.author.name);
-        var authorId = text(rule.author && rule.author.id);
+        var authorName = text(rule.author && rule.author.name).trim();
+        var authorId = text(rule.author && rule.author.id).trim();
         appendTextElement(item, "p", "作者: " + (authorName || "(未知)") + (authorId ? " (" + authorId + ")" : ""), "rule-author");
 
-        var docContent = text(rule.doc || "(无说明)").trim();
+        var docContent = firstValue(rule.doc) || "(无说明)";
         var imageName = text(rule.image).trim();
         if (docContent || imageName) {
           var docContainer = document.createElement("div");
