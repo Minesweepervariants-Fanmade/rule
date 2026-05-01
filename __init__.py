@@ -6,6 +6,7 @@
 
 import os
 import ast
+import locale
 from typing import Dict, Union
 
 
@@ -266,7 +267,6 @@ def _first_text(value) -> str:
         return text
     return ""
 
-
 def _normalize_i18n_map(value, fallback_text=""):
     if isinstance(value, dict):
         result = {}
@@ -306,15 +306,6 @@ def _normalize_author(author):
         "id": author_id,
     }
 
-
-def _format_author_display(author):
-    author_name = author.get("name", "") if isinstance(author, dict) else ""
-    author_id = author.get("id", "") if isinstance(author, dict) else ""
-    if author_name and author_id:
-        return f"{author_name}({author_id})"
-    return author_name or author_id
-
-
 def _pick_image_name(rule_key, image_names):
     if not rule_key:
         return ""
@@ -323,20 +314,6 @@ def _pick_image_name(rule_key, image_names):
         if candidate.startswith(prefix):
             return candidate
     return ""
-
-
-def _build_display(rule_key, names, doc, author, image_name=""):
-    name_values = list(_iter_text_values(names))
-    display_name = name_values[0] if name_values else rule_key
-    other_names = [value for value in name_values[1:] if value and value != display_name]
-    if other_names:
-        display_name = f"{display_name}({', '.join(other_names)})"
-    author_text = _format_author_display(author)
-    author_part = f"[@Author={author_text}]" if author_text else ""
-    image_part = f"[@Image={image_name}]" if image_name else ""
-    doc_text = _first_text(doc)
-    return f"[{rule_key}]{display_name}{author_part}{image_part}: {doc_text}"
-
 
 def get_all_rules():
     results = {"L": [], "M": [], "R": []}
@@ -379,6 +356,5 @@ def get_all_rules():
             "doc": doc_map,
             "author": author_map,
             "image": image_name,
-            "display": _build_display(rule_key, names, doc, author_map, image_name),
         })
     return results
