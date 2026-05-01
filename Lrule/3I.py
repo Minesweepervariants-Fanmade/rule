@@ -7,7 +7,8 @@ from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
 class Rule3I(AbstractMinesRule):
-    name = ["3I", "反相"]
+    id = "3I"
+    name.zh_CN = "反相"
     doc = "染色格中非雷视为雷，雷视为非雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

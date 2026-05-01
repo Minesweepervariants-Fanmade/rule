@@ -15,7 +15,9 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class RuleC(AbstractClueRule):
-    name = ["Rule-011", "没想好", "τB", "RULE-011"]
+    id = "Rule-011"
+    name = "τB"
+    name.zh_CN = "没想好"
     doc = "线索表示周围八格中周围四格没有雷的雷数。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

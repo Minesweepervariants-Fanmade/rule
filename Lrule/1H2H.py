@@ -12,7 +12,8 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1H(AbstractMinesRule):
-    name = ["1H2H", "横横向向"]
+    id = "1H2H"
+    name.zh_CN = "横横向向"
     doc = "在每一行中, 要么都没有横向相邻的雷，要么都至少有一个横向相邻的雷。"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

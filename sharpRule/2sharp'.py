@@ -13,7 +13,8 @@ from . import AbstractClueSharp
 
 
 class Rule2sharp(AbstractClueSharp):
-    name = ["2#'", "标签'"]
+    id = "2#'"
+    name.zh_CN = "标签'"
     doc = "包含以下规则: [V], [2X], [2X'], [2D], [2P], [2M], [2A]"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
@@ -21,5 +22,3 @@ class Rule2sharp(AbstractClueSharp):
         if data is None:
             rules_name += ["2A"]
         super().__init__(rules_name, board, data)
-
-

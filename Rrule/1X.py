@@ -56,7 +56,9 @@ def decode_bools_7bit(data: bytes) -> list[bool]:
 
 
 class Rule1X(AbstractClueRule):
-    name = ["1X", "十字", "Cross"]
+    id = "1X"
+    name = "Cross"
+    name.zh_CN = "十字"
     doc = "线索表示半径为 2 的十字范围内的雷数"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

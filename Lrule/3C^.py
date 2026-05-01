@@ -13,7 +13,9 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class Rule3C(AbstractMinesRule):
-    name = ["3C^", "连通^", "Connected^"]
+    id = "3C^"
+    name = "Connected^"
+    name.zh_CN = "连通^"
     doc = "每个雷周围八格中雷的数量为偶数（包括0）"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):

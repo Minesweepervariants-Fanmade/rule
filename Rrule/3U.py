@@ -12,7 +12,8 @@ from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
 class Rule3U(AbstractMinesRule):
-    name = ["3U", "上上"]
+    id = "3U"
+    name.zh_CN = "上上"
     doc = "每列最高的雷视为两个雷（总雷数不受其影响）"
     lib_only = True
 

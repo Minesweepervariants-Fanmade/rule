@@ -8,7 +8,9 @@ from .eyesight import AbstractEyesightClueRule, AbstractEyesightClueValue
 
 
 class Rule1EQ(AbstractEyesightClueRule):
-    name = ["1EQ", "皇后视野", "Queen Eyesight"]
+    id = "1EQ"
+    name = "Queen Eyesight"
+    name.zh_CN = "皇后视野"
     doc = "线索表示八个方向上能看到的非雷格数量（包括自身），雷会阻挡视线"
 
     @staticmethod
@@ -23,7 +25,7 @@ class Rule1EQ(AbstractEyesightClueRule):
             lambda n:pos.clone().shift(n, 0),
             lambda n:pos.clone().shift(-n, 0),
         ]
-    
+
     @classmethod
     def clue_type(cls):
         return Value1EQ
@@ -31,7 +33,7 @@ class Rule1EQ(AbstractEyesightClueRule):
 class Value1EQ(AbstractEyesightClueValue):
     def direction_funcs(self):
         return Rule1EQ.direction_funcs(self.pos)
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule1EQ.name[0].encode("ascii")

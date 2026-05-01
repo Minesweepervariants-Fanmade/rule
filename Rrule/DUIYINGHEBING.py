@@ -22,7 +22,8 @@ OPPSITE_PAIRS = [
 
 
 class RuleDUIYINGHEBING(AbstractClueRule):
-    name = ["4D'", "对映合并"]
+    id = "4D'"
+    name.zh_CN = "对映合并"
     doc = "每个数字标明周围八格内雷的数量。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -82,4 +83,3 @@ class ValueDUIYINGHEBING(AbstractClueValue):
                 model.Add(sum(tmp_vars) == 0).OnlyEnforceIf(temp_var.Not())
                 var_list.append(temp_var)
             model.Add(sum(var_list) == self.count).OnlyEnforceIf(switch.get(model, self))
-

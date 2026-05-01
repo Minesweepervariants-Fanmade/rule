@@ -13,7 +13,9 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class Rule4C(AbstractMinesRule):
-    # name = ["4C", "十字路口", "Crossing"]
+    # id = "4C"
+    name = "Crossing"
+    name.zh_CN = "十字路口"
 
     def suggest_total(self, info: dict):
         def a(model, total):
@@ -22,6 +24,3 @@ class Rule4C(AbstractMinesRule):
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         ...
-
-
-

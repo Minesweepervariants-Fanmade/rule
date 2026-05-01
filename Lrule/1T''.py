@@ -14,7 +14,8 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1Tpp(AbstractMinesRule):
-    name = ["1T''", "纯三连"]
+    id = "1T''"
+    name.zh_CN = "纯三连"
     doc = "每个雷属于唯一的三连组(横/竖/斜)"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

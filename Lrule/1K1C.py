@@ -14,7 +14,9 @@ from .connect import connect
 
 
 class Rule1C(AbstractMinesRule):
-    name = ["1K1C", "马步八连通", "Knight-Connected"]
+    id = "1K1C"
+    name = "Knight-Connected"
+    name.zh_CN = "马步八连通"
     doc = "雷区域马步连通"
 
     def create_constraints(self, board, switch):

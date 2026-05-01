@@ -154,7 +154,8 @@ def update_dict(d: dict, u: dict):
     return d
 
 class RuleSETU(AbstractMinesRule):
-    name = ["THEME", "主题"]
+    id = "THEME"
+    name.zh_CN = "主题"
     doc = "设置题板主题"
 
     def __init__(self, board: AbstractBoard, data=None):

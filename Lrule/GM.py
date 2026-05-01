@@ -33,7 +33,8 @@ from ....abs.board import AbstractBoard
 
 
 class RuleGM(AbstractMinesRule):
-    name = ["GM", "棍木"]
+    id = "GM"
+    name.zh_CN = "棍木"
     doc = "棍木"
 
     def create_constraints(self, board: "AbstractBoard", switch):

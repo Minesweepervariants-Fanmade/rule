@@ -8,7 +8,9 @@ from .....abs.board import AbstractBoard
 
 
 class Rule3DD(Abstract3DMinesRule):  # type: ignore
-    name = ["3DD", "3D1D", "蛆", "三维对偶"]
+    id = "3DD"
+    name = "3D1D"
+    name.zh_CN = "蛆"
     doc = "所有雷均形成1x2x1、2x1x1或1x1x2的三维矩形"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

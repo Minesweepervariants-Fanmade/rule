@@ -19,7 +19,9 @@ def decode_bytes_7bit(data: bytes) -> int:
     return int(s)
 
 class RuleV(AbstractClueRule):
-    name = ["1K", "K", "骑士", "Knight"]
+    id = "1K"
+    name = "Knight"
+    name.zh_CN = "骑士"
     doc = "线索表示马步位置 8 个格子中的总雷值"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

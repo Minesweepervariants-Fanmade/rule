@@ -15,7 +15,9 @@ from .connect import connect
 
 
 class Rule1C(AbstractMinesRule):
-    name = ["1C", "C", "八连通", "Connected"]
+    id = "1C"
+    name = "Connected"
+    name.zh_CN = "八连通"
     doc = "雷区域八连通"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

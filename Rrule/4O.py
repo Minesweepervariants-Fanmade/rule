@@ -10,7 +10,9 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.image_create import get_dummy, get_image, get_col, get_row, get_text
 
 class Rule4O(AbstractClueRule):
-    name = ["4O", "近视", "Myopia"]
+    id = "4O"
+    name = "Myopia"
+    name.zh_CN = "近视"
     doc = "线索以上下左右箭头而非数字呈现，箭头指向四方向距离其最近的雷，同时存在多个雷距离最近时会显示全部箭头。四方向都不存在雷时显示零。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -232,7 +234,7 @@ class Value4O(AbstractClueValue):
 
     def compose(self, board) -> Dict:
         return Value4O.composes[self.directions]
-    
+
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
@@ -280,7 +282,7 @@ class Value4O(AbstractClueValue):
             case 1: # 上
                 model.Add(sight_vars[0] < sight_vars[1]).OnlyEnforceIf(s)
                 model.Add(sight_vars[0] < sight_vars[2]).OnlyEnforceIf(s)
-                model.Add(sight_vars[0] < sight_vars[3]).OnlyEnforceIf(s)   
+                model.Add(sight_vars[0] < sight_vars[3]).OnlyEnforceIf(s)
             case 2: # 下
                 model.Add(sight_vars[1] < sight_vars[0]).OnlyEnforceIf(s)
                 model.Add(sight_vars[1] < sight_vars[2]).OnlyEnforceIf(s)
@@ -337,7 +339,3 @@ class Value4O(AbstractClueValue):
                 model.Add(sight_vars[0] == sight_vars[1]).OnlyEnforceIf(s)
                 model.Add(sight_vars[0] == sight_vars[2]).OnlyEnforceIf(s)
                 model.Add(sight_vars[0] == sight_vars[3]).OnlyEnforceIf(s)
-                
-    
-        
-        

@@ -13,7 +13,9 @@ from .connect import connect
 
 
 class Rule1S(Abstract3DMinesRule):
-    name = ["3D1K1S", "三维马步蛇", "3D-Knight-Snake"]
+    id = "3D1K1S"
+    name = "3D-Knight-Snake"
+    name.zh_CN = "三维马步蛇"
     doc = "所有雷构成一条蛇。马步蛇是一条马步联通路径，不存在分叉、环、交叉"
 
     def create_constraints(self, board, switch):

@@ -20,7 +20,9 @@ DOWN = 2
 LEFT = 3
 
 class RuleCS(AbstractClueRule):
-    name = ["CS", "罗盘", "Compass"]
+    id = "CS"
+    name = "Compass"
+    name.zh_CN = "罗盘"
     doc = "线索表示四方向各相邻雷区域中，在所示方向上比线索本身更远的单元格数量。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -70,7 +72,7 @@ class RuleCS(AbstractClueRule):
             board.set_value(pos, ValueCS(pos, values))
 
         return board
-    
+
 class ValueCS(AbstractClueValue):
     def __init__(self, pos: AbstractPosition, values: list[int] = [MISSING_VALUE, MISSING_VALUE, MISSING_VALUE, MISSING_VALUE], code: bytes = None):
         super().__init__(pos, code)
@@ -81,7 +83,7 @@ class ValueCS(AbstractClueValue):
 
     def __repr__(self):
         return ".".join([str(i) if i != MISSING_VALUE else "?" for i in self.values])
-    
+
     def compose(self, board) -> Dict:
         return get_col(
             get_text(self.display_value(UP)),
@@ -92,17 +94,17 @@ class ValueCS(AbstractClueValue):
             ),
             get_text(self.display_value(DOWN))
         )
-    
+
     def display_value(self, index) -> str:
         return str(self.values[index]) if self.values[index] != MISSING_VALUE else "?"
-        
+
     @classmethod
     def type(cls) -> bytes:
         return RuleCS.name[0].encode("ascii")
 
     def code(self) -> bytes:
         return bytes(self.values)
-    
+
     def weaker(self, board: AbstractBoard) -> AbstractValue:
         if self.weaker_times() == 1:
             return VALUE_QUESS
@@ -114,7 +116,7 @@ class ValueCS(AbstractClueValue):
 
     def weaker_times(self) -> int:
         return sum(1 for v in self.values if v != MISSING_VALUE)
-    
+
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
@@ -156,5 +158,3 @@ class ValueCS(AbstractClueValue):
                 model.Add(component_ids[positions.index(pos)] == component_ids[positions.index(self.pos)]).OnlyEnforceIf(s, var)
                 model.Add(component_ids[positions.index(pos)] != component_ids[positions.index(self.pos)]).OnlyEnforceIf(s, var.Not())
             model.Add(self.values[RIGHT] == sum(var for _, var in right_poses)).OnlyEnforceIf(s)
-
-

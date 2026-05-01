@@ -60,7 +60,9 @@ if TYPE_CHECKING:
 
 
 class RuleCPV(AbstractClueRule):
-  name = ["CPV", "划分雷值", "Clue Partition Value"]
+  id = "CPV"
+  name = "Clue Partition Value"
+  name.zh_CN = "划分雷值"
   doc = "线索格表示周围八格雷数, 且每个格子在其可见候选线索集合中必须唯一归属。"
 
   dynamic_dig_enabled = True

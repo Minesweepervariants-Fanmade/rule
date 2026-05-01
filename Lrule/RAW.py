@@ -7,7 +7,8 @@ from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
 class RuleRAW(AbstractMinesRule):
-    name = ["RAW", "原始雷值"]
+    id = "RAW"
+    name.zh_CN = "原始雷值"
     doc = "原始雷值"
     lib_only = True
 

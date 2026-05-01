@@ -49,7 +49,9 @@ def nei_pos_S(pos: AbstractPosition) -> list[list[AbstractPosition]]:
     ]
 
 class Rule2GStar(AbstractMinesRule):
-    name = ["2G*", "互异四连块", "Group*"]
+    id = "2G*"
+    name = "Group*"
+    name.zh_CN = "互异四连块"
     doc = "(1) 所有四连通雷区域的面积为 4 (2) 且它们形状不同（SZ 和 JL 型视为相同形状）"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
@@ -96,6 +98,6 @@ class Rule2GStar(AbstractMinesRule):
         for key in info["interactive"]:
             total = info["total"][key]
             ub += total
-        
+
         info["soft_fn"](ub * 0.335, 0)
         info["hard_fns"].append(hard_constraint)

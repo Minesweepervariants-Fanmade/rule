@@ -14,7 +14,8 @@ from .. import Abstract3DMinesRule
 
 
 class Rule(Abstract3DMinesRule):
-    name = ["3D1B'", "平衡"]
+    id = "3D1B'"
+    name.zh_CN = "平衡"
     doc = "所有平行面的总雷数均相等"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):

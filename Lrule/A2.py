@@ -16,7 +16,9 @@ def parse(s: str) -> list[tuple[int, int]]:
     return result
 
 class RuleA2(AbstractMinesRule):
-    name = ["A2", "A2", "A2 格是雷"]
+    id = "A2"
+    name = "A2"
+    name.zh_CN = "A2 格是雷"
     doc = "A2 格是雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

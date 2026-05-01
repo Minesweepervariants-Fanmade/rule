@@ -12,5 +12,7 @@
         -- -
     示例:
         2G*包含名称
-        name = ["2G*", "互异四连块", "Group*"]
+        id = "2G*"
+        name = "Group*"
+        name.zh_CN = "互异四连块"
         那么他的文件名为"2G-a_互异四连块_Group-a.png"

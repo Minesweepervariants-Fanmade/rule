@@ -214,7 +214,8 @@ def resolve_setu_image(
     return None
 
 class RuleSETU(AbstractMinesRule):
-    name = ["SETU", "涩图"]
+    id = "SETU"
+    name.zh_CN = "涩图"
     doc = "禁止涩涩！"
 
     def __init__(self, board: AbstractBoard, data=None):

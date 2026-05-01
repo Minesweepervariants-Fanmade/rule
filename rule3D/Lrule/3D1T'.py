@@ -15,7 +15,9 @@ from .....utils.tool import get_logger
 
 
 class Rule3D1Tp(Abstract3DMinesRule):
-    name = ["3D1T'", "3DT'", "三维必三连"]
+    id = "3D1T'"
+    name = "3DT'"
+    name.zh_CN = "三维必三连"
     doc = "雷必然处在横竖对角构成三连"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

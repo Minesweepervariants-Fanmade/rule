@@ -17,7 +17,9 @@ all_left_rules = ['1Q', '1C', '1T', '1O', '1D', '1S', '1B', '1T\'', '1D\'', '1A'
 all_right_rules = ['V', '1M', '1L', '1W', '1N', '1X', '1P', '1E', '1X\'', '1K', '1W\'', '1E\'', '2X', '2D', '2P', '2M', '2A', '2X\''] # 2E, 2L, 2I removed
 
 class RuleGallery(AbstractClueRule):
-    name = ["Gallery", "画廊", "Gallery"]
+    id = "Gallery"
+    name = "Gallery"
+    name.zh_CN = "画廊"
     doc = "每行每列的规则不同，在左上边界表明。左线规则只影响所在行及上下相邻的行。(1B 只有行平衡）在:后面添加参数，?表示随机顺序，!表示随机规则，这之后添加指定规则，规则间用;分隔，可只指定左线或右线规则。空的:相当于:!。"
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
@@ -280,7 +282,9 @@ class SubBoard(AbstractBoard):
         return get_rule(rule_name)(board=self, data=data)
 
 class Rule1B(AbstractMinesRule):
-    name = ["1B-", "B-", "行平衡", "Row Balance"]
+    id = "1B-"
+    name = "Row Balance"
+    name.zh_CN = "行平衡"
     doc = "每行雷数相等"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

@@ -30,7 +30,9 @@ def pos_shift(
     return positions
 
 class Rule2QPrime(AbstractClueRule):
-    name = ["2Q'", "章鱼", "Octopus"]
+    id = "2Q'"
+    name = "Octopus"
+    name.zh_CN = "章鱼"
     doc = "线索表示八方向上最近的2格有雷的方向数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -73,7 +75,7 @@ class Value2QPrime(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.count])
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self.pos)

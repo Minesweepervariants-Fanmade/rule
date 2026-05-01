@@ -45,7 +45,8 @@ def put(board, pos: 'AbstractPosition', path):
 
 
 class Rule3A(AbstractClueRule):
-    name = ["3A", "兰顿蚂蚁"]
+    id = "3A"
+    name.zh_CN = "兰顿蚂蚁"
     doc = "数字表示兰顿蚂蚁从线索格出发直至走出题板外所移动的次数。\n箭头表示兰顿蚂蚁的初始方向，经过非雷格顺时针旋转90度(右转)，经过雷格逆时针旋转90度(左转)。\n数字可以为无穷(显示为0),其表示当前路径构成了循环"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

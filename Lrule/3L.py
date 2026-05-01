@@ -7,7 +7,9 @@ from .connect import connect
 
 
 class Rule1S(AbstractMinesRule):
-    name = ["3L", "环", "Loop"]
+    id = "3L"
+    name = "Loop"
+    name.zh_CN = "环"
     doc = "所有雷构成一条环。环是一条宽度为 1 的八连通路径，不存在分叉和交叉，环的头尾相连"
 
     def create_constraints(self, board, switch):

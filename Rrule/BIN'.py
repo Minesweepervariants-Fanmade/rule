@@ -9,7 +9,9 @@ from ....utils.web_template import MultiNumber
 
 
 class RuleBIN(AbstractClueRule):
-    name = ["BIN'", "二叉'", "Binary'"]
+    id = "BIN'"
+    name = "Binary'"
+    name.zh_CN = "二叉'"
     doc = "BIN':X;Y 表示线索为 X 或 Y 规则下的值"
 
     def __init__(self, board: AbstractBoard = None, data: str = "") -> None:
@@ -47,16 +49,16 @@ class ValueBIN(AbstractClueValue):
 
     def __repr__(self):
         return str(self.value)
-    
+
     @classmethod
     def type(cls) -> bytes:
         return "BIN'".encode("ascii")
-    
+
     def code(self) -> bytes:
         rule_bytes_1 = self.rule[0].encode("ascii")
         rule_bytes_2 = self.rule[1].encode("ascii")
         return bytes([self.value]) + rule_bytes_1 + b',' + rule_bytes_2
-    
+
     def high_light(self, board: AbstractBoard) -> List[AbstractPosition]:
         positions = set()
         for i in range(2):
@@ -66,14 +68,14 @@ class ValueBIN(AbstractClueValue):
                 if hl:
                     positions.update(hl)
         return list(positions)
-    
+
     def get_clue(self, value: int, rule: str) -> AbstractClueValue:
         clue_code = bytearray()
         clue_code.extend(rule.encode("ascii"))
         clue_code.extend(b'|')
         clue_code.extend(bytes([value]))
         return get_value(self.pos, bytes(clue_code))
-    
+
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()
         s = switch.get(model, self)
@@ -89,4 +91,3 @@ class ValueBIN(AbstractClueValue):
 
         clue1.create_constraints(board, FakeSwitch(select1))
         clue2.create_constraints(board, FakeSwitch(select2))
-        

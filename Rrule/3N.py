@@ -66,7 +66,9 @@ def format(n: Root, p: P):
 
 
 class BaseRule3N(AbstractClueRule):
-    name = ["3N", "范数", "Norm"]
+    id = "3N"
+    name = "Norm"
+    name.zh_CN = "范数"
     doc = "线索(a_p)表示距离自己lp范数最近的雷的lp范数大小为a。(p=0,1,2,00)"
     p: P = -1
 
@@ -125,7 +127,7 @@ class BaseRule3N(AbstractClueRule):
 
 
 class BaseValue3N(AbstractClueValue):
-    name = "3N"
+    id = "3N"
 
     def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
         self.pos = pos
@@ -246,44 +248,44 @@ class BaseValue3N(AbstractClueValue):
 
 
 class Value3N0(BaseValue3N):
-    name = "3N0"
+    id = "3N0"
     p = 0
 
 
 class Rule3N0(BaseRule3N):
-    name = "3N0"
+    id = "3N0"
     p = 0
     clue = Value3N0
 
 
 class Value3N1(BaseValue3N):
-    name = "3N1"
+    id = "3N1"
     p = 1
 
 
 class Rule3N1(BaseRule3N):
-    name = "3N1"
+    id = "3N1"
     p = 1
     clue = Value3N1
 
 
 class Value3N2(BaseValue3N):
-    name = "3N2"
+    id = "3N2"
     p = 2
 
 
 class Rule3N2(BaseRule3N):
-    name = "3N2"
+    id = "3N2"
     p = 2
     clue = Value3N2
 
 
 class Value3NInf(BaseValue3N):
-    name = "3N00"
+    id = "3N00"
     p = '00'
 
 
 class Rule3NInf(BaseRule3N):
-    name = "3N00"
+    id = "3N00"
     p = '00'
     clue = Value3NInf

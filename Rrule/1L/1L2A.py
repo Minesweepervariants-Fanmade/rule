@@ -25,7 +25,9 @@ def unliar_2A(value: int | None) -> list[int | None]:
     return res
 
 class Rule1L2A(AbstractClueRule):
-    name = ["1L2A", "误差 + 面积", "Liar + Area"]
+    id = "1L2A"
+    name = "Liar + Area"
+    name.zh_CN = "误差 + 面积"
     doc = ""
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
@@ -163,4 +165,3 @@ class Value1L2A(AbstractClueValue):
                 tmp_list.append(tmp)
         model.AddBoolOr(tmp_list).OnlyEnforceIf(s)
         get_logger().trace(f"position:{self.pos}, value:{self}, 枚举所有可能性共:{len(tmp_list)}个")
-

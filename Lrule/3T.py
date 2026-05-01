@@ -13,7 +13,8 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1T(AbstractMinesRule):
-    name = ["3T", "无三连"]
+    id = "3T"
+    name.zh_CN = "无三连"
     doc = "任意三个雷不能等距排布"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

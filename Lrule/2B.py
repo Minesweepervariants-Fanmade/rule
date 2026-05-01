@@ -12,7 +12,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule2B(AbstractMinesRule):
-    name = ["2B", "桥", "Bridge"]
+    id = "2B"
+    name = "Bridge"
+    name.zh_CN = "桥"
     doc = "所有雷构成若干组桥。桥是从题版左边界八连通连接（水平或斜角连接）到右边界，宽度为 1、长度与题版相等的一条路径"
 
     def create_constraints_(self, board: 'AbstractBoard', switch):
@@ -23,13 +25,13 @@ class Rule2B(AbstractMinesRule):
                 return col[:col.index(pos)][::-1], True
             else:
                 return col[col.index(pos)+1:], False
-        
+
         model = board.get_model()
         s = switch.get(model, self)
 
         for key in board.get_interactive_keys():
             pos_boundary = board.boundary(key=key)
-            
+
             # 列平衡
             row_positions = board.get_row_pos(pos_boundary)
             row_sums = [
@@ -38,7 +40,7 @@ class Rule2B(AbstractMinesRule):
             ]
             for i in range(1, len(row_sums)):
                 model.Add(row_sums[i] == row_sums[0]).OnlyEnforceIf(s)
-            
+
             for pos_row in board.get_row_pos(pos_boundary):
                 print(board.get_col_pos(pos_row))
                 for pos in board.get_col_pos(pos_row):
@@ -53,7 +55,7 @@ class Rule2B(AbstractMinesRule):
                     ):
                         # 位置处于边界
                         if line_mode:
-                            # 该位置位于上边界 
+                            # 该位置位于上边界
                             # 正中心为雷 或者正中心不是雷那么就下方是雷
                             if board.is_valid(pos.right()):
                                 model.Add(board.get_variable(pos.right().down()) == 1).OnlyEnforceIf([
@@ -83,7 +85,7 @@ class Rule2B(AbstractMinesRule):
                             elif board.is_valid(pos.left().up()):
                                 model.Add(board.get_variable(pos.left().up()) == 1).OnlyEnforceIf([var, s])
                         continue
-                    
+
                     for x_pos in [
                         col_pos[0].left(),
                         col_pos[0].right()

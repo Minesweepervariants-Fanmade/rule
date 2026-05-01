@@ -4,7 +4,8 @@ from ....abs.board import AbstractBoard
 from .connect import connect
 
 class Rule4D(AbstractMinesRule):
-    name = ["4D", "对角"]
+    id = "4D"
+    name.zh_CN = "对角"
     doc = "不同四连通雷区不可对角相邻"
 
     def create_constraints(self, board: AbstractBoard, switch):

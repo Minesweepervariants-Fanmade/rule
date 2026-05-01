@@ -15,7 +15,8 @@ from .....abs.Rrule import AbstractClueValue
 
 
 class Rule3D1X(Abstract3DClueRule):
-    name = ["3D1X'", "三维十字'"]
+    id = "3D1X'"
+    name.zh_CN = "三维十字'"
     doc = "线索表示半径为 1 的十字范围内的雷数(上下左右前后)"
 
     def __init__(self, board: AbstractBoard, data: str = None):

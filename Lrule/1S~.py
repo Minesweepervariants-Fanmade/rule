@@ -4,13 +4,15 @@ from ....abs.board import AbstractBoard
 from .connect import connect
 
 class Rule1S(AbstractMinesRule):
-    name = ["1S~", "S~", "蛇~", "Snake~"]
+    id = "1S~"
+    name = "Snake~"
+    name.zh_CN = "蛇~"
     doc = "所有非雷构成若干条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉。"
 
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()
         s = switch.get(model, self)
-        
+
         root_vars = []
         one_connect_vars = []
         component_num = model.NewIntVar(0, len([pos for pos, _ in board(mode="object")]), "snake_components")

@@ -13,7 +13,9 @@ def liar_2D(value: int, random) -> int:
     return value
 
 class Rule1L2D(AbstractClueRule):
-    name = ["1L2D", "误差 + 偏移", "Liar + Deviation"]
+    id = "1L2D"
+    name = "Liar + Deviation"
+    name.zh_CN = "误差 + 偏移"
     doc = ""
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
@@ -33,17 +35,17 @@ class Value1L2D(AbstractClueValue):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = pos.up(1).neighbors(0, 2)
-    
+
     def __repr__(self) -> str:
         return str(self.value)
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         return self.neighbors
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule1L2D.name[0].encode("ascii")
-    
+
     def code(self) -> bytes:
         return bytes([self.value])
 
@@ -66,7 +68,7 @@ class Value1L2D(AbstractClueValue):
                 board.set_value(i, MINES_TAG)
             return True
         return False
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

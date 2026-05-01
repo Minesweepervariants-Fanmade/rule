@@ -19,7 +19,9 @@ def unliar_1E(value: int, sizx: int, sizy: int) -> list[int]:
     return [value - 1, value + 1]
 
 class Rule1L1E(AbstractClueRule):
-    name = ["1L1E", "LE", "误差 + 视野", "Liar + Eyesight"]
+    id = "1L1E"
+    name = "Liar + Eyesight"
+    name.zh_CN = "误差 + 视野"
     doc = ""
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -45,8 +47,8 @@ class Rule1L1E(AbstractClueRule):
                         break
                     value += 1
                     n += 1
-            
-            
+
+
             value = liar_1E(value, random, sizx, sizy)
 
             obj = Value1E(pos, bytes([value]))

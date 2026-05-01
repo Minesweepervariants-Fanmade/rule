@@ -51,7 +51,9 @@ _KEY_CACHE: dict[tuple[int, str], dict[str, object]] = {}
 
 
 class RuleAVG(AbstractClueRule):
-  name = ["AVG", "平均", "Average"]
+  id = "AVG"
+  name = "Average"
+  name.zh_CN = "平均"
   doc = "四联通非雷格的线索值求平均"
 
   @staticmethod

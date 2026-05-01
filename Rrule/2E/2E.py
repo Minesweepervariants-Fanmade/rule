@@ -21,7 +21,9 @@ NAME_2E = "2E"
 
 
 class Rule2E(AbstractClueRule):
-    name = ["2E", "加密", "Encrypted"]
+    id = "2E"
+    name = "Encrypted"
+    name.zh_CN = "加密"
     doc = "线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母"
 
     def __init__(self, data=None, board: 'AbstractBoard' = None):
@@ -36,7 +38,7 @@ class Rule2E(AbstractClueRule):
         random = get_random()
         shuffled_nums = [i for i in range(min(9, board.boundary().x + 1))]
         random.shuffle(shuffled_nums)
-        
+
         for pos, _ in board("N"):
             count = board.batch(pos.neighbors(2), mode="type").count("F")
             if count not in shuffled_nums:

@@ -33,7 +33,9 @@ def manhattan_neighbors_range(pos: AbstractPosition, from_distance: int, to_dist
 
 
 class Rule2P(AbstractClueRule):
-    name = ["2P'", "旅程", "Journey"]
+    id = "2P'"
+    name = "Journey"
+    name.zh_CN = "旅程"
     doc = "线索表示距离最近的 2 个雷的曼哈顿距离之和"
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
@@ -68,14 +70,14 @@ class Value2P(AbstractClueValue):
 
     def __repr__(self) -> str:
         return f"{self.value}"
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule2P.name[0].encode("ascii")
-    
+
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         n = 1
         v = 0

@@ -7,7 +7,9 @@
 from .eyesight import AbstractEyesightClueRule, AbstractEyesightClueValue
 
 class Rule1EK(AbstractEyesightClueRule):
-    name = ["1EK", "EK", "马步视野", "Knight Eyesight"]
+    id = "1EK"
+    name = "Knight Eyesight"
+    name.zh_CN = "马步视野"
     doc = "线索表示沿着马步方向能看到的非雷格数量（包括自身），雷会阻挡视线"
 
     @staticmethod
@@ -23,7 +25,7 @@ class Rule1EK(AbstractEyesightClueRule):
             lambda n: pos.clone().shift(-1 * n, 2 * n),
             lambda n: pos.clone().shift(-1 * n, -2 * n),
         ]
-    
+
     @classmethod
     def clue_type(cls):
         return Value1EK
@@ -31,7 +33,7 @@ class Rule1EK(AbstractEyesightClueRule):
 class Value1EK(AbstractEyesightClueValue):
     def direction_funcs(self):
         return Rule1EK.direction_funcs(self.pos)
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule1EK.name[0].encode("ascii")

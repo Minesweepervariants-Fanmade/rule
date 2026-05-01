@@ -16,7 +16,8 @@ from . import BOARD_NAME_4V
 
 
 class Rule1N(AbstractClueRule):
-    name = ["4V1N", "负雷映射"]
+    id = "4V1N"
+    name.zh_CN = "负雷映射"
     doc = "线索表示数字是两个题板中相同位置的其中一个3x3范围内染色格与非染色格的雷数差"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

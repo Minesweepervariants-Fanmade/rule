@@ -13,7 +13,9 @@ from ortools.sat.python.cp_model import CpModel
 
 
 class Rule3D(AbstractMinesRule):
-    name = ["3D", "辞典", "Dict"]
+    id = "3D"
+    name = "Dict"
+    name.zh_CN = "辞典"
     doc = "所有雷从左到右，从上到下依次标号。线索表示周围八格的雷的标号之和"
     lib_only = True
 

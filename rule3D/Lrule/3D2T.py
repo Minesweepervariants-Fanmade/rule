@@ -14,7 +14,8 @@ from .....abs.board import AbstractBoard
 
 
 class Rule2T(Abstract3DMinesRule):
-    name = ["3D2T", "无三连"]
+    id = "3D2T"
+    name.zh_CN = "无三连"
     doc = "(1)雷不能在横竖上下向构成三连, (2)非雷不能在横竖上下向构成三连"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

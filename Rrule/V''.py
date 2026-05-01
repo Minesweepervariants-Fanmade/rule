@@ -22,7 +22,9 @@ def decode_bytes_7bit(data: bytes) -> int:
     return int.from_bytes(data, byteorder='big')
 
 class RuleV(AbstractClueRule):
-    name = ["V''", "雷绝对值", "Absolute"]
+    id = "V''"
+    name = "Absolute"
+    name.zh_CN = "雷绝对值"
     doc = "每个数字标明周围八格内雷值之和之绝对值"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

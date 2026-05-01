@@ -7,7 +7,9 @@ from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
 class Rule1N(AbstractMinesRule):
-    name = ["1N", "N", "负雷", "Negative"]
+    id = "1N"
+    name = "Negative"
+    name.zh_CN = "负雷"
     doc = "染色格中雷值取负"
     lib_only = True
 

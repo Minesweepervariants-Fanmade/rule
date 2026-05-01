@@ -13,7 +13,8 @@ from .SETU import (
 
 
 class RuleUSETU(AbstractMinesRule):
-    name = ["U-SETU", "涩图"]
+    id = "U-SETU"
+    name.zh_CN = "涩图"
     doc = "参数链接(支持URL/文件路径)"
     author = ("NT", 2201963934)
 

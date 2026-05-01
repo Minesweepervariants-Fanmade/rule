@@ -8,7 +8,9 @@ from .. import Abstract3DMinesRule
 
 
 class Rule3D1U(Abstract3DMinesRule):
-    name = ["3D1U", "3DU", "三维一元"]
+    id = "3D1U"
+    name = "3DU"
+    name.zh_CN = "三维一元"
     doc = "所有雷不能与其他雷相邻"
 
     def create_constraints(self, board: AbstractBoard, switch):

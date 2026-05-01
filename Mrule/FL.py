@@ -47,7 +47,9 @@ _KEY_CACHE: dict[tuple[int, str], dict[str, object]] = {}
 
 
 class RuleFL(AbstractMinesClueRule):
-    name = ["FL", "周长", "Perimeter"]
+    id = "FL"
+    name = "Perimeter"
+    name.zh_CN = "周长"
     doc = "雷线索值表示所在雷区周长"
 
     @staticmethod

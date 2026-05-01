@@ -7,7 +7,8 @@ from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
 class Rule3I(AbstractMinesRule):
-    name = ["SCREAM", "尖叫"]
+    id = "SCREAM"
+    name.zh_CN = "尖叫"
     doc = "雷值等于其相邻四格雷数的阶乘"
     lib_only = True
 

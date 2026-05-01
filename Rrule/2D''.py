@@ -10,7 +10,9 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 from ....utils.tool import get_logger
 
 class Rule2D(AbstractClueRule):
-    name = ["2D''", "偏移''", "Deviation''"]
+    id = "2D''"
+    name = "Deviation''"
+    name.zh_CN = "偏移''"
     doc = "线索表示以四方向偏移一格为中心的3x3区域内的雷数最多的区域的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -24,7 +26,7 @@ class Rule2D(AbstractClueRule):
             board.set_value(pos, Value2D(pos, count=value))
             logger.debug(f"Set {pos} to 2D''[{value}]")
         return board
-    
+
 class Value2D(AbstractClueValue):
     def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
@@ -40,20 +42,20 @@ class Value2D(AbstractClueValue):
 
     def __repr__(self):
         return f"{self.count}"
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule2D.name[0].encode("ascii")
-    
+
     def code(self) -> bytes:
         return bytes([self.count])
-    
+
     def high_light(self, board: AbstractBoard) -> List[AbstractPosition] | None:
         highlight_positions = []
         for neighbor in self.neighbors:
             highlight_positions.extend(neighbor)
         return highlight_positions
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

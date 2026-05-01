@@ -8,7 +8,9 @@ from ....utils.image_create import get_image, get_text, get_row, get_col, get_du
 from ....utils.web_template import StrWithArrow
 
 class Rule1F(AbstractClueRule):
-    name = ["1F", "远视", "Farsight"]
+    id = "1F"
+    name = "Farsight"
+    name.zh_CN = "远视"
     doc = "线索表示朝向箭头方向到达雷或题板边缘时，垂直与箭头方向的连续非雷格数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -26,7 +28,7 @@ class Rule1F(AbstractClueRule):
                     sight_pos = sight_pos.down()
                 elif direction == 3:
                     sight_pos = sight_pos.left()
-            
+
             start_count_pos = sight_pos
             if direction == 0:
                 start_count_pos = sight_pos.down()
@@ -65,14 +67,14 @@ class Value1F(AbstractClueValue):
     def __repr__(self):
         direction_symbols = ['↑', '→', '↓', '←']
         return f"{self.count}{direction_symbols[self.direction]}"
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule1F.name[0].encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.direction, self.count])
-    
+
     def web_component(self, board) -> Dict:
         """生成可视化组件"""
         return StrWithArrow(str(self.count), ["up", "right", "down", "left"][self.direction])
@@ -214,5 +216,3 @@ class Value1F(AbstractClueValue):
         if path:
             last_pos = path[-1]
             add_perpendicular_constraints(model, board, last_pos, d, target, stop_var_out, s)
-
-

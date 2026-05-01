@@ -38,7 +38,9 @@ from ....abs.board import AbstractBoard
 
 
 class RuleXS(AbstractMinesRule):
-   name = ["XS", "分段", "Segment Split"]
+   id = "XS"
+   name = "Segment Split"
+   name.zh_CN = "分段"
    doc = "用副板表示行分段边界：无边界同值、两侧不同必为边界，边界数自底向上递增并满足行间继承"
 
    @staticmethod

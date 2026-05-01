@@ -14,7 +14,9 @@ class 何意味(Exception):
     pass
 
 class Rule1D(AbstractMinesRule):
-    name = ["HYW", "??", "何意味"]
+    id = "HYW"
+    name = "??"
+    name.zh_CN = "何意味"
     doc = ""
 
 

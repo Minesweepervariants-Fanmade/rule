@@ -15,7 +15,9 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class Rulex1F(AbstractClueRule):
-    name = ["*1F", "翻转", "Filp"]
+    id = "*1F"
+    name = "Filp"
+    name.zh_CN = "翻转"
     doc = "线索表示其以题板左上角到右下角直线为对称轴的镜像位置周围八格的雷数，不包括自身"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -54,4 +56,3 @@ class Valuex1F(AbstractClueValue):
         pos.x, pos.y = pos.y, pos.x
         var_list = board.batch(pos.neighbors(2), mode="variable", drop_none=True)
         model.Add(sum(var_list) == self.value).OnlyEnforceIf(s)
-

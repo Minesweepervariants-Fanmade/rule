@@ -14,7 +14,8 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class Rule(AbstractMinesRule):
-    name = ["2S'", "分段'"]
+    id = "2S'"
+    name.zh_CN = "分段'"
     doc = "每行连续雷长度不同"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):

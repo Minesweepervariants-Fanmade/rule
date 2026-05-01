@@ -21,7 +21,9 @@ from ....utils.tool import get_logger
 
 
 class Rule2A(AbstractClueRule):
-    name = ["2A'", "面积'", "Area'"]
+    id = "2A'"
+    name = "Area'"
+    name.zh_CN = "面积'"
     doc = "线索表示它所在的四连通非雷区的面积。"
 
     def __init__(self, board: "AbstractBoard" = None, data=None):

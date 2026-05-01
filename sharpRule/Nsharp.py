@@ -13,7 +13,9 @@ from ....utils.impl_obj import VALUE_QUESS
 from . import AbstractClueSharp
 
 class RuleNSharp(AbstractClueSharp):
-    name = ["N#", "标签", "Tag"]
+    id = "N#"
+    name = "Tag"
+    name.zh_CN = "标签"
     doc = "线索只有一个取值"
 
     def __init__(self, board: "AbstractBoard" = None, data: str =None) -> None:

@@ -67,7 +67,9 @@ def get_factor_pairs(n):
 
 
 class Rule2P(AbstractClueRule):
-    name = ["2P", "乘积", "Product"]
+    id = "2P"
+    name = "Product"
+    name.zh_CN = "乘积"
     doc = "线索表示距离最近的 2 个雷的距离之积"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

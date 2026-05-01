@@ -16,7 +16,9 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class RuleUP(AbstractClueRule):
-    name = ["UP", "唯一路径", "Unique Path"]
+    id = "UP"
+    name = "Unique Path"
+    name.zh_CN = "唯一路径"
     doc = "线索格表示从这个格开始只能往右或下走，到达右下角的方法数。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

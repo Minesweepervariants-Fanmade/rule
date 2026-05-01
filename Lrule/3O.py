@@ -12,7 +12,8 @@ from ....abs.board import AbstractBoard
 
 
 class Rule3O(AbstractMinesRule):
-    name = ["3O", "横纵"]
+    id = "3O"
+    name.zh_CN = "横纵"
     doc = "雷从四个方向中的任意一个连到题板外"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

@@ -20,7 +20,9 @@ from ....abs.board import AbstractBoard, AbstractPosition
 
 
 class RuleASp(AbstractMinesRule):
-    name = ["AS'", "自旋'", "AutoSpin'"]
+    id = "AS'"
+    name = "AutoSpin'"
+    name.zh_CN = "自旋'"
     doc = "每个2x2区域内不能同时存在四种状态（染色雷、非染色雷、染色非雷、非染色非雷）。"
 
     subrules = [

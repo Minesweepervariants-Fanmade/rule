@@ -22,7 +22,9 @@ PRIME_MAP = {
 
 
 class RulePF(AbstractClueRule):
-    name = ["PF", "素因子", "Prime Factor"]
+    id = "PF"
+    name = "Prime Factor"
+    name.zh_CN = "素因子"
     doc = "除0和1外的线索显示真实值的最大素因子"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

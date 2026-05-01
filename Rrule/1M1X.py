@@ -26,7 +26,9 @@ def cross_neighbors(pos : AbstractPosition) -> list[AbstractPosition]:
     ]
 
 class Rule1M1X(AbstractClueRule):
-    name = ["1M1X", "MX", "多雷 + 十字", "Multiple + Cross"]
+    id = "1M1X"
+    name = "Multiple + Cross"
+    name.zh_CN = "多雷 + 十字"
     doc = ""
 
     def fill(self, board: 'AbstractBoard'):

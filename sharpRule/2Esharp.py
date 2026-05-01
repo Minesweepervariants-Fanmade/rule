@@ -15,7 +15,9 @@ NAME_2E = "2E"
 rule2P = import_module("minesweepervariants.impl.rule.Rrule.2P")
 
 class Rule2ESharp(AbstractClueSharp):
-    name = ["2E#", "加密 + 标签", "Encrypted + Tag"]
+    id = "2E#"
+    name = "Encrypted + Tag"
+    name.zh_CN = "加密 + 标签"
     doc = ("线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母\n"
               "通过2E#:<rule1>;<rule2>;...来指定使用的规则及其顺序\n"
               "默认同二代\n"

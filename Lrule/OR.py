@@ -19,7 +19,8 @@ CONFIG.update(PUZZLE_CONFIG)
 
 
 class RuleOR(AbstractMinesRule):
-    name = ["OR", "或"]
+    id = "OR"
+    name.zh_CN = "或"
     doc = "你可以在后面输入多个左线来表示或关系(题板将按照A规则或B规则)"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

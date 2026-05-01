@@ -35,7 +35,8 @@ def get_text(
 
 
 class Rule3P(AbstractMinesClueRule):
-    name = ["3"]
+    id = "3"
+    name = "3"
     doc = "雷指向的方向存在n个雷(不包括自己)"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

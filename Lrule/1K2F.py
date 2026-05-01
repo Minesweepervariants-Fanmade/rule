@@ -12,7 +12,9 @@ from ....abs.Lrule import AbstractMinesRule
 from ....abs.board import AbstractBoard
 
 class Rule1K2F(AbstractMinesRule):
-    name = ["1K2F", "马步花田", "KnightFlower"]
+    id = "1K2F"
+    name = "KnightFlower"
+    name.zh_CN = "马步花田"
     doc = "染色格中的雷的八个马步位置内恰好有1个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

@@ -5,7 +5,9 @@ from ....abs.Lrule import AbstractMinesRule
 from .connect import connect_legacy as connect
 
 class RuleAF(AbstractMinesRule):
-    name = ["AF", "AF", "下落"]
+    id = "AF"
+    name = "AF"
+    name.zh_CN = "下落"
     doc = "雷区与题板下边缘四连通"
 
     def create_constraints(self, board, switch):
@@ -32,4 +34,3 @@ class RuleAF(AbstractMinesRule):
             ub=len(positions_vars),
             switch=s,
         )
-            

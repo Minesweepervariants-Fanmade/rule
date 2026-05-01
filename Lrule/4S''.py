@@ -7,7 +7,8 @@ from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
 class Rule3I(AbstractMinesRule):
-    name = ["4S''", "阶梯''"]
+    id = "4S''"
+    name.zh_CN = "阶梯''"
     doc = "4S'' = 4S - 1 = 4S' + 1"
     lib_only = True
 

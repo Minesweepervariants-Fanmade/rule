@@ -13,7 +13,9 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class RuleCB(AbstractMinesClueRule):
-    name = ["CB", "CCB", "连击"]
+    id = "CB"
+    name = "CCB"
+    name.zh_CN = "连击"
     doc = "雷线索指示四方向的连击总值和，同方向相邻的n个雷连击值为1-n"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

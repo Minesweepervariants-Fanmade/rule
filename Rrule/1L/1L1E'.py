@@ -15,7 +15,9 @@ def unliar_1Ep(value: int) -> list[int]:
     return [value - 1, value + 1]
 
 class Rule1L1Ep(AbstractClueRule):
-    name = ["1L1E'", "LE'", "误差 + 视差", "Liar + Eyesight'"]
+    id = "1L1E'"
+    name = "Liar + Eyesight'"
+    name.zh_CN = "误差 + 视差"
     doc = ""
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -52,7 +54,7 @@ class Rule1L1Ep(AbstractClueRule):
                     value -= 1
                     n += 1
 
-            
+
             obj = Value1L1Ep(pos, bytes([value + 128]))
             board.set_value(pos, obj)
         return board
@@ -166,7 +168,7 @@ class Value1L1Ep(AbstractClueValue):
             raw_values_valid = [_ for _ in raw_values if min_possible <= _ <= max_possible]
             if not raw_values_valid:
                 return
-            
+
             if idx == 4:
                 for rv in raw_values_valid:
                     if (counts[0] + counts[1]) - (counts[2] + counts[3]) == rv:

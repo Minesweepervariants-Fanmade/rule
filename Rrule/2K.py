@@ -8,7 +8,9 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.tool import get_logger
 
 class Rule2K(AbstractClueRule):
-    name = ["2K", "金将", "Kinsho"]
+    id = "2K"
+    name = "Kinsho"
+    name.zh_CN = "金将"
     doc = "线索表示金将范围（即上、下、左、右、左上、右上六格）内的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -51,7 +53,7 @@ class Value2K(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.count])
-    
+
     def deduce_cells(self, board: 'AbstractBoard') -> bool:
         type_dict = {"N": [], "F": []}
         for pos in self.high_light(board):
@@ -72,7 +74,7 @@ class Value2K(AbstractClueValue):
                 board.set_value(i, MINES_TAG)
             return True
         return False
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self.pos)

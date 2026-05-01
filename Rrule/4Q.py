@@ -11,7 +11,8 @@ from ....utils.image_create import get_text, get_row
 from ....utils.tool import get_logger
 
 class Rule4Q(AbstractClueRule):
-    name = ["4Q", "方格"]
+    id = "4Q"
+    name.zh_CN = "方格"
     doc = "线索表示包含该格且包含雷的 2x2 区域数"
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
@@ -26,7 +27,7 @@ class Rule4Q(AbstractClueRule):
             board.set_value(pos, Value4Q(pos, bytes([value])))
 
         return board
-    
+
 class Value4Q(AbstractClueValue):
     def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
         super().__init__(pos)
@@ -41,7 +42,7 @@ class Value4Q(AbstractClueValue):
 
     def __repr__(self) -> str:
         return f"{self.value}"
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         return self.neighbors
 
@@ -51,7 +52,7 @@ class Value4Q(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         valid_grids = [g for g in self.grids if all(board.in_bounds(p) for p in g)]
         model = board.get_model()
@@ -61,4 +62,3 @@ class Value4Q(AbstractClueValue):
             model.AddBoolOr(board.batch(g, mode="variable")).OnlyEnforceIf(var)
             model.Add(sum(board.batch(g, mode="variable")) == 0).OnlyEnforceIf(var.Not())
         model.Add(sum(vars) == self.value).OnlyEnforceIf(s)
-        

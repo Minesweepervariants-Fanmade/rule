@@ -6,7 +6,8 @@ from minesweepervariants.utils.tool import get_random
 NAME_2I = "2I1C"
 
 class Rule2I1C(AbstractMinesRule):
-    name = ["2I1C", "残缺联通"]
+    id = "2I1C"
+    name.zh_CN = "残缺联通"
     doc = "1.所有雷都必须根据副板指示的4对联通方向进行联通, 2.雷只有3种联通方法(上下/左右/对角/副对角)"
 
     def __init__(self, board = None, data=None):
@@ -34,7 +35,7 @@ class Rule2I1C(AbstractMinesRule):
         model = board.get_model()
         s1 = switch.get(model, self)
         s2 = switch.get(model, self)
-        
+
         root_vars = {
             pos: model.NewBoolVar(f"{pos}:root")
             for pos, _ in board()
@@ -47,7 +48,7 @@ class Rule2I1C(AbstractMinesRule):
         # 每层只有一个root节点
         for key in board.get_interactive_keys():
             model.Add(sum(root_vars[pos] for pos, _ in board(key=key)) == 1)
-        
+
         tag_pos = board.get_pos(1, 1, NAME_2I)
         model.Add(sum(board.get_variable(pos) for pos in tag_pos.neighbors(2)) == self.value).OnlyEnforceIf(s2)
 

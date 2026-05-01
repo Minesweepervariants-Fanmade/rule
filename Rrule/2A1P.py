@@ -10,14 +10,16 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ...rule.Lrule.connect import connect
 
 class Rule2A1P(AbstractClueRule):
-    name = ["2A1P", "面积 + 划分", "Area + Partition"]
+    id = "2A1P"
+    name = "Area + Partition"
+    name.zh_CN = "面积 + 划分"
     doc = "线索表示四方向相邻雷区域的数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int]):
             if not board.in_bounds(pos):
                 return
-            
+
             if board.get_type(pos) != "F":
                 return
 
@@ -53,9 +55,9 @@ class Rule2A1P(AbstractClueRule):
                     areas_rev[id_] = 0
                 areas_rev[id_] += 1
             board.set_value(pos, Value2A1P(pos, len(areas_rev)))
-                
+
         return board
-    
+
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         positions = [pos for pos, _ in board("always", mode="variable")]
@@ -90,8 +92,8 @@ class Rule2A1P(AbstractClueRule):
                 else:
                     model.Add(unique_var == nei_var).OnlyEnforceIf(s)
             model.Add(sum(unique_area_vars) == clue_obj.value).OnlyEnforceIf(s)
-            
-    
+
+
 class Value2A1P(AbstractClueValue):
     def __init__(self, pos: AbstractPosition, value: int = 0, code: bytes = None) -> None:
         super().__init__(pos, code)

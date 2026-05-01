@@ -26,7 +26,9 @@ def block(a_pos: AbstractPosition, offsets: list[tuple[int, int]], board: Abstra
 
 
 class Rule1Q(AbstractMinesRule):
-    name = ["1Q~", "Q~", "雷无方"]
+    id = "1Q~"
+    name = "Q~"
+    name.zh_CN = "雷无方"
     doc = "每个2x2区域内都至少有一个空格"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

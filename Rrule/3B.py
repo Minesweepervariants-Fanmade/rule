@@ -62,7 +62,9 @@ def decode_bools_7bit(data: bytes) -> list[bool]:
 
 
 class Rule3B(AbstractClueRule):
-    name = ["3B", "二进", "Binary"]
+    id = "3B"
+    name = "Binary"
+    name.zh_CN = "二进"
     doc = "无雷是0，有雷是1，线索代表每行（左起）和每列（上起）对应两个二进制数的按位异或值"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

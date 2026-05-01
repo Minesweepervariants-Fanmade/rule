@@ -7,7 +7,9 @@ from minesweepervariants.abs.board import AbstractBoard
 from minesweepervariants.impl.summon.solver import Switch
 
 class RuleCT(AbstractMinesRule):
-    name = ["CT", "仙人掌", "Cactus"]
+    id = "CT"
+    name = "Cactus"
+    name.zh_CN = "仙人掌"
     doc = "每个雷周围四格中恰有1或3个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):

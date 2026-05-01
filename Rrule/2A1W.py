@@ -14,14 +14,16 @@ from ....utils.web_template import MultiNumber
 from itertools import permutations
 
 class Rule2A1W(AbstractClueRule):
-    name = ["2A1W", "面积 + 数墙", "Area + Wall"]
+    id = "2A1W"
+    name = "Area + Wall"
+    name.zh_CN = "面积 + 数墙"
     doc = "线索表示四方向各相邻雷区域的面积"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int]):
             if not board.in_bounds(pos):
                 return
-            
+
             if board.get_type(pos) != "F":
                 return
 
@@ -57,9 +59,9 @@ class Rule2A1W(AbstractClueRule):
                     areas_rev[id_] = 0
                 areas_rev[id_] += 1
             board.set_value(pos, Value2A1W(pos, sorted(list(areas_rev.values()))))
-                
+
         return board
-    
+
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         positions = [pos for pos, _ in board("always", mode="variable")]
@@ -111,8 +113,8 @@ class Rule2A1W(AbstractClueRule):
                 possible_areas.append(list(perm))
 
             model.AddAllowedAssignments(area_vars, possible_areas).OnlyEnforceIf(s)
-            
-    
+
+
 class Value2A1W(AbstractClueValue):
     def __init__(self, pos: AbstractPosition, values: list[int] = [], code: bytes = None) -> None:
         super().__init__(pos, code)
@@ -187,4 +189,3 @@ class Value2A1W(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes(self.values)
-

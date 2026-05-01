@@ -24,7 +24,9 @@ def block(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPositio
 
 
 class Rule2C(AbstractMinesRule):
-    name = ["2C", "连方", "Connected"]
+    id = "2C"
+    name = "Connected"
+    name.zh_CN = "连方"
     doc = "(1) 所有四连通雷区域为矩形；(2) 所有雷区域对角相邻"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

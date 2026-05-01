@@ -8,7 +8,9 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.tool import get_logger
 
 class Rule2KPrime(AbstractClueRule):
-    name = ["2K'", "钻石", "Diamond"]
+    id = "2K'"
+    name = "Diamond"
+    name.zh_CN = "钻石"
     doc = "线索表示距离不超过 2 的范围内的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -62,7 +64,7 @@ class Value2KPrime(AbstractClueValue):
                 board.set_value(i, MINES_TAG)
             return True
         return False
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self.pos)

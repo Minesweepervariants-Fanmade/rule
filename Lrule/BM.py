@@ -12,7 +12,8 @@ from ....abs.board import AbstractBoard
 
 
 class RuleBM(AbstractMinesRule):
-    name = ["BM", "1B1M", "多雷平衡", "多雷平衡(扫联会2)"]
+    id = "BM"
+    name.zh_CN = "多雷平衡"
     doc = "染色格被视为两个雷, 每行每列的“多雷雷值”相同。(线索格不一定是多雷规则) (1).列平衡, (2).行平衡"
 
     def __init__(self, board: AbstractBoard, data=None):

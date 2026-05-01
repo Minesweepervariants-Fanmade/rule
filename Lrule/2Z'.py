@@ -23,7 +23,9 @@ def block4(board: AbstractBoard, pos: AbstractPosition):
 
 
 class Rule2Zp(AbstractMinesRule):
-    name = ["2Z'", "零和'", "Zero-Sum'"]
+    id = "2Z'"
+    name = "Zero-Sum'"
+    name.zh_CN = "零和'"
     doc = "每个4x4方块内的染色格和非染色格雷数相等"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):

@@ -41,7 +41,9 @@ if TYPE_CHECKING:
 
 
 class RulePUZ(AbstractMinesRule):
-  name = ["PUZ", "拼图", "Puzzle"]
+  id = "PUZ"
+  name = "Puzzle"
+  name.zh_CN = "拼图"
   doc = "所有四联通雷块可通过独立平移重排成一个轴对齐矩形"
 
   def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

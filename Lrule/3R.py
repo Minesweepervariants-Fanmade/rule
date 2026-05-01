@@ -7,7 +7,9 @@ from ....abs.Lrule import AbstractMinesRule
 
 
 class Rule1T(AbstractMinesRule):
-    name = ["3R", "引用", "Reference"]
+    id = "3R"
+    name = "Reference"
+    name.zh_CN = "引用"
     doc = "在第 X 行或第 X 列的格子的周围八格不能恰好有 X 个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

@@ -7,7 +7,9 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.tool import get_logger
 
 class Rule3H(AbstractClueRule):
-    name = ["3H'", "小三角", "Triangle"]
+    id = "3H'"
+    name = "Triangle"
+    name.zh_CN = "小三角"
     doc = "线索表示这些周围格子的雷数：左 右，奇数列额外包括上；偶数列额外包括下"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

@@ -13,7 +13,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule2Gp(AbstractMinesRule):
-    name = ["2G'", "三连块", "Group'"]
+    id = "2G'"
+    name = "Group'"
+    name.zh_CN = "三连块"
     doc = "所有四连通雷区域的面积为3"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
@@ -42,6 +44,6 @@ class Rule2Gp(AbstractMinesRule):
         for key in info["interactive"]:
             total = info["total"][key]
             ub += total
-        
+
         info["soft_fn"](ub * 0.335, 0)
         info["hard_fns"].append(hard_constraint)

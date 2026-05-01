@@ -13,7 +13,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule2S(AbstractMinesRule):
-    name = ["2S", "分段", "Segment"]
+    id = "2S"
+    name = "Segment"
+    name.zh_CN = "分段"
     doc = "每行有且仅有一组连续的雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

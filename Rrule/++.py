@@ -7,7 +7,9 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.tool import get_logger
 
 class Rule3H(AbstractClueRule):
-    name = ["++", "艹", "plusplus"]
+    id = "++"
+    name = "plusplus"
+    name.zh_CN = "艹"
     doc = "线索表示周围这些格子的雷数LL;LU;LD;L;RR;RU;RD;R"
     author = ("NT", 2201963934)
 

@@ -44,7 +44,7 @@ def liar_1W(values: list[int], _random) -> list[int]:
                 values[-1] -= 1
             else:
                 values[-1] += 1
-    
+
     return values
 
 def unliar_1W(values: list[int]) -> Generator[list[int], None, None]:
@@ -146,7 +146,9 @@ def MineStatus_1W(clue: list) -> list:
     return ans
 
 class Rule1L1W(AbstractClueRule):
-    name = ["1L1W", "LW", "误差 + 数墙", "Liar + Wall"]
+    id = "1L1W"
+    name = "Liar + Wall"
+    name.zh_CN = "误差 + 数墙"
     doc = ""
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -169,7 +171,7 @@ class Rule1L1W(AbstractClueRule):
                 values[0] += value
             elif value != 0:
                 values.append(value)
-            
+
             values = liar_1W(values, random)
             values.sort()
 

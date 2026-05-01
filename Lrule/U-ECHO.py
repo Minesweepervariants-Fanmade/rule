@@ -11,7 +11,8 @@ class UEchoError(Exception):
 
 
 class RuleUECHO(AbstractMinesRule):
-    name = ["U-ECHO", "回声"]
+    id = "U-ECHO"
+    name.zh_CN = "回声"
     doc = "回声：抛出参数。"
     author = ("NT", 2201963934)
 

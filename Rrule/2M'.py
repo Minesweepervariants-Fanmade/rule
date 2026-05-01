@@ -14,7 +14,8 @@ from ....utils.tool import get_logger
 
 
 class Rule1M(AbstractClueRule):
-    name = ["2M'", "多雷'"]
+    id = "2M'"
+    name.zh_CN = "多雷'"
     doc = "每个下方是雷的雷被视为两个(总雷数不受限制)"
 
     def fill(self, board: 'AbstractBoard'):

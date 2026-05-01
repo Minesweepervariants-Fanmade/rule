@@ -7,7 +7,8 @@ from .connect import connect
 
 
 class RuleTESTL01(AbstractMinesRule):
-    name = ["TEST-L01"]
+    id = "TEST-L01"
+    name = ""
     doc = "所有雷组成两个四连通块，左下角与右上角必为雷且不联通"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

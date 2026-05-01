@@ -14,7 +14,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1Tp(AbstractMinesRule):
-    name = ["1T'", "T'", "必三连", "Triplet'"]
+    id = "1T'"
+    name = "Triplet'"
+    name.zh_CN = "必三连"
     doc = "所有雷必须处于横、竖或斜方向的三连中"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

@@ -13,7 +13,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule3H1A(AbstractMinesRule):
-    name = ["3H1A", "Hex1A", "六角无马步", "Anti-Knight-Hex"]
+    id = "3H1A"
+    name = "Anti-Knight-Hex"
+    name.zh_CN = "六角无马步"
     doc = "六角无马步: 所有雷的UN UE NW ES DW DS的位置不能有雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

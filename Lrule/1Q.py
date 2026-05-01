@@ -33,7 +33,9 @@ def block(a_pos: AbstractPosition, offsets: list[tuple[int, int]], board: Abstra
 
 
 class Rule1Q(AbstractMinesRule):
-    name = ["1Q", "Q", "无方", "Quad"]
+    id = "1Q"
+    name = "Quad"
+    name.zh_CN = "无方"
     doc = "每个 2x2 范围内至少有一个雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

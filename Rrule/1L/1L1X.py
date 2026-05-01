@@ -13,7 +13,9 @@ def liar_1X(value: int, random) -> int:
     return value
 
 class Rule1L1X(AbstractClueRule):
-    name = ["1L1X", "LX", "误差 + 十字", "Liar + Cross"]
+    id = "1L1X"
+    name = "Liar + Cross"
+    name.zh_CN = "误差 + 十字"
     doc = ""
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
@@ -33,17 +35,17 @@ class Value1L1X(AbstractClueValue):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = pos.neighbors(1) + pos.neighbors(4, 4)
-    
+
     def __repr__(self) -> str:
         return str(self.value)
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         return self.neighbors
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule1L1X.name[0].encode("ascii")
-    
+
     def code(self) -> bytes:
         return bytes([self.value])
 
@@ -67,7 +69,7 @@ class Value1L1X(AbstractClueValue):
             return True
         return False
 
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

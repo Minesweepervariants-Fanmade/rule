@@ -8,7 +8,9 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.tool import get_logger
 
 class Rule3H(AbstractClueRule):
-    name = ["3H", "六角", "Hexagon"]
+    id = "3H"
+    name = "Hexagon"
+    name.zh_CN = "六角"
     doc = """线索表示六边形网格中与线索距离为1的格子中的雷数
 线索表示正方形网格中这些周围格子的雷数：上 下 左 右，奇数列(B,D,F,...)额外包括左上 右上；偶数列(A,C,E,...)额外包括左下 右下"""
 

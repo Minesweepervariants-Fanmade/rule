@@ -18,7 +18,9 @@ def cross_neighbors(pos : AbstractPosition) -> list[AbstractPosition]:
     ]
 
 class Rule1M1N1X(AbstractClueRule):
-    name = ["1MNX", "MNX", "多雷 + 负雷 + 十字", "Multiple + Negative + Cross", "1M1N1X"]
+    id = "1MNX"
+    name = "Multiple + Negative + Cross", "1M1N1X"
+    name.zh_CN = "多雷 + 负雷 + 十字"
     doc = ""
 
     def clue_class(self):
@@ -40,7 +42,7 @@ class Rule1M1N1X(AbstractClueRule):
             board.set_value(pos, obj)
             logger.debug(f"[1M1N]: put {obj} to {pos}")
         return board
-    
+
 class Value1M1N1X(AbstractClueValue):
     def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
         self.value = code[0]
@@ -59,7 +61,7 @@ class Value1M1N1X(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

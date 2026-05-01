@@ -51,7 +51,8 @@ def _is_power_of_two(value: int) -> bool:
 
 
 class RuleQTREE(AbstractMinesRule):
-    name = ["QTREE", "四叉树"]
+    id = "QTREE"
+    name.zh_CN = "四叉树"
     doc = "将题版划分为四叉树，称所有节点均为雷的子树为大雷，大雷以外的节点不能有两个子节点同时为雷或大雷"
 
     def __init__(self, board=None, data=None):

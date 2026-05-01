@@ -48,7 +48,8 @@ from ....abs.board import AbstractBoard
 
 
 class RuleMB(AbstractMinesRule):
-    name = ["MB", "平衡点"]
+    id = "MB"
+    name.zh_CN = "平衡点"
     doc = "所有雷的平均位置是整点"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

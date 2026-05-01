@@ -14,7 +14,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1B(AbstractMinesRule):
-    name = ["1B", "B", "平衡", "Balance"]
+    id = "1B"
+    name = "Balance"
+    name.zh_CN = "平衡"
     doc = "(1) 每行雷数相等；(2) 每列雷数相等"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

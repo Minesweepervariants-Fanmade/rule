@@ -4,7 +4,9 @@ from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....abs.board import AbstractBoard, AbstractPosition
 
 class RuleSp(AbstractClueRule):
-    name = ["Sp", "跨越", "Span"]
+    id = "Sp"
+    name = "Span"
+    name.zh_CN = "跨越"
     doc = "线索表示能连接周围八格内所有雷的最短连续路径长度。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -12,7 +14,7 @@ class RuleSp(AbstractClueRule):
             clue_value = ValueSp(pos, value=self._get_span_length(board, pos))
             board.set_value(pos, clue_value)
         return board
-    
+
     def _get_span_length(self, board: AbstractBoard, pos: AbstractPosition) -> int:
         nei = [pos.right(), pos.right().down(), pos.down(), pos.left().down(),
                pos.left(), pos.left().up(), pos.up(), pos.right().up()]
@@ -40,7 +42,7 @@ class ValueSp(AbstractClueValue):
 
     def __repr__(self):
         return f"{self.value}"
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         return self.pos.neighbors(2)
 
@@ -50,7 +52,7 @@ class ValueSp(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         pos = self.pos
         nei = [pos.right(), pos.right().down(), pos.down(), pos.left().down(),
@@ -72,4 +74,3 @@ class ValueSp(AbstractClueValue):
                 model.Add(sum(board.batch([nei[j] for j in span_indexes], mode="var", drop_none=True)) == sum(board.batch(nei, mode="var", drop_none=True))).OnlyEnforceIf(temp_vars[start], s)
                 model.Add(sum(board.batch([nei[j] for j in span_indexes], mode="var", drop_none=True)) != sum(board.batch(nei, mode="var", drop_none=True))).OnlyEnforceIf(temp_vars[start].Not(), s)
             model.AddBoolOr(temp_vars).OnlyEnforceIf(s)
-                

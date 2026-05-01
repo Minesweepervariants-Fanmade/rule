@@ -14,7 +14,8 @@ from .SETU import (
 
 
 class RuleUSA(AbstractMinesRule):
-    name = ["U-SA", "反混合"]
+    id = "U-SA"
+    name.zh_CN = "反混合"
     doc = "对于一张透明图片，分别输入它在白底和黑底上混合颜色的结果，尝试还原原图。"
 
     def __init__(self, board: AbstractBoard, data=None):

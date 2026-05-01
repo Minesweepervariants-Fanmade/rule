@@ -14,14 +14,16 @@ from ....utils.web_template import MultiNumber
 from itertools import permutations
 
 class Rule2A1Wl(AbstractClueRule):
-    name = ["2A1W'", "面积 + 最大数墙", "Area + Largest Wall"]
+    id = "2A1W'"
+    name = "Area + Largest Wall"
+    name.zh_CN = "面积 + 最大数墙"
     doc = "线索表示四方向最大相邻雷区域的面积"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int]):
             if not board.in_bounds(pos):
                 return
-            
+
             if board.get_type(pos) != "F":
                 return
 
@@ -60,9 +62,9 @@ class Rule2A1Wl(AbstractClueRule):
                 board.set_value(pos, Value2A1Wl(pos, max(list(areas_rev.values()))))
             else:
                 board.set_value(pos, Value2A1Wl(pos, 0))
-                
+
         return board
-    
+
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         positions = [pos for pos, _ in board("always", mode="variable")]
@@ -97,8 +99,8 @@ class Rule2A1Wl(AbstractClueRule):
 
             # 我不知道为啥加了 OnlyEnforceIf(s) 模型会炸，反正没 switch 就没有对 area_vars 的约束，任意取值也肯定能过这个约束
             model.AddMaxEquality(clue_obj.value, area_vars)
-            
-    
+
+
 class Value2A1Wl(AbstractClueValue):
     def __init__(self, pos: AbstractPosition, value: int = 0, code: bytes = None) -> None:
         super().__init__(pos, code)

@@ -67,7 +67,9 @@ def _get_queen_positions(board: 'AbstractBoard', pos: AbstractPosition):
 
 
 class Rule1XStar(AbstractClueRule):
-    name = ["CQ", "王后", "Chess-Queen"]
+    id = "CQ"
+    name = "Chess-Queen"
+    name.zh_CN = "王后"
     doc = "线索表示八方向上雷数总和"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

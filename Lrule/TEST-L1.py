@@ -6,7 +6,8 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1HX(AbstractMinesRule):
-    name = ["TEST-L1", "TEST-L1"]
+    id = "TEST-L1"
+    name = "TEST-L1"
     doc = "如果一个格子是雷，其水平对称格不是雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

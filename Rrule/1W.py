@@ -97,7 +97,9 @@ def MineStatus_1W(clue: list) -> list:
 
 
 class Rule1W(AbstractClueRule):
-    name = ["1W", "Wall", "数墙"]
+    id = "1W"
+    name = "Wall"
+    name.zh_CN = "数墙"
     doc = "线索表示 3x3 范围内每组连续雷的长度"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

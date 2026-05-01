@@ -14,7 +14,9 @@ from .SETU import (
 
 
 class RuleSETUHat(AbstractMinesRule):
-    name = ["SETU^", "SETUH", "涩图融合"]
+    id = "SETU^"
+    name = "SETUH"
+    name.zh_CN = "涩图融合"
     doc = "参数链接(支持URL/文件路径)作为A图，与已生成题板图B融合并替换最终题板图"
 
     def __init__(self, board: AbstractBoard, data=None):

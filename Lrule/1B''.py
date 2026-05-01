@@ -48,7 +48,8 @@ def get_line(board: AbstractBoard, pos: AbstractPosition):
 
 
 class Rule1Bpp(AbstractMinesRule):
-    name = ["1B''", "后平衡"]
+    id = "1B''"
+    name.zh_CN = "后平衡"
     doc = "雷八方向上的总雷数均相等"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

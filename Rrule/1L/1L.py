@@ -23,7 +23,9 @@ def liar_V(value: int, random) -> int:
     return value
 
 class Rule1L(AbstractClueRule):
-    name = ["1L", "L", "误差", "Liar"]
+    id = "1L"
+    name = "Liar"
+    name.zh_CN = "误差"
     doc = "所有线索均比真实值大1或小1"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

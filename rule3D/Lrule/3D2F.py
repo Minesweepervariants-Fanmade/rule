@@ -13,7 +13,8 @@ from .....abs.board import AbstractBoard
 
 
 class Rule2F(Abstract3DMinesRule):
-    name = ["3D2F", "三维花田"]
+    id = "3D2F"
+    name.zh_CN = "三维花田"
     doc = "染色格中的雷周围六格内恰好有1个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

@@ -15,7 +15,9 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class RuleC(AbstractClueRule):
-    name = ["Rule-013", "没想好", "τD", "RULE-013"]
+    id = "Rule-013"
+    name = "τD"
+    name.zh_CN = "没想好"
     doc = "如果一个雷的周围八格有四个及以上的雷，那么这个雷的雷值是0，总雷数不受此规则影响。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

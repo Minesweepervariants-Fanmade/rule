@@ -6,7 +6,9 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.tool import get_logger
 
 class Rule1M1N(AbstractClueRule):
-    name = ["1M1N", "MN", "多雷 + 负雷", "Multiple + Negative"]
+    id = "1M1N"
+    name = "Multiple + Negative"
+    name.zh_CN = "多雷 + 负雷"
     doc = ""
 
     def clue_class(self):
@@ -28,7 +30,7 @@ class Rule1M1N(AbstractClueRule):
             board.set_value(pos, obj)
             logger.debug(f"[1M1N]: put {obj} to {pos}")
         return board
-    
+
 class Value1M1N(AbstractClueValue):
     def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
         self.value = code[0]
@@ -47,7 +49,7 @@ class Value1M1N(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

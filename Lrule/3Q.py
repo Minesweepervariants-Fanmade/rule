@@ -24,7 +24,9 @@ def block(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPositio
 
 
 class Rule3Q(AbstractMinesRule):
-    name = ["3Q", "正方形", "Square"]
+    id = "3Q"
+    name = "Square"
+    name.zh_CN = "正方形"
     doc = "所有四连通的雷格区域组成实心正方形"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):

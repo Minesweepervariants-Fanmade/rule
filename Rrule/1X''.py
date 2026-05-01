@@ -15,7 +15,9 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 
 class Rule1Xp(AbstractClueRule):
-    name = ["1X''", "X''", "双十字"]
+    id = "1X''"
+    name = "X''"
+    name.zh_CN = "双十字"
     doc = "线索表示距离为1和距离为2√2区域的总雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

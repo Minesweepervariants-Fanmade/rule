@@ -13,7 +13,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1D(AbstractMinesRule):
-    name = ["1D", "D", "对偶", "Dual"]
+    id = "1D"
+    name = "Dual"
+    name.zh_CN = "对偶"
     doc = "每个雷区域为 1x2 或 2x1 的矩形"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

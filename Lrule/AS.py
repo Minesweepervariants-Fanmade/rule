@@ -18,7 +18,9 @@ from ortools.sat.python.cp_model import CpModel
 
 
 class RuleAS(AbstractMinesRule):
-    name = ["AS", "自旋", "Spin"]
+    id = "AS"
+    name = "Spin"
+    name.zh_CN = "自旋"
     doc = "每一行不能同时存在染色非雷格、非染色非雷格、染色雷格和非染色雷格"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

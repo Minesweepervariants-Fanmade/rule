@@ -6,7 +6,8 @@ from ....abs.board import AbstractBoard
 
 
 class Rule(AbstractMinesRule):
-    name = ["TEST-L2", "TEST-L2"]
+    id = "TEST-L2"
+    name = "TEST-L2"
     doc = "每一行各有一组连续的雷且数量各不相同"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

@@ -16,7 +16,8 @@ from ....utils.tool import get_logger, get_random
 
 
 class Rule1Lo(AbstractClueRule):
-    name = ["2*1L", "2倍误差"]
+    id = "2*1L"
+    name.zh_CN = "2倍误差"
     doc = "所有线索均比真实值大2或小2或者不变"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

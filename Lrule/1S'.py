@@ -13,7 +13,8 @@ from .connect import connect
 
 
 class Rule1S(AbstractMinesRule):
-    name = ["1S'", "衔尾蛇"]
+    id = "1S'"
+    name.zh_CN = "衔尾蛇"
     doc = "所有雷构成一条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉, 蛇的头尾相连"
 
     def create_constraints(self, board, switch):

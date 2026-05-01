@@ -25,7 +25,9 @@ def block(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPositio
 
 
 class Rule1O(AbstractMinesRule):
-    name = ["1O", "O", "外部", "Outside"]
+    id = "1O"
+    name = "Outside"
+    name.zh_CN = "外部"
     doc = "非雷区域四连通；每个雷区域以四连通连接到题版边界"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
@@ -44,7 +46,7 @@ class Rule1O(AbstractMinesRule):
             nei_value=1,
             switch=s,
         )
-        
+
         positions_vars = [(pos, var) for pos, var in board("always", mode="variable")]
         root_list = [model.NewBoolVar(f'root_{i}') for i in range(len(positions_vars))]
         for index, (pos, var) in enumerate(positions_vars):

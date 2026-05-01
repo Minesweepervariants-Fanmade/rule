@@ -15,7 +15,9 @@ from minesweepervariants.utils.tool import get_random
 
 
 class Rule4T(AbstractMinesRule):
-    # name = ["4T", "温度计", "Temperature"]
+    # id = "4T"
+    name = "Temperature"
+    name.zh_CN = "温度计"
     doc = "将会随机"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

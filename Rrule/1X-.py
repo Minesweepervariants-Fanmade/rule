@@ -15,7 +15,9 @@ from ....utils.web_template import StrWithArrow
 
 
 class Rule1X_(AbstractClueRule):
-    name = ["1X-", "残缺十字", "Pawn"]
+    id = "1X-"
+    name = "Pawn"
+    name.zh_CN = "残缺十字"
     doc = "线索表示朝向一个方向的两个格子中的雷数，线索会标注出方向"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

@@ -61,7 +61,9 @@ def MineStatus_1P(clue: int) -> list[int]:
     return ans
 
 class Rule1L1P(AbstractClueRule):
-    name = ["1L1P", "LP", "误差 + 分组", "Liar + Partition"]
+    id = "1L1P"
+    name = "Liar + Partition"
+    name.zh_CN = "误差 + 分组"
     doc = ""
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -79,9 +81,9 @@ class Rule1L1P(AbstractClueRule):
                 _t = t
             if nei_type[-1] == "F" and nei_type[0] != "F":
                 value += 1
-            
+
             value = liar_1P(value, random)
-            
+
             obj = Value1L1P(pos, bytes([value]))
             board.set_value(pos, obj)
             logger.debug(f"[1L1P]set {obj} to {pos}")

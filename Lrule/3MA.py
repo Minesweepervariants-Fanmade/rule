@@ -38,7 +38,8 @@ import re
 from .connect import connect
 
 class Rule3MA(AbstractMinesRule):
-    name = ["3MA", "三雷区"]
+    id = "3MA"
+    name.zh_CN = "三雷区"
     doc = "题板正好有三个四连通雷区"
 
     _COMPARATOR_RE = re.compile(r"^(>=|<=|!=|>|<)\s*(-?\d+)$")

@@ -10,7 +10,9 @@ from ..Rrule.sharp import RuleSharp as ClueSharp
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 class RuleDJ(AbstractClueRule):
-    name = ["DJ", "不相交", "Disjoint"]
+    id = "DJ"
+    name = "Disjoint"
+    name.zh_CN = "不相交"
     doc = "存在两个主板，两个主板同一位置的格子不能都是雷。DJ:A+B;C+D 表示左板为 A B 规则，右板为 C D 规则"
 
     def __init__(self, board: AbstractBoard = None, data: str = 'V;V') -> None:
@@ -45,7 +47,7 @@ class RuleDJ(AbstractClueRule):
             self.right_rule = RuleV()
         board.set_config('1', "by_mini", sum(1 for rule in self.left_rules if isinstance(rule, AbstractClueRule)) > 1)
         board.set_config('2', "by_mini", sum(1 for rule in self.right_rules if isinstance(rule, AbstractClueRule)) > 1)
-        
+
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         _board = board.clone()
@@ -69,7 +71,7 @@ class RuleDJ(AbstractClueRule):
             rule.create_constraints(sub_board_1, switch)
         for rule in self.right_rules:
             rule.create_constraints(sub_board_2, switch)
-    
+
 class SubBoard(AbstractBoard):
     def __init__(self, board: AbstractBoard, key: str):
         self.board = board
@@ -83,7 +85,7 @@ class SubBoard(AbstractBoard):
         _pos = pos.clone()
         _pos.board_key = self.key
         return self.board.get_value(_pos)
-    
+
     def set_value(self, pos, value):
         _pos = pos.clone()
         _pos.board_key = self.key
@@ -93,43 +95,43 @@ class SubBoard(AbstractBoard):
         _pos = pos.clone()
         _pos.board_key = self.key
         return self.board.get_variable(_pos, special)
-    
+
     def get_board_keys(self) -> list[str]:
         return ['1']
-    
+
     def get_interactive_keys(self) -> list[str]:
         return ['1']
-    
+
     def get_config(self, key: str, name: str):
         return self.board.get_config(self.key, name)
-    
+
     def set_config(self, key: str, name: str, value):
         self.board.set_config(self.key, name, value)
 
     def get_rule_instance(self, name: str, data=None):
         return self.board.get_rule_instance(name, data)
-    
+
     def get_model(self) -> CpModel:
         return self.board.get_model()
-    
+
     def get_pos(self, x, y, key='1') -> AbstractPosition:
         return self.board.get_pos(x, y, key)
-    
+
     def get_pos_box(self, pos1: AbstractPosition, pos2: AbstractPosition) -> List[AbstractPosition]:
         return self.board.get_pos_box(pos1, pos2)
-    
+
     def get_col_pos(self, pos: AbstractPosition) -> List[AbstractPosition]:
         return self.board.get_col_pos(pos)
-    
+
     def get_row_pos(self, pos: AbstractPosition) -> List[AbstractPosition]:
         return self.board.get_row_pos(pos)
-    
+
     def get_dyed(self, pos: AbstractPosition) -> bool:
         return self.board.get_dyed(pos)
-    
+
     def get_type(self, pos: AbstractPosition) -> str:
         return self.board.get_type(pos)
-    
+
     def batch(self, positions: List[AbstractPosition], mode: str, drop_none: bool = False, *args, **kwargs) -> List[Any]:
         result = []
         for pos in positions:
@@ -150,7 +152,7 @@ class SubBoard(AbstractBoard):
             else:
                 raise ValueError(f"Unsupported mode: {mode}")
         return result
-    
+
     def boundary(self, key='1') -> AbstractPosition:
         return self.board.boundary(key=self.key)
 
@@ -181,8 +183,3 @@ class SubBoard(AbstractBoard):
 
     def pos_label(self, pos: AbstractPosition) -> str:
         raise NotImplementedError
-
-    
-
-
-    

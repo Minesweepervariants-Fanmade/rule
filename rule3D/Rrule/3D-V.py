@@ -19,7 +19,8 @@ from .....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 
 class Rule3DV(Abstract3DClueRule):
-    name = ["3DV", "3D标准扫雷"]
+    id = "3DV"
+    name.zh_CN = "3D标准扫雷"
     doc = "每个数字标明周围26格内雷的数量。"
 
     def __init__(self, board: AbstractBoard, data: str = None):

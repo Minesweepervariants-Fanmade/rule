@@ -35,7 +35,9 @@ def pos_shift(
 
 
 class Rule2Q(AbstractClueRule):
-    name = ["2Q", "皇后", "Queen"]
+    id = "2Q"
+    name = "Queen"
+    name.zh_CN = "皇后"
     doc = "线索表示八方向有雷的方向数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

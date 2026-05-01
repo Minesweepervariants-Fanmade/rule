@@ -13,7 +13,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule2F(AbstractMinesRule):
-    name = ["2F", "花田", "Flower"]
+    id = "2F"
+    name = "Flower"
+    name.zh_CN = "花田"
     doc = "染色格中的雷周围四格内恰好有1个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

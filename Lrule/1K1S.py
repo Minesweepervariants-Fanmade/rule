@@ -13,7 +13,9 @@ from .connect import connect
 
 
 class Rule1S(AbstractMinesRule):
-    name = ["1K1S", "马步蛇", "Knight-Snake"]
+    id = "1K1S"
+    name = "Knight-Snake"
+    name.zh_CN = "马步蛇"
     doc = "所有雷构成一条蛇。蛇是一条宽度为 1 的马步连通路径，不存在分叉、环、交叉"
 
     def __init__(self, board=None, data=None) -> None:

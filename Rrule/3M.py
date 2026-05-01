@@ -20,7 +20,9 @@ offsets = [
 
 
 class Rule3M(AbstractClueRule):
-    name = ["3M", "对映", "Mirror"]
+    id = "3M"
+    name = "Mirror"
+    name.zh_CN = "对映"
     doc = "线索表示周围八格组成四个正好相对的格子组有且仅有一个是雷的组数（题板外视为非雷）"
 
     logger = get_logger()

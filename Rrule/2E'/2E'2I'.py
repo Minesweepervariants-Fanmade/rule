@@ -18,7 +18,8 @@ NAME_2I = "2I"
 
 
 class Rule2Ep2I(AbstractClueRule):
-    name = ["2E'2I'", "自指残缺'"]
+    id = "2E'2I'"
+    name.zh_CN = "自指残缺'"
     doc = "字母X周围8格中某?格的雷数如果有N个 则标有X=N的格子必定是雷 ?格的方位被当前题板所有线索共享"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

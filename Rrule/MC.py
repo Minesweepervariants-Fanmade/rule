@@ -13,7 +13,9 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class RuleMC(AbstractClueRule):
-    name = ["MC", "染色格合并", "Mine-Combination"]
+    id = "MC"
+    name = "Mine-Combination"
+    name.zh_CN = "染色格合并"
     doc = "线索表示周围八格的雷数，染色格中如有雷就同一算为一雷（剩余雷数不受影响）"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

@@ -13,7 +13,9 @@ from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....abs.board import AbstractBoard, AbstractPosition
 
 class Rule4Y(AbstractClueRule):
-    name = ["4Y", "区域", "Area"]
+    id = "4Y"
+    name = "Area"
+    name.zh_CN = "区域"
     doc = "线索表示包含该格的最大无雷矩形区域的面积"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -30,7 +32,7 @@ class Rule4Y(AbstractClueRule):
                                 continue
                             if r1 <= pos.x <= r2 and c1 <= pos.y <= c2:
                                 box = board.get_pos_box(
-                                    board.get_pos(r1, c1, pos.board_key), 
+                                    board.get_pos(r1, c1, pos.board_key),
                                     board.get_pos(r2, c2, pos.board_key)
                                 )
                                 if any(board.get_type(p) == "F" for p in box):
@@ -38,7 +40,7 @@ class Rule4Y(AbstractClueRule):
                                 max_area = area
             board.set_value(pos, Value4Y(pos, code=bytes([max_area])))
         return board
-    
+
 class Value4Y(AbstractClueValue):
     def __init__(self, pos: 'AbstractPosition', code: bytes):
         super().__init__(pos, code)
@@ -53,7 +55,7 @@ class Value4Y(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)

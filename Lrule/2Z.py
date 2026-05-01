@@ -12,7 +12,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule2Z(AbstractMinesRule):
-    name = ["2Z", "零和", "Zero-Sum"]
+    id = "2Z"
+    name = "Zero-Sum"
+    name.zh_CN = "零和"
     doc = "每行的染色格与非染色格的雷数相等"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

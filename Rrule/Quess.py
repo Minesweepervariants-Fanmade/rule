@@ -14,7 +14,8 @@ from ....utils.impl_obj import VALUE_QUESS
 
 
 class RuleQuess(AbstractClueRule):
-    name = ["?", "问号"]
+    id = "?"
+    name.zh_CN = "问号"
     doc = "线索表示该格是一个非雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

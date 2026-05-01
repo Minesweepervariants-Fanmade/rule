@@ -2,7 +2,9 @@ from ....abs.Lrule import AbstractMinesRule
 from ....abs.board import AbstractBoard, AbstractPosition
 
 class Rule4N(AbstractMinesRule):
-    name = ["4N", "4N", "相邻"]
+    id = "4N"
+    name = "4N"
+    name.zh_CN = "相邻"
     doc = "非雷周围四格必须有雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

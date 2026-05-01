@@ -9,7 +9,8 @@ from ....abs.board import AbstractBoard, AbstractPosition
 
 
 class RuleTV(AbstractClueRule):
-    name = ["TV", "TapaView"]
+    id = "TV"
+    name = "TapaView"
     doc = "线索表示四方向上能看到的雷格数量，空格会阻挡视线"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

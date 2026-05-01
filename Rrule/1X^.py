@@ -9,7 +9,9 @@ from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 class Rule1Xr(AbstractClueRule):
-    name = ["1X^", "菱形", "Rhombus"]
+    id = "1X^"
+    name = "Rhombus"
+    name.zh_CN = "菱形"
     doc = "线索表示距离为 √2 和距离为 2 区域的总雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

@@ -16,7 +16,8 @@ NAME_2Ip = "2I'"
 
 
 class Rule2I(AbstractClueRule):
-    name = ["2I'", "残缺'"]
+    id = "2I'"
+    name.zh_CN = "残缺'"
     doc = "数字表示周围8格中某N格的雷数。N格的方位被当前题板所有线索共享"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

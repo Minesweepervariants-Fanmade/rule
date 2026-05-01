@@ -12,5 +12,7 @@ from ....abs.Lrule import AbstractMinesRule
 
 
 class Rule1D(AbstractMinesRule):
-    name = ["SM", "???", "神秘"]
+    id = "SM"
+    name = "???"
+    name.zh_CN = "神秘"
     doc = "这是一条会让男娘感到困惑的规则"

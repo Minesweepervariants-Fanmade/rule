@@ -43,7 +43,9 @@ def select(matrix: list[list[bool]]) -> list[tuple[int, int]]:
 
 
 class Rule2M(AbstractClueRule):
-    name = ["2M''", "多雷", "Multiple"]
+    id = "2M''"
+    name = "Multiple"
+    name.zh_CN = "多雷"
     doc = "每行每列恰有一个雷被视为两个(总雷数不受限制)"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
@@ -63,7 +65,7 @@ class Rule2M(AbstractClueRule):
         boundary = board.boundary()
         keys = board.get_interactive_keys()
         self.init_clear(board)
-        
+
         matrix = []
         for x in range(boundary.x + 1):
             row = []
@@ -139,17 +141,17 @@ class Value2M(AbstractClueValue):
 
     def __repr__(self) -> str:
         return str(self.value)
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule2M.name[0].encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         return self.nei
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

@@ -39,7 +39,8 @@ class UYYHitokotoError(UYYError):
 
 
 class RuleUYY(AbstractMinesRule):
-    name = ["U-YY", "一言"]
+    id = "U-YY"
+    name.zh_CN = "一言"
     doc = "一言：抛出一言（hitokoto.cn）。"
     author = ("NT", 2201963934)
 

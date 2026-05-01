@@ -25,7 +25,9 @@ CONNECT = 4
 
 
 class Rule2A(AbstractClueRule):
-    name = ["2A", "面积", "Area"]
+    id = "2A"
+    name = "Area"
+    name.zh_CN = "面积"
     doc = "线索表示四方向相邻雷区域的面积之和"
 
     def __init__(self, board: "AbstractBoard" = None, data=None):

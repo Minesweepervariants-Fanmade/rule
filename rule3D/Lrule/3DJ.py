@@ -9,7 +9,9 @@ from .....abs.board import AbstractBoard
 
 
 class Rule3DJ(Abstract3DMinesRule):  # type: ignore
-    name = ["3DJ", "枣糕", "Jujubecake"]
+    id = "3DJ"
+    name = "Jujubecake"
+    name.zh_CN = "枣糕"
     doc = "所有非雷格均形成1x2x1、2x1x1或1x1x2的三维矩形，即每个非雷格恰好有一个六连通相邻的非雷格(全是洞啊!!!)"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

@@ -16,7 +16,9 @@ NAME_C_SHARP = "C#"
 
 
 class RuleCSharp(AbstractClueSharp):
-    name = ["C#", "加密标签", "Encrypted Tag"]
+    id = "C#"
+    name = "Encrypted Tag"
+    name.zh_CN = "加密标签"
     doc = ("标签被字母所取代，每个字母对应一个标签，且每个标签对应一个字母\n"
               "通过C#:<rule1>;<rule2>;...来指定使用的规则及其顺序\n"
               "默认包含以下规则且随机顺序选取：\n"
@@ -41,7 +43,7 @@ class RuleCSharp(AbstractClueSharp):
 
     def label_y(self, y: int) -> str:
         return self.rules[y] if 0 <= y < len(self.rules) else ''
-    
+
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         self.init_clear(board)
         random = get_random()
@@ -52,7 +54,7 @@ class RuleCSharp(AbstractClueSharp):
             board.set_value(pos, VALUE_CIRCLE)
         for pos, _ in board("N", key="C#"):
             board.set_value(pos, VALUE_CROSS)
-        
+
         boards : list[AbstractBoard] = []
         for rule in self.shape_rule.rules:
             boards.append(rule.fill(board.clone()))
@@ -67,7 +69,7 @@ class RuleCSharp(AbstractClueSharp):
                     clue_type = clue.type().decode("utf-8", "ignore")
                     board.set_value(pos, ValueCsharp(pos, value=self.get_clue_number(clue), rule=shuffled_nums[rule_index]))
         return board
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s_row = switch.get(model, self, '↔')
@@ -89,7 +91,7 @@ class RuleCSharp(AbstractClueSharp):
     def init_clear(self, board: 'AbstractBoard'):
         for pos, _ in board(key=NAME_C_SHARP):
             board.set_value(pos, None)
-    
+
     def get_clue_number(self, clue: AbstractClueValue) -> int:
         try:
             return clue.value
@@ -112,22 +114,22 @@ class ValueCsharp(AbstractClueValue):
 
     def __repr__(self):
         return f"{self.value}_{RuleCSharp.label_x(self.rule)}"
-    
+
     @classmethod
     def type(cls) -> bytes:
         return "C#".encode("ascii")
-    
+
     def compose(self, board) -> Dict:
         return get_col(
             get_dummy(height=0.3),
             get_text(str(self.value)),
             get_dummy(height=0.3),
         )
-    
+
     def web_component(self, board) -> Dict:
         # TODO
         return Number(str(self.value))
-    
+
     def tag(self, board: AbstractBoard) -> bytes:
         line = board.batch(board.get_col_pos(
             board.get_pos(0, self.rule, NAME_C_SHARP)
@@ -138,7 +140,7 @@ class ValueCsharp(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.value, self.rule])
-    
+
     def high_light(self, board: AbstractBoard) -> List[AbstractPosition] | None:
         positions: set[AbstractPosition] = set()
         line = board.batch(board.get_col_pos(
@@ -154,7 +156,7 @@ class ValueCsharp(AbstractClueValue):
                 return self.get_clue(rule).high_light(board)
         return list(positions)
 
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         rules: list[str] = board.get_config(NAME_C_SHARP, "labels")
         s = switch.get(board.get_model(), self)

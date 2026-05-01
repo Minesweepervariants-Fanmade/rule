@@ -7,7 +7,9 @@ from minesweepervariants.abs.board import AbstractBoard
 from minesweepervariants.impl.summon.solver import Switch
 
 class RuleDC(AbstractMinesRule):
-    name = ["DC", "必对角", "Diagonally Connected"]
+    id = "DC"
+    name = "Diagonally Connected"
+    name.zh_CN = "必对角"
     doc = "每个雷对角相邻的四格中有至少一个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):

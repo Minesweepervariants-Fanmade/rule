@@ -18,7 +18,9 @@ from ....utils.tool import get_logger, get_random
 
 
 class Rule2X(AbstractClueRule):
-    name = ["2X", "十字", "Cross"]
+    id = "2X"
+    name = "Cross"
+    name.zh_CN = "十字"
     doc = "线索表示 3x3 范围内染色格和非染色格的雷数（顺序不确定）"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

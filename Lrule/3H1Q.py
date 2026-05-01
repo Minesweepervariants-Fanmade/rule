@@ -36,7 +36,9 @@ def triad_key(positions: List[AbstractPosition]) -> Tuple[Tuple[int, int, str], 
 
 
 class Rule3H1Q(AbstractMinesRule):
-    name = ["3H1Q", "Hex1Q", "六角无方"]
+    id = "3H1Q"
+    name = "Hex1Q"
+    name.zh_CN = "六角无方"
     doc = "六角无方: 每个互相相邻的三个格必有一个雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

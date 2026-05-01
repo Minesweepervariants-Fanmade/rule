@@ -7,7 +7,9 @@ from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
 class Rule1M(AbstractMinesRule):
-    name = ["1M", "M", "多雷", "Multiple"]
+    id = "1M"
+    name = "Multiple"
+    name.zh_CN = "多雷"
     doc = "染色格的雷值*2(总雷数不受影响)"
     lib_only = True
 

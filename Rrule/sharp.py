@@ -16,7 +16,9 @@ from ....utils.tool import get_random
 
 
 class RuleSharp(AbstractClueRule):
-    name = ["#", "标签", "Tag"]
+    id = "#"
+    name = "Tag"
+    name.zh_CN = "标签"
     doc = "线索会有不同的规则, 每个线索的规则会单独标出"
 
     def __init__(self, board: AbstractBoard, data: list[AbstractClueRule]):

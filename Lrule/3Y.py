@@ -24,7 +24,9 @@ def block(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPositio
 
 
 class Rule3Y(AbstractMinesRule):
-    name = ["3Y", "阴阳", "Yin-Yang"]
+    id = "3Y"
+    name = "Yin-Yang"
+    name.zh_CN = "阴阳"
     doc = "所有雷四连通，所有非雷四连通，不存在2*2的雷或非雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

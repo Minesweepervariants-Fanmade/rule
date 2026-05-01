@@ -6,7 +6,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule1HT(AbstractMinesRule):
-    name = ["1HT", "HT", "纵向", "Vertical"]
+    id = "1HT"
+    name = "Vertical"
+    name.zh_CN = "纵向"
     doc = "所有雷不能与其他雷纵向相邻"
 
     def create_constraints(self, board: 'AbstractBoard', switch):

@@ -57,7 +57,9 @@ def MineStatus_1P(clue: int) -> list[int]:
 
 
 class Rule1P(AbstractClueRule):
-    name = ["1P", "P", "分组", "Partition"]
+    id = "1P"
+    name = "Partition"
+    name.zh_CN = "分组"
     doc = "线索表示 3x3 范围内连续雷的组数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

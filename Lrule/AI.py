@@ -41,7 +41,9 @@ if TYPE_CHECKING:
 
 
 class RuleAI(AbstractMinesRule):
-  name = ["AI", "箭头", "Arrow"]
+  id = "AI"
+  name = "Arrow"
+  name.zh_CN = "箭头"
   doc = "生成固定八方向箭头图, 雷格需沿箭头可不重补漏遍历"
   ARROWS = ["^", "^>", ">", "v>", "v", "v<", "<", "^<"]
 

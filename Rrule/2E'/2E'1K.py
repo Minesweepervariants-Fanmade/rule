@@ -17,7 +17,8 @@ ALPHABET = "ABCDEFGHI"
 
 
 class Rule1K2Ep(AbstractClueRule):
-    name = ["1K2E'", "马步自指"]
+    id = "1K2E'"
+    name.zh_CN = "马步自指"
     doc = "如果字母X马步8格内有N个雷，则标有X=N的格子必定是雷。"
 
     def __init__(self, board: AbstractBoard, data=None):

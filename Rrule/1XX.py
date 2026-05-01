@@ -55,7 +55,9 @@ def _get_diagonal_positions(board: 'AbstractBoard', pos: AbstractPosition):
 
 
 class Rule1XX(AbstractClueRule):
-    name = ["1XX", "主教", "Bishop"]
+    id = "1XX"
+    name = "Bishop"
+    name.zh_CN = "主教"
     doc = "线索数表示斜向所有格子中的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

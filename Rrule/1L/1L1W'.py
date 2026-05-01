@@ -63,7 +63,9 @@ def MineStatus_1W(clue: list) -> list[int]:
     return ans
 
 class Rule1L1Wp(AbstractClueRule):
-    name = ["1L1W'", "LW'", "误差 + 最长数墙", "Liar + Longest Wall"]
+    id = "1L1W'"
+    name = "Liar + Longest Wall"
+    name.zh_CN = "误差 + 最长数墙"
     doc = ""
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

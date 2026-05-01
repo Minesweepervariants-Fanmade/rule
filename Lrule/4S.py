@@ -7,7 +7,9 @@ from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
 class Rule3I(AbstractMinesRule):
-    name = ["4S", "阶梯", "Staircase"]
+    id = "4S"
+    name = "Staircase"
+    name.zh_CN = "阶梯"
     doc = "所有雷被视为 X 个雷（X 为其的行列数之和）"
     lib_only = True
 

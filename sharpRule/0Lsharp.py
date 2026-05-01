@@ -10,7 +10,9 @@ from ....utils.impl_obj import VALUE_QUESS
 from . import AbstractClueSharp
 
 class Rule0LSharp(AbstractClueSharp):
-    name = ["0L#", "标签", "Tag"]
+    id = "0L#"
+    name = "Tag"
+    name.zh_CN = "标签"
     doc = "包含以下规则: [1L], [1L1L], [1L1N], [1L1X], [1L1P], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1L2D], [1L2M], [1L2X']。线索值只有零。"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

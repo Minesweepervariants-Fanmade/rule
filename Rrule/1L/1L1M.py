@@ -18,9 +18,11 @@ def liar_1M(value: int, random) -> int:
     return value
 
 class Rule1L1M(AbstractClueRule):
-    name = ["1L1M", "LM", "误差 + 多雷", "Liar + Multiple"]
+    id = "1L1M"
+    name = "Liar + Multiple"
+    name.zh_CN = "误差 + 多雷"
     doc = ""
-    
+
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         random = get_random()
         logger = get_logger()
@@ -41,7 +43,7 @@ class Rule1L1M(AbstractClueRule):
             board.set_value(pos, Value1L1M(pos, code=bytes([value])))
             logger.debug(f"[1L1M]: put {value} to {pos}")
         return board
-    
+
 class Value1L1M(AbstractClueValue):
     value: int
     neighbors: list
@@ -56,14 +58,14 @@ class Value1L1M(AbstractClueValue):
 
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         return self.neighbors
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule1L1M.name[0].encode("ascii")
 
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

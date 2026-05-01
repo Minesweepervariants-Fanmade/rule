@@ -19,7 +19,9 @@ CONFIG.update(PUZZLE_CONFIG)
 
 
 class BINGO(AbstractMinesRule):
-    name = ["4B", "宾果", "Bingo"]
+    id = "4B"
+    name = "Bingo"
+    name.zh_CN = "宾果"
     doc = "每个格子被随机标记一个左线规则。当该格为雷时，完整题板必须满足该格的规则。"
 
     def __init__(self, board: AbstractBoard, data=None):

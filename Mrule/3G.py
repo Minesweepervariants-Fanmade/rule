@@ -13,7 +13,9 @@ from ...rule.Lrule.connect import connect
 from ortools.sat.python.cp_model import IntVar
 
 class Rule3G(AbstractMinesClueRule):
-    name = ["3G", "分组", "Grouping"]
+    id = "3G"
+    name = "Grouping"
+    name.zh_CN = "分组"
     doc = "相同数字的雷线索四连通"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -53,7 +55,7 @@ class Rule3G(AbstractMinesClueRule):
                 board.set_value(cell, MinesValue3G(cell, code))
 
         return board
-    
+
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         positions = [pos for pos, _ in board("always", mode="variable")]
@@ -67,7 +69,7 @@ class Rule3G(AbstractMinesClueRule):
             nei_value=1,
         )
         clues = [(pos, clue) for pos, clue in board("always", mode="object") if isinstance(clue, MinesValue3G)]
-    
+
 
         for i, (pos1, clue1) in enumerate(clues):
             for pos2, clue2 in clues[i + 1:]:
@@ -77,7 +79,7 @@ class Rule3G(AbstractMinesClueRule):
                     model.Add(component_ids[positions.index(pos1)] == component_ids[positions.index(pos2)]).OnlyEnforceIf([s1, s2])
                 else:
                     model.Add(component_ids[positions.index(pos1)] != component_ids[positions.index(pos2)]).OnlyEnforceIf([s1, s2])
-        
+
 
 class MinesValue3G(AbstractMinesValue):
     def __init__(self, pos: 'AbstractPosition', code: bytes = None):

@@ -77,7 +77,8 @@ def _env_first(*keys):
 
 
 class RuleULLM(AbstractMinesRule):
-    name = ["U-LLM", "随机规则点子"]
+    id = "U-LLM"
+    name.zh_CN = "随机规则点子"
     doc = "随机规则点子：随机抽词并由 LLM 联想生成规则描述后抛出。"
     author = ("NT", 2201963934)
 

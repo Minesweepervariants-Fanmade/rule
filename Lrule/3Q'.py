@@ -5,7 +5,8 @@ from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
 from minesweepervariants.impl.summon.solver import Switch
 
 class Rule3Q(AbstractMinesRule):
-    name = ["3Q'", "无方"]
+    id = "3Q'"
+    name.zh_CN = "无方"
     doc = "任意四个雷不能作为一个横平竖直的矩形的顶点"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):

@@ -18,7 +18,8 @@ def put(pos: 'AbstractPosition', board: 'AbstractBoard'):
 
 
 class Rule3Ap(AbstractClueRule):
-    name = ""
+    id = "3A'"
+    id = ""
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         pass
@@ -33,7 +34,7 @@ class Value3Ap(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return Rule3Ap.name.encode("ascii")
+        return Rule3Ap.id.encode("ascii")
 
     def code(self) -> bytes:
         pass

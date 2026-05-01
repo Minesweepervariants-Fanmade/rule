@@ -14,7 +14,9 @@ def liar_2M(value: int, random) -> int:
         return 1
 
 class Rule1L2M(AbstractClueRule):
-    name = ["1L2M", "误差 + 取模", "Liar + Modulo"]
+    id = "1L2M"
+    name = "Liar + Modulo"
+    name.zh_CN = "误差 + 取模"
     doc = ""
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
@@ -34,20 +36,20 @@ class Value1L2M(AbstractClueValue):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = pos.neighbors(2)
-    
+
     def __repr__(self) -> str:
         return str(self.value)
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         return self.neighbors
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule1L2M.name[0].encode("ascii")
-    
+
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

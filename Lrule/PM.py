@@ -3,7 +3,8 @@ from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
 from minesweepervariants.impl.summon.solver import Switch
 
 class RulePM(AbstractMinesRule):
-    name = ["PM", "独一无二"]
+    id = "PM"
+    name.zh_CN = "独一无二"
     doc = "恰有一种方式从每行每列恰好选取一雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
@@ -43,4 +44,3 @@ class RulePM(AbstractMinesRule):
                     model.Add(new_vars[i] == last_vars[(reduced_size + 1) * x + (y + 1)]).OnlyEnforceIf(x_less_var, y_less_var.Not(), s)
                     model.Add(new_vars[i] == last_vars[(reduced_size + 1) * (x + 1) + (y + 1)]).OnlyEnforceIf(x_less_var.Not(), y_less_var.Not(), s)
                 last_vars = new_vars
-

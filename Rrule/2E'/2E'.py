@@ -22,7 +22,9 @@ def alpha(n: int) -> str:
 
 
 class Rule2Ep(AbstractClueRule):
-    name = ["2E'", "自指", "Self-Referential"]
+    id = "2E'"
+    name = "Self-Referential"
+    name.zh_CN = "自指"
     doc = "如果字母 X 的 3x3 范围内有 N 个雷，则 X=N 所在的格子为雷"
 
     def __init__(self, board: AbstractBoard, data=None):

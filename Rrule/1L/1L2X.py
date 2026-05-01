@@ -18,7 +18,9 @@ def liar_2X(vals: [int, int], random) -> int:
     return vals[0] * 10 + vals[1]
 
 class Rule1L2X(AbstractClueRule):
-    name = ["1L2X", "误差 + 十字", "Liar + Cross"]
+    id = "1L2X"
+    name = "Liar + Cross"
+    name.zh_CN = "误差 + 十字"
     doc = ""
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
@@ -38,13 +40,13 @@ class Value1L2X(AbstractClueValue):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = pos.neighbors(2)
-    
+
     def __repr__(self) -> str:
         return f"{self.value // 10} {self.value % 10}"
-    
+
     def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
         return self.neighbors
-    
+
     def web_component(self, board) -> Dict:
         value = [self.value // 10, self.value % 10]
         value.sort()
@@ -59,14 +61,14 @@ class Value1L2X(AbstractClueValue):
             text_a,
             text_b
         )
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule1L2X.name[0].encode("ascii")
-    
+
     def code(self) -> bytes:
         return bytes([self.value])
-    
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

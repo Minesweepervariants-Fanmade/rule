@@ -5,7 +5,9 @@ from .eyesight import AbstractEyesightClueRule, AbstractEyesightClueValue
 
 
 class Rule1EQ(AbstractEyesightClueRule):
-    name = ["1ES", "螺旋视野", "Spiral Eyesight"]
+    id = "1ES"
+    name = "Spiral Eyesight"
+    name.zh_CN = "螺旋视野"
     doc = "该线索表示从当前格子向四周出发随后进行顺时针顺序旋转（类似卐字形）能看到的非雷格数量（包含自身）, 雷会阻挡视线。"
 
     @staticmethod
@@ -24,7 +26,7 @@ class Rule1EQ(AbstractEyesightClueRule):
                     dy = -dy
                 else:
                     dx = -dx
-            
+
             dxy = value - a ** 2
             if dx is None:
                 dx = dxy if dy > 0 else -dxy
@@ -38,7 +40,7 @@ class Rule1EQ(AbstractEyesightClueRule):
             lambda n:move_wan(pos.clone(), n, 2),
             lambda n:move_wan(pos.clone(), n, 3),
         ]
-    
+
     @classmethod
     def clue_type(cls):
         return Value1EQ
@@ -46,7 +48,7 @@ class Rule1EQ(AbstractEyesightClueRule):
 class Value1EQ(AbstractEyesightClueValue):
     def direction_funcs(self):
         return Rule1EQ.direction_funcs(self.pos)
-    
+
     @classmethod
     def type(cls) -> bytes:
         return Rule1EQ.name[0].encode("ascii")

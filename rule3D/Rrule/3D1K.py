@@ -12,7 +12,9 @@ from .. import Abstract3DClueRule
 
 
 class Rule3D1K(Abstract3DClueRule):
-    name = ["3DK", "3D1K", "3D标准扫雷"]
+    id = "3DK"
+    name = "3D1K"
+    name.zh_CN = "3D标准扫雷"
     doc = "每个数字标明周围26格内雷的数量。"
 
     def __init__(self, board: AbstractBoard, data: str = None):

@@ -15,7 +15,9 @@ def get_pos_box(board: AbstractBoard, top_left: AbstractPosition, bottom_right: 
         return positions
 
 class Rule2D(AbstractClueRule):
-    name = ["2D^", "偏移^", "Deviation^"]
+    id = "2D^"
+    name = "Deviation^"
+    name.zh_CN = "偏移^"
     doc = "线索表示 Nx3 范围内的雷数，N 为正上连续非雷格数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
@@ -59,12 +61,12 @@ class Value2D(AbstractClueValue):
                 else:
                     model.Add(collect_vars[step * 2 + i] == board.get_variable(_pos)).OnlyEnforceIf([cont_var, switch])
                     model.Add(collect_vars[step * 2 + i] == 0).OnlyEnforceIf([cont_var.Not(), switch])
-                
+
         model = board.get_model()
         s = switch.get(model, self)
 
         curr = self.pos
-        
+
         upwards = 0
         while board.in_bounds(curr):
             upwards += 1
