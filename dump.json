@@ -84,6 +84,7 @@
             "rule_line": "L",
             "id": "3D2T",
             "name": {
+                "default": "3D No Triple 2",
                 "zh_CN": "\u65e0\u4e09\u8fde"
             },
             "doc": {
@@ -99,7 +100,8 @@
             "rule_line": "L",
             "id": "3D1T",
             "name": {
-                "zh_CN": "\u65e0\u4e09\u8fde"
+                "default": "3D No Triple",
+                "zh_CN": "3D \u65e0\u4e09\u8fde"
             },
             "doc": {
                 "default": "\u96f7\u4e0d\u80fd\u5728\u6a2a\u7ad6\u5bf9\u89d2\u6784\u6210\u4e09\u8fde"
@@ -130,6 +132,7 @@
             "rule_line": "L",
             "id": "3D2F",
             "name": {
+                "default": "3D Flower Field",
                 "zh_CN": "\u4e09\u7ef4\u82b1\u7530"
             },
             "doc": {
@@ -161,7 +164,8 @@
             "rule_line": "L",
             "id": "3D1B'",
             "name": {
-                "zh_CN": "\u5e73\u8861"
+                "default": "3D Layer Balance",
+                "zh_CN": "3D \u9762\u5e73\u8861"
             },
             "doc": {
                 "default": "\u6240\u6709\u5e73\u884c\u9762\u7684\u603b\u96f7\u6570\u5747\u76f8\u7b49"
@@ -224,6 +228,7 @@
             "rule_line": "L",
             "id": "3O",
             "name": {
+                "default": "Orthogonal",
                 "zh_CN": "\u6a2a\u7eb5"
             },
             "doc": {
@@ -239,6 +244,7 @@
             "rule_line": "L",
             "id": "SETU",
             "name": {
+                "default": "Waifu Picture",
                 "zh_CN": "\u6da9\u56fe"
             },
             "doc": {
@@ -254,6 +260,7 @@
             "rule_line": "L",
             "id": "RAW",
             "name": {
+                "default": "Raw Mine Value",
                 "zh_CN": "\u539f\u59cb\u96f7\u503c"
             },
             "doc": {
@@ -269,6 +276,7 @@
             "rule_line": "L",
             "id": "PM",
             "name": {
+                "default": "Pure Matrix",
                 "zh_CN": "\u72ec\u4e00\u65e0\u4e8c"
             },
             "doc": {
@@ -284,6 +292,7 @@
             "rule_line": "L",
             "id": "U-SA",
             "name": {
+                "default": "Semi-Auto Unmix",
                 "zh_CN": "\u53cd\u6df7\u5408"
             },
             "doc": {
@@ -314,6 +323,7 @@
             "rule_line": "L",
             "id": "2S'",
             "name": {
+                "default": "Segmented'",
                 "zh_CN": "\u5206\u6bb5'"
             },
             "doc": {
@@ -377,6 +387,7 @@
             "rule_line": "L",
             "id": "SCREAM",
             "name": {
+                "default": "Scream",
                 "zh_CN": "\u5c16\u53eb"
             },
             "doc": {
@@ -486,6 +497,7 @@
             "rule_line": "L",
             "id": "1T''",
             "name": {
+                "default": "Pure Triple",
                 "zh_CN": "\u7eaf\u4e09\u8fde"
             },
             "doc": {
@@ -645,6 +657,7 @@
             "rule_line": "L",
             "id": "BM",
             "name": {
+                "default": "Multi-Balance",
                 "zh_CN": "\u591a\u96f7\u5e73\u8861"
             },
             "doc": {
@@ -660,6 +673,7 @@
             "rule_line": "L",
             "id": "THEME",
             "name": {
+                "default": "Theme",
                 "zh_CN": "\u4e3b\u9898"
             },
             "doc": {
@@ -707,6 +721,7 @@
             "rule_line": "L",
             "id": "3I",
             "name": {
+                "default": "Inverted",
                 "zh_CN": "\u53cd\u76f8"
             },
             "doc": {
@@ -738,6 +753,7 @@
             "rule_line": "L",
             "id": "3MA",
             "name": {
+                "default": "Triple Mines Areas",
                 "zh_CN": "\u4e09\u96f7\u533a"
             },
             "doc": {
@@ -769,6 +785,7 @@
             "rule_line": "L",
             "id": "U-YY",
             "name": {
+                "default": "Hitokoto",
                 "zh_CN": "\u4e00\u8a00"
             },
             "doc": {
@@ -784,6 +801,7 @@
             "rule_line": "L",
             "id": "U-SETU",
             "name": {
+                "default": "Waifu Picture",
                 "zh_CN": "\u6da9\u56fe"
             },
             "doc": {
@@ -861,6 +879,7 @@
             "rule_line": "L",
             "id": "GM",
             "name": {
+                "default": "OttoMom",
                 "zh_CN": "\u68cd\u6728"
             },
             "doc": {
@@ -908,6 +927,7 @@
             "rule_line": "L",
             "id": "QTREE",
             "name": {
+                "default": "Quad Tree",
                 "zh_CN": "\u56db\u53c9\u6811"
             },
             "doc": {
@@ -971,7 +991,8 @@
             "rule_line": "L",
             "id": "3E",
             "name": {
-                "zh_CN": "\u8fed\u4ee3"
+                "default": "Evolution",
+                "zh_CN": "\u6f14\u5316"
             },
             "doc": {
                 "default": "\u6bcf\u4e2a3x1\u533a\u57df\u51b3\u5b9a\u5176\u4e2d\u95f4\u4e0b\u65b91\u683c\u662f\u5426\u4e3a\u96f7\uff0c\u6f14\u5316\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u533a\u57df\u5171\u4eab\u3002"
@@ -1034,6 +1055,7 @@
             "rule_line": "L",
             "id": "3Q'",
             "name": {
+                "default": "No-Quadrilateral",
                 "zh_CN": "\u65e0\u65b9"
             },
             "doc": {
@@ -1049,6 +1071,7 @@
             "rule_line": "L",
             "id": "1B''",
             "name": {
+                "default": "Queen-Balance",
                 "zh_CN": "\u540e\u5e73\u8861"
             },
             "doc": {
@@ -1095,6 +1118,7 @@
             "rule_line": "L",
             "id": "MB",
             "name": {
+                "default": "Mass-Balance",
                 "zh_CN": "\u5e73\u8861\u70b9"
             },
             "doc": {
@@ -1126,6 +1150,7 @@
             "rule_line": "L",
             "id": "2I1C",
             "name": {
+                "default": "Incomplete-Connectivity",
                 "zh_CN": "\u6b8b\u7f3a\u8054\u901a"
             },
             "doc": {
@@ -1173,6 +1198,7 @@
             "rule_line": "L",
             "id": "U-LLM",
             "name": {
+                "default": "LLM Generated Rule",
                 "zh_CN": "\u968f\u673a\u89c4\u5219\u70b9\u5b50"
             },
             "doc": {
@@ -1204,6 +1230,7 @@
             "rule_line": "L",
             "id": "3T",
             "name": {
+                "default": "No-Triple",
                 "zh_CN": "\u65e0\u4e09\u8fde"
             },
             "doc": {
@@ -1219,6 +1246,7 @@
             "rule_line": "L",
             "id": "OR",
             "name": {
+                "default": "OR",
                 "zh_CN": "\u6216"
             },
             "doc": {
@@ -1314,6 +1342,7 @@
             "rule_line": "L",
             "id": "1S^",
             "name": {
+                "default": "Bicursal Snake",
                 "zh_CN": "\u53cc\u5934\u86c7"
             },
             "doc": {
@@ -1345,6 +1374,7 @@
             "rule_line": "L",
             "id": "U-ECHO",
             "name": {
+                "default": "echo",
                 "zh_CN": "\u56de\u58f0"
             },
             "doc": {
@@ -1456,6 +1486,7 @@
             "rule_line": "L",
             "id": "3W",
             "name": {
+                "default": "Wind-and-Cloud",
                 "zh_CN": "\u98ce\u4e91"
             },
             "doc": {
@@ -1471,6 +1502,7 @@
             "rule_line": "L",
             "id": "1H2H",
             "name": {
+                "default": "Horizontal-Horizontal",
                 "zh_CN": "\u6a2a\u6a2a\u5411\u5411"
             },
             "doc": {
@@ -1662,6 +1694,7 @@
             "rule_line": "L",
             "id": "4S''",
             "name": {
+                "default": "Staircase''",
                 "zh_CN": "\u9636\u68af''"
             },
             "doc": {
@@ -1819,6 +1852,7 @@
             "rule_line": "L",
             "id": "1S'",
             "name": {
+                "default": "Unicursal Snake",
                 "zh_CN": "\u8854\u5c3e\u86c7"
             },
             "doc": {
@@ -1850,6 +1884,7 @@
             "rule_line": "L",
             "id": "AND",
             "name": {
+                "default": "AND",
                 "zh_CN": "\u4e0e"
             },
             "doc": {
@@ -1865,6 +1900,7 @@
             "rule_line": "L",
             "id": "4S'",
             "name": {
+                "default": "Staircase",
                 "zh_CN": "\u9636\u68af'"
             },
             "doc": {
@@ -1912,6 +1948,7 @@
             "rule_line": "L",
             "id": "1B'",
             "name": {
+                "default": "Unbalance",
                 "zh_CN": "\u5931\u8861"
             },
             "doc": {
@@ -1943,6 +1980,7 @@
             "rule_line": "L",
             "id": "4D",
             "name": {
+                "default": "Diagonal",
                 "zh_CN": "\u5bf9\u89d2"
             },
             "doc": {
@@ -1974,6 +2012,7 @@
             "rule_line": "L",
             "id": "3U",
             "name": {
+                "default": "Up-Up",
                 "zh_CN": "\u4e0a\u4e0a"
             },
             "doc": {
@@ -2005,7 +2044,8 @@
             "rule_line": "L",
             "id": "F#",
             "name": {
-                "zh_CN": "\u6807\u7b7e"
+                "default": "Mineclue Label",
+                "zh_CN": "\u96f7\u7ebf\u7d22\u6807\u7b7e"
             },
             "doc": {
                 "default": "\u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [*3T], [3], [3F]"
@@ -2038,6 +2078,7 @@
             "rule_line": "M",
             "id": "3F",
             "name": {
+                "default": "Not-V",
                 "zh_CN": "\u4e0d\u662fV"
             },
             "doc": {
@@ -2053,6 +2094,7 @@
             "rule_line": "M",
             "id": "*3T",
             "name": {
+                "default": "Triple-Mine",
                 "zh_CN": "\u96f7\u4e09\u8fde"
             },
             "doc": {
@@ -2133,6 +2175,7 @@
             "rule_line": "R",
             "id": "3D1X",
             "name": {
+                "default": "3D Cross",
                 "zh_CN": "\u4e09\u7ef4\u5341\u5b57"
             },
             "doc": {
@@ -2164,6 +2207,7 @@
             "rule_line": "R",
             "id": "3D1X'",
             "name": {
+                "default": "3D Cross'",
                 "zh_CN": "\u4e09\u7ef4\u5341\u5b57'"
             },
             "doc": {
@@ -2179,6 +2223,7 @@
             "rule_line": "R",
             "id": "3DV",
             "name": {
+                "default": "3D Vanilla",
                 "zh_CN": "3D\u6807\u51c6\u626b\u96f7"
             },
             "doc": {
@@ -2194,6 +2239,7 @@
             "rule_line": "R",
             "id": "BT",
             "name": {
+                "default": "Board-Shared",
                 "zh_CN": "\u526f\u677f\u5171\u7528"
             },
             "doc": {
@@ -2225,6 +2271,7 @@
             "rule_line": "R",
             "id": "4Q",
             "name": {
+                "default": "Quadrant",
                 "zh_CN": "\u65b9\u683c"
             },
             "doc": {
@@ -2240,6 +2287,7 @@
             "rule_line": "R",
             "id": "2M'",
             "name": {
+                "default": "Multi-Mine'",
                 "zh_CN": "\u591a\u96f7'"
             },
             "doc": {
@@ -2287,6 +2335,7 @@
             "rule_line": "R",
             "id": "4D'",
             "name": {
+                "default": "Mapping",
                 "zh_CN": "\u5bf9\u6620\u5408\u5e76"
             },
             "doc": {
@@ -2382,6 +2431,7 @@
             "rule_line": "R",
             "id": "3A",
             "name": {
+                "default": "Langton's Ant",
                 "zh_CN": "\u5170\u987f\u8682\u8681"
             },
             "doc": {
@@ -2445,6 +2495,7 @@
             "rule_line": "R",
             "id": "4V'",
             "name": {
+                "default": "Mapping'",
                 "zh_CN": "\u6620\u5c04'"
             },
             "doc": {
@@ -2492,6 +2543,7 @@
             "rule_line": "R",
             "id": "3S",
             "name": {
+                "default": "Shell",
                 "zh_CN": "\u8d1d\u58f3"
             },
             "doc": {
@@ -2507,6 +2559,7 @@
             "rule_line": "R",
             "id": "1M'",
             "name": {
+                "default": "Multi-Mine'",
                 "zh_CN": "\u591a\u96f7'"
             },
             "doc": {
@@ -2538,6 +2591,7 @@
             "rule_line": "R",
             "id": "3A^",
             "name": {
+                "default": "Langton's Ant - XOR",
                 "zh_CN": "\u5170\u987f\u8682\u8681\u00b7\u5f02\u6216"
             },
             "doc": {
@@ -2713,6 +2767,7 @@
             "rule_line": "R",
             "id": "2*1L",
             "name": {
+                "default": "Double Liar",
                 "zh_CN": "2\u500d\u8bef\u5dee"
             },
             "doc": {
@@ -2807,6 +2862,7 @@
             "rule_line": "R",
             "id": "1X2X",
             "name": {
+                "default": "Cross",
                 "zh_CN": "\u5341\u5b57"
             },
             "doc": {
@@ -3140,6 +3196,7 @@
             "rule_line": "R",
             "id": "2I'",
             "name": {
+                "default": "2I'",
                 "zh_CN": "\u6b8b\u7f3a'"
             },
             "doc": {
@@ -3423,6 +3480,7 @@
             "rule_line": "R",
             "id": "?",
             "name": {
+                "default": "Quess",
                 "zh_CN": "\u95ee\u53f7"
             },
             "doc": {
@@ -3596,6 +3654,7 @@
             "rule_line": "R",
             "id": "2D'",
             "name": {
+                "default": "2D'",
                 "zh_CN": "\u56db\u5411\u504f\u79fb"
             },
             "doc": {
@@ -3659,6 +3718,7 @@
             "rule_line": "R",
             "id": "2E''",
             "name": {
+                "default": "Mutual Indication",
                 "zh_CN": "\u4e92\u6307"
             },
             "doc": {
@@ -3674,6 +3734,7 @@
             "rule_line": "R",
             "id": "4V",
             "name": {
+                "default": "Mapping",
                 "zh_CN": "\u6620\u5c04"
             },
             "doc": {
@@ -3689,6 +3750,7 @@
             "rule_line": "R",
             "id": "4V1N",
             "name": {
+                "default": "Mapping Negative",
                 "zh_CN": "\u8d1f\u96f7\u6620\u5c04"
             },
             "doc": {
@@ -3704,6 +3766,7 @@
             "rule_line": "R",
             "id": "4V1L",
             "name": {
+                "default": "Mapping Liar",
                 "zh_CN": "\u8bef\u5dee\u6620\u5c04"
             },
             "doc": {
@@ -3719,6 +3782,7 @@
             "rule_line": "R",
             "id": "4V1K",
             "name": {
+                "default": "Mapping Knight",
                 "zh_CN": "\u9a6c\u6b65\u6620\u5c04"
             },
             "doc": {
@@ -3734,6 +3798,7 @@
             "rule_line": "R",
             "id": "4V2E'2I'",
             "name": {
+                "default": "Self-Referential Incomplete Mapping",
                 "zh_CN": "\u81ea\u6307\u6b8b\u7f3a\u6620\u5c04"
             },
             "doc": {
@@ -3765,6 +3830,7 @@
             "rule_line": "R",
             "id": "1K2E'",
             "name": {
+                "default": "Horse Stance Self-Reference",
                 "zh_CN": "\u9a6c\u6b65\u81ea\u6307"
             },
             "doc": {
@@ -3780,6 +3846,7 @@
             "rule_line": "R",
             "id": "2E'2I'",
             "name": {
+                "default": "Self-Referential Incomplete'",
                 "zh_CN": "\u81ea\u6307\u6b8b\u7f3a'"
             },
             "doc": {
@@ -3811,6 +3878,7 @@
             "rule_line": "R",
             "id": "2E'2I",
             "name": {
+                "default": "Self-Referential Incomplete",
                 "zh_CN": "\u81ea\u6307\u6b8b\u7f3a"
             },
             "doc": {
@@ -4122,6 +4190,7 @@
             "rule_line": "R",
             "id": "1L2#",
             "name": {
+                "default": "Liar + Label'",
                 "zh_CN": "\u8bef\u5dee + \u6807\u7b7e"
             },
             "doc": {
@@ -4137,6 +4206,7 @@
             "rule_line": "R",
             "id": "1L2#'",
             "name": {
+                "default": "Liar + Label'",
                 "zh_CN": "\u8bef\u5dee + \u6807\u7b7e'"
             },
             "doc": {
@@ -4152,6 +4222,7 @@
             "rule_line": "R",
             "id": "2#",
             "name": {
+                "default": "Label",
                 "zh_CN": "\u6807\u7b7e"
             },
             "doc": {
@@ -4199,6 +4270,7 @@
             "rule_line": "R",
             "id": "2#'",
             "name": {
+                "default": "Label'",
                 "zh_CN": "\u6807\u7b7e'"
             },
             "doc": {
@@ -4246,6 +4318,7 @@
             "rule_line": "R",
             "id": "1#",
             "name": {
+                "default": "Label",
                 "zh_CN": "\u6807\u7b7e"
             },
             "doc": {
@@ -4293,6 +4366,7 @@
             "rule_line": "R",
             "id": "1L1#",
             "name": {
+                "default": "Error + Label",
                 "zh_CN": "\u8bef\u5dee + \u6807\u7b7e"
             },
             "doc": {
@@ -4324,6 +4398,7 @@
             "rule_line": "R",
             "id": "1#'",
             "name": {
+                "default": "Label'",
                 "zh_CN": "\u6807\u7b7e'"
             },
             "doc": {
@@ -4339,6 +4414,7 @@
             "rule_line": "R",
             "id": "1L1#'",
             "name": {
+                "default": "Liar + Label'",
                 "zh_CN": "\u8bef\u5dee + \u6807\u7b7e'"
             },
             "doc": {
