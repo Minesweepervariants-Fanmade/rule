@@ -2070,7 +2070,8 @@
                 "zh_CN": "\u4e0a\u4e0a"
             },
             "doc": {
-                "default": "\u6bcf\u5217\u6700\u9ad8\u7684\u96f7\u89c6\u4e3a\u4e24\u4e2a\u96f7\uff08\u603b\u96f7\u6570\u4e0d\u53d7\u5176\u5f71\u54cd\uff09"
+                "default": "The topmost mine in each column counts as two mines (does not affect the total mine count)",
+                "zh_CN": "\u6bcf\u5217\u6700\u9ad8\u7684\u96f7\u89c6\u4e3a\u4e24\u4e2a\u96f7\uff08\u603b\u96f7\u6570\u4e0d\u53d7\u5176\u5f71\u54cd\uff09"
             },
             "author": {
                 "name": "",
@@ -2331,7 +2332,8 @@
                 "zh_CN": "\u65b9\u683c"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u5305\u542b\u8be5\u683c\u4e14\u5305\u542b\u96f7\u7684 2x2 \u533a\u57df\u6570"
+                "default": "Clue shows the number of 2x2 areas containing both the cell and at least one mine",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5305\u542b\u8be5\u683c\u4e14\u5305\u542b\u96f7\u7684 2x2 \u533a\u57df\u6570"
             },
             "author": {
                 "name": "",
@@ -2347,7 +2349,8 @@
                 "zh_CN": "\u591a\u96f7'"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u4e0b\u65b9\u662f\u96f7\u7684\u96f7\u88ab\u89c6\u4e3a\u4e24\u4e2a(\u603b\u96f7\u6570\u4e0d\u53d7\u9650\u5236)"
+                "default": "Each mine directly below another mine counts as two (total mine count is unlimited)",
+                "zh_CN": "\u6bcf\u4e2a\u4e0b\u65b9\u662f\u96f7\u7684\u96f7\u88ab\u89c6\u4e3a\u4e24\u4e2a(\u603b\u96f7\u6570\u4e0d\u53d7\u9650\u5236)"
             },
             "author": {
                 "name": "",
@@ -2380,7 +2383,8 @@
                 "zh_CN": "\u7ffb\u8f6c"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u5176\u4ee5\u9898\u677f\u5de6\u4e0a\u89d2\u5230\u53f3\u4e0b\u89d2\u76f4\u7ebf\u4e3a\u5bf9\u79f0\u8f74\u7684\u955c\u50cf\u4f4d\u7f6e\u5468\u56f4\u516b\u683c\u7684\u96f7\u6570\uff0c\u4e0d\u5305\u62ec\u81ea\u8eab"
+                "default": "Clue shows the number of mines in the eight cells surrounding the mirror position reflected across the diagonal from top-left to bottom-right of the board, not including the cell itself",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5176\u4ee5\u9898\u677f\u5de6\u4e0a\u89d2\u5230\u53f3\u4e0b\u89d2\u76f4\u7ebf\u4e3a\u5bf9\u79f0\u8f74\u7684\u955c\u50cf\u4f4d\u7f6e\u5468\u56f4\u516b\u683c\u7684\u96f7\u6570\uff0c\u4e0d\u5305\u62ec\u81ea\u8eab"
             },
             "author": {
                 "name": "",
@@ -2446,7 +2450,8 @@
                 "zh_CN": "\u4e3b\u6559\u89c6\u91ce"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u659c\u5411\u4e0a\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf"
+                "default": "Clue shows the number of non-mine cells visible in the four diagonal directions (including the cell itself); mines block the line of sight",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u659c\u5411\u4e0a\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf"
             },
             "author": {
                 "name": "",
@@ -2462,7 +2467,8 @@
                 "zh_CN": "\u9a6c\u6b65\u89c6\u91ce"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u6cbf\u7740\u9a6c\u6b65\u65b9\u5411\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf"
+                "default": "Clue shows the number of non-mine cells visible in the knight's move directions (including the cell itself); mines block the line of sight",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u6cbf\u7740\u9a6c\u6b65\u65b9\u5411\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf"
             },
             "author": {
                 "name": "",
@@ -2494,7 +2500,8 @@
                 "zh_CN": "\u5170\u987f\u8682\u8681"
             },
             "doc": {
-                "default": "\u6570\u5b57\u8868\u793a\u5170\u987f\u8682\u8681\u4ece\u7ebf\u7d22\u683c\u51fa\u53d1\u76f4\u81f3\u8d70\u51fa\u9898\u677f\u5916\u6240\u79fb\u52a8\u7684\u6b21\u6570\u3002\n\u7bad\u5934\u8868\u793a\u5170\u987f\u8682\u8681\u7684\u521d\u59cb\u65b9\u5411\uff0c\u7ecf\u8fc7\u975e\u96f7\u683c\u987a\u65f6\u9488\u65cb\u8f6c90\u5ea6(\u53f3\u8f6c)\uff0c\u7ecf\u8fc7\u96f7\u683c\u9006\u65f6\u9488\u65cb\u8f6c90\u5ea6(\u5de6\u8f6c)\u3002\n\u6570\u5b57\u53ef\u4ee5\u4e3a\u65e0\u7a77(\u663e\u793a\u4e3a0),\u5176\u8868\u793a\u5f53\u524d\u8def\u5f84\u6784\u6210\u4e86\u5faa\u73af"
+                "default": "Number shows how many steps the Langton's Ant moves from the clue cell until exiting the board.\nArrow shows the initial direction of the Langton's Ant; rotates clockwise 90\u00b0 (right turn) when moving over non-mine cells, and counterclockwise 90\u00b0 (left turn) when moving over mines.\nThe number can be infinite (shown as 0), indicating the path forms a loop",
+                "zh_CN": "\u6570\u5b57\u8868\u793a\u5170\u987f\u8682\u8681\u4ece\u7ebf\u7d22\u683c\u51fa\u53d1\u76f4\u81f3\u8d70\u51fa\u9898\u677f\u5916\u6240\u79fb\u52a8\u7684\u6b21\u6570\u3002\n\u7bad\u5934\u8868\u793a\u5170\u987f\u8682\u8681\u7684\u521d\u59cb\u65b9\u5411\uff0c\u7ecf\u8fc7\u975e\u96f7\u683c\u987a\u65f6\u9488\u65cb\u8f6c90\u5ea6(\u53f3\u8f6c)\uff0c\u7ecf\u8fc7\u96f7\u683c\u9006\u65f6\u9488\u65cb\u8f6c90\u5ea6(\u5de6\u8f6c)\u3002\n\u6570\u5b57\u53ef\u4ee5\u4e3a\u65e0\u7a77(\u663e\u793a\u4e3a0),\u5176\u8868\u793a\u5f53\u524d\u8def\u5f84\u6784\u6210\u4e86\u5faa\u73af"
             },
             "author": {
                 "name": "",
@@ -2527,7 +2534,8 @@
                 "zh_CN": "\u89c6\u91ce"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u4e0a\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6"
+                "default": "Clue shows the number of non-mine cells visible in the four orthogonal directions (including the cell itself); mines block the line of sight",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u4e0a\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6"
             },
             "author": {
                 "name": "",
@@ -2559,7 +2567,8 @@
                 "zh_CN": "\u6620\u5c04'"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e09\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u67d0\u4e24\u4e2a\u8303\u56f4\u4e2d\u5fc33*3\u533a\u57df\u7684\u96f7\u603b\u6570"
+                "default": "Clue shows the total number of mines in the center 3x3 area of two of the three board positions",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e09\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u67d0\u4e24\u4e2a\u8303\u56f4\u4e2d\u5fc33*3\u533a\u57df\u7684\u96f7\u603b\u6570"
             },
             "author": {
                 "name": "",
@@ -2591,7 +2600,8 @@
                 "zh_CN": "\u96f7\u7edd\u5bf9\u503c"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u503c\u4e4b\u548c\u4e4b\u7edd\u5bf9\u503c"
+                "default": "Each number shows the absolute value of the sum of mine values in the surrounding eight cells",
+                "zh_CN": "\u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u503c\u4e4b\u548c\u4e4b\u7edd\u5bf9\u503c"
             },
             "author": {
                 "name": "",
@@ -2607,7 +2617,8 @@
                 "zh_CN": "\u8d1d\u58f3"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u4ee3\u8868\u76f8\u90bb\u76848\u4e2a\u683c\u5b50\u4e2d\uff0c \u4e2d\u95f4\u504f\u4e0a5\u683c\u8303\u56f4\u548c\u4e2d\u95f4\u504f\u4e0b5\u683c\u8303\u56f4\u91cc\u7684\u96f7\u6570(\u987a\u5e8f\u4e0d\u786e\u5b9a)"
+                "default": "Clue shows the number of mines in the upper 5 cells and lower 5 cells of the 8 surrounding cells (order not fixed)",
+                "zh_CN": "\u7ebf\u7d22\u4ee3\u8868\u76f8\u90bb\u76848\u4e2a\u683c\u5b50\u4e2d\uff0c \u4e2d\u95f4\u504f\u4e0a5\u683c\u8303\u56f4\u548c\u4e2d\u95f4\u504f\u4e0b5\u683c\u8303\u56f4\u91cc\u7684\u96f7\u6570(\u987a\u5e8f\u4e0d\u786e\u5b9a)"
             },
             "author": {
                 "name": "",
@@ -2705,7 +2716,8 @@
                 "zh_CN": "\u94bb\u77f3"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u4e0d\u8d85\u8fc7 2 \u7684\u8303\u56f4\u5185\u7684\u96f7\u6570"
+                "default": "Clue shows the number of mines within a distance of 2 from the cell",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u4e0d\u8d85\u8fc7 2 \u7684\u8303\u56f4\u5185\u7684\u96f7\u6570"
             },
             "author": {
                 "name": "",
@@ -2738,7 +2750,8 @@
                 "zh_CN": "\u7d20\u56e0\u5b50"
             },
             "doc": {
-                "default": "\u96640\u548c1\u5916\u7684\u7ebf\u7d22\u663e\u793a\u771f\u5b9e\u503c\u7684\u6700\u5927\u7d20\u56e0\u5b50"
+                "default": "For clues other than 0 and 1, displays the largest prime factor of the true value",
+                "zh_CN": "\u96640\u548c1\u5916\u7684\u7ebf\u7d22\u663e\u793a\u771f\u5b9e\u503c\u7684\u6700\u5927\u7d20\u56e0\u5b50"
             },
             "author": {
                 "name": "",
@@ -2754,7 +2767,8 @@
                 "zh_CN": "\u5341\u5b57'"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u67d3\u8272\u683c\u6216\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570"
+                "default": "Clue shows the number of mines in dyed or undyed cells within the 3x3 area",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u67d3\u8272\u683c\u6216\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570"
             },
             "author": {
                 "name": "",
@@ -2819,7 +2833,8 @@
                 "zh_CN": "\u8279"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u8fd9\u4e9b\u683c\u5b50\u7684\u96f7\u6570LL;LU;LD;L;RR;RU;RD;R"
+                "default": "Clue shows the number of mines in the surrounding cells: LL;LU;LD;L;RR;RU;RD;RR",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u8fd9\u4e9b\u683c\u5b50\u7684\u96f7\u6570LL;LU;LD;L;RR;RU;RD;R"
             },
             "author": {
                 "name": "NT",
@@ -2835,7 +2850,8 @@
                 "zh_CN": "2\u500d\u8bef\u5dee"
             },
             "doc": {
-                "default": "\u6240\u6709\u7ebf\u7d22\u5747\u6bd4\u771f\u5b9e\u503c\u59272\u6216\u5c0f2\u6216\u8005\u4e0d\u53d8"
+                "default": "All clues are either 2 greater, 2 less than, or equal to the true value",
+                "zh_CN": "\u6240\u6709\u7ebf\u7d22\u5747\u6bd4\u771f\u5b9e\u503c\u59272\u6216\u5c0f2\u6216\u8005\u4e0d\u53d8"
             },
             "author": {
                 "name": "",
@@ -2868,7 +2884,8 @@
                 "zh_CN": "\u738b\u540e"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u6570\u8868\u793a\u659c\u5411\u548c\u6a2a\u7eb5\u6240\u6709\u683c\u5b50\u4e2d\u7684\u96f7\u6570"
+                "default": "Clue shows the number of mines in all diagonal and orthogonal directions",
+                "zh_CN": "\u7ebf\u7d22\u6570\u8868\u793a\u659c\u5411\u548c\u6a2a\u7eb5\u6240\u6709\u683c\u5b50\u4e2d\u7684\u96f7\u6570"
             },
             "author": {
                 "name": "",
@@ -2884,7 +2901,8 @@
                 "zh_CN": "\u5bf9\u6620"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u7ec4\u6210\u56db\u4e2a\u6b63\u597d\u76f8\u5bf9\u7684\u683c\u5b50\u7ec4\u6709\u4e14\u4ec5\u6709\u4e00\u4e2a\u662f\u96f7\u7684\u7ec4\u6570\uff08\u9898\u677f\u5916\u89c6\u4e3a\u975e\u96f7\uff09"
+                "default": "Clue shows the number of the four opposite cell pairs where exactly one cell is a mine (cells outside the board are treated as non-mines)",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u7ec4\u6210\u56db\u4e2a\u6b63\u597d\u76f8\u5bf9\u7684\u683c\u5b50\u7ec4\u6709\u4e14\u4ec5\u6709\u4e00\u4e2a\u662f\u96f7\u7684\u7ec4\u6570\uff08\u9898\u677f\u5916\u89c6\u4e3a\u975e\u96f7\uff09"
             },
             "author": {
                 "name": "",
@@ -3031,7 +3049,8 @@
                 "zh_CN": "\u7687\u540e\u89c6\u91ce"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u516b\u4e2a\u65b9\u5411\u4e0a\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf"
+                "default": "Clue shows the number of non-mine cells visible in all eight directions (including the cell itself); mines block the line of sight",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u516b\u4e2a\u65b9\u5411\u4e0a\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf"
             },
             "author": {
                 "name": "",
@@ -3094,7 +3113,8 @@
                 "zh_CN": "\u5c0f\u4e09\u89d2"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u8fd9\u4e9b\u5468\u56f4\u683c\u5b50\u7684\u96f7\u6570\uff1a\u5de6 \u53f3\uff0c\u5947\u6570\u5217\u989d\u5916\u5305\u62ec\u4e0a\uff1b\u5076\u6570\u5217\u989d\u5916\u5305\u62ec\u4e0b"
+                "default": "Clue shows the number of mines in the surrounding cells: left and right; odd-numbered columns additionally include top; even-numbered columns additionally include bottom",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u8fd9\u4e9b\u5468\u56f4\u683c\u5b50\u7684\u96f7\u6570\uff1a\u5de6 \u53f3\uff0c\u5947\u6570\u5217\u989d\u5916\u5305\u62ec\u4e0a\uff1b\u5076\u6570\u5217\u989d\u5916\u5305\u62ec\u4e0b"
             },
             "author": {
                 "name": "",
@@ -3143,7 +3163,8 @@
                 "zh_CN": "\u552f\u4e00\u8def\u5f84"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u683c\u8868\u793a\u4ece\u8fd9\u4e2a\u683c\u5f00\u59cb\u53ea\u80fd\u5f80\u53f3\u6216\u4e0b\u8d70\uff0c\u5230\u8fbe\u53f3\u4e0b\u89d2\u7684\u65b9\u6cd5\u6570\u3002"
+                "default": "Clue shows the number of ways to go from this cell to the bottom-right corner, moving only right or down",
+                "zh_CN": "\u7ebf\u7d22\u683c\u8868\u793a\u4ece\u8fd9\u4e2a\u683c\u5f00\u59cb\u53ea\u80fd\u5f80\u53f3\u6216\u4e0b\u8d70\uff0c\u5230\u8fbe\u53f3\u4e0b\u89d2\u7684\u65b9\u6cd5\u6570\u3002"
             },
             "author": {
                 "name": "",
@@ -3258,7 +3279,8 @@
                 "zh_CN": "\u5341\u5b57"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u67d3\u8272\u683c\u548c\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\uff08\u987a\u5e8f\u4e0d\u786e\u5b9a\uff09"
+                "default": "Clue shows the number of mines in dyed and undyed cells within the 3x3 area (order is not fixed)",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u67d3\u8272\u683c\u548c\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\uff08\u987a\u5e8f\u4e0d\u786e\u5b9a\uff09"
             },
             "author": {
                 "name": "",
@@ -3290,7 +3312,8 @@
                 "zh_CN": "\u6b8b\u7f3a"
             },
             "doc": {
-                "default": "\u6570\u5b57\u8868\u793a\u5468\u56f48\u683c\u4e2d\u67d07\u683c\u7684\u96f7\u6570\u30027\u683c\u7684\u65b9\u4f4d\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u7ebf\u7d22\u5171\u4eab"
+                "default": "Number shows the number of mines in 7 of the 8 surrounding cells. The positions of those 7 cells are shared across all clues on the board",
+                "zh_CN": "\u6570\u5b57\u8868\u793a\u5468\u56f48\u683c\u4e2d\u67d07\u683c\u7684\u96f7\u6570\u30027\u683c\u7684\u65b9\u4f4d\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u7ebf\u7d22\u5171\u4eab"
             },
             "author": {
                 "name": "",
@@ -3339,7 +3362,8 @@
                 "zh_CN": "\u8fd1\u89c6"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u4ee5\u4e0a\u4e0b\u5de6\u53f3\u7bad\u5934\u800c\u975e\u6570\u5b57\u5448\u73b0\uff0c\u7bad\u5934\u6307\u5411\u56db\u65b9\u5411\u8ddd\u79bb\u5176\u6700\u8fd1\u7684\u96f7\uff0c\u540c\u65f6\u5b58\u5728\u591a\u4e2a\u96f7\u8ddd\u79bb\u6700\u8fd1\u65f6\u4f1a\u663e\u793a\u5168\u90e8\u7bad\u5934\u3002\u56db\u65b9\u5411\u90fd\u4e0d\u5b58\u5728\u96f7\u65f6\u663e\u793a\u96f6\u3002"
+                "default": "Clue is displayed as arrows (up/down/left/right) instead of numbers, pointing to the nearest mine in each direction. Multiple arrows are shown when multiple mines are at equal distance. Zero is displayed when there are no mines in any direction",
+                "zh_CN": "\u7ebf\u7d22\u4ee5\u4e0a\u4e0b\u5de6\u53f3\u7bad\u5934\u800c\u975e\u6570\u5b57\u5448\u73b0\uff0c\u7bad\u5934\u6307\u5411\u56db\u65b9\u5411\u8ddd\u79bb\u5176\u6700\u8fd1\u7684\u96f7\uff0c\u540c\u65f6\u5b58\u5728\u591a\u4e2a\u96f7\u8ddd\u79bb\u6700\u8fd1\u65f6\u4f1a\u663e\u793a\u5168\u90e8\u7bad\u5934\u3002\u56db\u65b9\u5411\u90fd\u4e0d\u5b58\u5728\u96f7\u65f6\u663e\u793a\u96f6\u3002"
             },
             "author": {
                 "name": "",
@@ -3435,7 +3459,8 @@
                 "zh_CN": "\u83f1\u5f62"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u4e3a \u221a2 \u548c\u8ddd\u79bb\u4e3a 2 \u533a\u57df\u7684\u603b\u96f7\u6570"
+                "default": "Clue shows the total number of mines at distance \u221a2 and distance 2",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u4e3a \u221a2 \u548c\u8ddd\u79bb\u4e3a 2 \u533a\u57df\u7684\u603b\u96f7\u6570"
             },
             "author": {
                 "name": "",
@@ -3545,7 +3570,8 @@
                 "zh_CN": "\u95ee\u53f7"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u8be5\u683c\u662f\u4e00\u4e2a\u975e\u96f7"
+                "default": "Clue indicates that the cell is a non-mine",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u8be5\u683c\u662f\u4e00\u4e2a\u975e\u96f7"
             },
             "author": {
                 "name": "",
@@ -3561,7 +3587,8 @@
                 "zh_CN": "\u8de8\u8d8a"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u80fd\u8fde\u63a5\u5468\u56f4\u516b\u683c\u5185\u6240\u6709\u96f7\u7684\u6700\u77ed\u8fde\u7eed\u8def\u5f84\u957f\u5ea6\u3002"
+                "default": "Clue shows the shortest continuous path length that connects all mines in the surrounding eight cells",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u80fd\u8fde\u63a5\u5468\u56f4\u516b\u683c\u5185\u6240\u6709\u96f7\u7684\u6700\u77ed\u8fde\u7eed\u8def\u5f84\u957f\u5ea6\u3002"
             },
             "author": {
                 "name": "",
@@ -3577,7 +3604,8 @@
                 "zh_CN": "\u53d6\u6a21"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u4e0e\u5468\u56f48\u683c\u7684\u96f7\u6570\u9664\u4ee53\u7684\u4f59\u6570\u76f8\u540c"
+                "default": "Clue shows the remainder when the number of surrounding mines is divided by 3",
+                "zh_CN": "\u7ebf\u7d22\u4e0e\u5468\u56f48\u683c\u7684\u96f7\u6570\u9664\u4ee53\u7684\u4f59\u6570\u76f8\u540c"
             },
             "author": {
                 "name": "",
@@ -3624,7 +3652,8 @@
                 "zh_CN": "\u87ba\u65cb\u89c6\u91ce"
             },
             "doc": {
-                "default": "\u8be5\u7ebf\u7d22\u8868\u793a\u4ece\u5f53\u524d\u683c\u5b50\u5411\u56db\u5468\u51fa\u53d1\u968f\u540e\u8fdb\u884c\u987a\u65f6\u9488\u987a\u5e8f\u65cb\u8f6c\uff08\u7c7b\u4f3c\u5350\u5b57\u5f62\uff09\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u542b\u81ea\u8eab\uff09, \u96f7\u4f1a\u963b\u6321\u89c6\u7ebf\u3002"
+                "default": "Clue shows the number of non-mine cells visible when looking outward from the current cell in four directions, then rotating clockwise (similar to the swastika pattern); mines block the line of sight",
+                "zh_CN": "\u8be5\u7ebf\u7d22\u8868\u793a\u4ece\u5f53\u524d\u683c\u5b50\u5411\u56db\u5468\u51fa\u53d1\u968f\u540e\u8fdb\u884c\u987a\u65f6\u9488\u987a\u5e8f\u65cb\u8f6c\uff08\u7c7b\u4f3c\u5350\u5b57\u5f62\uff09\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u542b\u81ea\u8eab\uff09, \u96f7\u4f1a\u963b\u6321\u89c6\u7ebf\u3002"
             },
             "author": {
                 "name": "",
@@ -3705,7 +3734,8 @@
                 "zh_CN": "\u91d1\u5c06"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u91d1\u5c06\u8303\u56f4\uff08\u5373\u4e0a\u3001\u4e0b\u3001\u5de6\u3001\u53f3\u3001\u5de6\u4e0a\u3001\u53f3\u4e0a\u516d\u683c\uff09\u5185\u7684\u96f7\u6570"
+                "default": "Clue shows the number of mines in the kinsho area (the six cells: up, down, left, right, up-left, up-right)",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u91d1\u5c06\u8303\u56f4\uff08\u5373\u4e0a\u3001\u4e0b\u3001\u5de6\u3001\u53f3\u3001\u5de6\u4e0a\u3001\u53f3\u4e0a\u516d\u683c\uff09\u5185\u7684\u96f7\u6570"
             },
             "author": {
                 "name": "",
@@ -3801,7 +3831,8 @@
                 "zh_CN": "\u6620\u5c04"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a\u8303\u56f4\u4e2d\u5fc33*3\u533a\u57df\u7684\u96f7\u603b\u6570"
+                "default": "Clue shows the total number of mines in the center 3x3 area of one of the two board positions",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a\u8303\u56f4\u4e2d\u5fc33*3\u533a\u57df\u7684\u96f7\u603b\u6570"
             },
             "author": {
                 "name": "",
@@ -3817,7 +3848,8 @@
                 "zh_CN": "\u8d1f\u96f7\u6620\u5c04"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a3x3\u8303\u56f4\u5185\u67d3\u8272\u683c\u4e0e\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\u5dee"
+                "default": "Clue shows the difference in mine count between dyed and undyed cells in the 3x3 area of one of the two board positions",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a3x3\u8303\u56f4\u5185\u67d3\u8272\u683c\u4e0e\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\u5dee"
             },
             "author": {
                 "name": "",
@@ -3833,7 +3865,8 @@
                 "zh_CN": "\u8bef\u5dee\u6620\u5c04"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a\u8303\u56f4\u4e2d\u5fc33*3\u533a\u57df\u7684\u96f7\u603b\u6570 \u7ebf\u7d22\u5747\u6bd4\u771f\u5b9e\u503c\u59271\u6216\u5c0f1"
+                "default": "Clue shows the total number of mines in the center 3x3 area of one of the two board positions; each clue is either 1 greater or 1 less than the true value",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a\u8303\u56f4\u4e2d\u5fc33*3\u533a\u57df\u7684\u96f7\u603b\u6570 \u7ebf\u7d22\u5747\u6bd4\u771f\u5b9e\u503c\u59271\u6216\u5c0f1"
             },
             "author": {
                 "name": "",
@@ -3849,7 +3882,8 @@
                 "zh_CN": "\u9a6c\u6b65\u6620\u5c04"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a\u4e3a\u4e2d\u5fc3\u7684\u9a6c\u6b65\u533a\u57df\u7684\u96f7\u603b\u6570"
+                "default": "Clue shows the total number of mines in the knight's move area centered on one of the two board positions",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a\u4e3a\u4e2d\u5fc3\u7684\u9a6c\u6b65\u533a\u57df\u7684\u96f7\u603b\u6570"
             },
             "author": {
                 "name": "",
@@ -3865,7 +3899,8 @@
                 "zh_CN": "\u81ea\u6307\u6b8b\u7f3a\u6620\u5c04"
             },
             "doc": {
-                "default": "\u5b57\u6bcdX\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u4e3a\u4e2d\u5fc3\u5176\u4e2d\u4e00\u4e2a\u76843x3\u533a\u57df\u4e2d\u67d0?\u683c\u7684\u96f7\u603b\u6570\u4e3aN\u3002\u5219\u8be5\u5bf9\u5e94\u4f4d\u7f6e\u6240\u5c5e\u7684\u9898\u677f\u5728\u6807\u6709X=N\u7684\u4f4d\u7f6e\u5fc5\u7136\u662f\u96f7, \u4e14?\u683c\u7684\u4f4d\u7f6e\u5168\u5c40\u5171\u4eab"
+                "default": "Letter X is the total number of mines in a certain ? cell in the 3x3 area centered on one of the two board positions. If that position on the corresponding board is marked X=N, then the cell must be a mine, and the ? cell position is shared across all clues",
+                "zh_CN": "\u5b57\u6bcdX\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u4e3a\u4e2d\u5fc3\u5176\u4e2d\u4e00\u4e2a\u76843x3\u533a\u57df\u4e2d\u67d0?\u683c\u7684\u96f7\u603b\u6570\u4e3aN\u3002\u5219\u8be5\u5bf9\u5e94\u4f4d\u7f6e\u6240\u5c5e\u7684\u9898\u677f\u5728\u6807\u6709X=N\u7684\u4f4d\u7f6e\u5fc5\u7136\u662f\u96f7, \u4e14?\u683c\u7684\u4f4d\u7f6e\u5168\u5c40\u5171\u4eab"
             },
             "author": {
                 "name": "",
