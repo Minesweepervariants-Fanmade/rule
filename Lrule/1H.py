@@ -13,6 +13,7 @@ from ....abs.board import AbstractBoard
 
 class Rule1H(AbstractMinesRule):
     id = "1H"
+    aliases = ("H",)
     name = "Horizontal"
     name.zh_CN = "横向"
     doc = "所有雷不能与其他雷横向相邻"

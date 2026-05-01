@@ -16,6 +16,7 @@ from .connect import connect
 
 class Rule1C(AbstractMinesRule):
     id = "1C"
+    aliases = ("C",)
     name = "Connected"
     name.zh_CN = "八连通"
     doc = "雷区域八连通"

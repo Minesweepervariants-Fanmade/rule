@@ -20,6 +20,7 @@ def decode_bytes_7bit(data: bytes) -> int:
 
 class RuleV(AbstractClueRule):
     id = "1K"
+    aliases = ("K",)
     name = "Knight"
     name.zh_CN = "骑士"
     doc = "线索表示马步位置 8 个格子中的总雷值"

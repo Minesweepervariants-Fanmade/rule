@@ -15,6 +15,7 @@ from ....abs.board import AbstractBoard
 
 class Rule1T(AbstractMinesRule):
     id = "1T"
+    aliases = ("T",)
     name = "Triplet"
     name.zh_CN = "无三连"
     doc = "雷在横、竖、斜三个方向上不能构成三连"

@@ -24,6 +24,7 @@ def liar_V(value: int, random) -> int:
 
 class Rule1L(AbstractClueRule):
     id = "1L"
+    aliases = ("L",)
     name = "Liar"
     name.zh_CN = "误差"
     doc = "所有线索均比真实值大1或小1"

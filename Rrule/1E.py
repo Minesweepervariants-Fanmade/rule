@@ -8,6 +8,7 @@ from .eyesight import AbstractEyesightClueRule, AbstractEyesightClueValue
 
 class Rule1E(AbstractEyesightClueRule):
     id = "1E"
+    aliases = ("E",)
     name = "Eyesight"
     name.zh_CN = "视野"
     doc = "线索表示四方向上能看到的非雷格数量（包括自身），雷会阻挡视"

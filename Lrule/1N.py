@@ -8,6 +8,7 @@ from ortools.sat.python.cp_model import CpModel
 
 class Rule1N(AbstractMinesRule):
     id = "1N"
+    aliases = ("N",)
     name = "Negative"
     name.zh_CN = "负雷"
     doc = "染色格中雷值取负"

@@ -8,6 +8,7 @@ from ortools.sat.python.cp_model import CpModel
 
 class Rule1M(AbstractMinesRule):
     id = "1M"
+    aliases = ("M",)
     name = "Multiple"
     name.zh_CN = "多雷"
     doc = "染色格的雷值*2(总雷数不受影响)"

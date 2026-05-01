@@ -98,6 +98,7 @@ def MineStatus_1W(clue: list) -> list:
 
 class Rule1W(AbstractClueRule):
     id = "1W"
+    aliases = ("W",)
     name = "Wall"
     name.zh_CN = "数墙"
     doc = "线索表示 3x3 范围内每组连续雷的长度"

@@ -26,6 +26,7 @@ def block(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPositio
 
 class Rule1O(AbstractMinesRule):
     id = "1O"
+    aliases = ("O",)
     name = "Outside"
     name.zh_CN = "外部"
     doc = "非雷区域四连通；每个雷区域以四连通连接到题版边界"

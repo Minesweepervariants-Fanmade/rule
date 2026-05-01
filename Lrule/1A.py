@@ -14,6 +14,7 @@ from ....abs.board import AbstractBoard
 
 class Rule1A(AbstractMinesRule):
     id = "1A"
+    aliases = ("A",)
     name = "Anti-Knight"
     name.zh_CN = "无马步"
     doc = "所有雷的马步位置不能有雷"
