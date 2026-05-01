@@ -298,7 +298,8 @@
                 "zh_CN": "\u53cd\u6df7\u5408"
             },
             "doc": {
-                "default": "\u5bf9\u4e8e\u4e00\u5f20\u900f\u660e\u56fe\u7247\uff0c\u5206\u522b\u8f93\u5165\u5b83\u5728\u767d\u5e95\u548c\u9ed1\u5e95\u4e0a\u6df7\u5408\u989c\u8272\u7684\u7ed3\u679c\uff0c\u5c1d\u8bd5\u8fd8\u539f\u539f\u56fe\u3002"
+                "default": "For a transparent image, input its color-over-white and color-over-black results to attempt to restore the original image",
+                "zh_CN": "\u5bf9\u4e8e\u4e00\u5f20\u900f\u660e\u56fe\u7247\uff0c\u5206\u522b\u8f93\u5165\u5b83\u5728\u767d\u5e95\u548c\u9ed1\u5e95\u4e0a\u6df7\u5408\u989c\u8272\u7684\u7ed3\u679c\uff0c\u5c1d\u8bd5\u8fd8\u539f\u539f\u56fe\u3002"
             },
             "author": {
                 "name": "",
@@ -474,7 +475,8 @@
             "rule_line": "L",
             "id": "Gd",
             "name": {
-                "default": "GD"
+                "default": "Descending",
+                "zh_CN": "\u9012\u589e"
             },
             "doc": {
                 "default": "1.\u6bcf\u884c\u503c\u4e0d\u5927\u4e8e\u4e0a\u4e00\u884c 2.\u6bcf\u5217\u503c\u4e0d\u5927\u4e8e\u5de6\u4e00\u5217"
@@ -493,7 +495,8 @@
                 "zh_CN": "\u8fde\u901a^"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u96f7\u5468\u56f4\u516b\u683c\u4e2d\u96f7\u7684\u6570\u91cf\u4e3a\u5076\u6570\uff08\u5305\u62ec0\uff09"
+                "default": "Each mine is surrounded by an even number of mines in the eight adjacent cells (including 0)",
+                "zh_CN": "\u6bcf\u4e2a\u96f7\u5468\u56f4\u516b\u683c\u4e2d\u96f7\u7684\u6570\u91cf\u4e3a\u5076\u6570\uff08\u5305\u62ec0\uff09"
             },
             "author": {
                 "name": "",
@@ -592,7 +595,8 @@
                 "zh_CN": "\u9636\u68af"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u88ab\u89c6\u4e3a X \u4e2a\u96f7\uff08X \u4e3a\u5176\u7684\u884c\u5217\u6570\u4e4b\u548c\uff09"
+                "default": "Each mine counts as X mines (X is the sum of its row and column numbers)",
+                "zh_CN": "\u6240\u6709\u96f7\u88ab\u89c6\u4e3a X \u4e2a\u96f7\uff08X \u4e3a\u5176\u7684\u884c\u5217\u6570\u4e4b\u548c\uff09"
             },
             "author": {
                 "name": "",
@@ -638,11 +642,12 @@
             "rule_line": "L",
             "id": "GT2",
             "name": {
-                "default": "GT2",
-                "zh_CN": "\u6240\u6709\u56db\u8fde\u901a\u96f7/\u975e\u96f7\u533a\u57df\u9762\u79ef\u5927\u4e8e 2"
+                "default": "Greater Than 2",
+                "zh_CN": "\u5927\u4e8e 2"
             },
             "doc": {
-                "default": "\u6240\u6709\u56db\u8fde\u901a\u96f7/\u975e\u96f7\u533a\u57df\u9762\u79ef\u5927\u4e8e 2"
+                "default": "All four-connected mine/non-mine areas have size greater than 2",
+                "zh_CN": "\u6240\u6709\u56db\u8fde\u901a\u96f7/\u975e\u96f7\u533a\u57df\u9762\u79ef\u5927\u4e8e 2"
             },
             "author": {
                 "name": "",
@@ -658,7 +663,8 @@
                 "zh_CN": "\u6e29\u5ea6\u8ba1"
             },
             "doc": {
-                "default": "\u5c06\u4f1a\u968f\u673a"
+                "default": "Random pattern (TBD)",
+                "zh_CN": "\u5c06\u4f1a\u968f\u673a"
             },
             "author": {
                 "name": "",
@@ -806,7 +812,8 @@
                 "zh_CN": "\u4e00\u8a00"
             },
             "doc": {
-                "default": "\u4e00\u8a00\uff1a\u629b\u51fa\u4e00\u8a00\uff08hitokoto.cn\uff09\u3002"
+                "default": "Fetches a random quote from hitokoto.cn",
+                "zh_CN": "\u4e00\u8a00\uff1a\u629b\u51fa\u4e00\u8a00\uff08hitokoto.cn\uff09\u3002"
             },
             "author": {
                 "name": "NT",
@@ -822,7 +829,8 @@
                 "zh_CN": "\u6da9\u56fe"
             },
             "doc": {
-                "default": "\u53c2\u6570\u94fe\u63a5(\u652f\u6301URL/\u6587\u4ef6\u8def\u5f84)"
+                "default": "Parameter link (supports URL/file path)",
+                "zh_CN": "\u53c2\u6570\u94fe\u63a5(\u652f\u6301URL/\u6587\u4ef6\u8def\u5f84)"
             },
             "author": {
                 "name": "NT",
@@ -968,7 +976,8 @@
                 "zh_CN": "\u9a6c\u6b65\u516b\u8fde\u901a"
             },
             "doc": {
-                "default": "\u96f7\u533a\u57df\u9a6c\u6b65\u8fde\u901a"
+                "default": "Mine areas are connected via knight's moves (8-connectivity via knight's move pattern)",
+                "zh_CN": "\u96f7\u533a\u57df\u9a6c\u6b65\u8fde\u901a"
             },
             "author": {
                 "name": "",
@@ -980,11 +989,12 @@
             "rule_line": "L",
             "id": "4U",
             "name": {
-                "default": "4U",
+                "default": "Cell",
                 "zh_CN": "\u6676\u80de"
             },
             "doc": {
-                "default": "\u7b2c\u4e00\u884c\u548c\u6700\u540e\u4e00\u884c\u96f7\u5206\u5e03\u76f8\u540c\uff0c\u7b2c\u4e00\u5217\u548c\u6700\u540e\u4e00\u5217\u96f7\u5206\u5e03\u76f8\u540c"
+                "default": "Mine distribution in the first row equals the last row, and mine distribution in the first column equals the last column",
+                "zh_CN": "\u7b2c\u4e00\u884c\u548c\u6700\u540e\u4e00\u884c\u96f7\u5206\u5e03\u76f8\u540c\uff0c\u7b2c\u4e00\u5217\u548c\u6700\u540e\u4e00\u5217\u96f7\u5206\u5e03\u76f8\u540c"
             },
             "author": {
                 "name": "",
@@ -1030,7 +1040,7 @@
             "rule_line": "L",
             "id": "A2",
             "name": {
-                "default": "A2",
+                "default": "A2 is a mine",
                 "zh_CN": "A2 \u683c\u662f\u96f7"
             },
             "doc": {
@@ -1131,7 +1141,8 @@
                 "zh_CN": "\u6b63\u65b9\u5f62"
             },
             "doc": {
-                "default": "\u6240\u6709\u56db\u8fde\u901a\u7684\u96f7\u683c\u533a\u57df\u7ec4\u6210\u5b9e\u5fc3\u6b63\u65b9\u5f62"
+                "default": "All four-connected mine areas form solid squares",
+                "zh_CN": "\u6240\u6709\u56db\u8fde\u901a\u7684\u96f7\u683c\u533a\u57df\u7ec4\u6210\u5b9e\u5fc3\u6b63\u65b9\u5f62"
             },
             "author": {
                 "name": "",
@@ -1231,7 +1242,8 @@
                 "zh_CN": "\u968f\u673a\u89c4\u5219\u70b9\u5b50"
             },
             "doc": {
-                "default": "\u968f\u673a\u89c4\u5219\u70b9\u5b50\uff1a\u968f\u673a\u62bd\u8bcd\u5e76\u7531 LLM \u8054\u60f3\u751f\u6210\u89c4\u5219\u63cf\u8ff0\u540e\u629b\u51fa\u3002"
+                "default": "Random rule idea: randomly select words and have LLM generate a rule description, then output it",
+                "zh_CN": "\u968f\u673a\u89c4\u5219\u70b9\u5b50\uff1a\u968f\u673a\u62bd\u8bcd\u5e76\u7531 LLM \u8054\u60f3\u751f\u6210\u89c4\u5219\u63cf\u8ff0\u540e\u629b\u51fa\u3002"
             },
             "author": {
                 "name": "NT",
@@ -1281,7 +1293,8 @@
                 "zh_CN": "\u6216"
             },
             "doc": {
-                "default": "\u4f60\u53ef\u4ee5\u5728\u540e\u9762\u8f93\u5165\u591a\u4e2a\u5de6\u7ebf\u6765\u8868\u793a\u6216\u5173\u7cfb(\u9898\u677f\u5c06\u6309\u7167A\u89c4\u5219\u6216B\u89c4\u5219)"
+                "default": "You can input multiple left rules separated by ':' to express OR relationship (board will follow either rule A or rule B)",
+                "zh_CN": "\u4f60\u53ef\u4ee5\u5728\u540e\u9762\u8f93\u5165\u591a\u4e2a\u5de6\u7ebf\u6765\u8868\u793a\u6216\u5173\u7cfb(\u9898\u677f\u5c06\u6309\u7167A\u89c4\u5219\u6216B\u89c4\u5219)(\u89c4\u5219\u95f4\u4f7f\u7528\":\"\u9694\u5f00)"
             },
             "author": {
                 "name": "",
@@ -1309,7 +1322,7 @@
             "rule_line": "L",
             "id": "AF",
             "name": {
-                "default": "AF",
+                "default": "Falling",
                 "zh_CN": "\u4e0b\u843d"
             },
             "doc": {
@@ -1363,7 +1376,8 @@
                 "zh_CN": "\u8fde\u901a'"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u96f7\u5468\u56f4\u56db\u683c\u4e2d\u6070\u6709\u4e24\u4e2a\u96f7"
+                "default": "Each mine is surrounded by exactly two mines in the four orthogonal adjacent cells",
+                "zh_CN": "\u6bcf\u4e2a\u96f7\u5468\u56f4\u56db\u683c\u4e2d\u6070\u6709\u4e24\u4e2a\u96f7"
             },
             "author": {
                 "name": "",
@@ -1413,7 +1427,8 @@
                 "zh_CN": "\u56de\u58f0"
             },
             "doc": {
-                "default": "\u56de\u58f0\uff1a\u629b\u51fa\u53c2\u6570\u3002"
+                "default": "Echo: outputs the parameter",
+                "zh_CN": "\u56de\u58f0\uff1a\u629b\u51fa\u53c2\u6570\u3002"
             },
             "author": {
                 "name": "NT",
@@ -1429,7 +1444,8 @@
                 "zh_CN": "\u7eb5\u5411"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u5fc5\u987b\u5b58\u5728\u7eb5\u5411\u76f8\u90bb\u7684\u96f7"
+                "default": "All mines must have at least one adjacent mine vertically",
+                "zh_CN": "\u6240\u6709\u96f7\u5fc5\u987b\u5b58\u5728\u7eb5\u5411\u76f8\u90bb\u7684\u96f7"
             },
             "author": {
                 "name": "",
@@ -1445,7 +1461,8 @@
                 "zh_CN": "\u516b\u8fde\u901a"
             },
             "doc": {
-                "default": "\u96f7\u533a\u57df\u516b\u8fde\u901a"
+                "default": "Mine areas are connected diagonally (8-connectivity)",
+                "zh_CN": "\u96f7\u533a\u57df\u516b\u8fde\u901a"
             },
             "author": {
                 "name": "",
@@ -1494,7 +1511,8 @@
                 "zh_CN": "\u516b\u8fde\u901a'"
             },
             "doc": {
-                "default": "(1) \u67d3\u8272\u683c\u7684\u96f7\u548c (2) \u975e\u67d3\u8272\u683c\u7684\u96f7\u5404\u81ea\u516b\u8fde\u901a\u3002\u67d3\u8272\u533a\u57df\u548c\u975e\u67d3\u8272\u533a\u57df\u81f3\u5c11\u6709\u4e00\u4e2a\u96f7\u3002"
+                "default": "(1) Dyed mines and undyed mines are each separately 8-connected; (2) At least one mine exists in each of the dyed and undyed regions",
+                "zh_CN": "(1) \u67d3\u8272\u683c\u7684\u96f7\u548c (2) \u975e\u67d3\u8272\u683c\u7684\u96f7\u5404\u81ea\u516b\u8fde\u901a\u3002\u67d3\u8272\u533a\u57df\u548c\u975e\u67d3\u8272\u533a\u57df\u81f3\u5c11\u6709\u4e00\u4e2a\u96f7\u3002"
             },
             "author": {
                 "name": "",
@@ -1510,7 +1528,8 @@
                 "zh_CN": "\u4e92\u5f02\u8fde\u5757"
             },
             "doc": {
-                "default": "\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a 1 \u5230 N \u5404\u4e00\u4e2a\u3002(N = \u9898\u677f\u5c3a\u5bf8 - 1)"
+                "default": "Each four-connected mine area has a unique size from 1 to N (N = board size - 1)",
+                "zh_CN": "\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a 1 \u5230 N \u5404\u4e00\u4e2a\u3002(N = \u9898\u677f\u5c3a\u5bf8 - 1)"
             },
             "author": {
                 "name": "",
@@ -1594,7 +1613,8 @@
                 "zh_CN": "\u795e\u79d8"
             },
             "doc": {
-                "default": "\u8fd9\u662f\u4e00\u6761\u4f1a\u8ba9\u7537\u5a18\u611f\u5230\u56f0\u60d1\u7684\u89c4\u5219"
+                "default": "This is a rule that would confuse a male girl",
+                "zh_CN": "\u8fd9\u662f\u4e00\u6761\u4f1a\u8ba9\u7537\u5a18\u611f\u5230\u56f0\u60d1\u7684\u89c4\u5219"
             },
             "author": {
                 "name": "",
@@ -1610,7 +1630,8 @@
                 "zh_CN": "\u516d\u89d2\u65e0\u9a6c\u6b65"
             },
             "doc": {
-                "default": "\u516d\u89d2\u65e0\u9a6c\u6b65: \u6240\u6709\u96f7\u7684UN UE NW ES DW DS\u7684\u4f4d\u7f6e\u4e0d\u80fd\u6709\u96f7"
+                "default": "No mines exist in the UN, UE, NW, ES, DW, or DS positions relative to any mine (anti-knight pattern for hex grid)",
+                "zh_CN": "\u516d\u89d2\u65e0\u9a6c\u6b65: \u6240\u6709\u96f7\u7684UN UE NW ES DW DS\u7684\u4f4d\u7f6e\u4e0d\u80fd\u6709\u96f7"
             },
             "author": {
                 "name": "",
@@ -1672,11 +1693,12 @@
             "rule_line": "L",
             "id": "4N",
             "name": {
-                "default": "4N",
+                "default": "Adjacent",
                 "zh_CN": "\u76f8\u90bb"
             },
             "doc": {
-                "default": "\u975e\u96f7\u5468\u56f4\u56db\u683c\u5fc5\u987b\u6709\u96f7"
+                "default": "Non-mine cells must have at least one mine in the four orthogonal adjacent cells",
+                "zh_CN": "\u975e\u96f7\u5468\u56f4\u56db\u683c\u5fc5\u987b\u6709\u96f7"
             },
             "author": {
                 "name": "",
@@ -1810,7 +1832,8 @@
                 "zh_CN": "\u96f6\u548c"
             },
             "doc": {
-                "default": "\u6bcf\u884c\u7684\u67d3\u8272\u683c\u4e0e\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\u76f8\u7b49"
+                "default": "Equal number of mines in dyed and undyed cells in each row",
+                "zh_CN": "\u6bcf\u884c\u7684\u67d3\u8272\u683c\u4e0e\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\u76f8\u7b49"
             },
             "author": {
                 "name": "",
@@ -1825,7 +1848,10 @@
                 "default": "??",
                 "zh_CN": "\u4f55\u610f\u5473"
             },
-            "doc": {},
+            "doc": {
+                "default": "\"What does it mean?\"",
+                "zh_CN": "\u4f55\u610f\u5473"
+            },
             "author": {
                 "name": "",
                 "id": ""
@@ -1887,7 +1913,7 @@
             "rule_line": "L",
             "id": "A2~",
             "name": {
-                "default": "A2~",
+                "default": "A2 is not a mine",
                 "zh_CN": "A2 \u683c\u975e\u96f7"
             },
             "doc": {
@@ -1941,7 +1967,8 @@
                 "zh_CN": "\u4e0e"
             },
             "doc": {
-                "default": "\u4f60\u53ef\u4ee5\u5728\u540e\u9762\u8f93\u5165\u591a\u4e2a\u5de6\u7ebf\u6765\u8868\u793a\u6216\u5173\u7cfb(\u9898\u677f\u5c06\u6309\u7167A\u89c4\u5219\u6216B\u89c4\u5219)"
+                "default": "You can input multiple left rules separated by ':' to express AND relationship (board will follow both rule A and rule B)",
+                "zh_CN": "\u4f60\u53ef\u4ee5\u5728\u540e\u9762\u8f93\u5165\u591a\u4e2a\u5de6\u7ebf\u6765\u8868\u793a\u4e0e\u5173\u7cfb(\u9898\u677f\u5c06\u6309\u7167A\u89c4\u5219\u548cB\u89c4\u5219)(\u89c4\u5219\u95f4\u4f7f\u7528\":\"\u9694\u5f00)"
             },
             "author": {
                 "name": "",
@@ -1957,7 +1984,8 @@
                 "zh_CN": "\u9636\u68af'"
             },
             "doc": {
-                "default": "\u96f7\u503c\u7b49\u4e8e\u884c\u53f7\u4e0e\u5217\u53f7\u4e4b\u548c, \u4f46\u4ece0\u5f00\u59cb"
+                "default": "Mine value equals the sum of row and column numbers, but starting from 0",
+                "zh_CN": "\u96f7\u503c\u7b49\u4e8e\u884c\u53f7\u4e0e\u5217\u53f7\u4e4b\u548c, \u4f46\u4ece0\u5f00\u59cb"
             },
             "author": {
                 "name": "",
@@ -2022,7 +2050,8 @@
                 "zh_CN": "\u955c\u50cf"
             },
             "doc": {
-                "default": "\u96f7\u5206\u5e03\u5c06\u968f\u673a\u6309\u7167\u4e0b\u8ff0\u65b9\u5f0f\u5bf9\u79f0 [\u6c34\u5e73/\u5782\u76f4/\u5bf9\u89d2/\u526f\u5bf9\u89d2/\u4e2d\u5fc3]\u5bf9\u79f0"
+                "default": "Mine distribution is randomly symmetric in one of the following ways: [horizontal/vertical/diagonal/anti-diagonal/center]",
+                "zh_CN": "\u96f7\u5206\u5e03\u5c06\u968f\u673a\u6309\u7167\u4e0b\u8ff0\u65b9\u5f0f\u5bf9\u79f0 [\u6c34\u5e73/\u5782\u76f4/\u5bf9\u89d2/\u526f\u5bf9\u89d2/\u4e2d\u5fc3]\u5bf9\u79f0"
             },
             "author": {
                 "name": "",
@@ -2038,7 +2067,8 @@
                 "zh_CN": "\u5bf9\u89d2"
             },
             "doc": {
-                "default": "\u4e0d\u540c\u56db\u8fde\u901a\u96f7\u533a\u4e0d\u53ef\u5bf9\u89d2\u76f8\u90bb"
+                "default": "Different four-connected mine areas cannot be diagonally adjacent",
+                "zh_CN": "\u4e0d\u540c\u56db\u8fde\u901a\u96f7\u533a\u4e0d\u53ef\u5bf9\u89d2\u76f8\u90bb"
             },
             "author": {
                 "name": "",
@@ -2214,7 +2244,8 @@
             "rule_line": "M",
             "id": "3",
             "name": {
-                "default": "3"
+                "default": "Pointing",
+                "zh_CN": "\u6307\u5411"
             },
             "doc": {
                 "default": "In the direction the mine points to, there exist n mines (not including itself)",
@@ -2300,7 +2331,8 @@
                 "zh_CN": "\u526f\u677f\u5171\u7528"
             },
             "doc": {
-                "default": "\u4e0d\u540c\u526f\u677f\u89c4\u5219\u7684\u526f\u677f\u5171\u7528"
+                "default": "Auxiliary boards from different auxiliary board rules share the same board",
+                "zh_CN": "\u4e0d\u540c\u526f\u677f\u89c4\u5219\u7684\u526f\u677f\u5171\u7528"
             },
             "author": {
                 "name": "",
@@ -2313,10 +2345,11 @@
             "id": "MATE",
             "name": {
                 "default": "Mate",
-                "zh_CN": "\u5143"
+                "zh_CN": "\u539f\u795e"
             },
             "doc": {
-                "default": "\u9898\u677f\u5177\u6709\u591a\u5757\u4e3b\u677f,\u591a\u5757\u4e3b\u677f\u7684\u96f7\u4f4d\u7f6e\u5b8c\u5168\u76f8\u540c,\u4f46\u662f\u9898\u677f\u5177\u6709\u4e0d\u540c\u7684\u89c4\u5219,\u89c4\u5219\u5c06\u6309\u7167\u987a\u5e8f\u6807\u51fa"
+                "default": "Board has multiple master boards with identical mine positions but different rules; rules are labeled in sequence",
+                "zh_CN": "\u9898\u677f\u5177\u6709\u591a\u5757\u4e3b\u677f,\u591a\u5757\u4e3b\u677f\u7684\u96f7\u4f4d\u7f6e\u5b8c\u5168\u76f8\u540c,\u4f46\u662f\u9898\u677f\u5177\u6709\u4e0d\u540c\u7684\u89c4\u5219,\u89c4\u5219\u5c06\u6309\u7167\u987a\u5e8f\u6807\u51fa"
             },
             "author": {
                 "name": "",
@@ -2966,7 +2999,8 @@
                 "zh_CN": "\u89c6\u5dee"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u7eb5\u5411\u548c\u6a2a\u5411\u7684\u89c6\u91ce\u4e4b\u5dee\uff0c\u7bad\u5934\u6307\u793a\u89c6\u91ce\u66f4\u957f\u7684\u65b9\u5411"
+                "default": "Clue shows the difference between vertical and horizontal eyesight, with an arrow indicating the direction with longer sight",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u7eb5\u5411\u548c\u6a2a\u5411\u7684\u89c6\u91ce\u4e4b\u5dee\uff0c\u7bad\u5934\u6307\u793a\u89c6\u91ce\u66f4\u957f\u7684\u65b9\u5411"
             },
             "author": {
                 "name": "",
@@ -3292,7 +3326,7 @@
             "rule_line": "R",
             "id": "2I'",
             "name": {
-                "default": "2I'",
+                "default": "Incomplete'",
                 "zh_CN": "\u6b8b\u7f3a'"
             },
             "doc": {
@@ -3747,7 +3781,7 @@
             "rule_line": "R",
             "id": "2D'",
             "name": {
-                "default": "2D'",
+                "default": "Four-Direction Offset",
                 "zh_CN": "\u56db\u5411\u504f\u79fb"
             },
             "doc": {
@@ -4262,7 +4296,8 @@
                 "zh_CN": "\u8bef\u5dee"
             },
             "doc": {
-                "default": "\u6240\u6709\u7ebf\u7d22\u5747\u6bd4\u771f\u5b9e\u503c\u59271\u6216\u5c0f1"
+                "default": "All clues are either 1 greater or 1 less than the true value",
+                "zh_CN": "\u6240\u6709\u7ebf\u7d22\u5747\u6bd4\u771f\u5b9e\u503c\u59271\u6216\u5c0f1"
             },
             "author": {
                 "name": "",
