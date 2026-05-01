@@ -216,7 +216,8 @@
                 "zh_CN": "\u65e0\u9a6c\u6b65"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u7684\u9a6c\u6b65\u4f4d\u7f6e\u4e0d\u80fd\u6709\u96f7"
+                "default": "No mine at knight's move distance from any mine",
+                "zh_CN": "\u6240\u6709\u96f7\u7684\u9a6c\u6b65\u4f4d\u7f6e\u4e0d\u80fd\u6709\u96f7"
             },
             "author": {
                 "name": "",
@@ -232,7 +233,8 @@
                 "zh_CN": "\u6a2a\u7eb5"
             },
             "doc": {
-                "default": "\u96f7\u4ece\u56db\u4e2a\u65b9\u5411\u4e2d\u7684\u4efb\u610f\u4e00\u4e2a\u8fde\u5230\u9898\u677f\u5916"
+                "default": "Mines connect from any of the four directions to outside the board",
+                "zh_CN": "\u96f7\u4ece\u56db\u4e2a\u65b9\u5411\u4e2d\u7684\u4efb\u610f\u4e00\u4e2a\u8fde\u5230\u9898\u677f\u5916"
             },
             "author": {
                 "name": "",
@@ -327,7 +329,8 @@
                 "zh_CN": "\u5206\u6bb5'"
             },
             "doc": {
-                "default": "\u6bcf\u884c\u8fde\u7eed\u96f7\u957f\u5ea6\u4e0d\u540c"
+                "default": "Each row has different consecutive mine lengths",
+                "zh_CN": "\u6bcf\u884c\u8fde\u7eed\u96f7\u957f\u5ea6\u4e0d\u540c"
             },
             "author": {
                 "name": "",
@@ -359,7 +362,8 @@
                 "zh_CN": "\u6a2a\u5411"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u5fc5\u987b\u5b58\u5728\u6a2a\u5411\u76f8\u90bb\u7684\u96f7"
+                "default": "Every mine must have at least one horizontally adjacent mine",
+                "zh_CN": "\u6240\u6709\u96f7\u5fc5\u987b\u5b58\u5728\u6a2a\u5411\u76f8\u90bb\u7684\u96f7"
             },
             "author": {
                 "name": "",
@@ -375,7 +379,8 @@
                 "zh_CN": "\u6811\u6839"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u5f62\u6210\u4e00\u4e2a\u6811\u6839\u7ed3\u6784\u3002\u8be5\u7ed3\u6784\u662f\u7531\u7b2c\u4e00\u884c\u7684\u4e00\u4e2a\u96f7\u5f00\u59cb\u5411\u4e0b\u3001\u5de6\u4e0b\u3001\u53f3\u4e0b\u5ef6\u4f38\u800c\u6210\u7684\u3002"
+                "default": "All mines form a tree root structure. The structure starts from one mine in the first row and extends downward, left-down, and right-down.",
+                "zh_CN": "\u6240\u6709\u96f7\u5f62\u6210\u4e00\u4e2a\u6811\u6839\u7ed3\u6784\u3002\u8be5\u7ed3\u6784\u662f\u7531\u7b2c\u4e00\u884c\u7684\u4e00\u4e2a\u96f7\u5f00\u59cb\u5411\u4e0b\u3001\u5de6\u4e0b\u3001\u53f3\u4e0b\u5ef6\u4f38\u800c\u6210\u7684\u3002"
             },
             "author": {
                 "name": "",
@@ -422,7 +427,8 @@
                 "zh_CN": "\u86c7~"
             },
             "doc": {
-                "default": "\u6240\u6709\u975e\u96f7\u6784\u6210\u82e5\u5e72\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9\u3002"
+                "default": "All non-mines form several snakes. A snake is a width-1 four-connected path with no branches, loops, or crossings.",
+                "zh_CN": "\u6240\u6709\u975e\u96f7\u6784\u6210\u82e5\u5e72\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9\u3002"
             },
             "author": {
                 "name": "",
@@ -438,7 +444,8 @@
                 "zh_CN": "\u516d\u89d2\u65e0\u65b9"
             },
             "doc": {
-                "default": "\u516d\u89d2\u65e0\u65b9: \u6bcf\u4e2a\u4e92\u76f8\u76f8\u90bb\u7684\u4e09\u4e2a\u683c\u5fc5\u6709\u4e00\u4e2a\u96f7"
+                "default": "Hex No-Square: Among any three mutually adjacent cells, at least one must be a mine",
+                "zh_CN": "\u516d\u89d2\u65e0\u65b9: \u6bcf\u4e2a\u4e92\u76f8\u76f8\u90bb\u7684\u4e09\u4e2a\u683c\u5fc5\u6709\u4e00\u4e2a\u96f7"
             },
             "author": {
                 "name": "",
@@ -454,7 +461,8 @@
                 "zh_CN": "\u4e00\u5143"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u76f8\u90bb"
+                "default": "No mine is adjacent to another mine",
+                "zh_CN": "\u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u76f8\u90bb"
             },
             "author": {
                 "name": "",
@@ -501,7 +509,8 @@
                 "zh_CN": "\u7eaf\u4e09\u8fde"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u96f7\u5c5e\u4e8e\u552f\u4e00\u7684\u4e09\u8fde\u7ec4(\u6a2a/\u7ad6/\u659c)"
+                "default": "Each mine belongs to a unique triple group (horizontal/vertical/diagonal)",
+                "zh_CN": "\u6bcf\u4e2a\u96f7\u5c5e\u4e8e\u552f\u4e00\u7684\u4e09\u8fde\u7ec4(\u6a2a/\u7ad6/\u659c)"
             },
             "author": {
                 "name": "",
@@ -549,7 +558,8 @@
                 "zh_CN": "\u9a6c\u6b65\u82b1\u7530"
             },
             "doc": {
-                "default": "\u67d3\u8272\u683c\u4e2d\u7684\u96f7\u7684\u516b\u4e2a\u9a6c\u6b65\u4f4d\u7f6e\u5185\u6070\u597d\u67091\u4e2a\u96f7"
+                "default": "There is exactly one mine in the eight knight-move positions of the mine in the dyed cell",
+                "zh_CN": "\u67d3\u8272\u683c\u4e2d\u7684\u96f7\u7684\u516b\u4e2a\u9a6c\u6b65\u4f4d\u7f6e\u5185\u6070\u597d\u67091\u4e2a\u96f7"
             },
             "author": {
                 "name": "",
@@ -565,7 +575,8 @@
                 "zh_CN": "\u96f7\u65e0\u65b9"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a2x2\u533a\u57df\u5185\u90fd\u81f3\u5c11\u6709\u4e00\u4e2a\u7a7a\u683c"
+                "default": "Each 2x2 area has at least one empty space",
+                "zh_CN": "\u6bcf\u4e2a2x2\u533a\u57df\u5185\u90fd\u81f3\u5c11\u6709\u4e00\u4e2a\u7a7a\u683c"
             },
             "author": {
                 "name": "",
@@ -597,7 +608,8 @@
                 "zh_CN": "\u56db\u8fde\u5757"
             },
             "doc": {
-                "default": "\u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a 4"
+                "default": "All orthogonally connected mine areas have area 4",
+                "zh_CN": "\u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a 4"
             },
             "author": {
                 "name": "",
@@ -613,7 +625,8 @@
                 "zh_CN": "\u5bf9\u5076"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u96f7\u533a\u57df\u4e3a 1x2 \u6216 2x1 \u7684\u77e9\u5f62"
+                "default": "Each mine area is a 1x2 or 2x1 rectangle",
+                "zh_CN": "\u6bcf\u4e2a\u96f7\u533a\u57df\u4e3a 1x2 \u6216 2x1 \u7684\u77e9\u5f62"
             },
             "author": {
                 "name": "",
@@ -693,7 +706,8 @@
                 "zh_CN": "\u8fde\u901a"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u96f7\u5468\u56f4\u516b\u683c\u4e2d\u6070\u6709\u4e24\u4e2a\u96f7"
+                "default": "Exactly two mines around each mine in the eight surrounding cells",
+                "zh_CN": "\u6bcf\u4e2a\u96f7\u5468\u56f4\u516b\u683c\u4e2d\u6070\u6709\u4e24\u4e2a\u96f7"
             },
             "author": {
                 "name": "",
@@ -725,7 +739,8 @@
                 "zh_CN": "\u53cd\u76f8"
             },
             "doc": {
-                "default": "\u67d3\u8272\u683c\u4e2d\u975e\u96f7\u89c6\u4e3a\u96f7\uff0c\u96f7\u89c6\u4e3a\u975e\u96f7"
+                "default": "In dyed cells, non-mines are treated as mines, and mines as non-mines",
+                "zh_CN": "\u67d3\u8272\u683c\u4e2d\u975e\u96f7\u89c6\u4e3a\u96f7\uff0c\u96f7\u89c6\u4e3a\u975e\u96f7"
             },
             "author": {
                 "name": "",
@@ -741,7 +756,8 @@
                 "zh_CN": "\u6865"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u6784\u6210\u82e5\u5e72\u7ec4\u6865\u3002\u6865\u662f\u4ece\u9898\u7248\u5de6\u8fb9\u754c\u516b\u8fde\u901a\u8fde\u63a5\uff08\u6c34\u5e73\u6216\u659c\u89d2\u8fde\u63a5\uff09\u5230\u53f3\u8fb9\u754c\uff0c\u5bbd\u5ea6\u4e3a 1\u3001\u957f\u5ea6\u4e0e\u9898\u7248\u76f8\u7b49\u7684\u4e00\u6761\u8def\u5f84"
+                "default": "All mines form several bridges. A bridge is a path from the left boundary to the right boundary with eight-connected (horizontal or diagonal), width 1, and length equal to the board.",
+                "zh_CN": "\u6240\u6709\u96f7\u6784\u6210\u82e5\u5e72\u7ec4\u6865\u3002\u6865\u662f\u4ece\u9898\u7248\u5de6\u8fb9\u754c\u516b\u8fde\u901a\u8fde\u63a5\uff08\u6c34\u5e73\u6216\u659c\u89d2\u8fde\u63a5\uff09\u5230\u53f3\u8fb9\u754c\uff0c\u5bbd\u5ea6\u4e3a 1\u3001\u957f\u5ea6\u4e0e\u9898\u7248\u76f8\u7b49\u7684\u4e00\u6761\u8def\u5f84"
             },
             "author": {
                 "name": "",
@@ -757,7 +773,8 @@
                 "zh_CN": "\u4e09\u96f7\u533a"
             },
             "doc": {
-                "default": "\u9898\u677f\u6b63\u597d\u6709\u4e09\u4e2a\u56db\u8fde\u901a\u96f7\u533a"
+                "default": "The board has exactly three four-connected mine areas",
+                "zh_CN": "\u9898\u677f\u6b63\u597d\u6709\u4e09\u4e2a\u56db\u8fde\u901a\u96f7\u533a"
             },
             "author": {
                 "name": "",
@@ -837,7 +854,8 @@
                 "zh_CN": "\u65e0\u65b9"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a 2x2 \u8303\u56f4\u5185\u81f3\u5c11\u6709\u4e00\u4e2a\u96f7"
+                "default": "Every 2x2 area contains at least one mine",
+                "zh_CN": "\u6bcf\u4e2a 2x2 \u8303\u56f4\u5185\u81f3\u5c11\u6709\u4e00\u4e2a\u96f7"
             },
             "author": {
                 "name": "",
@@ -867,7 +885,8 @@
                 "zh_CN": "\u8fde\u65b9"
             },
             "doc": {
-                "default": "(1) \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u4e3a\u77e9\u5f62\uff1b(2) \u6240\u6709\u96f7\u533a\u57df\u5bf9\u89d2\u76f8\u90bb"
+                "default": "(1) All orthogonally connected mine areas are rectangles; (2) All mine areas are diagonally adjacent",
+                "zh_CN": "(1) \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u4e3a\u77e9\u5f62\uff1b(2) \u6240\u6709\u96f7\u533a\u57df\u5bf9\u89d2\u76f8\u90bb"
             },
             "author": {
                 "name": "",
@@ -899,7 +918,8 @@
                 "zh_CN": "\u5e73\u8861"
             },
             "doc": {
-                "default": "(1) \u6bcf\u884c\u96f7\u6570\u76f8\u7b49\uff1b(2) \u6bcf\u5217\u96f7\u6570\u76f8\u7b49"
+                "default": "(1) Equal mine count in each row; (2) Equal mine count in each column",
+                "zh_CN": "(1) \u6bcf\u884c\u96f7\u6570\u76f8\u7b49\uff1b(2) \u6bcf\u5217\u96f7\u6570\u76f8\u7b49"
             },
             "author": {
                 "name": "",
@@ -915,7 +935,8 @@
                 "zh_CN": "\u5916\u90e8"
             },
             "doc": {
-                "default": "\u975e\u96f7\u533a\u57df\u56db\u8fde\u901a\uff1b\u6bcf\u4e2a\u96f7\u533a\u57df\u4ee5\u56db\u8fde\u901a\u8fde\u63a5\u5230\u9898\u7248\u8fb9\u754c"
+                "default": "Non-mine areas are four-connected; each mine area is connected to the board boundary via four-connection.",
+                "zh_CN": "\u975e\u96f7\u533a\u57df\u56db\u8fde\u901a\uff1b\u6bcf\u4e2a\u96f7\u533a\u57df\u4ee5\u56db\u8fde\u901a\u8fde\u63a5\u5230\u9898\u7248\u8fb9\u754c"
             },
             "author": {
                 "name": "",
@@ -979,7 +1000,8 @@
                 "zh_CN": "\u65e0\u4e09\u8fde"
             },
             "doc": {
-                "default": "(1) \u96f7\u5728\u6a2a\u7ad6\u4e24\u4e2a\u65b9\u5411\u4e0a\u4e0d\u80fd\u6784\u6210\u4e09\u8fde\uff1b(2) \u975e\u96f7\u5728\u6a2a\u7ad6\u4e24\u4e2a\u65b9\u5411\u4e0a\u4e0d\u80fd\u6784\u6210\u4e09\u8fde"
+                "default": "(1) No three mines form a line horizontally or vertically; (2) No three non-mines form a line horizontally or vertically",
+                "zh_CN": "(1) \u96f7\u5728\u6a2a\u7ad6\u4e24\u4e2a\u65b9\u5411\u4e0a\u4e0d\u80fd\u6784\u6210\u4e09\u8fde\uff1b(2) \u975e\u96f7\u5728\u6a2a\u7ad6\u4e24\u4e2a\u65b9\u5411\u4e0a\u4e0d\u80fd\u6784\u6210\u4e09\u8fde"
             },
             "author": {
                 "name": "",
@@ -995,7 +1017,8 @@
                 "zh_CN": "\u6f14\u5316"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a3x1\u533a\u57df\u51b3\u5b9a\u5176\u4e2d\u95f4\u4e0b\u65b91\u683c\u662f\u5426\u4e3a\u96f7\uff0c\u6f14\u5316\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u533a\u57df\u5171\u4eab\u3002"
+                "default": "Each 3x1 area determines whether the cell below its middle is a mine; evolution is shared across all areas of the current board",
+                "zh_CN": "\u6bcf\u4e2a3x1\u533a\u57df\u51b3\u5b9a\u5176\u4e2d\u95f4\u4e0b\u65b91\u683c\u662f\u5426\u4e3a\u96f7\uff0c\u6f14\u5316\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u533a\u57df\u5171\u4eab\u3002"
             },
             "author": {
                 "name": "",
@@ -1043,7 +1066,8 @@
                 "zh_CN": "\u73af"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u73af\u3002\u73af\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u516b\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u548c\u4ea4\u53c9\uff0c\u73af\u7684\u5934\u5c3e\u76f8\u8fde"
+                "default": "All mines form a loop. A loop is a width-1 diagonal path without branches or intersections, and the loop connects head to tail",
+                "zh_CN": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u73af\u3002\u73af\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u516b\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u548c\u4ea4\u53c9\uff0c\u73af\u7684\u5934\u5c3e\u76f8\u8fde"
             },
             "author": {
                 "name": "",
@@ -1059,7 +1083,8 @@
                 "zh_CN": "\u65e0\u65b9"
             },
             "doc": {
-                "default": "\u4efb\u610f\u56db\u4e2a\u96f7\u4e0d\u80fd\u4f5c\u4e3a\u4e00\u4e2a\u6a2a\u5e73\u7ad6\u76f4\u7684\u77e9\u5f62\u7684\u9876\u70b9"
+                "default": "Any four mines cannot form the vertices of a horizontally and vertically straight rectangle",
+                "zh_CN": "\u4efb\u610f\u56db\u4e2a\u96f7\u4e0d\u80fd\u4f5c\u4e3a\u4e00\u4e2a\u6a2a\u5e73\u7ad6\u76f4\u7684\u77e9\u5f62\u7684\u9876\u70b9"
             },
             "author": {
                 "name": "",
@@ -1138,7 +1163,8 @@
                 "zh_CN": "\u6218\u8230"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u96f7\u533a\u57df\u4e3a\u5bbd\u5ea6\u4e3a 1\u3001\u957f\u5ea6\u4e0d\u8d85\u8fc7 4 \u7684\u77e9\u5f62\uff0c\u77e9\u5f62\u4e0d\u80fd\u5bf9\u89d2\u76f8\u90bb"
+                "default": "Each mine area is a rectangle with width 1 and length no more than 4, rectangles cannot be diagonally adjacent",
+                "zh_CN": "\u6bcf\u4e2a\u96f7\u533a\u57df\u4e3a\u5bbd\u5ea6\u4e3a 1\u3001\u957f\u5ea6\u4e0d\u8d85\u8fc7 4 \u7684\u77e9\u5f62\uff0c\u77e9\u5f62\u4e0d\u80fd\u5bf9\u89d2\u76f8\u90bb"
             },
             "author": {
                 "name": "",
@@ -1154,7 +1180,8 @@
                 "zh_CN": "\u6b8b\u7f3a\u8054\u901a"
             },
             "doc": {
-                "default": "1.\u6240\u6709\u96f7\u90fd\u5fc5\u987b\u6839\u636e\u526f\u677f\u6307\u793a\u76844\u5bf9\u8054\u901a\u65b9\u5411\u8fdb\u884c\u8054\u901a, 2.\u96f7\u53ea\u67093\u79cd\u8054\u901a\u65b9\u6cd5(\u4e0a\u4e0b/\u5de6\u53f3/\u5bf9\u89d2/\u526f\u5bf9\u89d2)"
+                "default": "1. All mines must be connected according to the auxiliary board's 4-direction connectivity; 2. Mines have only 3 connection methods (vertical/horizontal/diagonal/anti-diagonal)",
+                "zh_CN": "1.\u6240\u6709\u96f7\u90fd\u5fc5\u987b\u6839\u636e\u526f\u677f\u6307\u793a\u76844\u5bf9\u8054\u901a\u65b9\u5411\u8fdb\u884c\u8054\u901a, 2.\u96f7\u53ea\u67093\u79cd\u8054\u901a\u65b9\u6cd5(\u4e0a\u4e0b/\u5de6\u53f3/\u5bf9\u89d2/\u526f\u5bf9\u89d2)"
             },
             "author": {
                 "name": "",
@@ -1170,7 +1197,8 @@
                 "zh_CN": "\u86c7"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9"
+                "default": "All mines form a snake. A snake is a width-1 orthogonal path without branches, loops or intersections",
+                "zh_CN": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9"
             },
             "author": {
                 "name": "",
@@ -1186,7 +1214,8 @@
                 "zh_CN": "\u8d1f\u96f7"
             },
             "doc": {
-                "default": "\u67d3\u8272\u683c\u4e2d\u96f7\u503c\u53d6\u8d1f"
+                "default": "Mine value becomes negative in dyed cells",
+                "zh_CN": "\u67d3\u8272\u683c\u4e2d\u96f7\u503c\u53d6\u8d1f"
             },
             "author": {
                 "name": "",
@@ -1218,7 +1247,8 @@
                 "zh_CN": "\u8fde\u65b9'"
             },
             "doc": {
-                "default": "(1) \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u4e3a 1xn \u6216 nx1 \u7684\u77e9\u5f62\uff1b(2) \u6240\u6709\u96f7\u533a\u57df\u5bf9\u89d2\u76f8\u90bb"
+                "default": "(1) All four-connected mine areas are 1xn or nx1 rectangles; (2) All mine areas are diagonally adjacent",
+                "zh_CN": "(1) \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u4e3a 1xn \u6216 nx1 \u7684\u77e9\u5f62\uff1b(2) \u6240\u6709\u96f7\u533a\u57df\u5bf9\u89d2\u76f8\u90bb"
             },
             "author": {
                 "name": "",
@@ -1234,7 +1264,8 @@
                 "zh_CN": "\u65e0\u4e09\u8fde"
             },
             "doc": {
-                "default": "\u4efb\u610f\u4e09\u4e2a\u96f7\u4e0d\u80fd\u7b49\u8ddd\u6392\u5e03"
+                "default": "No three mines can be equally spaced",
+                "zh_CN": "\u4efb\u610f\u4e09\u4e2a\u96f7\u4e0d\u80fd\u7b49\u8ddd\u6392\u5e03"
             },
             "author": {
                 "name": "",
@@ -1298,7 +1329,8 @@
                 "zh_CN": "\u9634\u9633"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u56db\u8fde\u901a\uff0c\u6240\u6709\u975e\u96f7\u56db\u8fde\u901a\uff0c\u4e0d\u5b58\u57282*2\u7684\u96f7\u6216\u975e\u96f7"
+                "default": "All mines are orthogonally connected, all non-mines are orthogonally connected, no 2x2 block of mines or non-mines exists",
+                "zh_CN": "\u6240\u6709\u96f7\u56db\u8fde\u901a\uff0c\u6240\u6709\u975e\u96f7\u56db\u8fde\u901a\uff0c\u4e0d\u5b58\u57282*2\u7684\u96f7\u6216\u975e\u96f7"
             },
             "author": {
                 "name": "",
@@ -1314,7 +1346,8 @@
                 "zh_CN": "\u9a6c\u6b65\u86c7"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u9a6c\u6b65\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9"
+                "default": "All mines form a snake. A snake is a width-1 knight-connected path with no branches, loops, or crossings",
+                "zh_CN": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u9a6c\u6b65\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9"
             },
             "author": {
                 "name": "",
@@ -1346,7 +1379,8 @@
                 "zh_CN": "\u53cc\u5934\u86c7"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u53cc\u5934\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u73af\u3001\u4ea4\u53c9, \u53ea\u5b58\u5728\u4e00\u4e2a\u5206\u53c9"
+                "default": "All mines form a double-headed snake. A snake is a width-1 four-connected path with no loops or crossings, only one branch",
+                "zh_CN": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u53cc\u5934\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u73af\u3001\u4ea4\u53c9, \u53ea\u5b58\u5728\u4e00\u4e2a\u5206\u53c9"
             },
             "author": {
                 "name": "",
@@ -1362,7 +1396,8 @@
                 "zh_CN": "\u591a\u96f7"
             },
             "doc": {
-                "default": "\u67d3\u8272\u683c\u7684\u96f7\u503c*2(\u603b\u96f7\u6570\u4e0d\u53d7\u5f71\u54cd)"
+                "default": "Dyed cells have mine value multiplied by 2 (total mine count unaffected)",
+                "zh_CN": "\u67d3\u8272\u683c\u7684\u96f7\u503c*2(\u603b\u96f7\u6570\u4e0d\u53d7\u5f71\u54cd)"
             },
             "author": {
                 "name": "",
@@ -1426,7 +1461,8 @@
                 "zh_CN": "\u65e0\u4e09\u8fde"
             },
             "doc": {
-                "default": "\u96f7\u5728\u6a2a\u3001\u7ad6\u3001\u659c\u4e09\u4e2a\u65b9\u5411\u4e0a\u4e0d\u80fd\u6784\u6210\u4e09\u8fde"
+                "default": "No three mines form a line in horizontal, vertical or diagonal directions",
+                "zh_CN": "\u96f7\u5728\u6a2a\u3001\u7ad6\u3001\u659c\u4e09\u4e2a\u65b9\u5411\u4e0a\u4e0d\u80fd\u6784\u6210\u4e09\u8fde"
             },
             "author": {
                 "name": "",
@@ -1490,7 +1526,8 @@
                 "zh_CN": "\u98ce\u4e91"
             },
             "doc": {
-                "default": "\u6bcf\u884c\u96f7\u6570\u4e0d\u540c\uff0c\u6bcf\u5217\u4e2d\u6700\u9ad8\u7684\u96f7\u7684\u9ad8\u5ea6\u4e0d\u4f4e\u4e8e\u5b83\u5de6\u8fb9\u4e00\u5217\u7684\u6700\u9ad8\u7684\u96f7\u7684\u9ad8\u5ea6\uff08\u7279\u6b8a\u60c5\u51b5\uff1a\u5982\u679c\u67d0\u4e00\u5217\u6ca1\u6709\u96f7\uff0c\u90a3\u4e48\u5b83\u5de6\u8fb9\u6240\u6709\u5217\u90fd\u6ca1\u6709\u96f7\uff09\u3002"
+                "default": "Each row has different mine counts; in each column, the highest mine's height is not lower than the highest mine in the left column (special case: if a column has no mines, all columns to its left have no mines)",
+                "zh_CN": "\u6bcf\u884c\u96f7\u6570\u4e0d\u540c\uff0c\u6bcf\u5217\u4e2d\u6700\u9ad8\u7684\u96f7\u7684\u9ad8\u5ea6\u4e0d\u4f4e\u4e8e\u5b83\u5de6\u8fb9\u4e00\u5217\u7684\u6700\u9ad8\u7684\u96f7\u7684\u9ad8\u5ea6\uff08\u7279\u6b8a\u60c5\u51b5\uff1a\u5982\u679c\u67d0\u4e00\u5217\u6ca1\u6709\u96f7\uff0c\u90a3\u4e48\u5b83\u5de6\u8fb9\u6240\u6709\u5217\u90fd\u6ca1\u6709\u96f7\uff09\u3002"
             },
             "author": {
                 "name": "",
@@ -1506,7 +1543,8 @@
                 "zh_CN": "\u6a2a\u6a2a\u5411\u5411"
             },
             "doc": {
-                "default": "\u5728\u6bcf\u4e00\u884c\u4e2d, \u8981\u4e48\u90fd\u6ca1\u6709\u6a2a\u5411\u76f8\u90bb\u7684\u96f7\uff0c\u8981\u4e48\u90fd\u81f3\u5c11\u6709\u4e00\u4e2a\u6a2a\u5411\u76f8\u90bb\u7684\u96f7\u3002"
+                "default": "In each row, either there are no horizontally adjacent mines, or all have at least one horizontally adjacent mine.",
+                "zh_CN": "\u5728\u6bcf\u4e00\u884c\u4e2d, \u8981\u4e48\u90fd\u6ca1\u6709\u6a2a\u5411\u76f8\u90bb\u7684\u96f7\uff0c\u8981\u4e48\u90fd\u81f3\u5c11\u6709\u4e00\u4e2a\u6a2a\u5411\u76f8\u90bb\u7684\u96f7\u3002"
             },
             "author": {
                 "name": "",
@@ -1522,7 +1560,8 @@
                 "zh_CN": "\u4e09\u8fde\u5757"
             },
             "doc": {
-                "default": "\u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a3"
+                "default": "All four-connected mine areas have an area of 3",
+                "zh_CN": "\u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a3"
             },
             "author": {
                 "name": "",
@@ -1538,7 +1577,8 @@
                 "zh_CN": "\u4e00\u5143'"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u76f8\u90bb\u6216\u5bf9\u89d2\u76f8\u90bb"
+                "default": "All mines cannot be adjacent to other mines or diagonally adjacent",
+                "zh_CN": "\u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u76f8\u90bb\u6216\u5bf9\u89d2\u76f8\u90bb"
             },
             "author": {
                 "name": "",
@@ -1586,7 +1626,8 @@
                 "zh_CN": "\u5f15\u7528"
             },
             "doc": {
-                "default": "\u5728\u7b2c X \u884c\u6216\u7b2c X \u5217\u7684\u683c\u5b50\u7684\u5468\u56f4\u516b\u683c\u4e0d\u80fd\u6070\u597d\u6709 X \u4e2a\u96f7"
+                "default": "For a cell in row X or column X, the eight surrounding cells cannot have exactly X mines",
+                "zh_CN": "\u5728\u7b2c X \u884c\u6216\u7b2c X \u5217\u7684\u683c\u5b50\u7684\u5468\u56f4\u516b\u683c\u4e0d\u80fd\u6070\u597d\u6709 X \u4e2a\u96f7"
             },
             "author": {
                 "name": "",
@@ -1602,7 +1643,8 @@
                 "zh_CN": "\u4ed9\u4eba\u638c"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u96f7\u5468\u56f4\u56db\u683c\u4e2d\u6070\u67091\u62163\u4e2a\u96f7"
+                "default": "Each mine has exactly 1 or 3 mines in the four surrounding cells",
+                "zh_CN": "\u6bcf\u4e2a\u96f7\u5468\u56f4\u56db\u683c\u4e2d\u6070\u67091\u62163\u4e2a\u96f7"
             },
             "author": {
                 "name": "",
@@ -1650,7 +1692,8 @@
                 "zh_CN": "\u7eb5\u5411"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u7eb5\u5411\u76f8\u90bb"
+                "default": "No mine is vertically adjacent to another mine",
+                "zh_CN": "\u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u7eb5\u5411\u76f8\u90bb"
             },
             "author": {
                 "name": "",
@@ -1666,7 +1709,8 @@
                 "zh_CN": "\u6a2a\u5411"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u6a2a\u5411\u76f8\u90bb"
+                "default": "No mine is horizontally adjacent to another mine",
+                "zh_CN": "\u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u6a2a\u5411\u76f8\u90bb"
             },
             "author": {
                 "name": "",
@@ -1682,7 +1726,8 @@
                 "zh_CN": "\u5206\u6bb5"
             },
             "doc": {
-                "default": "\u6bcf\u884c\u6709\u4e14\u4ec5\u6709\u4e00\u7ec4\u8fde\u7eed\u7684\u96f7"
+                "default": "Each row has exactly one group of consecutive mines",
+                "zh_CN": "\u6bcf\u884c\u6709\u4e14\u4ec5\u6709\u4e00\u7ec4\u8fde\u7eed\u7684\u96f7"
             },
             "author": {
                 "name": "",
@@ -1714,7 +1759,8 @@
                 "zh_CN": "\u4e92\u5f02\u56db\u8fde\u5757"
             },
             "doc": {
-                "default": "(1) \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a 4 (2) \u4e14\u5b83\u4eec\u5f62\u72b6\u4e0d\u540c\uff08SZ \u548c JL \u578b\u89c6\u4e3a\u76f8\u540c\u5f62\u72b6\uff09"
+                "default": "(1) All four-connected mine areas have an area of 4 (2) and they have different shapes (SZ and JL types are considered the same shape)",
+                "zh_CN": "(1) \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a 4 (2) \u4e14\u5b83\u4eec\u5f62\u72b6\u4e0d\u540c\uff08SZ \u548c JL \u578b\u89c6\u4e3a\u76f8\u540c\u5f62\u72b6\uff09"
             },
             "author": {
                 "name": "",
@@ -1730,7 +1776,8 @@
                 "zh_CN": "\u5fc5\u4e09\u8fde"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u5fc5\u987b\u5904\u4e8e\u6a2a\u3001\u7ad6\u6216\u659c\u65b9\u5411\u7684\u4e09\u8fde\u4e2d"
+                "default": "All mines must be in a triple in horizontal, vertical, or diagonal direction",
+                "zh_CN": "\u6240\u6709\u96f7\u5fc5\u987b\u5904\u4e8e\u6a2a\u3001\u7ad6\u6216\u659c\u65b9\u5411\u7684\u4e09\u8fde\u4e2d"
             },
             "author": {
                 "name": "",
@@ -1746,7 +1793,8 @@
                 "zh_CN": "\u6d77\u5cb8\u7ebf"
             },
             "doc": {
-                "default": "\u96f7\u533a\u57df\u4e0e\u975e\u96f7\u533a\u57df\u4e4b\u95f4\u4e0d\u5b58\u5728\u957f\u5ea6\u5927\u4e8e\u7b49\u4e8e 2 \u7684\u76f4\u7ebf\u5206\u754c\u7ebf"
+                "default": "No straight boundary line of length 2 or more exists between mine and non-mine areas",
+                "zh_CN": "\u96f7\u533a\u57df\u4e0e\u975e\u96f7\u533a\u57df\u4e4b\u95f4\u4e0d\u5b58\u5728\u957f\u5ea6\u5927\u4e8e\u7b49\u4e8e 2 \u7684\u76f4\u7ebf\u5206\u754c\u7ebf"
             },
             "author": {
                 "name": "",
@@ -1792,7 +1840,8 @@
                 "zh_CN": "\u77e9\u5f62\u5bf9\u89d2\u7ebf"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u5fc5\u987b\u662f1x1~1x4\u77e9\u5f62\u6216\u8005\u957f\u5ea62~4\u7684\u5bf9\u89d2\u7ebf\u7684\u4e00\u90e8\u5206\uff0c\u8fd9\u4e9b\u5f62\u72b6\u4e4b\u95f4\u4e0d\u80fd\u4e92\u76f8\u63a5\u89e6\uff08\u5bf9\u89d2\u4e5f\u4e0d\u884c\uff09\u3002"
+                "default": "All mines must be part of 1x1~1x4 rectangles or diagonals of length 2~4, these shapes cannot touch each other (not even diagonally).",
+                "zh_CN": "\u6240\u6709\u96f7\u5fc5\u987b\u662f1x1~1x4\u77e9\u5f62\u6216\u8005\u957f\u5ea62~4\u7684\u5bf9\u89d2\u7ebf\u7684\u4e00\u90e8\u5206\uff0c\u8fd9\u4e9b\u5f62\u72b6\u4e4b\u95f4\u4e0d\u80fd\u4e92\u76f8\u63a5\u89e6\uff08\u5bf9\u89d2\u4e5f\u4e0d\u884c\uff09\u3002"
             },
             "author": {
                 "name": "",
@@ -1808,7 +1857,8 @@
                 "zh_CN": "\u4f20\u9001\u95e8\u86c7"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9\u3002\u9898\u677f\u7684\u4e0a\u4e0b\u5de6\u53f3\u89c6\u4e3a\u8fde\u901a\u3002"
+                "default": "All mines form a snake. A snake is a width-1 four-connected path with no branches, loops, or crossings. The top, bottom, left, and right of the board are considered connected.",
+                "zh_CN": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9\u3002\u9898\u677f\u7684\u4e0a\u4e0b\u5de6\u53f3\u89c6\u4e3a\u8fde\u901a\u3002"
             },
             "author": {
                 "name": "",
@@ -1824,7 +1874,8 @@
                 "zh_CN": "\u82b1\u7530"
             },
             "doc": {
-                "default": "\u67d3\u8272\u683c\u4e2d\u7684\u96f7\u5468\u56f4\u56db\u683c\u5185\u6070\u597d\u67091\u4e2a\u96f7"
+                "default": "In dyed cells, exactly one mine in the four surrounding cells",
+                "zh_CN": "\u67d3\u8272\u683c\u4e2d\u7684\u96f7\u5468\u56f4\u56db\u683c\u5185\u6070\u597d\u67091\u4e2a\u96f7"
             },
             "author": {
                 "name": "",
@@ -1856,7 +1907,8 @@
                 "zh_CN": "\u8854\u5c3e\u86c7"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9, \u86c7\u7684\u5934\u5c3e\u76f8\u8fde"
+                "default": "All mines form a snake. A snake is a width-1 four-connected path with no branches, loops, or crossings, and the head and tail are connected.",
+                "zh_CN": "\u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9, \u86c7\u7684\u5934\u5c3e\u76f8\u8fde"
             },
             "author": {
                 "name": "",
@@ -1872,7 +1924,8 @@
                 "zh_CN": "\u6e38\u884c"
             },
             "doc": {
-                "default": "\u53ef\u4ee5\u901a\u8fc7\u9a91\u58eb\u7684\u79fb\u52a8\u65b9\u5f0f\uff0c\u4ece\u67d0\u4e00\u4e2a\u96f7\u683c\u5f00\u59cb\uff0c\u5728\u53ea\u7ecf\u8fc7\u96f7\u683c\u7684\u60c5\u51b5\u4e0b\uff0c\u4e0d\u91cd\u590d\u4e14\u4e0d\u9057\u6f0f\u5730\u901a\u8fc7\u6240\u6709\u96f7\u683c"
+                "default": "Starting from any mine cell, can traverse all mine cells without repetition or omission using knight moves",
+                "zh_CN": "\u53ef\u4ee5\u901a\u8fc7\u9a91\u58eb\u7684\u79fb\u52a8\u65b9\u5f0f\uff0c\u4ece\u67d0\u4e00\u4e2a\u96f7\u683c\u5f00\u59cb\uff0c\u5728\u53ea\u7ecf\u8fc7\u96f7\u683c\u7684\u60c5\u51b5\u4e0b\uff0c\u4e0d\u91cd\u590d\u4e14\u4e0d\u9057\u6f0f\u5730\u901a\u8fc7\u6240\u6709\u96f7\u683c"
             },
             "author": {
                 "name": "",
@@ -1920,7 +1973,8 @@
                 "zh_CN": "\u96f6\u548c'"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a4x4\u65b9\u5757\u5185\u7684\u67d3\u8272\u683c\u548c\u975e\u67d3\u8272\u683c\u96f7\u6570\u76f8\u7b49"
+                "default": "In each 4x4 block, the number of mines in dyed and non-dyed cells is equal",
+                "zh_CN": "\u6bcf\u4e2a4x4\u65b9\u5757\u5185\u7684\u67d3\u8272\u683c\u548c\u975e\u67d3\u8272\u683c\u96f7\u6570\u76f8\u7b49"
             },
             "author": {
                 "name": "",
@@ -2032,7 +2086,8 @@
                 "zh_CN": "\u8f9e\u5178"
             },
             "doc": {
-                "default": "\u6240\u6709\u96f7\u4ece\u5de6\u5230\u53f3\uff0c\u4ece\u4e0a\u5230\u4e0b\u4f9d\u6b21\u6807\u53f7\u3002\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u7684\u96f7\u7684\u6807\u53f7\u4e4b\u548c"
+                "default": "All mines are numbered from left to right, top to bottom. Clue indicates the sum of mine indices in the eight surrounding cells",
+                "zh_CN": "\u6240\u6709\u96f7\u4ece\u5de6\u5230\u53f3\uff0c\u4ece\u4e0a\u5230\u4e0b\u4f9d\u6b21\u6807\u53f7\u3002\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u7684\u96f7\u7684\u6807\u53f7\u4e4b\u548c"
             },
             "author": {
                 "name": "",
@@ -2161,7 +2216,8 @@
                 "default": "3"
             },
             "doc": {
-                "default": "\u96f7\u6307\u5411\u7684\u65b9\u5411\u5b58\u5728n\u4e2a\u96f7(\u4e0d\u5305\u62ec\u81ea\u5df1)"
+                "default": "In the direction the mine points to, there exist n mines (not including itself)",
+                "zh_CN": "\u96f7\u6307\u5411\u7684\u65b9\u5411\u5b58\u5728n\u4e2a\u96f7(\u4e0d\u5305\u62ec\u81ea\u5df1)"
             },
             "author": {
                 "name": "",
@@ -2307,7 +2363,8 @@
                 "zh_CN": "\u7f57\u76d8"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u5404\u76f8\u90bb\u96f7\u533a\u57df\u4e2d\uff0c\u5728\u6240\u793a\u65b9\u5411\u4e0a\u6bd4\u7ebf\u7d22\u672c\u8eab\u66f4\u8fdc\u7684\u5355\u5143\u683c\u6570\u91cf\u3002"
+                "default": "Clue indicates, for each of the four orthogonal directions, the number of cells in the adjacent mine group that are farther than the clue in that direction",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u5404\u76f8\u90bb\u96f7\u533a\u57df\u4e2d\uff0c\u5728\u6240\u793a\u65b9\u5411\u4e0a\u6bd4\u7ebf\u7d22\u672c\u8eab\u66f4\u8fdc\u7684\u5355\u5143\u683c\u6570\u91cf\u3002"
             },
             "author": {
                 "name": "",
@@ -2339,7 +2396,8 @@
                 "zh_CN": "\u5bf9\u6620\u5408\u5e76"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u7684\u6570\u91cf\u3002"
+                "default": "Each number indicates the number of mines in the eight surrounding cells",
+                "zh_CN": "\u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u7684\u6570\u91cf\u3002"
             },
             "author": {
                 "name": "",
@@ -2371,7 +2429,8 @@
                 "zh_CN": "\u8fdc\u89c6"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u671d\u5411\u7bad\u5934\u65b9\u5411\u5230\u8fbe\u96f7\u6216\u9898\u677f\u8fb9\u7f18\u65f6\uff0c\u5782\u76f4\u4e0e\u7bad\u5934\u65b9\u5411\u7684\u8fde\u7eed\u975e\u96f7\u683c\u6570\u91cf"
+                "default": "Clue indicates the number of consecutive non-mines perpendicular to the arrow direction from the clue to the mine or board edge",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u671d\u5411\u7bad\u5934\u65b9\u5411\u5230\u8fbe\u96f7\u6216\u9898\u677f\u8fb9\u7f18\u65f6\uff0c\u5782\u76f4\u4e0e\u7bad\u5934\u65b9\u5411\u7684\u8fde\u7eed\u975e\u96f7\u683c\u6570\u91cf"
             },
             "author": {
                 "name": "",
@@ -2451,7 +2510,8 @@
                 "zh_CN": "\u533a\u57df"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u5305\u542b\u8be5\u683c\u7684\u6700\u5927\u65e0\u96f7\u77e9\u5f62\u533a\u57df\u7684\u9762\u79ef"
+                "default": "Clue indicates the area of the largest mine-free rectangle containing this cell",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5305\u542b\u8be5\u683c\u7684\u6700\u5927\u65e0\u96f7\u77e9\u5f62\u533a\u57df\u7684\u9762\u79ef"
             },
             "author": {
                 "name": "",
@@ -2579,7 +2639,8 @@
                 "zh_CN": "\u8bef\u5dee\u65e0\u65b9"
             },
             "doc": {
-                "default": "\u8bef\u5dee\u7ebf\u7d22\u6bd4\u771f\u5b9e\u503c\u59271\u6216\u5c0f1\uff0c\u5982\u679c\u7ebf\u7d22\u5904\u57282*2\u975e\u96f7\u6846\u5185\uff0c\u5219\u5b83\u662f\u8bef\u5dee\u7ebf\u7d22\uff0c\u53cd\u4e4b\u5219\u662f\u771f\u5b9e\u503c\u3002"
+                "default": "Error clue is 1 more or less than the true value; if the clue is in a 2x2 non-mine box, it's an error clue, otherwise it's the true value",
+                "zh_CN": "\u8bef\u5dee\u7ebf\u7d22\u6bd4\u771f\u5b9e\u503c\u59271\u6216\u5c0f1\uff0c\u5982\u679c\u7ebf\u7d22\u5904\u57282*2\u975e\u96f7\u6846\u5185\uff0c\u5219\u5b83\u662f\u8bef\u5dee\u7ebf\u7d22\uff0c\u53cd\u4e4b\u5219\u662f\u771f\u5b9e\u503c\u3002"
             },
             "author": {
                 "name": "",
@@ -2611,7 +2672,8 @@
                 "zh_CN": "\u96f7\u503c"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u503c\u4e4b\u548c"
+                "default": "Each number indicates the sum of mine values in the surrounding eight cells",
+                "zh_CN": "\u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u503c\u4e4b\u548c"
             },
             "author": {
                 "name": "",
@@ -2659,7 +2721,8 @@
                 "zh_CN": "\u67d3\u8272\u683c\u5408\u5e76"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u7684\u96f7\u6570\uff0c\u67d3\u8272\u683c\u4e2d\u5982\u6709\u96f7\u5c31\u540c\u4e00\u7b97\u4e3a\u4e00\u96f7\uff08\u5269\u4f59\u96f7\u6570\u4e0d\u53d7\u5f71\u54cd\uff09"
+                "default": "Clue indicates the number of mines in surrounding eight cells; if there is a mine in a dyed cell, it counts as one mine (total mine count unaffected)",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u7684\u96f7\u6570\uff0c\u67d3\u8272\u683c\u4e2d\u5982\u6709\u96f7\u5c31\u540c\u4e00\u7b97\u4e3a\u4e00\u96f7\uff08\u5269\u4f59\u96f7\u6570\u4e0d\u53d7\u5f71\u54cd\uff09"
             },
             "author": {
                 "name": "",
@@ -2707,7 +2770,8 @@
                 "zh_CN": "\u7687\u540e"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u516b\u65b9\u5411\u6709\u96f7\u7684\u65b9\u5411\u6570\u91cf"
+                "default": "Clue indicates the number of directions with mines in the eight directions",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u516b\u65b9\u5411\u6709\u96f7\u7684\u65b9\u5411\u6570\u91cf"
             },
             "author": {
                 "name": "",
@@ -2787,7 +2851,8 @@
                 "zh_CN": "\u8303\u6570"
             },
             "doc": {
-                "default": "\u7ebf\u7d22(a_p)\u8868\u793a\u8ddd\u79bb\u81ea\u5df1lp\u8303\u6570\u6700\u8fd1\u7684\u96f7\u7684lp\u8303\u6570\u5927\u5c0f\u4e3aa\u3002(p=0,1,2,00)"
+                "default": "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)",
+                "zh_CN": "\u7ebf\u7d22(a_p)\u8868\u793a\u8ddd\u79bb\u81ea\u5df1lp\u8303\u6570\u6700\u8fd1\u7684\u96f7\u7684lp\u8303\u6570\u5927\u5c0f\u4e3aa\u3002(p=0,1,2,00)"
             },
             "author": {
                 "name": "",
@@ -2834,7 +2899,8 @@
                 "default": "TapaView"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u4e0a\u80fd\u770b\u5230\u7684\u96f7\u683c\u6570\u91cf\uff0c\u7a7a\u683c\u4f1a\u963b\u6321\u89c6\u7ebf"
+                "default": "Clue indicates the number of visible mines in the four orthogonal directions; empty cells block visibility",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u4e0a\u80fd\u770b\u5230\u7684\u96f7\u683c\u6570\u91cf\uff0c\u7a7a\u683c\u4f1a\u963b\u6321\u89c6\u7ebf"
             },
             "author": {
                 "name": "",
@@ -2898,7 +2964,8 @@
                 "zh_CN": "\u5206\u7ec4"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u8fde\u7eed\u96f7\u7684\u7ec4\u6570"
+                "default": "Clue indicates the number of continuous mine groups in the 3x3 area",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u8fde\u7eed\u96f7\u7684\u7ec4\u6570"
             },
             "author": {
                 "name": "",
@@ -2914,7 +2981,8 @@
                 "zh_CN": "\u6ca1\u60f3\u597d"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u4e2d\u5468\u56f4\u56db\u683c\u6ca1\u6709\u96f7\u7684\u96f7\u6570\u3002"
+                "default": "Clue indicates the number of mines in the eight surrounding cells that have no mines in their four orthogonal neighbors",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u4e2d\u5468\u56f4\u56db\u683c\u6ca1\u6709\u96f7\u7684\u96f7\u6570\u3002"
             },
             "author": {
                 "name": "",
@@ -2930,7 +2998,8 @@
                 "zh_CN": "\u6ca1\u60f3\u597d"
             },
             "doc": {
-                "default": "\u5982\u679c\u4e00\u4e2a\u96f7\u7684\u5468\u56f4\u516b\u683c\u6709\u56db\u4e2a\u53ca\u4ee5\u4e0a\u7684\u96f7\uff0c\u90a3\u4e48\u8fd9\u4e2a\u96f7\u7684\u96f7\u503c\u662f0\uff0c\u603b\u96f7\u6570\u4e0d\u53d7\u6b64\u89c4\u5219\u5f71\u54cd\u3002"
+                "default": "If a mine has four or more mines in its eight surrounding cells, then that mine's value is 0; total mine count is unaffected",
+                "zh_CN": "\u5982\u679c\u4e00\u4e2a\u96f7\u7684\u5468\u56f4\u516b\u683c\u6709\u56db\u4e2a\u53ca\u4ee5\u4e0a\u7684\u96f7\uff0c\u90a3\u4e48\u8fd9\u4e2a\u96f7\u7684\u96f7\u503c\u662f0\uff0c\u603b\u96f7\u6570\u4e0d\u53d7\u6b64\u89c4\u5219\u5f71\u54cd\u3002"
             },
             "author": {
                 "name": "",
@@ -2994,7 +3063,8 @@
                 "zh_CN": "\u8bef\u5dee"
             },
             "doc": {
-                "default": "\u6bcf\u884c\u6bcf\u5217\u6070\u6709\u4e00\u4e2a\u8bef\u5dee\u7ebf\u7d22\u3002\u8bef\u5dee\u7ebf\u7d22\u7684\u503c\u6bd4\u771f\u5b9e\u503c\u5927 1 \u6216\u5c0f 1"
+                "default": "Each row and column has exactly one error clue. Error clues have values 1 greater or 1 less than the true value",
+                "zh_CN": "\u6bcf\u884c\u6bcf\u5217\u6070\u6709\u4e00\u4e2a\u8bef\u5dee\u7ebf\u7d22\u3002\u8bef\u5dee\u7ebf\u7d22\u7684\u503c\u6bd4\u771f\u5b9e\u503c\u5927 1 \u6216\u5c0f 1"
             },
             "author": {
                 "name": "",
@@ -3056,7 +3126,8 @@
                 "zh_CN": "\u5341\u5b57"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u534a\u5f84\u4e3a 2 \u7684\u5341\u5b57\u8303\u56f4\u5185\u7684\u96f7\u6570"
+                "default": "Clue indicates the number of mines in a cross pattern with radius 2",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u534a\u5f84\u4e3a 2 \u7684\u5341\u5b57\u8303\u56f4\u5185\u7684\u96f7\u6570"
             },
             "author": {
                 "name": "",
@@ -3088,7 +3159,8 @@
                 "zh_CN": "\u6570\u5899"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u6bcf\u7ec4\u8fde\u7eed\u96f7\u7684\u957f\u5ea6"
+                "default": "Clue indicates the length of each continuous mine group in the 3x3 area",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u6bcf\u7ec4\u8fde\u7eed\u96f7\u7684\u957f\u5ea6"
             },
             "author": {
                 "name": "",
@@ -3104,7 +3176,8 @@
                 "zh_CN": "\u738b\u540e"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u516b\u65b9\u5411\u4e0a\u96f7\u6570\u603b\u548c"
+                "default": "Clue indicates the total number of mines in the eight directions",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u516b\u65b9\u5411\u4e0a\u96f7\u6570\u603b\u548c"
             },
             "author": {
                 "name": "",
@@ -3120,7 +3193,8 @@
                 "zh_CN": "\u5355\u4e00"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4 3x3 \u8303\u56f4\u5185\u6070\u597d\u53ea\u6709\u4e00\u96f7\u7684\u884c\u6570\u548c\u5217\u6570\u4e4b\u548c"
+                "default": "Clue indicates the sum of rows and columns in the 3x3 area that have exactly one mine",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4 3x3 \u8303\u56f4\u5185\u6070\u597d\u53ea\u6709\u4e00\u96f7\u7684\u884c\u6570\u548c\u5217\u6570\u4e4b\u548c"
             },
             "author": {
                 "name": "",
@@ -3248,6 +3322,7 @@
                 "zh_CN": "\u6807\u51c6\u626b\u96f7"
             },
             "doc": {
+                "default": "Each number indicates the number of mines in the surrounding eight cells",
                 "zh_CN": "\u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u7684\u6570\u91cf\u3002"
             },
             "author": {
@@ -3274,29 +3349,14 @@
         },
         {
             "rule_line": "R",
-            "id": "AVG",
-            "name": {
-                "default": "Average",
-                "zh_CN": "\u5e73\u5747"
-            },
-            "doc": {
-                "default": "\u56db\u8054\u901a\u975e\u96f7\u683c\u7684\u7ebf\u7d22\u503c\u6c42\u5e73\u5747"
-            },
-            "author": {
-                "name": "",
-                "id": ""
-            },
-            "image": ""
-        },
-        {
-            "rule_line": "R",
             "id": "2P",
             "name": {
                 "default": "Product",
                 "zh_CN": "\u4e58\u79ef"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u6700\u8fd1\u7684 2 \u4e2a\u96f7\u7684\u8ddd\u79bb\u4e4b\u79ef"
+                "default": "Clue indicates the product of distances to the two nearest mines",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u6700\u8fd1\u7684 2 \u4e2a\u96f7\u7684\u8ddd\u79bb\u4e4b\u79ef"
             },
             "author": {
                 "name": "",
@@ -3342,7 +3402,8 @@
                 "zh_CN": "\u9a91\u58eb"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u9a6c\u6b65\u4f4d\u7f6e 8 \u4e2a\u683c\u5b50\u4e2d\u7684\u603b\u96f7\u503c"
+                "default": "Clue indicates the total mine value at the eight knight's move positions",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u9a6c\u6b65\u4f4d\u7f6e 8 \u4e2a\u683c\u5b50\u4e2d\u7684\u603b\u96f7\u503c"
             },
             "author": {
                 "name": "",
@@ -3532,7 +3593,8 @@
                 "zh_CN": "\u9762\u79ef"
             },
             "doc": {
-                "default": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u76f8\u90bb\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e4b\u548c"
+                "default": "Clue indicates the sum of areas of orthogonally adjacent mine groups",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u76f8\u90bb\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e4b\u548c"
             },
             "author": {
                 "name": "",
@@ -3594,7 +3656,8 @@
                 "zh_CN": "\u6ca1\u60f3\u597d"
             },
             "doc": {
-                "default": "\u6bcf\u4e2a\u96f7\u7684\u96f7\u503c\u7b49\u4e8e\u5b83\u5468\u56f4\u516b\u683c\uff08\u5305\u62ec\u81ea\u8eab\uff09\u7684\u603b\u96f7\u6570\uff0c\u603b\u96f7\u6570\u4e0d\u53d7\u6b64\u89c4\u5219\u5f71\u54cd\u3002"
+                "default": "Each mine's value equals the total mine count in its eight surrounding cells (including itself); total mine count is unaffected",
+                "zh_CN": "\u6bcf\u4e2a\u96f7\u7684\u96f7\u503c\u7b49\u4e8e\u5b83\u5468\u56f4\u516b\u683c\uff08\u5305\u62ec\u81ea\u8eab\uff09\u7684\u603b\u96f7\u6570\uff0c\u603b\u96f7\u6570\u4e0d\u53d7\u6b64\u89c4\u5219\u5f71\u54cd\u3002"
             },
             "author": {
                 "name": "",
