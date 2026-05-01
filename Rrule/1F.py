@@ -11,6 +11,7 @@ class Rule1F(AbstractClueRule):
     id = "1F"
     name = "Farsight"
     name.zh_CN = "远视"
+    aliases = ("F", )
     doc = "线索表示朝向箭头方向到达雷或题板边缘时，垂直与箭头方向的连续非雷格数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
