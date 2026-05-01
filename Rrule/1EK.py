@@ -10,7 +10,8 @@ class Rule1EK(AbstractEyesightClueRule):
     id = "1EK"
     name = "Knight Eyesight"
     name.zh_CN = "马步视野"
-    doc = "线索表示沿着马步方向能看到的非雷格数量（包括自身），雷会阻挡视线"
+    doc = "Clue shows the number of non-mine cells visible in the knight's move directions (including the cell itself); mines block the line of sight"
+    doc.zh_CN = "线索表示沿着马步方向能看到的非雷格数量（包括自身），雷会阻挡视线"
 
     @staticmethod
     def direction_funcs(pos):

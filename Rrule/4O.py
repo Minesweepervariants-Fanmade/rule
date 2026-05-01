@@ -13,7 +13,8 @@ class Rule4O(AbstractClueRule):
     id = "4O"
     name = "Myopia"
     name.zh_CN = "近视"
-    doc = "线索以上下左右箭头而非数字呈现，箭头指向四方向距离其最近的雷，同时存在多个雷距离最近时会显示全部箭头。四方向都不存在雷时显示零。"
+    doc = "Clue is displayed as arrows (up/down/left/right) instead of numbers, pointing to the nearest mine in each direction. Multiple arrows are shown when multiple mines are at equal distance. Zero is displayed when there are no mines in any direction"
+    doc.zh_CN = "线索以上下左右箭头而非数字呈现，箭头指向四方向距离其最近的雷，同时存在多个雷距离最近时会显示全部箭头。四方向都不存在雷时显示零。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

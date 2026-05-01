@@ -11,4 +11,5 @@ class Rule1XStar(AbstractClueRule):
     aliases = ("X*",)
     name = "Queen"
     name.zh_CN = "王后"
-    doc = "线索数表示斜向和横纵所有格子中的雷数"
+    doc = "Clue shows the number of mines in all diagonal and orthogonal directions"
+    doc.zh_CN = "线索数表示斜向和横纵所有格子中的雷数"

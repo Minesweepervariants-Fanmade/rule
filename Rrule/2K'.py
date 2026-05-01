@@ -11,7 +11,8 @@ class Rule2KPrime(AbstractClueRule):
     id = "2K'"
     name = "Diamond"
     name.zh_CN = "钻石"
-    doc = "线索表示距离不超过 2 的范围内的雷数"
+    doc = "Clue shows the number of mines within a distance of 2 from the cell"
+    doc.zh_CN = "线索表示距离不超过 2 的范围内的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

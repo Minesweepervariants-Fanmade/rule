@@ -10,7 +10,8 @@ class Rule3H(AbstractClueRule):
     id = "++"
     name = "plusplus"
     name.zh_CN = "艹"
-    doc = "线索表示周围这些格子的雷数LL;LU;LD;L;RR;RU;RD;R"
+    doc = "Clue shows the number of mines in the surrounding cells: LL;LU;LD;L;RR;RU;RD;RR"
+    doc.zh_CN = "线索表示周围这些格子的雷数LL;LU;LD;L;RR;RU;RD;R"
     author = ("NT", 2201963934)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
