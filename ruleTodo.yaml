@@ -1225,3 +1225,8 @@
   doc: '异雷(Different Mine): 每个非雷格周围八格雷排布互不相同。'
   name: DF
   time: 1777661481.43697
+- author_name: NT
+  author_uid: 2201963934
+  doc: '路径等式(Path Equation): 左线规则。所有雷格必须构成一条不自交的连续路径，且每条直线段上的雷格数量严格小于其相邻两段雷格数量之和。'
+  name: PE
+  time: 1777661640.2378173
