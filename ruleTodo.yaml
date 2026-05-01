@@ -1215,3 +1215,8 @@
   doc: '异矩(SlashArrow): 中线规则。每个箭头指向一个与其不同的异形矩形区域面积。'
   name: AR
   time: 1777661104.4282932
+- author_name: NT
+  author_uid: 2201963934
+  doc: '孤矩(Isolated Rectangle): 左线规则。所有雷格恰好构成一个或多个矩形，且任意两个矩形的边或角互不接触（至少间隔一格）。'
+  name: NR
+  time: 1777661334.7663343
