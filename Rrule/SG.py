@@ -2,7 +2,9 @@ from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....abs.board import AbstractBoard, AbstractPosition
 
 class RuleSG(AbstractClueRule):
-    name = ["SG", "单一", "Singleton"]
+    id = "SG"
+    name = "Singleton"
+    name.zh_CN = "单一"
     doc = "线索表示周围 3x3 范围内恰好只有一雷的行数和列数之和"
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
@@ -15,7 +17,7 @@ class RuleSG(AbstractClueRule):
                     value += 1
             board.set_value(pos, ValueSG(pos, bytes([value])))
         return board
-    
+
 class ValueSG(AbstractClueValue):
     def __init__(self, pos: AbstractPosition, code: bytes = b''):
         super().__init__(pos, code)
@@ -46,7 +48,5 @@ class ValueSG(AbstractClueValue):
             temp_vars.append(temp_var)
             model.Add(sum(board.batch(poses, mode="var", drop_none=True)) == 1).OnlyEnforceIf(temp_var)
             model.Add(sum(board.batch(poses, mode="var", drop_none=True)) != 1).OnlyEnforceIf(temp_var.Not())
-        
-        model.Add(sum(temp_vars) == self.value).OnlyEnforceIf(s)
 
-        
+        model.Add(sum(temp_vars) == self.value).OnlyEnforceIf(s)
