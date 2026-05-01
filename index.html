@@ -3,27 +3,136 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MinesweeperVariants 规则列表</title>
+  <title>MinesweeperVariants</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body class="page-body">
-  <h1 class="page-title">规则列表</h1>
-  <div id="app" class="rule-app">Loading...</div>
+  <h1 id="page-title" class="page-title"></h1>
+  <div class="page-toolbar">
+    <label id="language-label" class="language-label" for="language-switch"></label>
+    <select id="language-switch" class="language-switch"></select>
+  </div>
+  <div id="app" class="rule-app"></div>
 
   <script>
     (function () {
       var IMAGE_BASE = "https://raw.githubusercontent.com/Minesweepervariants-Fanmade/rule/master/image/";
       var RULE_LINES = ["L", "M", "R"];
+      var STORAGE_KEY = "minesweepervariants.rule.locale";
+      var RULE_DATA = null;
+      var UI_LOCALE = resolveUiLocale(localStorage.getItem(STORAGE_KEY) || document.documentElement.lang || (navigator.languages && navigator.languages[0]) || navigator.language || "zh_CN");
+      var UI_TEXT = {
+        zh_CN: {
+          title: "MinesweeperVariants 规则列表",
+          heading: "规则列表",
+          languageLabel: "语言",
+          loading: "加载中...",
+          author: "作者",
+          unknownAuthor: "未知",
+          noDoc: "无说明",
+          errorPrefix: "加载失败: ",
+          ruleLine: {
+            L: "左线规则",
+            M: "中线规则",
+            R: "右线规则"
+          }
+        },
+        en: {
+          title: "MinesweeperVariants Rule List",
+          heading: "Rule List",
+          languageLabel: "Language",
+          loading: "Loading...",
+          author: "Author",
+          unknownAuthor: "Unknown",
+          noDoc: "No description",
+          errorPrefix: "Load failed: ",
+          ruleLine: {
+            L: "Left Rules",
+            M: "Middle Rules",
+            R: "Right Rules"
+          }
+        }
+      };
 
       function text(value) {
         return value == null ? "" : String(value);
       }
 
-      function firstValue(map) {
+      function normalizeLocale(locale) {
+        return text(locale).trim().replace("-", "_");
+      }
+
+      function resolveUiLocale(locale) {
+        var normalized = normalizeLocale(locale).toLowerCase();
+        return normalized.indexOf("en") === 0 ? "en" : "zh_CN";
+      }
+
+      function getUiText(key) {
+        var localePack = UI_TEXT[UI_LOCALE] || UI_TEXT.zh_CN;
+        return localePack[key] || UI_TEXT.zh_CN[key] || "";
+      }
+
+      function setLocale(locale) {
+        var normalized = resolveUiLocale(locale);
+        UI_LOCALE = normalized;
+        try {
+          localStorage.setItem(STORAGE_KEY, normalized);
+        } catch (err) {
+          void err;
+        }
+      }
+
+      function syncLanguageMenu() {
+        var languageSwitch = document.getElementById("language-switch");
+        var languageLabel = document.getElementById("language-label");
+        if (!languageSwitch || !languageLabel) {
+          return;
+        }
+
+        languageLabel.textContent = getUiText("languageLabel") + ":";
+        languageSwitch.innerHTML = "";
+
+        var options = [
+          { value: "zh_CN", label: "中文" },
+          { value: "en", label: "English" }
+        ];
+        for (var i = 0; i < options.length; i++) {
+          var option = document.createElement("option");
+          option.value = options[i].value;
+          option.textContent = options[i].label;
+          languageSwitch.appendChild(option);
+        }
+
+        languageSwitch.value = UI_LOCALE;
+        languageSwitch.onchange = function () {
+          setLocale(languageSwitch.value);
+          render();
+        };
+      }
+
+      function getRuleLineText(line) {
+        var localePack = UI_TEXT[UI_LOCALE] || UI_TEXT.zh_CN;
+        return localePack.ruleLine[line] || UI_TEXT.zh_CN.ruleLine[line] || line;
+      }
+
+      function localeCandidates() {
+        var preferred = UI_LOCALE === "en" ? ["en", "default", "zh_CN"] : ["zh_CN", "default", "en"];
+        var candidates = [];
+        for (var i = 0; i < preferred.length; i++) {
+          if (candidates.indexOf(preferred[i]) === -1) {
+            candidates.push(preferred[i]);
+          }
+        }
+        return candidates;
+      }
+
+      function pickLocalizedValue(map) {
         if (!map || typeof map !== "object") {
           return "";
         }
-        for (var key in map) {
+        var candidates = localeCandidates();
+        for (var i = 0; i < candidates.length; i++) {
+          var key = candidates[i];
           if (Object.prototype.hasOwnProperty.call(map, key)) {
             var value = text(map[key]).trim();
             if (value) {
@@ -55,15 +164,15 @@
         var title = document.createElement("h3");
         title.className = "rule-title";
         var ruleId = text(rule.id).trim();
-        var ruleName = firstValue(rule.name);
+        var ruleName = pickLocalizedValue(rule.name);
         title.textContent = "[" + ruleId + "]" + (ruleName ? " " + ruleName : "");
         item.appendChild(title);
 
         var authorName = text(rule.author && rule.author.name).trim();
         var authorId = text(rule.author && rule.author.id).trim();
-        appendTextElement(item, "p", "作者: " + (authorName || "(未知)") + (authorId ? " (" + authorId + ")" : ""), "rule-author");
+        appendTextElement(item, "p", getUiText("author") + ": " + (authorName || getUiText("unknownAuthor")) + (authorId ? " (" + authorId + ")" : ""), "rule-author");
 
-        var docContent = firstValue(rule.doc) || "(无说明)";
+        var docContent = pickLocalizedValue(rule.doc) || getUiText("noDoc");
         var imageName = text(rule.image).trim();
         if (docContent || imageName) {
           var docContainer = document.createElement("div");
@@ -87,16 +196,29 @@
         return item;
       }
 
-      function render(root, data) {
+      function render() {
+        var root = document.getElementById("app");
+        if (!root) {
+          return;
+        }
+
         root.textContent = "";
+        document.documentElement.lang = UI_LOCALE === "en" ? "en" : "zh-CN";
+        document.title = getUiText("title");
+        syncLanguageMenu();
+
+        var pageTitle = document.getElementById("page-title");
+        if (pageTitle) {
+          pageTitle.textContent = getUiText("heading");
+        }
 
         for (var i = 0; i < RULE_LINES.length; i++) {
           var line = RULE_LINES[i];
           var section = document.createElement("section");
           section.className = "rule-section";
-          var list = Array.isArray(data[line]) ? data[line] : [];
+          var list = RULE_DATA && Array.isArray(RULE_DATA[line]) ? RULE_DATA[line] : [];
 
-          appendTextElement(section, "h2", line + " Rules (" + list.length + ")", "rule-line-title");
+          appendTextElement(section, "h2", getRuleLineText(line) + " (" + list.length + ")", "rule-line-title");
 
           var ul = document.createElement("ul");
           ul.className = "rule-list";
@@ -110,10 +232,11 @@
 
       function renderError(root, message) {
         root.textContent = "";
-        appendTextElement(root, "p", "加载失败: " + message, "rule-error");
+        appendTextElement(root, "p", getUiText("errorPrefix") + message, "rule-error");
       }
 
       var app = document.getElementById("app");
+      app.textContent = getUiText("loading");
       fetch("dump.json", { cache: "no-store" })
         .then(function (res) {
           if (!res.ok) {
@@ -122,7 +245,8 @@
           return res.json();
         })
         .then(function (data) {
-          render(app, data);
+          RULE_DATA = data;
+          render();
         })
         .catch(function (err) {
           renderError(app, err && err.message ? err.message : String(err));
