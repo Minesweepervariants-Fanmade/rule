@@ -14,8 +14,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3DW]Wave(\u6d77\u6d6a): \u6240\u6709\u5c42\u7684\u540c\u4e00\u884c\u5217\u4e2d\u6709\u4e14\u53ea\u6709\u4e00\u683c\u6709\u96f7, \u4e14\u6240\u6709\u96f7\u7684\u6c34\u5e73\u90bb\u5c45\u4e2d\u6bcf\u4e00\u4e2a\u7684\u4e0a\u4e0b\u504f\u79fb\u4e00\u683c\u4ee5\u5185\u7684\u8303\u56f4\u5185\u5fc5\u5b9a\u6709\u96f7.\n1. \u5bf9\u4e8e\u4efb\u610fx,y, \u5b58\u5728\u552f\u4e00z\u4f7f\u5f97(x,y,z)\u6709\u96f7\n2. \u82e5(x0,y0,z0)\u6709\u96f7, \u5219{(x, y, z)| |x - x0| <= 1, |y - y0| <= 1, |z - z0| <= 1}\u4e2d\u7684\u96f7\u683c\u6570\u4e3a\u51762D\u90bb\u683c\u4e2a\u6570+1"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -31,8 +30,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1T']3DT'(\u4e09\u7ef4\u5fc5\u4e09\u8fde): \u96f7\u5fc5\u7136\u5904\u5728\u6a2a\u7ad6\u5bf9\u89d2\u6784\u6210\u4e09\u8fde"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -48,8 +46,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1S]3D-Snake(\u4e09\u7ef4\u86c7): \u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u516d\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -65,8 +62,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1Q]3DQ(\u4e09\u7ef4\u65e0\u65b9): \u6bcf\u4e2a2x2x2\u533a\u57df\u5185\u90fd\u81f3\u5c11\u67092\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -82,8 +78,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1K1S]3D-Knight-Snake(\u4e09\u7ef4\u9a6c\u6b65\u86c7): \u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u9a6c\u6b65\u86c7\u662f\u4e00\u6761\u9a6c\u6b65\u8054\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -98,8 +93,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D2T]\u65e0\u4e09\u8fde: (1)\u96f7\u4e0d\u80fd\u5728\u6a2a\u7ad6\u4e0a\u4e0b\u5411\u6784\u6210\u4e09\u8fde, (2)\u975e\u96f7\u4e0d\u80fd\u5728\u6a2a\u7ad6\u4e0a\u4e0b\u5411\u6784\u6210\u4e09\u8fde"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -114,8 +108,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1T]\u65e0\u4e09\u8fde: \u96f7\u4e0d\u80fd\u5728\u6a2a\u7ad6\u5bf9\u89d2\u6784\u6210\u4e09\u8fde"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -131,8 +124,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3DJ]Jujubecake(\u67a3\u7cd5): \u6240\u6709\u975e\u96f7\u683c\u5747\u5f62\u62101x2x1\u30012x1x1\u62161x1x2\u7684\u4e09\u7ef4\u77e9\u5f62\uff0c\u5373\u6bcf\u4e2a\u975e\u96f7\u683c\u6070\u597d\u6709\u4e00\u4e2a\u516d\u8fde\u901a\u76f8\u90bb\u7684\u975e\u96f7\u683c(\u5168\u662f\u6d1e\u554a!!!)"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -147,8 +139,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D2F]\u4e09\u7ef4\u82b1\u7530: \u67d3\u8272\u683c\u4e2d\u7684\u96f7\u5468\u56f4\u516d\u683c\u5185\u6070\u597d\u67091\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -164,8 +155,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3DD]3D1D(\u86c6): \u6240\u6709\u96f7\u5747\u5f62\u62101x2x1\u30012x1x1\u62161x1x2\u7684\u4e09\u7ef4\u77e9\u5f62"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -180,8 +170,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1B']\u5e73\u8861: \u6240\u6709\u5e73\u884c\u9762\u7684\u603b\u96f7\u6570\u5747\u76f8\u7b49"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -197,8 +186,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1C]3DC(\u4e8c\u5341\u516d\u8fde\u901a): \u96f7\u533a\u57df\u4e8c\u5341\u516d\u8fde\u901a"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -214,8 +202,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1U]3DU(\u4e09\u7ef4\u4e00\u5143): \u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -231,8 +218,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1A]Anti-Knight(\u65e0\u9a6c\u6b65): \u6240\u6709\u96f7\u7684\u9a6c\u6b65\u4f4d\u7f6e\u4e0d\u80fd\u6709\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -247,8 +233,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "3O_\u6a2a\u7eb5.png",
-            "display": "[3O]\u6a2a\u7eb5[@Image=3O_\u6a2a\u7eb5.png]: \u96f7\u4ece\u56db\u4e2a\u65b9\u5411\u4e2d\u7684\u4efb\u610f\u4e00\u4e2a\u8fde\u5230\u9898\u677f\u5916"
+            "image": "3O_\u6a2a\u7eb5.png"
         },
         {
             "rule_line": "L",
@@ -263,8 +248,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[SETU]\u6da9\u56fe: \u7981\u6b62\u6da9\u6da9\uff01"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -279,8 +263,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[RAW]\u539f\u59cb\u96f7\u503c: \u539f\u59cb\u96f7\u503c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -295,8 +278,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[PM]\u72ec\u4e00\u65e0\u4e8c: \u6070\u6709\u4e00\u79cd\u65b9\u5f0f\u4ece\u6bcf\u884c\u6bcf\u5217\u6070\u597d\u9009\u53d6\u4e00\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -311,8 +293,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[U-SA]\u53cd\u6df7\u5408: \u5bf9\u4e8e\u4e00\u5f20\u900f\u660e\u56fe\u7247\uff0c\u5206\u522b\u8f93\u5165\u5b83\u5728\u767d\u5e95\u548c\u9ed1\u5e95\u4e0a\u6df7\u5408\u989c\u8272\u7684\u7ed3\u679c\uff0c\u5c1d\u8bd5\u8fd8\u539f\u539f\u56fe\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -327,8 +308,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[TEST-L02]TEST-L02: \u6240\u6709\u96f7\u7ec4\u6210L\u5f62\uff1a\u96f7\u603b\u662f\u7ec4\u6210L\u5f62\uff0cL\u5f62\u662f\u5bbd\u5ea6\u4e3a1\uff0c\u62d0\u5f2f\u4e00\u6b21\u7684\u5f62\u72b6\uff0cL\u5f62\u53ef\u4ee5\u659c\u89d2\u76f8\u90bb\u4f46\u4e0d\u80fd\u6a2a\u7ad6\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -343,8 +323,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2S']\u5206\u6bb5': \u6bcf\u884c\u8fde\u7eed\u96f7\u957f\u5ea6\u4e0d\u540c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -360,8 +339,7 @@
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "JB_\u683c\u8c03_Adick.png",
-            "display": "[JB]Adick(\u683c\u8c03)[@Author=NT(2201963934)][@Image=JB_\u683c\u8c03_Adick.png]: \u6bcf\u7ec4\u6070\u597d\u7531 1 \u4e2a\u975e\u65b9\u5f62\u77e9\u5f62\u548c 2 \u4e2a\u65b9\u5f62\u77e9\u5f62\u7ec4\u6210\uff1b\u77ed\u8fb9\u4e24\u7aef\u5206\u522b\u4e0e\u4e24\u4e2a\u65b9\u5f62\u77e9\u5f62\u5bf9\u89d2\u63a5\u89e6\uff0c\u4e14\u7ec4\u95f4\u5b8c\u5168\u4e0d\u63a5\u89e6"
+            "image": "JB_\u683c\u8c03_Adick.png"
         },
         {
             "rule_line": "L",
@@ -377,8 +355,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2H]Horizontal(\u6a2a\u5411): \u6240\u6709\u96f7\u5fc5\u987b\u5b58\u5728\u6a2a\u5411\u76f8\u90bb\u7684\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -394,8 +371,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1C^]Root(\u6811\u6839): \u6240\u6709\u96f7\u5f62\u6210\u4e00\u4e2a\u6811\u6839\u7ed3\u6784\u3002\u8be5\u7ed3\u6784\u662f\u7531\u7b2c\u4e00\u884c\u7684\u4e00\u4e2a\u96f7\u5f00\u59cb\u5411\u4e0b\u3001\u5de6\u4e0b\u3001\u53f3\u4e0b\u5ef6\u4f38\u800c\u6210\u7684\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -410,8 +386,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[SCREAM]\u5c16\u53eb: \u96f7\u503c\u7b49\u4e8e\u5176\u76f8\u90bb\u56db\u683c\u96f7\u6570\u7684\u9636\u4e58"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -426,8 +401,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[TEST-L1]TEST-L1: \u5982\u679c\u4e00\u4e2a\u683c\u5b50\u662f\u96f7\uff0c\u5176\u6c34\u5e73\u5bf9\u79f0\u683c\u4e0d\u662f\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -443,8 +417,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1S~]Snake~(\u86c7~): \u6240\u6709\u975e\u96f7\u6784\u6210\u82e5\u5e72\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -460,8 +433,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3H1Q]Hex1Q(\u516d\u89d2\u65e0\u65b9): \u516d\u89d2\u65e0\u65b9: \u6bcf\u4e2a\u4e92\u76f8\u76f8\u90bb\u7684\u4e09\u4e2a\u683c\u5fc5\u6709\u4e00\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -477,8 +449,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1U]Unary(\u4e00\u5143): \u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -493,8 +464,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[Gd]GD: 1.\u6bcf\u884c\u503c\u4e0d\u5927\u4e8e\u4e0a\u4e00\u884c 2.\u6bcf\u5217\u503c\u4e0d\u5927\u4e8e\u5de6\u4e00\u5217"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -510,8 +480,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3C^]Connected^(\u8fde\u901a^): \u6bcf\u4e2a\u96f7\u5468\u56f4\u516b\u683c\u4e2d\u96f7\u7684\u6570\u91cf\u4e3a\u5076\u6570\uff08\u5305\u62ec0\uff09"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -526,8 +495,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1T'']\u7eaf\u4e09\u8fde: \u6bcf\u4e2a\u96f7\u5c5e\u4e8e\u552f\u4e00\u7684\u4e09\u8fde\u7ec4(\u6a2a/\u7ad6/\u659c)"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -543,8 +511,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[DC]Diagonally Connected(\u5fc5\u5bf9\u89d2): \u6bcf\u4e2a\u96f7\u5bf9\u89d2\u76f8\u90bb\u7684\u56db\u683c\u4e2d\u6709\u81f3\u5c11\u4e00\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -560,8 +527,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[SETU^]SETUH(\u6da9\u56fe\u878d\u5408): \u53c2\u6570\u94fe\u63a5(\u652f\u6301URL/\u6587\u4ef6\u8def\u5f84)\u4f5c\u4e3aA\u56fe\uff0c\u4e0e\u5df2\u751f\u6210\u9898\u677f\u56feB\u878d\u5408\u5e76\u66ff\u6362\u6700\u7ec8\u9898\u677f\u56fe"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -577,8 +543,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "1K2F_\u9a6c\u6b65\u82b1\u7530_KnightFlower.png",
-            "display": "[1K2F]KnightFlower(\u9a6c\u6b65\u82b1\u7530)[@Image=1K2F_\u9a6c\u6b65\u82b1\u7530_KnightFlower.png]: \u67d3\u8272\u683c\u4e2d\u7684\u96f7\u7684\u516b\u4e2a\u9a6c\u6b65\u4f4d\u7f6e\u5185\u6070\u597d\u67091\u4e2a\u96f7"
+            "image": "1K2F_\u9a6c\u6b65\u82b1\u7530_KnightFlower.png"
         },
         {
             "rule_line": "L",
@@ -594,8 +559,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1Q~]Q~(\u96f7\u65e0\u65b9): \u6bcf\u4e2a2x2\u533a\u57df\u5185\u90fd\u81f3\u5c11\u6709\u4e00\u4e2a\u7a7a\u683c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -611,8 +575,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4S]Staircase(\u9636\u68af): \u6240\u6709\u96f7\u88ab\u89c6\u4e3a X \u4e2a\u96f7\uff08X \u4e3a\u5176\u7684\u884c\u5217\u6570\u4e4b\u548c\uff09"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -628,8 +591,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2G]Group(\u56db\u8fde\u5757): \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a 4"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -645,8 +607,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1D]Dual(\u5bf9\u5076): \u6bcf\u4e2a\u96f7\u533a\u57df\u4e3a 1x2 \u6216 2x1 \u7684\u77e9\u5f62"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -662,8 +623,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[GT2]GT2(\u6240\u6709\u56db\u8fde\u901a\u96f7/\u975e\u96f7\u533a\u57df\u9762\u79ef\u5927\u4e8e 2): \u6240\u6709\u56db\u8fde\u901a\u96f7/\u975e\u96f7\u533a\u57df\u9762\u79ef\u5927\u4e8e 2"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -679,8 +639,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[Temperature]Temperature(\u6e29\u5ea6\u8ba1): \u5c06\u4f1a\u968f\u673a"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -695,8 +654,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[BM]\u591a\u96f7\u5e73\u8861: \u67d3\u8272\u683c\u88ab\u89c6\u4e3a\u4e24\u4e2a\u96f7, \u6bcf\u884c\u6bcf\u5217\u7684\u201c\u591a\u96f7\u96f7\u503c\u201d\u76f8\u540c\u3002(\u7ebf\u7d22\u683c\u4e0d\u4e00\u5b9a\u662f\u591a\u96f7\u89c4\u5219) (1).\u5217\u5e73\u8861, (2).\u884c\u5e73\u8861"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -711,8 +669,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[THEME]\u4e3b\u9898: \u8bbe\u7f6e\u9898\u677f\u4e3b\u9898"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -728,8 +685,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3C]Connected(\u8fde\u901a): \u6bcf\u4e2a\u96f7\u5468\u56f4\u516b\u683c\u4e2d\u6070\u6709\u4e24\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -745,8 +701,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[AI]Arrow(\u7bad\u5934): \u751f\u6210\u56fa\u5b9a\u516b\u65b9\u5411\u7bad\u5934\u56fe, \u96f7\u683c\u9700\u6cbf\u7bad\u5934\u53ef\u4e0d\u91cd\u8865\u6f0f\u904d\u5386"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -761,8 +716,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3I]\u53cd\u76f8: \u67d3\u8272\u683c\u4e2d\u975e\u96f7\u89c6\u4e3a\u96f7\uff0c\u96f7\u89c6\u4e3a\u975e\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -778,8 +732,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2B]Bridge(\u6865): \u6240\u6709\u96f7\u6784\u6210\u82e5\u5e72\u7ec4\u6865\u3002\u6865\u662f\u4ece\u9898\u7248\u5de6\u8fb9\u754c\u516b\u8fde\u901a\u8fde\u63a5\uff08\u6c34\u5e73\u6216\u659c\u89d2\u8fde\u63a5\uff09\u5230\u53f3\u8fb9\u754c\uff0c\u5bbd\u5ea6\u4e3a 1\u3001\u957f\u5ea6\u4e0e\u9898\u7248\u76f8\u7b49\u7684\u4e00\u6761\u8def\u5f84"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -794,8 +747,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3MA]\u4e09\u96f7\u533a: \u9898\u677f\u6b63\u597d\u6709\u4e09\u4e2a\u56db\u8fde\u901a\u96f7\u533a"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -811,8 +763,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[PUZ]Puzzle(\u62fc\u56fe): \u6240\u6709\u56db\u8054\u901a\u96f7\u5757\u53ef\u901a\u8fc7\u72ec\u7acb\u5e73\u79fb\u91cd\u6392\u6210\u4e00\u4e2a\u8f74\u5bf9\u9f50\u77e9\u5f62"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -827,8 +778,7 @@
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "",
-            "display": "[U-YY]\u4e00\u8a00[@Author=NT(2201963934)]: \u4e00\u8a00\uff1a\u629b\u51fa\u4e00\u8a00\uff08hitokoto.cn\uff09\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -843,8 +793,7 @@
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "",
-            "display": "[U-SETU]\u6da9\u56fe[@Author=NT(2201963934)]: \u53c2\u6570\u94fe\u63a5(\u652f\u6301URL/\u6587\u4ef6\u8def\u5f84)"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -860,8 +809,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4B]Bingo(\u5bbe\u679c): \u6bcf\u4e2a\u683c\u5b50\u88ab\u968f\u673a\u6807\u8bb0\u4e00\u4e2a\u5de6\u7ebf\u89c4\u5219\u3002\u5f53\u8be5\u683c\u4e3a\u96f7\u65f6\uff0c\u5b8c\u6574\u9898\u677f\u5fc5\u987b\u6ee1\u8db3\u8be5\u683c\u7684\u89c4\u5219\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -877,8 +825,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1Q]Quad(\u65e0\u65b9): \u6bcf\u4e2a 2x2 \u8303\u56f4\u5185\u81f3\u5c11\u6709\u4e00\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -892,8 +839,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[Crossing]Crossing(\u5341\u5b57\u8def\u53e3): "
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -909,8 +855,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2C]Connected(\u8fde\u65b9): (1) \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u4e3a\u77e9\u5f62\uff1b(2) \u6240\u6709\u96f7\u533a\u57df\u5bf9\u89d2\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -925,8 +870,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[GM]\u68cd\u6728: \u68cd\u6728"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -942,8 +886,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1B]Balance(\u5e73\u8861): (1) \u6bcf\u884c\u96f7\u6570\u76f8\u7b49\uff1b(2) \u6bcf\u5217\u96f7\u6570\u76f8\u7b49"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -959,8 +902,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1O]Outside(\u5916\u90e8): \u975e\u96f7\u533a\u57df\u56db\u8fde\u901a\uff1b\u6bcf\u4e2a\u96f7\u533a\u57df\u4ee5\u56db\u8fde\u901a\u8fde\u63a5\u5230\u9898\u7248\u8fb9\u754c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -975,8 +917,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[QTREE]\u56db\u53c9\u6811: \u5c06\u9898\u7248\u5212\u5206\u4e3a\u56db\u53c9\u6811\uff0c\u79f0\u6240\u6709\u8282\u70b9\u5747\u4e3a\u96f7\u7684\u5b50\u6811\u4e3a\u5927\u96f7\uff0c\u5927\u96f7\u4ee5\u5916\u7684\u8282\u70b9\u4e0d\u80fd\u6709\u4e24\u4e2a\u5b50\u8282\u70b9\u540c\u65f6\u4e3a\u96f7\u6216\u5927\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -992,8 +933,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1K1C]Knight-Connected(\u9a6c\u6b65\u516b\u8fde\u901a): \u96f7\u533a\u57df\u9a6c\u6b65\u8fde\u901a"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1009,8 +949,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4U]4U(\u6676\u80de): \u7b2c\u4e00\u884c\u548c\u6700\u540e\u4e00\u884c\u96f7\u5206\u5e03\u76f8\u540c\uff0c\u7b2c\u4e00\u5217\u548c\u6700\u540e\u4e00\u5217\u96f7\u5206\u5e03\u76f8\u540c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1026,8 +965,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2T]Triplet(\u65e0\u4e09\u8fde): (1) \u96f7\u5728\u6a2a\u7ad6\u4e24\u4e2a\u65b9\u5411\u4e0a\u4e0d\u80fd\u6784\u6210\u4e09\u8fde\uff1b(2) \u975e\u96f7\u5728\u6a2a\u7ad6\u4e24\u4e2a\u65b9\u5411\u4e0a\u4e0d\u80fd\u6784\u6210\u4e09\u8fde"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1042,8 +980,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "3E_\u8fed\u4ee3_\u6f14\u5316.png",
-            "display": "[3E]\u8fed\u4ee3[@Image=3E_\u8fed\u4ee3_\u6f14\u5316.png]: \u6bcf\u4e2a3x1\u533a\u57df\u51b3\u5b9a\u5176\u4e2d\u95f4\u4e0b\u65b91\u683c\u662f\u5426\u4e3a\u96f7\uff0c\u6f14\u5316\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u533a\u57df\u5171\u4eab\u3002"
+            "image": "3E_\u8fed\u4ee3_\u6f14\u5316.png"
         },
         {
             "rule_line": "L",
@@ -1059,8 +996,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[A2]A2(A2 \u683c\u662f\u96f7): A2 \u683c\u662f\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1076,8 +1012,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[AA]Attraction(\u5438\u5f15): \u573a\u4e0a\u4e0d\u5b58\u5728\u6a2a\u7ad6\u65b9\u5411\u4e0a\u7684\u96f7\u2014\u7a7a\u2014\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1093,8 +1028,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3L]Loop(\u73af): \u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u73af\u3002\u73af\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u516b\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u548c\u4ea4\u53c9\uff0c\u73af\u7684\u5934\u5c3e\u76f8\u8fde"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1109,8 +1043,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "3Q'_\u65e0\u65b9.png",
-            "display": "[3Q']\u65e0\u65b9[@Image=3Q'_\u65e0\u65b9.png]: \u4efb\u610f\u56db\u4e2a\u96f7\u4e0d\u80fd\u4f5c\u4e3a\u4e00\u4e2a\u6a2a\u5e73\u7ad6\u76f4\u7684\u77e9\u5f62\u7684\u9876\u70b9"
+            "image": "3Q'_\u65e0\u65b9.png"
         },
         {
             "rule_line": "L",
@@ -1125,8 +1058,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1B'']\u540e\u5e73\u8861: \u96f7\u516b\u65b9\u5411\u4e0a\u7684\u603b\u96f7\u6570\u5747\u76f8\u7b49"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1141,8 +1073,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[TEST-L2]TEST-L2: \u6bcf\u4e00\u884c\u5404\u6709\u4e00\u7ec4\u8fde\u7eed\u7684\u96f7\u4e14\u6570\u91cf\u5404\u4e0d\u76f8\u540c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1158,8 +1089,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3Q]Square(\u6b63\u65b9\u5f62): \u6240\u6709\u56db\u8fde\u901a\u7684\u96f7\u683c\u533a\u57df\u7ec4\u6210\u5b9e\u5fc3\u6b63\u65b9\u5f62"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1174,8 +1104,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[MB]\u5e73\u8861\u70b9: \u6240\u6709\u96f7\u7684\u5e73\u5747\u4f4d\u7f6e\u662f\u6574\u70b9"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1191,8 +1120,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1D']Battleship(\u6218\u8230): \u6bcf\u4e2a\u96f7\u533a\u57df\u4e3a\u5bbd\u5ea6\u4e3a 1\u3001\u957f\u5ea6\u4e0d\u8d85\u8fc7 4 \u7684\u77e9\u5f62\uff0c\u77e9\u5f62\u4e0d\u80fd\u5bf9\u89d2\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1207,8 +1135,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2I1C]\u6b8b\u7f3a\u8054\u901a: 1.\u6240\u6709\u96f7\u90fd\u5fc5\u987b\u6839\u636e\u526f\u677f\u6307\u793a\u76844\u5bf9\u8054\u901a\u65b9\u5411\u8fdb\u884c\u8054\u901a, 2.\u96f7\u53ea\u67093\u79cd\u8054\u901a\u65b9\u6cd5(\u4e0a\u4e0b/\u5de6\u53f3/\u5bf9\u89d2/\u526f\u5bf9\u89d2)"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1224,8 +1151,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1S]Snake(\u86c7): \u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1241,8 +1167,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1N]Negative(\u8d1f\u96f7): \u67d3\u8272\u683c\u4e2d\u96f7\u503c\u53d6\u8d1f"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1257,8 +1182,7 @@
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "",
-            "display": "[U-LLM]\u968f\u673a\u89c4\u5219\u70b9\u5b50[@Author=NT(2201963934)]: \u968f\u673a\u89c4\u5219\u70b9\u5b50\uff1a\u968f\u673a\u62bd\u8bcd\u5e76\u7531 LLM \u8054\u60f3\u751f\u6210\u89c4\u5219\u63cf\u8ff0\u540e\u629b\u51fa\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1274,8 +1198,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2C']Connected(\u8fde\u65b9'): (1) \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u4e3a 1xn \u6216 nx1 \u7684\u77e9\u5f62\uff1b(2) \u6240\u6709\u96f7\u533a\u57df\u5bf9\u89d2\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1290,8 +1213,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "3T_\u65e0\u4e09\u8fde.png",
-            "display": "[3T]\u65e0\u4e09\u8fde[@Image=3T_\u65e0\u4e09\u8fde.png]: \u4efb\u610f\u4e09\u4e2a\u96f7\u4e0d\u80fd\u7b49\u8ddd\u6392\u5e03"
+            "image": "3T_\u65e0\u4e09\u8fde.png"
         },
         {
             "rule_line": "L",
@@ -1306,8 +1228,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[OR]\u6216: \u4f60\u53ef\u4ee5\u5728\u540e\u9762\u8f93\u5165\u591a\u4e2a\u5de6\u7ebf\u6765\u8868\u793a\u6216\u5173\u7cfb(\u9898\u677f\u5c06\u6309\u7167A\u89c4\u5219\u6216B\u89c4\u5219)"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1323,8 +1244,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[AS]Spin(\u81ea\u65cb): \u6bcf\u4e00\u884c\u4e0d\u80fd\u540c\u65f6\u5b58\u5728\u67d3\u8272\u975e\u96f7\u683c\u3001\u975e\u67d3\u8272\u975e\u96f7\u683c\u3001\u67d3\u8272\u96f7\u683c\u548c\u975e\u67d3\u8272\u96f7\u683c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1340,8 +1260,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[AF]AF(\u4e0b\u843d): \u96f7\u533a\u4e0e\u9898\u677f\u4e0b\u8fb9\u7f18\u56db\u8fde\u901a"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1357,8 +1276,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3Y]Yin-Yang(\u9634\u9633): \u6240\u6709\u96f7\u56db\u8fde\u901a\uff0c\u6240\u6709\u975e\u96f7\u56db\u8fde\u901a\uff0c\u4e0d\u5b58\u57282*2\u7684\u96f7\u6216\u975e\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1374,8 +1292,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1K1S]Knight-Snake(\u9a6c\u6b65\u86c7): \u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u9a6c\u6b65\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1391,8 +1308,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3C']Connected'(\u8fde\u901a'): \u6bcf\u4e2a\u96f7\u5468\u56f4\u56db\u683c\u4e2d\u6070\u6709\u4e24\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1407,8 +1323,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1S^]\u53cc\u5934\u86c7: \u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u53cc\u5934\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u73af\u3001\u4ea4\u53c9, \u53ea\u5b58\u5728\u4e00\u4e2a\u5206\u53c9"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1424,8 +1339,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1M]Multiple(\u591a\u96f7): \u67d3\u8272\u683c\u7684\u96f7\u503c*2(\u603b\u96f7\u6570\u4e0d\u53d7\u5f71\u54cd)"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1440,8 +1354,7 @@
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "",
-            "display": "[U-ECHO]\u56de\u58f0[@Author=NT(2201963934)]: \u56de\u58f0\uff1a\u629b\u51fa\u53c2\u6570\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1457,8 +1370,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2HT]Vertical(\u7eb5\u5411): \u6240\u6709\u96f7\u5fc5\u987b\u5b58\u5728\u7eb5\u5411\u76f8\u90bb\u7684\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1474,8 +1386,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1C]Connected(\u516b\u8fde\u901a): \u96f7\u533a\u57df\u516b\u8fde\u901a"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1491,8 +1402,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1T]Triplet(\u65e0\u4e09\u8fde): \u96f7\u5728\u6a2a\u3001\u7ad6\u3001\u659c\u4e09\u4e2a\u65b9\u5411\u4e0a\u4e0d\u80fd\u6784\u6210\u4e09\u8fde"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1508,8 +1418,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[XS]Segment Split(\u5206\u6bb5): \u7528\u526f\u677f\u8868\u793a\u884c\u5206\u6bb5\u8fb9\u754c\uff1a\u65e0\u8fb9\u754c\u540c\u503c\u3001\u4e24\u4fa7\u4e0d\u540c\u5fc5\u4e3a\u8fb9\u754c\uff0c\u8fb9\u754c\u6570\u81ea\u5e95\u5411\u4e0a\u9012\u589e\u5e76\u6ee1\u8db3\u884c\u95f4\u7ee7\u627f"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1525,8 +1434,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1C']Connected'(\u516b\u8fde\u901a'): (1) \u67d3\u8272\u683c\u7684\u96f7\u548c (2) \u975e\u67d3\u8272\u683c\u7684\u96f7\u5404\u81ea\u516b\u8fde\u901a\u3002\u67d3\u8272\u533a\u57df\u548c\u975e\u67d3\u8272\u533a\u57df\u81f3\u5c11\u6709\u4e00\u4e2a\u96f7\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1542,8 +1450,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2G^]Group^(\u4e92\u5f02\u8fde\u5757): \u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a 1 \u5230 N \u5404\u4e00\u4e2a\u3002(N = \u9898\u677f\u5c3a\u5bf8 - 1)"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1558,8 +1465,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3W]\u98ce\u4e91: \u6bcf\u884c\u96f7\u6570\u4e0d\u540c\uff0c\u6bcf\u5217\u4e2d\u6700\u9ad8\u7684\u96f7\u7684\u9ad8\u5ea6\u4e0d\u4f4e\u4e8e\u5b83\u5de6\u8fb9\u4e00\u5217\u7684\u6700\u9ad8\u7684\u96f7\u7684\u9ad8\u5ea6\uff08\u7279\u6b8a\u60c5\u51b5\uff1a\u5982\u679c\u67d0\u4e00\u5217\u6ca1\u6709\u96f7\uff0c\u90a3\u4e48\u5b83\u5de6\u8fb9\u6240\u6709\u5217\u90fd\u6ca1\u6709\u96f7\uff09\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1574,8 +1480,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1H2H]\u6a2a\u6a2a\u5411\u5411: \u5728\u6bcf\u4e00\u884c\u4e2d, \u8981\u4e48\u90fd\u6ca1\u6709\u6a2a\u5411\u76f8\u90bb\u7684\u96f7\uff0c\u8981\u4e48\u90fd\u81f3\u5c11\u6709\u4e00\u4e2a\u6a2a\u5411\u76f8\u90bb\u7684\u96f7\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1591,8 +1496,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2G']Group'(\u4e09\u8fde\u5757): \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a3"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1608,8 +1512,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1U']Unary'(\u4e00\u5143'): \u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u76f8\u90bb\u6216\u5bf9\u89d2\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1625,8 +1528,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[SM]???(\u795e\u79d8): \u8fd9\u662f\u4e00\u6761\u4f1a\u8ba9\u7537\u5a18\u611f\u5230\u56f0\u60d1\u7684\u89c4\u5219"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1642,8 +1544,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3H1A]Anti-Knight-Hex(\u516d\u89d2\u65e0\u9a6c\u6b65): \u516d\u89d2\u65e0\u9a6c\u6b65: \u6240\u6709\u96f7\u7684UN UE NW ES DW DS\u7684\u4f4d\u7f6e\u4e0d\u80fd\u6709\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1659,8 +1560,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3R]Reference(\u5f15\u7528): \u5728\u7b2c X \u884c\u6216\u7b2c X \u5217\u7684\u683c\u5b50\u7684\u5468\u56f4\u516b\u683c\u4e0d\u80fd\u6070\u597d\u6709 X \u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1676,8 +1576,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[CT]Cactus(\u4ed9\u4eba\u638c): \u6bcf\u4e2a\u96f7\u5468\u56f4\u56db\u683c\u4e2d\u6070\u67091\u62163\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1693,8 +1592,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[SC]Sugar Cane(\u7518\u8517): \u6bcf\u4e2a\u96f7\u5468\u56f4\u81f3\u5c11\u6709\u4e00\u4e2a\u67d3\u8272\u683c, \u4e14\u67d3\u8272\u683c\u4e0d\u80fd\u4e3a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1710,8 +1608,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4N]4N(\u76f8\u90bb): \u975e\u96f7\u5468\u56f4\u56db\u683c\u5fc5\u987b\u6709\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1727,8 +1624,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1HT]Vertical(\u7eb5\u5411): \u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u7eb5\u5411\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1744,8 +1640,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1H]Horizontal(\u6a2a\u5411): \u6240\u6709\u96f7\u4e0d\u80fd\u4e0e\u5176\u4ed6\u96f7\u6a2a\u5411\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1761,8 +1656,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2S]Segment(\u5206\u6bb5): \u6bcf\u884c\u6709\u4e14\u4ec5\u6709\u4e00\u7ec4\u8fde\u7eed\u7684\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1777,8 +1671,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4S'']\u9636\u68af'': 4S'' = 4S - 1 = 4S' + 1"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1794,8 +1687,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2G*]Group*(\u4e92\u5f02\u56db\u8fde\u5757): (1) \u6240\u6709\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a 4 (2) \u4e14\u5b83\u4eec\u5f62\u72b6\u4e0d\u540c\uff08SZ \u548c JL \u578b\u89c6\u4e3a\u76f8\u540c\u5f62\u72b6\uff09"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1811,8 +1703,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1T']Triplet'(\u5fc5\u4e09\u8fde): \u6240\u6709\u96f7\u5fc5\u987b\u5904\u4e8e\u6a2a\u3001\u7ad6\u6216\u659c\u65b9\u5411\u7684\u4e09\u8fde\u4e2d"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1828,8 +1719,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[CL]Coastline(\u6d77\u5cb8\u7ebf): \u96f7\u533a\u57df\u4e0e\u975e\u96f7\u533a\u57df\u4e4b\u95f4\u4e0d\u5b58\u5728\u957f\u5ea6\u5927\u4e8e\u7b49\u4e8e 2 \u7684\u76f4\u7ebf\u5206\u754c\u7ebf"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1845,8 +1735,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2Z]Zero-Sum(\u96f6\u548c): \u6bcf\u884c\u7684\u67d3\u8272\u683c\u4e0e\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\u76f8\u7b49"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1860,8 +1749,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[HYW]??(\u4f55\u610f\u5473): "
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1877,8 +1765,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1D'']RectDiag(\u77e9\u5f62\u5bf9\u89d2\u7ebf): \u6240\u6709\u96f7\u5fc5\u987b\u662f1x1~1x4\u77e9\u5f62\u6216\u8005\u957f\u5ea62~4\u7684\u5bf9\u89d2\u7ebf\u7684\u4e00\u90e8\u5206\uff0c\u8fd9\u4e9b\u5f62\u72b6\u4e4b\u95f4\u4e0d\u80fd\u4e92\u76f8\u63a5\u89e6\uff08\u5bf9\u89d2\u4e5f\u4e0d\u884c\uff09\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1894,8 +1781,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1S'']Portal Snake(\u4f20\u9001\u95e8\u86c7): \u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9\u3002\u9898\u677f\u7684\u4e0a\u4e0b\u5de6\u53f3\u89c6\u4e3a\u8fde\u901a\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1911,8 +1797,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2F]Flower(\u82b1\u7530): \u67d3\u8272\u683c\u4e2d\u7684\u96f7\u5468\u56f4\u56db\u683c\u5185\u6070\u597d\u67091\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1928,8 +1813,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[A2~]A2~(A2 \u683c\u975e\u96f7): A2 \u683c\u975e\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1944,8 +1828,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1S']\u8854\u5c3e\u86c7: \u6240\u6709\u96f7\u6784\u6210\u4e00\u6761\u86c7\u3002\u86c7\u662f\u4e00\u6761\u5bbd\u5ea6\u4e3a 1 \u7684\u56db\u8fde\u901a\u8def\u5f84\uff0c\u4e0d\u5b58\u5728\u5206\u53c9\u3001\u73af\u3001\u4ea4\u53c9, \u86c7\u7684\u5934\u5c3e\u76f8\u8fde"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1961,8 +1844,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3P]Parade(\u6e38\u884c): \u53ef\u4ee5\u901a\u8fc7\u9a91\u58eb\u7684\u79fb\u52a8\u65b9\u5f0f\uff0c\u4ece\u67d0\u4e00\u4e2a\u96f7\u683c\u5f00\u59cb\uff0c\u5728\u53ea\u7ecf\u8fc7\u96f7\u683c\u7684\u60c5\u51b5\u4e0b\uff0c\u4e0d\u91cd\u590d\u4e14\u4e0d\u9057\u6f0f\u5730\u901a\u8fc7\u6240\u6709\u96f7\u683c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1977,8 +1859,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[AND]\u4e0e: \u4f60\u53ef\u4ee5\u5728\u540e\u9762\u8f93\u5165\u591a\u4e2a\u5de6\u7ebf\u6765\u8868\u793a\u6216\u5173\u7cfb(\u9898\u677f\u5c06\u6309\u7167A\u89c4\u5219\u6216B\u89c4\u5219)"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -1993,8 +1874,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4S']\u9636\u68af': \u96f7\u503c\u7b49\u4e8e\u884c\u53f7\u4e0e\u5217\u53f7\u4e4b\u548c, \u4f46\u4ece0\u5f00\u59cb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -2010,8 +1890,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2Z']Zero-Sum'(\u96f6\u548c'): \u6bcf\u4e2a4x4\u65b9\u5757\u5185\u7684\u67d3\u8272\u683c\u548c\u975e\u67d3\u8272\u683c\u96f7\u6570\u76f8\u7b49"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -2027,8 +1906,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[GL]Game of Life(\u751f\u547d\u6e38\u620f): \u6bcf\u4e2a\u96f7\u5468\u56f4\u516b\u683c\u4e2d\u6070\u67092\u62163\u4e2a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -2043,8 +1921,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1B']\u5931\u8861: \u6bcf\u884c\u6bcf\u5217\u96f7\u6570\u5747\u4e0d\u76f8\u540c 1.\u6bcf\u5217\u96f7\u6570\u4e0d\u76f8\u540c 2.\u6bcf\u884c\u96f7\u6570\u4e0d\u76f8\u540c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -2060,8 +1937,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[*1M]Mirror(\u955c\u50cf): \u96f7\u5206\u5e03\u5c06\u968f\u673a\u6309\u7167\u4e0b\u8ff0\u65b9\u5f0f\u5bf9\u79f0 [\u6c34\u5e73/\u5782\u76f4/\u5bf9\u89d2/\u526f\u5bf9\u89d2/\u4e2d\u5fc3]\u5bf9\u79f0"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -2076,8 +1952,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4D]\u5bf9\u89d2: \u4e0d\u540c\u56db\u8fde\u901a\u96f7\u533a\u4e0d\u53ef\u5bf9\u89d2\u76f8\u90bb"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -2093,8 +1968,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[AS']AutoSpin'(\u81ea\u65cb'): \u6bcf\u4e2a2x2\u533a\u57df\u5185\u4e0d\u80fd\u540c\u65f6\u5b58\u5728\u56db\u79cd\u72b6\u6001\uff08\u67d3\u8272\u96f7\u3001\u975e\u67d3\u8272\u96f7\u3001\u67d3\u8272\u975e\u96f7\u3001\u975e\u67d3\u8272\u975e\u96f7\uff09\u3002"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -2109,8 +1983,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3U]\u4e0a\u4e0a: \u6bcf\u5217\u6700\u9ad8\u7684\u96f7\u89c6\u4e3a\u4e24\u4e2a\u96f7\uff08\u603b\u96f7\u6570\u4e0d\u53d7\u5176\u5f71\u54cd\uff09"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -2126,8 +1999,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D]Dict(\u8f9e\u5178): \u6240\u6709\u96f7\u4ece\u5de6\u5230\u53f3\uff0c\u4ece\u4e0a\u5230\u4e0b\u4f9d\u6b21\u6807\u53f7\u3002\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u7684\u96f7\u7684\u6807\u53f7\u4e4b\u548c"
+            "image": ""
         },
         {
             "rule_line": "L",
@@ -2142,8 +2014,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[F#]\u6807\u7b7e: \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [*3T], [3], [3F]"
+            "image": ""
         }
     ],
     "M": [
@@ -2161,8 +2032,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[FL]Perimeter(\u5468\u957f): \u96f7\u7ebf\u7d22\u503c\u8868\u793a\u6240\u5728\u96f7\u533a\u5468\u957f"
+            "image": ""
         },
         {
             "rule_line": "M",
@@ -2177,8 +2047,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3F]\u4e0d\u662fV: \u96f7\u7ebf\u7d22\u8868\u793a\u9644\u8fd1\u516b\u4e2a\u683c\u5b50\u5185\u7684\u975e\u96f7\u683c\u6570"
+            "image": ""
         },
         {
             "rule_line": "M",
@@ -2193,8 +2062,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[*3T]\u96f7\u4e09\u8fde: \u96f7\u7ebf\u7d22\u6307\u793a\u5305\u542b\u81ea\u8eab\u7684\u96f7\u4e09\u8fde\u6570\u91cf\u3002\u96f7\u4e09\u8fde\u5141\u8bb8\u90e8\u5206\u91cd\u5408"
+            "image": ""
         },
         {
             "rule_line": "M",
@@ -2210,8 +2078,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[CB]CCB(\u8fde\u51fb): \u96f7\u7ebf\u7d22\u6307\u793a\u56db\u65b9\u5411\u7684\u8fde\u51fb\u603b\u503c\u548c\uff0c\u540c\u65b9\u5411\u76f8\u90bb\u7684n\u4e2a\u96f7\u8fde\u51fb\u503c\u4e3a1-n"
+            "image": ""
         },
         {
             "rule_line": "M",
@@ -2227,8 +2094,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[#]Tag(\u6807\u7b7e): \u7ebf\u7d22\u4f1a\u6709\u4e0d\u540c\u7684\u89c4\u5219, \u6bcf\u4e2a\u7ebf\u7d22\u7684\u89c4\u5219\u4f1a\u5355\u72ec\u6807\u51fa"
+            "image": ""
         },
         {
             "rule_line": "M",
@@ -2244,8 +2110,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3G]Grouping(\u5206\u7ec4): \u76f8\u540c\u6570\u5b57\u7684\u96f7\u7ebf\u7d22\u56db\u8fde\u901a"
+            "image": ""
         },
         {
             "rule_line": "M",
@@ -2260,8 +2125,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3]3: \u96f7\u6307\u5411\u7684\u65b9\u5411\u5b58\u5728n\u4e2a\u96f7(\u4e0d\u5305\u62ec\u81ea\u5df1)"
+            "image": ""
         }
     ],
     "R": [
@@ -2278,8 +2142,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1X]\u4e09\u7ef4\u5341\u5b57: \u7ebf\u7d22\u8868\u793a(\u4e0a\u4e0b\u5de6\u53f3\u524d\u540e)2\u683c\u7684\u5341\u5b57\u8303\u56f4\u5185\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2295,8 +2158,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3DK]3D1K(3D\u6807\u51c6\u626b\u96f7): \u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f426\u683c\u5185\u96f7\u7684\u6570\u91cf\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2311,8 +2173,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3D1X']\u4e09\u7ef4\u5341\u5b57': \u7ebf\u7d22\u8868\u793a\u534a\u5f84\u4e3a 1 \u7684\u5341\u5b57\u8303\u56f4\u5185\u7684\u96f7\u6570(\u4e0a\u4e0b\u5de6\u53f3\u524d\u540e)"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2327,8 +2188,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3DV]3D\u6807\u51c6\u626b\u96f7: \u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f426\u683c\u5185\u96f7\u7684\u6570\u91cf\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2343,8 +2203,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[BT]\u526f\u677f\u5171\u7528: \u4e0d\u540c\u526f\u677f\u89c4\u5219\u7684\u526f\u677f\u5171\u7528"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2360,8 +2219,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[MATE]Mate(\u5143): \u9898\u677f\u5177\u6709\u591a\u5757\u4e3b\u677f,\u591a\u5757\u4e3b\u677f\u7684\u96f7\u4f4d\u7f6e\u5b8c\u5168\u76f8\u540c,\u4f46\u662f\u9898\u677f\u5177\u6709\u4e0d\u540c\u7684\u89c4\u5219,\u89c4\u5219\u5c06\u6309\u7167\u987a\u5e8f\u6807\u51fa"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2376,8 +2234,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4Q]\u65b9\u683c: \u7ebf\u7d22\u8868\u793a\u5305\u542b\u8be5\u683c\u4e14\u5305\u542b\u96f7\u7684 2x2 \u533a\u57df\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2392,8 +2249,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2M']\u591a\u96f7': \u6bcf\u4e2a\u4e0b\u65b9\u662f\u96f7\u7684\u96f7\u88ab\u89c6\u4e3a\u4e24\u4e2a(\u603b\u96f7\u6570\u4e0d\u53d7\u9650\u5236)"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2409,8 +2265,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[CS]Compass(\u7f57\u76d8): \u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u5404\u76f8\u90bb\u96f7\u533a\u57df\u4e2d\uff0c\u5728\u6240\u793a\u65b9\u5411\u4e0a\u6bd4\u7ebf\u7d22\u672c\u8eab\u66f4\u8fdc\u7684\u5355\u5143\u683c\u6570\u91cf\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2426,8 +2281,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[*1F]Filp(\u7ffb\u8f6c): \u7ebf\u7d22\u8868\u793a\u5176\u4ee5\u9898\u677f\u5de6\u4e0a\u89d2\u5230\u53f3\u4e0b\u89d2\u76f4\u7ebf\u4e3a\u5bf9\u79f0\u8f74\u7684\u955c\u50cf\u4f4d\u7f6e\u5468\u56f4\u516b\u683c\u7684\u96f7\u6570\uff0c\u4e0d\u5305\u62ec\u81ea\u8eab"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2442,8 +2296,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4D']\u5bf9\u6620\u5408\u5e76: \u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u7684\u6570\u91cf\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2459,8 +2312,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3B]Binary(\u4e8c\u8fdb): \u65e0\u96f7\u662f0\uff0c\u6709\u96f7\u662f1\uff0c\u7ebf\u7d22\u4ee3\u8868\u6bcf\u884c\uff08\u5de6\u8d77\uff09\u548c\u6bcf\u5217\uff08\u4e0a\u8d77\uff09\u5bf9\u5e94\u4e24\u4e2a\u4e8c\u8fdb\u5236\u6570\u7684\u6309\u4f4d\u5f02\u6216\u503c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2476,8 +2328,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "1F_\u8fdc\u89c6_Farsight.png",
-            "display": "[1F]Farsight(\u8fdc\u89c6)[@Image=1F_\u8fdc\u89c6_Farsight.png]: \u7ebf\u7d22\u8868\u793a\u671d\u5411\u7bad\u5934\u65b9\u5411\u5230\u8fbe\u96f7\u6216\u9898\u677f\u8fb9\u7f18\u65f6\uff0c\u5782\u76f4\u4e0e\u7bad\u5934\u65b9\u5411\u7684\u8fde\u7eed\u975e\u96f7\u683c\u6570\u91cf"
+            "image": "1F_\u8fdc\u89c6_Farsight.png"
         },
         {
             "rule_line": "R",
@@ -2493,8 +2344,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1EB]Bishop Eyesight(\u4e3b\u6559\u89c6\u91ce): \u7ebf\u7d22\u8868\u793a\u659c\u5411\u4e0a\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2510,8 +2360,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1EK]Knight Eyesight(\u9a6c\u6b65\u89c6\u91ce): \u7ebf\u7d22\u8868\u793a\u6cbf\u7740\u9a6c\u6b65\u65b9\u5411\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2527,8 +2376,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[CPV]Clue Partition Value(\u5212\u5206\u96f7\u503c): \u7ebf\u7d22\u683c\u8868\u793a\u5468\u56f4\u516b\u683c\u96f7\u6570, \u4e14\u6bcf\u4e2a\u683c\u5b50\u5728\u5176\u53ef\u89c1\u5019\u9009\u7ebf\u7d22\u96c6\u5408\u4e2d\u5fc5\u987b\u552f\u4e00\u5f52\u5c5e\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2543,8 +2391,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "3A_\u5170\u987f\u8682\u8681.png",
-            "display": "[3A]\u5170\u987f\u8682\u8681[@Image=3A_\u5170\u987f\u8682\u8681.png]: \u6570\u5b57\u8868\u793a\u5170\u987f\u8682\u8681\u4ece\u7ebf\u7d22\u683c\u51fa\u53d1\u76f4\u81f3\u8d70\u51fa\u9898\u677f\u5916\u6240\u79fb\u52a8\u7684\u6b21\u6570\u3002\n\u7bad\u5934\u8868\u793a\u5170\u987f\u8682\u8681\u7684\u521d\u59cb\u65b9\u5411\uff0c\u7ecf\u8fc7\u975e\u96f7\u683c\u987a\u65f6\u9488\u65cb\u8f6c90\u5ea6(\u53f3\u8f6c)\uff0c\u7ecf\u8fc7\u96f7\u683c\u9006\u65f6\u9488\u65cb\u8f6c90\u5ea6(\u5de6\u8f6c)\u3002\n\u6570\u5b57\u53ef\u4ee5\u4e3a\u65e0\u7a77(\u663e\u793a\u4e3a0),\u5176\u8868\u793a\u5f53\u524d\u8def\u5f84\u6784\u6210\u4e86\u5faa\u73af"
+            "image": "3A_\u5170\u987f\u8682\u8681.png"
         },
         {
             "rule_line": "R",
@@ -2560,8 +2407,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4Y]Area(\u533a\u57df): \u7ebf\u7d22\u8868\u793a\u5305\u542b\u8be5\u683c\u7684\u6700\u5927\u65e0\u96f7\u77e9\u5f62\u533a\u57df\u7684\u9762\u79ef"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2577,8 +2423,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1E]Eyesight(\u89c6\u91ce): \u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u4e0a\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2594,8 +2439,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[6V]Vanilla(Full Marking)(\u7ecf\u5178\u626b\u96f7(\u5168\u6807)): \u76d8\u9762\u4e0a\u7684\u6570\u5b57\u7ebf\u7d22\u6807\u8bc6\u5468\u56f4\u516b\u683c\u7684\u96f7\u6570\u3002\u76d8\u9762\u4e0a\u6240\u6709\u5df2\u7ed9\u51fa\u7684\u6570\u5b57\u5747\u5df2\u7ed9\u51fa\u3002\u5176\u4ed6\u683c\u5b50\u4e0d\u53ef\u80fd\u518d\u51fa\u73b0\u5df2\u7ecf\u7ed9\u51fa\u7684\u6570\u5b57\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2610,8 +2454,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4V']\u6620\u5c04': \u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e09\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u67d0\u4e24\u4e2a\u8303\u56f4\u4e2d\u5fc33*3\u533a\u57df\u7684\u96f7\u603b\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2627,8 +2470,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2D'']Deviation''(\u504f\u79fb''): \u7ebf\u7d22\u8868\u793a\u4ee5\u56db\u65b9\u5411\u504f\u79fb\u4e00\u683c\u4e3a\u4e2d\u5fc3\u76843x3\u533a\u57df\u5185\u7684\u96f7\u6570\u6700\u591a\u7684\u533a\u57df\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2644,8 +2486,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[V'']Absolute(\u96f7\u7edd\u5bf9\u503c): \u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u503c\u4e4b\u548c\u4e4b\u7edd\u5bf9\u503c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2660,8 +2501,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3S]\u8d1d\u58f3: \u7ebf\u7d22\u4ee3\u8868\u76f8\u90bb\u76848\u4e2a\u683c\u5b50\u4e2d\uff0c \u4e2d\u95f4\u504f\u4e0a5\u683c\u8303\u56f4\u548c\u4e2d\u95f4\u504f\u4e0b5\u683c\u8303\u56f4\u91cc\u7684\u96f7\u6570(\u987a\u5e8f\u4e0d\u786e\u5b9a)"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2676,8 +2516,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1M']\u591a\u96f7': \u6bcf\u4e2a\u7ebf\u7d22\u7684\u591a\u96f7\u4f4d\u7f6e\u76f8\u5bf9\u4e8e\u7ebf\u7d22\u56fa\u5b9a \u4e14\u4f4d\u7f6e\u5168\u76d8\u5171\u4eab\uff08\u4e0d\u5f71\u54cd\u603b\u96f7\u6570\uff09"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2693,8 +2532,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[QL]1Q1L(\u8bef\u5dee\u65e0\u65b9): \u8bef\u5dee\u7ebf\u7d22\u6bd4\u771f\u5b9e\u503c\u59271\u6216\u5c0f1\uff0c\u5982\u679c\u7ebf\u7d22\u5904\u57282*2\u975e\u96f7\u6846\u5185\uff0c\u5219\u5b83\u662f\u8bef\u5dee\u7ebf\u7d22\uff0c\u53cd\u4e4b\u5219\u662f\u771f\u5b9e\u503c\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2709,8 +2547,7 @@
                 "name": "\u96fe",
                 "id": "3140864122"
             },
-            "image": "",
-            "display": "[3A^]\u5170\u987f\u8682\u8681\u00b7\u5f02\u6216[@Author=\u96fe(3140864122)]: \u5c06\u5170\u987f\u8682\u8681[3A]\u56db\u4e2a\u65b9\u5411\u7684\u7ed3\u679c\u505a\u5f02\u6216\u64cd\u4f5c \u82e5\u7ed3\u679c\u4e3a\u65e0\u7a77\u5927\u5219\u4f7f\u7528\u8865\u7801\u5f62\u5f0f\u663e\u793a"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2726,8 +2563,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[V']Value(\u96f7\u503c): \u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u503c\u4e4b\u548c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2743,8 +2579,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2P']Journey(\u65c5\u7a0b): \u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u6700\u8fd1\u7684 2 \u4e2a\u96f7\u7684\u66fc\u54c8\u987f\u8ddd\u79bb\u4e4b\u548c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2760,8 +2595,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2K']Diamond(\u94bb\u77f3): \u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u4e0d\u8d85\u8fc7 2 \u7684\u8303\u56f4\u5185\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2777,8 +2611,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[MC]Mine-Combination(\u67d3\u8272\u683c\u5408\u5e76): \u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u7684\u96f7\u6570\uff0c\u67d3\u8272\u683c\u4e2d\u5982\u6709\u96f7\u5c31\u540c\u4e00\u7b97\u4e3a\u4e00\u96f7\uff08\u5269\u4f59\u96f7\u6570\u4e0d\u53d7\u5f71\u54cd\uff09"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2794,8 +2627,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[PF]Prime Factor(\u7d20\u56e0\u5b50): \u96640\u548c1\u5916\u7684\u7ebf\u7d22\u663e\u793a\u771f\u5b9e\u503c\u7684\u6700\u5927\u7d20\u56e0\u5b50"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2811,8 +2643,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2X']Cross'(\u5341\u5b57'): \u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u67d3\u8272\u683c\u6216\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2828,8 +2659,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2Q]Queen(\u7687\u540e): \u7ebf\u7d22\u8868\u793a\u516b\u65b9\u5411\u6709\u96f7\u7684\u65b9\u5411\u6570\u91cf"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2845,8 +2675,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2Q']Octopus(\u7ae0\u9c7c): \u7ebf\u7d22\u8868\u793a\u516b\u65b9\u5411\u4e0a\u6700\u8fd1\u76842\u683c\u6709\u96f7\u7684\u65b9\u5411\u6570\u91cf"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2862,8 +2691,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2D]Deviation(\u504f\u79fb): \u7ebf\u7d22\u8868\u793a\u4ee5\u6b63\u4e0a\u65b9\u4e00\u683c\u4e3a\u4e2d\u5fc3\uff0c3x3 \u8303\u56f4\u5185\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2879,8 +2707,7 @@
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "",
-            "display": "[++]plusplus(\u8279)[@Author=NT(2201963934)]: \u7ebf\u7d22\u8868\u793a\u5468\u56f4\u8fd9\u4e9b\u683c\u5b50\u7684\u96f7\u6570LL;LU;LD;L;RR;RU;RD;R"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2895,8 +2722,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2*1L]2\u500d\u8bef\u5dee: \u6240\u6709\u7ebf\u7d22\u5747\u6bd4\u771f\u5b9e\u503c\u59272\u6216\u5c0f2\u6216\u8005\u4e0d\u53d8"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2912,8 +2738,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3N]Norm(\u8303\u6570): \u7ebf\u7d22(a_p)\u8868\u793a\u8ddd\u79bb\u81ea\u5df1lp\u8303\u6570\u6700\u8fd1\u7684\u96f7\u7684lp\u8303\u6570\u5927\u5c0f\u4e3aa\u3002(p=0,1,2,00)"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2929,8 +2754,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1X*]Queen(\u738b\u540e): \u7ebf\u7d22\u6570\u8868\u793a\u659c\u5411\u548c\u6a2a\u7eb5\u6240\u6709\u683c\u5b50\u4e2d\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2946,8 +2770,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3M]Mirror(\u5bf9\u6620): \u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u7ec4\u6210\u56db\u4e2a\u6b63\u597d\u76f8\u5bf9\u7684\u683c\u5b50\u7ec4\u6709\u4e14\u4ec5\u6709\u4e00\u4e2a\u662f\u96f7\u7684\u7ec4\u6570\uff08\u9898\u677f\u5916\u89c6\u4e3a\u975e\u96f7\uff09"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2962,8 +2785,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[TV]TapaView: \u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u4e0a\u80fd\u770b\u5230\u7684\u96f7\u683c\u6570\u91cf\uff0c\u7a7a\u683c\u4f1a\u963b\u6321\u89c6\u7ebf"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2979,8 +2801,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2M'']Multiple(\u591a\u96f7): \u6bcf\u884c\u6bcf\u5217\u6070\u6709\u4e00\u4e2a\u96f7\u88ab\u89c6\u4e3a\u4e24\u4e2a(\u603b\u96f7\u6570\u4e0d\u53d7\u9650\u5236)"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -2995,8 +2816,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1X2X]\u5341\u5b57: \u7ebf\u7d22\u4ee3\u8868\u534a\u5f84\u4e3a 2 \u7684\u5341\u5b57\u8303\u56f4\u5185\u4e2d\uff0c\u67d3\u8272\u548c\u975e\u67d3\u8272\u683c\u91cc\u7684\u96f7\u6570(\u987a\u5e8f\u4e0d\u786e\u5b9a)"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3012,8 +2832,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1E']Eyesight'(\u89c6\u5dee): \u7ebf\u7d22\u8868\u793a\u7eb5\u5411\u548c\u6a2a\u5411\u7684\u89c6\u91ce\u4e4b\u5dee\uff0c\u7bad\u5934\u6307\u793a\u89c6\u91ce\u66f4\u957f\u7684\u65b9\u5411"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3029,8 +2848,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1P]Partition(\u5206\u7ec4): \u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u8fde\u7eed\u96f7\u7684\u7ec4\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3046,8 +2864,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[Rule-011]\u03c4B(\u6ca1\u60f3\u597d): \u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u4e2d\u5468\u56f4\u56db\u683c\u6ca1\u6709\u96f7\u7684\u96f7\u6570\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3063,8 +2880,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[Rule-013]\u03c4D(\u6ca1\u60f3\u597d): \u5982\u679c\u4e00\u4e2a\u96f7\u7684\u5468\u56f4\u516b\u683c\u6709\u56db\u4e2a\u53ca\u4ee5\u4e0a\u7684\u96f7\uff0c\u90a3\u4e48\u8fd9\u4e2a\u96f7\u7684\u96f7\u503c\u662f0\uff0c\u603b\u96f7\u6570\u4e0d\u53d7\u6b64\u89c4\u5219\u5f71\u54cd\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3080,8 +2896,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1X-]Pawn(\u6b8b\u7f3a\u5341\u5b57): \u7ebf\u7d22\u8868\u793a\u671d\u5411\u4e00\u4e2a\u65b9\u5411\u7684\u4e24\u4e2a\u683c\u5b50\u4e2d\u7684\u96f7\u6570\uff0c\u7ebf\u7d22\u4f1a\u6807\u6ce8\u51fa\u65b9\u5411"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3097,8 +2912,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1EQ]Queen Eyesight(\u7687\u540e\u89c6\u91ce): \u7ebf\u7d22\u8868\u793a\u516b\u4e2a\u65b9\u5411\u4e0a\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u62ec\u81ea\u8eab\uff09\uff0c\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3114,8 +2928,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[#]Tag(\u6807\u7b7e): \u7ebf\u7d22\u4f1a\u6709\u4e0d\u540c\u7684\u89c4\u5219, \u6bcf\u4e2a\u7ebf\u7d22\u7684\u89c4\u5219\u4f1a\u5355\u72ec\u6807\u51fa"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3131,8 +2944,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2L]Liar(\u8bef\u5dee): \u6bcf\u884c\u6bcf\u5217\u6070\u6709\u4e00\u4e2a\u8bef\u5dee\u7ebf\u7d22\u3002\u8bef\u5dee\u7ebf\u7d22\u7684\u503c\u6bd4\u771f\u5b9e\u503c\u5927 1 \u6216\u5c0f 1"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3146,8 +2958,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1M1N]Multiple + Negative(\u591a\u96f7 + \u8d1f\u96f7): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3163,8 +2974,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3H']Triangle(\u5c0f\u4e09\u89d2): \u7ebf\u7d22\u8868\u793a\u8fd9\u4e9b\u5468\u56f4\u683c\u5b50\u7684\u96f7\u6570\uff1a\u5de6 \u53f3\uff0c\u5947\u6570\u5217\u989d\u5916\u5305\u62ec\u4e0a\uff1b\u5076\u6570\u5217\u989d\u5916\u5305\u62ec\u4e0b"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3180,8 +2990,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2A1P]Area + Partition(\u9762\u79ef + \u5212\u5206): \u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u76f8\u90bb\u96f7\u533a\u57df\u7684\u6570\u91cf"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3197,8 +3006,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1X]Cross(\u5341\u5b57): \u7ebf\u7d22\u8868\u793a\u534a\u5f84\u4e3a 2 \u7684\u5341\u5b57\u8303\u56f4\u5185\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3214,8 +3022,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[UP]Unique Path(\u552f\u4e00\u8def\u5f84): \u7ebf\u7d22\u683c\u8868\u793a\u4ece\u8fd9\u4e2a\u683c\u5f00\u59cb\u53ea\u80fd\u5f80\u53f3\u6216\u4e0b\u8d70\uff0c\u5230\u8fbe\u53f3\u4e0b\u89d2\u7684\u65b9\u6cd5\u6570\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3231,8 +3038,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1W]Wall(\u6570\u5899): \u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u6bcf\u7ec4\u8fde\u7eed\u96f7\u7684\u957f\u5ea6"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3248,8 +3054,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[CQ]Chess-Queen(\u738b\u540e): \u7ebf\u7d22\u8868\u793a\u516b\u65b9\u5411\u4e0a\u96f7\u6570\u603b\u548c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3265,8 +3070,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[SG]Singleton(\u5355\u4e00): \u7ebf\u7d22\u8868\u793a\u5468\u56f4 3x3 \u8303\u56f4\u5185\u6070\u597d\u53ea\u6709\u4e00\u96f7\u7684\u884c\u6570\u548c\u5217\u6570\u4e4b\u548c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3282,8 +3086,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2E^]Encrypted^(\u52a0\u5bc6^): \u7ebf\u7d22\u88ab\u5b57\u6bcd\u66ff\u4ee3\uff0c\u6bcf\u4e2a\u5b57\u6bcd\u5bf9\u5e94\u4e24\u4e2a\u7ebf\u7d22\uff0c\u4e14\u6bcf\u4e2a\u7ebf\u7d22\u5bf9\u5e94\u4e24\u4e2a\u5b57\u6bcd"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3299,8 +3102,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2A1W]Area + Wall(\u9762\u79ef + \u6570\u5899): \u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u5404\u76f8\u90bb\u96f7\u533a\u57df\u7684\u9762\u79ef"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3316,8 +3118,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "2D^_\u504f\u79fb^_Deviation^.png",
-            "display": "[2D^]Deviation^(\u504f\u79fb^)[@Image=2D^_\u504f\u79fb^_Deviation^.png]: \u7ebf\u7d22\u8868\u793a Nx3 \u8303\u56f4\u5185\u7684\u96f7\u6570\uff0cN \u4e3a\u6b63\u4e0a\u8fde\u7eed\u975e\u96f7\u683c\u6570\u91cf"
+            "image": "2D^_\u504f\u79fb^_Deviation^.png"
         },
         {
             "rule_line": "R",
@@ -3333,8 +3134,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2X]Cross(\u5341\u5b57): \u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u67d3\u8272\u683c\u548c\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\uff08\u987a\u5e8f\u4e0d\u786e\u5b9a\uff09"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3349,8 +3149,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2I']\u6b8b\u7f3a': \u6570\u5b57\u8868\u793a\u5468\u56f48\u683c\u4e2d\u67d0N\u683c\u7684\u96f7\u6570\u3002N\u683c\u7684\u65b9\u4f4d\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u7ebf\u7d22\u5171\u4eab"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3366,8 +3165,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2I]Incomplete(\u6b8b\u7f3a): \u6570\u5b57\u8868\u793a\u5468\u56f48\u683c\u4e2d\u67d07\u683c\u7684\u96f7\u6570\u30027\u683c\u7684\u65b9\u4f4d\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u7ebf\u7d22\u5171\u4eab"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3383,8 +3181,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[BIN']Binary'(\u4e8c\u53c9'): BIN':X;Y \u8868\u793a\u7ebf\u7d22\u4e3a X \u6216 Y \u89c4\u5219\u4e0b\u7684\u503c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3400,8 +3197,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[V]Vanilla(\u6807\u51c6\u626b\u96f7): \u6bcf\u4e2a\u6570\u5b57\u6807\u660e\u5468\u56f4\u516b\u683c\u5185\u96f7\u7684\u6570\u91cf\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3417,8 +3213,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4O]Myopia(\u8fd1\u89c6): \u7ebf\u7d22\u4ee5\u4e0a\u4e0b\u5de6\u53f3\u7bad\u5934\u800c\u975e\u6570\u5b57\u5448\u73b0\uff0c\u7bad\u5934\u6307\u5411\u56db\u65b9\u5411\u8ddd\u79bb\u5176\u6700\u8fd1\u7684\u96f7\uff0c\u540c\u65f6\u5b58\u5728\u591a\u4e2a\u96f7\u8ddd\u79bb\u6700\u8fd1\u65f6\u4f1a\u663e\u793a\u5168\u90e8\u7bad\u5934\u3002\u56db\u65b9\u5411\u90fd\u4e0d\u5b58\u5728\u96f7\u65f6\u663e\u793a\u96f6\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3434,8 +3229,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[AVG]Average(\u5e73\u5747): \u56db\u8054\u901a\u975e\u96f7\u683c\u7684\u7ebf\u7d22\u503c\u6c42\u5e73\u5747"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3451,8 +3245,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2P]Product(\u4e58\u79ef): \u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u6700\u8fd1\u7684 2 \u4e2a\u96f7\u7684\u8ddd\u79bb\u4e4b\u79ef"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3468,8 +3261,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2L'']Liar(\u8bef\u5dee): \u6bcf\u884c\u6bcf\u5217\u6070\u6709\u4e00\u4e2a\u8bef\u5dee\u7ebf\u7d22\u3002\u8bef\u5dee\u7ebf\u7d22\u7684\u503c\u6bd4\u771f\u5b9e\u503c\u5927 1 \u6216\u5c0f 1"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3483,8 +3275,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1N1X]Negative + Cross(\u8d1f\u96f7 + \u5341\u5b57): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3500,8 +3291,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1K]Knight(\u9a91\u58eb): \u7ebf\u7d22\u8868\u793a\u9a6c\u6b65\u4f4d\u7f6e 8 \u4e2a\u683c\u5b50\u4e2d\u7684\u603b\u96f7\u503c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3517,8 +3307,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1XX]Bishop(\u4e3b\u6559): \u7ebf\u7d22\u6570\u8868\u793a\u659c\u5411\u6240\u6709\u683c\u5b50\u4e2d\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3534,8 +3323,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1X^]Rhombus(\u83f1\u5f62): \u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u4e3a \u221a2 \u548c\u8ddd\u79bb\u4e3a 2 \u533a\u57df\u7684\u603b\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3551,8 +3339,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3H]Hexagon(\u516d\u89d2): \u7ebf\u7d22\u8868\u793a\u516d\u8fb9\u5f62\u7f51\u683c\u4e2d\u4e0e\u7ebf\u7d22\u8ddd\u79bb\u4e3a1\u7684\u683c\u5b50\u4e2d\u7684\u96f7\u6570\n\u7ebf\u7d22\u8868\u793a\u6b63\u65b9\u5f62\u7f51\u683c\u4e2d\u8fd9\u4e9b\u5468\u56f4\u683c\u5b50\u7684\u96f7\u6570\uff1a\u4e0a \u4e0b \u5de6 \u53f3\uff0c\u5947\u6570\u5217(B,D,F,...)\u989d\u5916\u5305\u62ec\u5de6\u4e0a \u53f3\u4e0a\uff1b\u5076\u6570\u5217(A,C,E,...)\u989d\u5916\u5305\u62ec\u5de6\u4e0b \u53f3\u4e0b"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3568,8 +3355,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[BIN]Binary(\u4e8c\u53c9): BIN:X;Y \u8868\u793a\u7ebf\u7d22\u4e3a X \u4e0e Y \u89c4\u5219\u4e0b\u7684\u503c\uff08\u987a\u5e8f\u4e0d\u786e\u5b9a\uff09"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3585,8 +3371,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[3H'']Big Triangle(\u5927\u4e09\u89d2): \u7ebf\u7d22\u8868\u793a\u8fd9\u4e9b\u5468\u56f4\u683c\u5b50\u7684\u96f7\u6570\uff1a\u5468\u56f4\u516b\u683c \u5de6\u5de6 \u53f3\u53f3\uff0c\u5947\u6570\u5217\u989d\u5916\u5305\u62ec\u5de6\u5de6\u4e0a \u53f3\u53f3\u4e0a\uff1b\u5076\u6570\u5217\u989d\u5916\u5305\u62ec\u5de6\u5de6\u4e0b \u53f3\u53f3\u4e0b"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3600,8 +3385,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1M1X]Multiple + Cross(\u591a\u96f7 + \u5341\u5b57): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3617,8 +3401,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1X+]Castle(\u57ce\u5821): \u7ebf\u7d22\u6570\u8868\u793a\u4e0e\u5176\u540c\u884c\u6216\u540c\u5217\u7684\u6240\u6709\u683c\u5b50\u4e2d\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3634,8 +3417,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1X'']X''(\u53cc\u5341\u5b57): \u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u4e3a1\u548c\u8ddd\u79bb\u4e3a2\u221a2\u533a\u57df\u7684\u603b\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3650,8 +3432,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[?]\u95ee\u53f7: \u7ebf\u7d22\u8868\u793a\u8be5\u683c\u662f\u4e00\u4e2a\u975e\u96f7"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3667,8 +3448,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[Sp]Span(\u8de8\u8d8a): \u7ebf\u7d22\u8868\u793a\u80fd\u8fde\u63a5\u5468\u56f4\u516b\u683c\u5185\u6240\u6709\u96f7\u7684\u6700\u77ed\u8fde\u7eed\u8def\u5f84\u957f\u5ea6\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3684,8 +3464,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2M]Modulo(\u53d6\u6a21): \u7ebf\u7d22\u4e0e\u5468\u56f48\u683c\u7684\u96f7\u6570\u9664\u4ee53\u7684\u4f59\u6570\u76f8\u540c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3701,8 +3480,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2A]Area(\u9762\u79ef): \u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u76f8\u90bb\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e4b\u548c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3716,8 +3494,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1MNX]Multiple + Negative + Cross(\u591a\u96f7 + \u8d1f\u96f7 + \u5341\u5b57): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3733,8 +3510,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1ES]Spiral Eyesight(\u87ba\u65cb\u89c6\u91ce): \u8be5\u7ebf\u7d22\u8868\u793a\u4ece\u5f53\u524d\u683c\u5b50\u5411\u56db\u5468\u51fa\u53d1\u968f\u540e\u8fdb\u884c\u987a\u65f6\u9488\u987a\u5e8f\u65cb\u8f6c\uff08\u7c7b\u4f3c\u5350\u5b57\u5f62\uff09\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\uff08\u5305\u542b\u81ea\u8eab\uff09, \u96f7\u4f1a\u963b\u6321\u89c6\u7ebf\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3750,8 +3526,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2A1W']Area + Largest Wall(\u9762\u79ef + \u6700\u5927\u6570\u5899): \u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u6700\u5927\u76f8\u90bb\u96f7\u533a\u57df\u7684\u9762\u79ef"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3767,8 +3542,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[Rule-012]\u03c4C(\u6ca1\u60f3\u597d): \u6bcf\u4e2a\u96f7\u7684\u96f7\u503c\u7b49\u4e8e\u5b83\u5468\u56f4\u516b\u683c\uff08\u5305\u62ec\u81ea\u8eab\uff09\u7684\u603b\u96f7\u6570\uff0c\u603b\u96f7\u6570\u4e0d\u53d7\u6b64\u89c4\u5219\u5f71\u54cd\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3784,8 +3558,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2A']Area'(\u9762\u79ef'): \u7ebf\u7d22\u8868\u793a\u5b83\u6240\u5728\u7684\u56db\u8fde\u901a\u975e\u96f7\u533a\u7684\u9762\u79ef\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3801,8 +3574,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2L']Liar'(\u8bef\u5dee'): \u6bcf\u884c\u6bcf\u5217\u6070\u6709\u4e00\u4e2a\u975e\u8bef\u5dee\u7ebf\u7d22\u3002\u8bef\u5dee\u7ebf\u7d22\u7684\u503c\u6bd4\u771f\u5b9e\u503c\u5927 1 \u6216\u5c0f 1"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3818,8 +3590,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2K]Kinsho(\u91d1\u5c06): \u7ebf\u7d22\u8868\u793a\u91d1\u5c06\u8303\u56f4\uff08\u5373\u4e0a\u3001\u4e0b\u3001\u5de6\u3001\u53f3\u3001\u5de6\u4e0a\u3001\u53f3\u4e0a\u516d\u683c\uff09\u5185\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3834,8 +3605,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2D']\u56db\u5411\u504f\u79fb: \u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u4efb\u610f\u504f\u79fb\u4e00\u683c\u4e3a\u4e2d\u5fc3\u76843x3\u533a\u57df\u5185\u7684\u603b\u96f7\u6570(\u5168\u5c40\u7edf\u4e00)"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3851,8 +3621,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1W']Longest Wall(\u6700\u957f\u6570\u5899): \u7ebf\u7d22\u8868\u793a 3x3 \u8303\u56f4\u5185\u6700\u957f\u7684\u8fde\u7eed\u96f7\u7684\u957f\u5ea6"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3868,8 +3637,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2M^]Mod^(\u53d6\u6a21^): \u7ebf\u7d22\u4e0e\u5468\u56f48\u683c\u7684\u96f7\u6570\u9664\u4ee52\u7684\u4f59\u6570\u76f8\u540c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3885,8 +3653,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1X']Mini Cross(\u5c0f\u5341\u5b57): \u7ebf\u7d22\u8868\u793a\u534a\u5f84\u4e3a 1 \u7684\u5341\u5b57\u8303\u56f4\u5185\u7684\u96f7\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3901,8 +3668,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2E'']\u4e92\u6307: \u5982\u679c\u7ebf\u7d22X\u5468\u56f4\u6709N\u4e2a\u96f7 \u5219\u53e6\u4e00\u4e2a\u9898\u677f\u7684X=N\u7684\u683c\u5b50\u5fc5\u5b9a\u4e3a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3917,8 +3683,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4V]\u6620\u5c04: \u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a\u8303\u56f4\u4e2d\u5fc33*3\u533a\u57df\u7684\u96f7\u603b\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3933,8 +3698,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4V1N]\u8d1f\u96f7\u6620\u5c04: \u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a3x3\u8303\u56f4\u5185\u67d3\u8272\u683c\u4e0e\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\u5dee"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3949,8 +3713,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4V1L]\u8bef\u5dee\u6620\u5c04: \u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a\u8303\u56f4\u4e2d\u5fc33*3\u533a\u57df\u7684\u96f7\u603b\u6570 \u7ebf\u7d22\u5747\u6bd4\u771f\u5b9e\u503c\u59271\u6216\u5c0f1"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3965,8 +3728,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4V1K]\u9a6c\u6b65\u6620\u5c04: \u7ebf\u7d22\u8868\u793a\u6570\u5b57\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u7684\u5176\u4e2d\u4e00\u4e2a\u4e3a\u4e2d\u5fc3\u7684\u9a6c\u6b65\u533a\u57df\u7684\u96f7\u603b\u6570"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3981,8 +3743,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[4V2E'2I']\u81ea\u6307\u6b8b\u7f3a\u6620\u5c04: \u5b57\u6bcdX\u662f\u4e24\u4e2a\u9898\u677f\u4e2d\u76f8\u540c\u4f4d\u7f6e\u4e3a\u4e2d\u5fc3\u5176\u4e2d\u4e00\u4e2a\u76843x3\u533a\u57df\u4e2d\u67d0?\u683c\u7684\u96f7\u603b\u6570\u4e3aN\u3002\u5219\u8be5\u5bf9\u5e94\u4f4d\u7f6e\u6240\u5c5e\u7684\u9898\u677f\u5728\u6807\u6709X=N\u7684\u4f4d\u7f6e\u5fc5\u7136\u662f\u96f7, \u4e14?\u683c\u7684\u4f4d\u7f6e\u5168\u5c40\u5171\u4eab"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -3998,8 +3759,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2E]Encrypted(\u52a0\u5bc6): \u7ebf\u7d22\u88ab\u5b57\u6bcd\u6240\u53d6\u4ee3\uff0c\u6bcf\u4e2a\u5b57\u6bcd\u5bf9\u5e94\u4e00\u4e2a\u7ebf\u7d22\uff0c\u4e14\u6bcf\u4e2a\u7ebf\u7d22\u5bf9\u5e94\u4e00\u4e2a\u5b57\u6bcd"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4014,8 +3774,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1K2E']\u9a6c\u6b65\u81ea\u6307: \u5982\u679c\u5b57\u6bcdX\u9a6c\u6b658\u683c\u5185\u6709N\u4e2a\u96f7\uff0c\u5219\u6807\u6709X=N\u7684\u683c\u5b50\u5fc5\u5b9a\u662f\u96f7\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4030,8 +3789,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2E'2I']\u81ea\u6307\u6b8b\u7f3a': \u5b57\u6bcdX\u5468\u56f48\u683c\u4e2d\u67d0?\u683c\u7684\u96f7\u6570\u5982\u679c\u6709N\u4e2a \u5219\u6807\u6709X=N\u7684\u683c\u5b50\u5fc5\u5b9a\u662f\u96f7 ?\u683c\u7684\u65b9\u4f4d\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u7ebf\u7d22\u5171\u4eab"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4047,8 +3805,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2E']Self-Referential(\u81ea\u6307): \u5982\u679c\u5b57\u6bcd X \u7684 3x3 \u8303\u56f4\u5185\u6709 N \u4e2a\u96f7\uff0c\u5219 X=N \u6240\u5728\u7684\u683c\u5b50\u4e3a\u96f7"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4063,8 +3820,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2E'2I]\u81ea\u6307\u6b8b\u7f3a: \u5b57\u6bcdX\u5468\u56f48\u683c\u4e2d\u67d07\u683c\u7684\u96f7\u6570\u5982\u679c\u6709N\u4e2a \u5219\u6807\u6709X=N\u7684\u683c\u5b50\u5fc5\u5b9a\u662f\u96f7 7\u683c\u7684\u65b9\u4f4d\u88ab\u5f53\u524d\u9898\u677f\u6240\u6709\u7ebf\u7d22\u5171\u4eab"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4078,8 +3834,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1E]Liar + Eyesight(\u8bef\u5dee + \u89c6\u91ce): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4093,8 +3848,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1P]Liar + Partition(\u8bef\u5dee + \u5206\u7ec4): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4108,8 +3862,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1X']Liar + Mini Cross(\u8bef\u5dee + \u5c0f\u5341\u5b57): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4123,8 +3876,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1LMNX]Liar + Multiple + Negative + Cross(\u8bef\u5dee + \u591a\u96f7 + \u8d1f\u96f7 + \u5341\u5b57): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4138,8 +3890,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L2M]Liar + Modulo(\u8bef\u5dee + \u53d6\u6a21): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4153,8 +3904,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L2D]Liar + Deviation(\u8bef\u5dee + \u504f\u79fb): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4168,8 +3918,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1L]Liar + Liar(\u8bef\u5dee + \u8bef\u5dee): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4183,8 +3932,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1LNX]Liar + Negative + Cross(\u8bef\u5dee + \u8d1f\u96f7 + \u5341\u5b57): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4198,8 +3946,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1M]Liar + Multiple(\u8bef\u5dee + \u591a\u96f7): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4213,8 +3960,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L2A]Liar + Area(\u8bef\u5dee + \u9762\u79ef): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4228,8 +3974,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1W']Liar + Longest Wall(\u8bef\u5dee + \u6700\u957f\u6570\u5899): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4243,8 +3988,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1N]Liar + Negative(\u8bef\u5dee + \u8d1f\u96f7): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4258,8 +4002,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1LMN]Liar + Multiple + Negative(\u8bef\u5dee + \u591a\u96f7 + \u8d1f\u96f7): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4273,8 +4016,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1K]Liar + Knight(\u8bef\u5dee + \u9a91\u58eb): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4288,8 +4030,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1LMX]Liar + Multiple + Cross(\u8bef\u5dee + \u591a\u96f7 + \u5341\u5b57): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4303,8 +4044,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1W]Liar + Wall(\u8bef\u5dee + \u6570\u5899): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4318,8 +4058,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L2X']Liar + Cross'(\u8bef\u5dee + \u5341\u5b57'): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4333,8 +4072,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1E']Liar + Eyesight'(\u8bef\u5dee + \u89c6\u5dee): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4348,8 +4086,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1X]Liar + Cross(\u8bef\u5dee + \u5341\u5b57): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4365,8 +4102,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L]Liar(\u8bef\u5dee): \u6240\u6709\u7ebf\u7d22\u5747\u6bd4\u771f\u5b9e\u503c\u59271\u6216\u5c0f1"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4380,8 +4116,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L2X]Liar + Cross(\u8bef\u5dee + \u5341\u5b57): "
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4396,8 +4131,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L2#]\u8bef\u5dee + \u6807\u7b7e: \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L2X], [1L2D], [1L2M], [1L2A]\n\u4f7f\u7528[1L2#:]\u4ee5\u53bb\u9664[1L2A]"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4412,8 +4146,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L2#']\u8bef\u5dee + \u6807\u7b7e': \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L2X], [1L2D], [1L2M], [1L2A], [1L2X']\n\u4f7f\u7528[1L2#':]\u4ee5\u53bb\u9664[1L2A]"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4428,8 +4161,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2#]\u6807\u7b7e: \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [V], [2X], [2D], [2P], [2M], [2A]"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4445,8 +4177,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[N#]Tag(\u6807\u7b7e): \u7ebf\u7d22\u53ea\u6709\u4e00\u4e2a\u53d6\u503c"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4462,8 +4193,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[Gallery]Gallery(\u753b\u5eca): \u6bcf\u884c\u6bcf\u5217\u7684\u89c4\u5219\u4e0d\u540c\uff0c\u5728\u5de6\u4e0a\u8fb9\u754c\u8868\u660e\u3002\u5de6\u7ebf\u89c4\u5219\u53ea\u5f71\u54cd\u6240\u5728\u884c\u53ca\u4e0a\u4e0b\u76f8\u90bb\u7684\u884c\u3002(1B \u53ea\u6709\u884c\u5e73\u8861\uff09\u5728:\u540e\u9762\u6dfb\u52a0\u53c2\u6570\uff0c?\u8868\u793a\u968f\u673a\u987a\u5e8f\uff0c!\u8868\u793a\u968f\u673a\u89c4\u5219\uff0c\u8fd9\u4e4b\u540e\u6dfb\u52a0\u6307\u5b9a\u89c4\u5219\uff0c\u89c4\u5219\u95f4\u7528;\u5206\u9694\uff0c\u53ef\u53ea\u6307\u5b9a\u5de6\u7ebf\u6216\u53f3\u7ebf\u89c4\u5219\u3002\u7a7a\u7684:\u76f8\u5f53\u4e8e:!\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4478,8 +4208,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2#']\u6807\u7b7e': \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [V], [2X], [2X'], [2D], [2P], [2M], [2A]"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4495,8 +4224,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[2E#]Encrypted + Tag(\u52a0\u5bc6 + \u6807\u7b7e): \u7ebf\u7d22\u88ab\u5b57\u6bcd\u6240\u53d6\u4ee3\uff0c\u6bcf\u4e2a\u5b57\u6bcd\u5bf9\u5e94\u4e00\u4e2a\u7ebf\u7d22\uff0c\u4e14\u6bcf\u4e2a\u7ebf\u7d22\u5bf9\u5e94\u4e00\u4e2a\u5b57\u6bcd\n\u901a\u8fc72E#:<rule1>;<rule2>;...\u6765\u6307\u5b9a\u4f7f\u7528\u7684\u89c4\u5219\u53ca\u5176\u987a\u5e8f\n\u9ed8\u8ba4\u540c\u4e8c\u4ee3\n\u53ef\u6dfb\u52a0 1# 1#' 2# 2#' 2#':"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4512,8 +4240,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[0L#]Tag(\u6807\u7b7e): \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L1L], [1L1N], [1L1X], [1L1P], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1L2D], [1L2M], [1L2X']\u3002\u7ebf\u7d22\u503c\u53ea\u6709\u96f6\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4528,8 +4255,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1#]\u6807\u7b7e: \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E]"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4545,8 +4271,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[DJ]Disjoint(\u4e0d\u76f8\u4ea4): \u5b58\u5728\u4e24\u4e2a\u4e3b\u677f\uff0c\u4e24\u4e2a\u4e3b\u677f\u540c\u4e00\u4f4d\u7f6e\u7684\u683c\u5b50\u4e0d\u80fd\u90fd\u662f\u96f7\u3002DJ:A+B;C+D \u8868\u793a\u5de6\u677f\u4e3a A B \u89c4\u5219\uff0c\u53f3\u677f\u4e3a C D \u89c4\u5219"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4562,8 +4287,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[0#]Tag(\u6807\u7b7e): \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1N], [1E'], [1M1N], [1N1X], [2M], [2X']\u3002\u7ebf\u7d22\u503c\u53ea\u6709\u96f6\u3002"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4578,8 +4302,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1#]\u8bef\u5dee + \u6807\u7b7e: \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E]\n\u4f7f\u7528[1L1#:]\u4ee5\u53bb\u9664[1L1W]"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4595,8 +4318,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[C#]Encrypted Tag(\u52a0\u5bc6\u6807\u7b7e): \u6807\u7b7e\u88ab\u5b57\u6bcd\u6240\u53d6\u4ee3\uff0c\u6bcf\u4e2a\u5b57\u6bcd\u5bf9\u5e94\u4e00\u4e2a\u6807\u7b7e\uff0c\u4e14\u6bcf\u4e2a\u6807\u7b7e\u5bf9\u5e94\u4e00\u4e2a\u5b57\u6bcd\n\u901a\u8fc7C#:<rule1>;<rule2>;...\u6765\u6307\u5b9a\u4f7f\u7528\u7684\u89c4\u5219\u53ca\u5176\u987a\u5e8f\n\u9ed8\u8ba4\u5305\u542b\u4ee5\u4e0b\u89c4\u5219\u4e14\u968f\u673a\u987a\u5e8f\u9009\u53d6\uff1a\nV, 1M, 1L, 1N, 1X, 1P, 1E, 1X', 1K, 1W', 2D, 2M, 2X'"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4611,8 +4333,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1#']\u6807\u7b7e': \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E], [1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]"
+            "image": ""
         },
         {
             "rule_line": "R",
@@ -4627,8 +4348,7 @@
                 "name": "",
                 "id": ""
             },
-            "image": "",
-            "display": "[1L1#']\u8bef\u5dee + \u6807\u7b7e': \u5305\u542b\u4ee5\u4e0b\u89c4\u5219: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\n\u4f7f\u7528[1L1#':]\u4ee5\u53bb\u9664[1L1W]"
+            "image": ""
         }
     ]
 }
