@@ -17,7 +17,8 @@ class Rule2T(AbstractMinesRule):
     id = "2T"
     name = "Triplet"
     name.zh_CN = "无三连"
-    doc = "(1) 雷在横竖两个方向上不能构成三连；(2) 非雷在横竖两个方向上不能构成三连"
+    doc = "(1) No three mines form a line horizontally or vertically; (2) No three non-mines form a line horizontally or vertically"
+    doc.zh_CN = "(1) 雷在横竖两个方向上不能构成三连；(2) 非雷在横竖两个方向上不能构成三连"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

@@ -37,7 +37,8 @@ def get_text(
 class Rule3P(AbstractMinesClueRule):
     id = "3"
     name = "3"
-    doc = "雷指向的方向存在n个雷(不包括自己)"
+    doc = "In the direction the mine points to, there exist n mines (not including itself)"
+    doc.zh_CN = "雷指向的方向存在n个雷(不包括自己)"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

@@ -31,7 +31,8 @@ class Rule1Q1L(AbstractClueRule):
     id = "QL"
     name = "1Q1L"
     name.zh_CN = "误差无方"
-    doc = "误差线索比真实值大1或小1，如果线索处在2*2非雷框内，则它是误差线索，反之则是真实值。"
+    doc = "Error clue is 1 more or less than the true value; if the clue is in a 2x2 non-mine box, it's an error clue, otherwise it's the true value"
+    doc.zh_CN = "误差线索比真实值大1或小1，如果线索处在2*2非雷框内，则它是误差线索，反之则是真实值。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

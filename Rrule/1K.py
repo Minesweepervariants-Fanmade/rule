@@ -23,7 +23,8 @@ class RuleV(AbstractClueRule):
     aliases = ("K",)
     name = "Knight"
     name.zh_CN = "骑士"
-    doc = "线索表示马步位置 8 个格子中的总雷值"
+    doc = "Clue indicates the total mine value at the eight knight's move positions"
+    doc.zh_CN = "线索表示马步位置 8 个格子中的总雷值"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

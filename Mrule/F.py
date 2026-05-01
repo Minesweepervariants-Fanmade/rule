@@ -16,4 +16,5 @@ class RuleF(AbstractRule0F):
     id = "F"
     name = "Mine"
     name.zh_CN = "雷"
-    doc = "线索表示该格是一个非雷"
+    doc = "Clue indicates this cell is a non-mine"
+    doc.zh_CN = "线索表示该格是一个非雷"

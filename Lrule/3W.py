@@ -19,7 +19,8 @@ class Rule3W(AbstractMinesRule):
     id = "3W"
     name = "Wind-and-Cloud"
     name.zh_CN = "风云"
-    doc = "每行雷数不同，每列中最高的雷的高度不低于它左边一列的最高的雷的高度（特殊情况：如果某一列没有雷，那么它左边所有列都没有雷）。"
+    doc = "Each row has different mine counts; in each column, the highest mine's height is not lower than the highest mine in the left column (special case: if a column has no mines, all columns to its left have no mines)"
+    doc.zh_CN = "每行雷数不同，每列中最高的雷的高度不低于它左边一列的最高的雷的高度（特殊情况：如果某一列没有雷，那么它左边所有列都没有雷）。"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

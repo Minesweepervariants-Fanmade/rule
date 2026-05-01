@@ -17,7 +17,8 @@ class Rule1D(AbstractMinesRule):
     aliases = ("D",)
     name = "Dual"
     name.zh_CN = "对偶"
-    doc = "每个雷区域为 1x2 或 2x1 的矩形"
+    doc = "Each mine area is a 1x2 or 2x1 rectangle"
+    doc.zh_CN = "每个雷区域为 1x2 或 2x1 的矩形"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

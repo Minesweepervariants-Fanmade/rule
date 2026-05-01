@@ -29,7 +29,8 @@ class Rule1O(AbstractMinesRule):
     aliases = ("O",)
     name = "Outside"
     name.zh_CN = "外部"
-    doc = "非雷区域四连通；每个雷区域以四连通连接到题版边界"
+    doc = "Non-mine areas are four-connected; each mine area is connected to the board boundary via four-connection."
+    doc.zh_CN = "非雷区域四连通；每个雷区域以四连通连接到题版边界"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         for key in board.get_interactive_keys():

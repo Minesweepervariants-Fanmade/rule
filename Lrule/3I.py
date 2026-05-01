@@ -10,7 +10,8 @@ class Rule3I(AbstractMinesRule):
     id = "3I"
     name = "Inverted"
     name.zh_CN = "反相"
-    doc = "染色格中非雷视为雷，雷视为非雷"
+    doc = "In dyed cells, non-mines are treated as mines, and mines as non-mines"
+    doc.zh_CN = "染色格中非雷视为雷，雷视为非雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

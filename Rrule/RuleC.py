@@ -18,7 +18,8 @@ class RuleC(AbstractClueRule):
     id = "Rule-012"
     name = "τC"
     name.zh_CN = "没想好"
-    doc = "每个雷的雷值等于它周围八格（包括自身）的总雷数，总雷数不受此规则影响。"
+    doc = "Each mine's value equals the total mine count in its eight surrounding cells (including itself); total mine count is unaffected"
+    doc.zh_CN = "每个雷的雷值等于它周围八格（包括自身）的总雷数，总雷数不受此规则影响。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         mines_map = {}

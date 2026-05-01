@@ -52,7 +52,8 @@ class Rule2GStar(AbstractMinesRule):
     id = "2G*"
     name = "Group*"
     name.zh_CN = "互异四连块"
-    doc = "(1) 所有四连通雷区域的面积为 4 (2) 且它们形状不同（SZ 和 JL 型视为相同形状）"
+    doc = "(1) All four-connected mine areas have an area of 4 (2) and they have different shapes (SZ and JL types are considered the same shape)"
+    doc.zh_CN = "(1) 所有四连通雷区域的面积为 4 (2) 且它们形状不同（SZ 和 JL 型视为相同形状）"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

@@ -16,7 +16,8 @@ class Rule1H(AbstractMinesRule):
     aliases = ("H",)
     name = "Horizontal"
     name.zh_CN = "横向"
-    doc = "所有雷不能与其他雷横向相邻"
+    doc = "No mine is horizontally adjacent to another mine"
+    doc.zh_CN = "所有雷不能与其他雷横向相邻"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

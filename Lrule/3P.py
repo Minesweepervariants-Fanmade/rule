@@ -18,7 +18,8 @@ class Rule3P(AbstractMinesRule):
     id = "3P"
     name = "Parade"
     name.zh_CN = "游行"
-    doc = "可以通过骑士的移动方式，从某一个雷格开始，在只经过雷格的情况下，不重复且不遗漏地通过所有雷格"
+    doc = "Starting from any mine cell, can traverse all mine cells without repetition or omission using knight moves"
+    doc.zh_CN = "可以通过骑士的移动方式，从某一个雷格开始，在只经过雷格的情况下，不重复且不遗漏地通过所有雷格"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

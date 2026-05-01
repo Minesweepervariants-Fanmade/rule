@@ -16,7 +16,8 @@ class Rule4Y(AbstractClueRule):
     id = "4Y"
     name = "Area"
     name.zh_CN = "区域"
-    doc = "线索表示包含该格的最大无雷矩形区域的面积"
+    doc = "Clue indicates the area of the largest mine-free rectangle containing this cell"
+    doc.zh_CN = "线索表示包含该格的最大无雷矩形区域的面积"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

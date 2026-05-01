@@ -16,7 +16,8 @@ class Rule1H(AbstractMinesRule):
     aliases = ("U",)
     name = "Unary"
     name.zh_CN = "一元"
-    doc = "所有雷不能与其他雷相邻"
+    doc = "No mine is adjacent to another mine"
+    doc.zh_CN = "所有雷不能与其他雷相邻"
     subrules = [
         [True, "[1U]一元"]
     ]

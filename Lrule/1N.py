@@ -11,7 +11,8 @@ class Rule1N(AbstractMinesRule):
     aliases = ("N",)
     name = "Negative"
     name.zh_CN = "负雷"
-    doc = "染色格中雷值取负"
+    doc = "Mine value becomes negative in dyed cells"
+    doc.zh_CN = "染色格中雷值取负"
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

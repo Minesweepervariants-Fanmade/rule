@@ -28,7 +28,8 @@ class Rule2A(AbstractClueRule):
     id = "2A"
     name = "Area"
     name.zh_CN = "面积"
-    doc = "线索表示四方向相邻雷区域的面积之和"
+    doc = "Clue indicates the sum of areas of orthogonally adjacent mine groups"
+    doc.zh_CN = "线索表示四方向相邻雷区域的面积之和"
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)

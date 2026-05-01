@@ -8,7 +8,8 @@ class Rule1S(AbstractMinesRule):
     aliases = ("S~",)
     name = "Snake~"
     name.zh_CN = "蛇~"
-    doc = "所有非雷构成若干条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉。"
+    doc = "All non-mines form several snakes. A snake is a width-1 four-connected path with no branches, loops, or crossings."
+    doc.zh_CN = "所有非雷构成若干条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉。"
 
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()

@@ -5,7 +5,8 @@ class RuleSG(AbstractClueRule):
     id = "SG"
     name = "Singleton"
     name.zh_CN = "单一"
-    doc = "线索表示周围 3x3 范围内恰好只有一雷的行数和列数之和"
+    doc = "Clue indicates the sum of rows and columns in the 3x3 area that have exactly one mine"
+    doc.zh_CN = "线索表示周围 3x3 范围内恰好只有一雷的行数和列数之和"
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         for pos, _ in board("N"):

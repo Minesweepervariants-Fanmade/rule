@@ -27,7 +27,8 @@ class Rule2C(AbstractMinesRule):
     id = "2C'"
     name = "Connected"
     name.zh_CN = "连方'"
-    doc = "(1) 所有四连通雷区域为 1xn 或 nx1 的矩形；(2) 所有雷区域对角相邻"
+    doc = "(1) All four-connected mine areas are 1xn or nx1 rectangles; (2) All mine areas are diagonally adjacent"
+    doc.zh_CN = "(1) 所有四连通雷区域为 1xn 或 nx1 的矩形；(2) 所有雷区域对角相邻"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

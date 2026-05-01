@@ -16,7 +16,8 @@ class Rule2S(AbstractMinesRule):
     id = "2S"
     name = "Segment"
     name.zh_CN = "分段"
-    doc = "每行有且仅有一组连续的雷"
+    doc = "Each row has exactly one group of consecutive mines"
+    doc.zh_CN = "每行有且仅有一组连续的雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

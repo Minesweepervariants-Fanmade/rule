@@ -70,7 +70,8 @@ class Rule1XStar(AbstractClueRule):
     id = "CQ"
     name = "Chess-Queen"
     name.zh_CN = "王后"
-    doc = "线索表示八方向上雷数总和"
+    doc = "Clue indicates the total number of mines in the eight directions"
+    doc.zh_CN = "线索表示八方向上雷数总和"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

@@ -30,7 +30,8 @@ class Rule1Q(AbstractMinesRule):
     aliases = ("Q~",)
     name = "Q~"
     name.zh_CN = "雷无方"
-    doc = "每个2x2区域内都至少有一个空格"
+    doc = "Each 2x2 area has at least one empty space"
+    doc.zh_CN = "每个2x2区域内都至少有一个空格"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

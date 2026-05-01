@@ -70,7 +70,8 @@ class Rule2P(AbstractClueRule):
     id = "2P"
     name = "Product"
     name.zh_CN = "乘积"
-    doc = "线索表示距离最近的 2 个雷的距离之积"
+    doc = "Clue indicates the product of distances to the two nearest mines"
+    doc.zh_CN = "线索表示距离最近的 2 个雷的距离之积"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         if len([_ for _ in board("F")]) < 2:

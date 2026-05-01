@@ -15,7 +15,8 @@ class Rule2G(AbstractMinesRule):
     id = "2G"
     name = "Group"
     name.zh_CN = "四连块"
-    doc = "所有四连通雷区域的面积为 4"
+    doc = "All orthogonally connected mine areas have area 4"
+    doc.zh_CN = "所有四连通雷区域的面积为 4"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

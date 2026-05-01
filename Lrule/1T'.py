@@ -18,7 +18,8 @@ class Rule1Tp(AbstractMinesRule):
     aliases = ("T'",)
     name = "Triplet'"
     name.zh_CN = "必三连"
-    doc = "所有雷必须处于横、竖或斜方向的三连中"
+    doc = "All mines must be in a triple in horizontal, vertical, or diagonal direction"
+    doc.zh_CN = "所有雷必须处于横、竖或斜方向的三连中"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
