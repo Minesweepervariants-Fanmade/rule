@@ -19,6 +19,7 @@ class Rule1D(AbstractMinesRule):
     name.zh_CN = "何意味"
     doc = "\"What does it mean?\""
     doc.zh_CN = "何意味"
+    author = ("NT", 2201963934)
 
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

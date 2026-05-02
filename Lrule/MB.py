@@ -53,6 +53,7 @@ class RuleMB(AbstractMinesRule):
     name.zh_CN = "平衡点"
     doc = "The average position of all mines is an integer point"
     doc.zh_CN = "所有雷的平均位置是整点"
+    author = ("NT", 2201963934)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

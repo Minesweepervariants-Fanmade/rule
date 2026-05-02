@@ -13,7 +13,7 @@ from minesweepervariants.impl.summon.solver import Switch
 
 
 class Rule4C(AbstractMinesRule):
-    # id = "4C"
+    id = "4C"
     name = "Crossing"
     name.zh_CN = "十字路口"
 

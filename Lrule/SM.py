@@ -17,3 +17,4 @@ class Rule1D(AbstractMinesRule):
     name.zh_CN = "神秘"
     doc = "This is a rule that would confuse a male girl"
     doc.zh_CN = "这是一条会让男娘感到困惑的规则"
+    author = ("NT", 2201963934)

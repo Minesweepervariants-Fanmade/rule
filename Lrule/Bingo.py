@@ -24,6 +24,7 @@ class BINGO(AbstractMinesRule):
     name.zh_CN = "宾果"
     doc = "Each cell is randomly assigned a left rule. If the cell is a mine, the entire board must satisfy that cell's rule"
     doc.zh_CN = "每个格子被随机标记一个左线规则。当该格为雷时，完整题板必须满足该格的规则。"
+    author = ("雾", 3140864122)
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

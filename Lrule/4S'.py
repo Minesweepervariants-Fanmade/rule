@@ -13,6 +13,7 @@ class Rule3I(AbstractMinesRule):
     doc = "Mine value equals the sum of row and column numbers, but starting from 0"
     doc.zh_CN = "雷值等于行号与列号之和, 但从0开始"
     lib_only = True
+    author = ("NT", 2201963934)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

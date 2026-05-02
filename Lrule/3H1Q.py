@@ -41,6 +41,7 @@ class Rule3H1Q(AbstractMinesRule):
     name.zh_CN = "六角无方"
     doc = "Hex No-Square: Among any three mutually adjacent cells, at least one must be a mine"
     doc.zh_CN = "六角无方: 每个互相相邻的三个格必有一个雷"
+    author = ("NT", 2201963934)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
