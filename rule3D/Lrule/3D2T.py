@@ -17,7 +17,8 @@ class Rule2T(Abstract3DMinesRule):
     id = "3D2T"
     name = "3D No Triple 2"
     name.zh_CN = "无三连"
-    doc = "(1)雷不能在横竖上下向构成三连, (2)非雷不能在横竖上下向构成三连"
+    doc = "(1) Mines cannot form a triple in horizontal, vertical, or up-down directions; (2) Non-mines cannot form a triple in horizontal, vertical, or up-down directions."
+    doc.zh_CN = "(1)雷不能在横竖上下向构成三连, (2)非雷不能在横竖上下向构成三连"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
