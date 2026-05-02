@@ -98,7 +98,8 @@
                 "zh_CN": "\u65e0\u4e09\u8fde"
             },
             "doc": {
-                "default": "(1)\u96f7\u4e0d\u80fd\u5728\u6a2a\u7ad6\u4e0a\u4e0b\u5411\u6784\u6210\u4e09\u8fde, (2)\u975e\u96f7\u4e0d\u80fd\u5728\u6a2a\u7ad6\u4e0a\u4e0b\u5411\u6784\u6210\u4e09\u8fde"
+                "default": "(1) Mines cannot form a triple in horizontal, vertical, or up-down directions; (2) Non-mines cannot form a triple in horizontal, vertical, or up-down directions.",
+                "zh_CN": "(1)\u96f7\u4e0d\u80fd\u5728\u6a2a\u7ad6\u4e0a\u4e0b\u5411\u6784\u6210\u4e09\u8fde, (2)\u975e\u96f7\u4e0d\u80fd\u5728\u6a2a\u7ad6\u4e0a\u4e0b\u5411\u6784\u6210\u4e09\u8fde"
             },
             "author": {
                 "name": "",
