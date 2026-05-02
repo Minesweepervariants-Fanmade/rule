@@ -123,8 +123,10 @@ TEMPLATES: List[Pattern] = [
 
 class RuleJBp(AbstractMinesRule):
     id = "JB'"
-    name = "JB'"
-    doc = """几把：雷区由若干4格（最小）格调组成，可以交叉，可以共享魔丸，但不能共享金箔。最小格调的形状是 _A_ _A_ B_B A为金箔, B为魔丸, 可以旋转."""
+    name = "Some Dick"
+    name.zh_CN = "几把"
+    doc = "Some Dick: The minefield consists of several patterns of 4 cells (minimum) dick, which can intersect and share B cells, but cannot share A cells."
+    doc.zh_CN = """几把：雷区由若干4格（最小）格调组成，可以交叉，可以共享魔丸，但不能共享金箔。"""
     author = ("NT", 2201963934)
 
     def create_constraints(self, board: AbstractBoard, switch):
