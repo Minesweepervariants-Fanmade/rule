@@ -286,7 +286,21 @@
           section.className = "rule-section";
           var list = RULE_DATA && Array.isArray(RULE_DATA[line]) ? RULE_DATA[line] : [];
 
-          appendTextElement(section, "h2", getRuleLineText(line) + " (" + list.length + ")", "rule-line-title");
+          var titleContainer = document.createElement("div");
+          titleContainer.className = "rule-section-header";
+
+          var toggleBtn = document.createElement("button");
+          toggleBtn.className = "rule-toggle-btn";
+          toggleBtn.textContent = "▼";
+          toggleBtn.setAttribute("aria-expanded", "true");
+
+          var title = document.createElement("h2");
+          title.className = "rule-line-title";
+          title.textContent = getRuleLineText(line) + " (" + list.length + ")";
+
+          titleContainer.appendChild(toggleBtn);
+          titleContainer.appendChild(title);
+          section.appendChild(titleContainer);
 
           var ul = document.createElement("ul");
           ul.className = "rule-list";
@@ -294,6 +308,16 @@
             ul.appendChild(makeRuleItem(list[j]));
           }
           section.appendChild(ul);
+
+          (function (button, content) {
+            button.addEventListener("click", function () {
+              var isExpanded = button.getAttribute("aria-expanded") === "true";
+              button.setAttribute("aria-expanded", !isExpanded);
+              content.style.display = isExpanded ? "none" : "";
+              button.textContent = isExpanded ? "▶" : "▼";
+            });
+          })(toggleBtn, ul);
+
           root.appendChild(section);
         }
       }
