@@ -10,7 +10,8 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ...rule.Lrule.connect import connect
 
 from ....utils.tool import get_logger, get_random
-from ....utils.image_create import get_col, get_row, get_text
+from ....utils.image_create import get_col, get_row, get_text, get_dummy
+from ....utils.web_template import MultiNumber
 from ...impl_obj import VALUE_QUESS
 
 MISSING_VALUE = 250
@@ -98,6 +99,18 @@ class ValueCS(AbstractClueValue):
 
     def display_value(self, index) -> str:
         return str(self.values[index]) if self.values[index] != MISSING_VALUE else "?"
+
+    def web_component(self, board) -> Dict:
+        return MultiNumber([
+            self.display_value(RIGHT),
+            "",
+            self.display_value(DOWN),
+            "",
+            self.display_value(LEFT),
+            "",
+            self.display_value(UP),
+            ""
+        ])
 
     @classmethod
     def type(cls) -> bytes:
