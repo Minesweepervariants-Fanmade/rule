@@ -161,6 +161,7 @@
 - author_name: 未知
   author_uid: 2947571390
   doc: 线索是1K范围，如果一个线索的某个邻格有雷，则该方向上的两个马步格的雷不算。例如一个线索的右邻格是雷，则右偏上和右偏下两格的雷不算。
+  image: 1K'.png
   name: 1K'
   time: 1776388445.5008323
 - author_name: 小小神中医
@@ -966,11 +967,13 @@
 - author_name: 雾
   author_uid: 3140864122
   doc: 我要在这里放一个橘雪莉
+  image: 橘雪莉.png
   name: 橘雪莉
   time: 1776338997.0036473
 - author_name: 雾
   author_uid: 3140864122
   doc: 我要放一个二阶堂希罗在这里
+  image: 二阶堂.png
   name: 二阶堂
   time: 1775900942.4563422
 - author_name: NT
@@ -981,6 +984,7 @@
 - author_name: 雾
   author_uid: 3140864122
   doc: 我要放一个蓝毛举手女在这里
+  image: 丰川祥子.png
   name: 丰川祥子
   time: 1775907675.3730109
 - author_name: NT
@@ -1011,16 +1015,19 @@
 - author_name: 雾
   author_uid: 3140864122
   doc: .
+  image: 零组.png
   name: 零组
   time: 1776389113.0380273
 - author_name: Jsky单推人
   author_uid: 2638680527
   doc: .
+  image: 光.png
   name: 光
   time: 1776389142.6105218
 - author_name: Jsky单推人
   author_uid: 2638680527
   doc: 线索表示距离最近的 3 个雷的距离之积
+  image: 2P''.png
   name: 2P''
   time: 1776389301.1780667
 - author_name: NT
@@ -1061,11 +1068,13 @@
 - author_name: 雾
   author_uid: 3140864122
   doc: 我要在这里放一只森美奈美的女儿
+  image: 若叶睦.png
   name: 若叶睦
   time: 1776602246.2468822
 - author_name: 瑶曦
   author_uid: 2152821894
   doc: 我要在这里放一个樱羽艾玛
+  image: 樱羽艾玛.png
   name: 樱羽艾玛
   time: 1776602903.0193803
 - author_name: NT
@@ -1076,6 +1085,7 @@
 - author_name: 雾
   author_uid: 3140864122
   doc: 6767667,7766766
+  image: 67.png
   name: '67'
   time: 1776619805.0362313
 - author_name: NT
@@ -1096,6 +1106,7 @@
 - author_name: 雾
   author_uid: 3140864122
   doc: 从行/列上看去 连续的雷被视为一个雷 每行的雷数相同 每列的雷数相同
+  image: 1B1P.png
   name: 1B1P
   time: 1776828604.6666703
 - author_name: NT
@@ -1142,6 +1153,7 @@
 - author_name: NT
   author_uid: 2201963934
   doc: 拐弯视野视区：线索值表示线索可以看到的最大格数，视线向四个方向，每次最多可以转一次弯
+  image: TE'.png
   name: TE'
   time: 1777393828.2078326
 - author_name: NT
@@ -1152,11 +1164,13 @@
 - author_name: NT
   author_uid: 2201963934
   doc: 扩散：线索表示其所在格矩形范围向四方向扩展直到遇到雷范围内的雷数
+  image: 2D^E.png
   name: 2D^E
   time: 1777476784.4801679
 - author_name: NT
   author_uid: 2201963934
   doc: 反射：线索值表示周围八格中，有雷的方向相反的方向可以看到的格数。雷会遮挡视线。
+  image: RF.png
   name: RF
   time: 1777477849.9102588
 - author_name: NT
@@ -1167,6 +1181,7 @@
 - author_name: NT
   author_uid: 2201963934
   doc: 粗糙：所有雷/非雷边界直线段长度为1（对角交叉不是同一段）
+  image: RS.png
   name: RS
   time: 1777478630.0840266
 - author_name: NT
@@ -1177,6 +1192,7 @@
 - author_name: NT
   author_uid: 2201963934
   doc: 视野@：线索值表示线索能看到的面积，会被雷阻挡
+  image: 1E@.png
   name: 1E@
   time: 1777479707.9242241
 - author_name: NT
