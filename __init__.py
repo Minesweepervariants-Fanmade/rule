@@ -326,7 +326,7 @@ def _pick_image_name(rule_key, image_names):
     prefix = prefix.replace("\\", "-b")
     prefix = prefix.replace(":", "-c")
     for candidate in image_names:
-        if candidate.startswith(prefix):
+        if candidate in [prefix + ".png", prefix + ".jpg"]:
             return candidate
     return ""
 
