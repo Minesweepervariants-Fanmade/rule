@@ -256,6 +256,22 @@
         },
         {
             "rule_line": "L",
+            "id": "JB'",
+            "name": {
+                "default": "JB'"
+            },
+            "doc": {
+                "default": "\u51e0\u628a\uff1a\u96f7\u533a\u7531\u82e5\u5e724\u683c\uff08\u6700\u5c0f\uff09\u683c\u8c03\u7ec4\u6210\uff0c\u53ef\u4ee5\u4ea4\u53c9\uff0c\u53ef\u4ee5\u5171\u4eab\u9b54\u4e38\uff0c\u4f46\u4e0d\u80fd\u5171\u4eab\u91d1\u7b94\u3002\u6700\u5c0f\u683c\u8c03\u7684\u5f62\u72b6\u662f _A_ _A_ B_B A\u4e3a\u91d1\u7b94, B\u4e3a\u9b54\u4e38, \u53ef\u4ee5\u65cb\u8f6c."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": []
+        },
+        {
+            "rule_line": "L",
             "id": "3O",
             "name": {
                 "default": "Orthogonal",
