@@ -1265,3 +1265,8 @@
     \  00  01  10"
   name: 6Q
   time: 1777707125.305088
+- author_name: mabopei1
+  author_uid: 81500378
+  doc: 欢迎新人！我们14mv有mod，要加mod群，有自动出题机器人，要生成题目的话建议加群，如果要看攻略去b站找莎佬（塞德莎），1代2代都有先行攻略，1代VQC有正式攻略，T可以看FE（FlowEnol）的定式图，群文件也有我的V攻略，14mv关卡非常多（两代加起来是十万的数量级，加1和2mod数量级达百万），可以先专注金字/红字和全解锁，不建议直接开刷单个关卡组。存档位置在C:\Users\Administrator\AppData\Roaming\Godot\app_userdata，这里面可以找到1代和2代的存档文件，如果没有AppData需要打开显示隐藏文件夹。
+  name: 欢迎新人
+  time: 1777708391.4185374
