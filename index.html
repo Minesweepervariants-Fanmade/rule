@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body class="page-body">
-  <h1 id="page-title" class="page-title"></h1>
+  <h1 id="page-title" class="page-title"><a href="https://github.com/Minesweepervariants-Fanmade/MinesweeperVariants" target="_blank" rel="noopener noreferrer">MinesweeperVariants</a></h1>
   <div class="page-toolbar">
     <label id="language-label" class="language-label" for="language-switch"></label>
     <select id="language-switch" class="language-switch"></select>
@@ -17,14 +17,14 @@
   <script>
     (function () {
       var IMAGE_BASE = "https://raw.githubusercontent.com/Minesweepervariants-Fanmade/rule/master/image/";
-      var RULE_LINES = ["L", "M", "R"];
+      var RULE_LINES = ["L", "M", "R", "T"];
       var STORAGE_KEY = "minesweepervariants.rule.locale";
       var RULE_DATA = null;
       var UI_LOCALE = resolveUiLocale(localStorage.getItem(STORAGE_KEY) || document.documentElement.lang || (navigator.languages && navigator.languages[0]) || navigator.language || "zh_CN");
       var UI_TEXT = {
         zh_CN: {
           title: "MinesweeperVariants 规则列表",
-          heading: "规则列表",
+          heading: "MinesweeperVariants 规则列表",
           languageLabel: "语言",
           loading: "加载中...",
           author: "作者",
@@ -34,12 +34,13 @@
           ruleLine: {
             L: "左线规则",
             M: "中线规则",
-            R: "右线规则"
+            R: "右线规则",
+            T: "待办规则"
           }
         },
         en: {
           title: "MinesweeperVariants Rule List",
-          heading: "Rule List",
+          heading: "MinesweeperVariants Rule List",
           languageLabel: "Language",
           loading: "Loading...",
           author: "Author",
@@ -49,7 +50,8 @@
           ruleLine: {
             L: "Left Rules",
             M: "Middle Rules",
-            R: "Right Rules"
+            R: "Right Rules",
+            T: "To-do Rules"
           }
         }
       };
@@ -115,6 +117,16 @@
         return localePack.ruleLine[line] || UI_TEXT.zh_CN.ruleLine[line] || line;
       }
 
+      function getHeadingHtml() {
+        var localePack = UI_TEXT[UI_LOCALE] || UI_TEXT.zh_CN;
+        var title = text(localePack.heading || UI_TEXT.zh_CN.heading);
+        var prefix = "MinesweeperVariants";
+        if (title.indexOf(prefix) === 0) {
+          return '<a href="https://github.com/Minesweepervariants-Fanmade/MinesweeperVariants" target="_blank" rel="noopener noreferrer">' + prefix + '</a>' + title.slice(prefix.length);
+        }
+        return '<a href="https://github.com/Minesweepervariants-Fanmade/MinesweeperVariants" target="_blank" rel="noopener noreferrer">' + prefix + '</a>';
+      }
+
       function localeCandidates() {
         var preferred = UI_LOCALE === "en" ? ["en", "default", "zh_CN"] : ["zh_CN", "default", "en"];
         var candidates = [];
@@ -155,6 +167,72 @@
 
       function buildImageUrl(imageName) {
         return new URL(imageName.trim(), IMAGE_BASE).href;
+      }
+
+      function parseYamlTodoRules(yamlText) {
+        var todos = [];
+        var lines = yamlText.split('\n');
+        var currentItem = null;
+        var i = 0;
+
+        while (i < lines.length) {
+          var line = lines[i];
+          var trimmed = line.trim();
+
+          if (trimmed === '') {
+            i++;
+            continue;
+          }
+
+          if (line[0] !== ' ' && trimmed.startsWith('- ')) {
+            if (currentItem) {
+              todos.push(currentItem);
+            }
+            currentItem = {};
+            line = line.substring(2).trim();
+          }
+
+          if (currentItem) {
+            var colonIdx = line.indexOf(':');
+            if (colonIdx > 0) {
+              var key = line.substring(0, colonIdx).trim();
+              var value = line.substring(colonIdx + 1).trim();
+
+              if (key === 'author_name') {
+                currentItem.author_name = value;
+              } else if (key === 'author_uid') {
+                currentItem.author_uid = value;
+              } else if (key === 'doc') {
+                currentItem.doc = value;
+              } else if (key === 'name') {
+                currentItem.name = value;
+              } else if (key === 'time') {
+                currentItem.time = value;
+              } else if (key === 'image') {
+                currentItem.image = value;
+              }
+            }
+          }
+          i++;
+        }
+
+        if (currentItem) {
+          todos.push(currentItem);
+        }
+
+        return todos.map(function (item) {
+          return {
+            id: item.name || 'Unknown',
+            name: { zh_CN: item.name || 'Unknown' },
+            doc: { zh_CN: item.doc || '' },
+            author: {
+              name: item.author_name || '未知',
+              id: item.author_uid || ''
+            },
+            image: item.image || '',
+            aliases: []
+          };
+        });
       }
 
       function makeRuleItem(rule) {
@@ -209,7 +287,7 @@
 
         var pageTitle = document.getElementById("page-title");
         if (pageTitle) {
-          pageTitle.textContent = getUiText("heading");
+          pageTitle.innerHTML = getHeadingHtml();
         }
 
         for (var i = 0; i < RULE_LINES.length; i++) {
@@ -218,7 +296,21 @@
           section.className = "rule-section";
           var list = RULE_DATA && Array.isArray(RULE_DATA[line]) ? RULE_DATA[line] : [];
 
-          appendTextElement(section, "h2", getRuleLineText(line) + " (" + list.length + ")", "rule-line-title");
+          var titleContainer = document.createElement("div");
+          titleContainer.className = "rule-section-header";
+
+          var toggleBtn = document.createElement("button");
+          toggleBtn.className = "rule-toggle-btn";
+          toggleBtn.textContent = "▼";
+          toggleBtn.setAttribute("aria-expanded", "true");
+
+          var title = document.createElement("h2");
+          title.className = "rule-line-title";
+          title.textContent = getRuleLineText(line) + " (" + list.length + ")";
+
+          titleContainer.appendChild(toggleBtn);
+          titleContainer.appendChild(title);
+          section.appendChild(titleContainer);
 
           var ul = document.createElement("ul");
           ul.className = "rule-list";
@@ -226,6 +318,16 @@
             ul.appendChild(makeRuleItem(list[j]));
           }
           section.appendChild(ul);
+
+          (function (button, content) {
+            button.addEventListener("click", function () {
+              var isExpanded = button.getAttribute("aria-expanded") === "true";
+              button.setAttribute("aria-expanded", !isExpanded);
+              content.style.display = isExpanded ? "none" : "";
+              button.textContent = isExpanded ? "▶" : "▼";
+            });
+          })(toggleBtn, ul);
+
           root.appendChild(section);
         }
       }
@@ -237,16 +339,30 @@
 
       var app = document.getElementById("app");
       app.textContent = getUiText("loading");
+
       fetch("dump.json", { cache: "no-store" })
         .then(function (res) {
-          if (!res.ok) {
-            throw new Error("HTTP " + res.status);
-          }
+          if (!res.ok) throw new Error("HTTP " + res.status);
           return res.json();
         })
         .then(function (data) {
           RULE_DATA = data;
-          render();
+          return fetch("ruleTodo.yaml", { cache: "no-store" })
+            .then(function (res) {
+              if (res.ok) {
+                return res.text();
+              }
+              return null;
+            })
+            .then(function (yamlText) {
+              if (yamlText) {
+                var todos = parseYamlTodoRules(yamlText);
+                if (todos.length > 0) {
+                  RULE_DATA.T = todos;
+                }
+              }
+              render();
+            });
         })
         .catch(function (err) {
           renderError(app, err && err.message ? err.message : String(err));

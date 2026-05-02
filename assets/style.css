@@ -43,6 +43,23 @@ html {
   margin: 0 auto 8px;
   font-size: 2rem;
   line-height: 1.2;
+  font-weight: 800;
+}
+
+.page-title a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+  cursor: pointer;
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+.page-title a:hover,
+.page-title a:focus-visible {
+  color: #5d3919;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.14em;
 }
 
 .page-toolbar {
@@ -81,6 +98,49 @@ html {
 
 .rule-section {
   margin-top: 28px;
+}
+
+.rule-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rule-toggle-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+.rule-toggle-btn:hover {
+  background: var(--panel-2);
+  border-color: var(--accent);
+}
+
+.rule-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.rule-section-header .rule-line-title {
+  flex-grow: 1;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .rule-line-title {
@@ -174,6 +234,12 @@ html {
 
   .rule-image {
     max-width: 100%;
+  }
+
+  .rule-toggle-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
   }
 }
 
