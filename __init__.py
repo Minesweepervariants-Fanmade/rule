@@ -62,7 +62,9 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
         elif any("Mines" in b for b in bases_info):
             x |= 1
 
-        info = {}
+        info: dict[str, Union[dict, list, int, str]] = {
+            "aliases": []
+        }
         for stmt in node.body:
             if isinstance(stmt, ast.Assign):
                 for target in stmt.targets:
@@ -108,14 +110,14 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
 
                 for target in stmt.targets:
                     if (
-                        isinstance(target, ast.Name) and target.id == "name" and
-                        (
-                            isinstance(stmt.value, ast.Str)
-                            or isinstance(stmt.value, ast.List)
-                            or isinstance(stmt.value, ast.Tuple)
-                            or isinstance(stmt.value, ast.Dict)
-                            or isinstance(stmt.value, ast.Constant)
-                        )
+                            isinstance(target, ast.Name) and target.id == "name" and
+                            (
+                                    isinstance(stmt.value, ast.Str)
+                                    or isinstance(stmt.value, ast.List)
+                                    or isinstance(stmt.value, ast.Tuple)
+                                    or isinstance(stmt.value, ast.Dict)
+                                    or isinstance(stmt.value, ast.Constant)
+                            )
                     ):
                         # 支持多种写法：str / list/tuple / dict(i18n) / ast.Constant
                         # 列表或元组 -> names 列表
@@ -161,15 +163,17 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                             info["x"] = x
                             info["module_doc"] = module_doc
                             info["names"] = [name_val]
-                        elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value, str) and stmt.value.value.strip():
+                        elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value,
+                                                                                 str) and stmt.value.value.strip():
                             name_val = stmt.value.value.strip()
                             info["x"] = x
                             info["module_doc"] = module_doc
                             info["names"] = [name_val]
                     if (
-                        isinstance(target, ast.Name) and
-                        target.id == "doc" and
-                        (isinstance(stmt.value, ast.Str) or isinstance(stmt.value, ast.Dict) or isinstance(stmt.value, ast.Constant))
+                            isinstance(target, ast.Name) and
+                            target.id == "doc" and
+                            (isinstance(stmt.value, ast.Str) or isinstance(stmt.value, ast.Dict) or isinstance(
+                                stmt.value, ast.Constant))
                     ):
                         # 支持字符串或字典(i18n)形式
                         if isinstance(stmt.value, ast.Dict):
@@ -194,23 +198,30 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                                 info["doc"] = d
                         elif isinstance(stmt.value, ast.Str) and stmt.value.s.strip():
                             info["doc"] = stmt.value.s.strip()
-                        elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value, str) and stmt.value.value.strip():
+                        elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value,
+                                                                                 str) and stmt.value.value.strip():
                             info["doc"] = stmt.value.value.strip()
                     if (
-                        isinstance(target, ast.Name) and
-                        target.id == "author"
+                            isinstance(target, ast.Name) and
+                            target.id == "author"
                     ):
                         author_val = _extract_author_text(stmt.value)
                         if author_val:
                             info["author"] = author_val
                     if (
-                        isinstance(target, ast.Name) and
-                        target.id == "id"
+                            isinstance(target, ast.Name) and
+                            target.id == "aliases"
+                    ):
+                        info["aliases"] = [getattr(elt, "value") for elt in stmt.value.elts]
+                    if (
+                            isinstance(target, ast.Name) and
+                            target.id == "id"
                     ):
                         # 规则id，期望为字符串常量
                         if isinstance(stmt.value, ast.Str) and stmt.value.s.strip():
                             info["id"] = stmt.value.s.strip()
-                        elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value, str) and stmt.value.value.strip():
+                        elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value,
+                                                                                 str) and stmt.value.value.strip():
                             info["id"] = stmt.value.value.strip()
         if "names" in info:
             return info
@@ -232,7 +243,8 @@ def scan_module_docstrings(directory):
                 doc = pck.get('doc', "")
                 author = pck.get('author', ())
                 rule_id = pck.get('id', "")
-                results.append((m_doc, doc, x, names, author, rule_id))
+                aliases = pck.get("aliases", [])
+                results.append((m_doc, doc, x, names, author, rule_id, aliases))
     return results
 
 
@@ -266,6 +278,7 @@ def _first_text(value) -> str:
     for text in _iter_text_values(value):
         return text
     return ""
+
 
 def _normalize_i18n_map(value, fallback_text=""):
     if isinstance(value, dict):
@@ -306,14 +319,25 @@ def _normalize_author(author):
         "id": author_id,
     }
 
+
 def _pick_image_name(rule_key, image_names):
     if not rule_key:
         return ""
-    prefix = f"{rule_key}_"
+    prefix = rule_key
+    # 按照规范转义特殊字符
+    prefix = prefix.replace("-", "--")
+    prefix = prefix.replace("?", "-q")
+    prefix = prefix.replace("*", "-a")
+    prefix = prefix.replace("<", "-l")
+    prefix = prefix.replace(">", "-g")
+    prefix = prefix.replace("/", "-s")
+    prefix = prefix.replace("\\", "-b")
+    prefix = prefix.replace(":", "-c")
     for candidate in image_names:
-        if candidate.startswith(prefix):
+        if candidate in [prefix + ".png", prefix + ".jpg"]:
             return candidate
     return ""
+
 
 def get_all_rules():
     results = {"L": [], "M": [], "R": []}
@@ -326,7 +350,7 @@ def get_all_rules():
             if os.path.isfile(os.path.join(image_dir, name))
         )
 
-    for m_doc, doc, x, names, author, rule_id in scan_module_docstrings(dir_path):
+    for m_doc, doc, x, names, author, rule_id, aliases in scan_module_docstrings(dir_path):
         if not names:
             continue
 
@@ -356,5 +380,6 @@ def get_all_rules():
             "doc": doc_map,
             "author": author_map,
             "image": image_name,
+            "aliases": aliases,
         })
     return results
