@@ -12,6 +12,7 @@ class RuleRAW(AbstractMinesRule):
     name.zh_CN = "原始雷值"
     doc = "Raw mine value"
     doc.zh_CN = "原始雷值"
+    author = ("NT", 2201963934)
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

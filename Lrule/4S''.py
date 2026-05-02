@@ -11,6 +11,7 @@ class Rule3I(AbstractMinesRule):
     name = "Staircase''"
     name.zh_CN = "阶梯''"
     doc = "4S'' = 4S - 1 = 4S' + 1"
+    author = ("NT", 2201963934)
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

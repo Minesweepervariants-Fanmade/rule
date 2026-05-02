@@ -13,6 +13,7 @@ class Rule3I(AbstractMinesRule):
     doc = "Mine value equals the factorial of the number of mines in its 4 adjacent cells"
     doc.zh_CN = "雷值等于其相邻四格雷数的阶乘"
     lib_only = True
+    author = ("NT", 2201963934)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

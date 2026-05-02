@@ -17,6 +17,7 @@ class Rulen1M(AbstractMinesRule):
     name.zh_CN = "镜像"
     doc = "Mine distribution is randomly symmetric in one of the following ways: [horizontal/vertical/diagonal/anti-diagonal/center]"
     doc.zh_CN = "雷分布将随机按照下述方式对称 [水平/垂直/对角/副对角/中心]对称"
+    author = ("雾", 3140864122)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

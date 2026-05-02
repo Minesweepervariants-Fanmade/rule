@@ -46,6 +46,7 @@ class RulePUZ(AbstractMinesRule):
   name.zh_CN = "拼图"
   doc = "All 4-connected mine blocks can be rearranged by independent translation to form an axis-aligned rectangle"
   doc.zh_CN = "所有四联通雷块可通过独立平移重排成一个轴对齐矩形"
+  author = ("NT", 2201963934)
 
   def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
     super().__init__(board, data)

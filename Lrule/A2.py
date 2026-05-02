@@ -21,6 +21,7 @@ class RuleA2(AbstractMinesRule):
     name.zh_CN = "A2 格是雷"
     doc = "A2 is a mine"
     doc.zh_CN = "A2 格是雷"
+    author = ("NT", 2201963934)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
