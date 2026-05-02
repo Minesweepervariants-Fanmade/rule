@@ -1326,3 +1326,11 @@
   image: -qU.png
   name: ?U
   time: 1777746378.5754313
+- author_name: 雾
+  author_uid: 3140864122
+  doc: 'Mirror: In 2 pairs of orthogonal directions (as indicated by the clue, which
+    is either a forwards/ or back\ ), the distance from the clue to the nearest wall
+    or mine is equal.'
+  image: -qM.png
+  name: ?M
+  time: 1777746786.4646451
