@@ -17,6 +17,7 @@
   <script>
     (function () {
       var IMAGE_BASE = "https://raw.githubusercontent.com/Minesweepervariants-Fanmade/rule/master/image/";
+      var TODO_IMAGE_BASE = "https://raw.githubusercontent.com/Minesweepervariants-Fanmade/rule/doc/image/";
       var RULE_LINES = ["L", "M", "R", "T"];
       var STORAGE_KEY = "minesweepervariants.rule.locale";
       var RULE_DATA = null;
@@ -165,8 +166,9 @@
         return el;
       }
 
-      function buildImageUrl(imageName) {
-        return new URL(imageName.trim(), IMAGE_BASE).href;
+      function buildImageUrl(imageName, line) {
+        var base = line === "T" ? TODO_IMAGE_BASE : IMAGE_BASE;
+        return new URL(imageName.trim(), base).href;
       }
 
       function parseYamlTodoRules(yamlText) {
@@ -235,7 +237,7 @@
         });
       }
 
-      function makeRuleItem(rule) {
+      function makeRuleItem(rule, line) {
         var item = document.createElement("li");
         item.className = "rule-item";
 
@@ -264,7 +266,7 @@
           var img = document.createElement("img");
           img.className = "rule-image";
           img.alt = imageName;
-          img.src = buildImageUrl(imageName);
+          img.src = buildImageUrl(imageName, line);
             docContainer.appendChild(img);
           }
 
@@ -315,7 +317,7 @@
           var ul = document.createElement("ul");
           ul.className = "rule-list";
           for (var j = 0; j < list.length; j++) {
-            ul.appendChild(makeRuleItem(list[j]));
+            ul.appendChild(makeRuleItem(list[j], line));
           }
           section.appendChild(ul);
 
