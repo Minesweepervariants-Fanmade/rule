@@ -11,7 +11,7 @@ class RuleTESTL01(AbstractMinesRule):
     name = "TEST-L01"
     doc = "All mines form two 4-connected components, bottom-left and top-right corners must be mines and not connected"
     doc.zh_CN = "所有雷组成两个四连通块，左下角与右上角必为雷且不联通"
-    author = ("NT", 2201963934)
+    author = ("Artless", 2452944138)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

@@ -10,7 +10,7 @@ class Rule(AbstractMinesRule):
     name = "TEST-L2"
     doc = "Each row has one continuous group of mines, and each row has a different number of mines"
     doc.zh_CN = "每一行各有一组连续的雷且数量各不相同"
-    author = ("NT", 2201963934)
+    author = ("Artless", 2452944138)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

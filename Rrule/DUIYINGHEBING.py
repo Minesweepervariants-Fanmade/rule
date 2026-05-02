@@ -23,10 +23,11 @@ OPPSITE_PAIRS = [
 
 class RuleDUIYINGHEBING(AbstractClueRule):
     id = "4D'"
-    name = "Mapping"
+    name = "Dual Combine"
     name.zh_CN = "对映合并"
-    doc = "Each number indicates the number of mines in the eight surrounding cells"
-    doc.zh_CN = "每个数字标明周围八格内雷的数量。"
+    doc = "Each number indicates the number of mines in the eight surrounding cells. Two mines in opposite positions are counted as one mine."
+    doc.zh_CN = "每个数字标明周围八格内雷的数量。相对位置的两个雷视为一个雷。"
+    author = ("NT", 2201963934)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N", special='raw'):

@@ -10,7 +10,7 @@ class Rule1HX(AbstractMinesRule):
     name = "TEST-L1"
     doc = "If a cell is a mine, its horizontally symmetric cell is not a mine"
     doc.zh_CN = "如果一个格子是雷，其水平对称格不是雷"
-    author = ("NT", 2201963934)
+    author = ("Artless", 2452944138)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
