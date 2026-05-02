@@ -62,7 +62,9 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
         elif any("Mines" in b for b in bases_info):
             x |= 1
 
-        info = {}
+        info: dict[str, Union[dict, list, int, str]] = {
+            "aliases": []
+        }
         for stmt in node.body:
             if isinstance(stmt, ast.Assign):
                 for target in stmt.targets:
@@ -208,6 +210,11 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                             info["author"] = author_val
                     if (
                             isinstance(target, ast.Name) and
+                            target.id == "aliases"
+                    ):
+                        info["aliases"] = [getattr(elt, "value") for elt in stmt.value.elts]
+                    if (
+                            isinstance(target, ast.Name) and
                             target.id == "id"
                     ):
                         # 规则id，期望为字符串常量
@@ -236,7 +243,8 @@ def scan_module_docstrings(directory):
                 doc = pck.get('doc', "")
                 author = pck.get('author', ())
                 rule_id = pck.get('id', "")
-                results.append((m_doc, doc, x, names, author, rule_id))
+                aliases = pck.get("aliases", [])
+                results.append((m_doc, doc, x, names, author, rule_id, aliases))
     return results
 
 
@@ -342,7 +350,7 @@ def get_all_rules():
             if os.path.isfile(os.path.join(image_dir, name))
         )
 
-    for m_doc, doc, x, names, author, rule_id in scan_module_docstrings(dir_path):
+    for m_doc, doc, x, names, author, rule_id, aliases in scan_module_docstrings(dir_path):
         if not names:
             continue
 
@@ -372,5 +380,6 @@ def get_all_rules():
             "doc": doc_map,
             "author": author_map,
             "image": image_name,
+            "aliases": aliases,
         })
     return results
