@@ -31,12 +31,7 @@ class RuleQuess(AbstractClueRule):
         return board
 
     def init_clear(self, board: 'AbstractBoard'):
-        if self.data == -1:
-            for pos, obj in board("C"):
-                if obj is not VALUE_QUESS:
-                    continue
-                board.set_value(pos, None)
-        else:
+        if self.data > -1:
             positions = [pos for pos, obj in board("C") if obj is VALUE_QUESS]
             random = get_random()
             positions = random.sample(positions, k=len(positions) - self.data)
