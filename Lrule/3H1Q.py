@@ -39,7 +39,8 @@ class Rule3H1Q(AbstractMinesRule):
     id = "3H1Q"
     name = "Hex1Q"
     name.zh_CN = "六角无方"
-    doc = "六角无方: 每个互相相邻的三个格必有一个雷"
+    doc = "Hex No-Square: Among any three mutually adjacent cells, at least one must be a mine"
+    doc.zh_CN = "六角无方: 每个互相相邻的三个格必有一个雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

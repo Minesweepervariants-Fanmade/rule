@@ -15,7 +15,8 @@ class Rule1H(AbstractMinesRule):
     id = "1H2H"
     name = "Horizontal-Horizontal"
     name.zh_CN = "横横向向"
-    doc = "在每一行中, 要么都没有横向相邻的雷，要么都至少有一个横向相邻的雷。"
+    doc = "In each row, either there are no horizontally adjacent mines, or all have at least one horizontally adjacent mine."
+    doc.zh_CN = "在每一行中, 要么都没有横向相邻的雷，要么都至少有一个横向相邻的雷。"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

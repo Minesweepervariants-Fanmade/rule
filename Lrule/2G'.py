@@ -16,7 +16,8 @@ class Rule2Gp(AbstractMinesRule):
     id = "2G'"
     name = "Group'"
     name.zh_CN = "三连块"
-    doc = "所有四连通雷区域的面积为3"
+    doc = "All four-connected mine areas have an area of 3"
+    doc.zh_CN = "所有四连通雷区域的面积为3"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

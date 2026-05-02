@@ -16,7 +16,8 @@ class RuleUSETU(AbstractMinesRule):
     id = "U-SETU"
     name = "Waifu Picture"
     name.zh_CN = "涩图"
-    doc = "参数链接(支持URL/文件路径)"
+    doc = "Parameter link (supports URL/file path)"
+    doc.zh_CN = "参数链接(支持URL/文件路径)"
     author = ("NT", 2201963934)
 
     def __init__(self, board: AbstractBoard, data=None):

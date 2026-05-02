@@ -25,7 +25,8 @@ class RulePF(AbstractClueRule):
     id = "PF"
     name = "Prime Factor"
     name.zh_CN = "素因子"
-    doc = "除0和1外的线索显示真实值的最大素因子"
+    doc = "For clues other than 0 and 1, displays the largest prime factor of the true value"
+    doc.zh_CN = "除0和1外的线索显示真实值的最大素因子"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

@@ -5,7 +5,10 @@ class Rule1L1sharpprime(AbstractClueSharp):
     id = "1L1#'"
     name = "Liar + Label'"
     name.zh_CN = "误差 + 标签'"
-    doc = ("包含以下规则: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], "
+    doc = ("Includes the following rules: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], "
+                "[1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\n"
+                "Use [1L1#':] to exclude [1L1W]")
+    doc.zh_CN = ("包含以下规则: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], "
               "[1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\n"
               "使用[1L1#':]以去除[1L1W]")
 

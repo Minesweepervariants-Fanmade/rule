@@ -15,9 +15,10 @@ from ....utils.tool import get_logger, get_random
 
 class Rule2Dp(AbstractClueRule):
     id = "2D'"
-    name = "2D'"
+    name = "Four-Direction Offset"
     name.zh_CN = "四向偏移"
-    doc = "线索表示四方向任意偏移一格为中心的3x3区域内的总雷数(全局统一)"
+    doc = "Clue shows the total number of mines in a 3x3 area centered one cell offset in any of the four directions (globally consistent)"
+    doc.zh_CN = "线索表示四方向任意偏移一格为中心的3x3区域内的总雷数(全局统一)"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

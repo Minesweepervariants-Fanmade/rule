@@ -11,7 +11,8 @@ class Rule2K(AbstractClueRule):
     id = "2K"
     name = "Kinsho"
     name.zh_CN = "金将"
-    doc = "线索表示金将范围（即上、下、左、右、左上、右上六格）内的雷数"
+    doc = "Clue shows the number of mines in the kinsho area (the six cells: up, down, left, right, up-left, up-right)"
+    doc.zh_CN = "线索表示金将范围（即上、下、左、右、左上、右上六格）内的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

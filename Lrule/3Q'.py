@@ -8,7 +8,8 @@ class Rule3Q(AbstractMinesRule):
     id = "3Q'"
     name = "No-Quadrilateral"
     name.zh_CN = "无方"
-    doc = "任意四个雷不能作为一个横平竖直的矩形的顶点"
+    doc = "Any four mines cannot form the vertices of a horizontally and vertically straight rectangle"
+    doc.zh_CN = "任意四个雷不能作为一个横平竖直的矩形的顶点"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

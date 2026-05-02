@@ -2,9 +2,10 @@ from ....abs.Lrule import AbstractMinesRule
 
 class Rule4U(AbstractMinesRule):
     id = "4U"
-    name = "4U"
+    name = "Cell"
     name.zh_CN = "晶胞"
-    doc = "第一行和最后一行雷分布相同，第一列和最后一列雷分布相同"
+    doc = "Mine distribution in the first row equals the last row, and mine distribution in the first column equals the last column"
+    doc.zh_CN = "第一行和最后一行雷分布相同，第一列和最后一列雷分布相同"
 
     def create_constraints(self, board, switch):
         model = board.get_model()

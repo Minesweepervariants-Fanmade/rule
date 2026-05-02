@@ -19,7 +19,8 @@ class Rule1Xp(AbstractClueRule):
     aliases = ("X'",)
     name = "Mini Cross"
     name.zh_CN = "小十字"
-    doc = "线索表示半径为 1 的十字范围内的雷数"
+    doc = "Clue shows the number of mines in a 1-cell cross range"
+    doc.zh_CN = "线索表示半径为 1 的十字范围内的雷数"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

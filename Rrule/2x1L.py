@@ -19,7 +19,8 @@ class Rule1Lo(AbstractClueRule):
     id = "2*1L"
     name = "Double Liar"
     name.zh_CN = "2倍误差"
-    doc = "所有线索均比真实值大2或小2或者不变"
+    doc = "All clues are either 2 greater, 2 less than, or equal to the true value"
+    doc.zh_CN = "所有线索均比真实值大2或小2或者不变"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

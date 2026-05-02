@@ -13,7 +13,8 @@ class RuleCL(AbstractMinesRule):
     id = "CL"
     name = "Coastline"
     name.zh_CN = "海岸线"
-    doc = "雷区域与非雷区域之间不存在长度大于等于 2 的直线分界线"
+    doc = "No straight boundary line of length 2 or more exists between mine and non-mine areas"
+    doc.zh_CN = "雷区域与非雷区域之间不存在长度大于等于 2 的直线分界线"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

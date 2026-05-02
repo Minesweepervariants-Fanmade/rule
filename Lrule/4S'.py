@@ -10,7 +10,8 @@ class Rule3I(AbstractMinesRule):
     id = "4S'"
     name = "Staircase"
     name.zh_CN = "阶梯'"
-    doc = "雷值等于行号与列号之和, 但从0开始"
+    doc = "Mine value equals the sum of row and column numbers, but starting from 0"
+    doc.zh_CN = "雷值等于行号与列号之和, 但从0开始"
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

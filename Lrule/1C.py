@@ -19,7 +19,8 @@ class Rule1C(AbstractMinesRule):
     aliases = ("C",)
     name = "Connected"
     name.zh_CN = "八连通"
-    doc = "雷区域八连通"
+    doc = "Mine areas are connected diagonally (8-connectivity)"
+    doc.zh_CN = "雷区域八连通"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         self.invert = False

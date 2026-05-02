@@ -18,7 +18,11 @@ class Rule2ESharp(AbstractClueSharp):
     id = "2E#"
     name = "Encrypted + Tag"
     name.zh_CN = "加密 + 标签"
-    doc = ("线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母\n"
+    doc = ("Clues are replaced by letters, each letter corresponds to a clue, and each clue corresponds to a letter\n"
+                "Specify the rules used and their order through 2E#:<rule1>;<rule2>;...\n"
+                "Default is the same as the second generation\n"
+                "You can add 1# 1#' 2# 2#' 2#':\n")
+    doc.zh_CN = ("线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母\n"
               "通过2E#:<rule1>;<rule2>;...来指定使用的规则及其顺序\n"
               "默认同二代\n"
               "可添加 1# 1#' 2# 2#' 2#':\n")

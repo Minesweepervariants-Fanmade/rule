@@ -48,7 +48,8 @@ class Rule3A(AbstractClueRule):
     id = "3A"
     name = "Langton's Ant"
     name.zh_CN = "兰顿蚂蚁"
-    doc = "数字表示兰顿蚂蚁从线索格出发直至走出题板外所移动的次数。\n箭头表示兰顿蚂蚁的初始方向，经过非雷格顺时针旋转90度(右转)，经过雷格逆时针旋转90度(左转)。\n数字可以为无穷(显示为0),其表示当前路径构成了循环"
+    doc = "Number shows how many steps the Langton's Ant moves from the clue cell until exiting the board.\nArrow shows the initial direction of the Langton's Ant; rotates clockwise 90° (right turn) when moving over non-mine cells, and counterclockwise 90° (left turn) when moving over mines.\nThe number can be infinite (shown as 0), indicating the path forms a loop"
+    doc.zh_CN = "数字表示兰顿蚂蚁从线索格出发直至走出题板外所移动的次数。\n箭头表示兰顿蚂蚁的初始方向，经过非雷格顺时针旋转90度(右转)，经过雷格逆时针旋转90度(左转)。\n数字可以为无穷(显示为0),其表示当前路径构成了循环"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

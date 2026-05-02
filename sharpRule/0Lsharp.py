@@ -13,7 +13,8 @@ class Rule0LSharp(AbstractClueSharp):
     id = "0L#"
     name = "Tag"
     name.zh_CN = "标签"
-    doc = "包含以下规则: [1L], [1L1L], [1L1N], [1L1X], [1L1P], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1L2D], [1L2M], [1L2X']。线索值只有零。"
+    doc = "Contains rules: [1L], [1L1L], [1L1N], [1L1X], [1L1P], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1L2D], [1L2M], [1L2X']. Clue values are only zero."
+    doc.zh_CN = "包含以下规则: [1L], [1L1L], [1L1N], [1L1X], [1L1P], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1L2D], [1L2M], [1L2X']。线索值只有零。"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         rules_name = ["1L", "1L1L", "1L1N", "1L1X", "1L1P", "1L1X'", "1L1K", "1L1W'", "1L1E'", "1L2D", "1L2M", "1L2X'"]

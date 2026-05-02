@@ -25,7 +25,8 @@ class Rule2Ep(AbstractClueRule):
     id = "2E'"
     name = "Self-Referential"
     name.zh_CN = "自指"
-    doc = "如果字母 X 的 3x3 范围内有 N 个雷，则 X=N 所在的格子为雷"
+    doc = "If letter X has N mines in its 3x3 area, then the cell with X=N must be a mine"
+    doc.zh_CN = "如果字母 X 的 3x3 范围内有 N 个雷，则 X=N 所在的格子为雷"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__()

@@ -23,7 +23,8 @@ class RuleASp(AbstractMinesRule):
     id = "AS'"
     name = "AutoSpin'"
     name.zh_CN = "自旋'"
-    doc = "每个2x2区域内不能同时存在四种状态（染色雷、非染色雷、染色非雷、非染色非雷）。"
+    doc = "Each 2x2 area cannot contain all four states (dyed mine, undyed mine, dyed non-mine, undyed non-mine) simultaneously"
+    doc.zh_CN = "每个2x2区域内不能同时存在四种状态（染色雷、非染色雷、染色非雷、非染色非雷）。"
 
     subrules = [
         [True, "[AS'] 禁止四态共存"]

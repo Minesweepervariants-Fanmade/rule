@@ -11,7 +11,9 @@ class Rule3H(AbstractClueRule):
     id = "3H"
     name = "Hexagon"
     name.zh_CN = "六角"
-    doc = """线索表示六边形网格中与线索距离为1的格子中的雷数
+    doc = """Clue indicates the number of mines in the cells at distance 1 from the clue in a hexagonal grid.
+In a square grid, the clue indicates the number of mines in the surrounding cells: up, down, left, right; odd columns (B,D,F,...) additionally include upper left and upper right; even columns (A,C,E,...) additionally include lower left and lower right."""
+    doc.zh_CN = """线索表示六边形网格中与线索距离为1的格子中的雷数
 线索表示正方形网格中这些周围格子的雷数：上 下 左 右，奇数列(B,D,F,...)额外包括左上 右上；偶数列(A,C,E,...)额外包括左下 右下"""
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

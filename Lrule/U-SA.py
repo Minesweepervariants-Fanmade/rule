@@ -17,7 +17,8 @@ class RuleUSA(AbstractMinesRule):
     id = "U-SA"
     name = "Semi-Auto Unmix"
     name.zh_CN = "反混合"
-    doc = "对于一张透明图片，分别输入它在白底和黑底上混合颜色的结果，尝试还原原图。"
+    doc = "For a transparent image, input its color-over-white and color-over-black results to attempt to restore the original image"
+    doc.zh_CN = "对于一张透明图片，分别输入它在白底和黑底上混合颜色的结果，尝试还原原图。"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

@@ -23,7 +23,8 @@ class RuleCS(AbstractClueRule):
     id = "CS"
     name = "Compass"
     name.zh_CN = "罗盘"
-    doc = "线索表示四方向各相邻雷区域中，在所示方向上比线索本身更远的单元格数量。"
+    doc = "Clue indicates, for each of the four orthogonal directions, the number of cells in the adjacent mine group that are farther than the clue in that direction"
+    doc.zh_CN = "线索表示四方向各相邻雷区域中，在所示方向上比线索本身更远的单元格数量。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int], check_mine: bool):

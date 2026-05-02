@@ -9,7 +9,8 @@ class Rule2I1C(AbstractMinesRule):
     id = "2I1C"
     name = "Incomplete-Connectivity"
     name.zh_CN = "残缺联通"
-    doc = "1.所有雷都必须根据副板指示的4对联通方向进行联通, 2.雷只有3种联通方法(上下/左右/对角/副对角)"
+    doc = "1. All mines must be connected according to the auxiliary board's 4-direction connectivity; 2. Mines have only 3 connection methods (vertical/horizontal/diagonal/anti-diagonal)"
+    doc.zh_CN = "1.所有雷都必须根据副板指示的4对联通方向进行联通, 2.雷只有3种联通方法(上下/左右/对角/副对角)"
 
     def __init__(self, board = None, data=None):
         super().__init__(board, data)

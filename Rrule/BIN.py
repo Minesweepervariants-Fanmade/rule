@@ -12,7 +12,8 @@ class RuleBIN(AbstractClueRule):
     id = "BIN"
     name = "Binary"
     name.zh_CN = "二叉"
-    doc = "BIN:X;Y 表示线索为 X 与 Y 规则下的值（顺序不确定）"
+    doc = "BIN:X;Y Clue indicates values under two rules X and Y (order not fixed)"
+    doc.zh_CN = "BIN:X;Y 表示线索为 X 与 Y 规则下的值（顺序不确定）"
 
     def __init__(self, board: AbstractBoard = None, data: str = "") -> None:
         super().__init__(board, data)

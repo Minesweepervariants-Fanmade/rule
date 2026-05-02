@@ -15,7 +15,8 @@ class Rule3O(AbstractMinesRule):
     id = "3O"
     name = "Orthogonal"
     name.zh_CN = "横纵"
-    doc = "雷从四个方向中的任意一个连到题板外"
+    doc = "Mines connect from any of the four directions to outside the board"
+    doc.zh_CN = "雷从四个方向中的任意一个连到题板外"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

@@ -24,7 +24,8 @@ class Rule2E(AbstractClueRule):
     id = "2E"
     name = "Encrypted"
     name.zh_CN = "加密"
-    doc = "线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母"
+    doc = "Clues are replaced by letters, each letter corresponds to one clue, and each clue corresponds to one letter"
+    doc.zh_CN = "线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母"
 
     def __init__(self, data=None, board: 'AbstractBoard' = None):
         super().__init__(board, data)

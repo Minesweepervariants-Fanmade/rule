@@ -38,7 +38,8 @@ class Rule2Q(AbstractClueRule):
     id = "2Q"
     name = "Queen"
     name.zh_CN = "皇后"
-    doc = "线索表示八方向有雷的方向数量"
+    doc = "Clue indicates the number of directions with mines in the eight directions"
+    doc.zh_CN = "线索表示八方向有雷的方向数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

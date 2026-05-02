@@ -10,7 +10,8 @@ class RuleDC(AbstractMinesRule):
     id = "DC"
     name = "Diagonally Connected"
     name.zh_CN = "必对角"
-    doc = "每个雷对角相邻的四格中有至少一个雷"
+    doc = "Each mine has at least one mine in the four diagonally adjacent cells"
+    doc.zh_CN = "每个雷对角相邻的四格中有至少一个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

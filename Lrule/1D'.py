@@ -16,7 +16,8 @@ class Rule1Dp(AbstractMinesRule):
     aliases = ("D'",)
     name = "Battleship"
     name.zh_CN = "战舰"
-    doc = "每个雷区域为宽度为 1、长度不超过 4 的矩形，矩形不能对角相邻"
+    doc = "Each mine area is a rectangle with width 1 and length no more than 4, rectangles cannot be diagonally adjacent"
+    doc.zh_CN = "每个雷区域为宽度为 1、长度不超过 4 的矩形，矩形不能对角相邻"
 
     def create_constraints(self, board: AbstractBoard, switch):
         # 获取求解器模型

@@ -22,7 +22,8 @@ class RuleOR(AbstractMinesRule):
     id = "AND"
     name = "AND"
     name.zh_CN = "与"
-    doc = "你可以在后面输入多个左线来表示或关系(题板将按照A规则或B规则)"
+    doc = "You can input multiple left rules separated by ':' to express AND relationship (board will follow both rule A and rule B)"
+    doc.zh_CN = "你可以在后面输入多个左线来表示与关系(题板将按照A规则和B规则)(规则间使用\":\"隔开)"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

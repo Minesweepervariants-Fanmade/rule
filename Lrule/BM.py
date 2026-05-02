@@ -15,7 +15,8 @@ class RuleBM(AbstractMinesRule):
     id = "BM"
     name = "Multi-Balance"
     name.zh_CN = "多雷平衡"
-    doc = "染色格被视为两个雷, 每行每列的“多雷雷值”相同。(线索格不一定是多雷规则) (1).列平衡, (2).行平衡"
+    doc = "Dyed cells count as two mines, row and column 'multi-mine values' are equal. (Clue cells are not necessarily multi-mine rules)"
+    doc.zh_CN = "染色格被视为两个雷, 每行每列的“多雷雷值”相同。(线索格不一定是多雷规则) (1).列平衡, (2).行平衡"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

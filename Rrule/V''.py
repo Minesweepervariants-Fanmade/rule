@@ -25,7 +25,8 @@ class RuleV(AbstractClueRule):
     id = "V''"
     name = "Absolute"
     name.zh_CN = "雷绝对值"
-    doc = "每个数字标明周围八格内雷值之和之绝对值"
+    doc = "Each number shows the absolute value of the sum of mine values in the surrounding eight cells"
+    doc.zh_CN = "每个数字标明周围八格内雷值之和之绝对值"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

@@ -41,7 +41,8 @@ class Rule3MA(AbstractMinesRule):
     id = "3MA"
     name = "Triple Mines Areas"
     name.zh_CN = "三雷区"
-    doc = "题板正好有三个四连通雷区"
+    doc = "The board has exactly three four-connected mine areas"
+    doc.zh_CN = "题板正好有三个四连通雷区"
 
     _COMPARATOR_RE = re.compile(r"^(>=|<=|!=|>|<)\s*(-?\d+)$")
 

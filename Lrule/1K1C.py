@@ -17,7 +17,8 @@ class Rule1C(AbstractMinesRule):
     id = "1K1C"
     name = "Knight-Connected"
     name.zh_CN = "马步八连通"
-    doc = "雷区域马步连通"
+    doc = "Mine areas are connected via knight's moves (8-connectivity via knight's move pattern)"
+    doc.zh_CN = "雷区域马步连通"
 
     def create_constraints(self, board, switch):
         model = board.get_model()

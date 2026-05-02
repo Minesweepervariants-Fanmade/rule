@@ -10,7 +10,8 @@ class RuleGL(AbstractMinesRule):
     id = "GL"
     name = "Game of Life"
     name.zh_CN = "生命游戏"
-    doc = "每个雷周围八格中恰有2或3个雷"
+    doc = "Each mine has exactly 2 or 3 mines in the eight surrounding cells"
+    doc.zh_CN = "每个雷周围八格中恰有2或3个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

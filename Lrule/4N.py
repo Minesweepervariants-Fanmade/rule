@@ -3,9 +3,10 @@ from ....abs.board import AbstractBoard, AbstractPosition
 
 class Rule4N(AbstractMinesRule):
     id = "4N"
-    name = "4N"
+    name = "Adjacent"
     name.zh_CN = "相邻"
-    doc = "非雷周围四格必须有雷"
+    doc = "Non-mine cells must have at least one mine in the four orthogonal adjacent cells"
+    doc.zh_CN = "非雷周围四格必须有雷"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

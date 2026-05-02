@@ -62,7 +62,8 @@ class Rule1Wp(AbstractClueRule):
     aliases = ("W'",)
     name = "Longest Wall"
     name.zh_CN = "最长数墙"
-    doc = "线索表示 3x3 范围内最长的连续雷的长度"
+    doc = "Clue shows the longest continuous mine length in a 3x3 range"
+    doc.zh_CN = "线索表示 3x3 范围内最长的连续雷的长度"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

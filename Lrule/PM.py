@@ -6,7 +6,8 @@ class RulePM(AbstractMinesRule):
     id = "PM"
     name = "Pure Matrix"
     name.zh_CN = "独一无二"
-    doc = "恰有一种方式从每行每列恰好选取一雷"
+    doc = "Exactly one way to select exactly one mine from each row and column"
+    doc.zh_CN = "恰有一种方式从每行每列恰好选取一雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

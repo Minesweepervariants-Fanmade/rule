@@ -16,7 +16,8 @@ class Rule3D(AbstractMinesRule):
     id = "3D"
     name = "Dict"
     name.zh_CN = "辞典"
-    doc = "所有雷从左到右，从上到下依次标号。线索表示周围八格的雷的标号之和"
+    doc = "All mines are numbered from left to right, top to bottom. Clue indicates the sum of mine indices in the eight surrounding cells"
+    doc.zh_CN = "所有雷从左到右，从上到下依次标号。线索表示周围八格的雷的标号之和"
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

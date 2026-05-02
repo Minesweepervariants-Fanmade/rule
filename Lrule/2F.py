@@ -16,7 +16,8 @@ class Rule2F(AbstractMinesRule):
     id = "2F"
     name = "Flower"
     name.zh_CN = "花田"
-    doc = "染色格中的雷周围四格内恰好有1个雷"
+    doc = "In dyed cells, exactly one mine in the four surrounding cells"
+    doc.zh_CN = "染色格中的雷周围四格内恰好有1个雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

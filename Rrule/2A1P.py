@@ -13,7 +13,8 @@ class Rule2A1P(AbstractClueRule):
     id = "2A1P"
     name = "Area + Partition"
     name.zh_CN = "面积 + 划分"
-    doc = "线索表示四方向相邻雷区域的数量"
+    doc = "Clue shows the number of adjacent mine regions in the four directions"
+    doc.zh_CN = "线索表示四方向相邻雷区域的数量"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int]):

@@ -26,7 +26,8 @@ class Rule1Dpp(AbstractMinesRule):
     aliases = ("D''",)
     name = "RectDiag"
     name.zh_CN = "矩形对角线"
-    doc = "所有雷必须是1x1~1x4矩形或者长度2~4的对角线的一部分，这些形状之间不能互相接触（对角也不行）。"
+    doc = "All mines must be part of 1x1~1x4 rectangles or diagonals of length 2~4, these shapes cannot touch each other (not even diagonally)."
+    doc.zh_CN = "所有雷必须是1x1~1x4矩形或者长度2~4的对角线的一部分，这些形状之间不能互相接触（对角也不行）。"
 
     def __init__(self, board: AbstractBoard = None, data=None) -> None:
         super().__init__(board, data)

@@ -98,7 +98,8 @@ class RuleJB(AbstractMinesRule):
     id = "JB"
     name = "Adick"
     name.zh_CN = "格调"
-    doc = "每组恰好由 1 个非方形矩形和 2 个方形矩形组成；短边两端分别与两个方形矩形对角接触，且组间完全不接触"
+    doc = "Each group consists of exactly 1 non-square rectangle and 2 square rectangles; short sides diagonally touch the two square rectangles, groups do not touch each other"
+    doc.zh_CN = "每组恰好由 1 个非方形矩形和 2 个方形矩形组成；短边两端分别与两个方形矩形对角接触，且组间完全不接触"
     author = ('NT', 2201963934)
 
     def create_constraints(self, board: 'AbstractBoard', switch):

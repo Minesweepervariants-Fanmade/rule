@@ -18,7 +18,8 @@ class RuleC(AbstractClueRule):
     id = "Rule-013"
     name = "τD"
     name.zh_CN = "没想好"
-    doc = "如果一个雷的周围八格有四个及以上的雷，那么这个雷的雷值是0，总雷数不受此规则影响。"
+    doc = "If a mine has four or more mines in its eight surrounding cells, then that mine's value is 0; total mine count is unaffected"
+    doc.zh_CN = "如果一个雷的周围八格有四个及以上的雷，那么这个雷的雷值是0，总雷数不受此规则影响。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         mines_map = {}

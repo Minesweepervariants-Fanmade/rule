@@ -18,7 +18,8 @@ class Rule1Tpp(AbstractMinesRule):
     aliases = ("T''",)
     name = "Pure Triple"
     name.zh_CN = "纯三连"
-    doc = "每个雷属于唯一的三连组(横/竖/斜)"
+    doc = "Each mine belongs to a unique triple group (horizontal/vertical/diagonal)"
+    doc.zh_CN = "每个雷属于唯一的三连组(横/竖/斜)"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

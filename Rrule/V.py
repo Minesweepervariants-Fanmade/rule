@@ -18,7 +18,7 @@ class RuleV(AbstractClueRule):
     id = "V"
     name = "Vanilla"
     name.zh_CN = "标准扫雷"
-    doc = ""
+    doc = "Each number indicates the number of mines in the surrounding eight cells"
     doc.zh_CN = "每个数字标明周围八格内雷的数量。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

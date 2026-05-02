@@ -24,9 +24,10 @@ from .connect import connect
 
 class RuleGT2(AbstractMinesRule):
     id = "GT2"
-    name = "GT2"
-    name.zh_CN = "所有四连通雷/非雷区域面积大于 2"
-    doc = "所有四连通雷/非雷区域面积大于 2"
+    name = "Greater Than 2"
+    name.zh_CN = "大于 2"
+    doc = "All four-connected mine/non-mine areas have size greater than 2"
+    doc.zh_CN = "所有四连通雷/非雷区域面积大于 2"
 
     _COMPARATOR_RE = re.compile(r"^(>=|<=|!=|>|<)\s*(-?\d+)$")
 

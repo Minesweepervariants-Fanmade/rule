@@ -9,7 +9,8 @@ class Rule2HT(AbstractMinesRule):
     id = "2HT"
     name = "Vertical"
     name.zh_CN = "纵向"
-    doc = "所有雷必须存在纵向相邻的雷"
+    doc = "All mines must have at least one adjacent mine vertically"
+    doc.zh_CN = "所有雷必须存在纵向相邻的雷"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

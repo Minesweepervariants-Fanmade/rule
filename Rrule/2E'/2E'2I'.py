@@ -21,7 +21,8 @@ class Rule2Ep2I(AbstractClueRule):
     id = "2E'2I'"
     name = "Self-Referential Incomplete'"
     name.zh_CN = "自指残缺'"
-    doc = "字母X周围8格中某?格的雷数如果有N个 则标有X=N的格子必定是雷 ?格的方位被当前题板所有线索共享"
+    doc = "If letter X has N mines among ? of its 8 adjacent cells, then the cell with X=N must be a mine. The positions of those ? cells are shared across all clues on the board"
+    doc.zh_CN = "字母X周围8格中某?格的雷数如果有N个 则标有X=N的格子必定是雷 ?格的方位被当前题板所有线索共享"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__()

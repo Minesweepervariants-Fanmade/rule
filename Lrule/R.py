@@ -16,4 +16,5 @@ class RuleR(Rule0R):
     id = "R"
     name = "Total Mines"
     name.zh_CN = "总雷数"
-    doc = "有时你会需要用到总雷数来推理"
+    doc = "Sometimes you need total mine count to deduce"
+    doc.zh_CN = "有时你会需要用到总雷数来推理"

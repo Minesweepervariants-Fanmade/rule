@@ -16,7 +16,8 @@ class Rule1C(Abstract3DMinesRule):
     id = "3D1C"
     name = "3DC"
     name.zh_CN = "二十六连通"
-    doc = "雷区域二十六连通"
+    doc = "Mine region is 26-connected"
+    doc.zh_CN = "雷区域二十六连通"
 
     def create_constraints(self, board, switch):
         model = board.get_model()

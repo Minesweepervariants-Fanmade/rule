@@ -46,7 +46,8 @@ class Rule2M(AbstractClueRule):
     id = "2M''"
     name = "Multiple"
     name.zh_CN = "多雷"
-    doc = "每行每列恰有一个雷被视为两个(总雷数不受限制)"
+    doc = "Each row and column has exactly one mine counted as two"
+    doc.zh_CN = "每行每列恰有一个雷被视为两个(总雷数不受限制)"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

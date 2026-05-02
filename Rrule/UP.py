@@ -19,7 +19,8 @@ class RuleUP(AbstractClueRule):
     id = "UP"
     name = "Unique Path"
     name.zh_CN = "唯一路径"
-    doc = "线索格表示从这个格开始只能往右或下走，到达右下角的方法数。"
+    doc = "Clue shows the number of ways to go from this cell to the bottom-right corner, moving only right or down"
+    doc.zh_CN = "线索格表示从这个格开始只能往右或下走，到达右下角的方法数。"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for key in board.get_interactive_keys():

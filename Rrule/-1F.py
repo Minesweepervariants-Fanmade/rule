@@ -18,7 +18,8 @@ class Rulex1F(AbstractClueRule):
     id = "*1F"
     name = "Filp"
     name.zh_CN = "翻转"
-    doc = "线索表示其以题板左上角到右下角直线为对称轴的镜像位置周围八格的雷数，不包括自身"
+    doc = "Clue shows the number of mines in the eight cells surrounding the mirror position reflected across the diagonal from top-left to bottom-right of the board, not including the cell itself"
+    doc.zh_CN = "线索表示其以题板左上角到右下角直线为对称轴的镜像位置周围八格的雷数，不包括自身"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

@@ -65,7 +65,8 @@ class Rule3B(AbstractClueRule):
     id = "3B"
     name = "Binary"
     name.zh_CN = "二进"
-    doc = "无雷是0，有雷是1，线索代表每行（左起）和每列（上起）对应两个二进制数的按位异或值"
+    doc = "No mine is 0, has mine is 1, clue represents the bitwise XOR of two binary numbers from the corresponding row (left to right) and column (top to bottom)"
+    doc.zh_CN = "无雷是0，有雷是1，线索代表每行（左起）和每列（上起）对应两个二进制数的按位异或值"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()
