@@ -1944,6 +1944,24 @@
         },
         {
             "rule_line": "L",
+            "id": "DQ",
+            "name": {
+                "default": "Double Queue",
+                "zh_CN": "\u53cc\u961f\u5217"
+            },
+            "doc": {
+                "default": "The multiset of row mine counts equals the multiset of column mine counts.",
+                "zh_CN": "\u884c\u96f7\u6570\u7684\u591a\u91cd\u96c6\u5408\u7b49\u4e8e\u5217\u96f7\u6570\u7684\u591a\u91cd\u96c6\u5408\uff08\u5373\u6392\u5e8f\u540e\u884c\u96f7\u6570\u5217\u8868\u4e0e\u5217\u96f7\u6570\u5217\u8868\u76f8\u540c\uff09\u3002"
+            },
+            "author": {
+                "name": "",
+                "id": ""
+            },
+            "image": "DQ.png",
+            "aliases": []
+        },
+        {
+            "rule_line": "L",
             "id": "4S''",
             "name": {
                 "default": "Staircase''",
