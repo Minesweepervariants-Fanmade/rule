@@ -43,6 +43,23 @@ html {
   margin: 0 auto 8px;
   font-size: 2rem;
   line-height: 1.2;
+  font-weight: 800;
+}
+
+.page-title a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+  cursor: pointer;
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+.page-title a:hover,
+.page-title a:focus-visible {
+  color: #5d3919;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.14em;
 }
 
 .page-toolbar {

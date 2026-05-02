@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body class="page-body">
-  <h1 id="page-title" class="page-title"></h1>
+  <h1 id="page-title" class="page-title"><a href="https://github.com/Minesweepervariants-Fanmade/MinesweeperVariants" target="_blank" rel="noopener noreferrer">MinesweeperVariants</a></h1>
   <div class="page-toolbar">
     <label id="language-label" class="language-label" for="language-switch"></label>
     <select id="language-switch" class="language-switch"></select>
@@ -24,7 +24,7 @@
       var UI_TEXT = {
         zh_CN: {
           title: "MinesweeperVariants 规则列表",
-          heading: "规则列表",
+          heading: "MinesweeperVariants 规则列表",
           languageLabel: "语言",
           loading: "加载中...",
           author: "作者",
@@ -40,7 +40,7 @@
         },
         en: {
           title: "MinesweeperVariants Rule List",
-          heading: "Rule List",
+          heading: "MinesweeperVariants Rule List",
           languageLabel: "Language",
           loading: "Loading...",
           author: "Author",
@@ -115,6 +115,16 @@
       function getRuleLineText(line) {
         var localePack = UI_TEXT[UI_LOCALE] || UI_TEXT.zh_CN;
         return localePack.ruleLine[line] || UI_TEXT.zh_CN.ruleLine[line] || line;
+      }
+
+      function getHeadingHtml() {
+        var localePack = UI_TEXT[UI_LOCALE] || UI_TEXT.zh_CN;
+        var title = text(localePack.heading || UI_TEXT.zh_CN.heading);
+        var prefix = "MinesweeperVariants";
+        if (title.indexOf(prefix) === 0) {
+          return '<a href="https://github.com/Minesweepervariants-Fanmade/MinesweeperVariants" target="_blank" rel="noopener noreferrer">' + prefix + '</a>' + title.slice(prefix.length);
+        }
+        return '<a href="https://github.com/Minesweepervariants-Fanmade/MinesweeperVariants" target="_blank" rel="noopener noreferrer">' + prefix + '</a>';
       }
 
       function localeCandidates() {
@@ -277,7 +287,7 @@
 
         var pageTitle = document.getElementById("page-title");
         if (pageTitle) {
-          pageTitle.textContent = getUiText("heading");
+          pageTitle.innerHTML = getHeadingHtml();
         }
 
         for (var i = 0; i < RULE_LINES.length; i++) {
