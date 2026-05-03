@@ -22,6 +22,7 @@ class Rule1K2Ep(AbstractClueRule):
     name.zh_CN = "马步自指"
     doc = "If letter X has N mines in its 8 knight-move positions, then the cell with X=N must be a mine"
     doc.zh_CN = "如果字母X马步8格内有N个雷，则标有X=N的格子必定是雷。"
+    tags = ["Variant", "Local", "Cryptic"]
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__()

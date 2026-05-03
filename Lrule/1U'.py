@@ -20,13 +20,8 @@ class Rule1H(AbstractMinesRule):
     doc = "All mines cannot be adjacent to other mines or diagonally adjacent"
     doc.zh_CN = "所有雷不能与其他雷相邻或对角相邻"
     tags = ["Variant", "Global", "Anti-Construction"]
-    subrules = [
-        [True, "[1U']一元'"]
-    ]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
-        if not self.subrules[0][0]:
-            return
         model = board.get_model()
         s = switch.get(model, self)
         for pos, var in board(mode="variable"):

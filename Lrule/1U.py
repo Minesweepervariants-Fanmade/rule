@@ -18,14 +18,10 @@ class Rule1H(AbstractMinesRule):
     name.zh_CN = "一元"
     doc = "No mine is adjacent to another mine"
     doc.zh_CN = "所有雷不能与其他雷相邻"
-    tags = ["Original", "Anti-Construction", "Local", "Strict R"]
-    subrules = [
-        [True, "[1U]一元"]
-    ]
+
+    tags = ["Creative", "Anti-Construction", "Local", "Strict R"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
-        if not self.subrules[0][0]:
-            return
         model = board.get_model()
         s = switch.get(model, self)
         for pos, var in board(mode="variable"):
