@@ -15,6 +15,7 @@ class RuleDJ(AbstractClueRule):
     name.zh_CN = "不相交"
     doc = "Two main boards exist, cells at the same position on both boards cannot both be mines. DJ:A+B;C+D means left board uses rules A and B, right board uses rules C and D"
     doc.zh_CN = "存在两个主板，两个主板同一位置的格子不能都是雷。DJ:A+B;C+D 表示左板为 A B 规则，右板为 C D 规则"
+    author = ("Boi", -1)
 
     def __init__(self, board: AbstractBoard = None, data: str = 'V;V') -> None:
         super().__init__(board, data)

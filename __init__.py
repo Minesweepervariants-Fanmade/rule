@@ -215,6 +215,11 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                         info["aliases"] = [getattr(elt, "value") for elt in stmt.value.elts]
                     if (
                             isinstance(target, ast.Name) and
+                            target.id == "tags"
+                    ):
+                        info["tags"] = [getattr(elt, "value") for elt in stmt.value.elts]
+                    if (
+                            isinstance(target, ast.Name) and
                             target.id == "id"
                     ):
                         # 规则id，期望为字符串常量
@@ -244,7 +249,8 @@ def scan_module_docstrings(directory):
                 author = pck.get('author', ())
                 rule_id = pck.get('id', "")
                 aliases = pck.get("aliases", [])
-                results.append((m_doc, doc, x, names, author, rule_id, aliases))
+                tags = pck.get("tags", [])
+                results.append((m_doc, doc, x, names, author, rule_id, aliases, tags))
     return results
 
 
@@ -350,7 +356,7 @@ def get_all_rules():
             if os.path.isfile(os.path.join(image_dir, name))
         )
 
-    for m_doc, doc, x, names, author, rule_id, aliases in scan_module_docstrings(dir_path):
+    for m_doc, doc, x, names, author, rule_id, aliases, tags in scan_module_docstrings(dir_path):
         if not names:
             continue
 
@@ -372,6 +378,7 @@ def get_all_rules():
         doc_map = _normalize_i18n_map(doc)
         author_map = _normalize_author(author)
         image_name = _pick_image_name(rule_key, image_names)
+        rule_tags = tags if tags else ["Untagged"]
 
         results[rule_line].append({
             "rule_line": rule_line,
@@ -381,5 +388,6 @@ def get_all_rules():
             "author": author_map,
             "image": image_name,
             "aliases": aliases,
+            "tags": rule_tags,
         })
     return results
