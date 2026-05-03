@@ -18,6 +18,7 @@ class Rule1S(AbstractMinesRule):
     name.zh_CN = "马步蛇"
     doc = "All mines form a snake. A snake is a width-1 knight-connected path with no branches, loops, or crossings"
     doc.zh_CN = "所有雷构成一条蛇。蛇是一条宽度为 1 的马步连通路径，不存在分叉、环、交叉"
+    tags = ["Variant", "Global", "Connectivity"]
 
     def __init__(self, board=None, data=None) -> None:
         super().__init__(board, data)

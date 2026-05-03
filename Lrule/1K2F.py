@@ -17,6 +17,7 @@ class Rule1K2F(AbstractMinesRule):
     name.zh_CN = "马步花田"
     doc = "There is exactly one mine in the eight knight-move positions of the mine in the dyed cell"
     doc.zh_CN = "染色格中的雷的八个马步位置内恰好有1个雷"
+    tags = ["Variant", "Local"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

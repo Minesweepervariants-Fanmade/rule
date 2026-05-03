@@ -19,6 +19,7 @@ class Rule3D(AbstractMinesRule):
     doc = "All mines are numbered from left to right, top to bottom. Clue indicates the sum of mine indices in the eight surrounding cells"
     doc.zh_CN = "所有雷从左到右，从上到下依次标号。线索表示周围八格的雷的标号之和"
     lib_only = True
+    tags = ["Creative", "Global", "Number Clue", "Mine-Value"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
