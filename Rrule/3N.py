@@ -72,6 +72,7 @@ class BaseRule3N(AbstractClueRule):
     doc = "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)"
     doc.zh_CN = "线索(a_p)表示距离自己lp范数最近的雷的lp范数大小为a。(p=0,1,2,00)"
     p: P = -1
+    tags = ["Original", "Local", "Number Clue", "Parameter"]
 
     def __init__(self, board: AbstractBoard, data: list[AbstractClueRule] = None):
         super().__init__(None, None)

@@ -29,6 +29,7 @@ class Rule3Q(AbstractMinesRule):
     name.zh_CN = "正方形"
     doc = "All four-connected mine areas form solid squares"
     doc.zh_CN = "所有四连通的雷格区域组成实心正方形"
+    tags = ["Original", "Local", "Construction"]
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

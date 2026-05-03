@@ -20,6 +20,7 @@ class Rule4T(AbstractMinesRule):
     name.zh_CN = "温度计"
     doc = "Random pattern (TBD)"
     doc.zh_CN = "将会随机"
+    tags = ["Variant", "Local", "Cryptic"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         def put_temperature():

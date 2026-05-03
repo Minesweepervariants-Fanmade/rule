@@ -20,6 +20,8 @@ class Rule1M(AbstractClueRule):
     doc = "Each mine directly below another mine counts as two (total mine count is unlimited)"
     doc.zh_CN = "每个下方是雷的雷被视为两个(总雷数不受限制)"
 
+    tags = ["Variant", "Local", "Number Clue", "Multi-Board"]
+
     def fill(self, board: 'AbstractBoard'):
         logger = get_logger()
         for pos, _ in board("N"):

@@ -20,6 +20,7 @@ class Rule1Tp(AbstractMinesRule):
     name.zh_CN = "必三连"
     doc = "All mines must be in a triple in horizontal, vertical, or diagonal direction"
     doc.zh_CN = "所有雷必须处于横、竖或斜方向的三连中"
+    tags = ["Variant", "Global", "Construction"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

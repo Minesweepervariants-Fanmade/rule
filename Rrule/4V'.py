@@ -25,6 +25,7 @@ class Rule4Vp(AbstractClueRule):
     name.zh_CN = "映射'"
     doc = "Clue shows the total number of mines in the center 3x3 area of two of the three board positions"
     doc.zh_CN = "线索表示数字是三个题板中相同位置的其中某两个范围中心3*3区域的雷总数"
+    tags = ["Variant", "Local", "Number Clue", "Aux Board", "Multi-Board"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

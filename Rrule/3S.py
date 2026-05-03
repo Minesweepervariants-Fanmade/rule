@@ -23,6 +23,7 @@ class Rule3S(AbstractClueRule):
     name.zh_CN = "贝壳"
     doc = "Clue shows the number of mines in the upper 5 cells and lower 5 cells of the 8 surrounding cells (order not fixed)"
     doc.zh_CN = "线索代表相邻的8个格子中， 中间偏上5格范围和中间偏下5格范围里的雷数(顺序不确定)"
+    tags = ["Original", "Local", "Number Clue"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

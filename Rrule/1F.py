@@ -13,6 +13,7 @@ class Rule1F(AbstractClueRule):
     name.zh_CN = "远视"
     doc = "Clue indicates the number of consecutive non-mines perpendicular to the arrow direction from the clue to the mine or board edge"
     doc.zh_CN = "线索表示朝向箭头方向到达雷或题板边缘时，垂直与箭头方向的连续非雷格数量"
+    tags = ["Original", "Local", "Arrow Clue", "Extensive Trial"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

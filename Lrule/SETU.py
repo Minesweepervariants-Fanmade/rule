@@ -219,6 +219,7 @@ class RuleSETU(AbstractMinesRule):
     name.zh_CN = "涩图"
     doc = "No inappropriate content!"
     doc.zh_CN = "禁止涩涩！"
+    tags = ["Creative", "Parameter"]
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

@@ -18,6 +18,7 @@ class Rule3C(AbstractMinesRule):
     name.zh_CN = "连通"
     doc = "Exactly two mines around each mine in the eight surrounding cells"
     doc.zh_CN = "每个雷周围八格中恰有两个雷"
+    tags = ["Original", "Connectivity", "Local", "Strong"]
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

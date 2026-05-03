@@ -9,6 +9,7 @@ class Rule1L2sharp(AbstractClueSharp):
            "Use [1L2#:] to exclude [1L2A]")
     doc.zh_CN = ("包含以下规则: [1L], [1L2X], [1L2D], [1L2M], [1L2A]\n"
               "使用[1L2#:]以去除[1L2A]")
+    tags = ["Original", "Local"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         rules_name = ["1L", "1L2X", "1L2D", "1L2M"]

@@ -28,6 +28,7 @@ class Rule1X2X(AbstractClueRule):
     name.zh_CN = "十字"
     doc = "Clue shows the number of mines in dyed and non-dyed cells in a cross pattern within radius 2 (order undefined)"
     doc.zh_CN = "线索代表半径为 2 的十字范围内中，染色和非染色格里的雷数(顺序不确定)"
+    tags = ["Local", "Number Clue", "Extensive trial"]
 
     def clue_class(self):
         return Value1X2X

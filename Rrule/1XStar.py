@@ -13,3 +13,4 @@ class Rule1XStar(AbstractClueRule):
     name.zh_CN = "王后"
     doc = "Clue shows the number of mines in all diagonal and orthogonal directions"
     doc.zh_CN = "线索数表示斜向和横纵所有格子中的雷数"
+    tags = ["Local", "Number Clue", "Strong", "Creative"]

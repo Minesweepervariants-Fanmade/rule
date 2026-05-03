@@ -23,6 +23,8 @@ class Rule1N1X(AbstractClueRule):
     name.zh_CN = "负雷 + 十字"
     doc = ""
 
+    tags = ["Meta", "Local", "Number Clue", "Dyed"]
+
     def clue_class(self):
         return Value1N1X
 

@@ -13,6 +13,7 @@ class Rule3H(AbstractClueRule):
     doc = "Clue shows the number of mines in the surrounding cells: LL;LU;LD;L;RR;RU;RD;RR"
     doc.zh_CN = "线索表示周围这些格子的雷数LL;LU;LD;L;RR;RU;RD;R"
     author = ("NT", 2201963934)
+    tags = ["Variant", "Local", "Number Clue", "Strict Shape"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

@@ -17,7 +17,8 @@ class Rule1L1L(AbstractClueRule):
     id = "1L1L"
     name = "Liar + Liar"
     name.zh_CN = "误差 + 误差"
-    doc = ""
+    doc = "Liar + Liar (double liar, ±2) combination rule"
+    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         random = get_random()

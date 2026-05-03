@@ -20,6 +20,7 @@ class Rule1sharp(AbstractClueSharp):
               "[1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]")
     doc.zh_CN = ("包含以下规则: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E], "
               "[1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]")
+    tags = ["Original", "Local"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         rules_name = ["V", "1M", "1L", "1W", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "1E'", "1L1M", "1M1N", "1M1X", "1N1X"]

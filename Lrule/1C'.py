@@ -10,6 +10,7 @@ class Rule1C(AbstractMinesRule):
     name.zh_CN = "八连通'"
     doc = "(1) Dyed mines and undyed mines are each separately 8-connected; (2) At least one mine exists in each of the dyed and undyed regions"
     doc.zh_CN = "(1) 染色格的雷和 (2) 非染色格的雷各自八连通。染色区域和非染色区域至少有一个雷。"
+    tags = ["Variant", "Connection"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

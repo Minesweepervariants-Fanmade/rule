@@ -12,6 +12,7 @@ class Rule3I(AbstractMinesRule):
     name.zh_CN = "阶梯"
     doc = "Each mine counts as X mines (X is the sum of its row and column numbers)"
     doc.zh_CN = "所有雷被视为 X 个雷（X 为其的行列数之和）"
+    tags = ["Variant", "Mine-Value", "Global"]
     author = ("NT", 2201963934)
     lib_only = True
 

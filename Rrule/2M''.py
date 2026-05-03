@@ -10,6 +10,7 @@ from ....utils.tool import get_random, get_logger
 NAME_2M = "2M''"
 
 
+
 def select(matrix: list[list[bool]]) -> list[tuple[int, int]]:
     rnd = get_random()
     n = len(matrix)
@@ -48,6 +49,7 @@ class Rule2M(AbstractClueRule):
     name.zh_CN = "多雷"
     doc = "Each row and column has exactly one mine counted as two"
     doc.zh_CN = "每行每列恰有一个雷被视为两个(总雷数不受限制)"
+    tags = ["Variant", "Local", "Number Clue", "Aux Board", "Extensive trial"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

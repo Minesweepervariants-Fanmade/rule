@@ -18,6 +18,7 @@ class Rule1H(AbstractMinesRule):
     name.zh_CN = "一元"
     doc = "No mine is adjacent to another mine"
     doc.zh_CN = "所有雷不能与其他雷相邻"
+    tags = ["Original", "Anti-Construction", "Local", "Strict R"]
     subrules = [
         [True, "[1U]一元"]
     ]

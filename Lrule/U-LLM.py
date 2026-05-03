@@ -83,6 +83,7 @@ class RuleULLM(AbstractMinesRule):
     doc = "Random rule idea: randomly select words and have LLM generate a rule description, then output it"
     doc.zh_CN = "随机规则点子：随机抽词并由 LLM 联想生成规则描述后抛出。"
     author = ("NT", 2201963934)
+    tags = ["Creative", "Parameter", "WIP"]
 
     _DEFAULT_NOUNS = \
     "雷格 非雷格 " \

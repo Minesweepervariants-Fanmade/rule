@@ -103,6 +103,7 @@ class Rule1W(AbstractClueRule):
     name.zh_CN = "数墙"
     doc = "Clue indicates the length of each continuous mine group in the 3x3 area"
     doc.zh_CN = "线索表示 3x3 范围内每组连续雷的长度"
+    tags = ["Original", "Local", "Number Clue", "Extensive Trial"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

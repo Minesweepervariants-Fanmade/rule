@@ -12,6 +12,8 @@ class Rule(AbstractMinesRule):
     doc.zh_CN = "每一行各有一组连续的雷且数量各不相同"
     author = ("Artless", 2452944138)
 
+    tags = ["Original", "Local", "Construction"]
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

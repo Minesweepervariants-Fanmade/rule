@@ -45,6 +45,8 @@ class RuleXS(AbstractMinesRule):
    doc.zh_CN = "用副板表示行分段边界：无边界同值、两侧不同必为边界，边界数自底向上递增并满足行间继承"
    author = ("NT", 2201963934)
 
+   tags = ["Creative", "Local", "Aux Board", "Construction"]
+
    @staticmethod
    def _sub_key(key: str) -> str:
       return f"XS_{key}"

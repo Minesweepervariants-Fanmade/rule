@@ -39,7 +39,7 @@ class RuleGM(AbstractMinesRule):
     doc = "Placeholder rule that waits continuously (for debugging)"
     doc.zh_CN = "棍木"
     author = ("NT", 2201963934)
-
+    tags = ["Creative", "WIP", "Local"]
 
     def create_constraints(self, board: "AbstractBoard", switch):
         while True:

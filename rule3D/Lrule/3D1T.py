@@ -19,6 +19,7 @@ class Rule1T(Abstract3DMinesRule):
     name.zh_CN = "3D 无三连"
     doc = "Mines cannot form a triple in horizontal, vertical or diagonal directions"
     doc.zh_CN = "雷不能在横竖对角构成三连"
+    tags = ["Original", "Local"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

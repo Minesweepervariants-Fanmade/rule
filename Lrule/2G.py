@@ -17,6 +17,7 @@ class Rule2G(AbstractMinesRule):
     name.zh_CN = "四连块"
     doc = "All orthogonally connected mine areas have area 4"
     doc.zh_CN = "所有四连通雷区域的面积为 4"
+    tags = ["Variant", "Connectivity", "Construction", "Global"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

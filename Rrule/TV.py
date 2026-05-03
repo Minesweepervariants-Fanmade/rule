@@ -14,6 +14,7 @@ class RuleTV(AbstractClueRule):
     doc = "Clue indicates the number of visible mines in the four orthogonal directions; empty cells block visibility"
     doc.zh_CN = "线索表示四方向上能看到的雷格数量，空格会阻挡视线"
     author = ("NT", 2201963934)
+    tags = ["Original", "Local", "Number Clue", "Construction"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

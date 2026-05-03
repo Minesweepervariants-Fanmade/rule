@@ -21,6 +21,7 @@ class Rule1X_(AbstractClueRule):
     name.zh_CN = "残缺十字"
     doc = "Clue shows the number of mines in two cells pointing in one direction, with an arrow indicating the direction"
     doc.zh_CN = "线索表示朝向一个方向的两个格子中的雷数，线索会标注出方向"
+    tags = ["Local", "Number Clue", "Arrow Clue", "Vanilla Variant", "Fun"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

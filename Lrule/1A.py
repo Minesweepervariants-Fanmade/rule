@@ -19,6 +19,8 @@ class Rule1A(AbstractMinesRule):
     name.zh_CN = "无马步"
     doc = "No mine at knight's move distance from any mine"
     doc.zh_CN = "所有雷的马步位置不能有雷"
+    author = ("14 Minesweeper Variants", -1)
+    tags = ["Original", "Anti-Construct", "Local"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

@@ -29,6 +29,7 @@ class Rule1L(AbstractClueRule):
     name.zh_CN = "误差"
     doc = "All clues are either 1 greater or 1 less than the true value"
     doc.zh_CN = "所有线索均比真实值大1或小1"
+    tags = ["Original", "Local", "Number Clue", "Extensive trial"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

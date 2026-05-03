@@ -19,6 +19,8 @@ class Rule3C(AbstractMinesRule):
     doc = "Each mine is surrounded by exactly two mines in the four orthogonal adjacent cells"
     doc.zh_CN = "每个雷周围四格中恰有两个雷"
 
+    tags = ["Variant", "Local", "Connectivity", "Strong"]
+
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)

@@ -43,6 +43,8 @@ class Rule3H1Q(AbstractMinesRule):
     doc.zh_CN = "六角无方: 每个互相相邻的三个格必有一个雷"
     author = ("NT", 2201963934)
 
+    tags = ["Creative", "Local", "Anti-Construction"]
+
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
         if board is None:

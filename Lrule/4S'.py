@@ -15,6 +15,8 @@ class Rule3I(AbstractMinesRule):
     lib_only = True
     author = ("NT", 2201963934)
 
+    tags = ["Variant", "Global", "Mine-Value"]
+
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
         self.onboard_init(board)

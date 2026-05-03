@@ -13,6 +13,7 @@ class Rule3D1U(Abstract3DMinesRule):
     name.zh_CN = "三维一元"
     doc = "No two mines can be adjacent to each other"
     doc.zh_CN = "所有雷不能与其他雷相邻"
+    tags = ["Original", "Local", "Strict Shape"]
 
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()

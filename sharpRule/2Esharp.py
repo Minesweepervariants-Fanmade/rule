@@ -26,6 +26,8 @@ class Rule2ESharp(AbstractClueSharp):
               "通过2E#:<rule1>;<rule2>;...来指定使用的规则及其顺序\n"
               "默认同二代\n"
               "可添加 1# 1#' 2# 2#' 2#':\n")
+    tags = ["Original", "Local", "Extensive trial"]
+
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         self.rules = set()
         if not data:

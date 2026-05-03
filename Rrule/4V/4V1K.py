@@ -23,6 +23,7 @@ class Rule4V1K(AbstractClueRule):
     name.zh_CN = "马步映射"
     doc = "Clue shows the total number of mines in the knight's move area centered on one of the two board positions"
     doc.zh_CN = "线索表示数字是两个题板中相同位置的其中一个为中心的马步区域的雷总数"
+    tags = ["Variant", "Local", "Number Clue", "Aux Board", "Multi-Board"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

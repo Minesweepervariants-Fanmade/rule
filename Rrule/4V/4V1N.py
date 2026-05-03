@@ -21,6 +21,7 @@ class Rule1N(AbstractClueRule):
     name.zh_CN = "负雷映射"
     doc = "Clue shows the difference in mine count between dyed and undyed cells in the 3x3 area of one of the two board positions"
     doc.zh_CN = "线索表示数字是两个题板中相同位置的其中一个3x3范围内染色格与非染色格的雷数差"
+    tags = ["Variant", "Local", "Number Clue", "Aux Board", "Multi-Board", "Dyed"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

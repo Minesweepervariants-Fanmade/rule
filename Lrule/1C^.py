@@ -10,6 +10,7 @@ class Rule1C(AbstractMinesRule):
     name.zh_CN = "树根"
     doc = "All mines form a tree root structure. The structure starts from one mine in the first row and extends downward, left-down, and right-down."
     doc.zh_CN = "所有雷形成一个树根结构。该结构是由第一行的一个雷开始向下、左下、右下延伸而成的。"
+    tags = ["Variant", "Connection", "Strong"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

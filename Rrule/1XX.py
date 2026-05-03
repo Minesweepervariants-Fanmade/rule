@@ -11,7 +11,6 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
-
 def _get_diagonal_positions(board: 'AbstractBoard', pos: AbstractPosition):
     """获取与给定位置斜向的所有位置"""
     positions = []
@@ -60,6 +59,7 @@ class Rule1XX(AbstractClueRule):
     name.zh_CN = "主教"
     doc = "Clue shows the number of mines in all diagonal cells"
     doc.zh_CN = "线索数表示斜向所有格子中的雷数"
+    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

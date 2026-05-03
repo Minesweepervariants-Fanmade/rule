@@ -31,6 +31,8 @@ class Rule1M1X(AbstractClueRule):
     name.zh_CN = "多雷 + 十字"
     doc = ""
 
+    tags = ["Meta", "Local", "Number Clue"]
+
     def fill(self, board: 'AbstractBoard'):
         logger = get_logger()
         for pos, _ in board("N"):

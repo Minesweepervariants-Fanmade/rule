@@ -66,7 +66,8 @@ class Rule1L1Wp(AbstractClueRule):
     id = "1L1W'"
     name = "Liar + Longest Wall"
     name.zh_CN = "误差 + 最长数墙"
-    doc = ""
+    doc = "Liar + Longest Wall combination rule"
+    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

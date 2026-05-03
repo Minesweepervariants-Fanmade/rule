@@ -12,6 +12,8 @@ class Rule1HX(AbstractMinesRule):
     doc.zh_CN = "如果一个格子是雷，其水平对称格不是雷"
     author = ("Artless", 2452944138)
 
+    tags = ["Original", "Local"]
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)

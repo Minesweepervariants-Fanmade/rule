@@ -28,6 +28,7 @@ class RuleCSharp(AbstractClueSharp):
                     "通过C#:<rule1>;<rule2>;...来指定使用的规则及其顺序\n"
                     "默认包含以下规则且随机顺序选取：\n"
                     "V, 1M, 1L, 1N, 1X, 1P, 1E, 1X', 1K, 1W', 2D, 2M, 2X'\n")
+    tags = ["Original", "Local", "Extensive trial"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         if not data:

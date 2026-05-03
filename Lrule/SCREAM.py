@@ -14,6 +14,7 @@ class Rule3I(AbstractMinesRule):
     doc.zh_CN = "雷值等于其相邻四格雷数的阶乘"
     lib_only = True
     author = ("NT", 2201963934)
+    tags = ["Variant", "Local", "Mine-Value"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

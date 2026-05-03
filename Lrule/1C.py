@@ -21,6 +21,8 @@ class Rule1C(AbstractMinesRule):
     name.zh_CN = "八连通"
     doc = "Mine areas are connected diagonally (8-connectivity)"
     doc.zh_CN = "雷区域八连通"
+    author = ("14 Minesweeper Variants", -1)
+    tags = ["Original", "Connection"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         self.invert = False

@@ -19,6 +19,7 @@ class RuleUSETU(AbstractMinesRule):
     doc = "Parameter link (supports URL/file path)"
     doc.zh_CN = "参数链接(支持URL/文件路径)"
     author = ("NT", 2201963934)
+    tags = ["Variant", "Parameter"]
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

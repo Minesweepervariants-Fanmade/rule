@@ -21,6 +21,7 @@ class Rule2I(AbstractClueRule):
     name.zh_CN = "残缺'"
     doc = "The number indicates the mine count among N of the 8 adjacent cells. The positions of those N cells are shared across all clues on the board"
     doc.zh_CN = "数字表示周围8格中某N格的雷数。N格的方位被当前题板所有线索共享"
+    tags = ["Local", "Number Clue", "Extensive trial", "Creative"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

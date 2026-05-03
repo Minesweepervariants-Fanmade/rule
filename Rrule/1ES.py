@@ -11,6 +11,8 @@ class Rule1EQ(AbstractEyesightClueRule):
     doc = "Clue shows the number of non-mine cells visible when looking outward from the current cell in four directions, then rotating clockwise (similar to the swastika pattern); mines block the line of sight"
     doc.zh_CN = "该线索表示从当前格子向四周出发随后进行顺时针顺序旋转（类似卐字形）能看到的非雷格数量（包含自身）, 雷会阻挡视线。"
 
+    tags = ["Variant", "Local", "Arrow Clue", "Aux Board", "Cryptic"]
+
     @staticmethod
     def direction_funcs(pos):
         def move_wan(_pos, value, k=0):

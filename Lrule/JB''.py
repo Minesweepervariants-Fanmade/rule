@@ -149,6 +149,7 @@ class RuleJBpp(AbstractMinesRule):
         "蛇与正方形之间无其他接触（不重叠/不正交/不对角）。"
     )
     author = ("NT", 2201963934)
+    tags = ["Variant", "Global", "Construction", "Strong"]
 
     # -------------------------------------------------------------------------
     #  主入口

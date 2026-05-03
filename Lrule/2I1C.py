@@ -13,6 +13,8 @@ class Rule2I1C(AbstractMinesRule):
     doc.zh_CN = "1.所有雷都必须根据副板指示的4对联通方向进行联通, 2.雷只有3种联通方法(上下/左右/对角/副对角)"
     author = ("雾", 3140864122)
 
+    tags = ["Creative", "Aux Board", "Global", "Connectivity"]
+
     def __init__(self, board = None, data=None):
         super().__init__(board, data)
         board.generate_board(NAME_2I, (3, 3))

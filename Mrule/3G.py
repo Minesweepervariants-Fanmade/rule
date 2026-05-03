@@ -18,6 +18,7 @@ class Rule3G(AbstractMinesClueRule):
     name.zh_CN = "分组"
     doc = "Mines with the same number are 4-connected"
     doc.zh_CN = "相同数字的雷线索四连通"
+    tags = ["Original", "Local", "Construction"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         mines = [pos for pos, _ in board("F")]

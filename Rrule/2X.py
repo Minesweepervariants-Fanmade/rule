@@ -16,13 +16,13 @@ from ....utils.image_create import get_text, get_row
 
 from ....utils.tool import get_logger, get_random
 
-
 class Rule2X(AbstractClueRule):
     id = "2X"
     name = "Cross"
     name.zh_CN = "十字"
     doc = "Clue shows the number of mines in dyed and undyed cells within the 3x3 area (order is not fixed)"
     doc.zh_CN = "线索表示 3x3 范围内染色格和非染色格的雷数（顺序不确定）"
+    tags = ["Variant", "Local", "Number Clue", "Dyed"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

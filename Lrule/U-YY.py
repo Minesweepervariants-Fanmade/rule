@@ -45,6 +45,7 @@ class RuleUYY(AbstractMinesRule):
     doc = "Fetches a random quote from hitokoto.cn"
     doc.zh_CN = "一言：抛出一言（hitokoto.cn）。"
     author = ("NT", 2201963934)
+    tags = ["Creative", "Parameter"]
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

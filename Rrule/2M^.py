@@ -22,6 +22,8 @@ class Rule2M(AbstractClueRule):
     doc = "Clue has the same remainder as the number of mines in the 8 adjacent cells divided by 2"
     doc.zh_CN = "线索与周围8格的雷数除以2的余数相同"
 
+    tags = ["Variant", "Local", "Number Clue", "Vanilla Variant"]
+
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()
         for pos, _ in board("N"):

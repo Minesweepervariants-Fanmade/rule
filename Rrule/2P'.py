@@ -7,6 +7,7 @@ from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_logger
 
 
+
 def manhattan_neighbors(pos: AbstractPosition, distance: int) -> list[AbstractPosition]:
     neighbors = []
     for dx in range(distance + 1):
@@ -38,6 +39,7 @@ class Rule2P(AbstractClueRule):
     name.zh_CN = "旅程"
     doc = "Clue shows the sum of Manhattan distances to the nearest 2 mines"
     doc.zh_CN = "线索表示距离最近的 2 个雷的曼哈顿距离之和"
+    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         if len([_ for _ in board("F")]) < 2:

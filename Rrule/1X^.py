@@ -15,6 +15,7 @@ class Rule1Xr(AbstractClueRule):
     name.zh_CN = "菱形"
     doc = "Clue shows the total number of mines at distance √2 and distance 2"
     doc.zh_CN = "线索表示距离为 √2 和距离为 2 区域的总雷数"
+    tags = ["Local", "Number Clue", "Vanilla Variant", "Creative"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

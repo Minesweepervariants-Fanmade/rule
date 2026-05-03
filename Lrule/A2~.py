@@ -23,6 +23,8 @@ class RuleA2(AbstractMinesRule):
     doc.zh_CN = "A2 格非雷"
     author = ("NT", 2201963934)
 
+    tags = ["Variant", "Local", "Parameter"]
+
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
         self.values = []

@@ -29,6 +29,7 @@ class RuleV(AbstractClueRule):
     name.zh_CN = "雷值"
     doc = "Each number indicates the sum of mine values in the surrounding eight cells"
     doc.zh_CN = "每个数字标明周围八格内雷值之和"
+    tags = ["Variant", "Local", "Number Clue", "Mine-Value"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

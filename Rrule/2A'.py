@@ -26,6 +26,7 @@ class Rule2A(AbstractClueRule):
     name.zh_CN = "面积'"
     doc = "Clue shows the area of its 4-connected non-mine region"
     doc.zh_CN = "线索表示它所在的四连通非雷区的面积。"
+    tags = ["Local", "Number Clue", "Extensive trial", "Creative"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)

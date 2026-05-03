@@ -17,6 +17,7 @@ class Rule2B(AbstractMinesRule):
     name.zh_CN = "桥"
     doc = "All mines form several bridges. A bridge is a path from the left boundary to the right boundary with eight-connected (horizontal or diagonal), width 1, and length equal to the board."
     doc.zh_CN = "所有雷构成若干组桥。桥是从题版左边界八连通连接（水平或斜角连接）到右边界，宽度为 1、长度与题版相等的一条路径"
+    tags = ["Original", "Global", "Construction", "Connectivity"]
 
     def create_constraints_(self, board: 'AbstractBoard', switch):
         def get_line_pos(pos):

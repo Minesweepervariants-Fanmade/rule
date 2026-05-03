@@ -12,6 +12,7 @@ class Rule3I(AbstractMinesRule):
     name.zh_CN = "反相"
     doc = "In dyed cells, non-mines are treated as mines, and mines as non-mines"
     doc.zh_CN = "染色格中非雷视为雷，雷视为非雷"
+    tags = ["Variant", "Dyed", "Local"]
     author = ("NT", 2201963934)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

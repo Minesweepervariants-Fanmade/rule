@@ -13,12 +13,14 @@ from minesweepervariants.abs.board import AbstractBoard
 from minesweepervariants.impl.summon.solver import Switch
 
 
+
 class Rule(AbstractMinesRule):
     id = "2S'"
     name = "Segmented'"
     name.zh_CN = "分段'"
     doc = "Each row has different consecutive mine lengths"
     doc.zh_CN = "每行连续雷长度不同"
+    tags = ["Variant", "Local", "Construction"]
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

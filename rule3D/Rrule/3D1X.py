@@ -20,6 +20,7 @@ class Rule3D1X(Abstract3DClueRule):
     name.zh_CN = "三维十字"
     doc = "Clue shows the number of mines in a 2-cell cross range (up, down, left, right, front, back)"
     doc.zh_CN = "线索表示(上下左右前后)2格的十字范围内的雷数"
+    tags = ["Original", "Local", "Number Clue"]
 
     def __init__(self, board: AbstractBoard, data: str = None):
         super().__init__(board, data)

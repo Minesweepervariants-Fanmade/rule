@@ -20,6 +20,7 @@ class Rule2D(AbstractClueRule):
     name.zh_CN = "偏移"
     doc = "Clue shows the total number of mines in a 3x3 area centered one cell above"
     doc.zh_CN = "线索表示以正上方一格为中心，3x3 范围内的雷数"
+    tags = ["Original", "Local", "Number Clue"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

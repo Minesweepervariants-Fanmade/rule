@@ -20,6 +20,7 @@ class Rule1T(AbstractMinesRule):
     name.zh_CN = "无三连"
     doc = "No three mines form a line in horizontal, vertical or diagonal directions"
     doc.zh_CN = "雷在横、竖、斜三个方向上不能构成三连"
+    tags = ["Original", "Anti-Construction", "Local"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

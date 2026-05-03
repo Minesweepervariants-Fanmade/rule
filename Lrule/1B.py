@@ -20,6 +20,7 @@ class Rule1B(AbstractMinesRule):
     name.zh_CN = "平衡"
     doc = "(1) Equal mine count in each row; (2) Equal mine count in each column"
     doc.zh_CN = "(1) 每行雷数相等；(2) 每列雷数相等"
+    tags = ["Original", "Global", "Strict R"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

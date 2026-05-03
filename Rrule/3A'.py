@@ -20,6 +20,7 @@ def put(pos: 'AbstractPosition', board: 'AbstractBoard'):
 class Rule3Ap(AbstractClueRule):
     id = "3A'"
     id = ""
+    tags = ["Variant", "Local", "Number Clue", "Arrow Clue", "WIP"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         pass

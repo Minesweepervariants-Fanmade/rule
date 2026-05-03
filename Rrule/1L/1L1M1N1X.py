@@ -14,7 +14,8 @@ class Rule1LMNX(AbstractClueRule):
     id = "1LMNX"
     name = "Liar + Multiple + Negative + Cross", "1L1M1N1X"
     name.zh_CN = "误差 + 多雷 + 负雷 + 十字"
-    doc = ""
+    doc = "Liar + Multiple + Negative + Cross combination rule"
+    tags = ["Variant", "Local", "Number Clue", "Dyed", "Extensive trial"]
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         random = get_random()

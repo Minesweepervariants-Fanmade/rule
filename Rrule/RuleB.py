@@ -20,6 +20,7 @@ class RuleC(AbstractClueRule):
     name.zh_CN = "没想好"
     doc = "Clue indicates the number of mines in the eight surrounding cells that have no mines in their four orthogonal neighbors"
     doc.zh_CN = "线索表示周围八格中周围四格没有雷的雷数。"
+    tags = ["Original", "Local", "Number Clue", "Extensive trial"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         mines_map = {}

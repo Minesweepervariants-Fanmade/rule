@@ -11,6 +11,8 @@ class Rule3Q(AbstractMinesRule):
     doc = "Any four mines cannot form the vertices of a horizontally and vertically straight rectangle"
     doc.zh_CN = "任意四个雷不能作为一个横平竖直的矩形的顶点"
 
+    tags = ["Variant", "Local", "Anti-Construction"]
+
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)

@@ -18,6 +18,7 @@ class Rule1C(Abstract3DMinesRule):
     name.zh_CN = "二十六连通"
     doc = "Mine region is 26-connected"
     doc.zh_CN = "雷区域二十六连通"
+    tags = ["Original", "Local", "Connectivity"]
 
     def create_constraints(self, board, switch):
         model = board.get_model()

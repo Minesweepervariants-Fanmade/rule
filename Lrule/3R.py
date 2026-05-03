@@ -12,6 +12,7 @@ class Rule1T(AbstractMinesRule):
     name.zh_CN = "引用"
     doc = "For a cell in row X or column X, the eight surrounding cells cannot have exactly X mines"
     doc.zh_CN = "在第 X 行或第 X 列的格子的周围八格不能恰好有 X 个雷"
+    tags = ["Original", "Local", "Cryptic"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

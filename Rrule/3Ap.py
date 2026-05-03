@@ -46,6 +46,7 @@ class Rule3Ap(AbstractClueRule):
     doc = "XOR the results of Langton's Ant [3A] in four directions; if the result is infinite, display using complement form"
     doc.zh_CN = "将兰顿蚂蚁[3A]四个方向的结果做异或操作 若结果为无穷大则使用补码形式显示"
     author = ("雾", 3140864122)
+    tags = ["Variant", "Local", "Number Clue", "Extensive trial", "Cryptic"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

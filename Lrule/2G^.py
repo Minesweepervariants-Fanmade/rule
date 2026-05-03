@@ -14,6 +14,8 @@ class Rule2G(AbstractMinesRule):
     doc = "Each four-connected mine area has a unique size from 1 to N (N = board size - 1)"
     doc.zh_CN = "四连通雷区域的面积为 1 到 N 各一个。(N = 题板尺寸 - 1)"
 
+    tags = ["Variant", "Global", "Connectivity", "Construction", "Strict Shape"]
+
     def create_constraints(self, board: AbstractBoard, switch):
         positions = [pos for pos, _ in board("always", mode="variable")]
         model = board.get_model()

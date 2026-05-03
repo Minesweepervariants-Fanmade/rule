@@ -18,6 +18,7 @@ class Rule3U(AbstractMinesRule):
     doc = "The topmost mine in each column counts as two mines (does not affect the total mine count)"
     doc.zh_CN = "每列最高的雷视为两个雷（总雷数不受其影响）"
     lib_only = True
+    tags = ["Original", "Global", "Mine-Value"]
 
     def __init__(self, board: AbstractBoard = None, data=None) -> None:
         super().__init__(board, data)

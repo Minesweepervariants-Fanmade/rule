@@ -13,6 +13,7 @@ class RuleSC(AbstractMinesRule):
     doc = "Each mine must have at least one dyed cell among its 4 adjacent cells, and dyed cells cannot be mines"
     doc.zh_CN = "每个雷周围至少有一个染色格, 且染色格不能为雷"
     author = ("NT", 2201963934)
+    tags = ["Original", "Local", "Dyed"]
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

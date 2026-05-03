@@ -18,6 +18,7 @@ class RuleGd(AbstractMinesRule):
     name.zh_CN = "递增"
     doc = "(1) Each row has mine count not greater than the previous row (2) Each column has mine count not greater than the left column"
     doc.zh_CN = "1.每行值不大于上一行 2.每列值不大于左一列"
+    tags = ["Original", "Global", "Strict R"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

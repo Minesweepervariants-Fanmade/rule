@@ -39,6 +39,7 @@ class Rule1Q(AbstractMinesRule):
     name.zh_CN = "无方"
     doc = "Every 2x2 area contains at least one mine"
     doc.zh_CN = "每个 2x2 范围内至少有一个雷"
+    tags = ["Original", "Local", "Anti-Construction"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

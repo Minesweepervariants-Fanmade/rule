@@ -64,6 +64,7 @@ class Rule1Wp(AbstractClueRule):
     name.zh_CN = "最长数墙"
     doc = "Clue shows the longest continuous mine length in a 3x3 range"
     doc.zh_CN = "线索表示 3x3 范围内最长的连续雷的长度"
+    tags = ["Local", "Number Clue", "Extensive trial", "Creative"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

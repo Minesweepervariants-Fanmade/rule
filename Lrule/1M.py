@@ -13,6 +13,7 @@ class Rule1M(AbstractMinesRule):
     name.zh_CN = "多雷"
     doc = "Dyed cells have mine value multiplied by 2 (total mine count unaffected)"
     doc.zh_CN = "染色格的雷值*2(总雷数不受影响)"
+    tags = ["Variant", "Dyed", "Mine-Value", "Local"]
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

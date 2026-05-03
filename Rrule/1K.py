@@ -25,6 +25,7 @@ class RuleV(AbstractClueRule):
     name.zh_CN = "骑士"
     doc = "Clue indicates the total mine value at the eight knight's move positions"
     doc.zh_CN = "线索表示马步位置 8 个格子中的总雷值"
+    tags = ["Original", "Local", "Number Clue"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

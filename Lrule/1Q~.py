@@ -33,6 +33,8 @@ class Rule1Q(AbstractMinesRule):
     doc = "Each 2x2 area has at least one empty space"
     doc.zh_CN = "每个2x2区域内都至少有一个空格"
 
+    tags = ["Variant", "Local", "Anti-Construction"]
+
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
         self.nei_values = []

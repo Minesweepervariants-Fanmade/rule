@@ -14,6 +14,7 @@ from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
 from minesweepervariants.impl.summon.solver import Switch
 
 
+
 def pos_shift(
         board: AbstractBoard,
         pos: AbstractPosition,
@@ -40,6 +41,7 @@ class Rule2Q(AbstractClueRule):
     name.zh_CN = "皇后"
     doc = "Clue indicates the number of directions with mines in the eight directions"
     doc.zh_CN = "线索表示八方向有雷的方向数量"
+    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

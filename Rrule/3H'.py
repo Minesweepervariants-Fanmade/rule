@@ -12,6 +12,7 @@ class Rule3H(AbstractClueRule):
     name.zh_CN = "小三角"
     doc = "Clue shows the number of mines in the surrounding cells: left and right; odd-numbered columns additionally include top; even-numbered columns additionally include bottom"
     doc.zh_CN = "线索表示这些周围格子的雷数：左 右，奇数列额外包括上；偶数列额外包括下"
+    tags = ["Variant", "Local", "Number Clue", "Strict Shape"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

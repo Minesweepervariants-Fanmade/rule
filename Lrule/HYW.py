@@ -20,6 +20,7 @@ class Rule1D(AbstractMinesRule):
     doc = "\"What does it mean?\""
     doc.zh_CN = "何意味"
     author = ("NT", 2201963934)
+    tags = ["Creative", "WIP", "Local"]
 
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

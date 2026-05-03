@@ -62,6 +62,7 @@ class Rule1X(AbstractClueRule):
     name.zh_CN = "十字"
     doc = "Clue indicates the number of mines in a cross pattern with radius 2"
     doc.zh_CN = "线索表示半径为 2 的十字范围内的雷数"
+    tags = ["Original", "Local", "Number Clue"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

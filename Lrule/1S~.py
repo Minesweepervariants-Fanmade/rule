@@ -11,6 +11,8 @@ class Rule1S(AbstractMinesRule):
     doc = "All non-mines form several snakes. A snake is a width-1 four-connected path with no branches, loops, or crossings."
     doc.zh_CN = "所有非雷构成若干条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉。"
 
+    tags = ["Variant", "Global", "Connectivity", "Construction"]
+
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()
         s = switch.get(model, self)

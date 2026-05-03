@@ -16,6 +16,7 @@ class Rule4Q(AbstractClueRule):
     name.zh_CN = "方格"
     doc = "Clue shows the number of 2x2 areas containing both the cell and at least one mine"
     doc.zh_CN = "线索表示包含该格且包含雷的 2x2 区域数"
+    tags = ["Original", "Local", "Number Clue", "Construction"]
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         for pos, _ in board("N"):

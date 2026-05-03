@@ -24,6 +24,7 @@ class Rule3DV(Abstract3DClueRule):
     name.zh_CN = "3D标准扫雷"
     doc = "Each number indicates the number of mines in the surrounding 26 cells"
     doc.zh_CN = "每个数字标明周围26格内雷的数量。"
+    tags = ["Original", "Local", "Number Clue", "Vanilla Variant"]
 
     def __init__(self, board: AbstractBoard, data: str = None):
         super().__init__(board, data)

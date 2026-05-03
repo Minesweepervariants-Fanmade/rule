@@ -54,6 +54,7 @@ class Rule1Bpp(AbstractMinesRule):
     name.zh_CN = "后平衡"
     doc = "Total mines in all 8 directions around a mine are equal"
     doc.zh_CN = "雷八方向上的总雷数均相等"
+    tags = ["Variant", "Global", "Strong"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
