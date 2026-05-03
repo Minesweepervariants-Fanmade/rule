@@ -18,7 +18,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Extensive trial"
             ]
@@ -41,7 +41,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Strict Shape"
             ]
@@ -64,7 +64,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Construction"
             ]
@@ -87,7 +87,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local"
             ]
         },
@@ -109,7 +109,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Construction"
             ]
@@ -132,7 +132,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Strict Shape"
             ]
@@ -155,7 +155,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local"
             ]
         },
@@ -177,7 +177,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Extensive trial"
             ]
@@ -200,7 +200,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Dyed"
             ]
@@ -223,7 +223,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local"
             ]
         },
@@ -245,7 +245,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Extensive trial"
             ]
@@ -268,7 +268,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Connectivity"
             ]
@@ -291,7 +291,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Strict Shape"
             ]
@@ -363,7 +363,7 @@
             "image": "3O.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Construction",
                 "Strict Shape"
@@ -432,7 +432,7 @@
             "image": "PM.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Strong",
                 "Extensive trial"
@@ -446,7 +446,7 @@
                 "zh_CN": "\u53cd\u6df7\u5408"
             },
             "doc": {
-                "default": "For a transparent image, input its color-over-white and color-over-black results to attempt to restore the original image",
+                "default": "For a transparent image, input its color-over-white and color-over-black results to attempt to restore the Creative image",
                 "zh_CN": "\u5bf9\u4e8e\u4e00\u5f20\u900f\u660e\u56fe\u7247\uff0c\u5206\u522b\u8f93\u5165\u5b83\u5728\u767d\u5e95\u548c\u9ed1\u5e95\u4e0a\u6df7\u5408\u989c\u8272\u7684\u7ed3\u679c\uff0c\u5c1d\u8bd5\u8fd8\u539f\u539f\u56fe\u3002"
             },
             "author": {
@@ -477,7 +477,7 @@
             "image": "TEST--L02.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Construction",
                 "Strict Shape"
@@ -548,7 +548,7 @@
             "image": "JB.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Construction",
                 "Strong"
@@ -642,7 +642,7 @@
             "image": "TEST--L1.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local"
             ]
         },
@@ -739,7 +739,7 @@
             "image": "Gd.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Strict R"
             ]
@@ -811,7 +811,7 @@
             "image": "DC.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Connectivity"
             ]
@@ -976,7 +976,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Connectivity",
                 "Construction",
@@ -1024,7 +1024,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Dyed",
                 "Mine-Value",
@@ -1049,7 +1049,7 @@
             "image": "THEME.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Parameter"
             ]
         },
@@ -1071,7 +1071,7 @@
             "image": "3C.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Connectivity",
                 "Local",
                 "Strong"
@@ -1120,7 +1120,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Connectivity"
             ]
@@ -1190,7 +1190,7 @@
             "image": "3MA.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Connectivity",
                 "Parameter"
@@ -1214,7 +1214,7 @@
             "image": "PUZ.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Construction",
                 "Strong",
@@ -1329,7 +1329,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Construction",
                 "Connectivity"
@@ -1450,7 +1450,7 @@
             "image": "QTREE.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Strict Shape",
                 "Construction"
@@ -1544,7 +1544,7 @@
             "image": "3E.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Aux Board",
                 "Extensive trial",
                 "Local"
@@ -1568,7 +1568,7 @@
             "image": "A2.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Parameter"
             ]
@@ -1591,7 +1591,7 @@
             "image": "AA.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Anti-Construction"
             ]
@@ -1614,7 +1614,7 @@
             "image": "3L.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Connectivity",
                 "Construction",
                 "Global"
@@ -1685,7 +1685,7 @@
             "image": "TEST--L2.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Construction"
             ]
@@ -1708,7 +1708,7 @@
             "image": "3Q.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Construction"
             ]
@@ -1731,7 +1731,7 @@
             "image": "MB.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Strict R",
                 "Mine-Position"
@@ -1904,7 +1904,7 @@
             "image": "3T.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Anti-Construction"
             ]
@@ -1950,7 +1950,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Dyed"
             ]
@@ -1973,7 +1973,7 @@
             "image": "AF.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Connectivity"
             ]
@@ -1996,7 +1996,7 @@
             "image": "3Y.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Connectivity",
                 "Anti-Construction"
@@ -2287,7 +2287,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Mine-Counting",
                 "Global",
                 "Strict R"
@@ -2429,7 +2429,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Cryptic"
             ]
@@ -2452,7 +2452,7 @@
             "image": "CT.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Strong"
             ]
@@ -2475,7 +2475,7 @@
             "image": "SC.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Dyed"
             ]
@@ -2498,7 +2498,7 @@
             "image": "4N.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Strong",
                 "Mine-Position"
@@ -2591,7 +2591,7 @@
             "image": "DQ.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Mine-Counting",
                 "Strict R"
@@ -2687,7 +2687,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Anti-Construction"
             ]
@@ -2881,7 +2881,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Connectivity",
                 "Construction",
                 "Global",
@@ -2976,7 +2976,7 @@
             "image": "GL.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Strong"
             ]
@@ -3048,7 +3048,7 @@
             "image": "4D.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Anti-Construction"
             ]
@@ -3095,7 +3095,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Global",
                 "Mine-Value"
             ]
@@ -3142,7 +3142,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Extensive trial"
             ]
@@ -3167,7 +3167,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Construction"
             ]
@@ -3190,7 +3190,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local"
             ]
         },
@@ -3212,7 +3212,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Extensive trial"
             ]
@@ -3235,7 +3235,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Extensive trial"
             ]
@@ -3281,7 +3281,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Construction"
             ]
@@ -3329,7 +3329,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue"
             ]
@@ -3352,7 +3352,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue"
             ]
@@ -3375,7 +3375,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue"
             ]
@@ -3398,7 +3398,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Vanilla Variant"
@@ -3422,7 +3422,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Aux Board",
                 "Meta"
             ]
@@ -3445,7 +3445,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Multi-Board",
                 "Meta",
                 "Parameter"
@@ -3469,7 +3469,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -3517,7 +3517,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -3589,7 +3589,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -3685,7 +3685,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Extensive trial"
@@ -3709,7 +3709,7 @@
             "image": "3A.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Arrow Clue"
@@ -3733,7 +3733,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -3879,7 +3879,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue"
             ]
@@ -4075,7 +4075,7 @@
             "image": "PF.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue"
             ]
@@ -4240,7 +4240,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Parameter"
@@ -4290,7 +4290,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -4313,7 +4313,7 @@
             "image": "TV.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -4438,7 +4438,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Extensive trial"
@@ -4462,7 +4462,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Mine-Value"
@@ -4680,7 +4680,7 @@
             "image": "UP.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -4730,7 +4730,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -4754,7 +4754,7 @@
             "image": "SG.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -4972,7 +4972,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Arrow Clue",
                 "Construction"
@@ -4996,7 +4996,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -5165,7 +5165,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue"
             ]
@@ -5331,7 +5331,7 @@
             "image": "Sp.png",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Construction"
@@ -5474,7 +5474,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Number Clue",
                 "Mine-Value"
@@ -6701,7 +6701,7 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
+                "Creative",
                 "Local",
                 "Extensive trial"
             ]
