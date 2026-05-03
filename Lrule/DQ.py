@@ -26,7 +26,7 @@ class RuleDQ(AbstractMinesRule):
     doc = "The multiset of row mine counts equals the multiset of column mine counts."
     doc.zh_CN = "行雷数的多重集合等于列雷数的多重集合（即排序后行雷数列表与列雷数列表相同）。"
     author = ("DeepSeek", "")
-    tags = ["Original", "Global", "Mine-Counting", "Strict R"]
+    tags = ["Creative", "Global", "Mine-Counting", "Strict R"]
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

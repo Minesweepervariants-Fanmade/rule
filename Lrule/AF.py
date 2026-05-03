@@ -10,7 +10,7 @@ class RuleAF(AbstractMinesRule):
     name.zh_CN = "下落"
     doc = "Mine areas are 4-connected to the bottom edge of the board"
     doc.zh_CN = "雷区与题板下边缘四连通"
-    tags = ["Original", "Global", "Connectivity"]
+    tags = ["Creative", "Global", "Connectivity"]
 
     def create_constraints(self, board, switch):
         model = board.get_model()

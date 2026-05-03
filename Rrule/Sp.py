@@ -10,7 +10,7 @@ class RuleSp(AbstractClueRule):
     doc = "Clue shows the shortest continuous path length that connects all mines in the surrounding eight cells"
     doc.zh_CN = "线索表示能连接周围八格内所有雷的最短连续路径长度。"
     author = ("Boi", -1)
-    tags = ["Original", "Local", "Number Clue", "Construction"]
+    tags = ["Creative", "Local", "Number Clue", "Construction"]
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

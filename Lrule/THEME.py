@@ -160,7 +160,7 @@ class RuleSETU(AbstractMinesRule):
     doc = "Sets the board theme"
     doc.zh_CN = "设置题板主题"
     author = ("NT", 2201963934)
-    tags = ["Original", "Parameter"]
+    tags = ["Creative", "Parameter"]
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

@@ -29,7 +29,7 @@ class RuleGT2(AbstractMinesRule):
     doc = "All four-connected mine/non-mine areas have size greater than 2"
     doc.zh_CN = "所有四连通雷/非雷区域面积大于 2"
     author = ("NT", 2201963934)
-    tags = ["Original", "Global", "Connectivity", "Construction", "Parameter"]
+    tags = ["Creative", "Global", "Connectivity", "Construction", "Parameter"]
 
     _COMPARATOR_RE = re.compile(r"^(>=|<=|!=|>|<)\s*(-?\d+)$")
 

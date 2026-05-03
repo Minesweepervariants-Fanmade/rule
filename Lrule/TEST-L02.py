@@ -13,7 +13,7 @@ class Rule4L(AbstractMinesRule):
     doc.zh_CN = "所有雷组成L形：雷总是组成L形，L形是宽度为1，拐弯一次的形状，L形可以斜角相邻但不能横竖相邻"
     author = ("Artless", 2452944138)
 
-    tags = ["Original", "Local", "Construction", "Strict Shape"]
+    tags = ["Creative", "Local", "Construction", "Strict Shape"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

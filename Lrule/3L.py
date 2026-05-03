@@ -12,7 +12,7 @@ class Rule1S(AbstractMinesRule):
     name.zh_CN = "环"
     doc = "All mines form a loop. A loop is a width-1 diagonal path without branches or intersections, and the loop connects head to tail"
     doc.zh_CN = "所有雷构成一条环。环是一条宽度为 1 的八连通路径，不存在分叉和交叉，环的头尾相连"
-    tags = ["Original", "Connectivity", "Construction", "Global"]
+    tags = ["Creative", "Connectivity", "Construction", "Global"]
 
     def create_constraints(self, board, switch):
         model = board.get_model()

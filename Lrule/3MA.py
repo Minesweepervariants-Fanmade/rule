@@ -45,7 +45,7 @@ class Rule3MA(AbstractMinesRule):
     doc = "The board has exactly three four-connected mine areas"
     doc.zh_CN = "题板正好有三个四连通雷区"
     author = ("NT", 2201963934)
-    tags = ["Original", "Global", "Connectivity", "Parameter"]
+    tags = ["Creative", "Global", "Connectivity", "Parameter"]
 
     _COMPARATOR_RE = re.compile(r"^(>=|<=|!=|>|<)\s*(-?\d+)$")
 

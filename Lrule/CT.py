@@ -12,7 +12,7 @@ class RuleCT(AbstractMinesRule):
     name.zh_CN = "仙人掌"
     doc = "Each mine has exactly 1 or 3 mines in the four surrounding cells"
     doc.zh_CN = "每个雷周围四格中恰有1或3个雷"
-    tags = ["Original", "Local", "Strong"]
+    tags = ["Creative", "Local", "Strong"]
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

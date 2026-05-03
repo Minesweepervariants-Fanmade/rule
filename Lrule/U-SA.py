@@ -17,7 +17,7 @@ class RuleUSA(AbstractMinesRule):
     id = "U-SA"
     name = "Semi-Auto Unmix"
     name.zh_CN = "反混合"
-    doc = "For a transparent image, input its color-over-white and color-over-black results to attempt to restore the original image"
+    doc = "For a transparent image, input its color-over-white and color-over-black results to attempt to restore the Creative image"
     doc.zh_CN = "对于一张透明图片，分别输入它在白底和黑底上混合颜色的结果，尝试还原原图。"
     author = ("NT", 2201963934)
     tags = ["Variant", "Parameter"]

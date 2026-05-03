@@ -7,7 +7,7 @@ class Rule4N(AbstractMinesRule):
     name.zh_CN = "相邻"
     doc = "Non-mine cells must have at least one mine in the four orthogonal adjacent cells"
     doc.zh_CN = "非雷周围四格必须有雷"
-    tags = ["Original", "Global", "Strong", "Mine-Position"]
+    tags = ["Creative", "Global", "Strong", "Mine-Position"]
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

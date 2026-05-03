@@ -9,7 +9,7 @@ class Rule4D(AbstractMinesRule):
     name.zh_CN = "对角"
     doc = "Different four-connected mine areas cannot be diagonally adjacent"
     doc.zh_CN = "不同四连通雷区不可对角相邻"
-    tags = ["Original", "Local", "Anti-Construction"]
+    tags = ["Creative", "Local", "Anti-Construction"]
 
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()

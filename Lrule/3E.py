@@ -22,7 +22,7 @@ class Rule3E(AbstractMinesRule):
     name.zh_CN = "演化"
     doc = "Each 3x1 area determines whether the cell below its middle is a mine; evolution is shared across all areas of the current board"
     doc.zh_CN = "每个3x1区域决定其中间下方1格是否为雷，演化被当前题板所有区域共享。"
-    tags = ["Original", "Aux Board", "Extensive trial", "Local"]
+    tags = ["Creative", "Aux Board", "Extensive trial", "Local"]
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

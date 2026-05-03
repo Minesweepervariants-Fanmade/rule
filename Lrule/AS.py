@@ -24,7 +24,7 @@ class RuleAS(AbstractMinesRule):
     doc = "Each row cannot simultaneously contain dyed non-mine, undyed non-mine, dyed mine, and undyed mine"
     doc.zh_CN = "每一行不能同时存在染色非雷格、非染色非雷格、染色雷格和非染色雷格"
     author = ("botif", 1643337042)
-    tags = ["Original", "Local", "Dyed"]
+    tags = ["Creative", "Local", "Dyed"]
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

@@ -16,7 +16,7 @@ class Rule4C(AbstractMinesRule):
     id = "4C"
     name = "Crossing"
     name.zh_CN = "十字路口"
-    tags = ["Original", "Global", "Construction", "Connectivity"]
+    tags = ["Creative", "Global", "Construction", "Connectivity"]
 
     def suggest_total(self, info: dict):
         def a(model, total):
