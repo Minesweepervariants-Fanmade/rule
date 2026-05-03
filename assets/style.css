@@ -296,6 +296,18 @@ html {
   font-size: 0.85rem;
 }
 
+.tag-filter-item-include {
+  color: #2a7a2a;
+  border-color: #2a7a2a;
+  background: #f2fdf2;
+}
+
+.tag-filter-item-exclude {
+  color: #a83232;
+  border-color: #a83232;
+  background: #fdf2f2;
+}
+
 .tag-filter-remove {
   display: inline-flex;
   align-items: center;

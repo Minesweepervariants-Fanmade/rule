@@ -25,7 +25,6 @@
       var UI_LOCALE = resolveUiLocale(localStorage.getItem(STORAGE_KEY) || document.documentElement.lang || (navigator.languages && navigator.languages[0]) || navigator.language || "zh_CN");
       var PREDEFINED_TAGS = ['Original', 'Variant', 'Creative', 'Global', 'Local', 'Strict R', 'Strict Shape', 'Strong', 'Weak', 'Anti-Construction', 'Connectivity', 'Construction', 'Extensive trial', 'Cryptic', 'Mine-Counting', 'Mine-Value', 'Mine-Position', 'Dyed', 'Fun', 'Number Clue', 'Arrow Clue', 'Multi-Board', 'Aux Board', 'Vanilla Variant', 'Light', 'Heavy', 'WIP', 'Parameter', 'Meta', 'Untagged'];
       var activeFilters = [];
-      var filterMode = 'include';
       var UI_TEXT = {
         zh_CN: {
           title: "MinesweeperVariants 规则列表",
@@ -153,9 +152,8 @@
         btnInclude.textContent = getUiText("filterInclude");
         btnInclude.onclick = function () {
           var val = select.value;
-          if (val && activeFilters.indexOf(val) === -1) {
-            activeFilters.push(val);
-            filterMode = 'include';
+          if (val) {
+            activeFilters.push({ tag: val, mode: 'include' });
             renderTagFilter();
             render();
           }
@@ -166,9 +164,8 @@
         btnExclude.textContent = getUiText("filterExclude");
         btnExclude.onclick = function () {
           var val = select.value;
-          if (val && activeFilters.indexOf(val) === -1) {
-            activeFilters.push(val);
-            filterMode = 'exclude';
+          if (val) {
+            activeFilters.push({ tag: val, mode: 'exclude' });
             renderTagFilter();
             render();
           }
@@ -179,7 +176,6 @@
         btnClear.textContent = getUiText("filterClear");
         btnClear.onclick = function () {
           activeFilters = [];
-          filterMode = 'include';
           renderTagFilter();
           render();
         };
@@ -194,9 +190,10 @@
           var activeList = document.createElement("div");
           activeList.className = "tag-filter-active";
           for (var j = 0; j < activeFilters.length; j++) {
+            var filterItem = activeFilters[j];
             var tag = document.createElement("span");
-            tag.className = "tag-filter-item";
-            tag.textContent = activeFilters[j];
+            tag.className = "tag-filter-item" + (filterItem.mode === 'include' ? " tag-filter-item-include" : " tag-filter-item-exclude");
+            tag.textContent = (filterItem.mode === 'exclude' ? "∉ " : "∈ ") + filterItem.tag;
             var removeBtn = document.createElement("button");
             removeBtn.className = "tag-filter-remove";
             removeBtn.textContent = "×";
@@ -218,10 +215,16 @@
         if (activeFilters.length === 0) return true;
         var ruleTags = rule.tags || [];
         for (var i = 0; i < activeFilters.length; i++) {
-          var hasTag = ruleTags.indexOf(activeFilters[i]) !== -1;
-          if (hasTag) return true;
+          var filterItem = activeFilters[i];
+          var hasTag = ruleTags.indexOf(filterItem.tag) !== -1;
+          if (filterItem.mode === 'include' && !hasTag) {
+            return false;
+          }
+          if (filterItem.mode === 'exclude' && hasTag) {
+            return false;
+          }
         }
-        return false;
+        return true;
       }
 
       function getHeadingHtml() {
