@@ -184,6 +184,25 @@ html {
   word-break: break-word;
 }
 
+.rule-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.rule-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  line-height: 1.4;
+}
+
 .rule-doc {
   padding: 10px 12px;
   margin-top: 10px;

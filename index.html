@@ -232,7 +232,8 @@
               id: item.author_uid || ''
             },
             image: item.image || '',
-            aliases: []
+            aliases: [],
+            tags: ['Untagged']
           };
         });
       }
@@ -251,6 +252,19 @@
         var authorName = text(rule.author && rule.author.name).trim();
         var authorId = text(rule.author && rule.author.id).trim();
         appendTextElement(item, "p", getUiText("author") + ": " + (authorName || getUiText("unknownAuthor")) + (authorId ? " (" + authorId + ")" : ""), "rule-author");
+
+        var tags = rule.tags;
+        if (Array.isArray(tags) && tags.length > 0) {
+          var tagsContainer = document.createElement("div");
+          tagsContainer.className = "rule-tags";
+          for (var ti = 0; ti < tags.length; ti++) {
+            var tag = document.createElement("span");
+            tag.className = "rule-tag";
+            tag.textContent = tags[ti];
+            tagsContainer.appendChild(tag);
+          }
+          item.appendChild(tagsContainer);
+        }
 
         var docContent = pickLocalizedValue(rule.doc) || getUiText("noDoc");
         var imageName = text(rule.image).trim();
