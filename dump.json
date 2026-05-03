@@ -856,7 +856,8 @@
             "image": "1K2F.png",
             "aliases": [],
             "tags": [
-                "Untagged"
+                "Variant",
+                "Local"
             ]
         },
         {
@@ -1473,7 +1474,9 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Untagged"
+                "Variant",
+                "Global",
+                "Connectivity"
             ]
         },
         {
@@ -2017,7 +2020,9 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Untagged"
+                "Variant",
+                "Global",
+                "Connectivity"
             ]
         },
         {
@@ -2306,7 +2311,9 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Untagged"
+                "Variant",
+                "Construction",
+                "Local"
             ]
         },
         {
@@ -2538,7 +2545,9 @@
                 "H"
             ],
             "tags": [
-                "Untagged"
+                "Variant",
+                "Anti-Construction",
+                "Local"
             ]
         },
         {
@@ -3109,7 +3118,10 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Untagged"
+                "Creative",
+                "Global",
+                "Number Clue",
+                "Mine-Value"
             ]
         },
         {
