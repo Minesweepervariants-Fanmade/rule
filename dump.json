@@ -399,6 +399,24 @@
         },
         {
             "rule_line": "L",
+            "id": "JB''",
+            "name": {
+                "default": "entangledick",
+                "zh_CN": "\u8c82\u8749"
+            },
+            "doc": {
+                "default": "1 snake + 2 square rectangles = exact full cover. One snake endpoint diagonally touches two different square corners, the other endpoint touches none. No other contact (overlap/ortho/diag) between snake and squares.",
+                "zh_CN": "\u96f7\u533a\u6070\u597d\u7531 1 \u86c7 + 2 \u6b63\u65b9\u5f62\u77e9\u5f62\u5b8c\u6574\u8986\u76d6\u3002\u86c7\u7684\u4e00\u4e2a\u7aef\u70b9\u5bf9\u89d2\u63a5\u89e6\u4e24\u4e2a\u4e0d\u540c\u6b63\u65b9\u5f62\u77e9\u5f62\u7684\u4e00\u89d2\uff0c\u53e6\u4e00\u7aef\u70b9\u4e0d\u63a5\u89e6\u4efb\u4f55\u6b63\u65b9\u5f62\u3002\u86c7\u4e0e\u6b63\u65b9\u5f62\u4e4b\u95f4\u65e0\u5176\u4ed6\u63a5\u89e6\uff08\u4e0d\u91cd\u53e0/\u4e0d\u6b63\u4ea4/\u4e0d\u5bf9\u89d2\uff09\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "JB''.png",
+            "aliases": []
+        },
+        {
+            "rule_line": "L",
             "id": "JB",
             "name": {
                 "default": "Adick",
