@@ -1343,3 +1343,15 @@
   image: 滚木.png
   name: 滚木
   time: 1777833177.3727303
+- author_name: 雾
+  author_uid: 3140864122
+  doc: '
+
+    [?S]Square  The mine will be one of four mines in a square.
+
+    [?S]正方形  地雷は4つの地雷で形成される正方形の1つになる。
+
+    [?S]正方形  雷将必然可以构成正方形的四个角'
+  image: -qS.png
+  name: ?S
+  time: 1777848446.4471462
