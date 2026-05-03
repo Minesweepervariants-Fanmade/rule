@@ -203,6 +203,120 @@ html {
   line-height: 1.4;
 }
 
+.tag-filter {
+  max-width: 1100px;
+  margin: 0 auto 16px;
+}
+
+.tag-filter-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.tag-filter-select {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.tag-filter-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tag-filter-btn:hover {
+  border-color: var(--accent);
+  background: var(--panel-2);
+}
+
+.tag-filter-btn-include {
+  color: #2a7a2a;
+  border-color: #2a7a2a;
+}
+
+.tag-filter-btn-include:hover {
+  background: #e8f5e8;
+}
+
+.tag-filter-btn-exclude {
+  color: #a83232;
+  border-color: #a83232;
+}
+
+.tag-filter-btn-exclude:hover {
+  background: #f5e8e8;
+}
+
+.tag-filter-btn-clear {
+  color: var(--muted);
+}
+
+.tag-filter-btn-clear:hover {
+  background: var(--panel-2);
+}
+
+.tag-filter-active {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.tag-filter-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.tag-filter-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--muted);
+  color: var(--panel);
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tag-filter-remove:hover {
+  background: #a83232;
+}
+
 .rule-doc {
   padding: 10px 12px;
   margin-top: 10px;
@@ -259,6 +373,15 @@ html {
     width: 28px;
     height: 28px;
     font-size: 0.9rem;
+  }
+
+  .tag-filter-select {
+    min-width: 100%;
+  }
+
+  .tag-filter-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
   }
 }
 

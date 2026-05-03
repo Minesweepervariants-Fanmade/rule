@@ -12,6 +12,7 @@
     <label id="language-label" class="language-label" for="language-switch"></label>
     <select id="language-switch" class="language-switch"></select>
   </div>
+  <div id="tag-filter" class="tag-filter"></div>
   <div id="app" class="rule-app"></div>
 
   <script>
@@ -22,6 +23,9 @@
       var STORAGE_KEY = "minesweepervariants.rule.locale";
       var RULE_DATA = null;
       var UI_LOCALE = resolveUiLocale(localStorage.getItem(STORAGE_KEY) || document.documentElement.lang || (navigator.languages && navigator.languages[0]) || navigator.language || "zh_CN");
+      var PREDEFINED_TAGS = ['Original', 'Variant', 'Creative', 'Global', 'Local', 'Strict R', 'Strict Shape', 'Strong', 'Weak', 'Anti-Construction', 'Connectivity', 'Construction', 'Extensive trial', 'Cryptic', 'Mine-Counting', 'Mine-Value', 'Mine-Position', 'Dyed', 'Fun', 'Number Clue', 'Arrow Clue', 'Multi-Board', 'Aux Board', 'Vanilla Variant', 'Light', 'Heavy', 'WIP', 'Parameter', 'Meta', 'Untagged'];
+      var activeFilters = [];
+      var filterMode = 'include';
       var UI_TEXT = {
         zh_CN: {
           title: "MinesweeperVariants 规则列表",
@@ -32,6 +36,10 @@
           unknownAuthor: "未知",
           noDoc: "无说明",
           errorPrefix: "加载失败: ",
+          filterInclude: "包含",
+          filterExclude: "不包含",
+          filterClear: "清空",
+          filterPlaceholder: "选择标签添加筛选...",
           ruleLine: {
             L: "左线规则",
             M: "中线规则",
@@ -48,6 +56,10 @@
           unknownAuthor: "Unknown",
           noDoc: "No description",
           errorPrefix: "Load failed: ",
+          filterInclude: "Include",
+          filterExclude: "Exclude",
+          filterClear: "Clear",
+          filterPlaceholder: "Select tag to add filter...",
           ruleLine: {
             L: "Left Rules",
             M: "Middle Rules",
@@ -116,6 +128,100 @@
       function getRuleLineText(line) {
         var localePack = UI_TEXT[UI_LOCALE] || UI_TEXT.zh_CN;
         return localePack.ruleLine[line] || UI_TEXT.zh_CN.ruleLine[line] || line;
+      }
+
+      function renderTagFilter() {
+        var container = document.getElementById("tag-filter");
+        if (!container) return;
+        container.innerHTML = "";
+
+        var wrapper = document.createElement("div");
+        wrapper.className = "tag-filter-wrapper";
+
+        var select = document.createElement("select");
+        select.className = "tag-filter-select";
+        select.innerHTML = '<option value="">' + getUiText("filterPlaceholder") + '</option>';
+        for (var i = 0; i < PREDEFINED_TAGS.length; i++) {
+          var opt = document.createElement("option");
+          opt.value = PREDEFINED_TAGS[i];
+          opt.textContent = PREDEFINED_TAGS[i];
+          select.appendChild(opt);
+        }
+
+        var btnInclude = document.createElement("button");
+        btnInclude.className = "tag-filter-btn tag-filter-btn-include";
+        btnInclude.textContent = getUiText("filterInclude");
+        btnInclude.onclick = function () {
+          var val = select.value;
+          if (val && activeFilters.indexOf(val) === -1) {
+            activeFilters.push(val);
+            filterMode = 'include';
+            renderTagFilter();
+            render();
+          }
+        };
+
+        var btnExclude = document.createElement("button");
+        btnExclude.className = "tag-filter-btn tag-filter-btn-exclude";
+        btnExclude.textContent = getUiText("filterExclude");
+        btnExclude.onclick = function () {
+          var val = select.value;
+          if (val && activeFilters.indexOf(val) === -1) {
+            activeFilters.push(val);
+            filterMode = 'exclude';
+            renderTagFilter();
+            render();
+          }
+        };
+
+        var btnClear = document.createElement("button");
+        btnClear.className = "tag-filter-btn tag-filter-btn-clear";
+        btnClear.textContent = getUiText("filterClear");
+        btnClear.onclick = function () {
+          activeFilters = [];
+          filterMode = 'include';
+          renderTagFilter();
+          render();
+        };
+
+        wrapper.appendChild(select);
+        wrapper.appendChild(btnInclude);
+        wrapper.appendChild(btnExclude);
+        wrapper.appendChild(btnClear);
+        container.appendChild(wrapper);
+
+        if (activeFilters.length > 0) {
+          var activeList = document.createElement("div");
+          activeList.className = "tag-filter-active";
+          for (var j = 0; j < activeFilters.length; j++) {
+            var tag = document.createElement("span");
+            tag.className = "tag-filter-item";
+            tag.textContent = activeFilters[j];
+            var removeBtn = document.createElement("button");
+            removeBtn.className = "tag-filter-remove";
+            removeBtn.textContent = "×";
+            removeBtn.onclick = (function (idx) {
+              return function () {
+                activeFilters.splice(idx, 1);
+                renderTagFilter();
+                render();
+              };
+            })(j);
+            tag.appendChild(removeBtn);
+            activeList.appendChild(tag);
+          }
+          container.appendChild(activeList);
+        }
+      }
+
+      function matchesFilter(rule) {
+        if (activeFilters.length === 0) return true;
+        var ruleTags = rule.tags || [];
+        for (var i = 0; i < activeFilters.length; i++) {
+          var hasTag = ruleTags.indexOf(activeFilters[i]) !== -1;
+          if (hasTag) return true;
+        }
+        return false;
       }
 
       function getHeadingHtml() {
@@ -300,6 +406,7 @@
         document.documentElement.lang = UI_LOCALE === "en" ? "en" : "zh-CN";
         document.title = getUiText("title");
         syncLanguageMenu();
+        renderTagFilter();
 
         var pageTitle = document.getElementById("page-title");
         if (pageTitle) {
@@ -322,7 +429,8 @@
 
           var title = document.createElement("h2");
           title.className = "rule-line-title";
-          title.textContent = getRuleLineText(line) + " (" + list.length + ")";
+          var filteredList = list.filter(matchesFilter);
+          title.textContent = getRuleLineText(line) + " (" + filteredList.length + "/" + list.length + ")";
 
           titleContainer.appendChild(toggleBtn);
           titleContainer.appendChild(title);
@@ -330,8 +438,8 @@
 
           var ul = document.createElement("ul");
           ul.className = "rule-list";
-          for (var j = 0; j < list.length; j++) {
-            ul.appendChild(makeRuleItem(list[j], line));
+          for (var j = 0; j < filteredList.length; j++) {
+            ul.appendChild(makeRuleItem(filteredList[j], line));
           }
           section.appendChild(ul);
 
