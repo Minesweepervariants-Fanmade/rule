@@ -1687,6 +1687,24 @@
         },
         {
             "rule_line": "L",
+            "id": "XS",
+            "name": {
+                "default": "Segment Split",
+                "zh_CN": "\u5206\u6bb5"
+            },
+            "doc": {
+                "default": "Uses sub-board to represent row segment boundaries: no boundary means same value, different sides must be boundary, boundary count increases from bottom up with row inheritance",
+                "zh_CN": "\u7528\u526f\u677f\u8868\u793a\u884c\u5206\u6bb5\u8fb9\u754c\uff1a\u65e0\u8fb9\u754c\u540c\u503c\u3001\u4e24\u4fa7\u4e0d\u540c\u5fc5\u4e3a\u8fb9\u754c\uff0c\u8fb9\u754c\u6570\u81ea\u5e95\u5411\u4e0a\u9012\u589e\u5e76\u6ee1\u8db3\u884c\u95f4\u7ee7\u627f"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "XS.png",
+            "aliases": []
+        },
+        {
+            "rule_line": "L",
             "id": "1C'",
             "name": {
                 "default": "Connected'",
