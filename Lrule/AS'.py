@@ -26,14 +26,8 @@ class RuleASp(AbstractMinesRule):
     doc = "Each 2x2 area cannot contain all four states (dyed mine, undyed mine, dyed non-mine, undyed non-mine) simultaneously"
     doc.zh_CN = "每个2x2区域内不能同时存在四种状态（染色雷、非染色雷、染色非雷、非染色非雷）。"
 
-    subrules = [
-        [True, "[AS'] 禁止四态共存"]
-    ]
-
     def create_constraints(self, board: 'AbstractBoard', switch):
         """添加约束：每个2x2方块内不能四种状态都出现。"""
-        if not self.subrules[0][0]:
-            return
 
         model = board.get_model()
         s = switch.get(model, self)
