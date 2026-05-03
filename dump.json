@@ -16,7 +16,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -34,7 +37,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -52,7 +58,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -70,7 +79,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -88,7 +100,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -106,7 +121,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -124,7 +142,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -142,7 +163,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -160,7 +184,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -178,7 +205,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -196,7 +226,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -214,7 +247,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -232,7 +268,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -252,6 +291,9 @@
             "image": "1A.png",
             "aliases": [
                 "A"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -270,7 +312,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -288,7 +333,10 @@
                 "id": ""
             },
             "image": "3O.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -306,7 +354,10 @@
                 "id": ""
             },
             "image": "SETU.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -324,7 +375,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -342,7 +396,10 @@
                 "id": ""
             },
             "image": "PM.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -360,7 +417,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -377,7 +437,10 @@
                 "id": "2452944138"
             },
             "image": "TEST--L02.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -395,7 +458,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -413,7 +479,10 @@
                 "id": "2201963934"
             },
             "image": "JB''.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -431,7 +500,10 @@
                 "id": "2201963934"
             },
             "image": "JB.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -449,7 +521,10 @@
                 "id": ""
             },
             "image": "2H.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -469,6 +544,9 @@
             "image": "1C^.png",
             "aliases": [
                 "C^"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -487,7 +565,10 @@
                 "id": "2201963934"
             },
             "image": "SCREAM.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -504,7 +585,10 @@
                 "id": "2452944138"
             },
             "image": "TEST--L1.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -524,6 +608,9 @@
             "image": "1S~.png",
             "aliases": [
                 "S~"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -542,7 +629,10 @@
                 "id": "2201963934"
             },
             "image": "3H1Q.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -562,6 +652,9 @@
             "image": "1U.png",
             "aliases": [
                 "U"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -580,7 +673,10 @@
                 "id": ""
             },
             "image": "Gd.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -598,7 +694,10 @@
                 "id": ""
             },
             "image": "3C^.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -618,6 +717,9 @@
             "image": "1T''.png",
             "aliases": [
                 "T''"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -636,7 +738,10 @@
                 "id": ""
             },
             "image": "DC.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -654,7 +759,10 @@
                 "id": "2201963934"
             },
             "image": "SETU^.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -672,7 +780,10 @@
                 "id": ""
             },
             "image": "1K2F.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -692,6 +803,9 @@
             "image": "",
             "aliases": [
                 "Q~"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -710,7 +824,10 @@
                 "id": "2201963934"
             },
             "image": "4S.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -728,7 +845,10 @@
                 "id": ""
             },
             "image": "2G.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -748,6 +868,9 @@
             "image": "1D.png",
             "aliases": [
                 "D"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -766,7 +889,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -784,7 +910,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -802,7 +931,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -820,7 +952,10 @@
                 "id": "2201963934"
             },
             "image": "THEME.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -838,7 +973,10 @@
                 "id": ""
             },
             "image": "3C.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -856,7 +994,10 @@
                 "id": "2201963934"
             },
             "image": "AI.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -873,7 +1014,10 @@
                 "id": "2452944138"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -891,7 +1035,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -909,7 +1056,10 @@
                 "id": ""
             },
             "image": "2B.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -927,7 +1077,10 @@
                 "id": "2201963934"
             },
             "image": "3MA.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -945,7 +1098,10 @@
                 "id": "2201963934"
             },
             "image": "PUZ.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -963,7 +1119,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -981,7 +1140,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -999,7 +1161,10 @@
                 "id": "3140864122"
             },
             "image": "4B.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1019,6 +1184,9 @@
             "image": "1Q.png",
             "aliases": [
                 "Q"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1034,7 +1202,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1052,7 +1223,10 @@
                 "id": ""
             },
             "image": "2C.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1070,7 +1244,10 @@
                 "id": "2201963934"
             },
             "image": "GM.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1090,6 +1267,9 @@
             "image": "1B.png",
             "aliases": [
                 "B"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1110,6 +1290,9 @@
             "image": "1O.png",
             "aliases": [
                 "O"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1128,7 +1311,10 @@
                 "id": "2201963934"
             },
             "image": "QTREE.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1146,7 +1332,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1164,7 +1353,10 @@
                 "id": ""
             },
             "image": "4U.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1182,7 +1374,10 @@
                 "id": ""
             },
             "image": "2T.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1200,7 +1395,10 @@
                 "id": ""
             },
             "image": "3E.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1218,7 +1416,10 @@
                 "id": "2201963934"
             },
             "image": "A2.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1236,7 +1437,10 @@
                 "id": "1643337042"
             },
             "image": "AA.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1254,7 +1458,10 @@
                 "id": ""
             },
             "image": "3L.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1272,7 +1479,10 @@
                 "id": ""
             },
             "image": "3Q'.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1292,6 +1502,9 @@
             "image": "1B''.png",
             "aliases": [
                 "B''"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1309,7 +1522,10 @@
                 "id": "2452944138"
             },
             "image": "TEST--L2.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1327,7 +1543,10 @@
                 "id": ""
             },
             "image": "3Q.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1345,7 +1564,10 @@
                 "id": "2201963934"
             },
             "image": "MB.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1365,6 +1587,9 @@
             "image": "1D'.png",
             "aliases": [
                 "D'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1383,7 +1608,10 @@
                 "id": "3140864122"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1403,6 +1631,9 @@
             "image": "1S.png",
             "aliases": [
                 "S"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1423,6 +1654,9 @@
             "image": "1N.png",
             "aliases": [
                 "N"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1441,7 +1675,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1459,7 +1696,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1477,7 +1717,10 @@
                 "id": ""
             },
             "image": "3T.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1495,7 +1738,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1513,7 +1759,10 @@
                 "id": "1643337042"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1531,7 +1780,10 @@
                 "id": ""
             },
             "image": "AF.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1549,7 +1801,10 @@
                 "id": ""
             },
             "image": "3Y.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1567,7 +1822,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1585,7 +1843,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1605,6 +1866,9 @@
             "image": "1S^.png",
             "aliases": [
                 "S^"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1625,6 +1889,9 @@
             "image": "1M.png",
             "aliases": [
                 "M"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1643,7 +1910,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1661,7 +1931,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1681,6 +1954,9 @@
             "image": "1C.png",
             "aliases": [
                 "C"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1701,6 +1977,9 @@
             "image": "1T.png",
             "aliases": [
                 "T"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1719,7 +1998,10 @@
                 "id": "2201963934"
             },
             "image": "XS.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1739,6 +2021,9 @@
             "image": "1C'.png",
             "aliases": [
                 "C'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1757,7 +2042,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1775,7 +2063,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1793,7 +2084,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1811,7 +2105,10 @@
                 "id": ""
             },
             "image": "2G'.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1831,6 +2128,9 @@
             "image": "",
             "aliases": [
                 "U'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1849,7 +2149,10 @@
                 "id": "2201963934"
             },
             "image": "SM.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1867,7 +2170,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1885,7 +2191,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1903,7 +2212,10 @@
                 "id": ""
             },
             "image": "CT.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1921,7 +2233,10 @@
                 "id": "2201963934"
             },
             "image": "SC.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1939,7 +2254,10 @@
                 "id": ""
             },
             "image": "4N.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1957,7 +2275,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -1977,6 +2298,9 @@
             "image": "1H.png",
             "aliases": [
                 "H"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -1995,7 +2319,10 @@
                 "id": ""
             },
             "image": "2S.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2013,7 +2340,10 @@
                 "id": ""
             },
             "image": "DQ.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2030,7 +2360,10 @@
                 "id": "2201963934"
             },
             "image": "4S''.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2048,7 +2381,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2068,6 +2404,9 @@
             "image": "1T'.png",
             "aliases": [
                 "T'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -2086,7 +2425,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2104,7 +2446,10 @@
                 "id": ""
             },
             "image": "2Z.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2122,7 +2467,10 @@
                 "id": "2201963934"
             },
             "image": "HYW.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2142,6 +2490,9 @@
             "image": "",
             "aliases": [
                 "D''"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -2162,6 +2513,9 @@
             "image": "1S''.png",
             "aliases": [
                 "S''"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -2180,7 +2534,10 @@
                 "id": ""
             },
             "image": "2F.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2198,7 +2555,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2218,6 +2578,9 @@
             "image": "1S'.png",
             "aliases": [
                 "S'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -2236,7 +2599,10 @@
                 "id": "3140864122"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2254,7 +2620,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2272,7 +2641,10 @@
                 "id": "2201963934"
             },
             "image": "4S'.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2290,7 +2662,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2308,7 +2683,10 @@
                 "id": ""
             },
             "image": "GL.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2328,6 +2706,9 @@
             "image": "1B'.png",
             "aliases": [
                 "B'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -2346,7 +2727,10 @@
                 "id": "3140864122"
             },
             "image": "-a1M.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2364,7 +2748,10 @@
                 "id": ""
             },
             "image": "4D.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2382,7 +2769,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2400,7 +2790,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2418,7 +2811,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "L",
@@ -2436,7 +2832,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         }
     ],
     "M": [
@@ -2456,7 +2855,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "M",
@@ -2474,7 +2876,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "M",
@@ -2492,7 +2897,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "M",
@@ -2510,7 +2918,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "M",
@@ -2528,7 +2939,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "M",
@@ -2546,7 +2960,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "M",
@@ -2564,7 +2981,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         }
     ],
     "R": [
@@ -2584,7 +3004,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2602,7 +3025,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2620,7 +3046,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2638,7 +3067,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2656,7 +3088,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2674,7 +3109,10 @@
                 "id": "67265011"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2692,7 +3130,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2710,7 +3151,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2728,7 +3172,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2746,7 +3193,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2764,7 +3214,10 @@
                 "id": "2201963934"
             },
             "image": "4D'.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2782,7 +3235,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2800,7 +3256,10 @@
                 "id": ""
             },
             "image": "1F.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2818,7 +3277,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2836,7 +3298,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2854,7 +3319,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2872,7 +3340,10 @@
                 "id": ""
             },
             "image": "3A.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2890,7 +3361,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2910,6 +3384,9 @@
             "image": "1E.png",
             "aliases": [
                 "E"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -2928,7 +3405,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2946,7 +3426,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2964,7 +3447,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -2982,7 +3468,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3000,7 +3489,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3020,6 +3512,9 @@
             "image": "",
             "aliases": [
                 "M'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -3038,7 +3533,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3056,7 +3554,10 @@
                 "id": "3140864122"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3074,7 +3575,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3092,7 +3596,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3110,7 +3617,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3128,7 +3638,10 @@
                 "id": ""
             },
             "image": "MC.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3146,7 +3659,10 @@
                 "id": ""
             },
             "image": "PF.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3164,7 +3680,10 @@
                 "id": ""
             },
             "image": "2X'.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3182,7 +3701,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3200,7 +3722,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3218,7 +3743,10 @@
                 "id": ""
             },
             "image": "2D.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3236,7 +3764,10 @@
                 "id": "2201963934"
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3254,7 +3785,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3272,7 +3806,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3292,6 +3829,9 @@
             "image": "",
             "aliases": [
                 "X*"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -3310,7 +3850,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3327,7 +3870,10 @@
                 "id": "2201963934"
             },
             "image": "TV.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3345,7 +3891,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3363,7 +3912,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3383,6 +3935,9 @@
             "image": "1E'.png",
             "aliases": [
                 "E'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -3403,6 +3958,9 @@
             "image": "1P.png",
             "aliases": [
                 "P"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -3421,7 +3979,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3439,7 +4000,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3459,6 +4023,9 @@
             "image": "",
             "aliases": [
                 "X-"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -3477,7 +4044,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3495,7 +4065,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3513,7 +4086,10 @@
                 "id": ""
             },
             "image": "2L.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3528,7 +4104,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3546,7 +4125,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3564,7 +4146,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3584,6 +4169,9 @@
             "image": "1X.png",
             "aliases": [
                 "X"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -3602,7 +4190,10 @@
                 "id": ""
             },
             "image": "UP.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3622,6 +4213,9 @@
             "image": "1W.png",
             "aliases": [
                 "W"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -3640,7 +4234,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3658,7 +4255,10 @@
                 "id": ""
             },
             "image": "SG.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3676,7 +4276,10 @@
                 "id": ""
             },
             "image": "2E^.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3694,7 +4297,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3712,7 +4318,10 @@
                 "id": ""
             },
             "image": "2D^.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3730,7 +4339,10 @@
                 "id": ""
             },
             "image": "2X.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3748,7 +4360,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3766,7 +4381,10 @@
                 "id": ""
             },
             "image": "2I.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3784,7 +4402,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3802,7 +4423,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3820,7 +4444,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3838,7 +4465,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3856,7 +4486,10 @@
                 "id": ""
             },
             "image": "2P.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3874,7 +4507,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3889,7 +4525,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3909,6 +4548,9 @@
             "image": "1K.png",
             "aliases": [
                 "K"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -3927,7 +4569,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3947,6 +4592,9 @@
             "image": "",
             "aliases": [
                 "X^"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -3965,7 +4613,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -3983,7 +4634,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4001,7 +4655,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4016,7 +4673,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4036,6 +4696,9 @@
             "image": "",
             "aliases": [
                 "X+"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -4056,6 +4719,9 @@
             "image": "",
             "aliases": [
                 "X''"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -4074,7 +4740,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4092,7 +4761,10 @@
                 "id": ""
             },
             "image": "Sp.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4110,7 +4782,10 @@
                 "id": ""
             },
             "image": "2M.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4128,7 +4803,10 @@
                 "id": ""
             },
             "image": "2A.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4143,7 +4821,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4161,7 +4842,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4179,7 +4863,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4197,7 +4884,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4215,7 +4905,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4233,7 +4926,10 @@
                 "id": ""
             },
             "image": "2L'.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4251,7 +4947,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4269,7 +4968,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4289,6 +4991,9 @@
             "image": "1W'.png",
             "aliases": [
                 "W'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -4307,7 +5012,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4327,6 +5035,9 @@
             "image": "1X'.png",
             "aliases": [
                 "X'"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -4345,7 +5056,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4363,7 +5077,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4381,7 +5098,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4399,7 +5119,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4417,7 +5140,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4435,7 +5161,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4453,7 +5182,10 @@
                 "id": ""
             },
             "image": "2E.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4471,7 +5203,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4489,7 +5224,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4507,7 +5245,10 @@
                 "id": ""
             },
             "image": "2E'.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4525,7 +5266,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4540,7 +5284,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4555,7 +5302,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4570,7 +5320,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4585,7 +5338,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4600,7 +5356,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4615,7 +5374,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4630,7 +5392,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4645,7 +5410,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4660,7 +5428,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4675,7 +5446,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4690,7 +5464,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4705,7 +5482,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4720,7 +5500,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4735,7 +5518,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4750,7 +5536,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4765,7 +5554,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4780,7 +5572,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4795,7 +5590,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4810,7 +5608,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4830,6 +5631,9 @@
             "image": "1L.png",
             "aliases": [
                 "L"
+            ],
+            "tags": [
+                "Untagged"
             ]
         },
         {
@@ -4845,7 +5649,10 @@
                 "id": ""
             },
             "image": "1L2X.png",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4863,7 +5670,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4881,7 +5691,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4899,7 +5712,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4917,7 +5733,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4935,7 +5754,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4953,7 +5775,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4971,7 +5796,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -4989,7 +5817,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -5007,7 +5838,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -5025,7 +5859,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -5043,7 +5880,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -5061,7 +5901,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -5079,7 +5922,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -5097,7 +5943,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         },
         {
             "rule_line": "R",
@@ -5115,7 +5964,10 @@
                 "id": ""
             },
             "image": "",
-            "aliases": []
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
         }
     ]
 }
