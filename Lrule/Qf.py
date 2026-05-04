@@ -20,6 +20,7 @@ class RuleQf(AbstractMinesRule):
     name.zh_CN = "免费的正方形"
     doc = "No four mines form the vertices of a square."
     doc.zh_CN = "雷不能同时是一个正方形的四个角(包括倾斜的)"
+    author = ("Boi", -1)
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()
