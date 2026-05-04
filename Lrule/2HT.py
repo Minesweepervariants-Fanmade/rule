@@ -13,6 +13,7 @@ class Rule2HT(AbstractMinesRule):
     doc.zh_CN = "所有雷必须存在纵向相邻的雷"
 
     tags = ["Original", "Global", "Weak"]
+    creation_time = "2025-10-20"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

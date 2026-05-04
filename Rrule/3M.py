@@ -26,6 +26,7 @@ class Rule3M(AbstractClueRule):
     doc = "Clue shows the number of the four opposite cell pairs where exactly one cell is a mine (cells outside the board are treated as non-mines)"
     doc.zh_CN = "线索表示周围八格组成四个正好相对的格子组有且仅有一个是雷的组数（题板外视为非雷）"
     tags = ["Creative", "Local", "Number Clue", "Construction"]
+    creation_time = "2025-08-21"
 
     logger = get_logger()
 

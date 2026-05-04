@@ -21,6 +21,7 @@ class Rule2M(AbstractClueRule):
     doc = "Clue shows the remainder when the number of surrounding mines is divided by 3"
     doc.zh_CN = "线索与周围8格的雷数除以3的余数相同"
     tags = ["Original", "Local", "Number Clue"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

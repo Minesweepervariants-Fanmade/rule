@@ -20,6 +20,7 @@ class Rule3C(AbstractMinesRule):
     doc.zh_CN = "每个雷周围四格中恰有两个雷"
 
     tags = ["Variant", "Local", "Connectivity", "Strong"]
+    creation_time = "2025-08-13"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

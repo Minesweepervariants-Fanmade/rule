@@ -102,6 +102,7 @@ class RuleJB(AbstractMinesRule):
     doc.zh_CN = "每组恰好由 1 个非方形矩形和 2 个方形矩形组成；短边两端分别与两个方形矩形对角接触，且组间完全不接触"
     author = ('NT', 2201963934)
     tags = ["Creative", "Global", "Construction", "Strong"]
+    creation_time = "2026-04-08"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

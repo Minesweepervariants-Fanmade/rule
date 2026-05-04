@@ -21,6 +21,7 @@ class RuleQuess(AbstractClueRule):
     doc = "Clue indicates that the cell is a non-mine"
     doc.zh_CN = "线索表示该格是一个非雷"
     tags = ["Meta", "Local", "Number Clue"]
+    creation_time = "2025-08-06"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

@@ -16,6 +16,7 @@ class Rule2D(AbstractClueRule):
     doc = "Clue shows the maximum number of mines among the four 3x3 areas centered at cells offset in the four directions"
     doc.zh_CN = "线索表示以四方向偏移一格为中心的3x3区域内的雷数最多的区域的雷数"
     tags = ["Local", "Number Clue", "Weak", "Creative"]
+    creation_time = "2025-10-19"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

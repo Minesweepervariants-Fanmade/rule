@@ -12,6 +12,7 @@ class Rule1M1N(AbstractClueRule):
     doc = ""
 
     tags = ["Meta", "Local", "Number Clue", "Parameter"]
+    creation_time = "2025-08-23"
 
     def clue_class(self):
         return Value1M1N

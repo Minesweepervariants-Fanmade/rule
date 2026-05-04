@@ -56,6 +56,7 @@ class Rule2GStar(AbstractMinesRule):
     doc.zh_CN = "(1) 所有四连通雷区域的面积为 4 (2) 且它们形状不同（SZ 和 JL 型视为相同形状）"
 
     tags = ["Variant", "Global", "Connectivity", "Construction", "Strict Shape"]
+    creation_time = "2026-01-25"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

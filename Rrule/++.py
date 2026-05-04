@@ -14,6 +14,7 @@ class Rule3H(AbstractClueRule):
     doc.zh_CN = "线索表示周围这些格子的雷数LL;LU;LD;L;RR;RU;RD;R"
     author = ("NT", 2201963934)
     tags = ["Variant", "Local", "Number Clue", "Strict Shape"]
+    creation_time = "2026-01-11"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

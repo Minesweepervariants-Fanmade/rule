@@ -9,6 +9,7 @@ class RuleSG(AbstractClueRule):
     doc.zh_CN = "线索表示周围 3x3 范围内恰好只有一雷的行数和列数之和"
     author = ("Boi", -1)
     tags = ["Creative", "Local", "Number Clue", "Construction"]
+    creation_time = "2026-04-28"
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         for pos, _ in board("N"):

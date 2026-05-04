@@ -14,6 +14,7 @@ class Rule2I1C(AbstractMinesRule):
     author = ("雾", 3140864122)
 
     tags = ["Creative", "Aux Board", "Global", "Connectivity"]
+    creation_time = "2025-09-08"
 
     def __init__(self, board = None, data=None):
         super().__init__(board, data)

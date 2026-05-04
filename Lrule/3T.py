@@ -19,6 +19,7 @@ class Rule1T(AbstractMinesRule):
     doc = "No three mines can be equally spaced"
     doc.zh_CN = "任意三个雷不能等距排布"
     tags = ["Creative", "Global", "Anti-Construction"]
+    creation_time = "2025-08-06"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

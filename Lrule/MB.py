@@ -55,6 +55,7 @@ class RuleMB(AbstractMinesRule):
     doc.zh_CN = "所有雷的平均位置是整点"
     author = ("NT", 2201963934)
     tags = ["Creative", "Global", "Strict R", "Mine-Position"]
+    creation_time = "2026-04-09"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

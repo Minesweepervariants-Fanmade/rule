@@ -46,6 +46,7 @@ class Rule3MA(AbstractMinesRule):
     doc.zh_CN = "题板正好有三个四连通雷区"
     author = ("NT", 2201963934)
     tags = ["Creative", "Global", "Connectivity", "Parameter"]
+    creation_time = "2026-04-08"
 
     _COMPARATOR_RE = re.compile(r"^(>=|<=|!=|>|<)\s*(-?\d+)$")
 

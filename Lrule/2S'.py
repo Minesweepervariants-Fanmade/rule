@@ -21,6 +21,7 @@ class Rule(AbstractMinesRule):
     doc = "Each row has different consecutive mine lengths"
     doc.zh_CN = "每行连续雷长度不同"
     tags = ["Variant", "Local", "Construction"]
+    creation_time = "2025-08-21"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

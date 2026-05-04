@@ -57,6 +57,7 @@ class RuleAVG(AbstractClueRule):
   doc = "Average of clue values for orthogonally connected non-mine cells"
   doc.zh_CN = "四联通非雷格的线索值求平均"
   tags = ["Creative", "Local", "Number Clue", "Construction"]
+  creation_time = "2026-04-10"
 
   @staticmethod
   def _neighbors4(pos: "AbstractPosition") -> list["AbstractPosition"]:

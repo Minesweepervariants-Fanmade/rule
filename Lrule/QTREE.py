@@ -58,6 +58,7 @@ class RuleQTREE(AbstractMinesRule):
     doc.zh_CN = "将题版划分为四叉树，称所有节点均为雷的子树为大雷，大雷以外的节点不能有两个子节点同时为雷或大雷"
     author = ("NT", 2201963934)
     tags = ["Creative", "Global", "Strict Shape", "Construction"]
+    creation_time = "2026-04-09"
 
     def __init__(self, board=None, data=None):
         super().__init__(board, data)

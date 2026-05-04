@@ -88,6 +88,9 @@ class RuleLO(AbstractClueRule):
            "(The clue also show whether the switch at this clue location is activated.)")
     name.zh_CN = "点灯游戏"
     doc.zh_CN = "数字表示的是按照点灯游戏将题板点成空题板的3x3范围内打开的开关的数量 (数字也可以看到自己位置的开关是否打开)"
+    author = ("雾", 3140864122)
+    tags = ["Global", "Local", "Creative", "Construction", "Vanilla Variant"]
+    creation_time = "2026-05-05"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         state = {pos: isinstance(obj, AbstractMinesValue) for pos, obj in board("always")}

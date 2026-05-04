@@ -46,6 +46,7 @@ class RuleXS(AbstractMinesRule):
    author = ("NT", 2201963934)
 
    tags = ["Creative", "Local", "Aux Board", "Construction"]
+   creation_time = "2026-04-07"
 
    @staticmethod
    def _sub_key(key: str) -> str:

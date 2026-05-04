@@ -49,6 +49,7 @@ class Rule2L(AbstractClueRule):
     doc = "Each row and column has exactly one incorrect clue. The incorrect clue's value is off by 1 from the true value"
     doc.zh_CN = "每行每列恰有一个误差线索。误差线索的值比真实值大 1 或小 1"
     tags = ["Variant", "Local", "Number Clue", "Aux Board", "Extensive trial"]
+    creation_time = "2025-10-24"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

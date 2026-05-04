@@ -13,6 +13,7 @@ class RuleGL(AbstractMinesRule):
     doc = "Each mine has exactly 2 or 3 mines in the eight surrounding cells"
     doc.zh_CN = "每个雷周围八格中恰有2或3个雷"
     tags = ["Creative", "Local", "Strong"]
+    creation_time = "2025-08-27"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

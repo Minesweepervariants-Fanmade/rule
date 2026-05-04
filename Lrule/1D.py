@@ -21,6 +21,7 @@ class Rule1D(AbstractMinesRule):
     doc.zh_CN = "每个雷区域为 1x2 或 2x1 的矩形"
     author = ("14 Minesweeper Variants", -1)
     tags = ["Original", "Local", "Strict R", "Strong"]
+    creation_time = "2025-08-06"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

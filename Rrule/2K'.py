@@ -14,6 +14,7 @@ class Rule2KPrime(AbstractClueRule):
     doc = "Clue shows the number of mines within a distance of 2 from the cell"
     doc.zh_CN = "线索表示距离不超过 2 的范围内的雷数"
     tags = ["Local", "Number Clue", "Vanilla Variant", "Fun"]
+    creation_time = "2025-08-27"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

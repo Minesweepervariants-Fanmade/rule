@@ -30,6 +30,7 @@ class RuleMate(AbstractClueRule):
     doc.zh_CN = "题板具有多块主板,多块主板的雷位置完全相同,但是题板具有不同的规则,规则将按照顺序标出"
     author = ("神秘", 67265011)
     tags = ["Creative", "Multi-Board", "Meta", "Parameter"]
+    creation_time = "2025-08-25"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

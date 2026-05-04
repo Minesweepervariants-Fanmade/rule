@@ -21,6 +21,7 @@ class Rule1D(AbstractMinesRule):
     doc.zh_CN = "何意味"
     author = ("NT", 2201963934)
     tags = ["Creative", "WIP", "Local"]
+    creation_time = "2025-10-26"
 
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

@@ -14,6 +14,7 @@ class RuleSC(AbstractMinesRule):
     doc.zh_CN = "每个雷周围至少有一个染色格, 且染色格不能为雷"
     author = ("NT", 2201963934)
     tags = ["Creative", "Local", "Dyed"]
+    creation_time = "2025-08-28"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

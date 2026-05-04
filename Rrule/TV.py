@@ -15,6 +15,7 @@ class RuleTV(AbstractClueRule):
     doc.zh_CN = "线索表示四方向上能看到的雷格数量，空格会阻挡视线"
     author = ("NT", 2201963934)
     tags = ["Creative", "Local", "Number Clue", "Construction"]
+    creation_time = "2025-10-24"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

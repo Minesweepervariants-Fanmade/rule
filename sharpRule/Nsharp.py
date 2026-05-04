@@ -19,6 +19,7 @@ class RuleNSharp(AbstractClueSharp):
     doc = "Clue has only one possible value"
     doc.zh_CN = "线索只有一个取值"
     tags = ["Meta", "Local"]
+    creation_time = "2025-08-29"
 
     def __init__(self, board: "AbstractBoard" = None, data: str =None) -> None:
         if data.__contains__(";"):

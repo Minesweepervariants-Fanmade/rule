@@ -19,6 +19,7 @@ class Rule3U(AbstractMinesRule):
     doc.zh_CN = "每列最高的雷视为两个雷（总雷数不受其影响）"
     lib_only = True
     tags = ["Creative", "Global", "Mine-Value"]
+    creation_time = "2025-12-28"
 
     def __init__(self, board: AbstractBoard = None, data=None) -> None:
         super().__init__(board, data)

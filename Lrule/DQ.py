@@ -27,6 +27,7 @@ class RuleDQ(AbstractMinesRule):
     doc.zh_CN = "行雷数的多重集合等于列雷数的多重集合（即排序后行雷数列表与列雷数列表相同）。"
     author = ("DeepSeek", "")
     tags = ["Creative", "Global", "Mine-Counting", "Strict R"]
+    creation_time = "2026-05-02"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

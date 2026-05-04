@@ -84,6 +84,7 @@ class RuleULLM(AbstractMinesRule):
     doc.zh_CN = "随机规则点子：随机抽词并由 LLM 联想生成规则描述后抛出。"
     author = ("NT", 2201963934)
     tags = ["Creative", "Parameter", "WIP"]
+    creation_time = "2026-04-11"
 
     _DEFAULT_NOUNS = \
     "雷格 非雷格 " \

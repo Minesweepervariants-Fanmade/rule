@@ -14,6 +14,7 @@ class Rule1EX(AbstractEyesightClueRule):
     doc.zh_CN = "线索表示斜向上能看到的非雷格数量（包括自身），雷会阻挡视线"
 
     tags = ["Variant", "Local", "Arrow Clue", "Aux Board"]
+    creation_time = "2025-08-06"
 
     @staticmethod
     def direction_funcs(pos):

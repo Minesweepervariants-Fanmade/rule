@@ -161,6 +161,7 @@ class RuleSETU(AbstractMinesRule):
     doc.zh_CN = "设置题板主题"
     author = ("NT", 2201963934)
     tags = ["Creative", "Parameter"]
+    creation_time = "2026-01-11"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

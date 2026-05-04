@@ -20,6 +20,7 @@ class Rule2X(AbstractClueRule):
     doc = "Clue shows the number of mines in dyed or undyed cells within the 3x3 area"
     doc.zh_CN = "线索表示 3x3 范围内染色格或非染色格的雷数"
     tags = ["Variant", "Local", "Number Clue", "Dyed"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

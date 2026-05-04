@@ -11,6 +11,7 @@ class RuleSp(AbstractClueRule):
     doc.zh_CN = "线索表示能连接周围八格内所有雷的最短连续路径长度。"
     author = ("Boi", -1)
     tags = ["Creative", "Local", "Number Clue", "Construction"]
+    creation_time = "2026-04-16"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

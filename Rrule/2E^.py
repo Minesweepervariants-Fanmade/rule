@@ -24,6 +24,7 @@ class Rule2Eq(AbstractClueRule):
     doc.zh_CN = "线索被字母替代，每个字母对应两个线索，且每个线索对应两个字母"
 
     tags = ["Variant", "Local", "Cryptic", "Extensive trial", "Aux Board"]
+    creation_time = "2025-08-06"
 
     def __init__(self, data=None, board: 'AbstractBoard' = None):
         super().__init__(board, data)

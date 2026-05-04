@@ -20,6 +20,7 @@ class Rule1S(AbstractMinesRule):
     doc = "All mines form a snake. A snake is a width-1 four-connected path with no branches, loops, or crossings, and the head and tail are connected."
     doc.zh_CN = "所有雷构成一条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉, 蛇的头尾相连"
     tags = ["Variant", "Global", "Construction", "Connectivity"]
+    creation_time = "2025-08-06"
 
     def create_constraints(self, board, switch):
         model = board.get_model()

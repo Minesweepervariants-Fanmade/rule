@@ -27,6 +27,7 @@ class Rule2ESharp(AbstractClueSharp):
               "默认同二代\n"
               "可添加 1# 1#' 2# 2#' 2#':\n")
     tags = ["Original", "Local", "Extensive trial"]
+    creation_time = "2025-09-06"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         self.rules = set()

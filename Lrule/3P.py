@@ -21,6 +21,7 @@ class Rule3P(AbstractMinesRule):
     doc = "Starting from any mine cell, can traverse all mine cells without repetition or omission using knight moves"
     doc.zh_CN = "可以通过骑士的移动方式，从某一个雷格开始，在只经过雷格的情况下，不重复且不遗漏地通过所有雷格"
     tags = ["Creative", "Connectivity", "Construction", "Global", "Extensive trial"]
+    creation_time = "2025-08-14"
     author = ("雾", 3140864122)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

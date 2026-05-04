@@ -29,6 +29,7 @@ class RuleCSharp(AbstractClueSharp):
                     "默认包含以下规则且随机顺序选取：\n"
                     "V, 1M, 1L, 1N, 1X, 1P, 1E, 1X', 1K, 1W', 2D, 2M, 2X'\n")
     tags = ["Creative", "Local", "Extensive trial"]
+    creation_time = "2025-08-31"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         if not data:

@@ -30,6 +30,7 @@ class RuleGT2(AbstractMinesRule):
     doc.zh_CN = "所有四连通雷/非雷区域面积大于 2"
     author = ("NT", 2201963934)
     tags = ["Creative", "Global", "Connectivity", "Construction", "Parameter"]
+    creation_time = "2026-04-09"
 
     _COMPARATOR_RE = re.compile(r"^(>=|<=|!=|>|<)\s*(-?\d+)$")
 

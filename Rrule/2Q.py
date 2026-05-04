@@ -42,6 +42,7 @@ class Rule2Q(AbstractClueRule):
     doc = "Clue indicates the number of directions with mines in the eight directions"
     doc.zh_CN = "线索表示八方向有雷的方向数量"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    creation_time = "2025-08-13"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

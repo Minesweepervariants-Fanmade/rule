@@ -20,6 +20,7 @@ class RuleUSETU(AbstractMinesRule):
     doc.zh_CN = "参数链接(支持URL/文件路径)"
     author = ("NT", 2201963934)
     tags = ["Variant", "Parameter"]
+    creation_time = "2026-04-13"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

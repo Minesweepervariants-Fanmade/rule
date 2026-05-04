@@ -20,6 +20,7 @@ class Rule1H(AbstractMinesRule):
     doc.zh_CN = "所有雷不能与其他雷相邻"
 
     tags = ["Creative", "Anti-Construction", "Local", "Strict R"]
+    creation_time = "2025-08-06"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

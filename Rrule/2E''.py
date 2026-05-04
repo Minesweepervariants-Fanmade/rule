@@ -25,6 +25,7 @@ class Rule2Ep(AbstractClueRule):
     doc.zh_CN = "如果线索X周围有N个雷 则另一个题板的X=N的格子必定为雷"
 
     tags = ["Variant", "Local", "Number Clue", "Aux Board", "Extensive trial"]
+    creation_time = "2025-08-06"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__()

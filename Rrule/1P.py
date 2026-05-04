@@ -64,6 +64,7 @@ class Rule1P(AbstractClueRule):
     doc = "Clue indicates the number of continuous mine groups in the 3x3 area"
     doc.zh_CN = "线索表示 3x3 范围内连续雷的组数"
     tags = ["Original", "Local", "Number Clue", "Extensive Trial"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

@@ -35,6 +35,7 @@ class Rule1Q1L(AbstractClueRule):
     doc.zh_CN = "误差线索比真实值大1或小1，如果线索处在2*2非雷框内，则它是误差线索，反之则是真实值。"
 
     tags = ["Variant", "Local", "Number Clue", "Cryptic", "Extensive trial"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

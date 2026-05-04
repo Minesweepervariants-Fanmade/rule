@@ -20,6 +20,7 @@ class Rule3C(AbstractMinesRule):
     doc.zh_CN = "每个雷周围八格中雷的数量为偶数（包括0）"
 
     tags = ["Variant", "Local", "Connectivity", "Weak"]
+    creation_time = "2025-08-13"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

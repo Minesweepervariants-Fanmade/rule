@@ -21,6 +21,7 @@ class Rule1E(AbstractClueRule):
     doc = "Clue shows the difference between vertical and horizontal eyesight, with an arrow indicating the direction with longer sight"
     doc.zh_CN = "线索表示纵向和横向的视野之差，箭头指示视野更长的方向"
     tags = ["Local", "Number Clue", "Arrow Clue", "Extensive trial", "Creative"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

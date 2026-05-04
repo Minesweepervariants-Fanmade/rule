@@ -129,6 +129,7 @@ class RuleJBp(AbstractMinesRule):
     doc.zh_CN = """几把：雷区由若干4格（最小）格调组成，可以交叉，可以共享魔丸，但不能共享金箔。"""
     author = ("NT", 2201963934)
     tags = ["Variant", "Global", "Construction", "Strong"]
+    creation_time = "2026-05-03"
 
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()

@@ -29,6 +29,7 @@ class RuleDUIYINGHEBING(AbstractClueRule):
     doc.zh_CN = "每个数字标明周围八格内雷的数量。相对位置的两个雷视为一个雷。"
     author = ("NT", 2201963934)
     tags = ["Variant", "Local", "Number Clue", "Construction"]
+    creation_time = "2026-03-05"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N", special='raw'):

@@ -10,6 +10,7 @@ class Rule4D(AbstractMinesRule):
     doc = "Different four-connected mine areas cannot be diagonally adjacent"
     doc.zh_CN = "不同四连通雷区不可对角相邻"
     tags = ["Creative", "Local", "Anti-Construction"]
+    creation_time = "2025-12-31"
 
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()

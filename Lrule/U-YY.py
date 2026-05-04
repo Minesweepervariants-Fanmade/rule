@@ -46,6 +46,7 @@ class RuleUYY(AbstractMinesRule):
     doc.zh_CN = "一言：抛出一言（hitokoto.cn）。"
     author = ("NT", 2201963934)
     tags = ["Creative", "Parameter"]
+    creation_time = "2026-04-11"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

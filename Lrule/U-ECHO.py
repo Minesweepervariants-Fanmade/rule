@@ -18,6 +18,7 @@ class RuleUECHO(AbstractMinesRule):
     doc.zh_CN = "回声：抛出参数。"
     author = ("NT", 2201963934)
     tags = ["Creative", "Parameter", "WIP"]
+    creation_time = "2026-04-11"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

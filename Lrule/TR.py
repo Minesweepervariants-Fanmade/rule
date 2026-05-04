@@ -42,6 +42,7 @@ class RuleTR(AbstractMinesRule):
     doc.zh_CN = "非雷格四联通形成的无向图是一棵树。"
     author = ("NT", 2201963934)
     tags = ["Creative", "Global", "Connectivity", "Construction"]
+    creation_time = "2026-05-05"
 
     def create_constraints(self, board, switch):
       model = board.get_model()
