@@ -280,57 +280,12 @@
         return new URL(imageName.trim(), base).href;
       }
 
-      function parseYamlTodoRules(yamlText) {
-        var todos = [];
-        var lines = yamlText.split('\n');
-        var currentItem = null;
-        var i = 0;
 
-        while (i < lines.length) {
-          var line = lines[i];
-          var trimmed = line.trim();
 
-          if (trimmed === '') {
-            i++;
-            continue;
-          }
-
-          if (line[0] !== ' ' && trimmed.startsWith('- ')) {
-            if (currentItem) {
-              todos.push(currentItem);
-            }
-            currentItem = {};
-            line = line.substring(2).trim();
-          }
-
-          if (currentItem) {
-            var colonIdx = line.indexOf(':');
-            if (colonIdx > 0) {
-              var key = line.substring(0, colonIdx).trim();
-              var value = line.substring(colonIdx + 1).trim();
-
-              if (key === 'author_name') {
-                currentItem.author_name = value;
-              } else if (key === 'author_uid') {
-                currentItem.author_uid = value;
-              } else if (key === 'doc') {
-                currentItem.doc = value;
-              } else if (key === 'name') {
-                currentItem.name = value;
-              } else if (key === 'time') {
-                currentItem.time = value;
-              } else if (key === 'image') {
-                currentItem.image = value;
-              }
-            }
-          }
-          i++;
+      function formatTodoRules(todos) {
+        if (!Array.isArray(todos)) {
+          return [];
         }
-
-        if (currentItem) {
-          todos.push(currentItem);
-        }
-
         return todos.map(function (item) {
           return {
             id: item.name || 'Unknown',
@@ -338,11 +293,11 @@
             doc: { zh_CN: item.doc || '' },
             author: {
               name: item.author_name || '未知',
-              id: item.author_uid || ''
+              id: item.author_uid ? String(item.author_uid) : ''
             },
             image: item.image || '',
             aliases: [],
-            tags: ['Untagged']
+            tags: item.tags || ['Untagged']
           };
         });
       }
@@ -474,19 +429,16 @@
         })
         .then(function (data) {
           RULE_DATA = data;
-          return fetch("ruleTodo.yaml", { cache: "no-store" })
+          return fetch("ruleTodo.json", { cache: "no-store" })
             .then(function (res) {
               if (res.ok) {
-                return res.text();
+                return res.json();
               }
               return null;
             })
-            .then(function (yamlText) {
-              if (yamlText) {
-                var todos = parseYamlTodoRules(yamlText);
-                if (todos.length > 0) {
-                  RULE_DATA.T = todos;
-                }
+            .then(function (todos) {
+              if (Array.isArray(todos) && todos.length > 0) {
+                RULE_DATA.T = formatTodoRules(todos);
               }
               render();
             });
