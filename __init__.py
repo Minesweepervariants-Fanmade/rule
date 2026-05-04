@@ -15,13 +15,16 @@ def _extract_author_text(node) -> tuple[str, str] | str | None:
         if isinstance(node.value, (str, int)):
             return str(node.value).strip()
         return None
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+        if isinstance(node.operand, ast.Constant) and isinstance(node.operand.value, int):
+            return str(-node.operand.value).strip()
     if isinstance(node, (ast.List, ast.Tuple)):
         parts = []
         for elt in node.elts:
             text = _extract_author_text(elt)
             if text:
                 parts.append(text)
-        if len(parts) == 2 and parts[1].isdigit():
+        if len(parts) == 2 and parts[1].lstrip("-").isdigit():
             return parts[0], parts[1]
         return None
     return None
