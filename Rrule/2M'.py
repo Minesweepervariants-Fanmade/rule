@@ -21,6 +21,7 @@ class Rule1M(AbstractClueRule):
     doc.zh_CN = "每个下方是雷的雷被视为两个(总雷数不受限制)"
 
     tags = ["Variant", "Local", "Number Clue", "Multi-Board"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard'):
         logger = get_logger()

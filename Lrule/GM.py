@@ -40,6 +40,7 @@ class RuleGM(AbstractMinesRule):
     doc.zh_CN = "棍木"
     author = ("NT", 2201963934)
     tags = ["Creative", "WIP", "Local"]
+    creation_time = "2026-04-09"
 
     def create_constraints(self, board: "AbstractBoard", switch):
         while True:

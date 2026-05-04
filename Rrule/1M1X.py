@@ -32,6 +32,7 @@ class Rule1M1X(AbstractClueRule):
     doc = ""
 
     tags = ["Meta", "Local", "Number Clue"]
+    creation_time = "2025-08-23"
 
     def fill(self, board: 'AbstractBoard'):
         logger = get_logger()

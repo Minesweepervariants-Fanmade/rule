@@ -13,6 +13,7 @@ class Rule(AbstractMinesRule):
     author = ("Artless", 2452944138)
 
     tags = ["Creative", "Local", "Construction"]
+    creation_time = "2026-01-11"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

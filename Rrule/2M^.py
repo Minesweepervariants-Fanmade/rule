@@ -23,6 +23,7 @@ class Rule2M(AbstractClueRule):
     doc.zh_CN = "线索与周围8格的雷数除以2的余数相同"
 
     tags = ["Variant", "Local", "Number Clue", "Vanilla Variant"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

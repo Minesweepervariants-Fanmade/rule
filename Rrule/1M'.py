@@ -25,6 +25,7 @@ class Rule1M(AbstractClueRule):
     doc.zh_CN = "每个线索的多雷位置相对于线索固定 且位置全盘共享（不影响总雷数）"
 
     tags = ["Variant", "Local", "Number Clue", "Aux Board", "Mine-Position"]
+    creation_time = "2025-08-13"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

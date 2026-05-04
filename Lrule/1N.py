@@ -14,6 +14,7 @@ class Rule1N(AbstractMinesRule):
     doc = "Mine value becomes negative in dyed cells"
     doc.zh_CN = "染色格中雷值取负"
     tags = ["Variant", "Dyed", "Mine-Value", "Local"]
+    creation_time = "2025-10-26"
     lib_only = True
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

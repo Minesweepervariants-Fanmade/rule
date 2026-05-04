@@ -11,6 +11,8 @@ class Rule1HT(AbstractMinesRule):
     name.zh_CN = "纵向"
     doc = "No mine is vertically adjacent to another mine"
     doc.zh_CN = "所有雷不能与其他雷纵向相邻"
+    tags = ["Variant", "Local"]
+    creation_time = "2025-10-20"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

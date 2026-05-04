@@ -48,6 +48,7 @@ class RulePUZ(AbstractMinesRule):
   doc.zh_CN = "所有四联通雷块可通过独立平移重排成一个轴对齐矩形"
   author = ("NT", 2201963934)
   tags = ["Creative", "Global", "Construction", "Strong", "Extensive trial"]
+  creation_time = "2026-04-09"
 
   def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
     super().__init__(board, data)

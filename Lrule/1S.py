@@ -20,6 +20,7 @@ class Rule1S(AbstractMinesRule):
     doc = "All mines form a snake. A snake is a width-1 orthogonal path without branches, loops or intersections"
     doc.zh_CN = "所有雷构成一条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉"
     tags = ["Original", "Connectivity", "Construction", "Global"]
+    creation_time = "2025-08-06"
 
     def __init__(self, board=None, data=None) -> None:
         super().__init__(board, data)

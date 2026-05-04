@@ -21,6 +21,7 @@ class RuleUSA(AbstractMinesRule):
     doc.zh_CN = "对于一张透明图片，分别输入它在白底和黑底上混合颜色的结果，尝试还原原图。"
     author = ("NT", 2201963934)
     tags = ["Variant", "Parameter"]
+    creation_time = "2026-04-11"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

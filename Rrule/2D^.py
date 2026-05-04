@@ -21,6 +21,7 @@ class Rule2D(AbstractClueRule):
     doc = "Clue shows the number of mines in an Nx3 area, where N is the number of consecutive non-mine cells directly above"
     doc.zh_CN = "线索表示 Nx3 范围内的雷数，N 为正上连续非雷格数量"
     tags = ["Local", "Number Clue", "Creative"]
+    creation_time = "2026-01-13"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

@@ -73,6 +73,7 @@ class Rule2P(AbstractClueRule):
     doc = "Clue indicates the product of distances to the two nearest mines"
     doc.zh_CN = "线索表示距离最近的 2 个雷的距离之积"
     tags = ["Original", "Local", "Number Clue", "Extensive Trial"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         if len([_ for _ in board("F")]) < 2:

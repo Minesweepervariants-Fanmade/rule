@@ -34,6 +34,7 @@ class Rule1Q(AbstractMinesRule):
     doc.zh_CN = "每个2x2区域内都至少有一个空格"
 
     tags = ["Variant", "Local", "Anti-Construction"]
+    creation_time = "2025-08-15"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

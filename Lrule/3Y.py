@@ -30,6 +30,7 @@ class Rule3Y(AbstractMinesRule):
     doc = "All mines are orthogonally connected, all non-mines are orthogonally connected, no 2x2 block of mines or non-mines exists"
     doc.zh_CN = "所有雷四连通，所有非雷四连通，不存在2*2的雷或非雷"
     tags = ["Creative", "Global", "Connectivity", "Anti-Construction"]
+    creation_time = "2025-08-06"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

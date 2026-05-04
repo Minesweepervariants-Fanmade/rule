@@ -19,3 +19,4 @@ class Rule1D(AbstractMinesRule):
     doc.zh_CN = "这是一条会让男娘感到困惑的规则"
     author = ("NT", 2201963934)
     tags = ["Creative", "WIP", "Local"]
+    creation_time = "2025-08-19"

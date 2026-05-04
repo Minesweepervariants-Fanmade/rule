@@ -15,6 +15,7 @@ class RuleBIN(AbstractClueRule):
     doc = "BIN:X;Y Clue indicates values under two rules X and Y (order not fixed)"
     doc.zh_CN = "BIN:X;Y 表示线索为 X 与 Y 规则下的值（顺序不确定）"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    creation_time = "2026-01-02"
 
     def __init__(self, board: AbstractBoard = None, data: str = "") -> None:
         super().__init__(board, data)

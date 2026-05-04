@@ -73,6 +73,7 @@ class BaseRule3N(AbstractClueRule):
     doc.zh_CN = "线索(a_p)表示距离自己lp范数最近的雷的lp范数大小为a。(p=0,1,2,00)"
     p: P = -1
     tags = ["Creative", "Local", "Number Clue", "Parameter"]
+    creation_time = "2025-08-06"
 
     def __init__(self, board: AbstractBoard, data: list[AbstractClueRule] = None):
         super().__init__(None, None)

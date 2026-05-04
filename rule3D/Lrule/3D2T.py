@@ -20,6 +20,7 @@ class Rule2T(Abstract3DMinesRule):
     doc = "(1) Mines cannot form a triple in horizontal, vertical, or up-down directions; (2) Non-mines cannot form a triple in horizontal, vertical, or up-down directions."
     doc.zh_CN = "(1)雷不能在横竖上下向构成三连, (2)非雷不能在横竖上下向构成三连"
     tags = ["Creative", "Local", "Strict Shape"]
+    creation_time = "2025-08-30"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

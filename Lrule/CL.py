@@ -16,6 +16,7 @@ class RuleCL(AbstractMinesRule):
     doc = "No straight boundary line of length 2 or more exists between mine and non-mine areas"
     doc.zh_CN = "雷区域与非雷区域之间不存在长度大于等于 2 的直线分界线"
     tags = ["Creative", "Global", "Anti-Construction"]
+    creation_time = "2026-04-30"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

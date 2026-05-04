@@ -20,6 +20,7 @@ class Rule1H(AbstractMinesRule):
     doc = "All mines cannot be adjacent to other mines or diagonally adjacent"
     doc.zh_CN = "所有雷不能与其他雷相邻或对角相邻"
     tags = ["Variant", "Global", "Anti-Construction"]
+    creation_time = "2025-09-01"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

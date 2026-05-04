@@ -28,6 +28,7 @@ class RulePF(AbstractClueRule):
     doc = "For clues other than 0 and 1, displays the largest prime factor of the true value"
     doc.zh_CN = "除0和1外的线索显示真实值的最大素因子"
     tags = ["Creative", "Local", "Number Clue"]
+    creation_time = "2025-08-13"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

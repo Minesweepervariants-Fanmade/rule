@@ -19,6 +19,7 @@ class Rule1S(Abstract3DMinesRule):
     doc = "All mines form a snake. A knight snake is a knight-move connected path with no branches, loops, or crossings"
     doc.zh_CN = "所有雷构成一条蛇。马步蛇是一条马步联通路径，不存在分叉、环、交叉"
     tags = ["Creative", "Local", "Construction"]
+    creation_time = "2025-08-30"
 
     def create_constraints(self, board, switch):
         model = board.get_model()

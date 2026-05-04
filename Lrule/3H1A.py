@@ -21,6 +21,7 @@ class Rule3H1A(AbstractMinesRule):
     author = ("NT", 2201963934)
 
     tags = ["Creative", "Local", "Anti-Construction"]
+    creation_time = "2026-02-15"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

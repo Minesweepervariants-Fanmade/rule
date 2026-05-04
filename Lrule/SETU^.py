@@ -21,6 +21,7 @@ class RuleSETUHat(AbstractMinesRule):
     doc.zh_CN = "参数链接(支持URL/文件路径)作为A图，与已生成题板图B融合并替换最终题板图"
     author = ("NT", 2201963934)
     tags = ["Variant", "Parameter"]
+    creation_time = "2026-04-11"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

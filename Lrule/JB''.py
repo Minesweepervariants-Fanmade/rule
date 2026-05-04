@@ -150,6 +150,7 @@ class RuleJBpp(AbstractMinesRule):
     )
     author = ("NT", 2201963934)
     tags = ["Variant", "Global", "Construction", "Strong"]
+    creation_time = "2026-05-03"
 
     # -------------------------------------------------------------------------
     #  主入口

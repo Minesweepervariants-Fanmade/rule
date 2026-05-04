@@ -20,6 +20,7 @@ class RuleAA(AbstractMinesRule):
     doc.zh_CN = "场上不存在横竖方向上的雷—空—雷"
     author = ("botif", 1643337042)
     tags = ["Creative", "Local", "Anti-Construction"]
+    creation_time = "2026-04-05"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

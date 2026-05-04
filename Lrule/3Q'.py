@@ -12,6 +12,7 @@ class Rule3Q(AbstractMinesRule):
     doc.zh_CN = "任意四个雷不能作为一个横平竖直的矩形的顶点"
 
     tags = ["Variant", "Local", "Anti-Construction"]
+    creation_time = "2026-01-25"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

@@ -26,6 +26,7 @@ class BINGO(AbstractMinesRule):
     doc.zh_CN = "每个格子被随机标记一个左线规则。当该格为雷时，完整题板必须满足该格的规则。"
     author = ("雾", 3140864122)
     tags = ["Creative", "Global", "Meta", "Parameter"]
+    creation_time = "2026-01-11"
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

@@ -25,6 +25,7 @@ class RuleAS(AbstractMinesRule):
     doc.zh_CN = "每一行不能同时存在染色非雷格、非染色非雷格、染色雷格和非染色雷格"
     author = ("botif", 1643337042)
     tags = ["Creative", "Local", "Dyed"]
+    creation_time = "2026-04-05"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

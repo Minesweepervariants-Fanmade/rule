@@ -14,6 +14,7 @@ class Rule1E(AbstractEyesightClueRule):
     doc = "Clue shows the number of non-mine cells visible in the four orthogonal directions (including the cell itself); mines block the line of sight"
     doc.zh_CN = "线索表示四方向上能看到的非雷格数量（包括自身），雷会阻挡视"
     tags = ["Original", "Local", "Number Clue"]
+    creation_time = "2025-08-06"
 
     @staticmethod
     def direction_funcs(pos):

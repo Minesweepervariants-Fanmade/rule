@@ -15,6 +15,7 @@ class Rule2G(AbstractMinesRule):
     doc.zh_CN = "四连通雷区域的面积为 1 到 N 各一个。(N = 题板尺寸 - 1)"
 
     tags = ["Variant", "Global", "Connectivity", "Construction", "Strict Shape"]
+    creation_time = "2026-01-20"
 
     def create_constraints(self, board: AbstractBoard, switch):
         positions = [pos for pos, _ in board("always", mode="variable")]

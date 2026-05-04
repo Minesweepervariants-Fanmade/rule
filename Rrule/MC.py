@@ -19,6 +19,7 @@ class RuleMC(AbstractClueRule):
     doc = "Clue indicates the number of mines in surrounding eight cells; if there is a mine in a dyed cell, it counts as one mine (total mine count unaffected)"
     doc.zh_CN = "线索表示周围八格的雷数，染色格中如有雷就同一算为一雷（剩余雷数不受影响）"
     tags = ["Variant", "Local", "Number Clue", "Dyed"]
+    creation_time = "2025-08-13"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

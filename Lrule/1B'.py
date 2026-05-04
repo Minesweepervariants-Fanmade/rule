@@ -21,6 +21,7 @@ class Rule1B(AbstractMinesRule):
     doc = "(1) Each row has different mine counts; (2) Each column has different mine counts"
     doc.zh_CN = "每行每列雷数均不相同 1.每列雷数不相同 2.每行雷数不相同"
     tags = ["Variant", "Global", "Strict R", "Strong"]
+    creation_time = "2025-08-06"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

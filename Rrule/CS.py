@@ -27,6 +27,7 @@ class RuleCS(AbstractClueRule):
     doc = "Clue indicates, for each of the four orthogonal directions, the number of cells in the adjacent mine group that are farther than the clue in that direction"
     doc.zh_CN = "线索表示四方向各相邻雷区域中，在所示方向上比线索本身更远的单元格数量。"
     tags = ["Creative", "Local", "Number Clue", "Construction"]
+    creation_time = "2026-04-05"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int], check_mine: bool):

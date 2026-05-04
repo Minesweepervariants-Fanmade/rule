@@ -10,6 +10,7 @@ class Rule1L2sharpprime(AbstractClueSharp):
     doc.zh_CN = ("包含以下规则: [1L], [1L2X], [1L2D], [1L2M], [1L2X']\n"
               "使用[1L2#':]以去除[1L2A]")
     tags = ["Original", "Local"]
+    creation_time = "2025-08-30"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         rules_name = ["1L", "1L2X", "1L2D", "1L2M", "1L2X'"]

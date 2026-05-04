@@ -12,6 +12,7 @@ class Rule1EQ(AbstractEyesightClueRule):
     doc.zh_CN = "该线索表示从当前格子向四周出发随后进行顺时针顺序旋转（类似卐字形）能看到的非雷格数量（包含自身）, 雷会阻挡视线。"
 
     tags = ["Variant", "Local", "Arrow Clue", "Aux Board", "Cryptic"]
+    creation_time = "2025-09-17"
 
     @staticmethod
     def direction_funcs(pos):

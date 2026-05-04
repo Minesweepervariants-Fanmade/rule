@@ -21,6 +21,7 @@ class RuleV(AbstractClueRule):
     doc = "Each number indicates the number of mines in the surrounding eight cells"
     doc.zh_CN = "每个数字标明周围八格内雷的数量。"
     tags = ["Original", "Local", "Vanilla Variant", "Number Clue"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

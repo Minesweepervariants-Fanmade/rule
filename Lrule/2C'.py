@@ -31,6 +31,7 @@ class Rule2C(AbstractMinesRule):
     doc.zh_CN = "(1) 所有四连通雷区域为 1xn 或 nx1 的矩形；(2) 所有雷区域对角相邻"
 
     tags = ["Variant", "Local", "Connectivity", "Construction"]
+    creation_time = "2025-08-23"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

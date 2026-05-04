@@ -19,6 +19,7 @@ class Rule3O(AbstractMinesRule):
     doc.zh_CN = "雷从四个方向中的任意一个连到题板外"
 
     tags = ["Creative", "Global", "Construction", "Strict Shape"]
+    creation_time = "2025-08-06"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

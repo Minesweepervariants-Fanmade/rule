@@ -20,6 +20,7 @@ class Rule2Gp(AbstractMinesRule):
     doc.zh_CN = "所有四连通雷区域的面积为3"
 
     tags = ["Variant", "Global", "Connectivity", "Construction"]
+    creation_time = "2025-08-06"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

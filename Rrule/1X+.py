@@ -42,6 +42,7 @@ class Rule1XPlus(AbstractClueRule):
     doc = "Clue shows the number of mines in all cells in the same row or column"
     doc.zh_CN = "线索数表示与其同行或同列的所有格子中的雷数"
     tags = ["Local", "Number Clue", "Weak", "Creative"]
+    creation_time = "2025-08-06"
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

@@ -31,6 +31,7 @@ class Rule2A(AbstractClueRule):
     doc = "Clue indicates the sum of areas of orthogonally adjacent mine groups"
     doc.zh_CN = "线索表示四方向相邻雷区域的面积之和"
     tags = ["Variant", "Local", "Number Clue", "Extensive Trial", "Weak"]
+    creation_time = "2025-08-06"
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)

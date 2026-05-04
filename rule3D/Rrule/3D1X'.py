@@ -21,6 +21,7 @@ class Rule3D1X(Abstract3DClueRule):
     doc = "Clue shows the number of mines in a 1-cell cross range (up, down, left, right, front, back)"
     doc.zh_CN = "线索表示半径为 1 的十字范围内的雷数(上下左右前后)"
     tags = ["Creative", "Local", "Number Clue"]
+    creation_time = "2025-08-30"
 
     def __init__(self, board: AbstractBoard, data: str = None):
         super().__init__(board, data)

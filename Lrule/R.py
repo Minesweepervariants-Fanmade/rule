@@ -19,3 +19,4 @@ class RuleR(Rule0R):
     doc = "Sometimes you need total mine count to deduce"
     doc.zh_CN = "有时你会需要用到总雷数来推理"
     tags = ["Original", "Global", "Strict R"]
+    creation_time = "2025-08-06"

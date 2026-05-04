@@ -12,6 +12,7 @@ class Rule1S(AbstractMinesRule):
     doc.zh_CN = "所有非雷构成若干条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉。"
 
     tags = ["Variant", "Global", "Connectivity", "Construction"]
+    creation_time = "2025-10-25"
 
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()

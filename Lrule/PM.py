@@ -9,6 +9,7 @@ class RulePM(AbstractMinesRule):
     doc = "Exactly one way to select exactly one mine from each row and column"
     doc.zh_CN = "恰有一种方式从每行每列恰好选取一雷"
     tags = ["Creative", "Global", "Strong", "Extensive trial"]
+    creation_time = "2026-01-28"
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()
