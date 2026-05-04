@@ -5604,6 +5604,27 @@
         },
         {
             "rule_line": "R",
+            "id": "LO",
+            "name": {
+                "default": "LightsOut",
+                "zh_CN": "\u70b9\u706f\u6e38\u620f"
+            },
+            "doc": {
+                "default": "The clue represent the number of switches activated within a 3x3 area of the board, after switches activated all board is left empty finally. (The clue also show whether the switch at this clue location is activated.)",
+                "zh_CN": "\u6570\u5b57\u8868\u793a\u7684\u662f\u6309\u7167\u70b9\u706f\u6e38\u620f\u5c06\u9898\u677f\u70b9\u6210\u7a7a\u9898\u677f\u76843x3\u8303\u56f4\u5185\u6253\u5f00\u7684\u5f00\u5173\u7684\u6570\u91cf (\u6570\u5b57\u4e5f\u53ef\u4ee5\u770b\u5230\u81ea\u5df1\u4f4d\u7f6e\u7684\u5f00\u5173\u662f\u5426\u6253\u5f00)"
+            },
+            "author": {
+                "name": "",
+                "id": ""
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ]
+        },
+        {
+            "rule_line": "R",
             "id": "2M^",
             "name": {
                 "default": "Mod^",
