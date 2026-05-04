@@ -22,7 +22,7 @@
                 "Local",
                 "Extensive trial"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -46,7 +46,7 @@
                 "Local",
                 "Strict Shape"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -70,7 +70,7 @@
                 "Local",
                 "Construction"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -93,7 +93,7 @@
                 "Creative",
                 "Local"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -117,7 +117,7 @@
                 "Local",
                 "Construction"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -141,7 +141,7 @@
                 "Local",
                 "Strict Shape"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -164,7 +164,7 @@
                 "Creative",
                 "Local"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -188,7 +188,7 @@
                 "Local",
                 "Extensive trial"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -212,7 +212,7 @@
                 "Local",
                 "Dyed"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -235,7 +235,7 @@
                 "Creative",
                 "Local"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -259,7 +259,7 @@
                 "Local",
                 "Extensive trial"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -283,7 +283,7 @@
                 "Local",
                 "Connectivity"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -307,7 +307,7 @@
                 "Local",
                 "Strict Shape"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -3151,9 +3151,10 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Untagged"
+                "Creative",
+                "Anti-Construction"
             ],
-            "creation_time": ""
+            "creation_time": "2026-05-05"
         },
         {
             "rule_line": "L",
@@ -3521,7 +3522,7 @@
                 "Local",
                 "Number Clue"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
@@ -3545,7 +3546,7 @@
                 "Local",
                 "Number Clue"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
@@ -3569,7 +3570,7 @@
                 "Local",
                 "Number Clue"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
@@ -3594,7 +3595,7 @@
                 "Number Clue",
                 "Vanilla Variant"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
