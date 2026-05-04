@@ -231,7 +231,7 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                         elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value,
                                                                                  str) and stmt.value.value.strip():
                             info["id"] = stmt.value.value.strip()
-        if "names" in info:
+        if "id" in info:
             return info
     return None
 
