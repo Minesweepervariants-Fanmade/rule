@@ -178,10 +178,16 @@ html {
 }
 
 .rule-alias,
-.rule-author {
+.rule-author,
+.rule-creation-time {
   margin-top: 6px;
   color: var(--text);
   word-break: break-word;
+}
+
+.rule-creation-time {
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .rule-tags {

@@ -39,6 +39,7 @@
           filterExclude: "不包含",
           filterClear: "清空",
           filterPlaceholder: "选择标签添加筛选...",
+          creationTime: "创建时间",
           ruleLine: {
             L: "左线规则",
             M: "中线规则",
@@ -59,6 +60,7 @@
           filterExclude: "Exclude",
           filterClear: "Clear",
           filterPlaceholder: "Select tag to add filter...",
+          creationTime: "Created",
           ruleLine: {
             L: "Left Rules",
             M: "Middle Rules",
@@ -317,6 +319,11 @@
         var authorId = text(rule.author && rule.author.id).trim();
         appendTextElement(item, "p", getUiText("author") + ": " + (authorName || getUiText("unknownAuthor")) + (authorId ? " (" + authorId + ")" : ""), "rule-author");
 
+        var creationTime = text(rule.creation_time).trim();
+        if (creationTime) {
+          appendTextElement(item, "p", getUiText("creationTime") + ": " + creationTime, "rule-creation-time");
+        }
+
         var tags = rule.tags;
         if (Array.isArray(tags) && tags.length > 0) {
           var tagsContainer = document.createElement("div");
@@ -388,6 +395,11 @@
           var title = document.createElement("h2");
           title.className = "rule-line-title";
           var filteredList = list.filter(matchesFilter);
+          filteredList.sort(function(a, b) {
+            var timeA = a.creation_time || "1970-01-01";
+            var timeB = b.creation_time || "1970-01-01";
+            return timeB.localeCompare(timeA);
+          });
           title.textContent = getRuleLineText(line) + " (" + filteredList.length + "/" + list.length + ")";
 
           titleContainer.appendChild(toggleBtn);
