@@ -223,6 +223,14 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                         info["tags"] = [getattr(elt, "value") for elt in stmt.value.elts]
                     if (
                             isinstance(target, ast.Name) and
+                            target.id == "creation_time"
+                    ):
+                        if isinstance(stmt.value, ast.Str) and stmt.value.s.strip():
+                            info["creation_time"] = stmt.value.s.strip()
+                        elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value, str):
+                            info["creation_time"] = stmt.value.value.strip()
+                    if (
+                            isinstance(target, ast.Name) and
                             target.id == "id"
                     ):
                         # 规则id，期望为字符串常量
@@ -253,7 +261,8 @@ def scan_module_docstrings(directory):
                 rule_id = pck.get('id', "")
                 aliases = pck.get("aliases", [])
                 tags = pck.get("tags", [])
-                results.append((m_doc, doc, x, names, author, rule_id, aliases, tags))
+                creation_time = pck.get("creation_time", "")
+                results.append((m_doc, doc, x, names, author, rule_id, aliases, tags, creation_time))
     return results
 
 
@@ -359,7 +368,7 @@ def get_all_rules():
             if os.path.isfile(os.path.join(image_dir, name))
         )
 
-    for m_doc, doc, x, names, author, rule_id, aliases, tags in scan_module_docstrings(dir_path):
+    for m_doc, doc, x, names, author, rule_id, aliases, tags, creation_time in scan_module_docstrings(dir_path):
         if not names:
             continue
 
@@ -392,5 +401,6 @@ def get_all_rules():
             "image": image_name,
             "aliases": aliases,
             "tags": rule_tags,
+            "creation_time": creation_time,
         })
     return results
