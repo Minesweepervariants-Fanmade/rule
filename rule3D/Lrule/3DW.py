@@ -82,6 +82,7 @@ class Rule3DW(Abstract3DMinesRule):
 1. 对于任意x,y, 存在唯一z使得(x,y,z)有雷
 2. 若(x0,y0,z0)有雷, 则{(x, y, z)| |x - x0| <= 1, |y - y0| <= 1, |z - z0| <= 1}中的雷格数为其2D邻格个数+1"""
     tags = ["Creative", "Local", "Extensive trial"]
+    creation_time = "2025-08-30"
 
     def suggest_total(self, info: dict):
         # 建议合适的雷数

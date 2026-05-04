@@ -40,6 +40,7 @@ class Rule1Q(Abstract3DMinesRule):
     doc = "Every 2x2x2 region must contain at least 2 mines"
     doc.zh_CN = "每个2x2x2区域内都至少有2个雷"
     tags = ["Creative", "Local"]
+    creation_time = "2025-08-30"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

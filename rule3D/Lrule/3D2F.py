@@ -19,6 +19,7 @@ class Rule2F(Abstract3DMinesRule):
     doc = "Mines in dyed cells must have exactly 1 mine in their 6 adjacent cells"
     doc.zh_CN = "染色格中的雷周围六格内恰好有1个雷"
     tags = ["Creative", "Local", "Dyed"]
+    creation_time = "2025-08-30"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
