@@ -2527,6 +2527,30 @@
         },
         {
             "rule_line": "L",
+            "id": "TR",
+            "name": {
+                "default": "Tree",
+                "zh_CN": "\u6811"
+            },
+            "doc": {
+                "default": "The orthogonally connected graph of non-mine cells is a tree.",
+                "zh_CN": "\u975e\u96f7\u683c\u56db\u8054\u901a\u5f62\u6210\u7684\u65e0\u5411\u56fe\u662f\u4e00\u68f5\u6811\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Connectivity",
+                "Construction"
+            ]
+        },
+        {
+            "rule_line": "L",
             "id": "1H",
             "name": {
                 "default": "Horizontal",
