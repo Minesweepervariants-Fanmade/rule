@@ -9,8 +9,8 @@
 
 雷格要么"在环上"要么"在环内", 非雷格要么"在环外"要么"在环内".
 "在环上"的雷格的八连通图是哈密顿图.
-非雷"在环外"当且仅当其与题板外四联通
-雷格"在环内"当且仅当周围四格没有"在环外"的非雷格.
+"在环内"的雷格周围四格没有"在环外"的非雷格.
+非雷"在环外"当且仅当其与题板外四联通.
 """
 
 from ....abs.Lrule import AbstractMinesRule
@@ -21,7 +21,7 @@ from ortools.sat.python.cp_model import CpModel
 
 class RuleLC(AbstractMinesRule):
     id = "LC"
-    name = "圈地"
+    name = "Land Claim"
     name.zh_CN = "圈地"
     doc = "All mine cells are on or inside an 8-connected mine ring"
     doc.zh_CN = "所有雷格都在一个八联通雷格环上或其内部"
