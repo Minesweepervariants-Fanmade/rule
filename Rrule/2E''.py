@@ -104,5 +104,5 @@ class Value2Ep(AbstractClueValue):
         model.Add(sum_vers < len(line)).OnlyEnforceIf(s)
         for index in range(min(9, len(line))):
             var = line[index]
-            model.Add(sum_vers != index).OnlyEnforceIf(var.Not()).OnlyEnforceIf(s)
+            model.Add(sum_vers != index).OnlyEnforceIf(var.Not(), s)
             get_logger().trace(f"[2E'']: {self.pos} != {index} if {var} is 0")

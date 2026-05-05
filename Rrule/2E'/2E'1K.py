@@ -84,4 +84,4 @@ class Value1K2Ep(AbstractClueValue):
         sum_vers = sum(board.batch(self.neighbors, mode="variable", drop_none=True))
         for index in range(min(9, len(line))):
             var = board.get_variable(board.get_pos(index, self.value))
-            model.Add(sum_vers != index).OnlyEnforceIf(var.Not()).OnlyEnforceIf(s)
+            model.Add(sum_vers != index).OnlyEnforceIf(var.Not(), s)

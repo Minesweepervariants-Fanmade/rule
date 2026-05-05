@@ -214,7 +214,7 @@ class Value1F(AbstractClueValue):
         # 出界终点约束
         # 出界时路径上的所有格子必须非雷
         for p in path:
-            model.Add(board.get_variable(p) == 0).OnlyEnforceIf(stop_var_out).OnlyEnforceIf(s)
+            model.Add(board.get_variable(p) == 0).OnlyEnforceIf(stop_var_out, s)
 
         # 从出界点往垂直方向看，即从路径的最后一个格子计算
         if path:
