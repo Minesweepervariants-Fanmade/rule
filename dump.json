@@ -1177,10 +1177,12 @@
             "rule_line": "L",
             "id": "5L",
             "name": {
-                "default": "\u56de\u8def"
+                "default": "Circuit",
+                "zh_CN": "\u56de\u8def"
             },
             "doc": {
-                "default": "All mine cells form a Hamiltonian circuit via 8-connectivity"
+                "default": "All mine cells form a Hamiltonian circuit via 8-connectivity",
+                "zh_CN": "\u96f7\u683c\u516b\u8fde\u901a\u6784\u6210\u54c8\u5bc6\u987f\u56de\u8def"
             },
             "author": {
                 "name": "NT",
