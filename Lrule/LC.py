@@ -9,8 +9,8 @@
 
 雷格要么"在环上"要么"在环内", 非雷格要么"在环外"要么"在环内".
 "在环上"的雷格的八连通图是哈密顿图.
-非雷"在环外"当且仅当其与题板外四联通
-雷格"在环内"当且仅当周围四格没有"在环外"的非雷格.
+"在环内"的雷格周围四格没有"在环外"的非雷格.
+非雷"在环外"当且仅当其与题板外四联通.
 """
 
 from ....abs.Lrule import AbstractMinesRule
@@ -21,7 +21,7 @@ from ortools.sat.python.cp_model import CpModel
 
 class RuleLC(AbstractMinesRule):
     id = "LC"
-    name = "圈地"
+    name = "Land Claim"
     name.zh_CN = "圈地"
     doc = "All mine cells are on or inside an 8-connected mine ring"
     doc.zh_CN = "所有雷格都在一个八联通雷格环上或其内部"
@@ -94,7 +94,7 @@ class RuleLC(AbstractMinesRule):
                     model.Add(outside_ring[pos] == 0).OnlyEnforceIf([var.Not(), s])
 
         # === 雷格"在环内"约束 ===
-        # 雷格在环内 iff 四个正交邻域没有环外非雷格
+        # "在环内"的雷格周围四格没有"在环外"的非雷格 (单向: 环内 → 周围无环外非雷)
         for key in board.get_interactive_keys():
             for pos, var in board(key=key, mode="variable"):
                 nbs_outside = []
@@ -103,10 +103,7 @@ class RuleLC(AbstractMinesRule):
                     if nb_pos is not None and nb_pos in outside_ring:
                         nbs_outside.append(outside_ring[nb_pos])
                 if nbs_outside:
-                    model.AddBoolOr(nbs_outside).OnlyEnforceIf([inside_ring[pos].Not(), var, s])
                     model.AddBoolAnd([nb.Not() for nb in nbs_outside]).OnlyEnforceIf([inside_ring[pos], var, s])
-                else:
-                    model.Add(inside_ring[pos] == 1).OnlyEnforceIf([var, s])
 
         # === 环上雷格的哈密顿圈约束（使用AddCircuit + 自环） ===
         positions = [(pos, v) for pos, v in mine_vars.items()]
