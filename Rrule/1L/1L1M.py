@@ -22,7 +22,7 @@ class Rule1L1M(AbstractClueRule):
     name = "Liar + Multiple"
     name.zh_CN = "误差 + 多雷"
     doc = "Liar + Multiple (dyed mines count double) combination rule"
-    tags = ["Variant", "Local", "Number Clue", "Dyed", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Dyed", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

@@ -22,7 +22,7 @@ class Rule1L2X(AbstractClueRule):
     name = "Liar + Cross"
     name.zh_CN = "误差 + 十字"
     doc = "Liar + Cross combination rule (dyed)"
-    tags = ["Variant", "Local", "Number Clue", "Dyed", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Dyed", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

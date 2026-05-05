@@ -19,7 +19,7 @@ class Rule(Abstract3DMinesRule):
     name.zh_CN = "3D 面平衡"
     doc = "Total mines on all parallel planes are equal"
     doc.zh_CN = "所有平行面的总雷数均相等"
-    tags = ["Creative", "Local", "Extensive trial"]
+    tags = ["Creative", "Local", "Extensive Trial"]
     creation_time = "2025-08-30"
     author = ("", 0)
 

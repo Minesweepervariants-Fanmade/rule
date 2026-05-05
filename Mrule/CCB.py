@@ -18,7 +18,7 @@ class RuleCB(AbstractMinesClueRule):
     name.zh_CN = "连击"
     doc = "Mines clue indicates the total combo value in four directions; n consecutive mines in the same direction have combo values from 1 to n"
     doc.zh_CN = "雷线索指示四方向的连击总值和，同方向相邻的n个雷连击值为1-n"
-    tags = ["Creative", "Local", "Extensive trial"]
+    tags = ["Creative", "Local", "Extensive Trial"]
     creation_time = "2025-08-21"
     author = ("", 0)
 

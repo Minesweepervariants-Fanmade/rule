@@ -18,7 +18,7 @@ class Rule1L1N(AbstractClueRule):
     name = "Liar + Negative"
     name.zh_CN = "误差 + 负雷"
     doc = "Liar + Negative (signed mine count) combination rule"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

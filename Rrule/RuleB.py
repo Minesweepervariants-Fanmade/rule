@@ -20,7 +20,7 @@ class RuleC(AbstractClueRule):
     name.zh_CN = "没想好"
     doc = "Clue indicates the number of mines in the eight surrounding cells that have no mines in their four orthogonal neighbors"
     doc.zh_CN = "线索表示周围八格中周围四格没有雷的雷数。"
-    tags = ["Creative", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Creative", "Local", "Number Clue", "Extensive Trial"]
     creation_time = "2025-08-17"
     author = ("", 0)
 

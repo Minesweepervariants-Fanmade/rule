@@ -26,7 +26,7 @@ class Rule2A(AbstractClueRule):
     name.zh_CN = "面积'"
     doc = "Clue shows the area of its 4-connected non-mine region"
     doc.zh_CN = "线索表示它所在的四连通非雷区的面积。"
-    tags = ["Local", "Number Clue", "Extensive trial", "Creative"]
+    tags = ["Local", "Number Clue", "Extensive Trial", "Creative"]
     creation_time = "2025-08-17"
     author = ("", 0)
 

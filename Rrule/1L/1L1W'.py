@@ -67,7 +67,7 @@ class Rule1L1Wp(AbstractClueRule):
     name = "Liar + Longest Wall"
     name.zh_CN = "误差 + 最长数墙"
     doc = "Liar + Longest Wall combination rule"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

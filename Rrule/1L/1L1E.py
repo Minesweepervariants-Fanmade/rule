@@ -23,7 +23,7 @@ class Rule1L1E(AbstractClueRule):
     name = "Liar + Eyesight"
     name.zh_CN = "误差 + 视野"
     doc = "Liar + Eyesight combination rule"
-    tags = ["Variant", "Local", "Arrow Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Arrow Clue", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

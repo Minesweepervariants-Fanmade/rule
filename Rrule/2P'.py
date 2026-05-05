@@ -39,7 +39,7 @@ class Rule2P(AbstractClueRule):
     name.zh_CN = "旅程"
     doc = "Clue shows the sum of Manhattan distances to the nearest 2 mines"
     doc.zh_CN = "线索表示距离最近的 2 个雷的曼哈顿距离之和"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     creation_time = "2025-08-21"
     author = ("", 0)
 

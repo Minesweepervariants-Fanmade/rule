@@ -65,7 +65,7 @@ class Rule1L1P(AbstractClueRule):
     name = "Liar + Partition"
     name.zh_CN = "误差 + 分组"
     doc = "Liar + Partition combination rule"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

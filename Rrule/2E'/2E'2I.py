@@ -22,7 +22,7 @@ class Rule2Ep2I(AbstractClueRule):
     name.zh_CN = "自指残缺"
     doc = "If letter X has N mines among 7 of its 8 adjacent cells, then the cell marked with X=N must be a mine. The positions of those 7 cells are shared across all clues on the board"
     doc.zh_CN = "字母X周围8格中某7格的雷数如果有N个 则标有X=N的格子必定是雷 7格的方位被当前题板所有线索共享"
-    tags = ["Variant", "Local", "Cryptic", "Extensive trial"]
+    tags = ["Variant", "Local", "Cryptic", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

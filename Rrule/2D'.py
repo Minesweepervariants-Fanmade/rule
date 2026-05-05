@@ -19,7 +19,7 @@ class Rule2Dp(AbstractClueRule):
     name.zh_CN = "四向偏移"
     doc = "Clue shows the total number of mines in a 3x3 area centered one cell offset in any of the four directions (globally consistent)"
     doc.zh_CN = "线索表示四方向任意偏移一格为中心的3x3区域内的总雷数(全局统一)"
-    tags = ["Local", "Number Clue", "Extensive trial", "Creative"]
+    tags = ["Local", "Number Clue", "Extensive Trial", "Creative"]
     creation_time = "2025-08-06"
     author = ("", 0)
 

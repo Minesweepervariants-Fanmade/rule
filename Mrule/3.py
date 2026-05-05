@@ -40,7 +40,7 @@ class Rule3P(AbstractMinesClueRule):
     name.zh_CN = "指向"
     doc = "In the direction the mine points to, there exist n mines (not including itself)"
     doc.zh_CN = "雷指向的方向存在n个雷(不包括自己)"
-    tags = ["Original", "Local", "Extensive trial"]
+    tags = ["Original", "Local", "Extensive Trial"]
     creation_time = "2025-08-06"
     author = ("", 0)
 

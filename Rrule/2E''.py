@@ -24,7 +24,7 @@ class Rule2Ep(AbstractClueRule):
     doc = "If clue X has N mines around it, then the cell with X=N on the other board must be a mine"
     doc.zh_CN = "如果线索X周围有N个雷 则另一个题板的X=N的格子必定为雷"
 
-    tags = ["Variant", "Local", "Number Clue", "Aux Board", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Aux Board", "Extensive Trial"]
     creation_time = "2025-08-06"
     author = ("", 0)
 

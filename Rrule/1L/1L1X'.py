@@ -17,7 +17,7 @@ class Rule1L1Xp(AbstractClueRule):
     name = "Liar + Mini Cross"
     name.zh_CN = "误差 + 小十字"
     doc = "Liar + Mini Cross combination rule"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

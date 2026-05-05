@@ -66,7 +66,7 @@ class RuleCPV(AbstractClueRule):
   doc = "Clue cells show the number of mines belonging to them in the 8 adjacent cells, and each cell must belong to exactly one visible clue."
   doc.zh_CN = "线索格表示周围八格雷数, 且每个格子在其可见候选线索集合中必须唯一归属。"
   author = ("", 0)
-  tags = ["Creative", "Local", "Number Clue", "Extensive trial"]
+  tags = ["Creative", "Local", "Number Clue", "Extensive Trial"]
   creation_time = "2026-04-10"
 
   dynamic_dig_enabled = True

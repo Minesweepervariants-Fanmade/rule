@@ -15,7 +15,7 @@ class Rule1LMN(AbstractClueRule):
     name = "Liar + Multiple + Negative", "1L1M1N"
     name.zh_CN = "误差 + 多雷 + 负雷"
     doc = "Liar + Multiple + Negative combination rule"
-    tags = ["Variant", "Local", "Number Clue", "Dyed", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Dyed", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

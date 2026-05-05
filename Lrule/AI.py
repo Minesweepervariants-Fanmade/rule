@@ -47,7 +47,7 @@ class RuleAI(AbstractMinesRule):
   doc = "Generates fixed 8-direction arrow diagram, mine cells must be traversed along arrows without missing or repeating"
   doc.zh_CN = "生成固定八方向箭头图, 雷格需沿箭头可不重补漏遍历"
   author = ("NT", 2201963934)
-  tags = ["Creative", "Global", "Extensive trial", "Connectivity", "Construction", "Parameter"]
+  tags = ["Creative", "Global", "Extensive Trial", "Connectivity", "Construction", "Parameter"]
   creation_time = "2026-04-09"
   ARROWS = ["^", "^>", ">", "v>", "v", "v<", "<", "^<"]
 

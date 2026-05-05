@@ -150,7 +150,7 @@ class Rule1L1W(AbstractClueRule):
     name = "Liar + Wall"
     name.zh_CN = "误差 + 数墙"
     doc = "Liar + Wall combination rule"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

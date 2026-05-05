@@ -14,7 +14,7 @@ class RuleBIN(AbstractClueRule):
     name.zh_CN = "二叉"
     doc = "BIN:X;Y Clue indicates values under two rules X and Y (order not fixed)"
     doc.zh_CN = "BIN:X;Y 表示线索为 X 与 Y 规则下的值（顺序不确定）"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     creation_time = "2026-01-02"
     author = ("", 0)
 

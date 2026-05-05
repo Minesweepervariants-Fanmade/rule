@@ -15,7 +15,7 @@ class RuleFsharp(AbstractMinesSharp):
     name.zh_CN = "雷线索标签"
     doc = "Contains the following rules: [*3T], [3], [3F]"
     doc.zh_CN = "包含以下规则: [*3T], [3], [3F]"
-    tags = ["Creative", "Local", "Extensive trial"]
+    tags = ["Creative", "Local", "Extensive Trial"]
     creation_time = "2025-08-26"
     author = ("", 0)
 

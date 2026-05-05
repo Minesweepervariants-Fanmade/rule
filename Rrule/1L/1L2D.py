@@ -17,7 +17,7 @@ class Rule1L2D(AbstractClueRule):
     name = "Liar + Deviation"
     name.zh_CN = "误差 + 偏移"
     doc = "Liar + Deviation combination rule"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     author = ("", 0)
     creation_time = ""
 

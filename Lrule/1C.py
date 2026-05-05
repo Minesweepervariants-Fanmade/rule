@@ -22,7 +22,7 @@ class Rule1C(AbstractMinesRule):
     doc = "Mine areas are connected diagonally (8-connectivity)"
     doc.zh_CN = "雷区域八连通"
     author = ("14 Minesweeper Variants", -1)
-    tags = ["Original", "Connection"]
+    tags = ["Original", "Connectivity", "Global"]
     creation_time = "2025-08-06"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:

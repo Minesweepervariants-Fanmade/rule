@@ -41,7 +41,7 @@ class Rule2Q(AbstractClueRule):
     name.zh_CN = "皇后"
     doc = "Clue indicates the number of directions with mines in the eight directions"
     doc.zh_CN = "线索表示八方向有雷的方向数量"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     creation_time = "2025-08-13"
     author = ("", 0)
 

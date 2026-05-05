@@ -59,7 +59,7 @@ class Rule1XX(AbstractClueRule):
     name.zh_CN = "主教"
     doc = "Clue shows the number of mines in all diagonal cells"
     doc.zh_CN = "线索数表示斜向所有格子中的雷数"
-    tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    tags = ["Variant", "Local", "Number Clue", "Extensive Trial"]
     creation_time = "2025-08-06"
     author = ("", 0)
 

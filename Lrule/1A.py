@@ -20,7 +20,7 @@ class Rule1A(AbstractMinesRule):
     doc = "No mine at knight's move distance from any mine"
     doc.zh_CN = "所有雷的马步位置不能有雷"
     author = ("14 Minesweeper Variants", -1)
-    tags = ["Original", "Anti-Construct", "Local"]
+    tags = ["Original", "Anti-Construction", "Local"]
     creation_time = "2025-08-06"
 
     def create_constraints(self, board: 'AbstractBoard', switch):
