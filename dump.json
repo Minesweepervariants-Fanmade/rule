@@ -1175,6 +1175,28 @@
         },
         {
             "rule_line": "L",
+            "id": "5L",
+            "name": {
+                "default": "\u56de\u8def"
+            },
+            "doc": {
+                "default": "All mine cells form a Hamiltonian circuit via 8-connectivity"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Connectivity",
+                "Global"
+            ],
+            "creation_time": "2026-05-05"
+        },
+        {
+            "rule_line": "L",
             "id": "2B",
             "name": {
                 "default": "Bridge",
