@@ -60,9 +60,9 @@ class Rule1B(AbstractMinesRule):
             # 创建分量变量
             components = []
             for i, base in enumerate(bases):
-                max_multiplier = (total_var.Proto().domain[1] // base) + 1
+                max_multiplier = (ubs[i] // base) + 1
                 mult = model.NewIntVar(0, max_multiplier, f"mult_{i}")
-                product = model.NewIntVar(0, total_var.Proto().domain[1], f"prod_{i}")
+                product = model.NewIntVar(0, ubs[i], f"prod_{i}")
 
                 # 添加乘积约束
                 model.AddMultiplicationEquality(product, [mult, base])
@@ -72,6 +72,7 @@ class Rule1B(AbstractMinesRule):
             model.Add(sum(components) == total_var)
 
         sizes = [info["size"][interactive] for interactive in info["interactive"]]
+        ubs = [size[0] * size[1] for size in sizes]
 
         # 预处理阶段：计算各size的base_i
         bases = [lcm(w, h) for w, h in sizes if w > 0 and h > 0]
