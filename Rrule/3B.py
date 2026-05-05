@@ -69,6 +69,7 @@ class Rule3B(AbstractClueRule):
     doc.zh_CN = "无雷是0，有雷是1，线索代表每行（左起）和每列（上起）对应两个二进制数的按位异或值"
     tags = ["Creative", "Local", "Number Clue", "Construction"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

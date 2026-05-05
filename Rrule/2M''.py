@@ -51,6 +51,7 @@ class Rule2M(AbstractClueRule):
     doc.zh_CN = "每行每列恰有一个雷被视为两个(总雷数不受限制)"
     tags = ["Variant", "Local", "Number Clue", "Aux Board", "Extensive trial"]
     creation_time = "2025-08-22"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

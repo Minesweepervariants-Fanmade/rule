@@ -13,6 +13,7 @@ class Rule3Q(AbstractMinesRule):
 
     tags = ["Variant", "Local", "Anti-Construction"]
     creation_time = "2026-01-25"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

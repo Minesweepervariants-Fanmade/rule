@@ -22,6 +22,7 @@ class Rule2D(AbstractClueRule):
     doc.zh_CN = "线索表示以正上方一格为中心，3x3 范围内的雷数"
     tags = ["Original", "Local", "Number Clue"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

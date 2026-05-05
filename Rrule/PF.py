@@ -29,6 +29,7 @@ class RulePF(AbstractClueRule):
     doc.zh_CN = "除0和1外的线索显示真实值的最大素因子"
     tags = ["Creative", "Local", "Number Clue"]
     creation_time = "2025-08-13"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

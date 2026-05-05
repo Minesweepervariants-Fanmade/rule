@@ -14,6 +14,7 @@ class Rule2HT(AbstractMinesRule):
 
     tags = ["Original", "Global", "Weak"]
     creation_time = "2025-10-20"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

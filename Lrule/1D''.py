@@ -30,6 +30,7 @@ class Rule1Dpp(AbstractMinesRule):
     doc.zh_CN = "所有雷必须是1x1~1x4矩形或者长度2~4的对角线的一部分，这些形状之间不能互相接触（对角也不行）。"
     tags = ["Variant", "Local", "Construction", "Anti-Construction"]
     creation_time = "2026-04-05"
+    author = ("", 0)
 
     def __init__(self, board: AbstractBoard = None, data=None) -> None:
         super().__init__(board, data)

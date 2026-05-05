@@ -12,6 +12,7 @@ class Rule1S(AbstractMinesRule):
     doc.zh_CN = "所有雷构成一条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉。题板的上下左右视为连通。"
     tags = ["Variant", "Global", "Construction", "Connectivity"]
     creation_time = "2025-08-23"
+    author = ("", 0)
 
     def portalNeighbor(self, pos : AbstractPosition, board: AbstractBoard):
         boundary = board.boundary(pos.board_key)

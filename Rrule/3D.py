@@ -21,6 +21,7 @@ class Rule3D(AbstractMinesRule):
     lib_only = True
     tags = ["Creative", "Global", "Number Clue", "Mine-Value"]
     creation_time = "2025-08-23"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

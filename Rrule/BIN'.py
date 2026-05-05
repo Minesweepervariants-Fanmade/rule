@@ -16,6 +16,7 @@ class RuleBIN(AbstractClueRule):
     doc.zh_CN = "BIN':X;Y 表示线索为 X 或 Y 规则下的值"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
     creation_time = "2026-01-02"
+    author = ("", 0)
 
     def __init__(self, board: AbstractBoard = None, data: str = "") -> None:
         super().__init__(board, data)

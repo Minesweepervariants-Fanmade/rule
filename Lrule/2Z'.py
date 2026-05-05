@@ -31,6 +31,7 @@ class Rule2Zp(AbstractMinesRule):
 
     tags = ["Variant", "Local", "Dyed", "Anti-Construction"]
     creation_time = "2025-08-13"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

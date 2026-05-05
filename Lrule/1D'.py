@@ -20,6 +20,7 @@ class Rule1Dp(AbstractMinesRule):
     doc.zh_CN = "每个雷区域为宽度为 1、长度不超过 4 的矩形，矩形不能对角相邻"
     tags = ["Variant", "Local", "Strict R", "Strong"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def create_constraints(self, board: AbstractBoard, switch):
         # 获取求解器模型

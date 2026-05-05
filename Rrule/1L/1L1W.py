@@ -151,6 +151,8 @@ class Rule1L1W(AbstractClueRule):
     name.zh_CN = "误差 + 数墙"
     doc = "Liar + Wall combination rule"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    author = ("", 0)
+    creation_time = ""
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

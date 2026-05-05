@@ -32,6 +32,7 @@ class Rule2A(AbstractClueRule):
     doc.zh_CN = "线索表示四方向相邻雷区域的面积之和"
     tags = ["Variant", "Local", "Number Clue", "Extensive Trial", "Weak"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)

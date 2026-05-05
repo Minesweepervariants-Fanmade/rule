@@ -26,6 +26,7 @@ class Rule3DV(Abstract3DClueRule):
     doc.zh_CN = "每个数字标明周围26格内雷的数量。"
     tags = ["Creative", "Local", "Number Clue", "Vanilla Variant"]
     creation_time = "2025-08-30"
+    author = ("", 0)
 
     def __init__(self, board: AbstractBoard, data: str = None):
         super().__init__(board, data)

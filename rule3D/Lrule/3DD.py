@@ -15,6 +15,7 @@ class Rule3DD(Abstract3DMinesRule):  # type: ignore
     doc.zh_CN = "所有雷均形成1x2x1、2x1x1或1x1x2的三维矩形"
     tags = ["Creative", "Local"]
     creation_time = "2025-08-30"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

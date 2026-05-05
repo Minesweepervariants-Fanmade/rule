@@ -33,6 +33,7 @@ class Rule1M1X(AbstractClueRule):
 
     tags = ["Meta", "Local", "Number Clue"]
     creation_time = "2025-08-23"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard'):
         logger = get_logger()

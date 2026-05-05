@@ -22,6 +22,7 @@ class Rule1Tp(AbstractMinesRule):
     doc.zh_CN = "所有雷必须处于横、竖或斜方向的三连中"
     tags = ["Variant", "Global", "Construction"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

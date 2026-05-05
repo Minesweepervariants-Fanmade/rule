@@ -22,6 +22,7 @@ class Rule3F(AbstractMinesClueRule):
     doc.zh_CN = "雷线索表示附近八个格子内的非雷格数"
     tags = ["Creative", "Local"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("F"):

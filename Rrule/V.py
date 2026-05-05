@@ -22,6 +22,7 @@ class RuleV(AbstractClueRule):
     doc.zh_CN = "每个数字标明周围八格内雷的数量。"
     tags = ["Original", "Local", "Vanilla Variant", "Number Clue"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

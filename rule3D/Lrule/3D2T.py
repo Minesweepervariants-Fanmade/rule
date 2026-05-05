@@ -21,6 +21,7 @@ class Rule2T(Abstract3DMinesRule):
     doc.zh_CN = "(1)雷不能在横竖上下向构成三连, (2)非雷不能在横竖上下向构成三连"
     tags = ["Creative", "Local", "Strict Shape"]
     creation_time = "2025-08-30"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

@@ -64,6 +64,7 @@ class Rule1X(AbstractClueRule):
     doc.zh_CN = "线索表示半径为 2 的十字范围内的雷数"
     tags = ["Original", "Local", "Number Clue"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

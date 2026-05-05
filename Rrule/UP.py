@@ -23,6 +23,7 @@ class RuleUP(AbstractClueRule):
     doc.zh_CN = "线索格表示从这个格开始只能往右或下走，到达右下角的方法数。"
     tags = ["Creative", "Local", "Number Clue", "Construction"]
     creation_time = "2025-08-07"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for key in board.get_interactive_keys():

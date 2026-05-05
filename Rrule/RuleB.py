@@ -22,6 +22,7 @@ class RuleC(AbstractClueRule):
     doc.zh_CN = "线索表示周围八格中周围四格没有雷的雷数。"
     tags = ["Creative", "Local", "Number Clue", "Extensive trial"]
     creation_time = "2025-08-17"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         mines_map = {}

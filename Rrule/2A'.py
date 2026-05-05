@@ -28,6 +28,7 @@ class Rule2A(AbstractClueRule):
     doc.zh_CN = "线索表示它所在的四连通非雷区的面积。"
     tags = ["Local", "Number Clue", "Extensive trial", "Creative"]
     creation_time = "2025-08-17"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)

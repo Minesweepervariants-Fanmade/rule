@@ -61,6 +61,7 @@ class Rule1XX(AbstractClueRule):
     doc.zh_CN = "线索数表示斜向所有格子中的雷数"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

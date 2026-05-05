@@ -22,6 +22,7 @@ class Rule3Ap(AbstractClueRule):
     id = ""
     tags = ["Variant", "Local", "Number Clue", "Arrow Clue", "WIP"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         pass

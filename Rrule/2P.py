@@ -74,6 +74,7 @@ class Rule2P(AbstractClueRule):
     doc.zh_CN = "线索表示距离最近的 2 个雷的距离之积"
     tags = ["Original", "Local", "Number Clue", "Extensive Trial"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         if len([_ for _ in board("F")]) < 2:

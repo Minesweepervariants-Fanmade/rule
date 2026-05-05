@@ -26,6 +26,7 @@ class Rule1M(AbstractClueRule):
 
     tags = ["Variant", "Local", "Number Clue", "Aux Board", "Mine-Position"]
     creation_time = "2025-08-13"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

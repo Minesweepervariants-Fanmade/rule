@@ -16,6 +16,7 @@ class Rule1EX(AbstractEyesightClueRule):
     tags = ["Variant", "Local", "Arrow Clue", "Aux Board"]
     creation_time = "2025-08-06"
 
+    author = ("", 0)
     @staticmethod
     def direction_funcs(pos):
         return [

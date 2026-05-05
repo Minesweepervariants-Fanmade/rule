@@ -9,6 +9,7 @@ class Rule4N(AbstractMinesRule):
     doc.zh_CN = "非雷周围四格必须有雷"
     tags = ["Creative", "Global", "Strong", "Mine-Position"]
     creation_time = "2025-08-23"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

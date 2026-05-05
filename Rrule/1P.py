@@ -65,6 +65,7 @@ class Rule1P(AbstractClueRule):
     doc.zh_CN = "线索表示 3x3 范围内连续雷的组数"
     tags = ["Original", "Local", "Number Clue", "Extensive Trial"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

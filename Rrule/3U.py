@@ -20,6 +20,7 @@ class Rule3U(AbstractMinesRule):
     lib_only = True
     tags = ["Creative", "Global", "Mine-Value"]
     creation_time = "2025-12-28"
+    author = ("", 0)
 
     def __init__(self, board: AbstractBoard = None, data=None) -> None:
         super().__init__(board, data)

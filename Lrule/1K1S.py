@@ -20,6 +20,7 @@ class Rule1S(AbstractMinesRule):
     doc.zh_CN = "所有雷构成一条蛇。蛇是一条宽度为 1 的马步连通路径，不存在分叉、环、交叉"
     tags = ["Variant", "Global", "Connectivity"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def __init__(self, board=None, data=None) -> None:
         super().__init__(board, data)

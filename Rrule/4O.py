@@ -17,6 +17,7 @@ class Rule4O(AbstractClueRule):
     doc.zh_CN = "线索以上下左右箭头而非数字呈现，箭头指向四方向距离其最近的雷，同时存在多个雷距离最近时会显示全部箭头。四方向都不存在雷时显示零。"
     tags = ["Creative", "Local", "Arrow Clue", "Construction"]
     creation_time = "2026-02-03"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

@@ -17,6 +17,7 @@ class RuleFsharp(AbstractMinesSharp):
     doc.zh_CN = "包含以下规则: [*3T], [3], [3F]"
     tags = ["Creative", "Local", "Extensive trial"]
     creation_time = "2025-08-26"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         rules_name = ["*3T", "3", "3F"]

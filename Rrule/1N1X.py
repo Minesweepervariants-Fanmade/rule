@@ -25,6 +25,7 @@ class Rule1N1X(AbstractClueRule):
 
     tags = ["Meta", "Local", "Number Clue", "Dyed"]
     creation_time = "2025-08-23"
+    author = ("", 0)
 
     def clue_class(self):
         return Value1N1X

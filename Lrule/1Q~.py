@@ -35,6 +35,7 @@ class Rule1Q(AbstractMinesRule):
 
     tags = ["Variant", "Local", "Anti-Construction"]
     creation_time = "2025-08-15"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

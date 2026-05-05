@@ -21,6 +21,7 @@ class Rule3C(AbstractMinesRule):
 
     tags = ["Variant", "Local", "Connectivity", "Strong"]
     creation_time = "2025-08-13"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

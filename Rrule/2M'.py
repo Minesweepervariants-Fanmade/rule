@@ -22,6 +22,7 @@ class Rule1M(AbstractClueRule):
 
     tags = ["Variant", "Local", "Number Clue", "Multi-Board"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard'):
         logger = get_logger()

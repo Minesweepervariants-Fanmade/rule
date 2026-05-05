@@ -19,6 +19,8 @@ class Rule1L2M(AbstractClueRule):
     name.zh_CN = "误差 + 取模"
     doc = "Liar + Modulo combination rule"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    author = ("", 0)
+    creation_time = ""
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         random = get_random()

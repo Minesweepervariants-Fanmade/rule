@@ -16,6 +16,7 @@ class Rule2G(AbstractMinesRule):
 
     tags = ["Variant", "Global", "Connectivity", "Construction", "Strict Shape"]
     creation_time = "2026-01-20"
+    author = ("", 0)
 
     def create_constraints(self, board: AbstractBoard, switch):
         positions = [pos for pos, _ in board("always", mode="variable")]

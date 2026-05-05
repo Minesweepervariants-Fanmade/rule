@@ -23,6 +23,7 @@ class Rule1Xp(AbstractClueRule):
     doc.zh_CN = "线索表示半径为 1 的十字范围内的雷数"
     tags = ["Local", "Number Clue", "Vanilla Variant", "Fun"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

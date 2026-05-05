@@ -51,6 +51,7 @@ class Rule6V(AbstractClueRule):
 
     dynamic_dig_enabled = True
     dynamic_dig_use_visibility_optimizer = True
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

@@ -16,6 +16,7 @@ class Rule1M(AbstractMinesRule):
     tags = ["Variant", "Dyed", "Mine-Value", "Local"]
     creation_time = "2025-10-26"
     lib_only = True
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

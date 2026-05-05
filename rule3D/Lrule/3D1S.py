@@ -20,6 +20,7 @@ class Rule1S(Abstract3DMinesRule):
     doc.zh_CN = "所有雷构成一条蛇。蛇是一条宽度为 1 的六连通路径，不存在分叉、环、交叉"
     tags = ["Creative", "Local", "Construction"]
     creation_time = "2025-08-30"
+    author = ("", 0)
 
     def create_constraints(self, board, switch):
         model = board.get_model()

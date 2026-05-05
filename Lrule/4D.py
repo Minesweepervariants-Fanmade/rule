@@ -11,6 +11,7 @@ class Rule4D(AbstractMinesRule):
     doc.zh_CN = "不同四连通雷区不可对角相邻"
     tags = ["Creative", "Local", "Anti-Construction"]
     creation_time = "2025-12-31"
+    author = ("", 0)
 
     def create_constraints(self, board: AbstractBoard, switch):
         model = board.get_model()

@@ -20,6 +20,7 @@ class RuleGd(AbstractMinesRule):
     doc.zh_CN = "1.每行值不大于上一行 2.每列值不大于左一列"
     tags = ["Creative", "Global", "Strict R"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

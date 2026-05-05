@@ -26,6 +26,7 @@ class Rule2Ep(AbstractClueRule):
 
     tags = ["Variant", "Local", "Number Clue", "Aux Board", "Extensive trial"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__()

@@ -21,6 +21,7 @@ class Rule4T(AbstractMinesClueRule):
     doc.zh_CN = "雷线索指示包含自身的雷三连数量。雷三连允许部分重合"
     tags = ["Creative", "Local", "Extensive trial"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for _pos, _ in board("F"):

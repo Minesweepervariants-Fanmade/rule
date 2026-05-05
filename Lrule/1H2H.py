@@ -19,6 +19,7 @@ class Rule1H(AbstractMinesRule):
     doc.zh_CN = "在每一行中, 要么都没有横向相邻的雷，要么都至少有一个横向相邻的雷。"
     tags = ["Variant", "Construction", "Local"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

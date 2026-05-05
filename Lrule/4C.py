@@ -18,6 +18,7 @@ class Rule4C(AbstractMinesRule):
     name.zh_CN = "十字路口"
     tags = ["Creative", "Global", "Construction", "Connectivity"]
     creation_time = "2025-08-13"
+    author = ("", 0)
 
     def suggest_total(self, info: dict):
         def a(model, total):

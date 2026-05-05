@@ -55,6 +55,7 @@ class Rule2L(AbstractClueRule):
     doc.zh_CN = "每行每列恰有一个误差线索。误差线索的值比真实值大 1 或小 1"
     tags = ["Variant", "Local", "Number Clue", "Extensive Trial", "Cryptic"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

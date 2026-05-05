@@ -14,6 +14,7 @@ class Rule1EQ(AbstractEyesightClueRule):
     tags = ["Variant", "Local", "Arrow Clue", "Aux Board", "Cryptic"]
     creation_time = "2025-09-17"
 
+    author = ("", 0)
     @staticmethod
     def direction_funcs(pos):
         def move_wan(_pos, value, k=0):

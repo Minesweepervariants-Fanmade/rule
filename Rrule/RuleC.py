@@ -22,6 +22,7 @@ class RuleC(AbstractClueRule):
     doc.zh_CN = "每个雷的雷值等于它周围八格（包括自身）的总雷数，总雷数不受此规则影响。"
     tags = ["Creative", "Local", "Number Clue", "Mine-Value"]
     creation_time = "2025-08-17"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         mines_map = {}

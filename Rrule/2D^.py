@@ -22,6 +22,7 @@ class Rule2D(AbstractClueRule):
     doc.zh_CN = "线索表示 Nx3 范围内的雷数，N 为正上连续非雷格数量"
     tags = ["Local", "Number Clue", "Creative"]
     creation_time = "2026-01-13"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

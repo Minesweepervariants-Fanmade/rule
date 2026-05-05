@@ -20,6 +20,7 @@ class RuleNSharp(AbstractClueSharp):
     doc.zh_CN = "线索只有一个取值"
     tags = ["Meta", "Local"]
     creation_time = "2025-08-29"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data: str =None) -> None:
         if data.__contains__(";"):

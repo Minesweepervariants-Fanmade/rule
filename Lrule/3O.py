@@ -20,6 +20,7 @@ class Rule3O(AbstractMinesRule):
 
     tags = ["Creative", "Global", "Construction", "Strict Shape"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

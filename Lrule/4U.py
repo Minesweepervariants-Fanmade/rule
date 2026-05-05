@@ -8,6 +8,7 @@ class Rule4U(AbstractMinesRule):
     doc.zh_CN = "第一行和最后一行雷分布相同，第一列和最后一列雷分布相同"
     tags = ["Variant", "Global", "Anti-Construction"]
     creation_time = "2026-03-05"
+    author = ("", 0)
 
     def create_constraints(self, board, switch):
         model = board.get_model()

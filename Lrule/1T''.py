@@ -22,6 +22,7 @@ class Rule1Tpp(AbstractMinesRule):
     doc.zh_CN = "每个雷属于唯一的三连组(横/竖/斜)"
     tags = ["Variant", "Global", "Construction"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

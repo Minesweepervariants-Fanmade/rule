@@ -15,6 +15,7 @@ class Rule2K(AbstractClueRule):
     doc.zh_CN = "线索表示金将范围（即上、下、左、右、左上、右上六格）内的雷数"
     tags = ["Original", "Local", "Number Clue"]
     creation_time = "2025-08-27"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

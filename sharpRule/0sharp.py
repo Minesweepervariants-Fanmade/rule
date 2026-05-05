@@ -20,6 +20,7 @@ class Rule0Sharp(AbstractClueSharp):
     doc.zh_CN = "包含以下规则: [1L], [1N], [1E'], [1M1N], [1N1X], [2M], [2X']。线索值只有零。"
     tags = ["Meta", "Local"]
     creation_time = "2025-08-27"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         rules_name = ["1L", "1N", "1E'", "1M1N", "1N1X", "2M", "2X'"]

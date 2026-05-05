@@ -15,6 +15,7 @@ class Rule2KPrime(AbstractClueRule):
     doc.zh_CN = "线索表示距离不超过 2 的范围内的雷数"
     tags = ["Local", "Number Clue", "Vanilla Variant", "Fun"]
     creation_time = "2025-08-27"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

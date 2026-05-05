@@ -8,3 +8,4 @@ class RuleBT(AbstractClueRule):
     doc.zh_CN = "不同副板规则的副板共用"
     tags = ["Creative", "Aux Board", "Meta"]
     creation_time = "2025-09-09"
+    author = ("", 0)

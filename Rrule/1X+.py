@@ -43,6 +43,7 @@ class Rule1XPlus(AbstractClueRule):
     doc.zh_CN = "线索数表示与其同行或同列的所有格子中的雷数"
     tags = ["Local", "Number Clue", "Weak", "Creative"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()
