@@ -1027,30 +1027,6 @@
         },
         {
             "rule_line": "L",
-            "id": "4T",
-            "name": {
-                "default": "Temperature",
-                "zh_CN": "\u6e29\u5ea6\u8ba1"
-            },
-            "doc": {
-                "default": "Random pattern (TBD)",
-                "zh_CN": "\u5c06\u4f1a\u968f\u673a"
-            },
-            "author": {
-                "name": "",
-                "id": ""
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Cryptic"
-            ],
-            "creation_time": "2025-08-14"
-        },
-        {
-            "rule_line": "L",
             "id": "BM",
             "name": {
                 "default": "Multi-Balance",
