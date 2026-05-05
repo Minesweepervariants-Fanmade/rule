@@ -87,7 +87,7 @@ class Rule(Abstract3DMinesRule):
         def add_constraints(model, total_var):
             nonlocal base
             # 计算乘数的上限：总雷数的最大值除以base
-            max_multiplier = total_var.Proto().domain[1] // base + 1
+            max_multiplier = ub // base + 1
             mult = model.NewIntVar(0, max_multiplier, f"mult")
             model.AddMultiplicationEquality(total_var, [mult, base])
 
@@ -95,6 +95,7 @@ class Rule(Abstract3DMinesRule):
         sizes = [info["size"][interactive] for interactive in info["interactive"]]
         d = len(info["interactive"])
         w, h = sizes[0][0], sizes[0][1]
+        ub = d * w * h
         for size in sizes[1:]:
             if w != size[0] or h != size[1]:
                 raise ValueError("保证题板尺寸相同")
