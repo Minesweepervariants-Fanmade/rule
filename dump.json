@@ -20,7 +20,7 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-30"
         },
@@ -186,7 +186,7 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-30"
         },
@@ -257,7 +257,7 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-30"
         },
@@ -330,7 +330,7 @@
             ],
             "tags": [
                 "Original",
-                "Anti-Construct",
+                "Anti-Construction",
                 "Local"
             ],
             "creation_time": "2025-08-06"
@@ -453,7 +453,7 @@
                 "Creative",
                 "Global",
                 "Strong",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2026-01-28"
         },
@@ -623,7 +623,7 @@
             ],
             "tags": [
                 "Variant",
-                "Connection",
+                "Connectivity",
                 "Strong"
             ],
             "creation_time": "2025-10-24"
@@ -1027,7 +1027,7 @@
         },
         {
             "rule_line": "L",
-            "id": "Temperature",
+            "id": "4T",
             "name": {
                 "default": "Temperature",
                 "zh_CN": "\u6e29\u5ea6\u8ba1"
@@ -1143,7 +1143,7 @@
             "tags": [
                 "Creative",
                 "Global",
-                "Extensive trial",
+                "Extensive Trial",
                 "Connectivity",
                 "Construction",
                 "Parameter"
@@ -1269,7 +1269,7 @@
                 "Global",
                 "Construction",
                 "Strong",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2026-04-09"
         },
@@ -1611,7 +1611,7 @@
             "tags": [
                 "Creative",
                 "Aux Board",
-                "Extensive trial",
+                "Extensive Trial",
                 "Local"
             ],
             "creation_time": "2025-08-06"
@@ -2259,7 +2259,8 @@
             ],
             "tags": [
                 "Original",
-                "Connection"
+                "Connectivity",
+                "Global"
             ],
             "creation_time": "2025-08-06"
         },
@@ -2335,7 +2336,7 @@
             ],
             "tags": [
                 "Variant",
-                "Connection"
+                "Connectivity"
             ],
             "creation_time": "2025-08-23"
         },
@@ -3032,7 +3033,7 @@
                 "Connectivity",
                 "Construction",
                 "Global",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-14"
         },
@@ -3325,7 +3326,7 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-26"
         }
@@ -3398,7 +3399,7 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
         },
@@ -3422,7 +3423,7 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-21"
         },
@@ -3494,7 +3495,7 @@
             "tags": [
                 "Original",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
         }
@@ -3892,7 +3893,7 @@
                 "Creative",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2026-04-10"
         },
@@ -3993,7 +3994,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2026-04-10"
         },
@@ -4147,7 +4148,7 @@
                 "Local",
                 "Number Clue",
                 "Cryptic",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
         },
@@ -4172,7 +4173,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial",
+                "Extensive Trial",
                 "Cryptic"
             ],
             "creation_time": "2026-04-19"
@@ -4223,7 +4224,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-21"
         },
@@ -4347,7 +4348,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-13"
         },
@@ -4445,7 +4446,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
         },
@@ -4572,7 +4573,7 @@
                 "Local",
                 "Number Clue",
                 "Aux Board",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-22"
         },
@@ -4596,7 +4597,7 @@
             "tags": [
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-23"
         },
@@ -4623,7 +4624,7 @@
                 "Local",
                 "Number Clue",
                 "Arrow Clue",
-                "Extensive trial",
+                "Extensive Trial",
                 "Creative"
             ],
             "creation_time": "2025-08-06"
@@ -4676,7 +4677,7 @@
                 "Creative",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-17"
         },
@@ -5030,7 +5031,7 @@
                 "Variant",
                 "Local",
                 "Cryptic",
-                "Extensive trial",
+                "Extensive Trial",
                 "Aux Board"
             ],
             "creation_time": "2025-08-06"
@@ -5130,7 +5131,7 @@
             "tags": [
                 "Local",
                 "Number Clue",
-                "Extensive trial",
+                "Extensive Trial",
                 "Creative"
             ],
             "creation_time": "2025-08-06"
@@ -5182,7 +5183,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2026-01-02"
         },
@@ -5248,8 +5249,8 @@
                 "zh_CN": "\u56db\u8054\u901a\u975e\u96f7\u683c\u7684\u7ebf\u7d22\u503c\u6c42\u5e73\u5747"
             },
             "author": {
-                "name": "",
-                "id": ""
+                "name": "NT",
+                "id": "2201963934"
             },
             "image": "",
             "aliases": [],
@@ -5308,7 +5309,7 @@
                 "Local",
                 "Number Clue",
                 "Aux Board",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-10-24"
         },
@@ -5381,7 +5382,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
         },
@@ -5457,7 +5458,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2026-01-02"
         },
@@ -5779,7 +5780,7 @@
             "tags": [
                 "Local",
                 "Number Clue",
-                "Extensive trial",
+                "Extensive Trial",
                 "Creative"
             ],
             "creation_time": "2025-08-17"
@@ -5806,7 +5807,7 @@
                 "Local",
                 "Number Clue",
                 "Aux Board",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
         },
@@ -5854,7 +5855,7 @@
             "tags": [
                 "Local",
                 "Number Clue",
-                "Extensive trial",
+                "Extensive Trial",
                 "Creative"
             ],
             "creation_time": "2025-08-06"
@@ -5881,7 +5882,7 @@
             "tags": [
                 "Local",
                 "Number Clue",
-                "Extensive trial",
+                "Extensive Trial",
                 "Creative"
             ],
             "creation_time": "2025-08-06"
@@ -5986,7 +5987,7 @@
                 "Local",
                 "Number Clue",
                 "Aux Board",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
         },
@@ -6066,7 +6067,7 @@
                 "Number Clue",
                 "Aux Board",
                 "Multi-Board",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6119,7 +6120,7 @@
                 "Number Clue",
                 "Aux Board",
                 "Multi-Board",
-                "Extensive trial",
+                "Extensive Trial",
                 "WIP"
             ],
             "creation_time": ""
@@ -6194,7 +6195,7 @@
                 "Variant",
                 "Local",
                 "Cryptic",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6243,7 +6244,7 @@
                 "Variant",
                 "Local",
                 "Cryptic",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6267,7 +6268,7 @@
                 "Variant",
                 "Local",
                 "Arrow Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6291,7 +6292,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6315,7 +6316,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6340,7 +6341,7 @@
                 "Local",
                 "Number Clue",
                 "Dyed",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6364,7 +6365,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6388,7 +6389,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6412,7 +6413,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6436,7 +6437,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6461,7 +6462,7 @@
                 "Local",
                 "Number Clue",
                 "Dyed",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6485,7 +6486,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6509,7 +6510,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6533,7 +6534,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6558,7 +6559,7 @@
                 "Local",
                 "Number Clue",
                 "Dyed",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6582,7 +6583,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6607,7 +6608,7 @@
                 "Local",
                 "Number Clue",
                 "Dyed",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6631,7 +6632,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6656,7 +6657,7 @@
                 "Local",
                 "Number Clue",
                 "Dyed",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6680,7 +6681,7 @@
                 "Variant",
                 "Local",
                 "Arrow Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6704,7 +6705,7 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6731,7 +6732,7 @@
                 "Original",
                 "Local",
                 "Number Clue",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6756,7 +6757,7 @@
                 "Local",
                 "Number Clue",
                 "Dyed",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6872,7 +6873,7 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": ""
         },
@@ -6919,7 +6920,7 @@
             "tags": [
                 "Original",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-09-06"
         },
@@ -7059,7 +7060,7 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive trial"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-31"
         },
