@@ -5140,6 +5140,31 @@
         },
         {
             "rule_line": "R",
+            "id": "RAND",
+            "name": {
+                "default": "Random",
+                "zh_CN": "\u968f\u673a\u7ebf\u7d22"
+            },
+            "doc": {
+                "default": "Clue is a randomly generated number",
+                "zh_CN": "\u7ebf\u7d22\u662f\u4e00\u4e2a\u968f\u673a\u751f\u6210\u7684\u6570\u5b57"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Fun"
+            ],
+            "creation_time": "2026-05-05"
+        },
+        {
+            "rule_line": "R",
             "id": "BIN'",
             "name": {
                 "default": "Binary'",
