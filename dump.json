@@ -2566,7 +2566,7 @@
             "rule_line": "L",
             "id": "LC",
             "name": {
-                "default": "\u5708\u5730",
+                "default": "Land Claim",
                 "zh_CN": "\u5708\u5730"
             },
             "doc": {
