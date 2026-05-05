@@ -20,6 +20,7 @@ class Rule4Y(AbstractClueRule):
     doc.zh_CN = "线索表示包含该格的最大无雷矩形区域的面积"
     tags = ["Creative", "Local", "Number Clue", "Construction"]
     creation_time = "2025-08-21"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

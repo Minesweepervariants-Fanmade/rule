@@ -17,6 +17,7 @@ In a square grid, the clue indicates the number of mines in the surrounding cell
 线索表示正方形网格中这些周围格子的雷数：上 下 左 右，奇数列(B,D,F,...)额外包括左上 右上；偶数列(A,C,E,...)额外包括左下 右下"""
     tags = ["Creative", "Local", "Number Clue"]
     creation_time = "2025-08-24"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

@@ -11,6 +11,7 @@ class Rule1L2sharp(AbstractClueSharp):
               "使用[1L2#:]以去除[1L2A]")
     tags = ["Original", "Local"]
     creation_time = "2025-08-30"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         rules_name = ["1L", "1L2X", "1L2D", "1L2M"]

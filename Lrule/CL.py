@@ -17,6 +17,7 @@ class RuleCL(AbstractMinesRule):
     doc.zh_CN = "雷区域与非雷区域之间不存在长度大于等于 2 的直线分界线"
     tags = ["Creative", "Global", "Anti-Construction"]
     creation_time = "2026-04-30"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

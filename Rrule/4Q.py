@@ -18,6 +18,7 @@ class Rule4Q(AbstractClueRule):
     doc.zh_CN = "线索表示包含该格且包含雷的 2x2 区域数"
     tags = ["Creative", "Local", "Number Clue", "Construction"]
     creation_time = "2025-09-17"
+    author = ("", 0)
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         for pos, _ in board("N"):

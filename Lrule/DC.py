@@ -14,6 +14,7 @@ class RuleDC(AbstractMinesRule):
     doc.zh_CN = "每个雷对角相邻的四格中有至少一个雷"
     tags = ["Creative", "Local", "Connectivity"]
     creation_time = "2025-08-27"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()

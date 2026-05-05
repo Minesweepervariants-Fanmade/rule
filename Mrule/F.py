@@ -20,3 +20,4 @@ class RuleF(AbstractRule0F):
     doc.zh_CN = "线索表示该格是一个非雷"
     tags = ["Original", "Local"]
     creation_time = "2025-08-06"
+    author = ("", 0)

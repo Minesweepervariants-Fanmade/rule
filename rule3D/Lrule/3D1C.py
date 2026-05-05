@@ -20,6 +20,7 @@ class Rule1C(Abstract3DMinesRule):
     doc.zh_CN = "雷区域二十六连通"
     tags = ["Creative", "Local", "Connectivity"]
     creation_time = "2025-08-30"
+    author = ("", 0)
 
     def create_constraints(self, board, switch):
         model = board.get_model()

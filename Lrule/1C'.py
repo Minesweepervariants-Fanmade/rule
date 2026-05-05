@@ -12,6 +12,7 @@ class Rule1C(AbstractMinesRule):
     doc.zh_CN = "(1) 染色格的雷和 (2) 非染色格的雷各自八连通。染色区域和非染色区域至少有一个雷。"
     tags = ["Variant", "Connection"]
     creation_time = "2025-08-23"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

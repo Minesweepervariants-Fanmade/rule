@@ -22,6 +22,7 @@ class Rule3D1Tp(Abstract3DMinesRule):
     doc.zh_CN = "雷必然处在横竖对角构成三连"
     tags = ["Creative", "Local", "Strict Shape"]
     creation_time = "2025-08-30"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

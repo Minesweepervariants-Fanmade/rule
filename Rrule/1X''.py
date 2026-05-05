@@ -23,6 +23,7 @@ class Rule1Xp(AbstractClueRule):
     doc.zh_CN = "线索表示距离为1和距离为2√2区域的总雷数"
     tags = ["Local", "Number Clue", "Vanilla Variant", "Fun"]
     creation_time = "2025-08-07"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

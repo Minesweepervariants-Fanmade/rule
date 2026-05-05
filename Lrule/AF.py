@@ -12,6 +12,7 @@ class RuleAF(AbstractMinesRule):
     doc.zh_CN = "雷区与题板下边缘四连通"
     tags = ["Creative", "Global", "Connectivity"]
     creation_time = "2026-03-15"
+    author = ("", 0)
 
     def create_constraints(self, board, switch):
         model = board.get_model()

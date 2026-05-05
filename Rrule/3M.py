@@ -29,6 +29,7 @@ class Rule3M(AbstractClueRule):
     creation_time = "2025-08-21"
 
     logger = get_logger()
+    author = ("", 0)
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         logger = get_logger()

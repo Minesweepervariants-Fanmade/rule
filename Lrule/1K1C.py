@@ -21,6 +21,7 @@ class Rule1C(AbstractMinesRule):
     doc.zh_CN = "雷区域马步连通"
     tags = ["Variant", "Global", "Connectivity"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def create_constraints(self, board, switch):
         model = board.get_model()

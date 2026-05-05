@@ -21,6 +21,7 @@ class Rule2Dp(AbstractClueRule):
     doc.zh_CN = "线索表示四方向任意偏移一格为中心的3x3区域内的总雷数(全局统一)"
     tags = ["Local", "Number Clue", "Extensive trial", "Creative"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

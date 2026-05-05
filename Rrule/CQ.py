@@ -74,6 +74,7 @@ class Rule1XStar(AbstractClueRule):
     doc.zh_CN = "线索表示八方向上雷数总和"
     tags = ["Creative", "Local", "Number Clue", "Construction"]
     creation_time = "2025-08-13"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

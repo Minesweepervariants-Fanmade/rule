@@ -23,6 +23,7 @@ class Rule1Lo(AbstractClueRule):
     doc.zh_CN = "所有线索均比真实值大2或小2或者不变"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

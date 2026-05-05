@@ -57,6 +57,7 @@ class Rule2GStar(AbstractMinesRule):
 
     tags = ["Variant", "Global", "Connectivity", "Construction", "Strict Shape"]
     creation_time = "2026-01-25"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

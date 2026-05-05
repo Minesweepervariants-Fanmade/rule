@@ -74,6 +74,7 @@ class BaseRule3N(AbstractClueRule):
     p: P = -1
     tags = ["Creative", "Local", "Number Clue", "Parameter"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def __init__(self, board: AbstractBoard, data: list[AbstractClueRule] = None):
         super().__init__(None, None)
@@ -292,3 +293,4 @@ class Rule3NInf(BaseRule3N):
     id = "3N00"
     p = '00'
     clue = Value3NInf
+    author = ("", 0)

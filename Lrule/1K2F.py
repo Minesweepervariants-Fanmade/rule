@@ -19,6 +19,7 @@ class Rule1K2F(AbstractMinesRule):
     doc.zh_CN = "染色格中的雷的八个马步位置内恰好有1个雷"
     tags = ["Variant", "Local"]
     creation_time = "2025-08-27"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

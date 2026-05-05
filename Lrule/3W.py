@@ -23,6 +23,7 @@ class Rule3W(AbstractMinesRule):
     doc.zh_CN = "每行雷数不同，每列中最高的雷的高度不低于它左边一列的最高的雷的高度（特殊情况：如果某一列没有雷，那么它左边所有列都没有雷）。"
     tags = ["Creative", "Mine-Counting", "Global", "Strict R"]
     creation_time = "2025-08-15"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

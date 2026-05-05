@@ -16,6 +16,7 @@ class Rule3DJ(Abstract3DMinesRule):  # type: ignore
     doc.zh_CN = "所有非雷格均形成1x2x1、2x1x1或1x1x2的三维矩形，即每个非雷格恰好有一个六连通相邻的非雷格(全是洞啊!!!)"
     tags = ["Creative", "Local", "Extensive trial"]
     creation_time = "2025-08-30"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

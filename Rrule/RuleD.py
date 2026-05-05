@@ -22,6 +22,7 @@ class RuleC(AbstractClueRule):
     doc.zh_CN = "如果一个雷的周围八格有四个及以上的雷，那么这个雷的雷值是0，总雷数不受此规则影响。"
     tags = ["Creative", "Local", "Number Clue", "Mine-Value"]
     creation_time = "2025-08-17"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         mines_map = {}

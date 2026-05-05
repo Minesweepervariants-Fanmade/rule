@@ -24,6 +24,8 @@ class Rule1L1E(AbstractClueRule):
     name.zh_CN = "误差 + 视野"
     doc = "Liar + Eyesight combination rule"
     tags = ["Variant", "Local", "Arrow Clue", "Extensive trial"]
+    author = ("", 0)
+    creation_time = ""
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

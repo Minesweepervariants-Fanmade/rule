@@ -221,6 +221,7 @@ class RuleSETU(AbstractMinesRule):
     doc.zh_CN = "禁止涩涩！"
     tags = ["Creative", "Parameter"]
     creation_time = "2025-10-18"
+    author = ("", 0)
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)

@@ -25,6 +25,7 @@ class Rule2Eq(AbstractClueRule):
 
     tags = ["Variant", "Local", "Cryptic", "Extensive trial", "Aux Board"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def __init__(self, data=None, board: 'AbstractBoard' = None):
         super().__init__(board, data)

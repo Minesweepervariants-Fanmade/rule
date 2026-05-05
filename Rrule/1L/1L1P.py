@@ -66,6 +66,8 @@ class Rule1L1P(AbstractClueRule):
     name.zh_CN = "误差 + 分组"
     doc = "Liar + Partition combination rule"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    author = ("", 0)
+    creation_time = ""
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

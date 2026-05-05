@@ -18,6 +18,8 @@ class Rule1L1X(AbstractClueRule):
     name.zh_CN = "误差 + 十字"
     doc = "Liar + Cross combination rule"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    author = ("", 0)
+    creation_time = ""
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
         random = get_random()

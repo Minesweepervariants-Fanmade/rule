@@ -22,6 +22,7 @@ class Rule1E(AbstractClueRule):
     doc.zh_CN = "线索表示纵向和横向的视野之差，箭头指示视野更长的方向"
     tags = ["Local", "Number Clue", "Arrow Clue", "Extensive trial", "Creative"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

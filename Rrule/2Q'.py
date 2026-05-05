@@ -38,6 +38,7 @@ class Rule2QPrime(AbstractClueRule):
     doc.zh_CN = "线索表示八方向上最近的2格有雷的方向数量"
     tags = ["Creative", "Local", "Number Clue"]
     creation_time = "2025-08-27"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

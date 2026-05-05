@@ -22,6 +22,7 @@ class Rule2A1Wl(AbstractClueRule):
 
     tags = ["Meta", "Local", "Number Clue", "Connectivity", "Multi-Board"]
     creation_time = "2026-01-18"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int]):

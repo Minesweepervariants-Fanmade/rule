@@ -30,6 +30,8 @@ class Rule1L2A(AbstractClueRule):
     name.zh_CN = "误差 + 面积"
     doc = "Liar + Area combination rule"
     tags = ["Variant", "Local", "Number Clue", "Extensive trial"]
+    author = ("", 0)
+    creation_time = ""
 
     def __init__(self, board: "AbstractBoard" = None, data=None):
         super().__init__(board, data)

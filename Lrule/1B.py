@@ -22,6 +22,7 @@ class Rule1B(AbstractMinesRule):
     doc.zh_CN = "(1) 每行雷数相等；(2) 每列雷数相等"
     tags = ["Original", "Global", "Strict R"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

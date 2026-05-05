@@ -29,6 +29,7 @@ class RuleV(AbstractClueRule):
     doc.zh_CN = "每个数字标明周围八格内雷值之和之绝对值"
     tags = ["Variant", "Local", "Number Clue", "Mine-Value"]
     creation_time = "2025-10-26"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

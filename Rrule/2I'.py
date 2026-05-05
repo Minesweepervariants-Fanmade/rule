@@ -23,6 +23,7 @@ class Rule2I(AbstractClueRule):
     doc.zh_CN = "数字表示周围8格中某N格的雷数。N格的方位被当前题板所有线索共享"
     tags = ["Local", "Number Clue", "Extensive trial", "Creative"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

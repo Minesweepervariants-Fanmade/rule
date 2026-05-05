@@ -26,6 +26,7 @@ class RuleOR(AbstractMinesRule):
     doc.zh_CN = "你可以在后面输入多个左线来表示与关系(题板将按照A规则和B规则)(规则间使用\":\"隔开)"
     tags = ["Meta", "Global", "Parameter"]
     creation_time = "2025-08-08"
+    author = ("", 0)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)

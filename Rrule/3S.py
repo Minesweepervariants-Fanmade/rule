@@ -25,6 +25,7 @@ class Rule3S(AbstractClueRule):
     doc.zh_CN = "线索代表相邻的8个格子中， 中间偏上5格范围和中间偏下5格范围里的雷数(顺序不确定)"
     tags = ["Creative", "Local", "Number Clue"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

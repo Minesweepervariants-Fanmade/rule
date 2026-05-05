@@ -66,6 +66,7 @@ class Rule1Wp(AbstractClueRule):
     doc.zh_CN = "线索表示 3x3 范围内最长的连续雷的长度"
     tags = ["Local", "Number Clue", "Extensive trial", "Creative"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

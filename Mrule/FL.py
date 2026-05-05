@@ -55,6 +55,7 @@ class RuleFL(AbstractMinesClueRule):
     tags = ["Creative", "Local", "Construction"]
     creation_time = "2026-04-09"
 
+    author = ("", 0)
     @staticmethod
     def _neighbors4(pos: AbstractPosition) -> list[AbstractPosition]:
         return [pos.up(), pos.down(), pos.left(), pos.right()]

@@ -15,3 +15,4 @@ class Rule1XStar(AbstractClueRule):
     doc.zh_CN = "线索数表示斜向和横纵所有格子中的雷数"
     tags = ["Local", "Number Clue", "Strong", "Creative"]
     creation_time = "2025-08-06"
+    author = ("", 0)

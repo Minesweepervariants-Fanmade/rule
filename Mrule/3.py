@@ -42,6 +42,7 @@ class Rule3P(AbstractMinesClueRule):
     doc.zh_CN = "雷指向的方向存在n个雷(不包括自己)"
     tags = ["Original", "Local", "Extensive trial"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

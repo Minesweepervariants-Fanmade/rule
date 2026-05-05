@@ -36,6 +36,7 @@ class Rule1Q1L(AbstractClueRule):
 
     tags = ["Variant", "Local", "Number Clue", "Cryptic", "Extensive trial"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()

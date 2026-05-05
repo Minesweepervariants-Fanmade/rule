@@ -20,6 +20,7 @@ class Rule2S(AbstractMinesRule):
     doc.zh_CN = "每行有且仅有一组连续的雷"
     tags = ["Original", "Local", "Construction"]
     creation_time = "2025-08-06"
+    author = ("", 0)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
