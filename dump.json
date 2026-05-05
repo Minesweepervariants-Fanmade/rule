@@ -2562,6 +2562,30 @@
         },
         {
             "rule_line": "L",
+            "id": "LC",
+            "name": {
+                "default": "\u5708\u5730",
+                "zh_CN": "\u5708\u5730"
+            },
+            "doc": {
+                "default": "All mine cells are on or inside an 8-connected mine ring",
+                "zh_CN": "\u6240\u6709\u96f7\u683c\u90fd\u5728\u4e00\u4e2a\u516b\u8054\u901a\u96f7\u683c\u73af\u4e0a\u6216\u5176\u5185\u90e8"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Connectivity",
+                "Global"
+            ],
+            "creation_time": "2026-05-05"
+        },
+        {
+            "rule_line": "L",
             "id": "SC",
             "name": {
                 "default": "Sugar Cane",
