@@ -8,8 +8,10 @@ from ....abs.Lrule import AbstractMinesRule
 
 class Rule5L(AbstractMinesRule):
     id = "5L"
-    name = "回路"
+    name = "Circuit"
+    name.zh_CN = "回路"
     doc = "All mine cells form a Hamiltonian circuit via 8-connectivity"
+    doc.zh_CN = "雷格八连通构成哈密顿回路"
     tags = ["Variant", "Connectivity", "Global"]
     creation_time = "2026-05-05"
     author = ("NT", 2201963934)
