@@ -136,5 +136,5 @@ class Value2E(AbstractClueValue):
         neighbors = board.batch(self.neighbors, mode="variable", drop_none=True)
 
         for index in range(len(line)):
-            model.Add(sum(neighbors) == index).OnlyEnforceIf(line[index]).OnlyEnforceIf(s)
-            model.Add(sum(neighbors) != index).OnlyEnforceIf(line[index].Not()).OnlyEnforceIf(s)
+            model.Add(sum(neighbors) == index).OnlyEnforceIf(line[index], s)
+            model.Add(sum(neighbors) != index).OnlyEnforceIf(line[index].Not(), s)
