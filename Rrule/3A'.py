@@ -19,7 +19,8 @@ def put(pos: 'AbstractPosition', board: 'AbstractBoard'):
 
 class Rule3Ap(AbstractClueRule):
     id = "3A'"
-    id = ""
+    name = ""
+    doc = ""
     tags = ["Variant", "Local", "Number Clue", "Arrow Clue", "WIP"]
     creation_time = "2025-08-06"
     author = ("", 0)

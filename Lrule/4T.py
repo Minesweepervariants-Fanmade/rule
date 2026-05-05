@@ -15,7 +15,7 @@ from minesweepervariants.utils.tool import get_random
 
 
 class Rule4T(AbstractMinesRule):
-    # id = "4T"
+    id = "4T"
     name = "Temperature"
     name.zh_CN = "温度计"
     doc = "Random pattern (TBD)"

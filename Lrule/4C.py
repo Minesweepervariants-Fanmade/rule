@@ -16,6 +16,7 @@ class Rule4C(AbstractMinesRule):
     id = "4C"
     name = "Crossing"
     name.zh_CN = "十字路口"
+    doc = ""
     tags = ["Creative", "Global", "Construction", "Connectivity"]
     creation_time = "2025-08-13"
     author = ("", 0)
