@@ -79,6 +79,11 @@ class Rule2A1P(AbstractClueRule):
         for clue in clues:
             pos, clue_obj = clue
             s = switch.get(model, clue_obj)
+
+            if (str(clue_obj) == "0"):
+                model.Add(sum(board.batch(pos.neighbors(1), mode='variable', drop_none=True)) == 0).OnlyEnforceIf(s)
+                continue
+
             unique_area_vars: List = []
             neis = [_pos for _pos in pos.neighbors(1) if board.in_bounds(_pos)]
             for i, nei in enumerate(neis):
