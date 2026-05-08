@@ -112,7 +112,7 @@ class RuleLO(AbstractClueRule):
         s = switch.get(model, self)  # 规则激活条件
 
         # 创建每个位置的开关变量
-        switch_vars = {pos: model.NewBoolVar(f"switch_{pos}") for pos, _ in board("always")}
+        switch_vars = {pos: model.new_bool_var(f"switch_{pos}") for pos, _ in board("always")}
 
         # 添加灯全灭约束（周围按下次数为偶数），仅当 s 为真时生效
         for pos, var in board("always", mode="var"):
@@ -122,14 +122,15 @@ class RuleLO(AbstractClueRule):
             total = sum(neighbor_vars)
             # 要求偶数 → 禁止所有奇数
             for odd in range(1, n + 1, 2):
-                model.Add(total != odd).OnlyEnforceIf(s)
+                model.add(total != odd).OnlyEnforceIf(s)
 
         # 处理数字格子 ValueL0 的约束
         for pos, obj in board("always"):
-            if isinstance(obj, ValueL0):
-                # 计算 3x3 范围内的开关变量
-                area = [switch_vars[p] for p in obj.neighbor if board.is_valid(p)]
-                model.Add(sum(area) == obj.value).OnlyEnforceIf(s)
+            if not isinstance(obj, ValueL0):
+                continue
+            # 计算 3x3 范围内的开关变量
+            obj: ValueL0
+            obj.create_constraints_(switch_vars, switch, board)
 
 
 class ValueL0(AbstractClueValue):
@@ -152,9 +153,9 @@ class ValueL0(AbstractClueValue):
         return bytes([self.value])
 
     def create_constraints_(
-            self, switch_vars: Dict[AbstractPosition, cp_model.IntVar],
-            switch: 'Switch', board: AbstractBoard
+        self, switch_vars: Dict[AbstractPosition, cp_model.IntVar],
+        switch: 'Switch', board: AbstractBoard
     ):
         model = board.get_model()
         s = switch.get(model, self)
-        model.add([switch_vars[pos] for pos in self.neighbor if board.is_valid(pos)] == self.value).OnlyEnforceIf(s)
+        model.add(sum([switch_vars[pos] for pos in self.neighbor if board.is_valid(pos)]) == self.value).OnlyEnforceIf(s)
