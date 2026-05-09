@@ -29,14 +29,14 @@ class Rule5L(AbstractMinesRule):
         for i, (k1, p1, mv1) in enumerate(positions):
             for j, (k2, p2, mv2) in enumerate(positions):
                 if i != j and p2 in p1.neighbors(2):
-                    v = model.NewBoolVar(f'5L_{i}_{j}')
+                    v = model.new_bool_var(f'5L_{i}_{j}')
                     arc_var[i, j] = v
                     arcs.append((i, j, v))
-                    model.Add(v == 0).OnlyEnforceIf(mv1.Not())
-                    model.Add(v == 0).OnlyEnforceIf(mv2.Not())
+                    model.add(v == 0).OnlyEnforceIf(mv1.Not())
+                    model.add(v == 0).OnlyEnforceIf(mv2.Not())
 
         # 自环跳过非雷格节点
         for i, (_, _, mv) in enumerate(positions):
             arcs.append((i, i, mv.Not()))
 
-        model.AddCircuit(arcs).OnlyEnforceIf(s)
+        model.add_circuit(arcs).OnlyEnforceIf(s)

@@ -20,14 +20,28 @@ class Rule1S(AbstractMinesRule):
         model = board.get_model()
         s = switch.get(model, self)
 
-        connect(
-            model=model,
-            board=board,
-            connect_value=1,
-            nei_value=2,
-            switch=s,
-        )
+        positions = [(k, p, v) for k in board.get_interactive_keys() for p, v in board(key=k, mode="variable")]
+        n = len(positions)
+        if n < 2:
+            return
+
+        # 边变量：八连通且两端都是雷格
+        arcs, arc_var = [], {}
+        for i, (k1, p1, mv1) in enumerate(positions):
+            for j, (k2, p2, mv2) in enumerate(positions):
+                if i != j and p2 in p1.neighbors(2):
+                    v = model.new_bool_var(f'5L_{i}_{j}')
+                    arc_var[i, j] = v
+                    arcs.append((i, j, v))
+                    model.add(v == 0).OnlyEnforceIf(mv1.Not())
+                    model.add(v == 0).OnlyEnforceIf(mv2.Not())
+
+        # 自环跳过非雷格节点
+        for i, (_, _, mv) in enumerate(positions):
+            arcs.append((i, i, mv.Not()))
+
+        model.add_circuit(arcs).OnlyEnforceIf(s)
 
         for pos, var in board(mode="variable"):
             var_list = board.batch(pos.neighbors(2), mode="variable", drop_none=True)
-            model.Add(sum(var_list) == 2).OnlyEnforceIf([var, s])
+            model.add(sum(var_list) == 2).OnlyEnforceIf([var, s])
