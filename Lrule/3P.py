@@ -12,6 +12,7 @@
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
 from minesweepervariants.impl.summon.solver import Switch
+from minesweepervariants.utils.tool import get_logger
 
 
 class Rule3P(AbstractMinesRule):
@@ -22,7 +23,7 @@ class Rule3P(AbstractMinesRule):
     doc.zh_CN = "可以通过骑士的移动方式，从某一个雷格开始，在只经过雷格的情况下，不重复且不遗漏地通过所有雷格"
     tags = ["Creative", "Connectivity", "Construction", "Global", "Extensive Trial"]
     creation_time = "2025-08-14"
-    author = ("雾", 3140864122)
+    author = ("对映", 3242525312)
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
@@ -57,47 +58,33 @@ class Rule3P(AbstractMinesRule):
         model = board.get_model()
         s = switch.get(model, self)
 
-        root_map = {pos: model.NewBoolVar(f"root[{pos}]") for pos, _ in board()}
-        id_map = {}
+        positions = [(k, p, v) for k in board.get_interactive_keys() for p, v in board(key=k, mode="variable")]
+        n = len(positions)
+        if n < 2:
+            return
 
-        for key in board.get_interactive_keys():
-            positions = [pos for pos, _ in board(key=key)]
-            for pos in positions:
-                id_map[pos] = model.NewIntVar(0, len(positions), f"id[{pos}]")
-            model.Add(sum(map(root_map.get, positions)) == 1).OnlyEnforceIf(s)
+        # 边变量：八连通且两端都是雷格
+        arcs, arc_var = [], {}
+        for i, (k1, p1, mv1) in enumerate(positions):
+            va = model.new_bool_var(f"3P_{i}_root")
+            vb = model.new_bool_var(f"3P_root_{i}")
+            arc_var[i, n] = va
+            arc_var[n, i] = vb
+            arcs.append((i, n, va))
+            arcs.append((n, i, vb))
+            model.add(va == 0).OnlyEnforceIf(mv1.Not())
+            model.add(vb == 0).OnlyEnforceIf(mv1.Not())
+            for j, (k2, p2, mv2) in enumerate(positions):
+                if i != j and p2 in self.nei_pos(board, p1):
+                    v = model.new_bool_var(f'3P_{i}_{j}')
+                    arc_var[i, j] = v
+                    arcs.append((i, j, v))
+                    model.add(v == 0).OnlyEnforceIf(mv1.Not())
+                    model.add(v == 0).OnlyEnforceIf(mv2.Not())
 
-        for pos, var in board(mode="var"):
-            model.Add(root_map[pos] == 0).OnlyEnforceIf([var.Not(), s])
-            model.Add(id_map[pos] == 1).OnlyEnforceIf([root_map[pos], s])
-            model.Add(id_map[pos] == 0).OnlyEnforceIf([var.Not(), s])
-            model.Add(id_map[pos] > 0).OnlyEnforceIf([var, s])
+        # 自环跳过非雷格节点
+        for i, (_, _, mv) in enumerate(positions):
+            arcs.append((i, i, mv.Not()))
+        arcs.append((n, n, False))
 
-        for pos, var in board(mode="var"):
-            nei_pos = self.nei_pos(board, pos)
-            tmp_list = []
-            for _pos in nei_pos:
-                tmp = model.NewBoolVar(f"tmp[{pos}->{_pos}]")
-                _var = board.get_variable(_pos)
-                model.Add(id_map[pos] == id_map[_pos] + 1).OnlyEnforceIf([tmp, s])
-                model.Add(_var == 1).OnlyEnforceIf([tmp, s])
-                tmp_list.append(tmp)
-            for _pos1 in nei_pos:
-                for _pos2 in nei_pos:
-                    if _pos1 == _pos2:
-                        continue
-                    model.Add(id_map[_pos1] != id_map[_pos2]).OnlyEnforceIf([
-                        board.get_variable(_pos1),
-                        board.get_variable(_pos2),
-                        var, s, root_map[_pos1].Not(),
-                        root_map[_pos2].Not()
-                    ])
-            model.AddBoolOr(tmp_list).OnlyEnforceIf([var, root_map[pos].Not(), s])
-
-        # for pos1, var1 in board(mode="var"):
-        #     for pos2, var2 in board(mode="var"):
-        #         if pos1 == pos2:
-        #             continue
-        #         model.Add(id_map[pos1] != id_map[pos2]).OnlyEnforceIf([
-        #             var1, var2, root_map[pos1].Not(),
-        #             root_map[pos2].Not(), s
-        #         ])
+        model.add_circuit(arcs).OnlyEnforceIf(s)
