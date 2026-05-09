@@ -25,9 +25,24 @@ class RuleBIN(AbstractClueRule):
             raise ValueError("BIN rule requires two sub-rules")
         self.rule = (data_parts[0], data_parts[1])
 
+    def _parse_rule_data(self, rule: str):
+        # 解析规则 ID 和 data
+        from minesweepervariants.impl.summon.summon import CONFIG
+        parts = rule.split(CONFIG["delimiter"], 1)
+        rule_id = parts[0]
+        data = parts[1] if len(parts) == 2 else None
+        return rule_id, data
 
     def fill(self, board: AbstractBoard) -> AbstractBoard:
-        rules = [board.get_rule_instance(self.rule[0]), board.get_rule_instance(self.rule[1])]
+        rules = [
+            board.get_rule_instance(
+                rule_name=self._parse_rule_data(self.rule[0])[0],
+                data=self._parse_rule_data(self.rule[0])[1]
+            ), board.get_rule_instance(
+                rule_name=self._parse_rule_data(self.rule[1])[0],
+                data=self._parse_rule_data(self.rule[1])[1]
+            )
+        ]
         if not all(rules):
             raise ValueError("Sub-rules for BIN are not properly defined")
         boards: List[AbstractBoard] = []
@@ -38,8 +53,12 @@ class RuleBIN(AbstractClueRule):
                 values = [boards[i].get_value(pos) for i in range(2)]
                 if get_random().randint(0, 1):
                     values[0], values[1] = values[1], values[0]
+                rule_list: tuple[str, str] = (
+                    values[0].type().decode("ascii"),
+                    values[1].type().decode("ascii")
+                )
                 value_tuple = (int(values[0].__repr__()), int(values[1].__repr__()))
-                board.set_value(pos, ValueBIN(pos, value_tuple, self.rule, None))
+                board.set_value(pos, ValueBIN(pos, value_tuple, rule_list, None))
         return board
 
 
@@ -104,11 +123,11 @@ class ValueBIN(AbstractClueValue):
         clue3 = self.get_clue(self.value[0], self.rule[1])
         clue4 = self.get_clue(self.value[1], self.rule[0])
 
-        select1 = model.NewBoolVar(f"BIN_select1_{self.pos}")
-        select2 = model.NewBoolVar(f"BIN_select2_{self.pos}")
-        model.Add(select1 == 0).OnlyEnforceIf(s.Not())
-        model.Add(select2 == 0).OnlyEnforceIf(s.Not())
-        model.Add(select1 + select2 == 1).OnlyEnforceIf(s)
+        select1 = model.new_bool_var(f"BIN_select1_{self.pos}")
+        select2 = model.new_bool_var(f"BIN_select2_{self.pos}")
+        model.add(select1 == 0).OnlyEnforceIf(s.Not())
+        model.add(select2 == 0).OnlyEnforceIf(s.Not())
+        model.add(select1 + select2 == 1).OnlyEnforceIf(s)
 
         clue1.create_constraints(board, FakeSwitch(select1))
         clue2.create_constraints(board, FakeSwitch(select1))
