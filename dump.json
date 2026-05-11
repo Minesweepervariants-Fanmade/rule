@@ -5587,6 +5587,31 @@
         },
         {
             "rule_line": "R",
+            "id": "$",
+            "name": {
+                "default": "Snowflake",
+                "zh_CN": "\u96ea\u82b1"
+            },
+            "doc": {
+                "default": "Each row and column has exactly one 'snowflake' clue. A snowflake clue counts as Vanilla (standard 8-neighbor mines). All other clues count according to the appended rule.",
+                "zh_CN": "\u6bcf\u884c\u6bcf\u5217\u6070\u6709\u4e00\u4e2a'\u96ea\u82b1'\u7ebf\u7d22\u3002\u96ea\u82b1\u7ebf\u7d22\u9ed8\u8ba4\u4f7f\u7528V\u7ebf\u7d22\u3002\u5176\u4ed6\u7ebf\u7d22\u6309\u9644\u52a0\u89c4\u5219\u8ba1\u6570\u3002"
+            },
+            "author": {
+                "name": "Boi",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2026-05-11"
+        },
+        {
+            "rule_line": "R",
             "id": "?",
             "name": {
                 "default": "Quess",
