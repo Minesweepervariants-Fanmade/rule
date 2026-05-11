@@ -5062,32 +5062,6 @@
         },
         {
             "rule_line": "R",
-            "id": "2A1W",
-            "name": {
-                "default": "Area + Wall",
-                "zh_CN": "\u9762\u79ef + \u6570\u5899"
-            },
-            "doc": {
-                "default": "Clue shows the areas of the four adjacent mine regions in the four directions",
-                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u5404\u76f8\u90bb\u96f7\u533a\u57df\u7684\u9762\u79ef"
-            },
-            "author": {
-                "name": "",
-                "id": ""
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local",
-                "Number Clue",
-                "Connectivity",
-                "Multi-Board"
-            ],
-            "creation_time": "2026-01-18"
-        },
-        {
-            "rule_line": "R",
             "id": "2D^",
             "name": {
                 "default": "Deviation^",
