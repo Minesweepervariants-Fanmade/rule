@@ -173,9 +173,9 @@ class ValueDollar(AbstractClueValue):
         snow_pos = board.get_pos(self.pos.x, self.pos.y, key=NAME_SNOW)
         is_snow = None if board[snow_pos] is None else isinstance(board[snow_pos], AbstractMinesValue)
         high_light = []
-        if is_snow is not True:
-            high_light.extend(self.get_clue(self.base_rule, self.code_value).high_light(board))
         if is_snow is not False:
+            high_light.extend(self.get_clue(self.base_rule, self.code_value).high_light(board))
+        if is_snow is not True:
             high_light.extend(self.get_clue(self.snow_rule, self.code_value).high_light(board))
         return high_light
 
