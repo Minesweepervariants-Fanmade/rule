@@ -8,7 +8,7 @@
 [2E']自指:如果字母X周围8格内有N个雷，则标有X=N的格子必定是雷。
 """
 from .....utils.impl_obj import VALUE_QUESS
-from .....utils.tool import get_random
+from .....utils.tool import get_random, get_logger
 
 from .....abs.Rrule import AbstractClueValue, AbstractClueRule
 from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
@@ -37,21 +37,22 @@ class Rule2Ep(AbstractClueRule):
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         random = get_random()
-        letter_map = {i: [] for i in range(9)}
-        for pos, _ in board("F"):
-            if pos.x not in letter_map:
-                letter_map[pos.x] = []
-            letter_map[pos.x].append(pos.y)
+        for board_key in board.get_interactive_keys():
+            letter_map = {i: [] for i in range(9)}
+            for pos, _ in board("F", key=board_key):
+                if pos.x not in letter_map:
+                    letter_map[pos.x] = []
+                letter_map[pos.x].append(pos.y)
 
-        for pos, _ in board("N"):
-            positions = pos.neighbors(2)
-            value = board.batch(positions, mode="type", drop_none=True).count("F")
-            if not letter_map[value]:
-                board.set_value(pos, VALUE_QUESS)
-                continue
-            pos_y = random.choice(letter_map[value])
-            obj = Value2Ep(pos, bytes([pos_y]))
-            board.set_value(pos, obj)
+            for pos, _ in board("N", key=board_key):
+                positions = pos.neighbors(2)
+                value = board.batch(positions, mode="type").count("F")
+                if not letter_map[value]:
+                    board.set_value(pos, VALUE_QUESS)
+                    continue
+                pos_y = random.choice(letter_map[value])
+                obj = Value2Ep(pos, bytes([pos_y]))
+                board.set_value(pos, obj)
         return board
 
 
@@ -77,10 +78,14 @@ class Value2Ep(AbstractClueValue):
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)
-        pos = board.get_pos(0, self.value)
+        pos = board.get_pos(0, self.value, key=self.pos.board_key)
         line = board.get_col_pos(pos)
         line = board.batch(line, mode="variable")
-        sum_vers = sum(board.batch(self.neighbors, mode="variable", drop_none=True))
+        neibor_list = board.batch(self.neighbors, mode="variable", drop_none=True)
+        # print(line, neibor_list, self.pos)
+        sum_vers = sum(neibor_list)
         for index in range(min(9, len(line))):
-            var = board.get_variable(board.get_pos(index, self.value))
+            var = board.get_variable(
+                board.get_pos(index, self.value, key=self.pos.board_key)
+            )
             model.Add(sum_vers != index).OnlyEnforceIf(var.Not(), s)
