@@ -5587,6 +5587,28 @@
         },
         {
             "rule_line": "R",
+            "id": "1E*",
+            "name": {
+                "default": "Eyesight@*",
+                "zh_CN": "\u89c6\u91ce@*"
+            },
+            "doc": {
+                "default": "The clue value indicates the number of grid cell centers visible from the clue, with line of sight blocked by mines (including boundaries).",
+                "zh_CN": "\u7ebf\u7d22\u503c\u8868\u793a\u7ebf\u7d22\u80fd\u770b\u5230\u7684\u683c\u4e2d\u5fc3\u70b9\u6570\uff0c\u89c6\u7ebf\u4f1a\u88ab\u96f7\uff08\u5305\u62ec\u8fb9\u754c\uff09\u963b\u6321"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Untagged"
+            ],
+            "creation_time": "2026-04-30 03:00:53"
+        },
+        {
+            "rule_line": "R",
             "id": "$",
             "name": {
                 "default": "Snowflake",
