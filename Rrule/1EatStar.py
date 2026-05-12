@@ -125,8 +125,8 @@ class Value1EatStar(AbstractClueValue):
             line = grid_cells_between(board, self.pos, pos)
             if "F" in board.batch(line, mode="type"):
                 continue
-            high_lights.append(pos)
-        return high_lights
+            high_lights.extend(line + [pos])
+        return list(set(high_lights))
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()
