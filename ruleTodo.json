@@ -2010,5 +2010,12 @@
         "author_name": "雾",
         "doc": ".",
         "image": "hello.png"
+    },
+    {
+        "time": 1778614040.7655222,
+        "name": "LC'",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "圈地：所有雷格都在一个四联通雷格环上或其内部"
     }
 ]
