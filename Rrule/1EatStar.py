@@ -63,11 +63,17 @@ def grid_cells_between(
             t_max_y += t_delta_y
         else:
             # 同时穿过水平和垂直网格线（角点）
-            # 根据您的需求，只取一个对角线方格（不重复添加）
+            # 添加横向邻居 (cur_c+step_x, cur_r)
+            cells.append(board.get_pos(cur_r, cur_c + step_x, key=end.board_key))
+            # 添加纵向邻居 (cur_c, cur_r+step_y)
+            cells.append(board.get_pos(cur_r + step_y, cur_c, key=end.board_key))
+            # 再移动至对角方格
             cur_c += step_x
             cur_r += step_y
-            x = x2 if abs(x + step_x*2 - x2) < 2 else x + step_x*2
-            y = y2 if abs(y + step_y*2 - y2) < 2 else y + step_y*2
+            cells.append(board.get_pos(cur_r, cur_c, key=end.board_key))
+            # 更新坐标和 t 值
+            x = x2 if abs(x + step_x * 2 - x2) < 2 else x + step_x * 2
+            y = y2 if abs(y + step_y * 2 - y2) < 2 else y + step_y * 2
             t_max_x += t_delta_x
             t_max_y += t_delta_y
         cells.append(board.get_pos(cur_r, cur_c, key=end.board_key))
