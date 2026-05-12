@@ -2024,5 +2024,12 @@
         "author_uid": 2201963934,
         "author_name": "NT",
         "doc": "边数：雷线索表示雷区域的边数"
+    },
+    {
+        "time": 1778615687.2421746,
+        "name": "clueshape",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "指定线索格蒙版"
     }
 ]
