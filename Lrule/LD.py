@@ -62,6 +62,8 @@ class RuleLD(AbstractMinesRule):
                 raise ValueError(f"LD 规则要求正方形棋盘, 但当前尺寸为 {rows}×{cols}")
             if rows % 2 != 0:
                 raise ValueError(f"LD 规则要求边长为偶数(2n), 但当前边长为 {rows}")
+            if rows > 10:
+                raise ValueError(f"LD 规则要求边长小于等于10的值, 但当前边长为 {rows}")
 
     def create_constraints(self, board: AbstractBoard, switch: Switch) -> None:
         model = board.get_model()
@@ -155,6 +157,4 @@ class RuleLD(AbstractMinesRule):
                 info["soft_fn"](int(total_cells * 0.5), 0)
             else:
                 # n > 5 时无法从0~4中选出n个不同值，规则不可满足
-                def impossible(model, total_var):
-                    model.Add(total_var == -1)
-                info["hard_fns"].append(impossible)
+                raise ValueError(f"LD 规则要求边长小于等于10的值, 但当前边长为 {rows}")
