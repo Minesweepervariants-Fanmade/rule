@@ -42,7 +42,8 @@ class RuleLD(AbstractMinesRule):
     id = "LD"
     name = "Latin Square"
     name.zh_CN = "拉丁方"
-    doc = "Square board of size 2n: each 2x2 block forms a region; the mine count in each region forms a Latin square (rows/cols have distinct values), and exactly n distinct values appear globally."
+    doc = ("Square board of size 2n: each 2x2 block forms a region; the mine count in each region forms a Latin square "
+           "(rows/cols have distinct values), and exactly n distinct values appear globally.")
     doc.zh_CN = "正方形题版边长为2n：将每个2x2区域视为一个单元，该区域内的雷数作为单元的值；所有单元的值构成拉丁方（每行/列值互异），且全盘总共出现n种不同的值。"
     author = ("NT", 2201963934)
     tags = ["Creative", "Global", "Construction", "Strict R"]
