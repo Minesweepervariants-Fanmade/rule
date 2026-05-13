@@ -3798,6 +3798,31 @@
         },
         {
             "rule_line": "R",
+            "id": "2P'2",
+            "name": {
+                "default": "Manhattan Product",
+                "zh_CN": "\u66fc\u54c8\u987f\u4e58\u79ef"
+            },
+            "doc": {
+                "default": "Clue value is the product of Manhattan distances to the two nearest mines",
+                "zh_CN": "\u7ebf\u7d22\u6570\u5b57\u8868\u793a\u6700\u8fd1\u7684\u4e24\u4e2a\u96f7\u7684\u66fc\u54c8\u987f\u8ddd\u79bb\u4e58\u79ef"
+            },
+            "author": {
+                "name": "\u6ce2\u5e38\u672a\u6765",
+                "id": "81500378"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2026-03-01"
+        },
+        {
+            "rule_line": "R",
             "id": "3B",
             "name": {
                 "default": "Binary",
