@@ -2041,6 +2041,31 @@
         },
         {
             "rule_line": "L",
+            "id": "Gr",
+            "name": {
+                "default": "Agreement",
+                "zh_CN": "\u4e00\u81f4"
+            },
+            "doc": {
+                "default": "For each row, there is exactly one column that has the same mine count.",
+                "zh_CN": "\u5bf9\u4e8e\u6bcf\u4e00\u884c\uff0c\u6070\u597d\u6709\u4e00\u5217\u7684\u96f7\u6570\u4e0e\u8be5\u884c\u7684\u96f7\u6570\u76f8\u540c\u3002"
+            },
+            "author": {
+                "name": "DeepSeek",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Mine-Counting",
+                "Strict R"
+            ],
+            "creation_time": "2026-05-13"
+        },
+        {
+            "rule_line": "L",
             "id": "OR",
             "name": {
                 "default": "OR",
