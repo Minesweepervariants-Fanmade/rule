@@ -362,6 +362,30 @@
         },
         {
             "rule_line": "L",
+            "id": "TP",
+            "name": {
+                "default": "TripleSegment",
+                "zh_CN": "\u4e09\u5206"
+            },
+            "doc": {
+                "default": "Each row has exactly three segments of consecutive mines, or no mines at all",
+                "zh_CN": "\u6bcf\u884c\u6070\u597d\u6709\u4e09\u6bb5\u8fde\u7eed\u96f7\u6216\u8005\u65e0\u96f7"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Construction"
+            ],
+            "creation_time": "2026-05-13"
+        },
+        {
+            "rule_line": "L",
             "id": "3O",
             "name": {
                 "default": "Orthogonal",
