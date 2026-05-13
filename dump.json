@@ -3547,6 +3547,30 @@
                 "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "M",
+            "id": "3M@",
+            "name": {
+                "default": "HeightDifference",
+                "zh_CN": "\u843d\u5dee"
+            },
+            "doc": {
+                "default": "Mine clue indicates the absolute difference between its vertical distance to the highest mine and to the lowest mine in its column",
+                "zh_CN": "\u96f7\u7ebf\u7d22\u8868\u793a\u5b83\u5230\u8be5\u5217\u6700\u9ad8\u7684\u96f7\u7684\u9ad8\u5ea6\u5dee\u4e0e\u5b83\u5230\u8be5\u5217\u6700\u4f4e\u7684\u96f7\u7684\u9ad8\u5ea6\u5dee\u7684\u5dee\u7684\u7edd\u5bf9\u503c"
+            },
+            "author": {
+                "name": "\u5c0f\u5c0f\u795e\u4e2d\u533b",
+                "id": "3086842243"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Mine-Position"
+            ],
+            "creation_time": "2026-03-01"
         }
     ],
     "R": [
