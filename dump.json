@@ -1492,6 +1492,30 @@
         },
         {
             "rule_line": "L",
+            "id": "3Q~",
+            "name": {
+                "default": "3Q~",
+                "zh_CN": "\u975e\u96f7\u6b63\u65b9"
+            },
+            "doc": {
+                "default": "All 4-connected non-mine regions form solid squares",
+                "zh_CN": "\u6240\u6709\u56db\u8fde\u901a\u7684\u975e\u96f7\u683c\u533a\u57df\u7ec4\u6210\u5b9e\u5fc3\u6b63\u65b9\u5f62"
+            },
+            "author": {
+                "name": "\u6ce2\u5e38\u672a\u6765",
+                "id": "81500378"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Connectivity",
+                "Strict Shape"
+            ],
+            "creation_time": "2026-03-01"
+        },
+        {
+            "rule_line": "L",
             "id": "1O",
             "name": {
                 "default": "Outside",
