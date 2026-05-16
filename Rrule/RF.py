@@ -129,6 +129,33 @@ class ValueRF(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
+    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+        """Return positions that contribute to the clue value.
+
+        The clue counts the number of visible non‑mine cells in the opposite
+        direction of each adjacent mine (plus a flag when any mine exists). For
+        visualisation we highlight the clue cell itself and all cells that are
+        counted as visible.
+        """
+        positions: list['AbstractPosition'] = [self.pos]
+        # Iterate over the eight neighboring positions.
+        for neighbor in self.pos.neighbors(2):
+            if board.get_type(neighbor) == "N":
+                positions.append(neighbor)
+                continue
+            elif board.get_type(neighbor) != "F":
+                continue
+            # Direction from the clue to the mine.
+            dx = neighbor.x - self.pos.x
+            dy = neighbor.y - self.pos.y
+            # Walk in the opposite direction, adding cells until a mine or the
+            # board edge is encountered.
+            cur = opposite_move(self.pos, dx, dy)
+            while board.in_bounds(cur) and board.get_type(cur) != "F":
+                positions.append(cur)
+                cur = opposite_move(cur, dx, dy)
+        return positions
+
     def create_constraints(self, board: 'AbstractBoard', switch):
         # Build CP-SAT constraints that enforce the clue value computed in ``fill``.
         # The clue counts the number of visible non‑mine cells in the opposite
