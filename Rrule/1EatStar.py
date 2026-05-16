@@ -92,7 +92,7 @@ class Rule1EatStar(AbstractClueRule):
            " with line of sight blocked by mines (including boundaries).")
     doc.zh_CN = "线索值表示线索能看到的格中心点数，视线会被雷（包括边界）阻挡"
     creation_time = "2026-04-30 03:00:53"
-    tags = ["Untagged"]
+    tags = ["Creative", "Local", "Extensive Trial", "Number Clue"]
     author = ("NT", 2201963934)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
