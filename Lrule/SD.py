@@ -46,11 +46,9 @@ class RuleSD(AbstractMinesRule):
     id = "SD"
     name = "Sudoku"
     name.zh_CN = "雷数独"
-    doc = ("Square board of size 8 or 27: each 2x2 (for size 8) or 3x3 (for size 27) block forms a region; "
-           "the mine count in each region forms a Latin square (rows/cols have distinct values), "
-           "exactly n distinct values appear globally, and each region's mine count is neither 0 nor max.")
-    doc.zh_CN = ("正方形题版边长为8或27: 将每个2×2(边长8)或3×3(边长27)区域视为一个宫，该区域内的雷数作为宫的雷数值；"
-                 "所有宫的雷数值构成拉丁方(每行/列值互异)，全盘总共出现n种不同的值，且每个宫的雷数值既不为0也不为最大值。")
+    doc = ("Latin square rules, but with the board size restricted to 8 or 27, "
+           "blocks of size 2x2 or 3x3 respectively, and the requirement that the number of mines in each block cannot be all the same.")
+    doc.zh_CN = "拉丁方规则，但是题版大小只能是8 27，且区域形状分别为2x2，3x3，且有宫内数字不能相同的要求。"
     author = ("NT", 2201963934)
     tags = ["Creative", "Global", "Construction", "Strict R"]
     creation_time = "2026-05-15"
