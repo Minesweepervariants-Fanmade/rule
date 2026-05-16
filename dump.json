@@ -5959,6 +5959,30 @@
         },
         {
             "rule_line": "R",
+            "id": "RF",
+            "name": {
+                "default": "Reflect",
+                "zh_CN": "\u53cd\u5c04"
+            },
+            "doc": {
+                "default": "Clue indicates the number of visible cells in the opposite direction of each adjacent mine; mines block sight.",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5468\u56f4\u516b\u683c\u4e2d\uff0c\u6709\u96f7\u7684\u65b9\u5411\u76f8\u53cd\u7684\u65b9\u5411\u53ef\u4ee5\u770b\u5230\u7684\u683c\u6570\u3002\u96f7\u4f1a\u906e\u6321\u89c6\u7ebf\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "RF.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2026-04-29"
+        },
+        {
+            "rule_line": "R",
             "id": "1X-",
             "name": {
                 "default": "Pawn",
