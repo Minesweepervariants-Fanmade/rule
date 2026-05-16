@@ -1995,14 +1995,14 @@
                 "zh_CN": "\u4e09\u5206"
             },
             "doc": {
-                "default": "Each row has exactly three segments of consecutive mines, or no mines at all",
-                "zh_CN": "\u6bcf\u884c\u6070\u597d\u6709\u4e09\u6bb5\u8fde\u7eed\u96f7\u6216\u8005\u65e0\u96f7"
+                "default": "Each row is divided into exactly three contiguous segments (Mine-NonMine-Mine or NonMine-Mine-NonMine), each segment at least one cell",
+                "zh_CN": "\u6bcf\u884c\u6070\u597d\u5206\u6210\u4e09\u4e2a\u8fde\u7eed\u533a\u57df\uff08\u96f7-\u975e\u96f7-\u96f7 \u6216 \u975e\u96f7-\u96f7-\u975e\u96f7\uff09\uff0c\u6bcf\u6bb5\u81f3\u5c11\u4e00\u683c"
             },
             "author": {
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "",
+            "image": "TP.png",
             "aliases": [],
             "tags": [
                 "Creative",
