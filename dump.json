@@ -1446,6 +1446,31 @@
         },
         {
             "rule_line": "L",
+            "id": "SD",
+            "name": {
+                "default": "Sudoku",
+                "zh_CN": "\u96f7\u6570\u72ec"
+            },
+            "doc": {
+                "default": "Square board of size 8 or 27: each 2x2 (for size 8) or 3x3 (for size 27) block forms a region; the mine count in each region forms a Latin square (rows/cols have distinct values), exactly n distinct values appear globally, and each region's mine count is neither 0 nor max.",
+                "zh_CN": "\u6b63\u65b9\u5f62\u9898\u7248\u8fb9\u957f\u4e3a8\u621627: \u5c06\u6bcf\u4e2a2\u00d72(\u8fb9\u957f8)\u62163\u00d73(\u8fb9\u957f27)\u533a\u57df\u89c6\u4e3a\u4e00\u4e2a\u5bab\uff0c\u8be5\u533a\u57df\u5185\u7684\u96f7\u6570\u4f5c\u4e3a\u5bab\u7684\u96f7\u6570\u503c\uff1b\u6240\u6709\u5bab\u7684\u96f7\u6570\u503c\u6784\u6210\u62c9\u4e01\u65b9(\u6bcf\u884c/\u5217\u503c\u4e92\u5f02)\uff0c\u5168\u76d8\u603b\u5171\u51fa\u73b0n\u79cd\u4e0d\u540c\u7684\u503c\uff0c\u4e14\u6bcf\u4e2a\u5bab\u7684\u96f7\u6570\u503c\u65e2\u4e0d\u4e3a0\u4e5f\u4e0d\u4e3a\u6700\u5927\u503c\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Construction",
+                "Strict R"
+            ],
+            "creation_time": "2026-05-15"
+        },
+        {
+            "rule_line": "L",
             "id": "2Z'",
             "name": {
                 "default": "Zero-Sum'",
