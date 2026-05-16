@@ -23,11 +23,11 @@
 
 4) fill 阶段语义与 create_constraints 阶段语义等价关系:
     - 无 fill 阶段，仅在 create_constraints 中建模。
-    - 约束语义: 每行/列块值互异，全局不同值的总数等于 n，且每个块值在1~max-1之间。
+    - 约束语义: 每行/列块值互异，全局不同值的总数等于 n，且每个块值在0~max之间。
 
 5) 可验证样例:
     - 样例A(应通过): 8×8棋盘(4×4个2×2块), n=4, 块值矩阵为 [[1,2,3,4],[2,1,4,3],[3,4,1,2],[4,3,2,1]],
-      满足行/列互异, 全局值{1,2,3,4}共4种, 每块值均在1~3之间。
+      满足行/列互异, 全局值{1,2,3,4}共4种, 每块值均在0~4之间。
     - 样例B(应失败): 8×8棋盘, 块值矩阵为 [[0,0,0,0],[1,1,1,1],[2,2,2,2],[3,3,3,3]],
       行/列有重复(每行值全相同), 且0和全4不符合"宫内数字不能相同"。
     - 样例C(应失败): 尺寸为10时抛出 ValueError。
@@ -116,11 +116,16 @@ class RuleSD(AbstractMinesRule):
             for j in range(n):
                 model.AddAllDifferent([block_vals[i][j] for i in range(n)]).OnlyEnforceIf(s)
 
-            # 宫内数字不能相同: 每个块值在 0~n 之间，两端都可取
-            for i in range(n):
-                for j in range(n):
-                    model.Add(block_vals[i][j] >= 0).OnlyEnforceIf(s)
-                    model.Add(block_vals[i][j] <= n).OnlyEnforceIf(s)
+            # 宫内数字不能相同: 每个宫(block_vals的子矩阵)内的块值互不相同
+            # n=4 时宫大小为 2x2 块, n=9 时宫大小为 3x3 块
+            palace_size = block_size  # 宫在块矩阵中的尺寸 = 块尺寸
+            for pi in range(0, n, palace_size):
+                for pj in range(0, n, palace_size):
+                    palace_cells = []
+                    for di in range(palace_size):
+                        for dj in range(palace_size):
+                            palace_cells.append(block_vals[pi + di][pj + dj])
+                    model.AddAllDifferent(palace_cells).OnlyEnforceIf(s)
 
             # 全局值种类数 == n
             if n <= 4:
