@@ -158,11 +158,11 @@ class RuleSD(AbstractMinesRule):
                 n = 9
                 max_val = 9
 
-            # 每个块的值必须在 1~max-1 之间
-            # n 个块，每个块值是 1~max-1 的某个值，且全局恰好有 n 种不同值
-            # 可行的块值集合是 {1, 2, ..., max-1} 的某个 n 元素子集
+            # 每个块的值必须在 0~max 之间
+            # n 个块，每个块值是 0~max 的某个值，且全局恰好有 n 种不同值
+            # 可行的块值集合是 {0, 1, ..., max} 的某个 n 元素子集
             feasible_totals = set()
-            for comb in combinations(range(1, max_val), n):
+            for comb in combinations(range(0, max_val+1), n):
                 s = sum(comb)
                 feasible_totals.add(n * s)
             if not feasible_totals:
