@@ -1817,6 +1817,30 @@
         },
         {
             "rule_line": "L",
+            "id": "First",
+            "name": {
+                "default": "First",
+                "zh_CN": "\u9996\u96f7\u53cc\u503c"
+            },
+            "doc": {
+                "default": "The leftmost mine in each row counts as two mines",
+                "zh_CN": "\u6bcf\u884c\u7684\u5de6\u6570\u7b2c\u4e00\u4e2a\u96f7\u89c6\u4e3a\u4e24\u4e2a\u96f7"
+            },
+            "author": {
+                "name": "Artless",
+                "id": "2452944138"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Mine-Value",
+                "Local"
+            ],
+            "creation_time": "2026-05-17"
+        },
+        {
+            "rule_line": "L",
             "id": "Gd",
             "name": {
                 "default": "Descending",
