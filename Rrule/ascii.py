@@ -8,7 +8,7 @@ Rule: ascii
 33~62, 64, 65~90, 91~96, 123~126 -> 保持原数字
 32 -> 该格不填充线索
 63 -> 该格填充问号线索
-97~122 -> 原数-36
+97~122 -> 原数-32
 """
 
 from ortools.sat.python.cp_model import CpModel, IntVar
@@ -72,7 +72,7 @@ class RuleAscii(AbstractClueRule):
             elif 33 <= byte_val <= 62 or byte_val == 64 or 65 <= byte_val <= 90 or 91 <= byte_val <= 96 or 123 <= byte_val <= 126:
                 display_val = byte_val
             elif 97 <= byte_val <= 122:
-                display_val = byte_val - 36
+                display_val = byte_val - 32
             else:
                 # Should not occur; treat as 0
                 display_val = 0
@@ -141,9 +141,9 @@ class ValueAscii(AbstractClueValue):
             )
             if self.value in allowed_original:
                 possible_originals.append(self.value)
-            # original could be display+36 (maps from 97‑122)
-            if 97 <= self.value + 36 <= 122:
-                possible_originals.append(self.value + 36)
+            # original could be display+32 (maps from 97‑122)
+            if 97 <= self.value + 32 <= 122:
+                possible_originals.append(self.value + 32)
 
         # Create an auxiliary variable for the weighted sum and restrict it to the possible originals
         sum_var = model.NewIntVar(0, 255, f"ascii_sum_{self.pos}")
