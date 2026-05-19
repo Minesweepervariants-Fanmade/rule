@@ -4632,6 +4632,32 @@
         },
         {
             "rule_line": "R",
+            "id": "1Wp",
+            "name": {
+                "default": "1Wplus",
+                "zh_CN": "\u5341\u516d\u8fdb\u5236\u7ebf\u7d22"
+            },
+            "doc": {
+                "default": "Clue shows two hex digits representing mine pattern in 8 neighbors clockwise",
+                "zh_CN": "\u6570\u5b57\u7ebf\u7d22\u662f\u4e24\u4e2a\u5341\u516d\u8fdb\u5236\u6570\u5b57\uff0c\u4ee3\u8868\u4ece\u67d0\u4e2a\u683c\u5b50\u987a\u65f6\u9488\u65cb\u8f6c\u540e\u96f7\u4ee3\u88681\u975e\u96f7\u4ee3\u88680\u76848\u4f4d\u4e8c\u8fdb\u5236\u6570\u5b57\u8f6c\u4e3a\u5341\u516d\u8fdb\u5236"
+            },
+            "author": {
+                "name": "\u96fe (3140864122)",
+                "id": "-1"
+            },
+            "image": "",
+            "aliases": [
+                "Wp"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Creative"
+            ],
+            "creation_time": "2026-05-19"
+        },
+        {
+            "rule_line": "R",
             "id": "2*1L",
             "name": {
                 "default": "Double Liar",
