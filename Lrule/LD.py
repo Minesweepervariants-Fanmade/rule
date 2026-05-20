@@ -36,6 +36,9 @@ from ortools.sat.python.cp_model import IntVar
 from ....abs.Lrule import AbstractMinesRule
 from ....abs.board import AbstractBoard
 from ....impl.summon.solver import Switch
+from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
+
+NAME_LD_AUXILIARY = "LD_AUXILIARY"
 
 
 class RuleLD(AbstractMinesRule):
@@ -51,9 +54,16 @@ class RuleLD(AbstractMinesRule):
 
     def __init__(self, board: AbstractBoard = None, data=None) -> None:
         super().__init__(board, data)
+        # 解析 data 参数：以 ! 开头时启用副板模式
+        self.use_auxiliary = False
+        if isinstance(data, str) and data.startswith("!"):
+            self.use_auxiliary = True
+            data = data[1:]  # 去掉 ! 前缀
+
         if board is None:
             return
         # 验证棋盘尺寸是否为偶数正方形
+        size_ref = None
         for key in board.get_interactive_keys():
             bound = board.boundary(key)
             rows = bound.x + 1
@@ -64,6 +74,110 @@ class RuleLD(AbstractMinesRule):
                 raise ValueError(f"LD 规则要求边长为偶数(2n), 但当前边长为 {rows}")
             if rows > 10:
                 raise ValueError(f"LD 规则要求边长小于等于10的值, 但当前边长为 {rows}")
+            if size_ref is None:
+                size_ref = rows
+            elif rows != size_ref:
+                raise ValueError("LD 规则要求所有题板尺寸一致, 以便生成统一副板")
+
+        if self.use_auxiliary and size_ref is not None:
+            n = size_ref // 2
+            board.generate_board(NAME_LD_AUXILIARY, (3 * n, 3 * n))
+            board.set_config(NAME_LD_AUXILIARY, "pos_label", True)
+
+    def init_board(self, board: AbstractBoard):
+        if not board.get_interactive_keys():
+            return
+        if not self.use_auxiliary:
+            return board
+
+        # 先清空副板
+        for pos, _ in board(key=NAME_LD_AUXILIARY):
+            board.set_value(pos, VALUE_CROSS)
+
+        labels = {}
+        for key in board.get_interactive_keys():
+            bound = board.boundary(key)
+            size = bound.x + 1
+            n = size // 2
+
+            for i in range(n):
+                for j in range(n):
+                    pos_tl = board.get_pos(2 * i, 2 * j, key)
+                    pos_tr = board.get_pos(2 * i, 2 * j + 1, key)
+                    pos_bl = board.get_pos(2 * i + 1, 2 * j, key)
+                    pos_br = board.get_pos(2 * i + 1, 2 * j + 1, key)
+
+                    block_value = 0
+                    for p in (pos_tl, pos_tr, pos_bl, pos_br):
+                        if board.get_type(p) == "F":
+                            block_value += 1
+
+                    indicator_positions = [
+                        (board.get_pos(3 * i, 3 * j, NAME_LD_AUXILIARY), 1),
+                        (board.get_pos(3 * i, 3 * j + 1, NAME_LD_AUXILIARY), 2),
+                        (board.get_pos(3 * i + 1, 3 * j, NAME_LD_AUXILIARY), 3),
+                        (board.get_pos(3 * i + 1, 3 * j + 1, NAME_LD_AUXILIARY), 4),
+                        (board.get_pos(3 * i + 2, 3 * j + 2, NAME_LD_AUXILIARY), 0),
+                    ]
+
+                    for pos, value in indicator_positions:
+                        if value == block_value:
+                            board.set_value(pos, VALUE_CIRCLE)
+                        else:
+                            board.set_value(pos, VALUE_CROSS)
+                        labels[pos] = f"R={value}"
+
+                    # 无效位置设为CROSS并设置标签
+                    invalid_positions = [
+                        board.get_pos(3 * i, 3 * j + 2, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i + 1, 3 * j + 2, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i + 2, 3 * j, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i + 2, 3 * j + 1, NAME_LD_AUXILIARY),
+                    ]
+                    for pos in invalid_positions:
+                        board.set_value(pos, VALUE_CROSS)
+                        labels[pos] = "R=X"
+
+        board.set_config(NAME_LD_AUXILIARY, "labels", labels)
+        return board
+
+    def init_clear(self, board: AbstractBoard):
+        if not self.use_auxiliary:
+            return
+        for key in board.get_interactive_keys():
+            bound = board.boundary(key)
+            size = bound.x + 1
+            n = size // 2
+
+            # 遍历每个3x3块，只清除有效位置为None；无效位置保持为CROSS
+            for i in range(n):
+                for j in range(n):
+                    # 有效指示位置: 1,2,3,4,0 分别在 (0,0),(0,1),(1,0),(1,1),(2,2)
+                    valid_positions = [
+                        board.get_pos(3 * i, 3 * j, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i, 3 * j + 1, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i + 1, 3 * j, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i + 1, 3 * j + 1, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i + 2, 3 * j + 2, NAME_LD_AUXILIARY),
+                    ]
+                    for pos in valid_positions:
+                        board.set_value(pos, None)
+
+                    # 无效位置设为CROSS
+                    invalid_positions = [
+                        board.get_pos(3 * i, 3 * j + 2, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i + 1, 3 * j + 2, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i + 2, 3 * j, NAME_LD_AUXILIARY),
+                        board.get_pos(3 * i + 2, 3 * j + 1, NAME_LD_AUXILIARY),
+                    ]
+                    for pos in invalid_positions:
+                        board.set_value(pos, VALUE_CROSS)
+
+                    # 同时清除无效位置的标签
+                    labels = board.get_config(NAME_LD_AUXILIARY, "labels") or {}
+                    for pos in invalid_positions:
+                        labels[pos] = "R=X"
+                    board.set_config(NAME_LD_AUXILIARY, "labels", labels)
 
     def create_constraints(self, board: AbstractBoard, switch: Switch) -> None:
         model = board.get_model()
@@ -84,17 +198,51 @@ class RuleLD(AbstractMinesRule):
                     pos_tr = board.get_pos(2*i, 2*j+1, key)
                     pos_bl = board.get_pos(2*i+1, 2*j, key)
                     pos_br = board.get_pos(2*i+1, 2*j+1, key)
-                    # 收集四个格子的原始雷变量
+
                     vars_block = []
                     for p in (pos_tl, pos_tr, pos_bl, pos_br):
                         var = board.get_variable(p, special='raw')
-                        if var is None:
-                            continue
-                        vars_block.append(var)
-                    # 块值变量
+                        if var is not None:
+                            vars_block.append(var)
+
+                    block_sum = model.NewIntVar(0, 4, f"LD_block_sum_{key}_{i}_{j}")
+                    model.Add(block_sum == sum(vars_block)).OnlyEnforceIf(s)
+
+                    if self.use_auxiliary:
+                        pos_1 = board.get_pos(3 * i, 3 * j, NAME_LD_AUXILIARY)
+                        pos_2 = board.get_pos(3 * i, 3 * j + 1, NAME_LD_AUXILIARY)
+                        pos_3 = board.get_pos(3 * i + 1, 3 * j, NAME_LD_AUXILIARY)
+                        pos_4 = board.get_pos(3 * i + 1, 3 * j + 1, NAME_LD_AUXILIARY)
+                        pos_0 = board.get_pos(3 * i + 2, 3 * j + 2, NAME_LD_AUXILIARY)
+
+                        var_1 = board.get_variable(pos_1)
+                        var_2 = board.get_variable(pos_2)
+                        var_3 = board.get_variable(pos_3)
+                        var_4 = board.get_variable(pos_4)
+                        var_0 = board.get_variable(pos_0)
+
+                        indicator_vars = [var_1, var_2, var_3, var_4, var_0]
+                        if all(v is not None for v in indicator_vars):
+                            model.AddExactlyOne(indicator_vars).OnlyEnforceIf(s)
+
+                        for value, var in [(1, var_1), (2, var_2), (3, var_3), (4, var_4), (0, var_0)]:
+                            if var is None:
+                                continue
+                            model.Add(block_sum == value).OnlyEnforceIf([var, s])
+                            model.Add(block_sum != value).OnlyEnforceIf([var.Not(), s])
+
+                        for pos in (
+                            board.get_pos(3 * i, 3 * j + 2, NAME_LD_AUXILIARY),
+                            board.get_pos(3 * i + 1, 3 * j + 2, NAME_LD_AUXILIARY),
+                            board.get_pos(3 * i + 2, 3 * j, NAME_LD_AUXILIARY),
+                            board.get_pos(3 * i + 2, 3 * j + 1, NAME_LD_AUXILIARY),
+                        ):
+                            aux_var = board.get_variable(pos)
+                            if aux_var is not None:
+                                model.Add(aux_var == 0).OnlyEnforceIf(s)
+
                     bv = model.NewIntVar(0, 4, f"LD_block_{key}_{i}_{j}")
-                    # 约束: bv == sum(vars_block)
-                    model.Add(bv == sum(vars_block)).OnlyEnforceIf(s)
+                    model.Add(bv == block_sum).OnlyEnforceIf(s)
                     row_vals.append(bv)
                 block_vals.append(row_vals)
 
@@ -130,13 +278,13 @@ class RuleLD(AbstractMinesRule):
     def suggest_total(self, info: dict) -> None:
         """总雷数约束：对于 n<=4 添加硬约束确保拉丁方可行总雷数；对于 n=5 只添加软建议，避免过度限制；n>5 不可行。"""
         from itertools import combinations
-        
+
         for key in info["interactive"]:
             size = info["size"][key]
             if size[0] != size[1] or size[0] % 2 != 0:
                 continue
             n = size[0] // 2
-            
+
             if n <= 4:
                 # 生成所有可能的拉丁方总雷数
                 feasible_values = set()
@@ -157,4 +305,4 @@ class RuleLD(AbstractMinesRule):
                 info["soft_fn"](int(total_cells * 0.5), 0)
             else:
                 # n > 5 时无法从0~4中选出n个不同值，规则不可满足
-                raise ValueError(f"LD 规则要求边长小于等于10的值, 但当前边长为 {rows}")
+                raise ValueError(f"LD 规则要求边长小于等于10的值, 但当前边长为 {size[0]}")
