@@ -352,6 +352,13 @@ class Rule1Eat(AbstractClueRule):
     creation_time = "2026-04-30 00:21:47"
     author = ("NT", 2201963934)
 
+    def __init__(self, board: AbstractBoard = None, data=None) -> None:
+        super().__init__(board, data)
+        self.all_integer = False
+        if isinstance(data, str):
+            if "!" in data:
+                self.all_integer = True
+
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for key in board.get_interactive_keys():
             for pos, _ in board("N", key=key):
@@ -359,7 +366,7 @@ class Rule1Eat(AbstractClueRule):
                 board[pos] = obj
         return board
 
-    def get_obj(self, board: 'AbstractBoard', pos: 'AbstractPosition') -> 'Value1Eat':
+    def get_obj(self, board: 'AbstractBoard', pos: 'AbstractPosition') -> Optional['Value1Eat']:
         checked_points = _get_all_point(board, pos)
         edge_list = _get_edges(board, checked_points)
         area = _get_area(pos, edge_list)
@@ -374,7 +381,9 @@ class Rule1Eat(AbstractClueRule):
             for point_a, point_b in edge_list]
         ) + "}}")
         logger.debug(f"area: {area}")
-
+        if self.all_integer:
+            if area.denominator != 1:
+                return None
         return Value1Eat(pos, code=encode_int(area.numerator) + encode_int(area.denominator))
 
 
