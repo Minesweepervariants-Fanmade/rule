@@ -1352,14 +1352,6 @@
     {
         "author_name": "Jsky单推人",
         "author_uid": 2638680527,
-        "doc": ".",
-        "image": "光.png",
-        "name": "光",
-        "time": 1776389142.6105218
-    },
-    {
-        "author_name": "Jsky单推人",
-        "author_uid": 2638680527,
         "doc": "线索表示距离最近的 3 个雷的距离之积",
         "image": "2P''.png",
         "name": "2P''",
