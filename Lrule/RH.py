@@ -26,7 +26,7 @@ class RuleRH(AbstractMinesRule):
     tags = ["Variant", "Mine-Value", "Local"]
     creation_time = "2026-05-17"
     lib_only = True
-    author = ("Artless", 2452944138)
+    author = ("NT", 2452944138)
 
     def __init__(self, board=None, data=None) -> None:
         super().__init__(board, data)
