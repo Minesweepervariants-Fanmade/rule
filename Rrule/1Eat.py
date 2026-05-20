@@ -6,7 +6,7 @@
 # @FileName: 1Eat.py
 import math
 from dataclasses import dataclass
-from typing import Optional, Tuple, Dict
+from typing import Optional, Tuple, Set
 from fractions import Fraction
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
@@ -204,6 +204,139 @@ def link_pos2gridPoint(
     return GridPoint(check_x, check_y)
 
 
+def _get_all_point(board: 'AbstractBoard', pos: 'AbstractPosition') -> Set[GridPoint]:
+    checked = {pos}
+    visited = set()
+
+    visited_points = set()
+    checked_points = set()  # 可以被连线的格点
+
+    while checked:
+        _checked = set()
+        for check in checked:
+            if check in visited_points:
+                continue
+            visited.add(check)
+            # check的4个格点
+            for dx, dy in ((0, 0), (0, 1), (1, 0), (1, 1)):
+                point = GridPoint(check.y + dy, check.x + dx)
+                if point in visited_points:
+                    continue
+                visited_points.add(point)
+
+                # 检查该格点是否处于某个边界上 即四格是否右边界或雷
+                if all(
+                        point.y + dy >= 0 and point.x + dx >= 0
+                        for dx, dy in ((0, 0), (0, -1), (-1, 0), (-1, -1))
+                ):
+                    check_positiones = [
+                        board.get_pos(int(point.y + dy), int(point.x + dx))
+                        for dx, dy in ((0, 0), (0, -1), (-1, 0), (-1, -1))
+                    ]
+                    if (
+                            (None not in check_positiones) and
+                            all(
+                                (board.get_type(check_pos) in "NC")
+                                for check_pos in check_positiones
+                            )
+                    ):
+                        continue
+
+                extension_point = link_pos2gridPoint(board, pos, point)
+                if extension_point is None:
+                    continue
+                checked_points.add(point)
+                if extension_point not in checked_points:
+                    checked_points.add(extension_point)
+
+            # check的上下左右pos
+            for _check in check.neighbors(1, 1):
+                if _check in visited:
+                    continue
+                if not board.is_valid(_check):
+                    continue
+                if board.get_type(_check) not in "NC":
+                    continue
+                _checked.add(_check)
+        checked = _checked
+    return checked_points
+
+
+def _get_edges(board: 'AbstractBoard', checked_points: Set[GridPoint]) -> Set[EdgePoint]:
+    edge_list = set()
+    for point in checked_points:
+        on_edge = []
+        if (
+                point.x != int(point.x) and
+                point.y != int(point.y)
+        ):
+            raise ValueError("未落在格点或边上")
+        if point.y != int(point.y):
+            on_edge.append(EdgePoint(
+                GridPoint(point.x, int(point.y)),
+                GridPoint(point.x, int(point.y) + 1),
+            ))
+        elif point.x != int(point.x):
+            on_edge.append(EdgePoint(
+                GridPoint(int(point.x), point.y),
+                GridPoint(int(point.x) + 1, point.y),
+            ))
+        else:
+            for dx, dy in ((0, 1), (0, -1), (1, 0), (-1, 0)):
+                on_edge.append(EdgePoint(
+                    point, GridPoint(point.x + dx, point.y + dy),
+                ))
+        for check_point in checked_points:
+            if check_point == point:
+                continue
+            if not any(check_point in edge for edge in on_edge):
+                continue
+            if point.x == check_point.x:
+                check_pos_a_y = check_pos_b_y = math.floor(min(
+                    point.y, check_point.y
+                ))
+                check_pos_a_x = int(point.x)
+                check_pos_b_x = int(point.x - 1)
+            elif point.y == check_point.y:
+                check_pos_a_x = check_pos_b_x = math.floor(min(
+                    point.x, check_point.x
+                ))
+                check_pos_a_y = int(point.y)
+                check_pos_b_y = int(point.y - 1)
+            else:
+                raise ValueError("该点未依附任何边")
+            if not (
+                    check_pos_a_x < 0 or
+                    check_pos_a_y < 0 or
+                    check_pos_b_x < 0 or
+                    check_pos_b_y < 0
+            ):
+                check_pos_a = board.get_pos(check_pos_a_y, check_pos_a_x)
+                check_pos_b = board.get_pos(check_pos_b_y, check_pos_b_x)
+                if (
+                        check_pos_a is not None and
+                        check_pos_b is not None and
+                        board.get_type(check_pos_a) in "NC" and
+                        board.get_type(check_pos_b) in "NC"
+                ):
+                    continue
+            edge_list.add(EdgePoint(
+                point, check_point
+            ))
+    return edge_list
+
+
+def _get_area(pos: 'AbstractPosition', edge_list: Set[EdgePoint]) -> Fraction:
+    area = Fraction(0)
+    for edge in edge_list:
+        pos_value, is_y = edge.on()
+        high = Fraction(abs(pos_value - (pos.x + 0.5 if is_y else pos.y + 0.5)))
+        base = edge.length()
+        area += high * base / 2
+
+    return area
+
+
 class Rule1Eat(AbstractClueRule):
     id = "1E@"
     name = "Eyesight@"
@@ -223,129 +356,9 @@ class Rule1Eat(AbstractClueRule):
         return board
 
     def get_obj(self, board: 'AbstractBoard', pos: 'AbstractPosition') -> 'Value1Eat':
-        checked = {pos}
-        visited = set()
-
-        visited_points = set()
-        checked_points = set()   # 可以被连线的格点
-
-        while checked:
-            _checked = set()
-            for check in checked:
-                if check in visited_points:
-                    continue
-                visited.add(check)
-                # check的4个格点
-                for dx, dy in ((0, 0), (0, 1), (1, 0), (1, 1)):
-                    point = GridPoint(check.y + dy, check.x + dx)
-                    if point in visited_points:
-                        continue
-                    visited_points.add(point)
-
-                    # 检查该格点是否处于某个边界上 即四格是否右边界或雷
-                    if all(
-                        point.y + dy >= 0 and point.x + dx >= 0
-                        for dx, dy in ((0, 0), (0, -1), (-1, 0), (-1, -1))
-                    ):
-                        check_positiones = [
-                            board.get_pos(int(point.y + dy), int(point.x + dx))
-                            for dx, dy in ((0, 0), (0, -1), (-1, 0), (-1, -1))
-                        ]
-                        if (
-                            (None not in check_positiones) and
-                            all(
-                                (board.get_type(check_pos) in "NC")
-                                for check_pos in check_positiones
-                            )
-                        ):
-                            continue
-
-                    extension_point = link_pos2gridPoint(board, pos, point)
-                    if extension_point is None:
-                        continue
-                    checked_points.add(point)
-                    if extension_point not in checked_points:
-                        checked_points.add(extension_point)
-
-                # check的上下左右pos
-                for _check in check.neighbors(1, 1):
-                    if _check in visited:
-                        continue
-                    if not board.is_valid(_check):
-                        continue
-                    if board.get_type(_check) not in "NC":
-                        continue
-                    _checked.add(_check)
-            checked = _checked
-
-        edge_list = set()
-        for point in checked_points:
-            on_edge = []
-            if (
-                point.x != int(point.x) and
-                point.y != int(point.y)
-            ):
-                raise ValueError("未落在格点或边上")
-            if point.y != int(point.y):
-                on_edge.append(EdgePoint(
-                    GridPoint(point.x, int(point.y)),
-                    GridPoint(point.x, int(point.y) + 1),
-                ))
-            elif point.x != int(point.x):
-                on_edge.append(EdgePoint(
-                    GridPoint(int(point.x), point.y),
-                    GridPoint(int(point.x) + 1, point.y),
-                ))
-            else:
-                for dx, dy in ((0, 1), (0, -1), (1, 0), (-1, 0)):
-                    on_edge.append(EdgePoint(
-                        point, GridPoint(point.x + dx, point.y + dy),
-                    ))
-            for check_point in checked_points:
-                if check_point == point:
-                    continue
-                if not any(check_point in edge for edge in on_edge):
-                    continue
-                if point.x == check_point.x:
-                    check_pos_a_y = check_pos_b_y = math.floor(min(
-                        point.y, check_point.y
-                    ))
-                    check_pos_a_x = int(point.x)
-                    check_pos_b_x = int(point.x - 1)
-                elif point.y == check_point.y:
-                    check_pos_a_x = check_pos_b_x = math.floor(min(
-                        point.x, check_point.x
-                    ))
-                    check_pos_a_y = int(point.y)
-                    check_pos_b_y = int(point.y - 1)
-                else:
-                    raise ValueError("该点未依附任何边")
-                if not (
-                    check_pos_a_x < 0 or
-                    check_pos_a_y < 0 or
-                    check_pos_b_x < 0 or
-                    check_pos_b_y < 0
-                ):
-                    check_pos_a = board.get_pos(check_pos_a_y, check_pos_a_x)
-                    check_pos_b = board.get_pos(check_pos_b_y, check_pos_b_x)
-                    if (
-                        check_pos_a is not None and
-                        check_pos_b is not None and
-                        board.get_type(check_pos_a) in "NC" and
-                        board.get_type(check_pos_b) in "NC"
-                    ):
-                        continue
-                edge_list.add(EdgePoint(
-                    point, check_point
-                ))
-
-        area = Fraction(0)
-        for edge in edge_list:
-            pos_value, is_y = edge.on()
-            high = Fraction(abs(pos_value - (pos.x + 0.5 if is_y else pos.y + 0.5)))
-            base = edge.length()
-            area += high * base / 2
-
+        checked_points = _get_all_point(board, pos)
+        edge_list = _get_edges(board, checked_points)
+        area = _get_area(pos, edge_list)
         logger = get_logger()
         size = board.get_config("1", "size")[1]
         logger.debug(f"geogebra[{pos}]: " + "{{" + ', '.join([
@@ -444,18 +457,24 @@ def test1():
     # board[board.get_pos(3, 4)] = MINES_TAG
     # board[board.get_pos(4, 0)] = MINES_TAG
     # board[board.get_pos(4, 2)] = MINES_TAG
-    positions = [pos for pos, _ in board()]
-    import random
-    positions = random.sample(positions, 10)
-    for pos in positions:
-        if pos == root_pos:
-            continue
-        board[pos] = MINES_TAG
-    print(board)
-    rule = Rule1Eat()
-    time_a = time.time()
-    rule.get_obj(board, root_pos)
-    print(f"used_time: {(time.time() - time_a) * 1000:03f}ms")
+    time_sum = 0
+    for _ in range(1000):
+        positions = [pos for pos, _ in board()]
+        positions = random.sample(positions, 10)
+        _board = board.clone()
+        for pos in positions:
+            if pos == root_pos:
+                continue
+            _board[pos] = MINES_TAG
+        # print(_board)
+        rule = Rule1Eat()
+        time_a = time.time()
+        # rule.get_obj(board, root_pos)
+        _get_all_point(_board, root_pos)
+        used_time = time.time() - time_a
+        print(f"used_time: {(used_time) * 1000:03f}ms")
+        time_sum += used_time
+    print(f"average time taken: {time_sum}ms")
 
 
 def test2():
