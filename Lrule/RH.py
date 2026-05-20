@@ -19,8 +19,8 @@ class RuleRH(AbstractMinesRule):
     """
 
     id = "RH"
-    name = "RH"
-    name.zh_CN = "竖向连续雷顶值"
+    name = "Enrichment"
+    name.zh_CN = "富集"
     doc = "Top mine of a vertical consecutive group gets the group size, others get 0"
     doc.zh_CN = "竖直方向连续雷的顶雷雷值等于该组连续雷数，其余雷值为0"
     tags = ["Variant", "Mine-Value", "Local"]
