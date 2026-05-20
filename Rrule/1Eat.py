@@ -6,16 +6,20 @@
 # @FileName: 1Eat.py
 import math
 from dataclasses import dataclass
-from typing import Optional, Tuple, Set
+from typing import Optional, Tuple, Set, Dict
 from fractions import Fraction
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from minesweepervariants.impl.impl_obj import get_board
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.image_create import get_dummy, get_text, get_col, get_row, get_image
+from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
 from minesweepervariants.utils.tool import get_logger
 
 BYTE_LENGTH = 3
+CACHE: Dict['AbstractPosition', Dict[Fraction, Set[int]]] = {}
+CACHE_CODE: Dict['AbstractPosition', Dict[int, Fraction]] = {}
 
 
 def encode_int(num: int) -> bytes:
@@ -436,7 +440,71 @@ class Value1Eat(AbstractClueValue):
         )
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
-        raise ValueError("约束没写 别用")
+        # SUPER枚举大法
+        global CACHE, CACHE_CODE
+
+        def encode_board(_board: 'AbstractBoard', target_type: str):
+            _int_code = 0
+            for _, _obj_type in _board(mode="type"):
+                _int_code <<= 1
+                _int_code += _obj_type == target_type
+            return _int_code
+
+        def decode_board(_board_code: int, _board: 'AbstractBoard'):
+            for pos, _ in list(_board())[::-1]:
+                if _board_code & 1:
+                    _board[pos] = MINES_TAG
+                else:
+                    _board[pos] = VALUE_QUESS
+                _board_code >>= 1
+            return _board
+
+        def get_area(_board_code: int):
+            _board = decode_board(_board_code, board_tmp.clone())
+            checked_points = _get_all_point(_board, self.pos)
+            edge_list = _get_edges(_board, checked_points)
+            return _get_area(self.pos, edge_list)
+
+        model = board.get_model()
+        s = switch.get(model, self)
+
+        master_board_code = encode_board(board, "F")
+        mask_board_code = encode_board(board, "N")
+        target_value = Fraction(self.numerator, self.denominator)
+        board_tmp = get_board()(rules={}, size=board.get_config(MASTER_BOARD, "size"))
+
+        if self.pos not in CACHE:
+            CACHE[self.pos]: Dict[Fraction, Set[int]] = dict()
+        if self.pos not in CACHE_CODE:
+            CACHE_CODE[self.pos]: Dict[int, Fraction] = dict()
+
+        sub = mask_board_code
+        possible = set()
+        get_logger().debug(f"{self.pos} possible start")
+        while True:
+            target_board_code = master_board_code | sub
+            if target_board_code in CACHE_CODE[self.pos]:
+                area = CACHE_CODE[self.pos][target_board_code]
+            else:
+                area = get_area(target_board_code)
+                CACHE_CODE[self.pos][target_board_code] = area
+                if area not in CACHE[self.pos]:
+                    CACHE[self.pos][area] = set()
+                CACHE[self.pos][area].add(target_board_code)
+            if area == target_value:
+                possible.add(target_board_code)
+            if sub == 0:
+                break
+            sub = (sub - 1) & mask_board_code
+
+        var_list = [var for _, var in board(mode="var")]
+        get_logger().debug(f"{self.pos} possible legth: {len(possible)}")
+        possible = [[(x >> i) & 1 == 1 for i in range(len(var_list))][::-1] for x in possible]
+        get_logger().trace(f"{self.pos} var_list: {var_list}")
+        get_logger().trace(f"{self.pos} possible: {possible}")
+        model.add_allowed_assignments(
+            var_list, possible
+        ).OnlyEnforceIf(s)
 
 
 def test1():
@@ -520,5 +588,38 @@ def test3():
     print(link_pos2gridPoint(board, root_pos, grid_point))
 
 
+def test4():
+    def encode_board(_board: 'AbstractBoard'):
+        if "N" in _board:
+            return -1
+        int_code = 0
+        for pos, obj_type in board(mode="type"):
+            int_code <<= 1
+            int_code += obj_type == "F"
+        return int_code
+
+    def decode_board(_board_code: int, _board: 'AbstractBoard'):
+        for pos, _ in list(_board())[::-1]:
+            if _board_code & 1:
+                _board[pos] = MINES_TAG
+            else:
+                _board[pos] = VALUE_QUESS
+            _board_code >>= 1
+
+    from minesweepervariants.impl.board.version3.board import Board
+    import random
+
+    board = Board(rules={}, size=(5, 5), code=None)
+    board_tmp = board.clone()
+    for pos, _ in board():
+        board[pos] = MINES_TAG if random.random() < 0.5 else VALUE_QUESS
+    print(board)
+    board_code = encode_board(board)
+    print(board_code)
+    print(board_tmp)
+    decode_board(board_code, board_tmp)
+    print(board_tmp)
+
+
 if __name__ == '__main__':
-    test1()
+    test4()
