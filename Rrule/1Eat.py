@@ -15,6 +15,39 @@ from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.image_create import get_dummy, get_text, get_col, get_row, get_image
 from minesweepervariants.utils.tool import get_logger
 
+BYTE_LENGTH = 3
+
+
+def encode_int(num: int) -> bytes:
+    """将整数编码为固定长度（BYTE_LENGTH）的字节串，不含 0xFF。小端序，高位补 0。"""
+    if num < 0:
+        raise ValueError("只支持非负整数")
+    # 计算 255 进制表示（低位在前）
+    digits = []
+    temp = num
+    while temp > 0:
+        temp, r = divmod(temp, 255)
+        digits.append(r)
+    # 如果数字太大，超过固定长度则报错
+    if len(digits) > BYTE_LENGTH:
+        raise OverflowError(f"数字太大，需要至少 {len(digits)} 字节，当前 BYTE_LENGTH={BYTE_LENGTH}")
+    # 补足到固定长度（末尾补 0，相当于高位补 0）
+    digits += [0] * (BYTE_LENGTH - len(digits))
+    return bytes(digits)   # 每个元素 0~254，不会出现 255
+
+
+def decode_int(data: bytes) -> int:
+    """将固定长度的字节串解码为整数。data 长度必须等于 BYTE_LENGTH。"""
+    if len(data) != BYTE_LENGTH:
+        raise ValueError(f"输入字节串长度必须为 {BYTE_LENGTH}，实际 {len(data)}")
+    # 小端序：第 i 字节乘以 255^i
+    num = 0
+    for i, b in enumerate(data):
+        if b > 254:
+            raise ValueError(f"非法字节值 {b}（最大应为 254）")
+        num += b * (255 ** i)
+    return num
+
 
 class GridPoint:
     x: Fraction
@@ -325,14 +358,14 @@ class Rule1Eat(AbstractClueRule):
         ) + "}}")
         logger.debug(f"area: {area}")
 
-        return Value1Eat(pos, code=area.numerator.to_bytes(2) + area.denominator.to_bytes(2))
+        return Value1Eat(pos, code=encode_int(area.numerator) + encode_int(area.denominator))
 
 
 class Value1Eat(AbstractClueValue):
     def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
         super().__init__(pos, code)
-        self.numerator = int.from_bytes(code[0:2])
-        self.denominator = int.from_bytes(code[2:4])
+        self.numerator = decode_int(code[:BYTE_LENGTH])
+        self.denominator = decode_int(code[BYTE_LENGTH:])
 
     def __repr__(self) -> str:
         return f"{Fraction(self.numerator, self.denominator)}"
@@ -342,7 +375,7 @@ class Value1Eat(AbstractClueValue):
         return Rule1Eat.id.encode()
 
     def code(self) -> bytes:
-        return self.numerator.to_bytes(2) + self.denominator.to_bytes(2)
+        return encode_int(self.numerator) + encode_int(self.denominator)
 
     def compose(self, board):
         # 假分数转带分数
