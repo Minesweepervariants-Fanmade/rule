@@ -5381,6 +5381,31 @@
         },
         {
             "rule_line": "R",
+            "id": "6L",
+            "name": {
+                "default": "Light",
+                "zh_CN": "\u5149"
+            },
+            "doc": {
+                "default": "Mines are light bulbs, and each bulb increases the brightness of any cell on the board by the inverse of the square of the distance. Clues indicate the total brightness of that cell.",
+                "zh_CN": "\u96f7\u662f\u4e00\u4e2a\u706f\u6ce1\uff0c\u4e00\u4e2a\u706f\u53ef\u4ee5\u8ba9\u9898\u677f\u4efb\u610f\u4f4d\u7f6e\u7684\u4eae\u5ea6\u589e\u52a0\u8ddd\u79bb\u5e73\u65b9\u7684\u5012\u6570\uff0c\u7ebf\u7d22\u6307\u793a\u8be5\u683c\u7684\u4eae\u5ea6\u603b\u548c"
+            },
+            "author": {
+                "name": "Jsky\u5355\u63a8\u4eba",
+                "id": "2638680527"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2026-05-20"
+        },
+        {
+            "rule_line": "R",
             "id": "2X",
             "name": {
                 "default": "Cross",
