@@ -31,6 +31,7 @@
 
 from typing import List
 
+from numpy import s_
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Lrule import AbstractMinesRule
@@ -56,9 +57,12 @@ class RuleLD(AbstractMinesRule):
         super().__init__(board, data)
         # 解析 data 参数：以 ! 开头时启用副板模式
         self.use_auxiliary = False
-        if isinstance(data, str) and data.startswith("!"):
-            self.use_auxiliary = True
-            data = data[1:]  # 去掉 ! 前缀
+        self.use_subrules = False
+        if isinstance(data, str):
+            if "!" in data:
+                self.use_auxiliary = True
+            if "?" in data:
+                self.use_subrules = True
 
         if board is None:
             return
@@ -181,7 +185,21 @@ class RuleLD(AbstractMinesRule):
 
     def create_constraints(self, board: AbstractBoard, switch: Switch) -> None:
         model = board.get_model()
-        s = switch.get(model, self)
+
+        max_n = max([(board.boundary(key).x + 1) //2  for key in board.get_interactive_keys()])
+
+        s_vars_used = switch.get(model, self)
+        if self.use_subrules:
+            s_vars_block = [[switch.get(model, self) for _ in range(max_n)] for _ in range(max_n)]
+            s_vars_row = [switch.get(model, self) for _ in range(max_n)]
+            s_vars_col = [switch.get(model, self) for _ in range(max_n)]
+        else:
+            s_vars_block = [[s_vars_used for _ in range(max_n)] for _ in range(max_n)]
+            s_vars_row = [s_vars_used for _ in range(max_n)]
+            s_vars_col = [s_vars_used for _ in range(max_n)]
+
+
+
 
         for key in board.get_interactive_keys():
             bound = board.boundary(key)
@@ -206,7 +224,7 @@ class RuleLD(AbstractMinesRule):
                             vars_block.append(var)
 
                     block_sum = model.NewIntVar(0, 4, f"LD_block_sum_{key}_{i}_{j}")
-                    model.Add(block_sum == sum(vars_block)).OnlyEnforceIf(s)
+                    model.Add(block_sum == sum(vars_block)).OnlyEnforceIf(s_vars_block[i][j])
 
                     if self.use_auxiliary:
                         pos_1 = board.get_pos(3 * i, 3 * j, NAME_LD_AUXILIARY)
@@ -223,13 +241,13 @@ class RuleLD(AbstractMinesRule):
 
                         indicator_vars = [var_1, var_2, var_3, var_4, var_0]
                         if all(v is not None for v in indicator_vars):
-                            model.AddExactlyOne(indicator_vars).OnlyEnforceIf(s)
+                            model.AddExactlyOne(indicator_vars).OnlyEnforceIf(s_vars_block[i][j])
 
                         for value, var in [(1, var_1), (2, var_2), (3, var_3), (4, var_4), (0, var_0)]:
                             if var is None:
                                 continue
-                            model.Add(block_sum == value).OnlyEnforceIf([var, s])
-                            model.Add(block_sum != value).OnlyEnforceIf([var.Not(), s])
+                            model.Add(block_sum == value).OnlyEnforceIf(var)
+                            model.Add(block_sum != value).OnlyEnforceIf(var.Not())
 
                         for pos in (
                             board.get_pos(3 * i, 3 * j + 2, NAME_LD_AUXILIARY),
@@ -239,11 +257,9 @@ class RuleLD(AbstractMinesRule):
                         ):
                             aux_var = board.get_variable(pos)
                             if aux_var is not None:
-                                model.Add(aux_var == 0).OnlyEnforceIf(s)
+                                model.Add(aux_var == 0)
 
-                    bv = model.NewIntVar(0, 4, f"LD_block_{key}_{i}_{j}")
-                    model.Add(bv == block_sum).OnlyEnforceIf(s)
-                    row_vals.append(bv)
+                    row_vals.append(block_sum)
                 block_vals.append(row_vals)
 
             if n == 0:
@@ -251,9 +267,9 @@ class RuleLD(AbstractMinesRule):
 
             # 行/列 AllDifferent 约束 (拉丁方核心)
             for i in range(n):
-                model.AddAllDifferent([block_vals[i][j] for j in range(n)]).OnlyEnforceIf(s)
+                model.AddAllDifferent([block_vals[i][j] for j in range(n)]).OnlyEnforceIf(s_vars_row[i])
             for j in range(n):
-                model.AddAllDifferent([block_vals[i][j] for i in range(n)]).OnlyEnforceIf(s)
+                model.AddAllDifferent([block_vals[i][j] for i in range(n)]).OnlyEnforceIf(s_vars_col[j])
 
             # 全局值种类数 == n (仅当 n <= 4 时需要显式约束，因为值域足够大)
             if n <= 4:
@@ -273,7 +289,7 @@ class RuleLD(AbstractMinesRule):
                     model.AddBoolOr(eq_flags).OnlyEnforceIf(any_eq)
                     model.AddBoolAnd([e.Not() for e in eq_flags]).OnlyEnforceIf(any_eq.Not())
                     used.append(any_eq)
-                model.Add(sum(used) == n).OnlyEnforceIf(s)
+                model.Add(sum(used) == n).OnlyEnforceIf(s_vars_used)
 
     def suggest_total(self, info: dict) -> None:
         """总雷数约束：对于 n<=4 添加硬约束确保拉丁方可行总雷数；对于 n=5 只添加软建议，避免过度限制；n>5 不可行。"""
