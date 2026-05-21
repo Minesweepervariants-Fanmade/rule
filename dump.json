@@ -2164,9 +2164,10 @@
         },
         {
             "rule_line": "L",
-            "id": "TEST-L02",
+            "id": "*1I",
             "name": {
-                "default": "TEST-L02"
+                "default": "L-shapes",
+                "zh_CN": "L\u5f62"
             },
             "doc": {
                 "default": "All mines form L-shapes: mines always form L-shapes with width 1 and one turn, L-shapes can be diagonally adjacent but not horizontally or vertically adjacent",
@@ -2176,7 +2177,7 @@
                 "name": "Artless",
                 "id": "2452944138"
             },
-            "image": "TEST--L02.png",
+            "image": "",
             "aliases": [],
             "tags": [
                 "Creative",
