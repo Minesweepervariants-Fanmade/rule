@@ -1,5 +1,5 @@
 """
-[TEST-L02] 雷总是组成L形，L形是宽度为1，拐弯一次的形状，L形可以斜角相邻但不能横竖相邻
+[*1I] L形： 雷总是组成L形，L形是宽度为1，拐弯一次的形状，L形可以斜角相邻但不能横竖相邻
 """
 
 from ....abs.Lrule import AbstractMinesRule
@@ -7,8 +7,9 @@ from ....abs.board import AbstractBoard
 
 
 class Rule4L(AbstractMinesRule):
-    id = "TEST-L02"
-    name = "TEST-L02"
+    id = "*1I"
+    name = "L-shapes"
+    name.zh_CN = "L形"
     doc = "All mines form L-shapes: mines always form L-shapes with width 1 and one turn, L-shapes can be diagonally adjacent but not horizontally or vertically adjacent"
     doc.zh_CN = "所有雷组成L形：雷总是组成L形，L形是宽度为1，拐弯一次的形状，L形可以斜角相邻但不能横竖相邻"
     author = ("Artless", 2452944138)

@@ -31,7 +31,6 @@
 
 from typing import List
 
-from numpy import s_
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Lrule import AbstractMinesRule

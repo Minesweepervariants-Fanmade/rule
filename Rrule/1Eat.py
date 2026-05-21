@@ -12,6 +12,7 @@ from fractions import Fraction
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
 from minesweepervariants.impl.impl_obj import get_board
+from minesweepervariants.impl.rule.Rrule import Quess
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.image_create import get_dummy, get_text, get_col, get_row, get_image
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
@@ -366,7 +367,7 @@ class Rule1Eat(AbstractClueRule):
                 board[pos] = obj
         return board
 
-    def get_obj(self, board: 'AbstractBoard', pos: 'AbstractPosition') -> Optional['Value1Eat']:
+    def get_obj(self, board: 'AbstractBoard', pos: 'AbstractPosition') -> AbstractClueValue:
         checked_points = _get_all_point(board, pos)
         edge_list = _get_edges(board, checked_points)
         area = _get_area(pos, edge_list)
@@ -383,7 +384,7 @@ class Rule1Eat(AbstractClueRule):
         logger.debug(f"area: {area}")
         if self.all_integer:
             if area.denominator != 1:
-                return None
+                return Quess.ValueQuess(pos)
         return Value1Eat(pos, code=encode_int(area.numerator) + encode_int(area.denominator))
 
 
