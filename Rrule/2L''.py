@@ -46,8 +46,8 @@ class Rule2L(AbstractClueRule):
     id = "2L''"
     name = "Liar"
     name.zh_CN = "误差"
-    doc = "Each row and column has exactly one incorrect clue. The incorrect clue's value is off by 1 from the true value"
-    doc.zh_CN = "每行每列恰有一个误差线索。误差线索的值比真实值大 1 或小 1"
+    doc = "Each row and column has exactly one error clue. The value of the error clue cannot be the true value."
+    doc.zh_CN = "每行每列恰有一个错误线索。错误线索的值不可能是真实值"
     tags = ["Variant", "Local", "Number Clue", "Aux Board", "Extensive Trial"]
     creation_time = "2025-10-24"
     author = ("", 0)
