@@ -1270,6 +1270,29 @@
         },
         {
             "rule_line": "L",
+            "id": "SUD",
+            "name": {
+                "default": "Sudoku",
+                "zh_CN": "\u6570\u72ec"
+            },
+            "doc": {
+                "default": "Sudoku: Each row and column of clue cells must contain unique numbers.",
+                "zh_CN": "\u6570\u72ec\uff1a\u6bcf\u884c\u6bcf\u5217\u7ebf\u7d22\u683c\u6570\u5b57\u4e0d\u91cd\u590d"
+            },
+            "author": {
+                "name": "\u5c0f\u7eff\u8349",
+                "id": "3021857082"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Meta"
+            ],
+            "creation_time": "2026-05-21 00:32:21"
+        },
+        {
+            "rule_line": "L",
             "id": "1S^",
             "name": {
                 "default": "Bicursal Snake",
