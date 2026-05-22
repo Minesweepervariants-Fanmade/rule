@@ -20,16 +20,22 @@ class Rulen1M(AbstractMinesRule):
     author = ("雾", 3140864122)
     tags = ["Creative", "Fun", "Global"]
     creation_time = "2025-08-06"
+    arg_doc = ""
+    arg_doc.zh_CN = "number, 作为index选择固定[水平/垂直/对角/副对角/中心]对称(从0开始)"
+
+    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+        super().__init__(board, data)
+        self.choose = int(data) if data and data.isdigit() else -1
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)
 
-        tmp_a = model.NewBoolVar("[*1M]")      # 垂直对称
-        tmp_b = model.NewBoolVar("[*1M]")      # 水平对称
-        tmp_c = model.NewBoolVar("[*1M]")      # 正斜角对称
-        tmp_d = model.NewBoolVar("[*1M]")      # 副斜角对称
-        tmp_e = model.NewBoolVar("[*1M]")      # 中心对称
+        tmp_a = model.new_bool_var("[*1M]-0")      # 垂直对称
+        tmp_b = model.new_bool_var("[*1M]-1")      # 水平对称
+        tmp_c = model.new_bool_var("[*1M]-2")      # 正斜角对称
+        tmp_d = model.new_bool_var("[*1M]-3")      # 副斜角对称
+        tmp_e = model.new_bool_var("[*1M]-4")      # 中心对称
 
         for key in board.get_interactive_keys():
             pos_bound = board.boundary(key)
@@ -43,10 +49,13 @@ class Rulen1M(AbstractMinesRule):
                     var_c = board.get_variable(board.get_pos(pos_bound.y-index_y, pos_bound.x-index_x, key))
                     var_d = board.get_variable(board.get_pos(index_y, index_x, key))
                     var_e = board.get_variable(board.get_pos(pos_bound.x-index_x, pos_bound.y-index_y, key))
-                    if var_a is not None: model.Add(var == var_a).OnlyEnforceIf(tmp_a)
-                    if var_b is not None: model.Add(var == var_b).OnlyEnforceIf(tmp_b)
-                    if var_c is not None: model.Add(var == var_c).OnlyEnforceIf(tmp_c)
-                    if var_d is not None: model.Add(var == var_d).OnlyEnforceIf(tmp_d)
-                    if var_e is not None: model.Add(var == var_e).OnlyEnforceIf(tmp_e)
+                    if var_a is not None: model.add(var == var_a).OnlyEnforceIf(tmp_a)
+                    if var_b is not None: model.add(var == var_b).OnlyEnforceIf(tmp_b)
+                    if var_c is not None: model.add(var == var_c).OnlyEnforceIf(tmp_c)
+                    if var_d is not None: model.add(var == var_d).OnlyEnforceIf(tmp_d)
+                    if var_e is not None: model.add(var == var_e).OnlyEnforceIf(tmp_e)
 
-        model.AddBoolOr([tmp_a, tmp_b, tmp_c, tmp_d, tmp_e]).OnlyEnforceIf(s)
+        if self.choose > -1:
+            model.add_bool_and([tmp_a, tmp_b, tmp_c, tmp_d, tmp_e][self.choose])
+
+        model.add_bool_or([tmp_a, tmp_b, tmp_c, tmp_d, tmp_e]).OnlyEnforceIf(s)
