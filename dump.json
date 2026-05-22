@@ -107,8 +107,8 @@
                 "zh_CN": "\u955c\u50cf"
             },
             "doc": {
-                "default": "Mine distribution is randomly symmetric in one of the following ways: [horizontal/vertical/diagonal/anti-diagonal/center]",
-                "zh_CN": "\u96f7\u5206\u5e03\u5c06\u968f\u673a\u6309\u7167\u4e0b\u8ff0\u65b9\u5f0f\u5bf9\u79f0 [\u6c34\u5e73/\u5782\u76f4/\u5bf9\u89d2/\u526f\u5bf9\u89d2/\u4e2d\u5fc3]\u5bf9\u79f0"
+                "default": "Mine distribution is randomly symmetric in one of the following ways: [horizontal/vertical/diagonal/anti-diagonal/center] (arg: number, zero\u2011based index to choose fixed symmetry: [horizontal/vertical/diagonal/anti-diagonal/center])",
+                "zh_CN": "\u96f7\u5206\u5e03\u5c06\u968f\u673a\u6309\u7167\u4e0b\u8ff0\u65b9\u5f0f\u5bf9\u79f0 [\u6c34\u5e73/\u5782\u76f4/\u5bf9\u89d2/\u526f\u5bf9\u89d2/\u4e2d\u5fc3]\u5bf9\u79f0 (arg: number, \u4f5c\u4e3aindex\u9009\u62e9\u56fa\u5b9a[\u6c34\u5e73/\u5782\u76f4/\u5bf9\u89d2/\u526f\u5bf9\u89d2/\u4e2d\u5fc3]\u5bf9\u79f0(\u4ece0\u5f00\u59cb))"
             },
             "author": {
                 "name": "\u96fe",
