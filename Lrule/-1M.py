@@ -15,13 +15,15 @@ class Rulen1M(AbstractMinesRule):
     id = "*1M"
     name = "Mirror"
     name.zh_CN = "镜像"
-    doc = "Mine distribution is randomly symmetric in one of the following ways: [horizontal/vertical/diagonal/anti-diagonal/center]"
-    doc.zh_CN = "雷分布将随机按照下述方式对称 [水平/垂直/对角/副对角/中心]对称"
+    doc = ("Mine distribution is randomly symmetric in one of the following ways:"
+           " [horizontal/vertical/diagonal/anti-diagonal/center] "
+           "(arg: number, zero‑based index to choose fixed symmetry: "
+           "[horizontal/vertical/diagonal/anti-diagonal/center])")
+    doc.zh_CN = ("雷分布将随机按照下述方式对称 [水平/垂直/对角/副对角/中心]对称 "
+                 "(arg: number, 作为index选择固定[水平/垂直/对角/副对角/中心]对称(从0开始))")
     author = ("雾", 3140864122)
     tags = ["Creative", "Fun", "Global"]
     creation_time = "2025-08-06"
-    arg_doc = ""
-    arg_doc.zh_CN = "number, 作为index选择固定[水平/垂直/对角/副对角/中心]对称(从0开始)"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
