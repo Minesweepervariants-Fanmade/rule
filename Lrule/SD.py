@@ -46,9 +46,17 @@ class RuleSD(AbstractMinesRule):
     id = "SD"
     name = "Sudoku"
     name.zh_CN = "雷数独"
-    doc = ("Latin square rules, but with the board size restricted to 8 or 27, "
-           "blocks of size 2x2 or 3x3 respectively, and the requirement that the number of mines in each block cannot be all the same.")
-    doc.zh_CN = "拉丁方规则，但是题版大小只能是8 27，且区域形状分别为2x2，3x3，且有宫内数字不能相同的要求。"
+    doc = ("Grid size 8 or 27. Partition into 2×2 (size 8) or "
+           "3×3 (size 27) blocks. Block value = sum of mines in "
+           "the block. These values form an n×n matrix (n=4 or 9). "
+           "In this matrix: each row, each column, and each sub-square "
+           "of size block_size × block_size (aligned with the original blocks) "
+           "contains distinct values. The total number of distinct block values "
+           "occurring in the whole matrix must equal n.")
+    doc.zh_CN = ("边长8或27的正方形棋盘，划分为2×2（边长8）或3×3（边长27）的块。"
+                 "块内雷数和为块值。块值构成n×n矩阵（n=4或9）。该矩阵每行、"
+                 "每列及每个与原块相同大小的子方块（即按原块尺寸再分块）内，"
+                 "块值互不相同，且全局出现的不同块值种数恰为n。")
     author = ("NT", 2201963934)
     tags = ["Creative", "Global", "Construction", "Strict R"]
     creation_time = "2026-05-15"
