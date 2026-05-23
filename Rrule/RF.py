@@ -62,6 +62,8 @@ def opposite_move(p: AbstractPosition, dx: int, dy: int) -> AbstractPosition:
         return p.up().left()
     # 不应到达此处
     raise ValueError(f"Invalid relative position: dx={dx}, dy={dy}")
+
+
 class RuleRF(AbstractClueRule):
     id = "RF"
     name = "Reflect"
@@ -83,8 +85,8 @@ class RuleRF(AbstractClueRule):
                     continue
                 has_mine = True
                 # 计算相对位移
-                dx = neighbor.x - pos.x
-                dy = neighbor.y - pos.y
+                dx = neighbor.row - pos.row
+                dy = neighbor.col - pos.col
                 cur = pos.clone()
                 step = 0
                 while True:
@@ -146,8 +148,8 @@ class ValueRF(AbstractClueValue):
             elif board.get_type(neighbor) != "F":
                 continue
             # Direction from the clue to the mine.
-            dx = neighbor.x - self.pos.x
-            dy = neighbor.y - self.pos.y
+            dx = neighbor.row - self.pos.row
+            dy = neighbor.col - self.pos.col
             # Walk in the opposite direction, adding cells until a mine or the
             # board edge is encountered.
             cur = opposite_move(self.pos, dx, dy)
@@ -172,8 +174,8 @@ class ValueRF(AbstractClueValue):
         adjacent_mine_vars: list = []
 
         for neighbor in pos.neighbors(2):
-            dx = neighbor.x - pos.x
-            dy = neighbor.y - pos.y
+            dx = neighbor.row - pos.row
+            dy = neighbor.col - pos.col
             mine_var = board.get_variable(neighbor)
             if mine_var is None:
                 continue
