@@ -2234,6 +2234,30 @@
         },
         {
             "rule_line": "L",
+            "id": "MRG",
+            "name": {
+                "default": "Merge",
+                "zh_CN": "\u5408\u5e76"
+            },
+            "doc": {
+                "default": "For each row, for every 4-length segment [a,b,c,d]: if b==c then d==b else d!=a.",
+                "zh_CN": "\u5bf9\u6bcf\u4e00\u884c\uff0c\u9010\u4e2a4\u683c\u6bb5 [a,b,c,d]\uff1a\u82e5 b==c \u5219 d==b\uff0c\u5426\u5219 d!=a\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Row",
+                "Lrule"
+            ],
+            "creation_time": "2026-05-16"
+        },
+        {
+            "rule_line": "L",
             "id": "4D",
             "name": {
                 "default": "Diagonal",
