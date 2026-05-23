@@ -20,8 +20,8 @@ class RuleFB(AbstractMinesRule):
     id = "FB"
     name = "Fibonacci Columns"
     name.zh_CN = "斐波那契列"
-    doc = "For column N, total mines = |col(N-1) + col(N-2)| or |col(N-1) - col(N-2)|, each column chooses independently, cyclic indices."
-    doc.zh_CN = "对于第N列，其总雷数为第N-1列与第N-2列的和或差的绝对值，每列独立选择，索引在题板边界循环。"
+    doc = "For column N, total mines = |col(N-1) + col(N-2)| or |col(N-1) - col(N-2)|, cyclic indices."
+    doc.zh_CN = "对于第N列，其总雷数为第N-1列与第N-2列的和或差的绝对值，索引在题板边界循环。"
     author = ("雾", 3140864122)
     tags = ["Creative", "Global", "Mine-Counting"]
     creation_time = "2026-05-24"
