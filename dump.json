@@ -1715,6 +1715,29 @@
         },
         {
             "rule_line": "L",
+            "id": "SUD'",
+            "name": {
+                "default": "Sudoku Box",
+                "zh_CN": "\u6570\u72ec\u5bab"
+            },
+            "doc": {
+                "default": "Sudoku Box: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each box must be unique.",
+                "zh_CN": "\u6570\u72ec\u5bab\uff1a\u9898\u677f\u8fb9\u957f\u53ea\u80fd\u4e3a3\u7684\u6574\u6570\u500d\uff0c\u5c06\u9898\u677f\u5747\u5300\u5206\u4e3a9\u4e2a\u5bab\uff0c\u6bcf\u5bab\u5185\u6570\u5b57\u4e0d\u76f8\u540c"
+            },
+            "author": {
+                "name": "\u5c0f\u7eff\u8349",
+                "id": "3021857082"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Meta"
+            ],
+            "creation_time": "2026-05-23 18:02:00"
+        },
+        {
+            "rule_line": "L",
             "id": "JB''",
             "name": {
                 "default": "entangledick",
