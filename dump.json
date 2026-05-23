@@ -1149,6 +1149,31 @@
         },
         {
             "rule_line": "L",
+            "id": "R*",
+            "name": {
+                "default": "R*",
+                "zh_CN": "R*"
+            },
+            "doc": {
+                "default": "For each interactive key, the total number of mines must satisfy the given comparison string.",
+                "zh_CN": "\u5bf9\u6bcf\u4e2a interactive key, \u5176\u603b\u96f7\u6570\u5fc5\u987b\u6ee1\u8db3\u7ed9\u5b9a\u6bd4\u8f83\u4e32"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Global",
+                "Strict R",
+                "Parameter",
+                "Original"
+            ],
+            "creation_time": "2026-05-24"
+        },
+        {
+            "rule_line": "L",
             "id": "QTREE",
             "name": {
                 "default": "Quad Tree",
@@ -3011,6 +3036,29 @@
                 "Connectivity"
             ],
             "creation_time": "2026-03-15"
+        },
+        {
+            "rule_line": "L",
+            "id": "SUD''",
+            "name": {
+                "default": "Sudoku Box+",
+                "zh_CN": "\u6570\u72ec\u5bab+"
+            },
+            "doc": {
+                "default": "Sudoku Box+: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each row, column, and box must be unique.(V only)",
+                "zh_CN": "\u6570\u72ec\u5bab+\uff1a\u9898\u677f\u8fb9\u957f\u53ea\u80fd\u4e3a3\u7684\u6574\u6570\u500d\uff0c\u5c06\u9898\u677f\u5747\u5300\u5206\u4e3a9\u4e2a\u5bab\uff0c\u6bcf\u884c\u6bcf\u5217\u6bcf\u5bab\u5185\u6570\u5b57\u4e0d\u76f8\u540c(\u4ec5\u9650V, \u96f7\u4e0a\u4e5f\u6709\u6570\u5b57\u4f46\u65e0\u6548)"
+            },
+            "author": {
+                "name": "NT",
+                "id": "24073104"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Meta"
+            ],
+            "creation_time": "2026-05-24 02:18:00"
         },
         {
             "rule_line": "L",
