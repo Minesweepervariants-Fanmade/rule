@@ -4291,6 +4291,30 @@
         },
         {
             "rule_line": "R",
+            "id": "V+3D",
+            "name": {
+                "default": "V+3D",
+                "zh_CN": "V+\u8f9e\u5178\uff08\u7b2cn\u7a7a\u683c+\u5468\u56f4\u96f7\u6570\uff09"
+            },
+            "doc": {
+                "default": "Clue value equals n + number of mines around the n-th empty neighbor",
+                "zh_CN": "\u7b2cn\u683c\u7a7a\u683c\u5468\u56f4\u6709m\u4e2a\u96f7\uff0c\u5219\u7ebf\u7d22\u503c\u7b49\u4e8e n + m"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2026-05-24"
+        },
+        {
+            "rule_line": "R",
             "id": "BIN'",
             "name": {
                 "default": "Binary'",
