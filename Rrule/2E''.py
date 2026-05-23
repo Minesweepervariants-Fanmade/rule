@@ -11,7 +11,7 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 from ....utils.tool import get_random, get_logger
 
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
 
 ALPHABET = "ABCDEFGHI"
 NAME_2Epp = "2E''"

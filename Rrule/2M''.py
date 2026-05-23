@@ -2,7 +2,7 @@
 [2M''] 多雷：每行每列恰有一个雷被视为两个(总雷数不受限制)
 """
 
-from ....abs.board import AbstractBoard, AbstractPosition
+from ....abs.board import AbstractBoard, AbstractPosition, Size
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 from ....utils.tool import get_random, get_logger
@@ -63,7 +63,7 @@ class Rule2M(AbstractClueRule):
             if (_bound.x != bound.x and
                     _bound.y != bound.y):
                 raise ValueError("请保证其他题板尺寸均一致")
-        board.generate_board(NAME_2M, (bound.x + 1, bound.y + 1))
+        board.generate_board(NAME_2M, Size(bound.x + 1, bound.y + 1))
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         logger = get_logger()

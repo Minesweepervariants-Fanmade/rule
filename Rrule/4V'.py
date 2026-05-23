@@ -11,7 +11,7 @@ from typing import Dict
 
 from minesweepervariants.utils.web_template import MultiNumber
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
 from ....utils.image_create import get_text, get_row
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 from ....utils.tool import get_random
@@ -31,7 +31,7 @@ class Rule4Vp(AbstractClueRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
-        size = (board.boundary().x + 1, board.boundary().y + 1)
+        size = Size(board.boundary().x + 1, board.boundary().y + 1)
         board.generate_board(NAME_4Vp[0], size)
         board.generate_board(NAME_4Vp[1], size)
         board.set_config(NAME_4Vp[0], "interactive", True)

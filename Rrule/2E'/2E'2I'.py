@@ -9,7 +9,7 @@
 """
 
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
 from .....utils.impl_obj import VALUE_QUESS, VALUE_CROSS, VALUE_CIRCLE
 from .....utils.tool import get_logger, get_random
 
@@ -29,7 +29,7 @@ class Rule2Ep2I(AbstractClueRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__()
-        board.generate_board(NAME_2I, (3, 3))
+        board.generate_board(NAME_2I, Size(3, 3))
         board.set_config(MASTER_BOARD, "pos_label", True)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

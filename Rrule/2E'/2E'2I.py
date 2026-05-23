@@ -8,7 +8,7 @@
 [2E'2I]自指残缺:字母X周围8格中某7格的雷数如果有N个 则标有X=N的格子必定是雷 7格的方位被当前题板所有线索共享
 """
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
 from .....utils.impl_obj import VALUE_QUESS, VALUE_CROSS, VALUE_CIRCLE
 from .....utils.tool import get_logger, get_random
 
@@ -28,7 +28,7 @@ class Rule2Ep2I(AbstractClueRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__()
-        board.generate_board(NAME_2I, (3, 3))
+        board.generate_board(NAME_2I, Size(3, 3))
         board.set_config(MASTER_BOARD, "pos_label", True)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

@@ -2,7 +2,7 @@
 [2L] 误差 (Liar'')：每行每列恰有一个错误线索。错误线索的值不可能是真实值 [副版规则]
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from ....abs.board import AbstractBoard, AbstractPosition, Size
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 from ....utils.tool import get_random, get_logger
 
@@ -62,7 +62,7 @@ class Rule2L(AbstractClueRule):
             if (_bound.x != bound.x and
                     _bound.y != bound.y):
                 raise ValueError("请保证其他题板尺寸均一致")
-        board.generate_board(NAME_2L, (bound.x + 1, bound.y + 1))
+        board.generate_board(NAME_2L, Size(bound.x + 1, bound.y + 1))
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         self.init_clear(board)

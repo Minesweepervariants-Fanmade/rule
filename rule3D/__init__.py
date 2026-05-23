@@ -11,7 +11,7 @@ from typing import List, Optional
 from ....abs.Lrule import AbstractMinesRule
 from ....abs.Mrule import AbstractMinesClueRule
 from ....abs.Rrule import AbstractClueRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from ....abs.board import AbstractBoard, AbstractPosition, Size
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 
@@ -19,7 +19,7 @@ class Abstract3DRule:
     def __init__(self, board: AbstractBoard, data: str = None):
         if data == "":
             return
-        size = (board.boundary().x + 1, board.boundary().y + 1)
+        size = Size(board.boundary().x + 1, board.boundary().y + 1)
         for i in range((min(size) - 1) if data is None else int(data) - 1):
             key = f"{i + 2}"
             board.generate_board(key, size)

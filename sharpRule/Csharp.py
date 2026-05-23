@@ -1,5 +1,5 @@
 from typing import Dict, List
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.abs.board import AbstractBoard, Size
 from . import AbstractClueSharp
 from minesweepervariants.impl.summon.solver import Switch
 from ....utils.tool import get_random, get_logger
@@ -40,7 +40,7 @@ class RuleCSharp(AbstractClueSharp):
             self.rules = data.split(";")
         super().__init__(self.rules, board)
         get_logger().info(f"Init C# with rules {self.rules}")
-        board.generate_board(NAME_C_SHARP, size=(len(self.rules), len(self.rules)), labels=self.rules)
+        board.generate_board(NAME_C_SHARP, size=Size(len(self.rules), len(self.rules)), labels=self.rules)
         board.set_config(NAME_C_SHARP, "pos_label", True)
         for key in board.get_interactive_keys():
             board.set_config(key, "by_mini", True)

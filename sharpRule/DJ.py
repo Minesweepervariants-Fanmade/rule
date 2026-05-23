@@ -1,7 +1,7 @@
 from ortools.sat.python.cp_model import CpModel, IntVar
 from typing import Any, Generator, List
 
-from ....abs.board import MASTER_BOARD, AbstractPosition
+from ....abs.board import MASTER_BOARD, AbstractPosition, Size
 
 from ....abs.Rrule import AbstractClueRule
 from ....impl.rule.Rrule.V import RuleV
@@ -21,7 +21,7 @@ class RuleDJ(AbstractClueRule):
 
     def __init__(self, board: AbstractBoard = None, data: str = 'V;V') -> None:
         super().__init__(board, data)
-        size = (board.boundary().x + 1, board.boundary().y + 1)
+        size = Size(board.boundary().x + 1, board.boundary().y + 1)
         board.generate_board('2', size)
         board.set_config('2', "interactive", True)
         board.set_config('2', "row_col", True)

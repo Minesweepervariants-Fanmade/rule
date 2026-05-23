@@ -14,7 +14,7 @@ from typing import List, Optional, Tuple
 
 from ....abs.Mrule import AbstractMinesValue
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
 from ....utils.impl_obj import VALUE_QUESS, VALUE_CROSS
 from ....utils.tool import get_random, get_logger
 from ....impl.impl_obj import get_rule, get_value
@@ -51,7 +51,7 @@ class RuleDollar(AbstractClueRule):
         if bound.x != bound.y:
             raise ValueError("Snowflake rule requires a square board")
 
-        board.generate_board(NAME_SNOW, (bound.x + 1, bound.y + 1))
+        board.generate_board(NAME_SNOW, Size(bound.x + 1, bound.y + 1))
 
         self.base_rule = board.get_rule_instance(
             rule_name=base_rule_name,

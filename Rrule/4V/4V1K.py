@@ -10,7 +10,7 @@
 from typing import List
 
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
 from .....utils.impl_obj import VALUE_QUESS, MINES_TAG
 from .....utils.tool import get_random
 
@@ -29,7 +29,7 @@ class Rule4V1K(AbstractClueRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
-        size = (board.boundary().x + 1, board.boundary().y + 1)
+        size = Size(board.boundary().x + 1, board.boundary().y + 1)
         board.generate_board(BOARD_NAME_4V, size)
         board.set_config(BOARD_NAME_4V, "interactive", True)
         board.set_config(BOARD_NAME_4V, "row_col", True)

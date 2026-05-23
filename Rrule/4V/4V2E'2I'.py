@@ -9,7 +9,7 @@
 (注:生成不知道是不是概率问题 会出现大量的生成失败 不过也不是人玩的反正 加个-r估计会好)
 """
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
 from .....utils.impl_obj import VALUE_QUESS, MINES_TAG, VALUE_CIRCLE, VALUE_CROSS
 from .....utils.tool import get_random, get_logger
 from . import BOARD_NAME_4V
@@ -31,7 +31,7 @@ class Rule4V2Ep2Ip(AbstractClueRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
-        size = (board.boundary().x + 1, board.boundary().y + 1)
+        size = Size(board.boundary().x + 1, board.boundary().y + 1)
         board.generate_board(NAME, size)
         board.set_config(NAME, "interactive", True)
         board.set_config(NAME, "row_col", True)
@@ -39,7 +39,7 @@ class Rule4V2Ep2Ip(AbstractClueRule):
         board.set_config(NAME, "MINES", MINES_TAG)
         board.set_config(NAME, "pos_label", True)
         board.set_config(MASTER_BOARD, "pos_label", True)
-        board.generate_board(NAME_4V_2Ip, (3, 3))
+        board.generate_board(NAME_4V_2Ip, Size(3, 3))
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         def apply_offsets(_pos: AbstractPosition):

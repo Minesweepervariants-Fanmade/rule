@@ -8,7 +8,7 @@
 [2L'] 误差' (Liar')：每行每列恰有一个非误差线索。误差线索的值比真实值大 1 或小 1 [副版规则]
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from ....abs.board import AbstractBoard, AbstractPosition, Size
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 from ....utils.tool import get_random, get_logger
 
@@ -68,7 +68,7 @@ class Rule2L(AbstractClueRule):
             if (_bound.x != bound.x and
                     _bound.y != bound.y):
                 raise ValueError("请保证其他题板尺寸均一致")
-        board.generate_board(NAME_2L, (bound.x + 1, bound.y + 1))
+        board.generate_board(NAME_2L, Size(bound.x + 1, bound.y + 1))
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         self.init_clear(board)
