@@ -14,8 +14,8 @@ class RuleSUD_(AbstractMinesRule):
     id = "SUD'"
     name = "Sudoku Box"
     name.zh_CN = "数独宫"
-    doc = "Sudoku Box: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each box must be unique."
-    doc.zh_CN = "数独宫：题板边长只能为3的整数倍，将题板均匀分为9个宫，每宫内数字不相同"
+    doc = "Sudoku Box: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each box must be unique.(V only)"
+    doc.zh_CN = "数独宫：题板边长只能为3的整数倍，将题板均匀分为9个宫，每宫内数字不相同(仅限V)"
     tags = ["Original", 'Meta']
     author = ("小绿草", 3021857082)
     creation_time = "2026-05-23 18:02:00"
