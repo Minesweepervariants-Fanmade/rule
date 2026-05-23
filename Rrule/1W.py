@@ -123,7 +123,10 @@ class Rule1W(AbstractClueRule):
                     values.append(value)
                     value = 0
             if value != 0 and t == nei_type[0] == "F":
-                values[0] += value
+                if values:
+                    values[0] += value
+                else:
+                    values.append(value)
             elif value != 0:
                 values.append(value)
             values.sort()
