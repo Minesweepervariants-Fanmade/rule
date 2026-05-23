@@ -12,7 +12,7 @@ from typing import List, Dict
 
 from minesweepervariants.utils.image_create import get_text, get_col, get_dummy
 from minesweepervariants.utils.web_template import Number
-from .....abs.board import AbstractBoard, AbstractPosition
+from .....abs.board import AbstractBoard, AbstractPosition, Size
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
 from .....utils.impl_obj import VALUE_QUESS, VALUE_CROSS, VALUE_CIRCLE
 from .....utils.tool import get_random
@@ -34,7 +34,7 @@ class Rule2E(AbstractClueRule):
         super().__init__(board, data)
         pos = board.boundary()
         size = min(pos.x + 1, 9)
-        board.generate_board(NAME_2E, (size, size))
+        board.generate_board(NAME_2E, Size(size, size))
         board.set_config(NAME_2E, "pos_label", True)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
