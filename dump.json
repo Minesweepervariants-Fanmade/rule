@@ -1787,6 +1787,30 @@
         },
         {
             "rule_line": "L",
+            "id": "RA'",
+            "name": {
+                "default": "LibraryPrime",
+                "zh_CN": "\u56fe\u4e66\u7ba1\u7406\u5458"
+            },
+            "doc": {
+                "default": "Library with scrambled mine-values; solver must restore mapping",
+                "zh_CN": "\u56fe\u4e66\u7ba1\u7406\u5458\uff1a\u56fe\u4e66\u9986\uff0c\u4f46\u662f\u6240\u6709\u96f7\u7684\u96f7\u503c\u88ab\u6253\u4e71\u4e86\uff0c\u4f60\u9700\u8981\u81ea\u5df1\u8fd8\u539f\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Mine-Value"
+            ],
+            "creation_time": "2026-05-24"
+        },
+        {
+            "rule_line": "L",
             "id": "2T",
             "name": {
                 "default": "Triplet",
