@@ -1569,6 +1569,30 @@
         },
         {
             "rule_line": "L",
+            "id": "FB",
+            "name": {
+                "default": "Fibonacci Columns",
+                "zh_CN": "\u6590\u6ce2\u90a3\u5951\u5217"
+            },
+            "doc": {
+                "default": "For column N, total mines = |col(N-1) + col(N-2)| or |col(N-1) - col(N-2)|, cyclic indices.",
+                "zh_CN": "\u5bf9\u4e8e\u7b2cN\u5217\uff0c\u5176\u603b\u96f7\u6570\u4e3a\u7b2cN-1\u5217\u4e0e\u7b2cN-2\u5217\u7684\u548c\u6216\u5dee\u7684\u7edd\u5bf9\u503c\uff0c\u7d22\u5f15\u5728\u9898\u677f\u8fb9\u754c\u5faa\u73af\u3002"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Mine-Counting"
+            ],
+            "creation_time": "2026-05-24"
+        },
+        {
+            "rule_line": "L",
             "id": "4U",
             "name": {
                 "default": "Cell",
