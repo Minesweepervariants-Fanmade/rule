@@ -1276,8 +1276,8 @@
                 "zh_CN": "\u6570\u72ec"
             },
             "doc": {
-                "default": "Sudoku: Each row and column of clue cells must contain unique numbers.",
-                "zh_CN": "\u6bcf\u884c\u6bcf\u5217\u7ebf\u7d22\u683c\u6570\u5b57\u4e0d\u91cd\u590d"
+                "default": "Sudoku: Each row and column of clue cells must contain unique numbers.(V only)",
+                "zh_CN": "\u6bcf\u884c\u6bcf\u5217\u7ebf\u7d22\u683c\u6570\u5b57\u4e0d\u91cd\u590d(\u4ec5\u9650V)"
             },
             "author": {
                 "name": "\u5c0f\u7eff\u8349",
@@ -1721,8 +1721,8 @@
                 "zh_CN": "\u6570\u72ec\u5bab"
             },
             "doc": {
-                "default": "Sudoku Box: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each box must be unique.",
-                "zh_CN": "\u6570\u72ec\u5bab\uff1a\u9898\u677f\u8fb9\u957f\u53ea\u80fd\u4e3a3\u7684\u6574\u6570\u500d\uff0c\u5c06\u9898\u677f\u5747\u5300\u5206\u4e3a9\u4e2a\u5bab\uff0c\u6bcf\u5bab\u5185\u6570\u5b57\u4e0d\u76f8\u540c"
+                "default": "Sudoku Box: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each box must be unique.(V only)",
+                "zh_CN": "\u6570\u72ec\u5bab\uff1a\u9898\u677f\u8fb9\u957f\u53ea\u80fd\u4e3a3\u7684\u6574\u6570\u500d\uff0c\u5c06\u9898\u677f\u5747\u5300\u5206\u4e3a9\u4e2a\u5bab\uff0c\u6bcf\u5bab\u5185\u6570\u5b57\u4e0d\u76f8\u540c(\u4ec5\u9650V)"
             },
             "author": {
                 "name": "\u5c0f\u7eff\u8349",
