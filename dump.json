@@ -5671,6 +5671,31 @@
         },
         {
             "rule_line": "R",
+            "id": "R*R",
+            "name": {
+                "default": "R*R",
+                "zh_CN": "R*R"
+            },
+            "doc": {
+                "default": "Inject R* as a left-line rule according to the parity of the total mine count",
+                "zh_CN": "\u6839\u636e\u603b\u96f7\u6570\u5947\u5076\u6027\u6ce8\u5165\u5de6\u7ebf R*"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Global",
+                "Parameter",
+                "Untagged"
+            ],
+            "creation_time": "2026-05-24"
+        },
+        {
+            "rule_line": "R",
             "id": "1M1N",
             "name": {
                 "default": "Multiple + Negative",
