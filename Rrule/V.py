@@ -93,6 +93,7 @@ class ValueV(AbstractClueValue):
                 neighbor_vars.append(var)
 
         # 添加约束：周围雷数等于count
+        s = switch.get(model, self.pos)
         if neighbor_vars:
-            model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(switch.get(model, self.pos))
+            model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(s)
             get_logger().trace(f"[V] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")

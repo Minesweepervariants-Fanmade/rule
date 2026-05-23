@@ -30,7 +30,7 @@ class Rule2Ep(AbstractClueRule):
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__()
-        size = (board.boundary().x + 1, board.boundary().y + 1)
+        size = Size(board.boundary().x + 1, board.boundary().y + 1)
         board.set_config(MASTER_BOARD, "pos_label", True)
         board.generate_board(NAME_2Epp, size)
         board.set_config(NAME_2Epp, "pos_label", True)

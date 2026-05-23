@@ -8,7 +8,7 @@
 [2I']残缺：数字表示周围8格中某n格的雷数。n格的方位被当前题板所有线索共享
 """
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from ....abs.board import AbstractPosition, AbstractBoard
+from ....abs.board import AbstractPosition, AbstractBoard, Size
 from ....utils.impl_obj import VALUE_CROSS, VALUE_CIRCLE
 from ....utils.tool import get_random, get_logger
 
@@ -37,7 +37,7 @@ class Rule2I(AbstractClueRule):
             except Exception:
                 pass
 
-        board.generate_board(NAME_2Ip, (3, 3))
+        board.generate_board(NAME_2Ip, Size(3, 3))
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         self.init_clear(board)

@@ -9,9 +9,9 @@
 [3E]演化: 每个3x1区域决定其中间下方1格是否为雷，演化被当前题板所有区域共享。
 """
 
-from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
-from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
+from minesweepervariants.abs.Lrule import AbstractMinesRule
+from minesweepervariants.abs.board import AbstractBoard, Size
+from minesweepervariants.utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 NAME_3E = ["3E_x", "3E_y"]
 
@@ -28,8 +28,8 @@ class Rule3E(AbstractMinesRule):
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)
-        board.generate_board(NAME_3E[0], size=(8, 3))
-        board.generate_board(NAME_3E[1], size=(8, 1))
+        board.generate_board(NAME_3E[0], size=Size(8, 3))
+        board.generate_board(NAME_3E[1], size=Size(8, 1))
         board.set_config(NAME_3E[1], "VALUE", VALUE_QUESS)
         board.set_config(NAME_3E[1], "MINES", MINES_TAG)
 

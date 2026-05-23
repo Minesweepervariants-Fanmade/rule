@@ -34,7 +34,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from ....abs.board import AbstractBoard, Size
 
 
 class RuleXS(AbstractMinesRule):
@@ -60,7 +60,7 @@ class RuleXS(AbstractMinesRule):
       w = int(size[1])
       seg_w = max(w - 1, 0)
       sub_key = self._sub_key(key)
-      board.generate_board(sub_key, size=(h, seg_w))
+      board.generate_board(sub_key, size=Size(h, seg_w))
       return h, w, sub_key
 
    def init_clear(self, board: "AbstractBoard"):

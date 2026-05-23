@@ -8,7 +8,7 @@
 [1M']多雷': 每个线索的多雷位置相对于线索固定 且位置全盘共享(总雷数不受限制)
 """
 
-from ....abs.board import AbstractBoard, AbstractPosition
+from ....abs.board import AbstractBoard, AbstractPosition, Size
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_random
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
@@ -30,7 +30,7 @@ class Rule1M(AbstractClueRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
-        board.generate_board(BOARD_NAME, (3, 3))
+        board.generate_board(BOARD_NAME, Size(3, 3))
         if data is None:
             self.value = 4
         else:

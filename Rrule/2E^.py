@@ -31,7 +31,7 @@ class Rule2Eq(AbstractClueRule):
         super().__init__(board, data)
         pos = board.boundary()
         size = min(pos.x + 1, 9)
-        board.generate_board(NAME_2Eq, (size, size))
+        board.generate_board(NAME_2Eq, Size(size, size))
         board.set_config(NAME_2Eq, "pos_label", True)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':

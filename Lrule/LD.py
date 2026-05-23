@@ -34,7 +34,7 @@ from typing import List
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from ....abs.board import AbstractBoard, Size
 from ....impl.summon.solver import Switch
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 
@@ -84,7 +84,7 @@ class RuleLD(AbstractMinesRule):
 
         if self.use_auxiliary and size_ref is not None:
             n = size_ref // 2
-            board.generate_board(NAME_LD_AUXILIARY, (3 * n, 3 * n))
+            board.generate_board(NAME_LD_AUXILIARY, Size(3 * n, 3 * n))
             board.set_config(NAME_LD_AUXILIARY, "pos_label", True)
 
     def init_board(self, board: AbstractBoard):
