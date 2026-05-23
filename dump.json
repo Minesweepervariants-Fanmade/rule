@@ -1277,7 +1277,7 @@
             },
             "doc": {
                 "default": "Sudoku: Each row and column of clue cells must contain unique numbers.",
-                "zh_CN": "\u6570\u72ec\uff1a\u6bcf\u884c\u6bcf\u5217\u7ebf\u7d22\u683c\u6570\u5b57\u4e0d\u91cd\u590d"
+                "zh_CN": "\u6bcf\u884c\u6bcf\u5217\u7ebf\u7d22\u683c\u6570\u5b57\u4e0d\u91cd\u590d"
             },
             "author": {
                 "name": "\u5c0f\u7eff\u8349",
