@@ -15,7 +15,7 @@ class RuleSUD(AbstractMinesRule):
     name = "Sudoku"
     name.zh_CN = "数独"
     doc = "Sudoku: Each row and column of clue cells must contain unique numbers."
-    doc.zh_CN = "数独：每行每列线索格数字不重复"
+    doc.zh_CN = "每行每列线索格数字不重复"
     tags = ["Original", 'Meta']
     author = ("小绿草", 3021857082)
     creation_time = "2026-05-21 00:32:21"
