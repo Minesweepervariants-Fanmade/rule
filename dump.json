@@ -1838,6 +1838,30 @@
         },
         {
             "rule_line": "L",
+            "id": "RA",
+            "name": {
+                "default": "Library",
+                "zh_CN": "\u56fe\u4e66\u9986"
+            },
+            "doc": {
+                "default": "In each row, mines are numbered from 1 left-to-right",
+                "zh_CN": "\u6bcf\u4e00\u884c\u7684\u96f7\u503c\u4ece\u7b2c\u4e00\u4e2a\u96f7\u5f00\u59cb\u4e3a1\uff0c\u5f80\u540e\u4f9d\u6b21\u589e\u52a01"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Mine-Value",
+                "Local"
+            ],
+            "creation_time": "2026-05-22"
+        },
+        {
+            "rule_line": "L",
             "id": "2C",
             "name": {
                 "default": "Connected",
