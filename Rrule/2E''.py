@@ -30,7 +30,7 @@ class Rule2Ep(AbstractClueRule):
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__()
-        size = Size(board.boundary().x + 1, board.boundary().y + 1)
+        size = Size(board.boundary().row + 1, board.boundary().col + 1)
         board.set_config(MASTER_BOARD, "pos_label", True)
         board.generate_board(NAME_2Epp, size)
         board.set_config(NAME_2Epp, "pos_label", True)
@@ -48,12 +48,12 @@ class Rule2Ep(AbstractClueRule):
         ]:
             letter_map = {i: [] for i in range(9)}
             for pos, _ in board("F", key=key_a):
-                if pos.y > 8:
+                if pos.col > 8:
                     continue
-                letter = ALPHABET[pos.y]
-                if pos.x not in letter_map:
-                    letter_map[pos.x] = []
-                letter_map[pos.x].append(letter)
+                letter = ALPHABET[pos.col]
+                if pos.row not in letter_map:
+                    letter_map[pos.row] = []
+                letter_map[pos.row].append(letter)
 
             for pos, _ in board("N", key=key_b):
                 positions = pos.neighbors(2)
