@@ -12,7 +12,7 @@ def liar_1M1N1X(value: int, random) -> int:
 
 class Rule1LMNX(AbstractClueRule):
     id = "1LMNX"
-    name = "Liar + Multiple + Negative + Cross", "1L1M1N1X"
+    name = "Liar + Multiple + Negative + Cross"
     name.zh_CN = "误差 + 多雷 + 负雷 + 十字"
     doc = "Liar + Multiple + Negative + Cross combination rule"
     tags = ["Variant", "Local", "Number Clue", "Dyed", "Extensive Trial"]

@@ -19,7 +19,7 @@ def cross_neighbors(pos : AbstractPosition) -> list[AbstractPosition]:
 
 class Rule1M1N1X(AbstractClueRule):
     id = "1MNX"
-    name = "Multiple + Negative + Cross", "1M1N1X"
+    name = "Multiple + Negative + Cross"
     name.zh_CN = "多雷 + 负雷 + 十字"
     doc = ""
 
