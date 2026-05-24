@@ -10,6 +10,8 @@
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....abs.board import AbstractBoard, AbstractPosition
 
+from typing import Any, cast, List
+
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
@@ -17,25 +19,26 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 class RuleV(AbstractClueRule):
     id = "V"
     name = "Vanilla"
-    name.zh_CN = "标准扫雷"
+    name.zh_CN = "标准扫雷"  # type: ignore[attr-defined]
     doc = "Each number indicates the number of mines in the surrounding eight cells"
-    doc.zh_CN = "每个数字标明周围八格内雷的数量。"
+    doc.zh_CN = "每个数字标明周围八格内雷的数量。"  # type: ignore[attr-defined]
     tags = ["Original", "Local", "Vanilla Variant", "Number Clue"]
     creation_time = "2025-08-06"
     author = ("", 0)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
-        logger = get_logger()
         for pos, _ in board("N", special='raw'):
-            value = board.batch(pos.neighbors(2), "type")
-            value = value.count("F")
-            board.set_value(pos, ValueV(pos, count=value))
+            # `batch` has a dynamic return type; cast to the expected runtime type here
+            value_list = cast(List[str], board.batch(pos.neighbors(2), "type"))
+            count_val = value_list.count("F")
+            board.set_value(pos, ValueV(pos, count=count_val))
         return board
 
 
 class ValueV(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
-        super().__init__(pos, code)
+    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes | None = None):
+        # AbstractValue expects bytes for `code`; normalize None -> b'' when delegating
+        super().__init__(pos, code or b'')
         if code is not None:
             # 从字节码解码
             self.count = code[0]
@@ -58,10 +61,10 @@ class ValueV(AbstractClueValue):
         return bytes([self.count])
 
     def invalid(self, board: 'AbstractBoard') -> bool:
-        return board.batch(self.neighbor, mode="type", special='raw').count("N") == 0
+        return cast(List[str], board.batch(self.neighbor, mode="type", special='raw')).count("N") == 0
 
     def deduce_cells(self, board: 'AbstractBoard') -> bool:
-        type_dict = {"N": [], "F": []}
+        type_dict: dict[str, list[AbstractPosition]] = {"N": [], "F": []}
         for pos in self.neighbor:
             t = board.get_type(pos)
             if t in ("", "C"):
@@ -81,19 +84,21 @@ class ValueV(AbstractClueValue):
             return True
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'AbstractBoard', switch: Any):
         """创建CP-SAT约束: 周围雷数等于count"""
-        model = board.get_model()
+        model = cast(Any, board.get_model())
+        logger = get_logger()
 
         # 收集周围格子的布尔变量
-        neighbor_vars = []
+        neighbor_vars: list[Any] = []
         for neighbor in self.neighbor:  # 8方向相邻格子
             if board.in_bounds(neighbor):
                 var = board.get_variable(neighbor)
                 neighbor_vars.append(var)
 
         # 添加约束：周围雷数等于count
-        s = switch.get(model, self.pos)
+        s = cast(Any, switch).get(model, self.pos)
         if neighbor_vars:
-            model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(s)
-            get_logger().trace(f"[V] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")
+            # model and neighbor variables are dynamically typed (ortools objects)
+            model.Add(cast(Any, sum(neighbor_vars)) == self.count).OnlyEnforceIf(s)
+            cast(Any, logger).trace(f"[V] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")
