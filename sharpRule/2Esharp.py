@@ -236,11 +236,11 @@ class Value2ESharp(AbstractClueValue):
         clue_code.extend(self.rule.encode("ascii"))
         clue_code.extend(b'|')
         clue_code.extend(bytes([value]))
-        return get_value(self.pos, self.rule, ImmutableDict{
+        return get_value(self.pos, self.rule, ImmutableDict({
             "old_style": True,
             "type": b64encode(self.type()).decode(),
             "code": b64encode(self.code()).decode()
-        })
+        }))
 
 class Value2E2A(Value2ESharp):
     def __init__(self, pos: AbstractPosition, value: int = 0, code: bytes = None, flag = 4) -> None:
