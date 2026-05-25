@@ -11,6 +11,7 @@ from ....impl.impl_obj import get_value
 from ....utils.image_create import get_text, get_image, get_dummy, get_col, get_row
 from ....utils.web_template import Number, MultiNumber, StrWithArrow
 from minesweepervariants.abs.board import ImmutableDict, JSONObject
+from base64 import b64encode
 
 NAME_2E = "2E"
 rule2P = import_module("minesweepervariants.impl.rule.Rrule.2P")
@@ -256,7 +257,11 @@ class Value2E2A(Value2ESharp):
         clue_code.extend(self.rule.encode("ascii"))
         clue_code.extend(b'|')
         clue_code.extend(bytes([self.flag, value]))
-        return get_value(self.pos, bytes(clue_code))
+        return get_value(self.pos, self.rule, ImmutableDict({
+            "old_style": True,
+            "type": b64encode(self.type()).decode(),
+            "code": b64encode(self.code()).decode()
+        }))
 
 
 class Value2E2X(AbstractClueValue):
@@ -597,7 +602,11 @@ class Value2E1EN(AbstractClueValue):
             clue_code.extend(bytes([value + 128]))
         else:
             clue_code.extend(bytes([-value + 128]))
-        return get_value(self.pos, bytes(clue_code))
+        return get_value(self.pos, self.rule, ImmutableDict({
+            "old_style": True,
+            "type": b64encode(self.type()).decode(),
+            "code": b64encode(self.code()).decode()
+        }))
 
 
 class FakeSwitch(Switch):
