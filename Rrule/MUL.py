@@ -18,6 +18,8 @@ from collections import Counter
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.tool import get_logger
 
+SUB_RULE_CLUE_TYPE = []
+
 
 def prime_factors(n: int) -> dict[int, int]:
     """返回 n 的质因数分解字典 {质因数: 指数}，n 为正整数"""
@@ -92,9 +94,8 @@ class RuleMUL(AbstractClueRule):
             raise ValueError("需要传入两个规则")
         if ";" not in data:
             raise ValueError("需要使用;分割两个规则")
-        self.rule1, self.rule2 = data.split(";")
+        self.rule1, self.rule2 = data.split(";", 1)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         board_a = board.clone()
         board_b = board.clone()
         _rule1 = add_rule(
@@ -109,18 +110,46 @@ class RuleMUL(AbstractClueRule):
             raise ValueError(f"不接受的规则: {_rule1}")
         if not isinstance(_rule2, AbstractClueRule):
             raise ValueError(f"不接受的规则: {_rule2}")
-        board1 = _rule1.fill(board_a)
-        board2 = _rule2.fill(board_b)
+        _rule1.fill(board_a)
+        _rule2.fill(board_b)
+        for pos, _ in board("N", mode="none"):
+            if (type1 := get_value_type(board_a[pos].type().decode("ascii"))) is None:
+                raise ValueError(f"[MUL]OBJ_TYPE:{self.rule1} undefind")
+            if (type2 := get_value_type(board_b[pos].type().decode("ascii"))) is None:
+                raise ValueError(f"[MUL]OBJ_TYPE:{self.rule2} undefind")
+            SUB_RULE_CLUE_TYPE.append(type1)
+            SUB_RULE_CLUE_TYPE.append(type2)
+            break
+
+    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+        _rule1 = add_rule(
+            board, self.rule1.split(":", 1)[0],
+            self.rule1.split(":", 1)[1] if ":" in self.rule1 else None, False
+        )
+        _rule2 = add_rule(
+            board, self.rule2.split(":", 1)[0],
+            self.rule2.split(":", 1)[1] if ":" in self.rule2 else None, False
+        )
+        if not isinstance(_rule1, AbstractClueRule):
+            raise ValueError(f"不接受的规则: {_rule1}")
+        if not isinstance(_rule2, AbstractClueRule):
+            raise ValueError(f"不接受的规则: {_rule2}")
+        board_a = board.clone()
+        board_b = board.clone()
+        _rule1.fill(board_a)
+        _rule2.fill(board_b)
 
         for pos, _ in board("N", mode="none"):
-            if get_value_type(board1[pos].type().decode("ascii")) is None:
+            if (type1 := get_value_type(board_a[pos].type().decode("ascii"))) is None:
                 raise ValueError(f"[MUL]OBJ_TYPE:{self.rule1} undefind")
-            if get_value_type(board2[pos].type().decode("ascii")) is None:
+            if (type2 := get_value_type(board_b[pos].type().decode("ascii"))) is None:
                 raise ValueError(f"[MUL]OBJ_TYPE:{self.rule2} undefind")
+            SUB_RULE_CLUE_TYPE.append(type1)
+            SUB_RULE_CLUE_TYPE.append(type2)
             break
         for pos, _ in board("N", mode="none"):
-            obj1 = board1[pos]
-            obj2 = board2[pos]
+            obj1 = board_a[pos]
+            obj2 = board_b[pos]
             if not (str(obj1).isdigit() and str(obj2).isdigit()):
                 board[pos] = VALUE_QUESS
             value = int(str(obj1)) * int(str(obj2))
@@ -164,6 +193,11 @@ class ValueMUL(AbstractClueValue):
         model = board.get_model()
         type1 = get_value_type(self.type1)
         type2 = get_value_type(self.type2)
+
+        if type1 is None:
+            raise ValueError(f"[MUL]OBJ_TYPE:{self.type1} undefind")
+        if type2 is None:
+            raise ValueError(f"[MUL]OBJ_TYPE:{self.type2} undefind")
 
         choose_list = []
 

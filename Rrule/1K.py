@@ -8,15 +8,42 @@ from ....abs.board import AbstractBoard, AbstractPosition
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
-
-def encode_int_7bit(n: int) -> bytes:
-    s = str(n)
-    return s.encode()
+BYTE_LENGTH = 3
 
 
-def decode_bytes_7bit(data: bytes) -> int:
-    s = data.decode()
-    return int(s)
+def encode_int(num: int) -> bytes:
+    """将整数编码为固定长度（BYTE_LENGTH）的字节串，不含 0xFF。小端序，高位补 0。"""
+    if num < 0:
+        raise ValueError("只支持非负整数")
+    # 计算 255 进制表示（低位在前）
+    digits = []
+    temp = num
+    while temp > 0:
+        temp, r = divmod(temp, 255)
+        digits.append(r)
+    # 如果数字太大，超过固定长度则报错
+    if len(digits) > BYTE_LENGTH:
+        raise OverflowError(f"数字太大，需要至少 {len(digits)} 字节，当前 BYTE_LENGTH={BYTE_LENGTH}")
+    # 补足到固定长度（末尾补 0，相当于高位补 0）
+    digits += [0] * (BYTE_LENGTH - len(digits))
+    return bytes(digits)[::-1]   # 每个元素 0~254，不会出现 255
+
+
+def decode_int(data: bytes) -> int:
+    """将固定长度的字节串解码为整数。data 长度必须等于 BYTE_LENGTH。"""
+    if len(data) < BYTE_LENGTH:
+        data = (BYTE_LENGTH - len(data)) * b'\x00' + data
+    if len(data) > BYTE_LENGTH:
+        raise ValueError(f"输入字节串长度必须为 {BYTE_LENGTH}，实际 {len(data)}")
+    data = data[::-1]
+    # 小端序：第 i 字节乘以 255^i
+    num = 0
+    for i, b in enumerate(data):
+        if b > 254:
+            raise ValueError(f"非法字节值 {b}（最大应为 254）")
+        num += b * (255 ** i)
+    return num
+
 
 class RuleV(AbstractClueRule):
     id = "1K"
@@ -39,7 +66,7 @@ class RuleV(AbstractClueRule):
                 self.rule = rule
                 if code is not None:
                     # 从字节码解码
-                    self.count = decode_bytes_7bit(code)
+                    self.count = decode_int(code)
                 else:
                     # 直接初始化
                     self.count = count
@@ -53,7 +80,7 @@ class RuleV(AbstractClueRule):
                 return self.rule.encode()
 
             def code(self) -> bytes:
-                return encode_int_7bit(self.count)
+                return encode_int(self.count)
 
             def create_constraints(self, board: 'AbstractBoard', switch):
                 """创建CP-SAT约束: 周围雷数等于count"""
