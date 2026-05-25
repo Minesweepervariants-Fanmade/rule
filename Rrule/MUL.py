@@ -111,6 +111,13 @@ class RuleMUL(AbstractClueRule):
             raise ValueError(f"不接受的规则: {_rule2}")
         board1 = _rule1.fill(board_a)
         board2 = _rule2.fill(board_b)
+
+        for pos, _ in board("N", mode="none"):
+            if get_value_type(board1[pos].type().decode("ascii")) is None:
+                raise ValueError(f"[MUL]OBJ_TYPE:{self.rule1} undefind")
+            if get_value_type(board2[pos].type().decode("ascii")) is None:
+                raise ValueError(f"[MUL]OBJ_TYPE:{self.rule2} undefind")
+            break
         for pos, _ in board("N", mode="none"):
             obj1 = board1[pos]
             obj2 = board2[pos]
@@ -194,13 +201,14 @@ class ValueMUL(AbstractClueValue):
             try:
                 obj1, obj2 = init_obj(num1, num2)
                 ...
-            except Exception:
+            except Exception as e:
+                get_logger().trace(str(e))
                 if self.value == 0:
                     break
                 continue
             obj1.create_constraints(board, FakeSwitch(choose_list[-1]))
             obj2.create_constraints(board, FakeSwitch(choose_list[-1]))
-        # print(self.pos, choose_list)
+        get_logger().trace(f"[{self.pos}]ADD OR: {choose_list}")
         model.add_bool_or(choose_list).only_enforce_if(switch.get(model, self))
 
 
