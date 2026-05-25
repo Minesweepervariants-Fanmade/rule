@@ -233,14 +233,10 @@ class Value2ESharp(AbstractClueValue):
         model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
 
     def get_clue(self, value) -> AbstractClueValue:
-        clue_code = bytearray()
-        clue_code.extend(self.rule.encode("ascii"))
-        clue_code.extend(b'|')
-        clue_code.extend(bytes([value]))
         return get_value(self.pos, self.rule, ImmutableDict({
             "old_style": True,
             "type": b64encode(self.type()).decode(),
-            "code": b64encode(self.code()).decode()
+            "code": b64encode(int.to_bytes(value)).decode()
         }))
 
 class Value2E2A(Value2ESharp):
@@ -260,7 +256,7 @@ class Value2E2A(Value2ESharp):
         return get_value(self.pos, self.rule, ImmutableDict({
             "old_style": True,
             "type": b64encode(self.type()).decode(),
-            "code": b64encode(self.code()).decode()
+            "code": b64encode(int.to_bytes(value)).decode()
         }))
 
 
@@ -605,7 +601,7 @@ class Value2E1EN(AbstractClueValue):
         return get_value(self.pos, self.rule, ImmutableDict({
             "old_style": True,
             "type": b64encode(self.type()).decode(),
-            "code": b64encode(self.code()).decode()
+            "code": b64encode(int.to_bytes(value)).decode()
         }))
 
 
