@@ -7,13 +7,13 @@ def parse(s: str, width: int, height: int) -> tuple[list[tuple[int, int]], list[
     result_not = []
     idx = -1
     for idx, chr in enumerate(filter(lambda c: c in "01Xx", s)):
-        col, row = idx // width, idx % width
+        row, col = idx // width, idx % width
         if chr.upper() == "X":
             continue
         elif chr == "0":
-            result_not.append((col, row))
+            result_not.append((row, col))
         elif chr == "1":
-            result.append((col, row))
+            result.append((row, col))
     if idx + 1 != width * height:
         raise ValueError(f"Data length {idx + 1} does not match board size {width * height}.")
 
