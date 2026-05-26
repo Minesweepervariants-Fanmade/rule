@@ -6,9 +6,9 @@ def parse(s: str, width: int, height: int) -> tuple[list[tuple[int, int]], list[
     result = []
     result_not = []
     idx = -1
-    for idx, chr in enumerate(filter(lambda c: c in "01X", s)):
+    for idx, chr in enumerate(filter(lambda c: c in "01Xx", s)):
         col, row = idx % width, idx // width
-        if chr == "X":
+        if chr.upper() == "X":
             continue
         elif chr == "0":
             result_not.append((col, row))
