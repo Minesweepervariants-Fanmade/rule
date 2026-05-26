@@ -2466,5 +2466,12 @@
         "author_uid": 2513946475,
         "author_name": "Indiebard (Alith)",
         "doc": "吃"
+    },
+    {
+        "time": 1779807268.7093139,
+        "name": "LG'",
+        "author_uid": 3086842243,
+        "author_name": "小中医",
+        "doc": "生命游戏'，如果一个雷左右两格恰有0/1/2雷，则它的雷值为0/1/2。"
     }
 ]
