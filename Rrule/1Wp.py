@@ -22,7 +22,7 @@ class Rule1Wp(AbstractClueRule):
     doc.zh_CN = "数字线索是两个十六进制数字，代表从某个格子顺时针旋转后雷代表1非雷代表0的8位二进制数字转为十六进制"
     tags = ["Local", "Number Clue", "Creative"]
     creation_time = "2026-05-19"
-    author = ("雾 (3140864122)", -1)
+    author = ("雾", 3140864122)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         """为每个有完整8个邻居的格子设置十六进制线索"""
