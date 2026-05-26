@@ -6,21 +6,26 @@ from ....abs.Lrule import AbstractMinesRule
 
 def parse(s: str) -> list[tuple[int, int]]:
     result = []
+    result_not = []
     for part in s.split(";"):
-        match = re.match(r'^([A-Z]+)(\d+)$', part)
+        match = re.match(r'^(~)?([A-Z]+)(\d+)$', part)
         if match is None: raise ValueError(f"Invalid format: {part}")
-        letters, number = match.groups()
+        is_not, letters, number = match.groups()
         x = sum((ord(c) - ord('A') + 1) * (26 ** i) for i, c in enumerate(reversed(letters))) - 1
         y = int(number) - 1
-        result.append((y, x))
-    return result
+        if is_not == "~":
+            result_not.append((y, x))
+        else:
+            result.append((y, x))
+
+    return result, result_not
 
 class RuleA2(AbstractMinesRule):
     id = "A2"
     name = "A2 is a mine"
     name.zh_CN = "A2 格是雷"
     doc = "A2 is a mine"
-    doc.zh_CN = "A2 格是雷"
+    doc.zh_CN = "参数;分割指定雷，前面加~表示非雷"
     author = ("NT", 2201963934)
 
     tags = ["Creative", "Local", "Parameter"]
@@ -29,11 +34,12 @@ class RuleA2(AbstractMinesRule):
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
         self.values = []
+        self.values_not = []
         if data is None:
-            self.values = [(1, 0)]
+            self.values, self.values_not = [(1, 0)], []
             return
 
-        self.values = parse(data)
+        self.values, self.values_not = parse(data)
         print(self.values)
 
     def create_constraints(self, board, switch):
@@ -43,3 +49,5 @@ class RuleA2(AbstractMinesRule):
         for key in board.get_interactive_keys():
             for pos in self.values:
                 model.Add(board.get_variable(board.get_pos(*pos, key)) == 1).OnlyEnforceIf(s)
+            for pos in self.values_not:
+                model.Add(board.get_variable(board.get_pos(*pos, key)) == 0).OnlyEnforceIf(s)
