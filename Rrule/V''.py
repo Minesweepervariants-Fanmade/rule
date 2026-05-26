@@ -12,6 +12,7 @@ from ....abs.board import AbstractBoard, AbstractPosition
 
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
+from ...impl_obj import add_rule
 
 
 def encode_int_7bit(n: int) -> bytes:
@@ -84,6 +85,10 @@ class RuleV(AbstractClueRule):
 
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+        # 如果没有注册过特殊类型，则进行初始化
+        if not board.has_type_special(self.rule):
+            add_rule(board, self.rule, add=False)
+
         logger = get_logger()
         for pos, _ in board("N", special='raw'):
             value = board.batch(pos.neighbors(2), "type", special=self.rule)
