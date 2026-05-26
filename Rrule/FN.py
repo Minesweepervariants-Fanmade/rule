@@ -9,7 +9,7 @@ from typing import Union, List
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
 from minesweepervariants.abs.board import AbstractBoard, JSONObject, ImmutableDict, AbstractPosition, Size
 from minesweepervariants.impl.summon.solver import Switch
-from minesweepervariants.utils.impl_obj import VALUE_QUESS
+from minesweepervariants.utils.impl_obj import VALUE_QUESS, VALUE_CROSS
 
 
 def get_nei(pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPosition]:
@@ -57,6 +57,14 @@ class RuleFN(AbstractClueRule):
         board.generate_board(FN_NAME, size=Size(1, 9))
         board.set_config(FN_NAME, "pos_label", True)
 
+    def init_board(self, board: 'AbstractBoard') -> None:
+        for pos, _ in board("N", key=FN_NAME):
+            board[pos] = VALUE_CROSS
+
+    def init_clear(self, board: 'AbstractBoard') -> None:
+        for pos, _ in board(key=FN_NAME):
+            board[pos] = None
+
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         sum_num = 0
         len_num = 0
@@ -69,6 +77,10 @@ class RuleFN(AbstractClueRule):
             obj = ValueFN.from_json(pos, {"value": value})
             board[pos] = obj
         return board
+
+    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+        model = board.get_model()
+        model.add(sum(board.batch(board.get_col_pos(board.boundary(FN_NAME)), 'var')) == 1).OnlyEnforceIf(switch.get(model, self))
 
 
 class ValueFN(AbstractClueValue):
