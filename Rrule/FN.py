@@ -9,7 +9,7 @@ from typing import Union, List
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
 from minesweepervariants.abs.board import AbstractBoard, JSONObject, ImmutableDict, AbstractPosition, Size
 from minesweepervariants.impl.summon.solver import Switch
-from minesweepervariants.utils.impl_obj import VALUE_QUESS, VALUE_CROSS
+from minesweepervariants.utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 
 
 def get_nei(pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPosition]:
@@ -56,10 +56,12 @@ class RuleFN(AbstractClueRule):
         super().__init__(board, data)
         board.generate_board(FN_NAME, size=Size(1, 9))
         board.set_config(FN_NAME, "pos_label", True)
+        self.total = 0
 
     def init_board(self, board: 'AbstractBoard') -> None:
-        for pos, _ in board("N", key=FN_NAME):
+        for pos, _ in board(key=FN_NAME):
             board[pos] = VALUE_CROSS
+        board[board.get_col_pos(board.boundary(FN_NAME))[self.total]] = VALUE_CIRCLE
 
     def init_clear(self, board: 'AbstractBoard') -> None:
         for pos, _ in board(key=FN_NAME):
@@ -71,9 +73,9 @@ class RuleFN(AbstractClueRule):
         for pos, _ in board("N", mode="none"):
             sum_num += board.batch(get_nei(pos, board), "type").count("F")
             len_num += 1
-        avg_num = int(sum_num / len_num)
+        self.total = int(sum_num / len_num)
         for pos, _ in board("N", mode="none"):
-            value = board.batch(get_nei(pos, board), "type").count("F") - avg_num
+            value = board.batch(get_nei(pos, board), "type").count("F") - self.total
             obj = ValueFN.from_json(pos, {"value": value})
             board[pos] = obj
         return board
