@@ -7,7 +7,7 @@
 from typing import Union, List
 
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.abs.board import AbstractBoard, JSONObject, ImmutableDict, AbstractPosition
+from minesweepervariants.abs.board import AbstractBoard, JSONObject, ImmutableDict, AbstractPosition, Size
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.impl_obj import VALUE_QUESS
 
@@ -38,6 +38,8 @@ def get_nei(pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPositio
 
     return neighbors
 
+FN_NAME = "FN"
+
 
 
 class RuleFN(AbstractClueRule):
@@ -49,6 +51,11 @@ class RuleFN(AbstractClueRule):
     tags = ['Creative', 'Global', 'Mine-Counting']
     author = ("雾", 3140864122)
     creation_time = "2026-05-26 16:37:56"
+
+    def __init__(self, board: "AbstractBoard | None" = None, data: str | None = None) -> None:
+        super().__init__(board, data)
+        board.generate_board(FN_NAME, size=Size(1, 9))
+        board.set_config(FN_NAME, "pos_label", True)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         sum_num = 0
@@ -62,19 +69,6 @@ class RuleFN(AbstractClueRule):
             obj = ValueFN.from_json(pos, {"value": value})
             board[pos] = obj
         return board
-
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
-        model = board.get_model()
-        global_var = model.new_int_var(0, 8, "global")
-        for pos, obj in board(mode="obj"):
-            if not isinstance(obj, ValueFN):
-                continue
-            s = switch.get(model, obj)
-            model.add(
-                sum(
-                    board.batch(get_nei(pos, board), "var", drop_none=True)
-                ) == global_var + obj.value
-            ).only_enforce_if(s)
 
 
 class ValueFN(AbstractClueValue):
@@ -95,3 +89,17 @@ class ValueFN(AbstractClueValue):
     @classmethod
     def type(cls) -> bytes:
         return RuleFN.id.encode("ascii")
+
+    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+        model = board.get_model()
+        global_var = model.new_int_var(0, 8, "global")
+        s = switch.get(model, self)
+        model.add(
+            sum(
+                board.batch(get_nei(self.pos, board), "var", drop_none=True)
+            ) == global_var + self.value
+        ).only_enforce_if(s)
+        col_var = board.batch(board.get_col_pos(board.boundary(FN_NAME)), "var")
+        for i in range(9):
+            model.add(global_var == i).OnlyEnforceIf(col_var[i], s)
+            model.add(global_var != i).OnlyEnforceIf(col_var[i].Not(), s)
