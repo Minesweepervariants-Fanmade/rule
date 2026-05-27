@@ -124,3 +124,4 @@ class RuleA2(AbstractMinesRule):
             model.add(total <= (ub - len(self.values_not)))
 
         info["hard_fns"].append(a)
+        info["soft_fn"]((ub - len(self.values_not) + len(self.values)) // 2, 2)
