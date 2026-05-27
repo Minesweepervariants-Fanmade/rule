@@ -26,7 +26,7 @@ def get_nei(pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPositio
     # 八方向偏移（行列顺序）
     directions = [
         (1, 1), (1, 0), (1, -1),
-        (0, 1),         (0, -1),
+        (0, 1), (0, -1),
         (-1, 1), (-1, 0), (-1, -1)
     ]
 
@@ -38,8 +38,9 @@ def get_nei(pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPositio
 
     return neighbors
 
-FN_NAME = "FN"
 
+FN_NAME = "FN"
+NUM_RANGE = lambda x: ((9 - x) // 2, 9 - (10 - x) // 2)
 
 
 class RuleFN(AbstractClueRule):
@@ -54,14 +55,16 @@ class RuleFN(AbstractClueRule):
 
     def __init__(self, board: "AbstractBoard | None" = None, data: str | None = None) -> None:
         super().__init__(board, data)
-        board.generate_board(FN_NAME, size=Size(1, 9))
+        num_size = min(9, max(board.boundary(key).row + 1 for key in board.get_interactive_keys()))
+        self.num_range = NUM_RANGE(num_size)
+        board.generate_board(FN_NAME, size=Size(1, num_size), labels=[str(i) for i in range(*self.num_range)])
         board.set_config(FN_NAME, "pos_label", True)
         self.total = 0
 
     def init_board(self, board: 'AbstractBoard') -> None:
         for pos, _ in board(key=FN_NAME):
             board[pos] = VALUE_CROSS
-        board[board.get_col_pos(board.boundary(FN_NAME))[self.total]] = VALUE_CIRCLE
+        board[board.get_col_pos(board.boundary(FN_NAME))[self.total - self.num_range[0]]] = VALUE_CIRCLE
 
     def init_clear(self, board: 'AbstractBoard') -> None:
         for pos, _ in board(key=FN_NAME):
@@ -73,7 +76,7 @@ class RuleFN(AbstractClueRule):
         for pos, _ in board("N", mode="none"):
             sum_num += board.batch(get_nei(pos, board), "type").count("F")
             len_num += 1
-        self.total = int(sum_num / len_num)
+        self.total = max(min(self.num_range[1] - 1, int(sum_num / len_num)), self.num_range[0])
         for pos, _ in board("N", mode="none"):
             value = board.batch(get_nei(pos, board), "type").count("F") - self.total
             obj = ValueFN.from_json(pos, {"value": value})
@@ -82,7 +85,8 @@ class RuleFN(AbstractClueRule):
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
         model = board.get_model()
-        model.add(sum(board.batch(board.get_col_pos(board.boundary(FN_NAME)), 'var')) == 1).OnlyEnforceIf(switch.get(model, self))
+        model.add(sum(board.batch(board.get_col_pos(board.boundary(FN_NAME)), 'var')) == 1).OnlyEnforceIf(
+            switch.get(model, self))
 
 
 class ValueFN(AbstractClueValue):
@@ -113,7 +117,10 @@ class ValueFN(AbstractClueValue):
                 board.batch(get_nei(self.pos, board), "var", drop_none=True)
             ) == global_var + self.value
         ).only_enforce_if(s)
-        col_var = board.batch(board.get_col_pos(board.boundary(FN_NAME)), "var")
-        for i in range(9):
-            model.add(global_var == i).OnlyEnforceIf(col_var[i], s)
-            model.add(global_var != i).OnlyEnforceIf(col_var[i].Not(), s)
+        FN_Bound = board.boundary(FN_NAME)
+        col_var = board.batch(board.get_col_pos(FN_Bound), "var")
+        range_start = NUM_RANGE(FN_Bound.row + 1)[0]
+        for i in range(FN_Bound.row + 1):
+            taget_num = range_start + i
+            model.add(global_var == taget_num).OnlyEnforceIf(col_var[i], s)
+            model.add(global_var != taget_num).OnlyEnforceIf(col_var[i].Not(), s)
