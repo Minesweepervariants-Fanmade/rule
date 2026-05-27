@@ -28,20 +28,53 @@
 
 import time
 
-from ....abs.Lrule import AbstractMinesRule
+from ....abs.Rrule import AbstractClueRule, ValueQuess
 from ....abs.board import AbstractBoard
+from ....abs.rule import AbstractValue
+from ....utils.tool import get_random
 
 
-class RuleGM(AbstractMinesRule):
+class RuleGM(AbstractClueRule):
     id = "GM"
     name = "OttoMom"
     name.zh_CN = "棍木"
-    doc = "Placeholder rule that waits continuously (for debugging)"
-    doc.zh_CN = "棍木"
+    doc = "Fill the board with some OttoMom"
+    doc.zh_CN = "在题板上会有棍木"
     author = ("NT", 2201963934)
     tags = ["Creative", "WIP", "Local"]
     creation_time = "2026-04-09"
 
-    def create_constraints(self, board: "AbstractBoard", switch):
-        while True:
-            time.sleep(0.5)
+    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+        super().__init__(board, data)
+        self.data = -1 if data is None else (int(data) if data else 0)
+
+    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+        for pos, _ in board("N"):
+            board.set_value(pos, ValueGM(pos))
+        return board
+
+    def init_clear(self, board: 'AbstractBoard'):
+        if self.data > -1:
+            positions = [pos for pos, obj in board("C") if isinstance(obj, ValueGM)]
+            random = get_random()
+            positions = random.sample(positions, k=len(positions) - self.data)
+            for pos in positions:
+                board.set_value(pos, None)
+
+
+class ValueGM(ValueQuess):
+    @classmethod
+    def type(cls) -> bytes:
+        return RuleGM.id.encode("ascii")
+
+    def __repr__(self) -> str:
+        return ""
+
+    def weaker(self, board: AbstractBoard) -> AbstractValue:
+        return self
+
+    def weaker_times(self) -> int:
+        return 0
+
+    def tag(self, board: 'AbstractBoard') -> bytes:
+        return b''
