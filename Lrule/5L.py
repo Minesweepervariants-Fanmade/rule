@@ -3,6 +3,8 @@
 """
 [5L] 回路: 雷格八连通构成哈密顿回路
 """
+from minesweepervariants.abs.board import AbstractPosition
+
 from ....abs.Lrule import AbstractMinesRule
 
 
@@ -16,6 +18,39 @@ class Rule5L(AbstractMinesRule):
     creation_time = "2026-05-05"
     author = ("NT", 2201963934)
 
+    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+        self.invert = False
+        super().__init__(board, data)
+        self.nei_values = []
+        if data is None:
+            self.nei_values = [tuple([1, 2])]
+            return
+        if data[0]=='~':
+            self.invert = True
+            data = data[1:]
+        nei_values = data.split(";")
+        for nei_value in nei_values:
+            if ":" in nei_value:
+                self.nei_values.append(tuple([
+                    int(nei_value.split(":")[0]),
+                    int(nei_value.split(":")[1])
+                ]))
+            else:
+                self.nei_values.append(tuple([int(nei_value)]))
+
+    def nei_pos(self, pos: AbstractPosition):
+        positions = []
+        for nei_value in self.nei_values:
+            if len(nei_value) == 1:
+                positions.extend(
+                    pos.neighbors(nei_value[0], nei_value[0])
+                )
+            elif len(nei_value) == 2:
+                positions.extend(
+                    pos.neighbors(nei_value[0], nei_value[1])
+                )
+        return positions
+
     def create_constraints(self, board, switch):
         model = board.get_model()
         s = switch.get(model, self)
@@ -27,8 +62,12 @@ class Rule5L(AbstractMinesRule):
         # 边变量：八连通且两端都是雷格
         arcs, arc_var = [], {}
         for i, (k1, p1, mv1) in enumerate(positions):
+            if self.invert:
+                mv1 = mv1.Not()
             for j, (k2, p2, mv2) in enumerate(positions):
-                if i != j and p2 in p1.neighbors(2):
+                if self.invert:
+                    mv2 = mv2.Not()
+                if i != j and p2 in self.nei_pos(p1):
                     v = model.new_bool_var(f'5L_{i}_{j}')
                     arc_var[i, j] = v
                     arcs.append((i, j, v))
@@ -37,6 +76,8 @@ class Rule5L(AbstractMinesRule):
 
         # 自环跳过非雷格节点
         for i, (_, _, mv) in enumerate(positions):
+            if self.invert:
+                mv = mv.Not()
             arcs.append((i, i, mv.Not()))
 
         model.add_circuit(arcs).OnlyEnforceIf(s)
