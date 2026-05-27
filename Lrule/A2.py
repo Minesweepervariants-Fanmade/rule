@@ -7,6 +7,8 @@ from ....abs.Lrule import AbstractMinesRule
 import re
 import base64
 
+from ....utils.tool import get_logger
+
 
 def _parse_binary_string(bin_str: str, bound: "AbstractPosition"):
     """
@@ -101,8 +103,8 @@ class RuleA2(AbstractMinesRule):
             return
 
         self.values, self.values_not = parse(data, board.boundary())
-        print(f"values: {[board.get_pos(*pos, MASTER_BOARD) for pos in self.values]}")
-        print(f"values_not: {[board.get_pos(*pos, MASTER_BOARD) for pos in self.values_not]}")
+        get_logger().debug(f"values: {[board.get_pos(*pos, MASTER_BOARD) for pos in self.values]}")
+        get_logger().debug(f"values_not: {[board.get_pos(*pos, MASTER_BOARD) for pos in self.values_not]}")
 
     def create_constraints(self, board, switch):
         model = board.get_model()
