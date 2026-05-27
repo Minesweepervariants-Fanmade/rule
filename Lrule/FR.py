@@ -25,7 +25,7 @@ class RuleFR(AbstractMinesRule):
     name.zh_CN = "分域"
     doc = "Every 2x2 block must be the corner of some 4x4 block; the four 2x2 sub‑blocks of that 4x4 block determine the mines in the original 2x2 block (0‑1→empty, 3‑4→mine)."
     doc.zh_CN = "每个2x2区域必须是一个4x4区域的某个角；该4x4区域内四个2x2子块的雷数决定原2x2区域对应格子的雷/空状态（0-1→无雷，3-4→有雷，2→自由）。"
-    author = ("雾", 0)
+    author = ("雾", 3140864122)
     tags = ["Variant", "Global", "Construction"]
     creation_time = "2026-05-27 17:24:00"
 
