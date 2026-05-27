@@ -36,41 +36,41 @@ class RuleFS(AbstractMinesRule):
         model = board.get_model()
         s = switch.get(model, self)
 
-        key = board.get_interactive_keys()[0]
+        for key in board.get_interactive_keys():
 
-        positions_vars = list(board(key=key, mode='variable', special='raw'))
+            positions_vars = list(board(key=key, mode='variable', special='raw'))
 
-        raw_map: dict[tuple[int, int], object] = {
-            (pos.col, pos.row): raw_var
-            for pos, raw_var in positions_vars
-            if raw_var is not None
-        }
-
-        regions: dict[tuple[int, int], dict[tuple[int, int], object]] = {
-            (i, j): {
-                    (x, y): raw_map[(i * self.n + x, j * self.n + y)]
-                    for x in range(self.n)
-                    for y in range(self.n)
+            raw_map: dict[tuple[int, int], object] = {
+                (pos.col, pos.row): raw_var
+                for pos, raw_var in positions_vars
+                if raw_var is not None
             }
-            for i in range(self.n)
-            for j in range(self.n)
-        }
 
-        region_vars = {
-            (i, j): model.new_bool_var(f"region_{i}_{j}_is_pattern")
-            for i in range(self.n)
-            for j in range(self.n)
-        }
+            regions: dict[tuple[int, int], dict[tuple[int, int], object]] = {
+                (i, j): {
+                        (x, y): raw_map[(i * self.n + x, j * self.n + y)]
+                        for x in range(self.n)
+                        for y in range(self.n)
+                }
+                for i in range(self.n)
+                for j in range(self.n)
+            }
 
-        region_counters = {
-            (i, j): model.new_int_var(0, self.n * self.n, f"region_{i}_{j}_mine_count")
-            for i in range(self.n)
-            for j in range(self.n)
-        }
-        for (i, j), region in regions.items():
-            model.add(region_counters[(i, j)] == sum(region.values()))
+            region_vars = {
+                (i, j): model.new_bool_var(f"region_{i}_{j}_is_pattern")
+                for i in range(self.n)
+                for j in range(self.n)
+            }
 
-            # If the region is a pattern, then all cells in the region must be mines or all must be empty
-            for (x, y), cell in region.items():
-                model.add(cell == region_vars[(x, y)]).only_enforce_if(region_vars[(i, j)]).only_enforce_if(s)
-                model.add(cell == 0).only_enforce_if(region_vars[(i, j)].Not()).only_enforce_if(s)
+            region_counters = {
+                (i, j): model.new_int_var(0, self.n * self.n, f"region_{i}_{j}_mine_count")
+                for i in range(self.n)
+                for j in range(self.n)
+            }
+            for (i, j), region in regions.items():
+                model.add(region_counters[(i, j)] == sum(region.values()))
+
+                # If the region is a pattern, then all cells in the region must be mines or all must be empty
+                for (x, y), cell in region.items():
+                    model.add(cell == region_vars[(x, y)]).only_enforce_if(region_vars[(i, j)]).only_enforce_if(s)
+                    model.add(cell == 0).only_enforce_if(region_vars[(i, j)].Not()).only_enforce_if(s)
