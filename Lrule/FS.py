@@ -56,8 +56,6 @@ class RuleFS(AbstractMinesRule):
             for j in range(self.n)
         }
 
-        print(regions)
-
         region_vars = {
             (i, j): model.new_bool_var(f"region_{i}_{j}_is_pattern")
             for i in range(self.n)
