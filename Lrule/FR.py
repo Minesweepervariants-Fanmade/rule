@@ -23,8 +23,8 @@ class RuleFR(AbstractMinesRule):
     id = "FR"
     name = "Division"
     name.zh_CN = "分域"
-    doc = "Every 2x2 block must be the corner of some 4x4 block; the four 2x2 sub‑blocks of that 4x4 block determine the mines in the original 2x2 block (0‑1→empty, 3‑4→mine)."
-    doc.zh_CN = "每个2x2区域必须是一个4x4区域的某个角；该4x4区域内四个2x2子块的雷数决定原2x2区域对应格子的雷/空状态（0-1→无雷，3-4→有雷，2→自由）。"
+    doc = "Every non-overlapping 2x2 block (stride 2) must be a corner of some 4x4 block. The 4x4 is split into four 2x2 subblocks. Each cell in the original 2x2 corresponds to the subblock at the same relative position. If that subblock contains 0 or 1 mines → the cell is empty; 3 or 4 mines → the cell is a mine; 2 mines → free."
+    doc.zh_CN = "步长为2的不重叠2×2块，每个块须作为某个4×4区域的角。该4×4均分为四个2×2子块，原块中每个格子对应4×4中同位置的子块（左上→左上子块，等）。子块雷数0-1→该格无雷，3-4→该格有雷，2无约束。"
     author = ("雾", 3140864122)
     tags = ["Variant", "Global", "Construction"]
     creation_time = "2026-05-27 17:24:00"
