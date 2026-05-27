@@ -11,22 +11,27 @@ import base64
 def _parse_binary_string(bin_str: str, bound: "AbstractPosition"):
     """
     根据二进制串（仅含 '0'/'1'）填充 result 与 result_not。
-    二进制串长度必须等于 bound.row * bound.col，按行优先顺序遍历。
-    返回 (result, result_not)
+    按行优先顺序遍历，二进制串长度可以小于等于总单元格数。
+    如果某一位置超出范围且该位为 '1'，则抛出异常；
+    如果为 '0'，则忽略超出部分。
     """
-    total_cells = (bound.row + 1) * (bound.col + 1)
-    if len(bin_str) != total_cells:
-        raise ValueError(f"Binary string length {len(bin_str)} != total cells {total_cells}")
-
     result = []
     result_not = []
     for idx, ch in enumerate(bin_str):
-        x = idx % (bound.col + 1)
         y = idx // (bound.col + 1)
+        x = idx % (bound.col + 1)
+
+        # 检查是否超出范围
+        if y > bound.row or x > bound.col:
+            if ch == '1':
+                raise ValueError(f"Position out of bound at index {idx} (row={y}, col={x}), but bit is '1'")
+            continue
+
         if ch == '1':
             result.append((y, x))
-        else:  # ch == '0'
+        else:
             result_not.append((y, x))
+
     return result, result_not
 
 
@@ -44,8 +49,7 @@ def parse(s: str, bound: "AbstractPosition") -> tuple[list[tuple[int, int]], lis
         for ch in s:
             bin_chars.append(format(int(ch, 16), '04b'))
         bin_str = ''.join(bin_chars)
-        if len(bin_str) == total_cells:
-            return _parse_binary_string(bin_str, bound)
+        return _parse_binary_string(bin_str, bound)
 
     # ----- 3. 尝试 Base64 串（解码后得到字节，再转为 01 串）-----
     # Base64 字符集：A-Z a-z 0-9 + / =，长度通常为 4 的倍数
@@ -55,8 +59,7 @@ def parse(s: str, bound: "AbstractPosition") -> tuple[list[tuple[int, int]], lis
         decoded_bytes = base64.b64decode(s, validate=True)
         # 将每个字节转为 8 位二进制，拼接成完整 01 串
         bin_str = ''.join(format(byte, '08b') for byte in decoded_bytes)
-        if len(bin_str) == total_cells:
-            return _parse_binary_string(bin_str, bound)
+        return _parse_binary_string(bin_str, bound)
     except Exception:
         pass  # 解码失败，继续尝试其他格式
 
