@@ -2564,5 +2564,12 @@
         "author_uid": 2201963934,
         "author_name": "NT",
         "doc": "十字交替联通：交替\"LL;L;R;RR\"联通和\"UU;U;D;DD\"联通"
+    },
+    {
+        "time": 1779944194.6522415,
+        "name": "1Q-EX",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "每个指定范围内有指定可选雷数"
     }
 ]
