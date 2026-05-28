@@ -97,6 +97,9 @@ class ValueFN(AbstractClueValue):
     def __repr__(self) -> str:
         return ("+" + str(self.value)) if self.value > 0 else str(self.value)
 
+    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+        return get_nei(self.pos, board)
+
     @classmethod
     def from_json(cls, pos: 'AbstractPosition', data: Union['JSONObject', dict]) -> 'ValueFN':
         return ValueFN(pos, data["value"])
