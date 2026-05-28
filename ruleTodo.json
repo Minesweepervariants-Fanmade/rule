@@ -2557,5 +2557,12 @@
         "author_uid": 2201963934,
         "author_name": "NT",
         "doc": "交替联通：交替相邻和对角的联通。"
+    },
+    {
+        "time": 1779944100.803665,
+        "name": "1CXX",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "十字交替联通：交替\"LL;L;R;RR\"联通和\"UU;U;D;DD\"联通"
     }
 ]
