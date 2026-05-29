@@ -16,7 +16,7 @@ class Rule1EK(AbstractEyesightClueRule):
     tags = ["Variant", "Local", "Arrow Clue", "Aux Board"]
     creation_time = "2025-09-17"
 
-    author = ("", 0)
+    author = ("波常未来", 81500378)
     @staticmethod
     def direction_funcs(pos):
         # 马步8个方向，支持n参数，jump改为shift

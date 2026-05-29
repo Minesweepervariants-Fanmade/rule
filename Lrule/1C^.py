@@ -12,7 +12,7 @@ class Rule1C(AbstractMinesRule):
     doc.zh_CN = "所有雷形成一个树根结构。该结构是由第一行的一个雷开始向下、左下、右下延伸而成的。"
     tags = ["Variant", "Connectivity", "Strong"]
     creation_time = "2025-10-24"
-    author = ("", 0)
+    author = ("波常未来", 81500378)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()

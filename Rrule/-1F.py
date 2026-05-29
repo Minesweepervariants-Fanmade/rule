@@ -22,7 +22,7 @@ class Rulex1F(AbstractClueRule):
     doc.zh_CN = "线索表示其以题板左上角到右下角直线为对称轴的镜像位置周围八格的雷数，不包括自身"
     tags = ["Variant", "Local", "Number Clue", "Construction"]
     creation_time = "2025-08-07"
-    author = ("", 0)
+    author = ("波常未来", 81500378)
 
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):

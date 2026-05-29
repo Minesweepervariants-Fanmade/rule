@@ -31,7 +31,7 @@ class Rule3Q(AbstractMinesRule):
     doc.zh_CN = "所有四连通的雷格区域组成实心正方形"
     tags = ["Creative", "Local", "Construction"]
     creation_time = "2025-08-15"
-    author = ("", 0)
+    author = ("波常未来", 81500378)
 
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
         model = board.get_model()
