@@ -1,49 +1,42 @@
 from abc import ABC, abstractmethod
+from typing import List, Callable, Optional
+
+from ortools.sat.python.cp_model import IntVar
 
 from minesweepervariants.utils.tool import get_logger
 from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 
 
-def eyesight_dfs(board: AbstractBoard, pos, value, move_funcs=None):
+def eyesight_var(
+    board: AbstractBoard, switch: IntVar,
+    move_funcs: List[Callable[[int], Optional[AbstractPosition]]] = None
+) -> List[IntVar]:
     if move_funcs is None:
-        return []
-    if not board.is_valid(pos):
-        return []
-    if value < 0:
-        return
-    move_func = move_funcs.pop()
-    pos_t_list = []
-    if not move_funcs:
-        for i in range(1, value + 1):
-            if (
-                not board.is_valid(move_func(i)) or
-                board.get_type(move_func(i)) == "F"
-            ):
-                return
-            pos_t_list.append(move_func(i))
-        else:
-            yield from [[pos_t_list, [move_func(value + 1)]]]
-        return
-    if value == 0:
-        for pos_list in eyesight_dfs(board, pos, value, move_funcs[:]):
-            yield from [[pos_t_list + pos_list[0], [move_func(1)] + pos_list[1]]]
-        return
-    for i in range(value + 1):
-        if i == 0:
-            for pos_list in eyesight_dfs(board, pos, value - i, move_funcs[:]):
-                yield pos_list[0] + pos_t_list[:], pos_list[1] + [move_func(i + 1)]
-        elif (
-            not board.is_valid(move_func(i)) or
-            board.get_type(move_func(i)) == "F"
-        ):
-            for pos_list in eyesight_dfs(board, pos, value - i + 1, move_funcs[:]):
-                yield pos_t_list[:] + pos_list[0], pos_list[1]
-            return
-        else:
-            pos_t_list.append(move_func(i))
-            for pos_list in eyesight_dfs(board, pos, value - i, move_funcs[:]):
-                yield pos_list[0] + pos_t_list[:], pos_list[1] + [move_func(i + 1)]
+        move_funcs = []
+    result_vars = []
+    model = board.get_model()
+    for move_func in move_funcs:
+        tmp_vars = []
+        index = 1
+        while board.is_valid(_pos := move_func(index)):
+            tmp_vars.append(_pos)
+            index += 1
+        if not tmp_vars:
+            continue
+        tmp_var = model.new_int_var(0, index, "")
+        result_vars.append(tmp_var)
+        pos_vars = board.batch(tmp_vars, "var")
+        for index in range(len(tmp_vars)):
+            false_var = [var.Not() for var in pos_vars[:index]]
+            true_var = pos_vars[index]
+            tmp_bool = model.new_bool_var("")
+            model.add(tmp_var == index).OnlyEnforceIf(tmp_bool)
+            model.add(tmp_var != index).OnlyEnforceIf(tmp_bool.Not())
+            if false_var:
+                model.add_bool_and(false_var).OnlyEnforceIf(tmp_bool, switch)
+            model.add_bool_and(true_var).OnlyEnforceIf(tmp_bool, switch)
+    return result_vars
 
 
 class AbstractEyesightClueRule(AbstractClueRule, ABC):
@@ -84,15 +77,15 @@ class AbstractEyesightClueRule(AbstractClueRule, ABC):
 
 
 class AbstractEyesightClueValue(AbstractClueValue, ABC):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'AbstractPosition', code: bytes = b'', *args, **kwargs):
+        super().__init__(pos, *args, **kwargs)
         self.value = code[0]
-        self.pos = pos
 
     def __repr__(self):
         return str(self.value)
-    
+
     @abstractmethod
-    def direction_funcs(self):
+    def direction_funcs(self) -> List[Callable[[int], AbstractPosition]]:
         """
         需要返回所有方向的函数
         """
@@ -112,18 +105,10 @@ class AbstractEyesightClueValue(AbstractClueValue, ABC):
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
         s = switch.get(model, self)
-        tmp_list = []
 
-        for poses_t, poses_f in eyesight_dfs(
-            board, self.pos, self.value - 1,
+        var_list = eyesight_var(
+            board, s,
             self.direction_funcs()
-        ):
-            tmp = model.NewBoolVar("tmp")
-            vars_t = board.batch(set(poses_t), "var")
-            vars_f = board.batch(set(poses_f), "var")
-            model.Add(sum(vars_t) == 0).OnlyEnforceIf(tmp)
-            if vars_f and any(var is not None for var in vars_f):
-                model.AddBoolAnd([var for var in vars_f if var is not None]).OnlyEnforceIf(tmp)
-            tmp_list.append(tmp)
-        get_logger().trace(f"[1E]: [{self.pos}]向model添加了{len(tmp_list)}种可能")
-        model.AddBoolOr(tmp_list).OnlyEnforceIf(s)
+        )
+        # print(self.pos, var_list)
+        model.add(sum(var_list) == self.value - 1).OnlyEnforceIf(s)
