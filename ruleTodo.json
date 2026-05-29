@@ -388,13 +388,6 @@
         "time": 1772342915
     },
     {
-        "author_name": "波常未来",
-        "author_uid": 81500378,
-        "doc": "线索数字表示最近的两个雷的曼哈顿距离乘积",
-        "name": "2P'2",
-        "time": 1772342915
-    },
-    {
         "author_name": "NT",
         "author_uid": 2201963934,
         "doc": "雷视为墙，非雷格视为空地，题板外部视为地图外，非雷线索数表示：单独将本格视为帕格丽，在箭头所指方向的下一格放置一只兔子，其停止运动时所跑的格数。https://steamcommunity.com/sharedfiles/filedetails/?id=3019449808",
