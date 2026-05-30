@@ -10,7 +10,7 @@ from typing import Optional, Tuple, Set, Dict
 from fractions import Fraction
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from minesweepervariants.abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
 from minesweepervariants.impl.impl_obj import get_board
 from minesweepervariants.impl.rule.Rrule import Quess
 from minesweepervariants.impl.summon.solver import Switch
@@ -481,7 +481,8 @@ class Value1Eat(AbstractClueValue):
         master_board_code = encode_board(board, "F")
         mask_board_code = encode_board(board, "N")
         target_value = Fraction(self.numerator, self.denominator)
-        board_tmp = get_board()(rules={}, size=board.get_config(MASTER_BOARD, "size"))
+        board_tmp = get_board()()
+        board_tmp.generate_board(MASTER_BOARD, size=board.get_config(MASTER_BOARD, "size"))
 
         if self.pos not in CACHE:
             CACHE[self.pos]: Dict[Fraction, Set[int]] = dict()
@@ -515,121 +516,3 @@ class Value1Eat(AbstractClueValue):
         model.add_allowed_assignments(
             var_list, possible
         ).OnlyEnforceIf(s)
-
-
-def test1():
-    from minesweepervariants.impl.board.version3.board import Board
-    from minesweepervariants.impl.impl_obj import MINES_TAG
-    import time
-    import random
-    board = Board(rules={}, size=(5, 5), code=None, default_special="raw")
-    # root_pos = board.get_pos(0, 4)
-    root_pos = board.get_pos(2, 4)
-    # board[board.get_pos(0, 1)] = MINES_TAG
-    # board[board.get_pos(0, 3)] = MINES_TAG
-    # board[board.get_pos(1, 1)] = MINES_TAG
-    # board[board.get_pos(1, 3)] = MINES_TAG
-    # board[board.get_pos(2, 0)] = MINES_TAG
-    # board[board.get_pos(2, 4)] = MINES_TAG
-    # board[board.get_pos(3, 2)] = MINES_TAG
-    # board[board.get_pos(3, 4)] = MINES_TAG
-    # board[board.get_pos(4, 0)] = MINES_TAG
-    # board[board.get_pos(4, 2)] = MINES_TAG
-    time_sum = 0
-    for _ in range(1000):
-        positions = [pos for pos, _ in board()]
-        positions = random.sample(positions, 10)
-        _board = board.clone()
-        for pos in positions:
-            if pos == root_pos:
-                continue
-            _board[pos] = MINES_TAG
-        # print(_board)
-        rule = Rule1Eat()
-        time_a = time.time()
-        # rule.get_obj(board, root_pos)
-        _get_all_point(_board, root_pos)
-        used_time = time.time() - time_a
-        print(f"used_time: {(used_time) * 1000:03f}ms")
-        time_sum += used_time
-    print(f"average time taken: {time_sum}ms")
-
-
-def test2():
-    from minesweepervariants.impl.board.version3.board import Board
-    from minesweepervariants.impl.impl_obj import MINES_TAG
-    board = Board(rules={}, size=(7, 7), code=None, default_special="raw")
-    root_pos = board.get_pos(3, 3)
-    board[board.get_pos(0, 2)] = MINES_TAG
-    board[board.get_pos(0, 4)] = MINES_TAG
-    board[board.get_pos(1, 3)] = MINES_TAG
-    board[board.get_pos(2, 0)] = MINES_TAG
-    board[board.get_pos(2, 6)] = MINES_TAG
-    board[board.get_pos(3, 1)] = MINES_TAG
-    board[board.get_pos(3, 5)] = MINES_TAG
-    board[board.get_pos(4, 0)] = MINES_TAG
-    board[board.get_pos(4, 6)] = MINES_TAG
-    board[board.get_pos(5, 3)] = MINES_TAG
-    board[board.get_pos(6, 2)] = MINES_TAG
-    board[board.get_pos(6, 4)] = MINES_TAG
-    print((4, 2), link_pos2gridPoint(board, root_pos, GridPoint(4, 2)))
-    print((5, 3), link_pos2gridPoint(board, root_pos, GridPoint(5, 3)))
-    print((5, 4), link_pos2gridPoint(board, root_pos, GridPoint(5, 4)))
-    print((4, 5), link_pos2gridPoint(board, root_pos, GridPoint(4, 5)))
-    print((3, 5), link_pos2gridPoint(board, root_pos, GridPoint(3, 5)))
-    print((2, 4), link_pos2gridPoint(board, root_pos, GridPoint(2, 4)))
-    print((2, 3), link_pos2gridPoint(board, root_pos, GridPoint(2, 3)))
-    print((3, 2), link_pos2gridPoint(board, root_pos, GridPoint(3, 2)))
-
-
-def test3():
-    from minesweepervariants.impl.board.version3.board import Board
-    from minesweepervariants.impl.impl_obj import MINES_TAG
-    board = Board(rules={}, size=(5, 5), code=None, default_special="raw")
-    root_pos = board.get_pos(0, 0)
-    board[board.get_pos(4, 3)] = MINES_TAG
-    board[board.get_pos(3, 1)] = MINES_TAG
-    board[board.get_pos(3, 0)] = MINES_TAG
-    grid_point = GridPoint(2, 2)
-    print(board)
-    print(link_pos2gridPoint(board, root_pos, grid_point))
-    board[board.get_pos(4, 4)] = MINES_TAG
-    print(board)
-    print(link_pos2gridPoint(board, root_pos, grid_point))
-
-
-def test4():
-    def encode_board(_board: 'AbstractBoard'):
-        if "N" in _board:
-            return -1
-        int_code = 0
-        for pos, obj_type in board(mode="type"):
-            int_code <<= 1
-            int_code += obj_type == "F"
-        return int_code
-
-    def decode_board(_board_code: int, _board: 'AbstractBoard'):
-        for pos, _ in list(_board())[::-1]:
-            if _board_code & 1:
-                _board[pos] = MINES_TAG
-            else:
-                _board[pos] = VALUE_QUESS
-            _board_code >>= 1
-
-    from minesweepervariants.impl.board.version3.board import Board
-    import random
-
-    board = Board(rules={}, size=(5, 5), code=None)
-    board_tmp = board.clone()
-    for pos, _ in board():
-        board[pos] = MINES_TAG if random.random() < 0.5 else VALUE_QUESS
-    print(board)
-    board_code = encode_board(board)
-    print(board_code)
-    print(board_tmp)
-    decode_board(board_code, board_tmp)
-    print(board_tmp)
-
-
-if __name__ == '__main__':
-    test4()
