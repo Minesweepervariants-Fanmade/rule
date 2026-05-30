@@ -4264,11 +4264,11 @@
             "id": "1E'-",
             "name": {
                 "default": "Eyesight'-",
-                "zh_CN": "\u89c6\u5dee'-"
+                "zh_CN": "\u89c6\u65b9\u5dee"
             },
             "doc": {
-                "default": "Clue shows the difference between vertical and horizontal eyesight.",
-                "zh_CN": "\u89c6\u5dee-: \u7ebf\u7d22\u8868\u793a\u7eb5\u5411\u548c\u6a2a\u5411\u7684\u89c6\u91ce\u4e4b\u5dee\u3002"
+                "default": "Clue shows the variance of vertical and horizontal sight multiplied by 2 and then take the square root. Or in other words, clue shows the difference between vertical and horizontal sight.",
+                "zh_CN": "\u89c6\u65b9\u5dee: \u7ebf\u7d22\u8868\u793a\u7eb5\u5411\u548c\u6a2a\u5411\u7684\u89c6\u91ce\u4e4b\u65b9\u5dee\u4e58\u4ee52\u5e76\u5f00\u6839. \u6216\u8005\u8bf4\u7ebf\u7d22\u8868\u793a\u7eb5\u5411\u548c\u6a2a\u5411\u7684\u89c6\u91ce\u4e4b\u5dee\u3002"
             },
             "author": {
                 "name": "NT",
