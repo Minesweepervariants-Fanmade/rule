@@ -78,8 +78,8 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                         if base in ("name", "doc"):
                             # 只处理常量字符串赋值
                             val = None
-                            if isinstance(stmt.value, ast.Str):
-                                val = stmt.value.s
+                            if isinstance(stmt.value, ast.Constant):
+                                val = stmt.value.value
                             elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value, str):
                                 val = stmt.value.value
                             if val and val.strip():
@@ -115,7 +115,7 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                     if (
                             isinstance(target, ast.Name) and target.id == "name" and
                             (
-                                    isinstance(stmt.value, ast.Str)
+                                    isinstance(stmt.value, ast.Constant)
                                     or isinstance(stmt.value, ast.List)
                                     or isinstance(stmt.value, ast.Tuple)
                                     or isinstance(stmt.value, ast.Dict)
@@ -128,7 +128,7 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                             name_vals = []
                             for elt in stmt.value.elts:
                                 val = None
-                                if isinstance(elt, ast.Str):
+                                if isinstance(elt, ast.Constant):
                                     val = elt.s
                                 elif isinstance(elt, ast.Constant) and isinstance(elt.value, str):
                                     val = elt.value
@@ -143,13 +143,13 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                             for key_node, val_node in zip(stmt.value.keys, stmt.value.values):
                                 if key_node is None:
                                     continue
-                                if isinstance(key_node, ast.Str):
+                                if isinstance(key_node, ast.Constant):
                                     k = key_node.s
                                 elif isinstance(key_node, ast.Constant) and isinstance(key_node.value, str):
                                     k = key_node.value
                                 else:
                                     continue
-                                if isinstance(val_node, ast.Str):
+                                if isinstance(val_node, ast.Constant):
                                     v = val_node.s
                                 elif isinstance(val_node, ast.Constant) and isinstance(val_node.value, str):
                                     v = val_node.value
@@ -161,8 +161,8 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                                 info["module_doc"] = module_doc
                                 info["names"] = d
                         # 单个字符串常量
-                        elif isinstance(stmt.value, ast.Str) and stmt.value.s.strip():
-                            name_val = stmt.value.s.strip()
+                        elif isinstance(stmt.value, ast.Constant) and stmt.value.value.strip():
+                            name_val = stmt.value.value.strip()
                             info["x"] = x
                             info["module_doc"] = module_doc
                             info["names"] = [name_val]
@@ -175,7 +175,7 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                     if (
                             isinstance(target, ast.Name) and
                             target.id == "doc" and
-                            (isinstance(stmt.value, ast.Str) or isinstance(stmt.value, ast.Dict) or isinstance(
+                            (isinstance(stmt.value, ast.Constant) or isinstance(stmt.value, ast.Dict) or isinstance(
                                 stmt.value, ast.Constant))
                     ):
                         # 支持字符串或字典(i18n)形式
@@ -184,13 +184,13 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                             for key_node, val_node in zip(stmt.value.keys, stmt.value.values):
                                 if key_node is None:
                                     continue
-                                if isinstance(key_node, ast.Str):
+                                if isinstance(key_node, ast.Constant):
                                     k = key_node.s
                                 elif isinstance(key_node, ast.Constant) and isinstance(key_node.value, str):
                                     k = key_node.value
                                 else:
                                     continue
-                                if isinstance(val_node, ast.Str):
+                                if isinstance(val_node, ast.Constant):
                                     v = val_node.s
                                 elif isinstance(val_node, ast.Constant) and isinstance(val_node.value, str):
                                     v = val_node.value
@@ -199,8 +199,8 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                                 d[k] = v
                             if d:
                                 info["doc"] = d
-                        elif isinstance(stmt.value, ast.Str) and stmt.value.s.strip():
-                            info["doc"] = stmt.value.s.strip()
+                        elif isinstance(stmt.value, ast.Constant) and stmt.value.value.strip():
+                            info["doc"] = stmt.value.value.strip()
                         elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value,
                                                                                  str) and stmt.value.value.strip():
                             info["doc"] = stmt.value.value.strip()
@@ -225,8 +225,8 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                             isinstance(target, ast.Name) and
                             target.id == "creation_time"
                     ):
-                        if isinstance(stmt.value, ast.Str) and stmt.value.s.strip():
-                            info["creation_time"] = stmt.value.s.strip()
+                        if isinstance(stmt.value, ast.Constant) and stmt.value.value.strip():
+                            info["creation_time"] = stmt.value.value.strip()
                         elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value, str):
                             info["creation_time"] = stmt.value.value.strip()
                     if (
@@ -234,8 +234,8 @@ def extract_module_docstring(filepath) -> Union[Dict, None]:
                             target.id == "id"
                     ):
                         # 规则id，期望为字符串常量
-                        if isinstance(stmt.value, ast.Str) and stmt.value.s.strip():
-                            info["id"] = stmt.value.s.strip()
+                        if isinstance(stmt.value, ast.Constant) and stmt.value.value.strip():
+                            info["id"] = stmt.value.value.strip()
                         elif isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value,
                                                                                  str) and stmt.value.value.strip():
                             info["id"] = stmt.value.value.strip()
