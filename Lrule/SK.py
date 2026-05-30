@@ -18,17 +18,17 @@ class RuleSK(AbstractMinesRule):
 
         for key in board.get_interactive_keys():
             boundary_pos = board.boundary(key=key)
-            row, col = boundary_pos.row, boundary_pos.col
+            row, col = boundary_pos.row + 1, boundary_pos.col + 1
             col_positions = board.get_col_pos(boundary_pos)
 
             for row_end in col_positions[:-1]:
                 next_row_end = row_end.down()
                 row_var = [board.get_variable(var) for var in board.get_row_pos(row_end)]
 
-                delete_idx = (model.new_int_var(0, col - 1, f"{key}_delete_idx_{row_end}"))
+                delete_idx = (model.new_int_var(0, col - 2, f"{key}_delete_idx_{row_end}"))
 
                 for i, pos in enumerate(board.get_row_pos(next_row_end)[:-2]):
-                    up_idx = model.new_int_var(0, col, f"{key}_up_idx_{pos}")
+                    up_idx = model.new_int_var(0, col - 1, f"{key}_up_idx_{pos}")
                     before_idx = model.new_bool_var(f"{key}_before_idx_{pos}")
 
                     model.add(i < delete_idx).only_enforce_if(before_idx)
