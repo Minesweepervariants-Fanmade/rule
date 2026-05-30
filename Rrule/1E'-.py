@@ -8,9 +8,9 @@ from ....abs.board import AbstractBoard, AbstractPosition
 class Rule1E(AbstractClueRule):
     id = "1E'-"
     name = "Eyesight'-"
-    name.zh_CN = "视差'-"  # pyright: ignore[reportAttributeAccessIssue]
-    doc = "Clue shows the difference between vertical and horizontal eyesight."
-    doc.zh_CN = "视差-: 线索表示纵向和横向的视野之差。"  # pyright: ignore[reportAttributeAccessIssue]
+    name.zh_CN = "视方差"  # pyright: ignore[reportAttributeAccessIssue]
+    doc = "Clue shows the variance of vertical and horizontal sight multiplied by 2 and then take the square root. Or in other words, clue shows the difference between vertical and horizontal sight."
+    doc.zh_CN = "视方差: 线索表示纵向和横向的视野之方差乘以2并开根. 或者说线索表示纵向和横向的视野之差。"  # pyright: ignore[reportAttributeAccessIssue]
     tags = ["Local", "Number Clue", "Arrow Clue", "Extensive Trial", "Creative"]
     creation_time = "2026-05-30"
     author = ("NT", 2201963934)
