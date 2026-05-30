@@ -70,14 +70,14 @@ class RuleAI(AbstractMinesRule):
     random = get_random()
     keys = [key] if key is not None else sorted(board.get_board_keys(), key=lambda k: str(k))
     for board_key in keys:
-      positions = sorted((pos for pos, _ in board(key=board_key)), key=lambda p: (p.x, p.y))
+      positions = sorted((pos for pos, _ in board(key=board_key)), key=lambda p: (p.row, p.col))
       for pos in positions:
-        cache_key = (pos.board_key, pos.x, pos.y)
+        cache_key = (pos.board_key, pos.row, pos.col)
         if cache_key not in self._dir_cache:
           self._dir_cache[cache_key] = random.randint(0, 7)
 
   def _direction_index(self, pos: "AbstractPosition") -> int:
-    key = (pos.board_key, pos.x, pos.y)
+    key = (pos.board_key, pos.row, pos.col)
     if key not in self._dir_cache:
       # 缓存缺失时按同一稳定顺序补齐该 key, 避免显示/约束阶段漂移。
       board = self.board
@@ -90,7 +90,7 @@ class RuleAI(AbstractMinesRule):
   def _next_pos(self, board: "AbstractBoard", pos: "AbstractPosition"):
     direction = self._direction_index(pos)
     dx, dy = self.DIRS[direction]
-    return board.get_pos(pos.x + dx, pos.y + dy, key=pos.board_key)
+    return board.get_pos(pos.row + dx, pos.col + dy, key=pos.board_key)
 
   def onboard_init(self, board: "AbstractBoard"):
     # 方向在初始化阶段一次性写入缓存, 显示与约束统一读取同一映射。
@@ -137,11 +137,11 @@ class RuleAI(AbstractMinesRule):
       model.Add(mine_count_key >= 1).OnlyEnforceIf([sw, has_mine_key])
       model.Add(mine_count_key == 0).OnlyEnforceIf([sw, has_mine_key.Not()])
 
-      pos_by_xy = {(pos.x, pos.y): pos for pos in positions}
-      min_x = min(pos.x for pos in positions)
-      max_x = max(pos.x for pos in positions)
-      min_y = min(pos.y for pos in positions)
-      max_y = max(pos.y for pos in positions)
+      pos_by_xy = {(pos.row, pos.col): pos for pos in positions}
+      min_x = min(pos.row for pos in positions)
+      max_x = max(pos.row for pos in positions)
+      min_y = min(pos.col for pos in positions)
+      max_y = max(pos.col for pos in positions)
 
       candidate_dsts: dict["AbstractPosition", list["AbstractPosition"]] = {
         pos: [] for pos in positions
@@ -152,8 +152,8 @@ class RuleAI(AbstractMinesRule):
       for src in positions:
         direction = self._direction_index(src)
         dx, dy = self.DIRS[direction]
-        x = src.x + dx
-        y = src.y + dy
+        x = src.row + dx
+        y = src.col + dy
         # 按方向线性扫描射线, 仅收集同 key 的有效目标格。
         while min_x <= x <= max_x and min_y <= y <= max_y:
           dst = pos_by_xy.get((x, y))
@@ -167,7 +167,7 @@ class RuleAI(AbstractMinesRule):
       for src in positions:
         for dst in candidate_dsts[src]:
           edge = model.NewBoolVar(
-            f"AI_edge_{key}_{src.x}_{src.y}_to_{dst.x}_{dst.y}"
+            f"AI_edge_{key}_{src.row}_{src.col}_to_{dst.row}_{dst.col}"
           )
           edges[(src, dst)] = edge
           model.AddImplication(edge, mines[src]).OnlyEnforceIf(sw)
@@ -186,7 +186,7 @@ class RuleAI(AbstractMinesRule):
       model.Add(root_count_key == 0).OnlyEnforceIf([sw, has_mine_key.Not()])
 
       end_nodes = {
-        pos: model.NewBoolVar(f"AI_end_{key}_{pos.x}_{pos.y}")
+        pos: model.NewBoolVar(f"AI_end_{key}_{pos.row}_{pos.col}")
         for pos in positions
       }
 
