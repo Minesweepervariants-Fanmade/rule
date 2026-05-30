@@ -28,8 +28,8 @@ class Rule3E(AbstractMinesRule):
 
     def __init__(self, board: AbstractBoard, data=None):
         super().__init__(board, data)
-        board.generate_board(NAME_3E[0], size=Size(8, 3))
-        board.generate_board(NAME_3E[1], size=Size(8, 1))
+        board.generate_board(NAME_3E[0], size=Size(3, 8))
+        board.generate_board(NAME_3E[1], size=Size(1, 8))
         board.set_config(NAME_3E[1], "VALUE", VALUE_QUESS)
         board.set_config(NAME_3E[1], "MINES", MINES_TAG)
 
