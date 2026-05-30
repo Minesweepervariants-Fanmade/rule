@@ -4261,6 +4261,32 @@
         },
         {
             "rule_line": "R",
+            "id": "1E'-",
+            "name": {
+                "default": "Eyesight'-",
+                "zh_CN": "\u89c6\u5dee'-"
+            },
+            "doc": {
+                "default": "Clue shows the difference between vertical and horizontal eyesight.",
+                "zh_CN": "\u89c6\u5dee-: \u7ebf\u7d22\u8868\u793a\u7eb5\u5411\u548c\u6a2a\u5411\u7684\u89c6\u91ce\u4e4b\u5dee\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Arrow Clue",
+                "Extensive Trial",
+                "Creative"
+            ],
+            "creation_time": "2026-05-30"
+        },
+        {
+            "rule_line": "R",
             "id": "2D^",
             "name": {
                 "default": "Deviation^",
@@ -6541,6 +6567,32 @@
                 "Construction"
             ],
             "creation_time": "2025-08-21"
+        },
+        {
+            "rule_line": "R",
+            "id": "1E'%",
+            "name": {
+                "default": "Eyesight'%",
+                "zh_CN": "\u89c6\u5dee'%"
+            },
+            "doc": {
+                "default": "Clue shows the maximum difference between adjacent two directions among four directions.",
+                "zh_CN": "\u89c6\u5dee%: \u7ebf\u7d22\u8868\u793a\u56db\u4e2a\u65b9\u5411\u4e2d\u76f8\u90bb\u7684\u4e24\u65b9\u5411\u89c6\u91ce\u4e2d\u5dee\u503c\u6700\u5927\u7684\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Arrow Clue",
+                "Extensive Trial",
+                "Creative"
+            ],
+            "creation_time": "2026-05-30"
         },
         {
             "rule_line": "R",
