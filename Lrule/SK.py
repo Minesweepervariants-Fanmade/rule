@@ -9,8 +9,8 @@ class RuleSK(AbstractMinesRule):
     doc = "Each row is obtained by deleting two consecutive cells from the previous row, shifting all cells to the right of the deleted cells two positions to the left, and then adding any two cells at the end."
     doc.zh_CN = "每行都是由上一行删除连续的两个格，其右方所有格向左方平移两格，然后末尾补上任意两个格得到的。"
     tags = ["Creative", "Global"]
-    creation_time = "2025-08-06"
-    author = ("", 0)
+    creation_time = "2026-05-27"
+    author = ("NT", 2201963934)
 
     def create_constraints(self, board: 'AbstractBoard', switch):
         model = board.get_model()
