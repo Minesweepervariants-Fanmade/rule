@@ -72,7 +72,7 @@ class Value1E(AbstractClueValue):
 
     @classmethod
     def type(cls) -> bytes:
-        return b"1E'%"
+        return b"1E'"
 
     def code(self) -> bytes:
         return bytes([self.value])
