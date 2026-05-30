@@ -106,12 +106,12 @@ class EdgePoint:
         # 水平线段：y 相同，x 在两端点之间
         if self.point1.y == self.point2.y:
             return item.y == self.point1.y and (
-                min(self.point1.x, self.point2.x) <= item.x <= max(self.point1.x, self.point2.x)
+                    min(self.point1.x, self.point2.x) <= item.x <= max(self.point1.x, self.point2.x)
             )
         # 垂直线段：x 相同，y 在两端点之间
         elif self.point1.x == self.point2.x:
             return item.x == self.point1.x and (
-                min(self.point1.y, self.point2.y) <= item.y <= max(self.point1.y, self.point2.y)
+                    min(self.point1.y, self.point2.y) <= item.y <= max(self.point1.y, self.point2.y)
             )
         # 理论上不应该走到这里（构造时就保证了水平或垂直）
         return False
@@ -146,8 +146,8 @@ def link_pos2gridPoint(
     point: GridPoint
 ) -> Optional[GridPoint]:
     # 连接两点并形成射线 检查他的落点 若落点范围在两点之间 则返回None 否则返回落点
-    start_x = Fraction(pos.y) + Fraction(1, 2)
-    start_y = Fraction(pos.x) + Fraction(1, 2)
+    start_x = Fraction(pos.row) + Fraction(1, 2)
+    start_y = Fraction(pos.col) + Fraction(1, 2)
     target_x = int(point.x)
     target_y = int(point.y)
 
@@ -185,7 +185,7 @@ def link_pos2gridPoint(
             1 if check_start_y < check_end_y else -1
         ):
             if check_pos_y >= 0 and check_pos_x >= 0:
-                check_pos = board.get_pos(check_pos_y, check_pos_x)
+                check_pos = board.get_pos(check_pos_x, check_pos_y)
                 # print("check_pos", check_pos, board.get_type(check_pos))
                 if check_pos and board.get_type(check_pos) in "NC":
                     continue
@@ -224,7 +224,7 @@ def _get_all_point(board: 'AbstractBoard', pos: 'AbstractPosition') -> Set[GridP
             visited.add(check)
             # check的4个格点
             for dx, dy in ((0, 0), (0, 1), (1, 0), (1, 1)):
-                point = GridPoint(check.y + dy, check.x + dx)
+                point = GridPoint(check.row + dy, check.col + dx)
                 if point in visited_points:
                     continue
                 visited_points.add(point)
@@ -235,7 +235,7 @@ def _get_all_point(board: 'AbstractBoard', pos: 'AbstractPosition') -> Set[GridP
                         for dx, dy in ((0, 0), (0, -1), (-1, 0), (-1, -1))
                 ):
                     check_positiones = [
-                        board.get_pos(int(point.y + dy), int(point.x + dx))
+                        board.get_pos(int(point.x + dx), int(point.y + dy))
                         for dx, dy in ((0, 0), (0, -1), (-1, 0), (-1, -1))
                     ]
                     if (
@@ -316,8 +316,8 @@ def _get_edges(board: 'AbstractBoard', checked_points: Set[GridPoint]) -> Set[Ed
                     check_pos_b_x < 0 or
                     check_pos_b_y < 0
             ):
-                check_pos_a = board.get_pos(check_pos_a_y, check_pos_a_x)
-                check_pos_b = board.get_pos(check_pos_b_y, check_pos_b_x)
+                check_pos_a = board.get_pos(check_pos_a_x, check_pos_a_y)
+                check_pos_b = board.get_pos(check_pos_b_x, check_pos_b_y)
                 if (
                         check_pos_a is not None and
                         check_pos_b is not None and
@@ -335,7 +335,7 @@ def _get_area(pos: 'AbstractPosition', edge_list: Set[EdgePoint]) -> Fraction:
     area = Fraction(0)
     for edge in edge_list:
         pos_value, is_y = edge.on()
-        high = Fraction(abs(pos_value - (pos.x + 0.5 if is_y else pos.y + 0.5)))
+        high = Fraction(abs(pos_value - (pos.col + 0.5 if is_y else pos.row + 0.5)))
         base = edge.length()
         area += high * base / 2
 
@@ -368,20 +368,20 @@ class Rule1Eat(AbstractClueRule):
         return board
 
     def get_obj(self, board: 'AbstractBoard', pos: 'AbstractPosition') -> AbstractClueValue:
+        logger = get_logger()
         checked_points = _get_all_point(board, pos)
+        size = board.get_config(MASTER_BOARD, "size")[0]
         edge_list = _get_edges(board, checked_points)
         area = _get_area(pos, edge_list)
-        logger = get_logger()
-        size = board.get_config("1", "size")[1]
+        logger.debug(f"area: {area}")
         logger.debug(f"geogebra[{pos}]: " + "{{" + ', '.join([
-            f"({point.x}, {size - point.y})" for point in checked_points
+            f"({point.y}, {size - point.x})" for point in checked_points
         ]) + "}, {" + ', '.join([
-            f"({pos.y + 0.5}, {size - pos.x - 0.5})" for pos, _ in board("F")
+            f"({pos.col + 0.5}, {size - pos.row - 0.5})" for pos, _ in board("F")
         ]) + "}, {" + ', '.join([
-            f"Segment(({point_a.x}, {size - point_a.y}), ({point_b.x}, {size - point_b.y}))"
+            f"Segment(({point_a.y}, {size - point_a.x}), ({point_b.y}, {size - point_b.x}))"
             for point_a, point_b in edge_list]
         ) + "}}")
-        logger.debug(f"area: {area}")
         if self.all_integer:
             if area.denominator != 1:
                 return Quess.ValueQuess(pos)
