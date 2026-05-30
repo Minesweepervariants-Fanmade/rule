@@ -25,7 +25,7 @@ class RuleSK(AbstractMinesRule):
                 next_row_end = row_end.down()
                 row_var = [board.get_variable(var) for var in board.get_row_pos(row_end)]
 
-                delete_idx = (model.new_int_var(0, col - 2, f"{key}_delete_idx_{row_end}"))
+                delete_idx = (model.new_int_var(0, col - 1, f"{key}_delete_idx_{row_end}"))
 
                 for i, pos in enumerate(board.get_row_pos(next_row_end)[:-2]):
                     up_idx = model.new_int_var(0, col, f"{key}_up_idx_{pos}")
