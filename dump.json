@@ -964,6 +964,30 @@
         },
         {
             "rule_line": "L",
+            "id": "*1M~",
+            "name": {
+                "default": "Mirror~",
+                "zh_CN": "\u53cd\u955c\u50cf"
+            },
+            "doc": {
+                "default": "Mine distribution is randomly symmetric-inversed in one of the following ways, except its own position: [horizontal/vertical/diagonal/anti-diagonal/center/Rotate 90 degrees] (arg: number, zero\u2011based index to choose fixed symmetry: [horizontal/vertical/diagonal/anti-diagonal/center/Rotate 90 degrees])",
+                "zh_CN": "\u96f7\u5206\u5e03\u5c06\u968f\u673a\u6309\u7167\u4e0b\u8ff0\u65b9\u5f0f\u5bf9\u79f0\u540e\u53d6\u53cd [\u6c34\u5e73/\u5782\u76f4/\u5bf9\u89d2/\u526f\u5bf9\u89d2/\u4e2d\u5fc3/\u65cb\u8f6c90\u5ea6]\u5bf9\u79f0. \u5982\u679c\u5bf9\u79f0\u540e\u662f\u540c\u4e00\u683c\u5219\u65e0\u9650\u5236.  (arg: number, \u4f5c\u4e3aindex\u9009\u62e9\u56fa\u5b9a[\u6c34\u5e73/\u5782\u76f4/\u5bf9\u89d2/\u526f\u5bf9\u89d2/\u4e2d\u5fc3/\u65cb\u8f6c90\u5ea6]\u5bf9\u79f0(\u4ece0\u5f00\u59cb))"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Fun",
+                "Global"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
             "id": "3H1Q",
             "name": {
                 "default": "Hex1Q",
