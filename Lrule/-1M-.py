@@ -21,9 +21,9 @@ class Rulen1M(AbstractMinesRule):
            "[horizontal/vertical/diagonal/anti-diagonal/center/Rotate 90 degrees])")
     doc.zh_CN = ("雷分布将随机按照下述方式对称后取反 [水平/垂直/对角/副对角/中心/旋转90度]对称. 如果对称后是同一格则无限制.  "
                  "(arg: number, 作为index选择固定[水平/垂直/对角/副对角/中心/旋转90度]对称(从0开始))")
-    author = ("雾", 3140864122)
-    tags = ["Creative", "Fun", "Global"]
-    creation_time = "2025-08-06"
+    author = ("NT", 2201963934)
+    tags = ["Creative", "Fun", "Global", "Strict R"]
+    creation_time = "2026-05-27"
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
