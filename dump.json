@@ -4586,6 +4586,30 @@
         },
         {
             "rule_line": "R",
+            "id": "2DE",
+            "name": {
+                "default": "spread",
+                "zh_CN": "\u6269\u6563"
+            },
+            "doc": {
+                "default": "The clue indicates that the area within its rectangular grid expands in four directions until it encounters a mine within the mine's range.",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5176\u6240\u5728\u683c\u77e9\u5f62\u8303\u56f4\u5411\u56db\u65b9\u5411\u6269\u5c55\u76f4\u5230\u9047\u5230\u96f7\u8303\u56f4\u5185\u7684\u96f7\u6570"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Number Clue",
+                "Mine-Counting"
+            ],
+            "creation_time": "2026-04-29 23:33:04"
+        },
+        {
+            "rule_line": "R",
             "id": "Rule-013",
             "name": {
                 "default": "\u03c4D",
