@@ -2710,5 +2710,12 @@
         "author_uid": 2201963934,
         "author_name": "NT",
         "doc": "奇迹：不连续+无马数独"
+    },
+    {
+        "time": 1780429084.7419152,
+        "name": "CHOICE",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "选择：从给定的左线列表中选择n个启用。"
     }
 ]
