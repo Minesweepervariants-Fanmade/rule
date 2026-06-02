@@ -69,7 +69,3 @@ class RuleOR(AbstractMinesRule):
             model.AddBoolAnd(_switch.get_all_vars()).OnlyEnforceIf(z)
             var_list.append(z)
         model.AddBoolOr(var_list).OnlyEnforceIf(switch.get(model, self))
-
-    def suggest_total(self, info: dict):
-        for rule in self.rules:
-            rule.suggest_total(info)
