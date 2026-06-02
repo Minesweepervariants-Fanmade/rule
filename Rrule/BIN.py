@@ -7,6 +7,8 @@ from ....utils.tool import get_random
 from ....impl.impl_obj import get_value
 from ....utils.image_create import get_text, get_row
 from ....utils.web_template import MultiNumber
+from ....abs.board import ImmutableDict
+from base64 import b64encode
 
 VALUE_SPLIT: bytes = b'BIN_SPLIT_FLAG'
 
@@ -131,7 +133,11 @@ class ValueBIN(AbstractClueValue):
             clue_code.extend(rule)
             clue_code.extend(b'|')
             clue_code.extend(value)
-            return get_value(self.pos, bytes(clue_code))
+            return get_value(self.pos, rule.decode("ascii"), ImmutableDict({
+                "old_style": True,
+                "type": b64encode(rule).decode(),
+                "code": b64encode(value).decode()
+            }))
         except:
             return VALUE_QUESS
 

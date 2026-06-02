@@ -25,8 +25,8 @@ class Rule4Y(AbstractClueRule):
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):
             max_area = 1
-            rows = board.boundary(pos.board_key).x + 1
-            cols = board.boundary(pos.board_key).y + 1
+            rows = board.boundary(pos.board_key).row + 1
+            cols = board.boundary(pos.board_key).col + 1
             for r1 in range(rows):
                 for c1 in range(cols):
                     for r2 in range(r1, rows):
@@ -34,7 +34,7 @@ class Rule4Y(AbstractClueRule):
                             area = (r2 - r1 + 1) * (c2 - c1 + 1)
                             if area <= max_area:
                                 continue
-                            if r1 <= pos.x <= r2 and c1 <= pos.y <= c2:
+                            if r1 <= pos.row <= r2 and c1 <= pos.col <= c2:
                                 box = board.get_pos_box(
                                     board.get_pos(r1, c1, pos.board_key),
                                     board.get_pos(r2, c2, pos.board_key)
@@ -63,26 +63,26 @@ class Value4Y(AbstractClueValue):
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
-        x0, y0 = self.pos.x, self.pos.y
-        rows = board.boundary(self.pos.board_key).x + 1
-        cols = board.boundary(self.pos.board_key).y + 1
+        row0, col0 = self.pos.row, self.pos.col
+        rows = board.boundary(self.pos.board_key).row + 1
+        cols = board.boundary(self.pos.board_key).col + 1
 
         # O(m^2n^2) 优化是什么，开摆
         is_max_rect = []
 
-        for x1 in range(0, x0 + 1):
-            for x2 in range(x0, rows):
-                for y1 in range(0, y0 + 1):
-                    for y2 in range(y0, cols):
+        for row in range(0, row0 + 1):
+            for row2 in range(row0, rows):
+                for col1 in range(0, col0 + 1):
+                    for col2 in range(col0, cols):
                         positions = board.get_pos_box(
-                            board.get_pos(x1, y1, self.pos.board_key),
-                            board.get_pos(x2, y2, self.pos.board_key)
+                            board.get_pos(row, col1, self.pos.board_key),
+                            board.get_pos(row2, col2, self.pos.board_key)
                         )
-                        area = (x2 - x1 + 1) * (y2 - y1 + 1)
+                        area = (row2 - row + 1) * (col2 - col1 + 1)
                         if area > self.value:
                             model.AddBoolOr(board.batch(positions=positions, mode="variable", drop_none=True)).OnlyEnforceIf(s)
                         elif area == self.value:
-                            r = model.NewBoolVar(f"rect_{x1}_{y1}_{x2}_{y2}_is_max_area_at_{x0}_{y0}")
+                            r = model.NewBoolVar(f"rect_{row}_{col1}_{row2}_{col2}_is_max_area_at_{row0}_{col0}")
                             model.Add(sum(board.batch(positions=positions, mode="variable", drop_none=True)) == 0).OnlyEnforceIf([s, r])
                             is_max_rect.append(r)
 
