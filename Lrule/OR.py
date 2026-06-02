@@ -30,6 +30,7 @@ class RuleOR(AbstractMinesRule):
 
     def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
         super().__init__(board, data)
+        self.n = 1
         rule_list = [""]
         deep = 0
         for s in data:
@@ -48,7 +49,12 @@ class RuleOR(AbstractMinesRule):
         if len(rule_list) == 0:
             raise ValueError("你不能或空的规则")
         self.rules = []
-        for rule in rule_list:
+        if not rule_list[0].isdigit():
+            self.n = 1
+            rule_list = [None] + rule_list
+        else:
+            self.n = int(rule_list[0])
+        for rule in rule_list[1:]:
             if CONFIG["delimiter"] in rule:
                 rule_name, rule_data = rule.split(CONFIG["delimiter"], 1)
             else:
@@ -63,12 +69,12 @@ class RuleOR(AbstractMinesRule):
         model = board.get_model()
         var_list = []
         for rule in self.rules:
-            z = model.NewBoolVar("OR")
+            z = model.new_bool_var("OR")
             _switch = Switch()
             rule.create_constraints(board=board, switch=_switch)
-            model.AddBoolAnd(_switch.get_all_vars()).OnlyEnforceIf(z)
+            model.add_bool_and(_switch.get_all_vars()).OnlyEnforceIf(z)
             var_list.append(z)
-        model.AddBoolOr(var_list).OnlyEnforceIf(switch.get(model, self))
+        model.add(sum(var_list) >= self.n).OnlyEnforceIf(switch.get(model, self))
 
     def suggest_total(self, info: dict):
         for rule in self.rules:
