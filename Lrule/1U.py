@@ -41,10 +41,5 @@ class Rule1H(AbstractMinesRule):
         for key in info["interactive"]:
             total = info["total"][key]
             ub += total
-        def a(model, total):
-            s = model.NewIntVar(0, 2, "s")
-            model.AddModuloEquality(s, total, 2)
-            model.AddHint(s, 0)
-            model.Add(s != 1)
+
         info["soft_fn"](ub * 0.295, 0)
-        info["hard_fns"].append(a)
