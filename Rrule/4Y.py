@@ -63,26 +63,26 @@ class Value4Y(AbstractClueValue):
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
-        x0, y0 = self.pos.row, self.pos.col
+        row0, col0 = self.pos.row, self.pos.col
         rows = board.boundary(self.pos.board_key).row + 1
         cols = board.boundary(self.pos.board_key).col + 1
 
         # O(m^2n^2) 优化是什么，开摆
         is_max_rect = []
 
-        for x1 in range(0, x0 + 1):
-            for x2 in range(x0, rows):
-                for y1 in range(0, y0 + 1):
-                    for y2 in range(y0, cols):
+        for row in range(0, row0 + 1):
+            for row2 in range(row0, rows):
+                for col1 in range(0, col0 + 1):
+                    for col2 in range(col0, cols):
                         positions = board.get_pos_box(
-                            board.get_pos(x1, y1, self.pos.board_key),
-                            board.get_pos(x2, y2, self.pos.board_key)
+                            board.get_pos(row, col1, self.pos.board_key),
+                            board.get_pos(row2, col2, self.pos.board_key)
                         )
-                        area = (x2 - x1 + 1) * (y2 - y1 + 1)
+                        area = (row2 - row + 1) * (col2 - col1 + 1)
                         if area > self.value:
                             model.AddBoolOr(board.batch(positions=positions, mode="variable", drop_none=True)).OnlyEnforceIf(s)
                         elif area == self.value:
-                            r = model.NewBoolVar(f"rect_{x1}_{y1}_{x2}_{y2}_is_max_area_at_{x0}_{y0}")
+                            r = model.NewBoolVar(f"rect_{row}_{col1}_{row2}_{col2}_is_max_area_at_{row0}_{col0}")
                             model.Add(sum(board.batch(positions=positions, mode="variable", drop_none=True)) == 0).OnlyEnforceIf([s, r])
                             is_max_rect.append(r)
 
