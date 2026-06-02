@@ -25,8 +25,8 @@ class Rule4Y(AbstractClueRule):
     def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
         for pos, _ in board("N"):
             max_area = 1
-            rows = board.boundary(pos.board_key).x + 1
-            cols = board.boundary(pos.board_key).y + 1
+            rows = board.boundary(pos.board_key).row + 1
+            cols = board.boundary(pos.board_key).col + 1
             for r1 in range(rows):
                 for c1 in range(cols):
                     for r2 in range(r1, rows):
@@ -34,7 +34,7 @@ class Rule4Y(AbstractClueRule):
                             area = (r2 - r1 + 1) * (c2 - c1 + 1)
                             if area <= max_area:
                                 continue
-                            if r1 <= pos.x <= r2 and c1 <= pos.y <= c2:
+                            if r1 <= pos.row <= r2 and c1 <= pos.col <= c2:
                                 box = board.get_pos_box(
                                     board.get_pos(r1, c1, pos.board_key),
                                     board.get_pos(r2, c2, pos.board_key)
@@ -63,9 +63,9 @@ class Value4Y(AbstractClueValue):
     def create_constraints(self, board: AbstractBoard, switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
-        x0, y0 = self.pos.x, self.pos.y
-        rows = board.boundary(self.pos.board_key).x + 1
-        cols = board.boundary(self.pos.board_key).y + 1
+        x0, y0 = self.pos.row, self.pos.col
+        rows = board.boundary(self.pos.board_key).row + 1
+        cols = board.boundary(self.pos.board_key).col + 1
 
         # O(m^2n^2) 优化是什么，开摆
         is_max_rect = []
