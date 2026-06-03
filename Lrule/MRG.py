@@ -58,7 +58,7 @@ class RuleMRG(AbstractMinesRule):
   name.zh_CN = "合并"
   doc = "For each row, for every 4-length segment [a,b,c,d]: if b==c then d==b else d!=a."
   doc.zh_CN = "对每一行，逐个4格段 [a,b,c,d]：若 b==c 则 d==b，否则 d!=a。"
-  tags = ["Local", "Row", "Lrule"]
+  tags = ["Creative", "Local"]
   creation_time = "2026-05-16"
   author = ("NT", 2201963934)
 
