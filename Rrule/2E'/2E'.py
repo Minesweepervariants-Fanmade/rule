@@ -40,9 +40,9 @@ class Rule2Ep(AbstractClueRule):
         for board_key in board.get_interactive_keys():
             letter_map = {i: [] for i in range(9)}
             for pos, _ in board("F", key=board_key):
-                if pos.x not in letter_map:
-                    letter_map[pos.x] = []
-                letter_map[pos.x].append(pos.y)
+                if pos.row not in letter_map:
+                    letter_map[pos.row] = []
+                letter_map[pos.row].append(pos.col)
 
             for pos, _ in board("N", key=board_key):
                 positions = pos.neighbors(2)
@@ -88,4 +88,4 @@ class Value2Ep(AbstractClueValue):
             var = board.get_variable(
                 board.get_pos(index, self.value, key=self.pos.board_key)
             )
-            model.Add(sum_vers != index).OnlyEnforceIf(var.Not(), s)
+            model.add(sum_vers != index).OnlyEnforceIf(var.Not(), s)
