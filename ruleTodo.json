@@ -2732,5 +2732,12 @@
         "author_name": "雾",
         "doc": "hello",
         "image": "hello!.png"
+    },
+    {
+        "time": 1780514558.6513193,
+        "name": "5T",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "三角形：线索值表示距离它最近的三个雷围成的三角形面积，十进制精确到小数点后一位。"
     }
 ]
