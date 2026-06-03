@@ -55,8 +55,8 @@ class Rulen1M(AbstractMinesRule):
             for map_fc in map_fcs:
                 tmp_var = model.new_bool_var("[*1M]")
                 choose_list.append(tmp_var)
-                for index_x in range(pos_bound.x + 1):
-                    for index_y in range(pos_bound.y + 1):
+                for index_x in range(pos_bound.row + 1):
+                    for index_y in range(pos_bound.col + 1):
                         var_t = board.get_variable(map_fc(index_x, index_y))
                         var = board.get_variable(board.get_pos(index_x, index_y, key))
                         if var is None:
