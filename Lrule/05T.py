@@ -31,3 +31,11 @@ class Rule05T(AbstractMinesRule):
                         pos3 = positions[k][0]
                         if area(pos1, pos2, pos3) == 0.5:
                             model.add(sum(board.batch([pos1, pos2, pos3], mode="variable")) != 3).only_enforce_if(s)
+
+    def suggest_total(self, info: dict):
+        ub = 0
+        for key in info["interactive"]:
+            total = info["total"][key]
+            ub += total
+
+        info["soft_fn"](ub * 0.295, 0)
