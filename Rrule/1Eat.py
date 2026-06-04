@@ -4,57 +4,29 @@
 # @Time    : 2026/05/20 00:32
 # @Author  : Wu_RH
 # @FileName: 1Eat.py
+import itertools
 import math
-from dataclasses import dataclass
-from typing import Optional, Tuple, Set, Dict
+from typing import Optional, Tuple, Set, List, Dict, Union
 from fractions import Fraction
 
+from ortools.sat.python.cp_model import CpModel, IntVar
+
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
-from minesweepervariants.impl.impl_obj import get_board
-from minesweepervariants.impl.rule.Rrule import Quess
+from minesweepervariants.abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, ImmutableDict, JSONObject
+from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.image_create import get_dummy, get_text, get_col, get_row, get_image
-from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
+from minesweepervariants.utils.impl_obj import VALUE_QUESS, MINES_TAG
 from minesweepervariants.utils.tool import get_logger
 
-BYTE_LENGTH = 3
-CACHE: Dict['AbstractPosition', Dict[Fraction, Set[int]]] = {}
-CACHE_CODE: Dict['AbstractPosition', Dict[int, Fraction]] = {}
-
-
-def encode_int(num: int) -> bytes:
-    """将整数编码为固定长度（BYTE_LENGTH）的字节串，不含 0xFF。小端序，高位补 0。"""
-    if num < 0:
-        raise ValueError("只支持非负整数")
-    # 计算 255 进制表示（低位在前）
-    digits = []
-    temp = num
-    while temp > 0:
-        temp, r = divmod(temp, 255)
-        digits.append(r)
-    # 如果数字太大，超过固定长度则报错
-    if len(digits) > BYTE_LENGTH:
-        raise OverflowError(f"数字太大，需要至少 {len(digits)} 字节，当前 BYTE_LENGTH={BYTE_LENGTH}")
-    # 补足到固定长度（末尾补 0，相当于高位补 0）
-    digits += [0] * (BYTE_LENGTH - len(digits))
-    return bytes(digits)   # 每个元素 0~254，不会出现 255
-
-
-def decode_int(data: bytes) -> int:
-    """将固定长度的字节串解码为整数。data 长度必须等于 BYTE_LENGTH。"""
-    if len(data) != BYTE_LENGTH:
-        raise ValueError(f"输入字节串长度必须为 {BYTE_LENGTH}，实际 {len(data)}")
-    # 小端序：第 i 字节乘以 255^i
-    num = 0
-    for i, b in enumerate(data):
-        if b > 254:
-            raise ValueError(f"非法字节值 {b}（最大应为 254）")
-        num += b * (255 ** i)
-    return num
+EXPONENT = 15
+ALLOW_ERROR = 0
 
 
 class GridPoint:
+    """
+    精确的坐标点
+    """
     x: Fraction
     y: Fraction
 
@@ -75,12 +47,18 @@ class GridPoint:
             return NotImplemented
         return (self.x, self.y) < (other.x, other.y)
 
+    def __iter__(self):
+        yield self.x
+        yield self.y
+
     def __repr__(self):
         return f"({self.x},{self.y})"
 
 
-@dataclass
 class EdgePoint:
+    """
+    两坐标点连成的边
+    """
     point1: GridPoint
     point2: GridPoint
 
@@ -98,7 +76,7 @@ class EdgePoint:
         return self.point1 == other.point1 and self.point2 == other.point2
 
     def __repr__(self):
-        return f"{self.point1}={self.point2}"
+        return f"Segment({self.point1},{self.point2})"
 
     def __contains__(self, item: GridPoint) -> bool:
         if not isinstance(item, GridPoint):
@@ -113,8 +91,7 @@ class EdgePoint:
             return item.x == self.point1.x and (
                     min(self.point1.y, self.point2.y) <= item.y <= max(self.point1.y, self.point2.y)
             )
-        # 理论上不应该走到这里（构造时就保证了水平或垂直）
-        return False
+        raise ValueError("Edge未附着在平直线上")
 
     def __iter__(self):
         yield self.point1
@@ -138,6 +115,63 @@ class EdgePoint:
             return abs(self.point1.y - self.point2.y)
         else:
             raise ValueError("Edge未附着在平直线上")
+
+    def intersection(self, other: 'EdgePoint') -> Union[GridPoint, 'EdgePoint', None]:
+        """计算两条水平/垂直线段的交点"""
+        if not isinstance(other, EdgePoint):
+            return NotImplemented
+
+        # 判断自身与对方的朝向
+        self_horiz = self.point1.y == self.point2.y
+        other_horiz = other.point1.y == other.point2.y
+
+        # 1) 两条水平线段
+        if self_horiz and other_horiz:
+            if self.point1.y != other.point1.y:
+                return None
+            y = self.point1.y
+            sx1, sx2 = self.point1.x, self.point2.x
+            ox1, ox2 = other.point1.x, other.point2.x
+            lo = max(min(sx1, sx2), min(ox1, ox2))
+            hi = min(max(sx1, sx2), max(ox1, ox2))
+            if lo > hi:
+                return None
+            if lo == hi:
+                return GridPoint(lo, y)
+            return EdgePoint(GridPoint(lo, y), GridPoint(hi, y))
+
+        # 2) 两条垂直线段
+        if not self_horiz and not other_horiz:
+            if self.point1.x != other.point1.x:
+                return None
+            x = self.point1.x
+            sy1, sy2 = self.point1.y, self.point2.y
+            oy1, oy2 = other.point1.y, other.point2.y
+            lo = max(min(sy1, sy2), min(oy1, oy2))
+            hi = min(max(sy1, sy2), max(oy1, oy2))
+            if lo > hi:
+                return None
+            if lo == hi:
+                return GridPoint(x, lo)
+            return EdgePoint(GridPoint(x, lo), GridPoint(x, hi))
+
+        # 3) 一水平一垂直
+        # 统一为 self 水平，other 垂直
+        if not self_horiz and other_horiz:
+            return other.intersection(self)
+
+        # self 水平，other 垂直
+        hy = self.point1.y
+        hx_min = min(self.point1.x, self.point2.x)
+        hx_max = max(self.point1.x, self.point2.x)
+
+        vx = other.point1.x
+        vy_min = min(other.point1.y, other.point2.y)
+        vy_max = max(other.point1.y, other.point2.y)
+
+        if hx_min <= vx <= hx_max and vy_min <= hy <= vy_max:
+            return GridPoint(vx, hy)
+        return None
 
 
 def link_pos2gridPoint(
@@ -331,13 +365,13 @@ def _get_edges(board: 'AbstractBoard', checked_points: Set[GridPoint]) -> Set[Ed
     return edge_list
 
 
-def _get_area(pos: 'AbstractPosition', edge_list: Set[EdgePoint]) -> Fraction:
-    area = Fraction(0)
+def _get_area(pos: 'AbstractPosition', edge_list: Set[EdgePoint]) -> List[Fraction]:
+    area = []
     for edge in edge_list:
         pos_value, is_y = edge.on()
         high = Fraction(abs(pos_value - (pos.col + 0.5 if is_y else pos.row + 0.5)))
         base = edge.length()
-        area += high * base / 2
+        area.append(high * base / 2)
 
     return area
 
@@ -372,8 +406,14 @@ class Rule1Eat(AbstractClueRule):
         checked_points = _get_all_point(board, pos)
         size = board.get_config(MASTER_BOARD, "size")[0]
         edge_list = _get_edges(board, checked_points)
-        area = _get_area(pos, edge_list)
-        logger.debug(f"area: {area}")
+        area_list = _get_area(pos, edge_list)
+        approx_area = sum([int((1 << EXPONENT) * area) for area in area_list])
+        area_sum = sum(area_list)
+        logger.debug(
+            f"area: {area_sum}({float(area_sum)}), "
+            f"approx_area: {approx_area / (2 ** EXPONENT)}, "
+            f"devia: {approx_area / (2 ** EXPONENT) - area_sum}"
+        )
         logger.debug(f"geogebra[{pos}]: " + "{{" + ', '.join([
             f"({point.y}, {size - point.x})" for point in checked_points
         ]) + "}, {" + ', '.join([
@@ -382,27 +422,38 @@ class Rule1Eat(AbstractClueRule):
             f"Segment(({point_a.y}, {size - point_a.x}), ({point_b.y}, {size - point_b.x}))"
             for point_a, point_b in edge_list]
         ) + "}}")
+
         if self.all_integer:
-            if area.denominator != 1:
-                return Quess.ValueQuess(pos)
-        return Value1Eat(pos, code=encode_int(area.numerator) + encode_int(area.denominator))
+            if area_sum.denominator != 1:
+                return VALUE_QUESS
+        return Value1Eat(
+            pos, numerator=area_sum.numerator,
+            denominator=area_sum.denominator,
+            appro_area=approx_area,
+            exponent=EXPONENT,
+        )
 
 
 class Value1Eat(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
-        super().__init__(pos, code)
-        self.numerator = decode_int(code[:BYTE_LENGTH])
-        self.denominator = decode_int(code[BYTE_LENGTH:])
-
-    def __repr__(self) -> str:
-        return f"{Fraction(self.numerator, self.denominator)}"
+    def __init__(
+        self, pos: 'AbstractPosition',
+        numerator: int,
+        denominator: int,
+        appro_area: int,
+        exponent: int,
+    ):
+        super().__init__(pos)
+        self.numerator = numerator
+        self.denominator = denominator
+        self.appro_area = appro_area
+        self.exponent = exponent
 
     @classmethod
     def type(cls) -> bytes:
         return Rule1Eat.id.encode()
 
-    def code(self) -> bytes:
-        return encode_int(self.numerator) + encode_int(self.denominator)
+    def __repr__(self) -> str:
+        return f"{Fraction(self.numerator, self.denominator)}"
 
     def compose(self, board):
         # 假分数转带分数
@@ -449,70 +500,318 @@ class Value1Eat(AbstractClueValue):
             dominant_by_height=True
         )
 
+    @classmethod
+    def from_json(cls, pos: 'AbstractPosition', data: 'JSONObject') -> 'AbstractValue':
+        return cls(pos, data["numerator"], data["denominator"], data["appro_area"], data["exponent"])
+
+    def json(self) -> 'JSONObject':
+        return ImmutableDict({
+            "numerator": self.numerator, "denominator": self.denominator,
+            "appro_area": self.appro_area, "exponent": self.exponent
+        })
+
     def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
-        # SUPER枚举大法
-        global CACHE, CACHE_CODE
-
-        def encode_board(_board: 'AbstractBoard', target_type: str):
-            _int_code = 0
-            for _, _obj_type in _board(mode="type"):
-                _int_code <<= 1
-                _int_code += _obj_type == target_type
-            return _int_code
-
-        def decode_board(_board_code: int, _board: 'AbstractBoard'):
-            for pos, _ in list(_board())[::-1]:
-                if _board_code & 1:
-                    _board[pos] = MINES_TAG
-                else:
-                    _board[pos] = VALUE_QUESS
-                _board_code >>= 1
-            return _board
-
-        def get_area(_board_code: int):
-            _board = decode_board(_board_code, board_tmp.clone())
-            checked_points = _get_all_point(_board, self.pos)
-            edge_list = _get_edges(_board, checked_points)
-            return _get_area(self.pos, edge_list)
-
         model = board.get_model()
         s = switch.get(model, self)
+        intvar_list: List[IntVar] = []
+        start_point = GridPoint(self.pos.row + Fraction(1, 2), self.pos.col + Fraction(1, 2))
+        board_tmp = board.clone()
+        board_tmp.clear_board()
+        board_tmp.clear_variable()
+        for pos_row, pos_col in itertools.product(
+            range(0, board.boundary(self.pos.board_key).row + 2),
+            range(0, board.boundary(self.pos.board_key).col + 2)
+        ):
+            root_point = GridPoint(pos_row, pos_col)
+            if pos_col < board.boundary(self.pos.board_key).col + 1:
+                edge_r = EdgePoint(root_point, GridPoint(pos_row, pos_col + 1))
+                intvar_list.append(self._get_edge_area(board, start_point, model, edge_r, board_tmp))
+            if pos_row < board.boundary(self.pos.board_key).row + 1:
+                edge_d = EdgePoint(root_point, GridPoint(pos_row + 1, pos_col))
+                intvar_list.append(self._get_edge_area(board, start_point, model, edge_d, board_tmp))
 
-        master_board_code = encode_board(board, "F")
-        mask_board_code = encode_board(board, "N")
-        target_value = Fraction(self.numerator, self.denominator)
-        board_tmp = get_board()()
-        board_tmp.generate_board(MASTER_BOARD, size=board.get_config(MASTER_BOARD, "size"))
+        intvar_sum = sum(intvar_list)
 
-        if self.pos not in CACHE:
-            CACHE[self.pos]: Dict[Fraction, Set[int]] = dict()
-        if self.pos not in CACHE_CODE:
-            CACHE_CODE[self.pos]: Dict[int, Fraction] = dict()
+        if ALLOW_ERROR > 0:
+            get_logger().trace(f"[{self.pos}] sum.ub = {sum([intvar.domain.max() for intvar in intvar_list])}")
+            get_logger().trace(f"[{self.pos}]({self.numerator}/{self.denominator}) appro_area = {self.appro_area}")
+            get_logger().trace(f"[{self.pos}] sum ~ {self.appro_area} ± {ALLOW_ERROR}")
+            # 允许误差范围：appro_area - allow_error <= intvar_sum <= appro_area + allow_error
+            lower_bound = self.appro_area - ALLOW_ERROR
+            upper_bound = self.appro_area + ALLOW_ERROR
 
-        sub = mask_board_code
-        possible = set()
-        get_logger().debug(f"{self.pos} possible start")
-        while True:
-            target_board_code = master_board_code | sub
-            if target_board_code in CACHE_CODE[self.pos]:
-                area = CACHE_CODE[self.pos][target_board_code]
+            model.add(intvar_sum >= lower_bound).OnlyEnforceIf(s)
+            model.add(intvar_sum <= upper_bound).OnlyEnforceIf(s)
+        if ALLOW_ERROR == 0:
+            get_logger().trace(f"[{self.pos}] sum.ub = {sum([intvar.domain.max() for intvar in intvar_list])}")
+            get_logger().trace(f"[{self.pos}]({self.numerator}/{self.denominator}) appro_area = {self.appro_area}")
+            model.add(intvar_sum == self.appro_area).OnlyEnforceIf(s)
+        # from minesweepervariants.impl.summon.solver import get_solver
+        # solver = get_solver(False)
+        # _model = model.clone()
+        # diff = _model.new_int_var(0, self.appro_area, "diff")
+        # _model.minimize(diff)
+        # _model.add_abs_equality(diff, intvar_sum - self.appro_area)
+        # _model.add_bool_and(s)
+        # status = solver.solve(_model)
+        # get_logger().trace(f"{status}, {self.pos}, ({self.numerator}/{self.denominator}), {solver.value(intvar_sum)}, {self.appro_area}")
+        # get_logger().trace(f"SOLVER: {[(v.name, solver.value(v)) for v in intvar_list]}")
+
+        # _model = model.clone()
+        # _model.minimize(intvar_sum)
+        # status = solver.solve(_model)
+        # print(status, self.pos, f"({self.numerator}/{self.denominator})", solver.value(intvar_sum), self.appro_area)
+        #
+        # _model = model.clone()
+        # _model.maximize(intvar_sum)
+        # status = solver.solve(_model)
+        # print(status, self.pos, f"({self.numerator}/{self.denominator})", solver.value(intvar_sum), self.appro_area)
+
+    def _get_edge_area(
+        self, board: 'AbstractBoard', point: 'GridPoint',
+        model: CpModel, edge: 'EdgePoint', board_tmp: 'AbstractBoard'
+    ) -> IntVar:
+        ub = 1 << (self.exponent - 1)
+        pos_value, is_y = edge.on()
+        hight = Fraction(abs(pos_value - (self.pos.col + 0.5 if is_y else self.pos.row + 0.5)))
+        result_var = model.new_int_var(0, int(ub * hight), f"{edge}->{self.pos}")
+
+        positions_list, on_flag = self._get_edge_range(board, edge, point)
+        get_logger().trace(f"{self.pos}, {positions_list}")
+
+        kill_map: List[AbstractPosition] = []
+
+        if len(positions_list) == 0:
+            raise ValueError("empty positions")
+        for positions in positions_list:
+            if None in positions:
+                raise ValueError("None in positions")
+            if len(positions) == 0:
+                raise ValueError("empty positions")
+            if len(positions) == 1:
+                position = positions[0]
+                kill_map.append(position)
+                positions.clear()
+                continue
+        if len(positions_list) == 1:
+            for pos in positions_list[0]:
+                kill_map.append(pos)
+            positions_list[0].clear()
+
+        remap_pos = {}
+        positions = set([j for i in positions_list for j in i])
+        if is_y:
+            if int(edge.point2.y) < on_flag:
+                edge_on_pos = None
             else:
-                area = get_area(target_board_code)
-                CACHE_CODE[self.pos][target_board_code] = area
-                if area not in CACHE[self.pos]:
-                    CACHE[self.pos][area] = set()
-                CACHE[self.pos][area].add(target_board_code)
-            if area == target_value:
-                possible.add(target_board_code)
-            if sub == 0:
-                break
-            sub = (sub - 1) & mask_board_code
+                edge_on_pos = board_tmp.get_pos(int(edge.point2.x), int(edge.point2.y) - on_flag)
+        else:
+            if int(edge.point2.x) < on_flag:
+                edge_on_pos = None
+            else:
+                edge_on_pos = board_tmp.get_pos(int(edge.point2.x) - on_flag, int(edge.point2.y))
 
-        var_list = [var for _, var in board(mode="var")]
-        get_logger().debug(f"{self.pos} possible legth: {len(possible)}")
-        possible = [[(x >> i) & 1 == 1 for i in range(len(var_list))][::-1] for x in possible]
-        get_logger().trace(f"{self.pos} var_list: {var_list}")
-        get_logger().trace(f"{self.pos} possible: {possible}")
-        model.add_allowed_assignments(
-            var_list, possible
-        ).OnlyEnforceIf(s)
+        if edge_on_pos is not None:
+            board_tmp[edge_on_pos] = MINES_TAG
+
+        for pos in positions:
+            if edge_on_pos is not None:
+                if pos in edge_on_pos.neighbors(1):
+                    kill_map.append(pos)
+                    board_tmp[pos] = None
+                    continue
+            if pos == board_tmp.get_pos(int(edge.point2.x), int(edge.point2.y)):
+                kill_map.append(pos)
+                board_tmp[pos] = None
+                continue
+            if pos == self.pos:
+                kill_map.append(pos)
+                board_tmp[pos] = None
+                continue
+            board_tmp[pos] = MINES_TAG
+            point1 = link_pos2gridPoint(board_tmp, self.pos, edge.point1)
+            point2 = link_pos2gridPoint(board_tmp, self.pos, edge.point2)
+            if point1 is None and point2 is None:
+                kill_map.append(pos)
+                board_tmp[pos] = None
+                continue
+            if point1 is not None and point2 is not None:
+                print(pos, point1, point2)
+                raise ValueError("ALL NOT NONE")
+
+            for dx, dy in ((0, 0), (0, 1), (1, 0), (1, 1)):
+                point = GridPoint(pos.row + dx, pos.col + dy)
+                extension_point = link_pos2gridPoint(board_tmp, self.pos, point)
+                if extension_point is None:
+                    continue
+                if extension_point in [point1, point2]:
+                    break
+                if extension_point not in edge:
+                    extension_point = None
+                    continue
+                break
+
+            if extension_point is None:
+                raise ValueError("ALL NONE ERROR")
+
+            extension_edge = None
+            if point1 is not None:
+                if extension_point == point1:
+                    kill_map.append(pos)
+                else:
+                    extension_edge = EdgePoint(extension_point, edge.point1)
+            elif point2 is not None:
+                if extension_point == point2:
+                    kill_map.append(pos)
+                else:
+                    extension_edge = EdgePoint(extension_point, edge.point2)
+            else:
+                raise ValueError()
+            if extension_edge:
+                remap_pos[pos] = extension_edge
+
+            board_tmp[pos] = None
+
+        if edge_on_pos is not None:
+            board_tmp[edge_on_pos] = None
+        if edge_on_pos is not None:
+            edge_on_var = board.get_variable(edge_on_pos)
+        else:
+            edge_on_var = True
+
+        get_logger().trace(f"{self.pos}, {edge}, hight:{hight}, kill_map:{kill_map}, remap_pos:{remap_pos}")
+        for kill_pos in kill_map:
+            model.add(result_var == 0).only_enforce_if(board.get_variable(kill_pos))
+
+        get_logger().trace(f"[{self.pos}]({edge}) if all not {kill_map + list(remap_pos.keys())} var -> {int(ub * hight)}")
+        enforce = [
+            board.get_variable(kill_pos).Not()
+            for kill_pos in kill_map + list(remap_pos.keys())
+        ]
+        if edge_on_pos:
+            enforce.append(edge_on_var)
+        model.add(result_var == int(ub * hight)).only_enforce_if(enforce)
+        if edge_on_pos:
+            get_logger().trace(f"[{self.pos}]({edge}) if {edge_on_pos} is not mines -> 0")
+            model.add(result_var == 0).only_enforce_if(edge_on_var.Not())
+
+        if not remap_pos:
+            return result_var
+
+        kill_all_not = [
+            board.get_variable(kill_pos).Not()
+            for kill_pos in kill_map
+        ]
+        for r in range(1, len(remap_pos) + 1):
+            for remap_pos_key in itertools.combinations(list(remap_pos.keys()), r):
+                remap_pos_value = [remap_pos[k] for k in remap_pos_key]
+                if len(remap_pos_value) == 1:
+                    length = remap_pos_value[0].length()
+                else:
+                    intersection_edge = remap_pos_value[0]
+                    length = -1
+                    for remap_edge in remap_pos_value[1:]:
+                        intersection_edge = intersection_edge.intersection(remap_edge)
+                        if intersection_edge is None:
+                            length = 0
+                            break
+                        if type(intersection_edge) is GridPoint:
+                            length = 0
+                            break
+                    if length == -1:
+                        length = intersection_edge.length()
+                if length == -1:
+                    raise ValueError("?")
+                if length == 0:
+                    get_logger().trace(f"[{self.pos}]({edge}) if ON:{remap_pos_key} -> 0")
+                    enforce = [
+                        board.get_variable(remap_key_pos)
+                        for remap_key_pos in remap_pos_key
+                    ]
+                    model.add(result_var == 0).only_enforce_if(enforce)
+                else:
+                    get_logger().trace(f"[{self.pos}]({edge}) getNUM if ON: {[
+                        remap_key_pos for remap_key_pos in remap_pos_key
+                    ]} NOT: {kill_map + [
+                        remap_key_pos for remap_key_pos in remap_pos
+                        if remap_key_pos not in remap_pos_key
+                    ]} -> {int(ub * length * hight)}")
+                    enforce = [
+                        board.get_variable(remap_key_pos)
+                        for remap_key_pos in remap_pos_key
+                    ]
+                    enforce.extend(kill_all_not)
+                    enforce.extend([
+                        board.get_variable(remap_key_pos).Not()
+                        for remap_key_pos in remap_pos
+                        if remap_key_pos not in remap_pos_key
+                    ])
+                    enforce.append(edge_on_var)
+                    get_logger().trace(f"enforce: {enforce}")
+                    model.add(result_var == int(ub * length * hight)).only_enforce_if(enforce)
+
+        return result_var
+
+    def _get_edge_range(
+        self, board: 'AbstractBoard',
+        edge: 'EdgePoint', pointr: 'GridPoint'
+    ) -> Tuple[List[List[AbstractPosition]], bool]:
+        _, is_y = edge.on()
+        point1, point2 = edge
+        point1_x, point1_y = point1
+        point2_x, point2_y = point2
+        pointr_x, pointr_y = pointr
+
+        if is_y:
+            line1_k = Fraction(pointr_x - point1_x, pointr_y - point1_y)
+            line1_b = point1_x - line1_k * point1_y
+            line2_k = Fraction(pointr_x - point2_x, pointr_y - point2_y)
+            line2_b = point2_x - line2_k * point2_y
+        else:
+            line1_k = Fraction(pointr_y - point1_y, pointr_x - point1_x)
+            line1_b = point1_y - line1_k * point1_x
+            line2_k = Fraction(pointr_y - point2_y, pointr_x - point2_x)
+            line2_b = point2_y - line2_k * point2_x
+        get_logger().trace(f"{{{edge}, {pointr}, ({line1_k}) * x + {line1_b}, ({line2_k}) * x + {line2_b}}}")
+
+        if is_y:
+            flag = point1_y <= self.pos.col
+            if flag:
+                range_tuple = (int(point1_y), self.pos.col + 1)
+            else:
+                range_tuple = (self.pos.col, int(point1_y))
+        else:
+            flag = point1_x <= self.pos.row
+            if flag:
+                range_tuple = (int(point1_x), self.pos.row + 1)
+            else:
+                range_tuple = (self.pos.row, int(point1_x))
+
+        result_poslist: List[List[AbstractPosition]] = []
+
+        for x in range(*range_tuple):
+            result_poslist.append([])
+            x += 0.5
+            if (
+                x - 0.5 == (self.pos.col if is_y else self.pos.row) and
+                ((not line2_k < 0) ^ flag)
+            ):
+                lb = self.pos.row if is_y else self.pos.col
+            else:
+                lb = (math.floor(line2_b + line2_k * (math.ceil(x) if line2_k < 0 else math.floor(x))))
+            if (
+                x - 0.5 == (self.pos.col if is_y else self.pos.row) and
+                ((line1_k < 0) ^ flag)
+            ):
+                ub = (self.pos.row + 1) if is_y else (self.pos.col + 1)
+            else:
+                ub = math.ceil(line1_b + line1_k * (math.floor(x) if line1_k < 0 else math.ceil(x)))
+            if lb < 0:
+                raise ValueError("lb < 0")
+            for pos_i in range(lb, ub):
+                if is_y:
+                    result_poslist[-1].append(board.get_pos(pos_i, int(x - 0.5)))
+                else:
+                    result_poslist[-1].append(board.get_pos(int(x - 0.5), pos_i))
+
+        return result_poslist, flag
