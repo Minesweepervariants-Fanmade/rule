@@ -914,6 +914,30 @@
         },
         {
             "rule_line": "L",
+            "id": "0.5T",
+            "name": {
+                "default": "0.5 Triangle",
+                "zh_CN": "0.5 \u4e09\u89d2\u5f62"
+            },
+            "doc": {
+                "default": "Any three mines can not form a triangle with an area of 0.5",
+                "zh_CN": "\u4efb\u610f\u4e09\u4e2a\u96f7\u4e0d\u80fd\u6784\u6210\u9762\u79ef\u4e3a 0.5 \u7684\u4e09\u89d2\u5f62"
+            },
+            "author": {
+                "name": "\u65e0\u8a00\u4e4b\u68a6",
+                "id": "2452054817"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Anti-Construction",
+                "Global"
+            ],
+            "creation_time": "2026-06-04"
+        },
+        {
+            "rule_line": "L",
             "id": "1Q~",
             "name": {
                 "default": "Q~",
