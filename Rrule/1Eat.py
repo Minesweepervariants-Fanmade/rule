@@ -6,7 +6,7 @@
 # @FileName: 1Eat.py
 import itertools
 import math
-from typing import Optional, Tuple, Set, List, Dict, Union
+from typing import Optional, Tuple, Set, List, Mapping, Union, Callable
 from fractions import Fraction
 
 from ortools.sat.python.cp_model import CpModel, IntVar
@@ -172,6 +172,26 @@ class EdgePoint:
         if hx_min <= vx <= hx_max and vy_min <= hy <= vy_max:
             return GridPoint(vx, hy)
         return None
+
+    def adjacent_cells[T](self, get_pos: Callable[[int, int], T]) -> Tuple[T, T]:
+        """返回水平/垂直单位边所夹的两个格子中心点"""
+        # p1, p2 = self.point1, self.point2
+
+        if self.point1.y == self.point2.y:  # 水平边
+            y = self.point1.y
+            x_min = min(self.point1.x, self.point2.x)
+            bottom = get_pos(int(x_min), int(y - 1))
+            top = get_pos(int(x_min), int(y))
+            return bottom, top
+
+        if self.point1.x == self.point2.x:  # 垂直边
+            x = self.point1.x
+            y_min = min(self.point1.y, self.point2.y)
+            left = get_pos(int(x - 1), int(y_min))
+            right = get_pos(int(x), int(y_min))
+            return left, right
+
+        raise ValueError("Edge must be horizontal or vertical")
 
 
 def link_pos2gridPoint(
@@ -455,6 +475,91 @@ class Value1Eat(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{Fraction(self.numerator, self.denominator)}"
 
+    def web_component(self, board: 'AbstractBoard') -> Mapping[str, object]:
+        whole = self.numerator // self.denominator
+        rem = self.numerator % self.denominator
+        # if rem == 0:
+        #     return get_text(str(whole))
+        #
+        # if whole == 0:
+        #     # 真分数或假分数（无整数部分）
+        #     latex_str = f"\\frac{{{self.numerator}}}{{{self.denominator}}}"
+        # else:
+        #     # 带分数：整数部分 + 真分数
+        #     latex_str = f"{whole}\\frac{{{rem}}}{{{self.denominator}}}"
+        #
+        # return get_text(latex_str)
+
+        # 能整除 → 直接返回整数
+        if rem == 0:
+            return get_text(str(whole))
+
+        num_str = str(rem)
+        den_str = str(self.denominator)
+
+        # 构建分数部分：分子、横线、分母 垂直排列
+        # 横线使用 "—"（更长且细）或 "---"，并强制设置高度为 4px（或极小值）
+        fraction_col = get_col(
+            get_text(num_str),
+            get_text("---"),  # 横线压扁：高度4px，字体大小不影响高度
+            get_text(den_str),
+        )
+
+        # 无整数部分 → 直接返回分数
+        if whole == 0:
+            return fraction_col
+
+        # 带分数：整数 + 分数 左右排列
+        return get_row(
+            get_col(get_text(str(whole))),  # 整数部分宽度占比 0.3，避免被挤压
+            fraction_col,
+        )
+
+    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+        high_lights = set()
+        all_point = _get_all_point(board, self.pos)
+        all_edge = _get_edges(board, all_point)
+
+        for edge in all_edge:
+            p1, p2 = edge.adjacent_cells(lambda row, col: (
+                board.get_pos(row, col, self.pos.board_key)
+                if (
+                    0 <= row <= board.boundary(self.pos.board_key).row and
+                    0 <= col <= board.boundary(self.pos.board_key).col
+                ) else None
+            ))
+            if p1 is None or board.get_type(p1) == "F":
+                high_lights.add(p2)
+            if p2 is None or board.get_type(p2) == "F":
+                high_lights.add(p1)
+
+        checked_poses = [self.pos]
+        visible_poses = []
+        while checked_poses:
+            wait_check = []
+            for checked_pos in checked_poses:
+                if checked_pos in visible_poses:
+                    continue
+                visible_poses.append(checked_pos)
+                if board.get_type(checked_pos) in "F":
+                    continue
+                flag = 0
+                if checked_pos in high_lights:
+                    flag = 2
+                for dx, dy in [(0, 0), (0, 1), (1, 0), (1, 1)]:
+                    if flag > 1:
+                        break
+                    point = GridPoint(checked_pos.row + dx, checked_pos.col + dy)
+                    if not link_pos2gridPoint(board, self.pos, point):
+                        continue
+                    flag += 1
+                if flag > 1:
+                    wait_check.extend(checked_pos.neighbors(1))
+                    high_lights.add(checked_pos)
+            checked_poses = wait_check
+
+        return list(high_lights)
+
     def compose(self, board):
         # 假分数转带分数
         whole = self.numerator // self.denominator
@@ -546,26 +651,6 @@ class Value1Eat(AbstractClueValue):
             get_logger().trace(f"[{self.pos}] sum.ub = {sum([intvar.domain.max() for intvar in intvar_list])}")
             get_logger().trace(f"[{self.pos}]({self.numerator}/{self.denominator}) appro_area = {self.appro_area}")
             model.add(intvar_sum == self.appro_area).OnlyEnforceIf(s)
-        # from minesweepervariants.impl.summon.solver import get_solver
-        # solver = get_solver(False)
-        # _model = model.clone()
-        # diff = _model.new_int_var(0, self.appro_area, "diff")
-        # _model.minimize(diff)
-        # _model.add_abs_equality(diff, intvar_sum - self.appro_area)
-        # _model.add_bool_and(s)
-        # status = solver.solve(_model)
-        # get_logger().trace(f"{status}, {self.pos}, ({self.numerator}/{self.denominator}), {solver.value(intvar_sum)}, {self.appro_area}")
-        # get_logger().trace(f"SOLVER: {[(v.name, solver.value(v)) for v in intvar_list]}")
-
-        # _model = model.clone()
-        # _model.minimize(intvar_sum)
-        # status = solver.solve(_model)
-        # print(status, self.pos, f"({self.numerator}/{self.denominator})", solver.value(intvar_sum), self.appro_area)
-        #
-        # _model = model.clone()
-        # _model.maximize(intvar_sum)
-        # status = solver.solve(_model)
-        # print(status, self.pos, f"({self.numerator}/{self.denominator})", solver.value(intvar_sum), self.appro_area)
 
     def _get_edge_area(
         self, board: 'AbstractBoard', point: 'GridPoint',
