@@ -43,7 +43,7 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Tuple
 
 from ....abs.Lrule import AbstractMinesRule
 
@@ -52,17 +52,14 @@ if TYPE_CHECKING:
     from ....impl.summon.solver import Switch
 
 
-_COMPARE_RE = re.compile(r"^(?:%(?P<mod>-?\d+))?(?P<op>=|!=|>=|<=|>|<)(?P<value>-?\d+)$")
+_COMPARE_RE = re.compile(r"^(?:%(?P<mod>-?\d+))?(?P<op>=|!=|>=|<=|>|<|~=)(?P<value>-?\d+)$")
 
 
-def _parse_comparison(data) -> tuple[int | None, str, int]:
-    text = "" if data is None else "".join(str(data).split())
-    if not text:
-        return None, "=", 3
-
+def _parse_single_comparison(text: str) -> Tuple[int | None, str, int]:
+    """解析单个比较串，返回 (modulus, operator, target)"""
     match = _COMPARE_RE.fullmatch(text)
     if match is None:
-        raise ValueError(f"非法参数: {data!r}")
+        raise ValueError(f"非法参数: {text!r}")
 
     modulus_text = match.group("mod")
     modulus = None if modulus_text is None else int(modulus_text)
@@ -70,6 +67,27 @@ def _parse_comparison(data) -> tuple[int | None, str, int]:
         raise ValueError("模数必须为正整数")
 
     return modulus, match.group("op"), int(match.group("value"))
+
+
+def _parse_comparisons(data) -> List[Tuple[int | None, str, int]]:
+    """解析由分号分隔的多个比较串，返回列表"""
+    if data is None:
+        data = ""
+    raw = "".join(str(data).split())
+    if not raw:
+        # 默认约束 "=3"
+        return [(None, "=", 3)]
+
+    parts = raw.split(";")
+    constraints = []
+    for part in parts:
+        if not part:
+            continue
+        constraints.append(_parse_single_comparison(part))
+    if not constraints:
+        # 如果只有空串（例如 ";"），回退到默认
+        return [(None, "=", 3)]
+    return constraints
 
 
 class RuleRStar(AbstractMinesRule):
@@ -84,7 +102,7 @@ class RuleRStar(AbstractMinesRule):
 
     def __init__(self, board: 'AbstractBoard' = None, data=None) -> None:
         super().__init__(board, data)
-        self.modulus, self.operator, self.target = _parse_comparison(data)
+        self.constraints = _parse_comparisons(data)
 
     @staticmethod
     def _apply_comparison(model, lhs, op: str, rhs: int, switch_var) -> None:
@@ -100,6 +118,8 @@ class RuleRStar(AbstractMinesRule):
             model.Add(lhs < rhs).OnlyEnforceIf(switch_var)
         elif op == "<=":
             model.Add(lhs <= rhs).OnlyEnforceIf(switch_var)
+        elif op == "~=":
+            pass
         else:
             raise ValueError(f"不支持的比较符号: {op}")
 
@@ -118,14 +138,25 @@ class RuleRStar(AbstractMinesRule):
             ]
 
             total_ub = len(mine_vars)
-            total_var = model.NewIntVar(0, total_ub, f"RStar_total_{key}")
-            model.Add(total_var == sum(mine_vars)).OnlyEnforceIf(rule_switch)
+            total_var = model.new_int_var(0, total_ub, f"RStar_total_{key}")
+            model.add(total_var == sum(mine_vars)).OnlyEnforceIf(rule_switch)
 
-            if self.modulus is None:
-                self._apply_comparison(model, total_var, self.operator, self.target, rule_switch)
-                continue
+            # 对每一个约束分别添加条件
+            for modulus, operator, target in self.constraints:
+                if modulus is None:
+                    # 直接比较总雷数
+                    self._apply_comparison(model, total_var, operator, target, rule_switch)
+                else:
+                    # 先取模，再比较余数
+                    remainder = model.new_int_var(0, modulus - 1, f"RStar_mod_{key}_{modulus}")
+                    quotient = model.new_int_var(0, total_ub // modulus, f"RStar_quo_{key}_{modulus}")
+                    model.add(total_var == quotient * modulus + remainder).OnlyEnforceIf(rule_switch)
+                    self._apply_comparison(model, remainder, operator, target, rule_switch)
 
-            remainder = model.NewIntVar(0, self.modulus - 1, f"RStar_mod_{key}")
-            quotient = model.NewIntVar(0, total_ub // self.modulus, f"RStar_quo_{key}")
-            model.Add(total_var == quotient * self.modulus + remainder).OnlyEnforceIf(rule_switch)
-            self._apply_comparison(model, remainder, self.operator, self.target, rule_switch)
+    def suggest_total(self, info) -> None:
+        target_value = []
+        for _, operator, target in self.constraints:
+            if operator == "~=":
+                target_value.append(target)
+        if target_value:
+            info["soft_fn"](int(sum(target_value) / len(target_value)), 5)
