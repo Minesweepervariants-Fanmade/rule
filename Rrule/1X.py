@@ -80,7 +80,7 @@ class Rule1X(AbstractClueRule):
     def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         if data is None:
-            self.neibor_bool = []
+            self.neibor_bool = [True, False, False, True]
             return
         datas = data.split(";")
         nei_values: list[int] = []
@@ -116,7 +116,7 @@ class Value1X(AbstractClueValue):
 
     def __init__(self, pos: Position, bool_list: list[bool], value: int, *args: object, **kwargs: object):
         super().__init__(pos, *args, **kwargs)
-        self.value = SingleIntValue1X(bool_list, value)
+        self.value: SingleIntValue1X = SingleIntValue1X(bool_list, value)
         self.bool_list = bool_list
         self.neighbor = get_neighbors(pos, bool_list)
 
@@ -134,9 +134,6 @@ class Value1X(AbstractClueValue):
             raise ValueError("value is empty")
 
         return cls(pos, value.bool_list, value.value)
-
-    def __repr__(self):
-        return f"{self.value}"
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
@@ -176,4 +173,4 @@ class Value1X(AbstractClueValue):
 
         # 添加约束：周围雷数等于count
         if neighbor_vars:
-            model.Add(sum(neighbor_vars) == self.value).OnlyEnforceIf(s)
+            model.Add(sum(neighbor_vars) == self.value.value).OnlyEnforceIf(s)
