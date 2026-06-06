@@ -138,7 +138,7 @@ class RuleAVG(AbstractClueRule):
       raw_vars = cache["raw_vars"]
       count_vars = cache["count_vars"]
 
-      for pos, obj in board("C", key=key, special="raw"):
+      for pos, obj in board("C", key=key, mode="obj", special="raw"):
         if not isinstance(obj, ValueAVG):
           continue
 

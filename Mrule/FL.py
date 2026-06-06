@@ -180,7 +180,7 @@ class RuleFL(AbstractMinesClueRule):
             pos_index = cache["pos_index"]
             raw_vars = cache["raw_vars"]
 
-            for pos, obj in board("F", key=key):
+            for pos, obj in board("F", key=key, mode="obj"):
                 if not isinstance(obj, ValueFL):
                     continue
                 raw_var = board.get_variable(pos, special="raw")

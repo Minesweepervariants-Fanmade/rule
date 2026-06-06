@@ -64,7 +64,7 @@ class Rule3Ap(AbstractClueRule):
                 put(board, pos, index)
                 # print(pos, index)
                 # print(board.show_board())
-        for _, obj in board("C"):
+        for _, obj in board("C", mode="obj"):
             obj: Value3Ap
             obj.end()
         return board

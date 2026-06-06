@@ -93,7 +93,7 @@ class RuleLO(AbstractClueRule):
     creation_time = "2026-05-05"
 
     def fill(self, board: 'Board') -> 'Board':
-        state = {pos: isinstance(obj, AbstractMinesValue) for pos, obj in board("always")}
+        state = {pos: isinstance(obj, AbstractMinesValue) for pos, obj in board(mode="obj")}
         model, solver, switch_var = solver_lightsOut(state, board)
         result = {pos: solver.Value(var) for pos, var in switch_var.items()}
         _board = board.clone()
@@ -125,7 +125,7 @@ class RuleLO(AbstractClueRule):
                 model.add(total != odd).OnlyEnforceIf(s)
 
         # 处理数字格子 ValueL0 的约束
-        for pos, obj in board("always"):
+        for pos, obj in board("always", mode="obj"):
             if not isinstance(obj, ValueL0):
                 continue
             # 计算 3x3 范围内的开关变量

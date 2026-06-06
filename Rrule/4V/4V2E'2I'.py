@@ -160,7 +160,7 @@ class Value4V2Ep2Ip(AbstractClueValue):
 
             # 初始化对照表
             neighbors = []
-            for pos2, obj in board(key=NAME_4V_2Ip):
+            for pos2, obj in board(key=NAME_4V_2Ip, mode="obj"):
                 # 题板上的位置和共享的偏移位置
                 _positions = [_pos.deviation(pos2).up().left(), pos2]
                 # 第一个为题板对应的变量 第二个为偏移的变量

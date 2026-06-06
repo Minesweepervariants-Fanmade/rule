@@ -55,7 +55,7 @@ class RuleGM(AbstractClueRule):
 
     def init_clear(self, board: 'Board'):
         if self.data > -1:
-            positions = [pos for pos, obj in board("C") if isinstance(obj, ValueGM)]
+            positions = [pos for pos, obj in board("C", mode="obj") if isinstance(obj, ValueGM)]
             random = get_random()
             positions = random.sample(positions, k=len(positions) - self.data)
             for pos in positions:

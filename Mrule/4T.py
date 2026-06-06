@@ -67,7 +67,7 @@ class Rule4T(AbstractMinesClueRule):
                 model.Add(sum(var_list) < 3).OnlyEnforceIf(t.Not())
                 map_list[i][_pos] = t
 
-        for _pos, obj in board("F"):
+        for _pos, obj in board("F", mode="obj"):
             if type(obj) is not Value4T:
                 continue
             positions = [

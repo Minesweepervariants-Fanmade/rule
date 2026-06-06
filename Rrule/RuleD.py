@@ -48,7 +48,7 @@ class RuleC(AbstractClueRule):
             model.Add(sum_var > 3).OnlyEnforceIf([boolVar.Not(), var])
             model.Add(boolVar == 0).OnlyEnforceIf(var.Not())
             var_map[pos] = boolVar
-        for pos, obj in board():
+        for pos, obj in board(mode="obj"):
             if not isinstance(obj, ValueC):
                 continue
             var_list = [var_map[_pos] for _pos in pos.neighbors(2) if _pos in var_map]

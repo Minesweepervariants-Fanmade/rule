@@ -65,7 +65,7 @@ class Rule6V(AbstractClueRule):
     def _collect_visible_values_from_board(board: "Board") -> set[int]:
         values: set[int] = set()
         for key in board.get_interactive_keys():
-            for _, obj in board(key=key):
+            for _, obj in board(key=key, mode="obj"):
                 if isinstance(obj, Value6V):
                     values.add(obj.count)
         return values

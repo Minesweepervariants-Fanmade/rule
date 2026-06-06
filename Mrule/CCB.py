@@ -25,7 +25,7 @@ class RuleCB(AbstractMinesClueRule):
     author = ("", 0)
 
     def fill(self, board: 'Board') -> 'Board':
-        for pos, obj in board("F"):
+        for pos, obj in board("F", mode="obj"):
             col = board.get_col_pos(pos)
             row = board.get_row_pos(pos)
             col1, col2 = col[:col.index(pos)][::-1], col[col.index(pos)+1:]

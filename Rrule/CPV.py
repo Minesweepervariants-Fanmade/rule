@@ -83,7 +83,7 @@ class RuleCPV(AbstractClueRule):
     result: dict[str, set[tuple[int, int]]] = {}
     for key in board.get_interactive_keys():
       clues: set[tuple[int, int]] = set()
-      for pos, obj in board(key=key):
+      for pos, obj in board(key=key, mode="obj"):
         if isinstance(obj, ValueCPV):
           clues.add((pos.x, pos.y))
       result[key] = clues

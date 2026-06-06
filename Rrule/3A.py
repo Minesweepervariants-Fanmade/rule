@@ -70,7 +70,9 @@ class Rule3A(AbstractClueRule):
                 put(board, pos, index)
                 # print(pos, index)
                 # print(board.show_board())
-        for _, obj in board("C"):
+        for _, obj in board("C", mode="obj"):
+            if not isinstance(obj, Value3A):
+                continue
             obj.end(random.random())
         return board
 

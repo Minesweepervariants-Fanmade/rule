@@ -35,7 +35,7 @@ class RuleQuess(AbstractClueRule):
 
     def init_clear(self, board: 'Board'):
         if self.data > -1:
-            positions = [pos for pos, obj in board("C") if obj is VALUE_QUESS]
+            positions = [pos for pos, obj in board("C", mode="obj") if obj is VALUE_QUESS]
             random = get_random()
             positions = random.sample(positions, k=len(positions) - self.data)
             for pos in positions:

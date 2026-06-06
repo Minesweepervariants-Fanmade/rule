@@ -57,7 +57,7 @@ class Rule6L(AbstractClueRule):
             if not positions_vars:
                 continue
 
-            for pos, obj in board("C", key=key):
+            for pos, obj in board("C", key=key, mode="obj"):
                 if not isinstance(obj, Value6L):
                     continue
 

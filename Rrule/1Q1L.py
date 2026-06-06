@@ -78,7 +78,7 @@ class Rule1Q1L(AbstractClueRule):
             model.Add(sum(block_vars) == 0).OnlyEnforceIf(t)
             model.Add(sum(block_vars) > 0).OnlyEnforceIf(t.Not())
             block_map[pos] = t
-        for pos, obj in board("C"):
+        for pos, obj in board("C", mode="obj"):
             if type(obj) is not Value1Q1L:
                 continue
             var_list = []

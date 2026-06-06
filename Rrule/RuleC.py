@@ -46,7 +46,7 @@ class RuleC(AbstractClueRule):
             model.Add(intVar == sum(board.batch(pos.neighbors(0, 2), "var", drop_none=True))).OnlyEnforceIf(var)
             model.Add(intVar == 0).OnlyEnforceIf(var.Not())
             var_map[pos] = intVar
-        for pos, obj in board():
+        for pos, obj in board(mode="obj"):
             if not isinstance(obj, ValueC):
                 continue
             var_list = [var_map[_pos] for _pos in pos.neighbors(2) if _pos in var_map]

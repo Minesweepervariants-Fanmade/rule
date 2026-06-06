@@ -111,7 +111,7 @@ class Value2I(AbstractClueValue):
 
         # 初始化对照表
         neighbors = []
-        for pos2, obj in board(key=NAME_2I):
+        for pos2, obj in board(key=NAME_2I, mode="obj"):
             if type(obj) not in (
                 type(VALUE_CIRCLE),
                 type(VALUE_CROSS),

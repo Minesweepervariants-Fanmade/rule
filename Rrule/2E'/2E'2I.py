@@ -127,7 +127,7 @@ class Value2Ep2I(AbstractClueValue):
 
         # 初始化对照表
         neighbors = []
-        for pos2, obj in board(key=NAME_2I):
+        for pos2, obj in board(key=NAME_2I, mode="obj"):
             if isinstance(obj, Value2Ep2I_7):
                 continue
             # 题板上的位置和共享的偏移位置

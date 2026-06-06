@@ -99,7 +99,7 @@ class Value1M(AbstractClueValue):
     def high_light(self, board: 'Board') -> list['Position']:
         positions = self.neighbors[:]
         neighbors = []
-        for pos2, obj in board(key=BOARD_NAME):
+        for pos2, obj in board(key=BOARD_NAME, mode="obj"):
             if isinstance(obj, Value2I_7):
                 continue
             neighbors.append([self.pos.deviation(pos2).up().left(), pos2])
@@ -122,7 +122,7 @@ class Value1M(AbstractClueValue):
 
         # 初始化对照表
         neighbors = []
-        for pos2, obj in board(key=BOARD_NAME):
+        for pos2, obj in board(key=BOARD_NAME, mode="obj"):
             if isinstance(obj, Value2I_7):
                 continue
             # 题板上的位置和共享的偏移位置

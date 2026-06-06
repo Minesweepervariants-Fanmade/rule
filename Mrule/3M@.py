@@ -110,7 +110,7 @@ class Rule3MAt(AbstractMinesClueRule):
             # 但还需要约束：没有任何雷的位置小于 min 或大于 max，已经由不等式保证。
 
             # 为每个线索格（雷格）添加值约束
-            for pos, obj in board("F", key=key):
+            for pos, obj in board("F", key=key, mode="obj"):
                 if not isinstance(obj, Value3MAt):
                     continue
                 y = pos.y
