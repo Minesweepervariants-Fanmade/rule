@@ -10,7 +10,7 @@
 
 from typing import List, Dict
 
-from minesweepervariants.utils.image_create import get_text, get_col, get_dummy
+from minesweepervariants.utils.image_template import get_text, get_col, get_dummy
 from minesweepervariants.utils.web_template import Number
 from minesweepervariants.board import Board, Position, Size
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue

@@ -12,7 +12,7 @@ from typing import Dict
 from minesweepervariants.utils.web_template import MultiNumber
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
-from ....utils.image_create import get_text, get_row
+from ....utils.image_template import get_text, get_row
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 from ....utils.tool import get_random
 

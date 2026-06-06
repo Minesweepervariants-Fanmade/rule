@@ -4,7 +4,7 @@ from minesweepervariants.board import Board, Position
 from ..sharpRule.Csharp import FakeSwitch
 from ....utils.tool import get_random
 from ....impl.impl_obj import get_value
-from ....utils.image_create import get_text, get_row
+from ....utils.image_template import get_text, get_row
 from ....utils.web_template import MultiNumber
 
 

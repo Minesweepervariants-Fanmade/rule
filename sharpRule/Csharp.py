@@ -7,7 +7,7 @@ from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 from ....impl.impl_obj import get_value
-from ....utils.image_create import get_text, get_image, get_dummy, get_col
+from ....utils.image_template import get_text, get_image, get_dummy, get_col
 from ....utils.web_template import Number
 
 main_rules = ["V", "1M", "1L", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "2D", "2M", "2X'"]

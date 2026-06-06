@@ -9,7 +9,7 @@ from ....abs.Rrule import AbstractClueValue
 from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS, VALUE_QUESS
 from ....impl.impl_obj import get_value
-from ....utils.image_create import get_text, get_image, get_dummy, get_col, get_row
+from ....utils.image_template import get_text, get_image, get_dummy, get_col, get_row
 from ....utils.web_template import Number, MultiNumber, StrWithArrow
 
 from base64 import b64encode

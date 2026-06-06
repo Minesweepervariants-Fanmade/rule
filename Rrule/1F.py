@@ -4,7 +4,7 @@ from ortools.sat.python.cp_model import CpModel
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
 from minesweepervariants.board import Position, Board
 from ....utils.tool import get_random, get_logger
-from ....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
+from ....utils.image_template import get_image, get_text, get_row, get_col, get_dummy
 from ....utils.web_template import StrWithArrow
 
 class Rule1F(AbstractClueRule):

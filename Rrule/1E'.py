@@ -10,7 +10,7 @@ from minesweepervariants.utils.web_template import Number, StrWithArrow
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 
-from ....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
+from ....utils.image_template import get_image, get_text, get_row, get_col, get_dummy
 
 
 class Rule1E(AbstractClueRule):

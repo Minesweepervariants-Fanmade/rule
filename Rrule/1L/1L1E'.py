@@ -5,7 +5,7 @@ from .....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 from .....utils.tool import get_logger, get_random
 
-from .....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
+from .....utils.image_template import get_image, get_text, get_row, get_col, get_dummy
 
 def liar_1Ep(value: int, random) -> int:
     value += 1 if random.random() > 0.5 else -1

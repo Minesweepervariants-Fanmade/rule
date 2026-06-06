@@ -10,7 +10,7 @@ from minesweepervariants.board import Board, Position
 from ...rule.Lrule.connect import connect
 
 from ....utils.tool import get_logger, get_random
-from ....utils.image_create import get_col, get_row, get_text, get_dummy
+from ....utils.image_template import get_col, get_row, get_text, get_dummy
 from ....utils.web_template import MultiNumber
 from ...impl_obj import VALUE_QUESS
 

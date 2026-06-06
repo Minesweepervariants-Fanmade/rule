@@ -17,7 +17,7 @@ from minesweepervariants.immutable_dict import ImmutableDict
 from minesweepervariants.json_object import JSONObject
 from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.impl.summon.solver import Switch
-from minesweepervariants.utils.image_create import get_dummy, get_text, get_col, get_row, get_image
+from minesweepervariants.utils.image_template import get_dummy, get_text, get_col, get_row, get_image
 from minesweepervariants.utils.impl_obj import VALUE_QUESS, MINES_TAG
 from minesweepervariants.utils.tool import get_logger
 

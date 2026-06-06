@@ -15,7 +15,7 @@ from minesweepervariants.utils.web_template import StrWithArrow
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
-from ....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
+from ....utils.image_template import get_image, get_text, get_row, get_col, get_dummy
 from ....utils.impl_obj import MINES_TAG, VALUE_QUESS
 from ....utils.tool import get_random
 

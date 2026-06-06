@@ -8,7 +8,7 @@ from minesweepervariants.impl.summon.solver import Switch
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 from ...rule.Lrule.connect import connect
-from ....utils.image_create import get_text, get_row, get_col, get_dummy
+from ....utils.image_template import get_text, get_row, get_col, get_dummy
 from ....utils.web_template import MultiNumber
 
 from itertools import permutations

@@ -5,7 +5,7 @@ from ..sharpRule.Csharp import FakeSwitch
 from ....utils.impl_obj import VALUE_QUESS
 from ....utils.tool import get_random
 from ....impl.impl_obj import get_value
-from ....utils.image_create import get_text, get_row
+from ....utils.image_template import get_text, get_row
 from ....utils.web_template import MultiNumber
 from ....immutable_dict import ImmutableDict
 from base64 import b64encode

@@ -11,8 +11,8 @@ from typing import Dict
 
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
 from minesweepervariants.board import Position, Board
-from ....utils.image_create import get_dummy, get_image, get_col, get_row
-from ....utils.image_create import get_text as _get_text
+from ....utils.image_template import get_dummy, get_image, get_col, get_row
+from ....utils.image_template import get_text as _get_text
 from ....utils.tool import get_random
 
 

@@ -11,7 +11,7 @@ from typing import Dict
 
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
 from minesweepervariants.board import Position, Board
-from ....utils.image_create import get_text, get_image, get_row, get_col, get_dummy
+from ....utils.image_template import get_text, get_image, get_row, get_col, get_dummy
 from ....utils.tool import get_logger
 
 
