@@ -9,8 +9,6 @@
 """
 from ....abs.Lrule import AbstractMinesRule
 from minesweepervariants.board import Board, Position
-from ....utils.impl_obj import get_total
-
 from .connect import connect
 
 

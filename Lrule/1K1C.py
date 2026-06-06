@@ -8,7 +8,6 @@
 [1K1C] 马步八连通 (Knight-Connected)：雷区域马步连通
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....utils.impl_obj import get_total
 
 from .connect import connect
 
@@ -26,7 +25,6 @@ class Rule1C(AbstractMinesRule):
     def create_constraints(self, board, switch):
         model = board.get_model()
         connect(
-            ub=get_total() // 2 + 1,
             model=model,
             board=board,
             connect_value=1,
