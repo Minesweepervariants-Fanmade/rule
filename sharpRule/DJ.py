@@ -7,6 +7,7 @@ from ....abs.Rrule import AbstractClueRule
 from ....impl.rule.Rrule.V import RuleV
 from minesweepervariants.board import Board
 from ..Rrule.sharp import RuleSharp as ClueSharp
+from ....size import Size
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 class RuleDJ(AbstractClueRule):

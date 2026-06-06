@@ -1,6 +1,7 @@
 from typing import Dict, List
 from importlib import import_module
 from minesweepervariants.board import Board, Size
+from minesweepervariants.immutable_dict import ImmutableDict
 from . import AbstractClueSharp
 from minesweepervariants.impl.summon.solver import Switch
 from ....utils.tool import get_random, get_logger

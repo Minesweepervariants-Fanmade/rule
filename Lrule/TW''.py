@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-
+from minesweepervariants.size import Size
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
 
 from ....abs.Lrule import AbstractMinesRule
