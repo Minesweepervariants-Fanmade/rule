@@ -134,6 +134,7 @@ class RuleLO(AbstractClueRule):
 
 
 class ValueL0(AbstractClueValue):
+    id = "L0"
     @classmethod
     def type(cls) -> bytes:
         return RuleLO.id.encode("ascii")

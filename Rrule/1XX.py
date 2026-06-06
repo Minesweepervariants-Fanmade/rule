@@ -75,6 +75,7 @@ class Rule1XX(AbstractClueRule):
 
 
 class Value1XX(AbstractClueValue):
+    id = "1XX"
     def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

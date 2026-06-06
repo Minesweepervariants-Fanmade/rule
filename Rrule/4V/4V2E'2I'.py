@@ -113,6 +113,7 @@ class Rule4V2Ep2Ip(AbstractClueRule):
 
 
 class Value4V2Ep2Ip(AbstractClueValue):
+    id = "4V2Ep2Ip"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos

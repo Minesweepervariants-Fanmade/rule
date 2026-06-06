@@ -44,6 +44,7 @@ class RuleDUIYINGHEBING(AbstractClueRule):
 
 
 class ValueDUIYINGHEBING(AbstractClueValue):
+    id = "DUIYINGHEBING"
     def __init__(self, pos: Position, code: bytes = None):
         super().__init__(pos, code)
         self.count = code[0]

@@ -44,6 +44,7 @@ class RuleCB(AbstractMinesClueRule):
 
 
 class ValueCB(AbstractMinesValue):
+    id = "CB"
     def __init__(self, pos: 'Position', code: bytes = None):
         self.pos = pos
         self.value = code[0]

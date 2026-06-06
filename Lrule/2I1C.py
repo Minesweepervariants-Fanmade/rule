@@ -113,6 +113,7 @@ class Rule2I1C(AbstractMinesRule):
 
 
 class Value2I1C(ValueV):
+    id = "2I1C"
     def create_constraints(self, board, switch):
         pass
 

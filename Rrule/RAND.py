@@ -82,6 +82,7 @@ class RuleRAND(AbstractClueRule):
 
 
 class ValueRAND(AbstractClueValue):
+    id = "RAND"
     def __init__(self, pos: 'Position', value: int = None, code: bytes = None):
         super().__init__(pos)
         if code is not None:

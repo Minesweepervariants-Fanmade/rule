@@ -253,6 +253,7 @@ class BaseValue3N(AbstractClueValue):
 
 class Value3N0(BaseValue3N):
     id = "3N0"
+    id = "3N0"
     p = 0
 
 
@@ -263,6 +264,7 @@ class Rule3N0(BaseRule3N):
 
 
 class Value3N1(BaseValue3N):
+    id = "3N1"
     id = "3N1"
     p = 1
 
@@ -275,6 +277,7 @@ class Rule3N1(BaseRule3N):
 
 class Value3N2(BaseValue3N):
     id = "3N2"
+    id = "3N2"
     p = 2
 
 
@@ -285,6 +288,7 @@ class Rule3N2(BaseRule3N):
 
 
 class Value3NInf(BaseValue3N):
+    id = "3NInf"
     id = "3N00"
     p = '00'
 

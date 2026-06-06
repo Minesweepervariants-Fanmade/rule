@@ -60,6 +60,7 @@ class Rule1M1X(AbstractClueRule):
 
 
 class Value1M1X(AbstractClueValue):
+    id = "1M1X"
     value: int
     neighbors: list
 

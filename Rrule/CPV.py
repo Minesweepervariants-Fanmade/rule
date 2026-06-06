@@ -207,6 +207,7 @@ class RuleCPV(AbstractClueRule):
 
 
 class ValueCPV(AbstractClueValue):
+  id = "CPV"
   def __init__(self, pos: "Position", count: int = 0, code=None):
     super().__init__(pos, code if code is not None else b"")
     if code is not None:

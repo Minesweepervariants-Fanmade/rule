@@ -122,6 +122,7 @@ class Rule3MAt(AbstractMinesClueRule):
 
 
 class Value3MAt(AbstractMinesValue):
+    id = "3MAt"
     def __init__(self, pos: Position, value: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

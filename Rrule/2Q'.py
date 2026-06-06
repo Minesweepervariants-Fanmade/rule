@@ -50,6 +50,7 @@ class Rule2QPrime(AbstractClueRule):
         return board
 
 class Value2QPrime(AbstractClueValue):
+    id = "2QPrime"
     def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

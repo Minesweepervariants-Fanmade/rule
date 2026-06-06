@@ -47,6 +47,7 @@ class Rule1M(AbstractClueRule):
 
 
 class Value1M(AbstractClueValue):
+    id = "1M"
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]

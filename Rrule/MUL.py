@@ -163,6 +163,7 @@ class RuleMUL(AbstractClueRule):
 
 
 class ValueMUL(AbstractClueValue):
+    id = "MUL"
     def __init__(self, pos: 'Position') -> None:
         super().__init__(pos)
         self.value: int = -1

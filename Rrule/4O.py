@@ -80,6 +80,7 @@ class Rule4O(AbstractClueRule):
         return board
 
 class Value4O(AbstractClueValue):
+    id = "4O"
     def __init__(self, pos: 'Position', code: bytes):
         super().__init__(pos, code)
         self.directions = code[0] # 位掩码：1-上，2-下，4-左，8-右

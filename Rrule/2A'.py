@@ -90,6 +90,7 @@ class Rule2A(AbstractClueRule):
 
 
 class Value2A(AbstractClueValue):
+    id = "2A"
     def __init__(self, pos: 'Position', code: bytes = None):
         super().__init__(pos, code)
         self.value = code[0]

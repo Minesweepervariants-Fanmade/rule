@@ -168,6 +168,7 @@ class Rule2ESharp(AbstractClueSharp):
 
 
 class Value2ESharp(AbstractClueValue):
+    id = "2ESharp"
     def __init__(self, pos: Position, value: int = 0, rule: str = '', code: bytes = None) -> None:
         super().__init__(pos)
         if code:
@@ -241,6 +242,7 @@ class Value2ESharp(AbstractClueValue):
         }))
 
 class Value2E2A(Value2ESharp):
+    id = "2E2A"
     def __init__(self, pos: Position, value: int = 0, code: bytes = None, flag = 4) -> None:
         super().__init__(pos, value, '2A', code)
         self.flag = flag
@@ -262,6 +264,7 @@ class Value2E2A(Value2ESharp):
 
 
 class Value2E2X(AbstractClueValue):
+    id = "2E2X"
     def __init__(self, pos: 'Position', count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
@@ -347,6 +350,7 @@ class Value2E2X(AbstractClueValue):
                     model.Add(sum(neighbor_vars2) != a).OnlyEnforceIf([line_a[a].Not(), t.Not(), s])
 
 class Value2E2P(AbstractClueValue):
+    id = "2E2P"
     @staticmethod
     def convert_missing_value(x: int) -> int:
         if (x == -1):
@@ -500,6 +504,7 @@ class Value2E2P(AbstractClueValue):
         return rule2P.Value2P(pos=self.pos, code=bytes([value]))
 
 class Value2E1EN(AbstractClueValue):
+    id = "2E1EN"
     # arrow True 上下箭头，False 左右箭头
     def __init__(self, pos: 'Position', value: int = 0, arrow: bool = True, code: bytes = None):
         super().__init__(pos)

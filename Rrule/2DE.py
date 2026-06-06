@@ -47,6 +47,7 @@ class Rule2DE(AbstractClueRule):
 
 
 class Value2DE(AbstractClueValue):
+    id = "2DE"
     def __init__(self, pos: 'Position', value: int, *args, **kwargs) -> None:
         super().__init__(pos, *args, **kwargs)
         self.value = value

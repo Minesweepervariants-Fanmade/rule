@@ -70,6 +70,7 @@ class Rule3P(AbstractMinesClueRule):
 
 
 class Value3P(AbstractMinesValue):
+    id = "3P"
     def __init__(self, pos: 'Position', code: bytes = None):
         self.dir = code[0] >> 6
         self.pos = pos

@@ -90,6 +90,7 @@ class RuleFN(AbstractClueRule):
 
 
 class ValueFN(AbstractClueValue):
+    id = "FN"
     def __init__(self, pos: 'Position', value: int) -> None:
         super().__init__(pos)
         self.value = value

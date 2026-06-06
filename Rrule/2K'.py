@@ -27,6 +27,7 @@ class Rule2KPrime(AbstractClueRule):
         return board
 
 class Value2KPrime(AbstractClueValue):
+    id = "2KPrime"
     def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

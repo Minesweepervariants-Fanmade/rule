@@ -35,6 +35,7 @@ class Rule2M(AbstractClueRule):
 
 
 class Value2M(AbstractClueValue):
+    id = "2M"
     def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

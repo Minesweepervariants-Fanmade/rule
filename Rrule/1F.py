@@ -59,6 +59,7 @@ class Rule1F(AbstractClueRule):
         return board
 
 class Value1F(AbstractClueValue):
+    id = "1F"
     def __init__(self, pos: 'Position', direction: int = 0, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if (code is not None):

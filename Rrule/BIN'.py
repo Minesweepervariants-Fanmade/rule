@@ -41,6 +41,7 @@ class RuleBIN(AbstractClueRule):
 
 
 class ValueBIN(AbstractClueValue):
+    id = "BIN"
     def __init__(self, pos: 'Position', value: int = 0, rule: tuple[str, str] = ("", ""), code: bytes | None = None):
         super().__init__(pos)
         if not code:

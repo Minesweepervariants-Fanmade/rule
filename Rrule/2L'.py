@@ -147,6 +147,7 @@ class Rule2L(AbstractClueRule):
 
 
 class Value2L(AbstractClueValue):
+    id = "2L"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.nei = pos.neighbors(2)

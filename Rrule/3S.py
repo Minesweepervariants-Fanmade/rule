@@ -59,6 +59,7 @@ class Rule3S(AbstractClueRule):
 
 
 class Value3S(AbstractClueValue):
+    id = "3S"
     def __init__(self, pos: 'Position', count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

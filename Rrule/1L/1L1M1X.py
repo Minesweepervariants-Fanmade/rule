@@ -39,6 +39,7 @@ class Rule1LMX(AbstractClueRule):
         return board
 
 class Value1LMX(AbstractClueValue):
+    id = "1LMX"
     value: int
     neighbors: list
 

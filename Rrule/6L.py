@@ -102,6 +102,7 @@ class Rule6L(AbstractClueRule):
 
 
 class Value6L(AbstractClueValue):
+    id = "6L"
     def __init__(self, pos: 'Position', value: Fraction | int | tuple[int, int] | None = None, code: bytes | None = None):
         super().__init__(pos, code or b'')
         if code is not None:

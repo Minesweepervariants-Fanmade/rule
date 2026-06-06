@@ -48,6 +48,7 @@ class Rule1M1N1X(AbstractClueRule):
         return board
 
 class Value1M1N1X(AbstractClueValue):
+    id = "1M1N1X"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.nei = cross_neighbors(pos)

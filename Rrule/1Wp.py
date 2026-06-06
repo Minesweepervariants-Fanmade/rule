@@ -47,6 +47,7 @@ class Rule1Wp(AbstractClueRule):
 
 
 class Value1Wp(AbstractClueValue):
+    id = "1Wp"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.high = code[0]     # 0-15
         self.low = code[1]      # 0-15

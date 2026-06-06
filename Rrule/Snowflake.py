@@ -151,6 +151,7 @@ class RuleDollar(AbstractClueRule):
 
 
 class ValueDollar(AbstractClueValue):
+    id = "Dollar"
     def __init__(self, pos: Position, code: Optional[bytes] = None):
         super().__init__(pos, code)
         parts = code.split(SPLIT_SNOW.encode("ascii"))

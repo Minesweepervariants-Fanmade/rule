@@ -106,6 +106,7 @@ class Rule2P(AbstractClueRule):
 
 
 class Value2P(AbstractClueValue):
+    id = "2P"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         if len(code) == 1:

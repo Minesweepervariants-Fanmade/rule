@@ -41,6 +41,7 @@ class Rule3H(AbstractClueRule):
         return neighbors
 
 class Value3H(AbstractClueValue):
+    id = "3H"
     def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

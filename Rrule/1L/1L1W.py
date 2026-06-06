@@ -186,6 +186,7 @@ class Rule1L1W(AbstractClueRule):
 
 
 class Value1L1W(AbstractClueValue):
+    id = "1L1W"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.values: list[int] = decode(code)
         self.pos = pos

@@ -63,6 +63,7 @@ class RuleGM(AbstractClueRule):
 
 
 class ValueGM(ValueQuess):
+    id = "GM"
     @classmethod
     def type(cls) -> bytes:
         return RuleGM.id.encode("ascii")

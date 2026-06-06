@@ -36,6 +36,7 @@ class Rule1EK(AbstractEyesightClueRule):
         return Value1EK
 
 class Value1EK(AbstractEyesightClueValue):
+    id = "1EK"
     def direction_funcs(self):
         return Rule1EK.direction_funcs(self.pos)
 

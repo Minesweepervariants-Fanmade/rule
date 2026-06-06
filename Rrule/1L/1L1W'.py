@@ -91,6 +91,7 @@ class Rule1L1Wp(AbstractClueRule):
         return board
 
 class Value1L1Wp(AbstractClueValue):
+    id = "1L1Wp"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos

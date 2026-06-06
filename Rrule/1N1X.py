@@ -44,6 +44,7 @@ class Rule1N1X(AbstractClueRule):
 
 
 class Value1N1X(AbstractClueValue):
+    id = "1N1X"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.nei = cross_neighbors(pos)

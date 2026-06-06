@@ -130,6 +130,7 @@ class Rule6V(AbstractClueRule):
 
 
 class Value6V(AbstractClueValue):
+    id = "6V"
     def __init__(self, pos: "Position", count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

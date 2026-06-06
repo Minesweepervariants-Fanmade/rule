@@ -84,6 +84,7 @@ class Rule1M(AbstractClueRule):
 
 
 class Value1M(AbstractClueValue):
+    id = "1M"
     value: int
     neighbors: list
 
@@ -145,6 +146,7 @@ class Value1M(AbstractClueValue):
 
 
 class Value2I_7(AbstractClueValue):
+    id = "2I_7"
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.neighbors = pos.neighbors(2)

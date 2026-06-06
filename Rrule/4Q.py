@@ -34,6 +34,7 @@ class Rule4Q(AbstractClueRule):
         return board
 
 class Value4Q(AbstractClueValue):
+    id = "4Q"
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]

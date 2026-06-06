@@ -35,6 +35,7 @@ class RuleSp(AbstractClueRule):
         return -1
 
 class ValueSp(AbstractClueValue):
+    id = "Sp"
     def __init__(self, pos: Position, value: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

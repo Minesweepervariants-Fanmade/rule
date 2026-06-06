@@ -26,6 +26,7 @@ class Rule1E(AbstractEyesightClueRule):
         return Value1E
 
 class Value1E(AbstractEyesightClueValue):
+    id = "1E"
     def direction_funcs(self):
         return Rule1E.direction_funcs(self.pos)
 

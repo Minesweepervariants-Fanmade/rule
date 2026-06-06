@@ -84,6 +84,7 @@ class Rule4T(AbstractMinesClueRule):
 
 
 class Value4T(AbstractMinesValue):
+    id = "4T"
     def __init__(self, pos: 'Position', code: bytes = None):
         self.value = code[0] if code else 0
         self.pos = pos

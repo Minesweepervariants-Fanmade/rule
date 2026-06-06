@@ -99,6 +99,7 @@ class Rule2P2(AbstractClueRule):
 
 
 class Value2P2(AbstractClueValue):
+    id = "2P2"
     def __init__(self, pos: Position, code: bytes = None):
         super().__init__(pos, code)
         if code is None:

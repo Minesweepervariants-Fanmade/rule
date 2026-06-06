@@ -33,6 +33,7 @@ class Rule3D1K(Abstract3DClueRule):
 
 
 class ValueK(AbstractClueValue):
+    id = "K"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos

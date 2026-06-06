@@ -36,6 +36,7 @@ class Rule1M1N(AbstractClueRule):
         return board
 
 class Value1M1N(AbstractClueValue):
+    id = "1M1N"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.nei = pos.neighbors(2)

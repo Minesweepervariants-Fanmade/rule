@@ -62,6 +62,7 @@ class Rule4Vp(AbstractClueRule):
 
 
 class Value4Vp(AbstractClueValue):
+    id = "4Vp"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.neighbors_list = []
         for key in [MASTER_BOARD_KEY] + NAME_4Vp:
