@@ -41,7 +41,11 @@ RF Rule Split Definition
 from typing import Dict
 from ortools.sat.python.cp_model import CpModel
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.board import Position, Board
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Position, Board
 def opposite_move(p: Position, dx: int, dy: int) -> Position:
     # 根据相对位移 (dx, dy) 选择相反方向的移动
     if dx == -1 and dy == 0:   # 上方有雷 → 向下

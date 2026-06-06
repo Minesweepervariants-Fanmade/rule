@@ -8,7 +8,11 @@
 [PF]素因子（Prime Factor）:除0和1外的线索显示真实值的最大素因子
 """
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 PRIME_MAP = {

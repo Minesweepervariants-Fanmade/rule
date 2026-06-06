@@ -8,7 +8,11 @@
 [1M']多雷': 每个线索的多雷位置相对于线索固定 且位置全盘共享(总雷数不受限制)
 """
 
-from minesweepervariants.board import Board, Position, Size
+from minesweepervariants.board import Position, Board, JSONObject, Size
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_random
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
@@ -48,11 +52,11 @@ class Rule1M(AbstractClueRule):
         pos = board.get_pos(1, 1, BOARD_NAME)
 
         if self.value is None:
-            board[pos] = Value2I_7(pos, bytes([4]))
+            board[pos] = Value2I_7(pos, 4)
         elif self.value == "":
-            board[pos] = Value2I_7(pos, bytes([9]))
+            board[pos] = Value2I_7(pos, 9)
         else:
-            board[pos] = Value2I_7(pos, bytes([int(self.value)]))
+            board[pos] = Value2I_7(pos, int(self.value))
 
         pos_list = [pos for pos, _ in board(key=BOARD_NAME)]
 
@@ -72,7 +76,7 @@ class Rule1M(AbstractClueRule):
             offset_poses = apply_offsets(pos)
             value = board.batch(positions, mode="type").count("F")
             value += board.batch(offset_poses, mode="type").count("F")
-            obj = Value1M(pos, code=bytes([value]))
+            obj = Value1M(pos, value)
             board.set_value(pos, obj)
         return board
 
@@ -84,20 +88,30 @@ class Rule1M(AbstractClueRule):
 
 
 class Value1M(AbstractClueValue):
-    id = "1M"
-    value: int
-    neighbors: list
+    id = Rule1M.id
 
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        super().__init__(pos)
-        self.value = code[0]
-        self.neighbors = pos.neighbors(2)
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
 
-    def __repr__(self) -> str:
-        return f"{self.value}"
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
-        positions = self.neighbors[:]
+        positions = self.pos.neighbors(2)
         neighbors = []
         for pos2, obj in board(key=BOARD_NAME, mode="obj"):
             if isinstance(obj, Value2I_7):
@@ -108,17 +122,10 @@ class Value1M(AbstractClueValue):
                 positions.append(pos2)
         return positions
 
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1M.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.value])
-
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
-        var_list = board.batch(self.neighbors, mode="variable", drop_none=True)
+        var_list = board.batch(self.pos.neighbors(2), mode="variable", drop_none=True)
 
         # 初始化对照表
         neighbors = []
@@ -142,29 +149,35 @@ class Value1M(AbstractClueValue):
             model.Add(tmp == 0).OnlyEnforceIf([cond.Not(), s])
             var_list.append(tmp)
 
-        model.Add(sum(var_list) == self.value).OnlyEnforceIf(s)
+        model.Add(sum(var_list) == self.value.value).OnlyEnforceIf(s)
 
 
 class Value2I_7(AbstractClueValue):
-    id = "2I_7"
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        super().__init__(pos, code)
-        self.neighbors = pos.neighbors(2)
-        self.value = code[0]
+    id = Rule1M.id + "_n"
 
-    def __repr__(self) -> str:
-        return str(self.value) if self.value < 9 else "?"
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
 
     @classmethod
-    def type(cls) -> bytes:
-        return Rule1M.id.encode("ascii") + b"_n"
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
 
-    def code(self) -> bytes:
-        return bytes([self.value])
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def create_constraints(self, board: 'Board', switch):
-        if self.value > 8:
+        if self.value.value > 8:
             return
         model = board.get_model()
         s = switch.get(model, self)
-        model.Add(sum(board.batch(self.neighbors, mode="variable")) == self.value).OnlyEnforceIf(s)
+        model.Add(sum(board.batch(self.pos.neighbors(2), mode="variable")) == self.value.value).OnlyEnforceIf(s)

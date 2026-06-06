@@ -1,7 +1,16 @@
+from typing import cast
+
 from ortools.sat.python.cp_model import IntVar
 
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template, Template
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 
 
 
@@ -37,7 +46,7 @@ class Rule1E(AbstractClueRule):
 
             value = abs(horizontal - vertical)
 
-            board.set_value(pos, Value1E(pos, bytes([value])))
+            board.set_value(pos, Value1E(pos, value))
         return board
 
 
@@ -63,20 +72,27 @@ def get_line(board: 'Board', pos: 'Position', direction: str) -> list['Position'
 
 
 class Value1E(AbstractClueValue):
-    id = "1E"
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        self.value = code[0]
+    id = Rule1E.id
+
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
         self.pos = pos
 
-    def __repr__(self):
-        return str(self.value)
-
     @classmethod
-    def type(cls) -> bytes:
-        return b"1E'"
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
 
-    def code(self) -> bytes:
-        return bytes([self.value])
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
@@ -113,8 +129,7 @@ class Value1E(AbstractClueValue):
         index(left_count, left_vars)
         index(right_count, right_vars)
 
-
         horizontal = (left_count + right_count)
         vertical = (up_count + down_count)
 
-        model.add_abs_equality(self.value, (horizontal - vertical)).OnlyEnforceIf(s)
+        model.add_abs_equality(self.value.value, (horizontal - vertical)).OnlyEnforceIf(s)

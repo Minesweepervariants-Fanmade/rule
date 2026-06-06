@@ -2,7 +2,11 @@ from typing import List, Dict
 
 from ortools.sat.python.cp_model import CpModel
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.board import Position, Board
+from minesweepervariants.board import Position, Board, JSONObject
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 from ....utils.tool import get_random, get_logger
 from ....utils.image_template import get_image, get_text, get_row, get_col, get_dummy
 from ....utils.web_template import StrWithArrow
@@ -59,15 +63,7 @@ class Rule1F(AbstractClueRule):
         return board
 
 class Value1F(AbstractClueValue):
-    id = "1F"
-    def __init__(self, pos: 'Position', direction: int = 0, count: int = 0, code: bytes = None):
-        super().__init__(pos, code)
-        if (code is not None):
-            self.direction = code[0]
-            self.count = code[1]
-        else:
-            self.direction = direction
-            self.count = count
+    id = Rule1F.id
 
     def __repr__(self):
         direction_symbols = ['↑', '→', '↓', '←']

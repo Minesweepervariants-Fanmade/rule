@@ -8,10 +8,16 @@
 [1M1X]多雷 + 十字
 """
 
-from minesweepervariants.board import Board, Position
+
+from minesweepervariants.board import Position, Board, JSONObject
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
+
 
 def cross_neighbors(pos : Position) -> list[Position]:
     return [
@@ -24,6 +30,7 @@ def cross_neighbors(pos : Position) -> list[Position]:
         pos.left(1),
         pos.right(1)
     ]
+
 
 class Rule1M1X(AbstractClueRule):
     id = "1M1X"
@@ -50,7 +57,7 @@ class Rule1M1X(AbstractClueRule):
                     value += 2
                 else:
                     value += 1
-            obj = Value1M1X(pos, code=bytes([value]))
+            obj = Value1M1X(pos, value)
             board.set_value(pos, obj)
             logger.debug(f"[1M1X]: put {value} to {pos}")
         return board
@@ -60,35 +67,38 @@ class Rule1M1X(AbstractClueRule):
 
 
 class Value1M1X(AbstractClueValue):
-    id = "1M1X"
-    value: int
-    neighbors: list
+    id = Rule1M1X.id
 
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        super().__init__(pos)
-        self.value = code[0]
-        self.neighbors = cross_neighbors(pos)
-
-    def __repr__(self) -> str:
-        return f"{self.value}"
-
-    def high_light(self, board: 'Board') -> list['Position']:
-        return self.neighbors
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
 
     @classmethod
-    def type(cls) -> bytes:
-        return Rule1M1X.id.encode("ascii")
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
 
-    def code(self) -> bytes:
-        return bytes([self.value])
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
+
+    def high_light(self, board: 'Board') -> list['Position']:
+        return cross_neighbors(self.pos)
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         vals = []
         offset = 0
-        dyes = board.batch(self.neighbors, "dye")
-        for pos, dye in zip(self.neighbors, dyes):
+        dyes = board.batch(cross_neighbors(self.pos), "dye")
+        for pos, dye in zip(cross_neighbors(self.pos), dyes):
             if board.get_type(pos) == "C":
                 continue
             if board.get_type(pos) == "F":
@@ -101,4 +111,4 @@ class Value1M1X(AbstractClueValue):
             else:
                 vals.append(board.get_variable(pos))
         if vals:
-            model.Add(sum(vals) == (self.value - offset)).OnlyEnforceIf(s)
+            model.Add(sum(vals) == (self.value.value - offset)).OnlyEnforceIf(s)

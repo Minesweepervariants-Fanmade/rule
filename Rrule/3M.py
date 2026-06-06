@@ -2,7 +2,11 @@
 [3M]对映：线索表示周围八格组成四个正好相对的组合中有且仅有一个是雷的数量（题板外视为非雷）
 """
 
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG

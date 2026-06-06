@@ -8,7 +8,11 @@
 [2I']残缺：数字表示周围8格中某n格的雷数。n格的方位被当前题板所有线索共享
 """
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.board import Position, Board, Size
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Position, Board, Size
 from ....utils.impl_obj import VALUE_CROSS, VALUE_CIRCLE
 from ....utils.tool import get_random, get_logger
 

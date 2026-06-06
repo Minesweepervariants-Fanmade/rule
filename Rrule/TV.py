@@ -5,7 +5,11 @@
 [TV] Tapa View: 线索表示四方向上能看到的雷格数量，空格会阻挡视线
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 
 
 class RuleTV(AbstractClueRule):

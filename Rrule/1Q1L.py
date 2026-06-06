@@ -11,7 +11,12 @@
 from typing import List
 
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.board import Board, Position
+
+from minesweepervariants.board import Position, Board, JSONObject
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 from ....utils.tool import get_random
 
 
@@ -61,9 +66,9 @@ class Rule1Q1L(AbstractClueRule):
                 if board.batch(_block, "type").count("F") == 0:
                     flag = True
             if flag:
-                board.set_value(pos, Value1Q1L(pos, count=random_value))
+                board.set_value(pos, Value1Q1L(pos, random_value))
             else:
-                board.set_value(pos, Value1Q1L(pos, count=value))
+                board.set_value(pos, Value1Q1L(pos, value))
         return board
 
     def create_constraints(self, board: 'Board', switch) -> bool:
@@ -88,34 +93,37 @@ class Rule1Q1L(AbstractClueRule):
                 if _pos not in block_map:
                     continue
                 var_list.append(block_map[_pos])
+            obj: Value1Q1L
             obj.create_constraints_(board, var_list, switch)
         return True
 
 
 class Value1Q1L(AbstractClueValue):
-    id = "1Q1L"
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
-        super().__init__(pos, code)
-        if code is not None:
-            # 从字节码解码
-            self.value = code[0]
-        else:
-            # 直接初始化
-            self.value = count
-        self.neighbor = self.pos.neighbors(2)
+    id = Rule1Q1L.id
 
-    def __repr__(self):
-        return f"{self.value}"
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
+        self.neighbor = pos.neighbors(2)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1Q1L.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.value])
 
     def create_constraints_(self, board: 'Board', var_list: list, switch):
         """创建CP-SAT约束：周围雷数等于count"""
@@ -143,13 +151,13 @@ class Value1Q1L(AbstractClueValue):
         model.Add(sum(var_list) > 0).OnlyEnforceIf([b3, s])
 
         # 将布尔变量与表达式绑定
-        model.Add(neighbor_sum == self.value + 1).OnlyEnforceIf([b1, s])
-        model.Add(neighbor_sum != self.value + 1).OnlyEnforceIf([b1.Not(), s])
+        model.Add(neighbor_sum == self.value.value + 1).OnlyEnforceIf([b1, s])
+        model.Add(neighbor_sum != self.value.value + 1).OnlyEnforceIf([b1.Not(), s])
 
-        model.Add(neighbor_sum == self.value - 1).OnlyEnforceIf([b2, s])
-        model.Add(neighbor_sum != self.value - 1).OnlyEnforceIf([b2.Not(), s])
+        model.Add(neighbor_sum == self.value.value - 1).OnlyEnforceIf([b2, s])
+        model.Add(neighbor_sum != self.value.value - 1).OnlyEnforceIf([b2.Not(), s])
 
-        model.Add(neighbor_sum == self.value).OnlyEnforceIf([b3.Not(), s])
-        model.Add(neighbor_sum != self.value).OnlyEnforceIf([b3, s])
+        model.Add(neighbor_sum == self.value.value).OnlyEnforceIf([b3.Not(), s])
+        model.Add(neighbor_sum != self.value.value).OnlyEnforceIf([b3, s])
 
         model.Add(sum([b1, b2, b3.Not()]) == 1).OnlyEnforceIf(s)

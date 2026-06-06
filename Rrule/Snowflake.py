@@ -14,7 +14,11 @@ from typing import List, Optional, Tuple
 
 from ....abs.Mrule import AbstractMinesValue
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position, MASTER_BOARD_KEY, Size
 from ....utils.impl_obj import VALUE_QUESS, VALUE_CROSS
 from ....utils.tool import get_random, get_logger
 from ....impl.impl_obj import get_rule, get_value

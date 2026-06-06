@@ -9,7 +9,7 @@
 """
 from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.json_object import JSONObject, deep_unwrap
-from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template, Template
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 
@@ -40,6 +40,7 @@ class RuleV(AbstractClueRule):
 
 class ValueV(AbstractClueValue):
     id = "V"
+
     def __init__(self, pos: Position, count: int = 0):
         super().__init__(pos, b'')
         self.count = count
@@ -54,7 +55,8 @@ class ValueV(AbstractClueValue):
         if not is_value_template(_data):
             raise TypeError()
 
-        value = SingleIntValue.try_from(_data)
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
 
         if value is None:
             raise ValueError()
@@ -63,10 +65,6 @@ class ValueV(AbstractClueValue):
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
-
-    @classmethod
-    def type(cls) -> bytes:
-        return b'V'
 
     def invalid(self, board: 'Board') -> bool:
         return cast(List[str], board.batch(self.neighbor, mode="type", special='raw')).count("N") == 0

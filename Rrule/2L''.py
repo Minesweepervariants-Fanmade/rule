@@ -2,7 +2,11 @@
 [2L] 误差 (Liar'')：每行每列恰有一个错误线索。错误线索的值不可能是真实值 [副版规则]
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position, Size
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position, Size
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 from ....utils.tool import get_random, get_logger
 

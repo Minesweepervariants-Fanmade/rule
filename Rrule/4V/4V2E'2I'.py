@@ -9,7 +9,11 @@
 (注:生成不知道是不是概率问题 会出现大量的生成失败 不过也不是人玩的反正 加个-r估计会好)
 """
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position, MASTER_BOARD_KEY, Size
 from .....utils.impl_obj import VALUE_QUESS, MINES_TAG, VALUE_CIRCLE, VALUE_CROSS
 from .....utils.tool import get_random, get_logger
 from . import BOARD_NAME_4V

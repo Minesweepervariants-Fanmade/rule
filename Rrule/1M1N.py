@@ -2,7 +2,12 @@
 [1M1N] 多雷 + 负雷
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+
+from minesweepervariants.board import Position, Board, JSONObject
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 from ....utils.tool import get_logger
 
 class Rule1M1N(AbstractClueRule):
@@ -30,37 +35,44 @@ class Rule1M1N(AbstractClueRule):
                     dyed += 2
                 else:
                     undyed += 1
-            obj = Value1M1N(pos, bytes([abs(dyed - undyed)]))
+            obj = Value1M1N(pos, abs(dyed - undyed))
             board.set_value(pos, obj)
             logger.debug(f"[1M1N]: put {obj} to {pos}")
         return board
 
+
 class Value1M1N(AbstractClueValue):
-    id = "1M1N"
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        self.value = code[0]
-        self.nei = pos.neighbors(2)
+    id = Rule1M1N.id
+
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
         self.pos = pos
 
-    def __repr__(self) -> str:
-        return str(self.value)
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
-        return self.nei
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1M1N.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.value])
+        return self.pos.neighbors(2)
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 
-        nei_a = [_pos for _pos in self.nei if board.get_dyed(_pos)] * 2
-        nei_b = [_pos for _pos in self.nei if not board.get_dyed(_pos)]
+        nei_a = [_pos for _pos in self.pos.neighbors(2) if board.get_dyed(_pos)] * 2
+        nei_b = [_pos for _pos in self.pos.neighbors(2) if not board.get_dyed(_pos)]
 
         vars_a = board.batch(nei_a, mode="variable", drop_none=True)
         vars_b = board.batch(nei_b, mode="variable", drop_none=True)
@@ -72,4 +84,4 @@ class Value1M1N(AbstractClueValue):
         abs_diff = model.NewIntVar(0, max_abs, "abs_diff")
 
         model.AddAbsEquality(abs_diff, diff)
-        model.Add(abs_diff == self.value).OnlyEnforceIf(s)
+        model.Add(abs_diff == self.value.value).OnlyEnforceIf(s)

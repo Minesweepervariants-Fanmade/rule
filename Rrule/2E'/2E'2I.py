@@ -8,7 +8,11 @@
 [2E'2I]自指残缺:字母X周围8格中某7格的雷数如果有N个 则标有X=N的格子必定是雷 7格的方位被当前题板所有线索共享
 """
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position, MASTER_BOARD_KEY, Size
 from .....utils.impl_obj import VALUE_QUESS, VALUE_CROSS, VALUE_CIRCLE
 from .....utils.tool import get_logger, get_random
 

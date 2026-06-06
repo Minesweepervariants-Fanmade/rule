@@ -1,10 +1,20 @@
 """
 [++] 艹 (plusplus): 线索表示周围这些格子的雷数LL;LU;LD;L;RR;RU;RD;RR
 """
+from typing import Self, cast
+
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
+from minesweepervariants.utils.value_template import is_value_template, SingleIntValue, Template
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 from ....utils.tool import get_logger
+
 
 class Rule3H(AbstractClueRule):
     id = "++"
@@ -17,11 +27,10 @@ class Rule3H(AbstractClueRule):
     creation_time = "2026-01-11"
 
     def fill(self, board: 'Board') -> 'Board':
-        logger = get_logger()
         for pos, _ in board("N"):
             neighbors = self.get_neighbors(pos, board)
             mine_count = sum(1 for n in neighbors if board.get_type(n) == "F")
-            board.set_value(pos, Value3H(pos, count=mine_count))
+            board.set_value(pos, Value3H(pos, mine_count))
         return board
 
     @staticmethod
@@ -31,35 +40,37 @@ class Rule3H(AbstractClueRule):
         directions = [(0, -1), (0, 1), (0, -2), (0, 2), (1, -1), (1, 1), (-1, -1), (-1, 1)]
         neighbors = []
         for dx, dy in directions:
-            npos = type(pos)(x + dx, y + dy, board_key)
+            npos = type(pos)(y + dy, x + dx, board_key)
             if board.in_bounds(npos):
                 neighbors.append(npos)
         return neighbors
 
+
 class Value3H(AbstractClueValue):
-    id = "3H"
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
-        super().__init__(pos, code)
-        if code is not None:
-            self.count = code[0]
-        else:
-            self.count = count
+    id = Rule3H.id
 
-        self.col = (pos.y % 2 == 1)
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
 
-    def __repr__(self):
-        return str(self.count)
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError()
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError()
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return Rule3H.get_neighbors(self.pos, board)
-
-    @classmethod
-    def type(cls) -> bytes:
-        return b'++\''
-
-    def code(self) -> bytes:
-        return bytes([self.count])
-
 
     def deduce_cells(self, board: 'Board') -> bool:
         type_dict = {"N": [], "F": []}
@@ -72,11 +83,11 @@ class Value3H(AbstractClueValue):
         f_num = len(type_dict["F"])
         if n_num == 0:
             return False
-        if f_num == self.count:
+        if f_num == self.value.value:
             for i in type_dict["N"]:
                 board.set_value(i, VALUE_QUESS)
             return True
-        if f_num + n_num == self.count:
+        if f_num + n_num == self.value.value:
             for i in type_dict["N"]:
                 board.set_value(i, MINES_TAG)
             return True
@@ -92,4 +103,4 @@ class Value3H(AbstractClueValue):
             if var is not None:
                 neighbor_vars.append(var)
         if neighbor_vars:
-            model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(s)
+            model.Add(sum(neighbor_vars) == self.value.value).OnlyEnforceIf(s)

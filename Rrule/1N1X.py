@@ -2,8 +2,14 @@
 [1N1X] 负雷 + 十字
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+
+from minesweepervariants.board import Position, Board, JSONObject
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 from ....utils.tool import get_logger
+
 
 def cross_neighbors(pos : Position) -> list[Position]:
     return [
@@ -16,6 +22,7 @@ def cross_neighbors(pos : Position) -> list[Position]:
         pos.left(1),
         pos.right(1)
     ]
+
 
 class Rule1N1X(AbstractClueRule):
     id = "1N1X"
@@ -37,7 +44,7 @@ class Rule1N1X(AbstractClueRule):
                         board.get_dyed(_pos)
                         else -(board.get_type(_pos) == "F")
                         for _pos in cross_neighbors(pos))
-            obj = Value1N1X(pos, bytes([abs(value)]))
+            obj = Value1N1X(pos, abs(value))
             board.set_value(pos, obj)
             logger.debug(f"[1N1X]: put {abs(value)} to {pos}")
         return board
@@ -45,23 +52,30 @@ class Rule1N1X(AbstractClueRule):
 
 class Value1N1X(AbstractClueValue):
     id = "1N1X"
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        self.value = code[0]
-        self.nei = cross_neighbors(pos)
-        self.pos = pos
 
-    def __repr__(self) -> str:
-        return str(self.value)
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
+        self.nei = cross_neighbors(pos)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.nei
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1N1X.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.value])
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
@@ -80,4 +94,4 @@ class Value1N1X(AbstractClueValue):
         abs_diff = model.NewIntVar(0, max_abs, "abs_diff")
 
         model.AddAbsEquality(abs_diff, diff)
-        model.Add(abs_diff == self.value).OnlyEnforceIf(s)
+        model.Add(abs_diff == self.value.value).OnlyEnforceIf(s)

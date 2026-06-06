@@ -8,7 +8,12 @@
 [1P] 分组 (Partition)：线索表示 3x3 范围内连续雷的组数
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Position, Board
+
+from minesweepervariants.board import Position, Board, JSONObject
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 from ....utils.tool import get_logger
 
 
@@ -81,7 +86,7 @@ class Rule1P(AbstractClueRule):
                 _t = t
             if nei_type[-1] == "F" and nei_type[0] != "F":
                 value += 1
-            obj = Value1P(pos, bytes([value]))
+            obj = Value1P(pos, value)
             board.set_value(pos, obj)
             logger.debug(f"[1P]set {obj} to {pos}")
 
@@ -90,22 +95,29 @@ class Rule1P(AbstractClueRule):
 
 class Value1P(AbstractClueValue):
     id = "1P"
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        self.value = code[0]
+
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
         self.pos = pos
 
-    def __repr__(self):
-        return str(self.value)
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.pos.neighbors(2)
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1P.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.value])
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
@@ -120,7 +132,7 @@ class Value1P(AbstractClueValue):
 
         possible_list = [[]]
 
-        for value in MineStatus_1P(self.value):
+        for value in MineStatus_1P(self.value.value):
             bool_list = [(value >> i) & 1 == 1 for i in reversed(range(8))]
             flag = False
             for index, var in enumerate(var_list):

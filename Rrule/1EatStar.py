@@ -5,12 +5,19 @@
 # @Author  : Wu_RH
 # @FileName: 1EatStar.py
 import time
-from typing import List, Tuple
+from typing import List, Tuple, cast
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from minesweepervariants.abs.rule import AbstractValue
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 from minesweepervariants.impl.summon.solver import Switch
+from minesweepervariants.json_object import deep_unwrap
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
+from minesweepervariants.utils.value_template import Template, SingleIntValue, is_value_template
 
 
 def grid_cells_between(
@@ -106,25 +113,32 @@ class Rule1EatStar(AbstractClueRule):
                     line_map[(start_pos, end_pos)] = "F" not in board.batch(line, "type")
             for pos, _ in board("N", key=board_key):
                 value = sum(line_map[key] for key in line_map if pos in key) + 1
-                board[pos] = Value1EatStar(pos, bytes([value]))
+                board[pos] = Value1EatStar(pos, value)
         return board
 
 
 class Value1EatStar(AbstractClueValue):
-    id = "1EatStar"
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        super().__init__(pos, code)
-        self.value = code[0]
+    id = Rule1EatStar.id
+
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
 
     @classmethod
-    def type(cls) -> bytes:
-        return Rule1EatStar.id.encode("ascii")
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
 
-    def code(self) -> bytes:
-        return bytes([self.value])
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
 
-    def __repr__(self) -> str:
-        return f"{self.value}"
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> List['Position'] | None:
         high_lights = []
@@ -151,4 +165,4 @@ class Value1EatStar(AbstractClueValue):
             count_list.append(count_swtich)
             model.add_bool_and([var.Not() for var in var_list]).OnlyEnforceIf(s, count_swtich)
             model.add_bool_or(var_list).OnlyEnforceIf(s, count_swtich.Not())
-        model.add(sum(count_list) == self.value).OnlyEnforceIf(s)
+        model.add(sum(count_list) == self.value.value).OnlyEnforceIf(s)

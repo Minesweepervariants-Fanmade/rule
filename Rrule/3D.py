@@ -2,12 +2,20 @@
 [3D] 辞典：所有雷从左到右，从上到下依次标号。线索表示周围八格的雷的标号之和
 """
 
-from minesweepervariants.board import Board
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board
 from ....utils.tool import get_logger
 
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 

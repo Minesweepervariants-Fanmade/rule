@@ -8,7 +8,11 @@
 [2X'] 十字' (Cross')：线索表示 3x3 范围内染色格或非染色格的雷数
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 
 from ....utils.tool import get_logger, get_random
 

@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
-from typing import List, Callable, Optional
+from typing import List, Callable, Optional, cast, Type
 
 from ortools.sat.python.cp_model import IntVar
 
-from minesweepervariants.utils.tool import get_logger
-from minesweepervariants.board import Board, Position
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+
+from minesweepervariants.board import Board, Position, JSONObject
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template, Template
 
 
 def eyesight_var(
@@ -49,7 +52,7 @@ class AbstractEyesightClueRule(AbstractClueRule, ABC):
 
     @classmethod
     @abstractmethod
-    def clue_type(cls):
+    def clue_type(cls) -> Type['AbstractEyesightClueValue']:
         """
         需要返回线索对象类型
         """
@@ -71,27 +74,37 @@ class AbstractEyesightClueRule(AbstractClueRule, ABC):
                     value += 1
                     n += 1
 
-            obj = self.clue_type()(pos, bytes([value]))
+            obj = self.clue_type()(pos, value)
             board.set_value(pos, obj)
         return board
 
 
 class AbstractEyesightClueValue(AbstractClueValue, ABC):
-    def __init__(self, pos: 'Position', code: bytes = b'', *args, **kwargs):
-        super().__init__(pos, *args, **kwargs)
-        self.value = code[0]
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
 
-    def __repr__(self):
-        return str(self.value)
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     @abstractmethod
     def direction_funcs(self) -> List[Callable[[int], Position]]:
         """
         需要返回所有方向的函数
         """
-
-    def code(self) -> bytes:
-        return bytes([self.value])
 
     def high_light(self, board: 'Board') -> list['Position']:
         positions = []
@@ -111,4 +124,4 @@ class AbstractEyesightClueValue(AbstractClueValue, ABC):
             self.direction_funcs()
         )
         # print(self.pos, var_list)
-        model.add(sum(var_list) == self.value - 1).OnlyEnforceIf(s)
+        model.add(sum(var_list) == self.value.value - 1).OnlyEnforceIf(s)

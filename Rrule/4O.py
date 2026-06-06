@@ -6,7 +6,11 @@ from typing import Dict
 
 from minesweepervariants.impl.summon.solver import Switch
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 from ....utils.image_template import get_dummy, get_image, get_col, get_row, get_text
 
 class Rule4O(AbstractClueRule):

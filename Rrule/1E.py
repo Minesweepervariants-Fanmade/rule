@@ -17,6 +17,7 @@ class Rule1E(AbstractEyesightClueRule):
     creation_time = "2025-08-06"
 
     author = ("", 0)
+
     @staticmethod
     def direction_funcs(pos):
         return [pos.up, pos.down, pos.right, pos.left]
@@ -25,8 +26,10 @@ class Rule1E(AbstractEyesightClueRule):
     def clue_type(cls):
         return Value1E
 
+
 class Value1E(AbstractEyesightClueValue):
-    id = "1E"
+    id = Rule1E.id
+
     def direction_funcs(self):
         return Rule1E.direction_funcs(self.pos)
 

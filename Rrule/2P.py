@@ -10,7 +10,11 @@
 from typing import Dict
 
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.board import Position, Board
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Position, Board
 from ....utils.image_template import get_text, get_image, get_row, get_col, get_dummy
 from ....utils.tool import get_logger
 

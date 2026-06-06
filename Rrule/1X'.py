@@ -8,7 +8,11 @@
 [1X'] 小十字 (Mini Cross)：线索表示半径为 1 的十字范围内的雷数
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG

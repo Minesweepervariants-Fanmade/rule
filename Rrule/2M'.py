@@ -8,7 +8,11 @@
 [2M']多雷: 每个下方是雷的雷被视为两个(总雷数不受限制)
 """
 
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_logger
 

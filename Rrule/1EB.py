@@ -30,8 +30,10 @@ class Rule1EX(AbstractEyesightClueRule):
     def clue_type(cls):
         return Value1EX
 
+
 class Value1EX(AbstractEyesightClueValue):
-    id = "1EX"
+    id = Rule1EX.id
+
     def direction_funcs(self):
         return Rule1EX.direction_funcs(self.pos)
 

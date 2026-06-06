@@ -7,47 +7,19 @@
 """
 [1W] 数墙 (Wall)：线索表示 3x3 范围内每组连续雷的长度
 """
-from typing import Dict
+from typing import Dict, Sequence
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Position, Board
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, MultiIntValue
+from minesweepervariants.board import JSONObject, Position, Board
 from ....utils.image_template import get_text, get_row, get_col
 from ....utils.image_template import get_dummy
 from ....utils.tool import get_logger
 
 from ....utils.web_template import MultiNumber
-
-
-def decode(code: bytes) -> list[int]:
-    if len(code) == 2:
-        if code[1] > 0xf:
-            return [code[1] >> 4, code[1] & 0xf, code[0] >> 4, code[0] & 0xf]
-        return [code[1] & 0xf, code[0] >> 4, code[0] & 0xf]
-    elif len(code) == 1:
-        if code[0] > 0xf:
-            return [code[0] >> 4, code[0] & 0xf]
-        return [code[0] & 0xf]
-    return []
-
-
-def encode(values: list[int]) -> bytes:
-    if len(values) == 1:
-        return bytes([values[0] & 0xf])
-
-    if len(values) == 2:
-        return bytes([(values[0] << 4) | (values[1] & 0xf)])
-
-    if len(values) == 3:
-        b0 = ((values[1] & 0xf) << 4) | (values[2] & 0xf)
-        b1 = values[0] & 0xf
-        return bytes([b0, b1])
-
-    if len(values) == 4:
-        b0 = ((values[2] & 0xf) << 4) | (values[3] & 0xf)
-        b1 = ((values[0] & 0xf) << 4) | (values[1] & 0xf)
-        return bytes([b0, b1])
-
-    return b""
 
 
 def MineStatus_1W(clue: list) -> list:
@@ -129,8 +101,10 @@ class Rule1W(AbstractClueRule):
                     values.append(value)
             elif value != 0:
                 values.append(value)
+            if len(values) == 0:
+                values.append(0)
             values.sort()
-            obj = Value1W(pos, encode(values))
+            obj = Value1W(pos, values)
             board.set_value(pos, obj)
             logger.debug(f"[1W]set {obj} to {pos}")
 
@@ -138,13 +112,28 @@ class Rule1W(AbstractClueRule):
 
 
 class Value1W(AbstractClueValue):
-    id = "1W"
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        self.values: list[int] = decode(code)
+    id = Rule1W.id
+
+    def __init__(self, pos: 'Position', value: list[int], *args: object, **kwargs: object):
+        super().__init__(pos, *args, **kwargs)
+        self.value: MultiIntValue = MultiIntValue(value)
+        self.values = value
         self.pos = pos
 
-    def __repr__(self):
-        return ".".join([str(i) for i in self.values]) if len(self.values) > 0 else "0"
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = MultiIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.pos.neighbors(2)
@@ -205,13 +194,6 @@ class Value1W(AbstractClueValue):
         else:
             # 我也不知道为什么会出现>5个数字的情况
             return get_text("")
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1W.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return encode(self.values)
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()

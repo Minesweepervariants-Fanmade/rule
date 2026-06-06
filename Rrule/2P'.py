@@ -2,7 +2,11 @@
 [2P']旅程: 线索表示距离最近的 2 个雷的曼哈顿距离之和
 """
 
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_logger
 

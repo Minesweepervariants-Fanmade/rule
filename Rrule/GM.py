@@ -29,7 +29,11 @@
 import time
 
 from ....abs.Rrule import AbstractClueRule, ValueQuess
-from minesweepervariants.board import Board
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board
 from ....abs.rule import AbstractValue
 from ....utils.tool import get_random
 

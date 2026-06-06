@@ -11,7 +11,11 @@ from .....utils.impl_obj import VALUE_QUESS
 from .....utils.tool import get_random, get_logger
 
 from .....abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position, MASTER_BOARD_KEY
 
 
 def alpha(n: int) -> str:

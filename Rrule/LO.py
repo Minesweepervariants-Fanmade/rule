@@ -11,7 +11,11 @@ from ortools.sat.python import cp_model
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.abs.Mrule import AbstractMinesValue
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 from minesweepervariants.impl.summon.summon import GenerateError
 from minesweepervariants.utils.impl_obj import VALUE_CROSS, VALUE_CIRCLE
 from minesweepervariants.utils.tool import get_logger

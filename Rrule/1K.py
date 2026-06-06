@@ -3,7 +3,11 @@
 """
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from minesweepervariants.board import Position, Board, JSONObject
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
@@ -61,27 +65,29 @@ class Rule1K(AbstractClueRule):
         self.rule = data or "raw"
 
         class Value1K(AbstractClueValue):
-            id = "1K"
-            def __init__(self, pos: Position, count: int = 0, code: bytes = None, rule=self.rule):
-                super().__init__(pos, code)
-                self.rule = rule
-                if code is not None:
-                    # 从字节码解码
-                    self.count = decode_int(code)
-                else:
-                    # 直接初始化
-                    self.count = count
-                self.neighbor = self.pos.neighbors(5, 5)
+            id = Rule1K.id
 
-            def __repr__(self):
-                return f"{self.count}"
+            def __init__(self, pos: 'Position', value: int, rule, *args: object, **kwargs: object):
+                super().__init__(pos, value, *args, **kwargs)
+                self.value: SingleIntValue = SingleIntValue(value)
+                self.value["rule"] = rule
+                self.pos = pos
+                self.rule = rule
 
             @classmethod
-            def type(cls) -> bytes:
-                return self.rule.encode()
+            def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+                _data = deep_unwrap(data)
 
-            def code(self) -> bytes:
-                return encode_int(self.count)
+                if not is_value_template(_data):
+                    raise TypeError("value is not template")
+
+                template_data = cast(Template, _data)
+                value = SingleIntValue.try_from(template_data)
+
+                if value is None:
+                    raise ValueError("value is empty")
+
+                return cls(pos, value.value, _data.get("rule", "raw"))
 
             def create_constraints(self, board: 'Board', switch):
                 """创建CP-SAT约束: 周围雷数等于count"""
@@ -89,14 +95,14 @@ class Rule1K(AbstractClueRule):
 
                 # 收集周围格子的布尔变量
                 neighbor_vars = []
-                for neighbor in self.neighbor:  # 8方向相邻格子
+                for neighbor in self.pos.neighbors(5, 5):  # 8方向相邻格子
                     if board.in_bounds(neighbor):
                         var = board.get_variable(neighbor, special=self.rule)
                         neighbor_vars.append(var)
 
                 # 添加约束：周围雷数等于count
                 if neighbor_vars:
-                    model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(switch.get(model, self.pos))
+                    model.Add(sum(neighbor_vars) == self.value.value).OnlyEnforceIf(switch.get(model, self.pos))
 
         self.ValueV = Value1K
 
@@ -111,7 +117,7 @@ class Rule1K(AbstractClueRule):
         for pos, _ in board("N", special='raw'):
             value = board.batch(pos.neighbors(5, 5), "type", special=self.rule)
             value = sum(val(v) for v in value)
-            board.set_value(pos, self.ValueV(pos, count=value, rule=self.rule))
+            board.set_value(pos, self.ValueV(pos, value=value, rule=self.rule))
         return board
 
     def get_deps(self) -> list[str]:

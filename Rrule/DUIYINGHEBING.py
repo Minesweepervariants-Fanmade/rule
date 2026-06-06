@@ -10,7 +10,11 @@
 最后编辑时间:2026-03-05 00:39
 """
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position
 
 
 OPPSITE_PAIRS = [

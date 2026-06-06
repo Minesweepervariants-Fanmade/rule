@@ -8,7 +8,11 @@
 [4V1N] 负雷 (Negative)：线索表示数字是两个题板中相同位置的其中一个3x3范围内染色格与非染色格的雷数差
 """
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position, MASTER_BOARD_KEY, Size
 from .....utils.impl_obj import VALUE_QUESS, MINES_TAG
 from .....utils.tool import get_random
 

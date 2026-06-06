@@ -2,7 +2,11 @@
 [2M''] 多雷：每行每列恰有一个雷被视为两个(总雷数不受限制)
 """
 
-from minesweepervariants.board import Board, Position, Size
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position, Size
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 from ....utils.tool import get_random, get_logger

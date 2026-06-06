@@ -12,7 +12,11 @@ from typing import List, Self
 
 from minesweepervariants.json_object import JSONObject, deep_unwrap
 from minesweepervariants.utils.value_template import SingleIntValue, SingleValue, is_value_template
-from minesweepervariants.board import Board, Position, Size
+from typing import cast
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.board import JSONObject, Board, Position, Size
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
 from .....utils.impl_obj import VALUE_QUESS, VALUE_CROSS, VALUE_CIRCLE
 from .....utils.tool import get_random

@@ -4,11 +4,14 @@
 """
 [1E'] 视差 (Eyesight')：线索表示纵向和横向的视野之差，箭头指示视野更长的方向
 """
-from typing import Dict
+from typing import Dict, cast
 
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 from minesweepervariants.utils.web_template import Number, StrWithArrow
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.board import Board, Position
+from minesweepervariants.board import Board, Position, JSONObject
 
 from ....utils.image_template import get_image, get_text, get_row, get_col, get_dummy
 
@@ -57,20 +60,33 @@ class Rule1E(AbstractClueRule):
                     value -= 1
                     n += 1
 
-            obj = Value1E(pos, bytes([value + 128]))
+            obj = Value1E(pos, value)
             board.set_value(pos, obj)
         return board
 
 
 class Value1E(AbstractClueValue):
-    id = "1E"
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        self.value = code[0]
-        self.value = self.value - 128
+    id = Rule1E.id
+
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
         self.pos = pos
 
-    def __repr__(self):
-        return str(self.value)
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         positions = []
@@ -83,13 +99,6 @@ class Value1E(AbstractClueValue):
                 n += 1
                 positions.append(pos)
         return positions
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1E.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.value+128])
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
@@ -157,7 +166,7 @@ class Value1E(AbstractClueValue):
 
             min_possible = current_delta - vert_remain
             max_possible = current_delta + horiz_remain
-            if not (min_possible <= self.value <= max_possible):
+            if not (min_possible <= self.value.value <= max_possible):
                 return
 
             if idx == 4:
@@ -205,51 +214,51 @@ class Value1E(AbstractClueValue):
         if tmp_list:
             model.AddBoolOr(tmp_list).OnlyEnforceIf(s)
 
+    # def web_component(self, board) -> Dict:
+    #     if self.value == 0:
+    #         return Number(0)
+    #     if self.value < 0:
+    #         return get_col(
+    #             get_image(
+    #                 "double_arrow",
+    #                 image_height=0.4,
+    #             ),
+    #             get_dummy(height=-0.1),
+    #             get_text(str(-self.value))
+    #         )
+    #     if self.value > 0:
+    #         return get_row(
+    #             get_dummy(width=0.15),
+    #             get_image(
+    #                 "double_arrow",
+    #                 style="transform: rotate(90deg);"
+    #             ),
+    #             get_dummy(width=-0.15),
+    #             get_text(str(self.value)),
+    #             get_dummy(width=0.15),
+    #         )
     def web_component(self, board) -> Dict:
         if self.value == 0:
             return Number(0)
-        if self.value < 0:
-            return get_col(
-                get_image(
-                    "double_arrow",
-                    image_height=0.4,
-                ),
-                get_dummy(height=-0.1),
-                get_text(str(-self.value))
-            )
-        if self.value > 0:
-            return get_row(
-                get_dummy(width=0.15),
-                get_image(
-                    "double_arrow",
-                    style="transform: rotate(90deg);"
-                ),
-                get_dummy(width=-0.15),
-                get_text(str(self.value)),
-                get_dummy(width=0.15),
-            )
-    def web_component(self, board) -> Dict:
-        if self.value == 0:
-            return Number(0)
-        if self.value < 0:
-            return StrWithArrow(str(-self.value), "left_right")
-        if self.value > 0:
-            return StrWithArrow(str(self.value), "up_down")
+        if self.value.value < 0:
+            return StrWithArrow(str(- self.value.value), "left_right")
+        if self.value.value > 0:
+            return StrWithArrow(str(self.value.value), "up_down")
 
 
     def compose(self, board):
         if self.value == 0:
             return super().compose(board)
-        if self.value < 0:
+        if self.value.value < 0:
             return get_col(
                 get_image(
                     "double_horizontal_arrow",
                     image_height=0.4,
                 ),
                 get_dummy(height=-0.1),
-                get_text(str(-self.value))
+                get_text(str(-self.value.value))
             )
-        if self.value > 0:
+        if self.value.value > 0:
             return get_row(
                     get_dummy(width=0.15),
                     get_image("double_vertical_arrow", ),
