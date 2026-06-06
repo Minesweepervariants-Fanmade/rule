@@ -7,6 +7,9 @@
 """
 [V]标准扫雷：每个数字标明周围八格内雷的数量。
 """
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.json_object import JSONObject, deep_unwrap
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 
@@ -36,19 +39,27 @@ class RuleV(AbstractClueRule):
 
 
 class ValueV(AbstractClueValue):
-    def __init__(self, pos: Position, count: int = 0, code: bytes | None = None):
-        # AbstractValue expects bytes for `code`; normalize None -> b'' when delegating
-        super().__init__(pos, code or b'')
-        if code is not None:
-            # 从字节码解码
-            self.count = code[0]
-        else:
-            # 直接初始化
-            self.count = count
+    id = "V"
+    def __init__(self, pos: Position, count: int = 0):
+        super().__init__(pos, b'')
+        self.count = count
         self.neighbor = self.pos.neighbors(2)
 
-    def __repr__(self):
-        return f"{self.count}"
+        self.value = SingleIntValue(self.count)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError()
+
+        value = SingleIntValue.try_from(_data)
+
+        if value is None:
+            raise ValueError()
+
+        return cls(pos, count=value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
@@ -56,9 +67,6 @@ class ValueV(AbstractClueValue):
     @classmethod
     def type(cls) -> bytes:
         return b'V'
-
-    def code(self) -> bytes:
-        return bytes([self.count])
 
     def invalid(self, board: 'Board') -> bool:
         return cast(List[str], board.batch(self.neighbor, mode="type", special='raw')).count("N") == 0

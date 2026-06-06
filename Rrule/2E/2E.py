@@ -8,10 +8,10 @@
 [2E]加密: 线索被字母所取代，每个字母对应一个线索，且每个线索对应一个字母
 """
 
-from typing import List, Dict
+from typing import List, Self
 
-from minesweepervariants.utils.image_template import get_text, get_col, get_dummy
-from minesweepervariants.utils.web_template import Number
+from minesweepervariants.json_object import JSONObject, deep_unwrap
+from minesweepervariants.utils.value_template import SingleIntValue, SingleValue, is_value_template
 from minesweepervariants.board import Board, Position, Size
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
 from .....utils.impl_obj import VALUE_QUESS, VALUE_CROSS, VALUE_CIRCLE
@@ -83,54 +83,73 @@ class Rule2E(AbstractClueRule):
 
 
 class Value2E(AbstractClueValue):
+    id = "2E"
+
     def __init__(self, pos: 'Position', code: bytes = b''):
-        self.value = code[0]
+        value = "ABCDEFGHI"[code[0]]
+        self.value = SingleValue(value)
         self.pos = pos
         self.neighbors = pos.neighbors(2)
 
-    def __repr__(self) -> str:
-        return "ABCDEFGHI"[self.value]
 
-    def web_component(self, board) -> Dict:
-        line = board.batch(board.get_col_pos(
-            board.get_pos(0, self.value, NAME_2E)
-        ), mode="type")
-        if "F" in line:
-            return Number(line.index("F"))
-        return Number("ABCDEFGHI"[self.value])
+    def web_component(self, board):
+        if not isinstance(self.value, SingleIntValue):
+            assert isinstance(self.value, SingleValue) and isinstance(self.value.value, str)
+            value = "ABCDEFGHI".index(self.value.value)
+            line = board.batch(board.get_col_pos(
+                board.get_pos(0, value, NAME_2E)
+            ), mode="type")
+            if "F" in line:
+                self.value = SingleIntValue(line.index("F"))
 
-    def compose(self, board) -> Dict:
-        line = board.batch(board.get_col_pos(
-            board.get_pos(0, self.value, NAME_2E)
-        ), mode="type")
-        if "F" in line:
-            return get_col(
-                get_dummy(height=0.3),
-                get_text(str(line.index("F"))),
-                get_dummy(height=0.3),
-            )
-        return get_col(
-                get_dummy(height=0.3),
-                get_text("ABCDEFGHI"[self.value]),
-                get_dummy(height=0.3),
-            )
+        return self.value.web_component()
+
+    def compose(self, board):
+        if not isinstance(self.value, SingleIntValue):
+            assert isinstance(self.value, SingleValue) and isinstance(self.value.value, str)
+            value = "ABCDEFGHI".index(self.value.value)
+            line = board.batch(board.get_col_pos(
+                board.get_pos(0, value, NAME_2E)
+            ), mode="type")
+            if "F" in line:
+                self.value = SingleIntValue(line.index("F"))
+
+        return self.value.compose()
 
     def high_light(self, board: 'Board') -> List['Position']:
         return self.neighbors
 
     @classmethod
-    def type(cls) -> bytes:
-        return Rule2E.id.encode("ascii")
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> Self:
+        _data = deep_unwrap(data)
 
-    def code(self) -> bytes:
-        return bytes([self.value])
+        if not is_value_template(_data):
+            raise TypeError()
+
+        if SingleIntValue.try_from(_data):
+            raise ValueError()
+
+        value = SingleValue.try_from(_data)
+
+        if value is None:
+            raise ValueError()
+
+        assert isinstance(value.value, str) and value.value in "ABCDEFGHI"
+
+        return cls(pos, code=bytes([ord(value.value) - ord("A")]))
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 
+        assert isinstance(self.value, SingleValue) and not isinstance(self.value, SingleIntValue)
+
+        value = self.value.value
+        assert isinstance(value, str) and value in "ABCDEFGHI"
+        value_index = "ABCDEFGHI".index(value)
+
         line = board.batch(board.get_col_pos(
-            board.get_pos(0, self.value, NAME_2E)
+            board.get_pos(0, value_index, NAME_2E)
         ), mode="variable")
 
         neighbors = board.batch(self.neighbors, mode="variable", drop_none=True)

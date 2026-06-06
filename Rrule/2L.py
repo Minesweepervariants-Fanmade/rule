@@ -7,6 +7,9 @@
 """
 [2L] 误差 (Liar)：每行每列恰有一个误差线索。误差线索的值比真实值大 1 或小 1 [副版规则]
 """
+from minesweepervariants.impl.summon.solver import Switch
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import SingleIntValue, SingleValue, is_value_template
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position, Size
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
@@ -146,8 +149,10 @@ class Rule2L(AbstractClueRule):
 
 
 class Value2L(AbstractClueValue):
+    id = "2L"
+
     def __init__(self, pos: 'Position', code: bytes = b''):
-        self.value = code[0]
+        self.value = SingleIntValue(code[0])
         self.nei = pos.neighbors(2)
         self.pos = pos.clone()
         self.pos.board_key = NAME_2L
@@ -160,24 +165,37 @@ class Value2L(AbstractClueValue):
         return 1
 
     @classmethod
-    def type(cls) -> bytes:
-        return Rule2L.id.encode("ascii")
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
 
-    def code(self) -> bytes:
-        return bytes([self.value])
+        if not is_value_template(_data):
+            raise TypeError()
 
-    def create_constraints(self, board: 'Board', switch):
+        value = SingleIntValue.try_from(_data)
+
+        if value is None:
+            raise ValueError()
+
+
+        return cls(pos, code=bytes([value.value]))
+
+    def create_constraints(self, board: 'Board', switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
         nei_vars = board.batch(self.nei, mode="variable", drop_none=True)
         var = board.get_variable(self.pos)
 
-        model.Add(sum(nei_vars) == self.value).OnlyEnforceIf(var.Not())
+        assert var is not None
 
-        tmp_a = model.NewBoolVar("tmp_a")
-        tmp_b = model.NewBoolVar("tmp_b")
+        assert isinstance(self.value, SingleIntValue)
+        assert isinstance(self.value.value, int)
 
-        model.Add(sum(nei_vars) == self.value + 1).OnlyEnforceIf([tmp_a, var, s])
-        model.Add(sum(nei_vars) == self.value - 1).OnlyEnforceIf([tmp_b, var, s])
+        model.add(sum(nei_vars) == self.value.value).OnlyEnforceIf(var.Not())
 
-        model.AddBoolOr([tmp_a, tmp_b]).OnlyEnforceIf(s)
+        tmp_a = model.new_bool_var("tmp_a")
+        tmp_b = model.new_bool_var("tmp_b")
+
+        model.add(sum(nei_vars) == self.value.value + 1).OnlyEnforceIf([tmp_a, var, s])
+        model.add(sum(nei_vars) == self.value.value - 1).OnlyEnforceIf([tmp_b, var, s])
+
+        model.add_bool_or([tmp_a, tmp_b]).OnlyEnforceIf(s)
