@@ -12,7 +12,7 @@ from minesweepervariants.board import Board, Position
 
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
-from ...impl_obj import add_rule
+# from ...impl_obj import add_rule
 
 
 def encode_int_7bit(n: int) -> bytes:

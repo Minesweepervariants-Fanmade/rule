@@ -11,7 +11,7 @@ from minesweepervariants.abs.Mrule import AbstractMinesClueRule
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position, JSONObject, ImmutableDict
 from minesweepervariants.abs.rule import AbstractValue, AbstractRule
-from minesweepervariants.impl.impl_obj import VALUE_QUESS, add_rule, get_value_type
+from minesweepervariants.impl.impl_obj import VALUE_QUESS, get_value_type
 
 from collections import Counter
 
