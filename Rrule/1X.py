@@ -7,56 +7,63 @@
 """
 [1X] 十字 (Cross)：线索表示半径为 2 的十字范围内的雷数
 """
-from typing import List
+from typing import Self, cast
 
-from minesweepervariants.impl.summon.solver import Switch
-from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from typing import cast
-from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.json_object import deep_unwrap
-from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
-from minesweepervariants.board import JSONObject, Board, Position
+from ....abs.Rrule import AbstractClueRule, AbstractClueValue
+from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.utils.value_template import SingleIntValue, Template, is_value_template
+from minesweepervariants.board import JSONObject, Board, Position, ImmutableDict
 
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
-
-def encode_bools_7bit(bools: list[bool]) -> bytes:
-    """
-    将布尔列表转换为字节，每7个布尔值转换为1个字节
-    参数:
-        bool_list: 布尔值列表
-    返回:
-        bytes: 转换后的字节对象
-    """
-    if len(bools) == 0:
-        return b''
-    bools = [False] * (7 - len(bools) % 7) + bools
-    byte_array = bytearray()
-
-    # 每7个布尔值处理为一个字节
-    for i in range(0, len(bools), 7):
-        group = bools[i:i + 7]
-        byte_val = 0
-
-        # 将7个布尔值转换为一个字节
-        for j, bit in enumerate(group):
-            if bit:
-                byte_val |= 1 << (6 - j)  # 设置相应的位
-
-        byte_array.append(byte_val)
-
-    return bytes(byte_array)
+from typing import TypedDict
 
 
-def decode_bools_7bit(data: bytes) -> list[bool]:
-    # 解码所有数据，每个字节转换为7个布尔值
-    bools = []
-    for byte in data:
-        for shift in range(6, -1, -1):
-            bit = (byte >> shift) & 1
-            bools.append(bool(bit))
+class IntValueTemplate(TypedDict):
+    _SingleIntValue: bool
+    data: int
+    bool_list: list[bool]
 
-    return bools
+
+class SingleIntValue1X(SingleIntValue):
+    def __init__(self, bool_list: list[bool], value: int, is_mine: bool = False):
+        super().__init__(value, is_mine=is_mine)
+        self.value = value
+        self.bool_list = bool_list
+
+    def _template(self) -> Template:
+        result = super()._template()
+        result["_SingleIntValue"] = True
+        result["data"] = self.value
+        result["bool_list"] = self.bool_list
+
+        return result
+
+    @classmethod
+    def try_from(cls, data: Template) -> Self | None:
+        if not data.get("_SingleIntValue", False):
+            return None
+
+        # 告诉类型检查器 data 实际符合 IntValueTemplate 结构
+        concrete = cast(IntValueTemplate, data)
+        value: int = concrete["data"]
+        bool_list: list[bool] = concrete["bool_list"]
+
+        match value:
+            case int():
+                return cls(bool_list=bool_list, value=value)
+            case _:
+                return None
+
+
+def get_neighbors(pos, bool_list: list[bool]) -> list[Position]:
+    neighbor = []
+    for n, b in enumerate(bool_list[::-1]):
+        if not b:
+            continue
+        neighbor.extend(pos.neighbors(n + 1, n + 1))
+    return neighbor
 
 
 class Rule1X(AbstractClueRule):
@@ -97,43 +104,42 @@ class Rule1X(AbstractClueRule):
             self.neibor_bool[max_value-i] = True
 
     def fill(self, board: 'Board') -> 'Board':
-        code = b'\x00' + encode_bools_7bit(self.neibor_bool)
         for pos, _ in board("N"):
-            obj = Value1X(pos, code)
-            value = len([_pos for _pos in obj.neighbor if board.get_type(_pos) == "F"])
-            obj.value = value
+            value = len([_pos for _pos in get_neighbors(pos, self.neibor_bool) if board.get_type(_pos) == "F"])
+            obj = Value1X(pos, self.neibor_bool, value)
             board.set_value(pos, obj)
         return board
 
 
 class Value1X(AbstractClueValue):
-    id = "1X"
-    def __init__(self, pos: Position, code: bytes = None):
-        super().__init__(pos, code)
-        self.value, self.data = code[0], code[1:]
-        if self.data == b'':
-            bool_list = [True, False, False, True]
-        else:
-            data = self.data
-            bool_list = decode_bools_7bit(data)
-        self.neighbor = []
-        for n, b in enumerate(bool_list[::-1]):
-            if not b:
-                continue
-            self.neighbor.extend(self.pos.neighbors(n + 1, n + 1))
+    id = Rule1X.id
+
+    def __init__(self, pos: Position, bool_list: list[bool], value: int, *args: object, **kwargs: object):
+        super().__init__(pos, *args, **kwargs)
+        self.value = SingleIntValue1X(bool_list, value)
+        self.bool_list = bool_list
+        self.neighbor = get_neighbors(pos, bool_list)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue1X.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.bool_list, value.value)
 
     def __repr__(self):
         return f"{self.value}"
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1X.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.value]) + self.data
 
     def deduce_cells(self, board: 'Board') -> bool:
         type_dict = {"N": [], "F": []}

@@ -33,35 +33,38 @@ class Rule1Xp(AbstractClueRule):
         logger = get_logger()
         for pos, _ in board("N"):
             value = len([_pos for _pos in pos.neighbors(1) if board.get_type(_pos) == "F"])
-            board.set_value(pos, Value1X(pos, count=value))
+            board.set_value(pos, Value1X(pos, value))
             logger.debug(f"Set {pos} to 1X[{value}]")
         return board
 
 
 class Value1X(AbstractClueValue):
-    id = "1X"
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
-        super().__init__(pos, code)
-        if code is not None:
-            # 从字节码解码
-            self.count = code[0]
-        else:
-            # 直接初始化
-            self.count = count
-        self.neighbor = self.pos.neighbors(1)
+    id = Rule1Xp.id
 
-    def __repr__(self):
-        return f"{self.count}"
+
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
+        self.neighbor = pos.neighbors(1)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1Xp.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.count])
 
     def deduce_cells(self, board: 'Board') -> bool:
         type_dict = {"N": [], "F": []}
@@ -74,11 +77,11 @@ class Value1X(AbstractClueValue):
         f_num = len(type_dict["F"])
         if n_num == 0:
             return False
-        if f_num == self.count:
+        if f_num == self.value.value:
             for i in type_dict["N"]:
                 board.set_value(i, VALUE_QUESS)
             return True
-        if f_num + n_num == self.count:
+        if f_num + n_num == self.value.value:
             for i in type_dict["N"]:
                 board.set_value(i, MINES_TAG)
             return True
@@ -98,4 +101,4 @@ class Value1X(AbstractClueValue):
 
         # 添加约束：周围雷数等于count
         if neighbor_vars:
-            model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(s)
+            model.Add(sum(neighbor_vars) == self.value.value).OnlyEnforceIf(s)

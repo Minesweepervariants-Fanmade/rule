@@ -45,30 +45,36 @@ class Rule1Wp(AbstractClueRule):
                 value <<= 1
                 value += (board.get_type(p) == "F")
             # 存储线索对象
-            obj = Value1Wp(pos, bytes([value >> 4, value & 0xf]))
+            obj = Value1Wp(pos, value)
             board[pos] = obj
         return board
 
 
 class Value1Wp(AbstractClueValue):
-    id = "1Wp"
-    def __init__(self, pos: 'Position', code: bytes = b''):
-        self.high = code[0]     # 0-15
-        self.low = code[1]      # 0-15
+    id = Rule1Wp.id
+
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
         self.pos = pos
 
-    def __repr__(self) -> str:
-        return f"{self.high:01X}{self.low:01X}"
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
 
-    def code(self) -> bytes:
-        return bytes([self.high, self.low])
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.pos.neighbors(2)
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1Wp.id.encode("ascii")
 
     def create_constraints(self, board: 'Board', switch):
         """添加约束：周围8个格子的雷状态必须与线索值一致"""
@@ -76,9 +82,8 @@ class Value1Wp(AbstractClueValue):
         s = switch.get(model, self)
 
         bits = []
-        v = (self.high << 4) | self.low  # 0-255
         for i in range(8):
-            bits.append(bool((v >> (7 - i)) & 1))
+            bits.append(bool((self.value.value >> (7 - i)) & 1))
 
         # 顺序必须与 fill 中一致
         neighbors = [
