@@ -7,6 +7,8 @@
 """
 [*3T]:雷线索指示包含自身的雷三连数量。雷三连允许部分重合
 """
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
 from minesweepervariants.board import Position, Board
 
@@ -37,7 +39,7 @@ class Rule4T(AbstractMinesClueRule):
                 if board.batch(poses, "type").count("F") != 3:
                     continue
                 for pos in poses:
-                    board[pos].value += 1
+                    board[pos].value.value += 1
         return board
 
     def create_constraints(self, board: 'Board', switch):
@@ -86,18 +88,23 @@ class Rule4T(AbstractMinesClueRule):
 class Value4T(AbstractMinesValue):
     id = "4T"
     def __init__(self, pos: 'Position', code: bytes = None):
-        self.value = code[0] if code else 0
         self.pos = pos
 
-    def __repr__(self):
-        return str(self.value)
-
-    def code(self) -> bytes:
-        return bytes([self.value])
+        self.value = SingleIntValue(code[0] if code else 0, is_mine=True)
 
     @classmethod
-    def type(cls) -> bytes:
-        return Rule4T.id.encode("ascii")
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError()
+
+        value = SingleIntValue.try_from(_data)
+
+        if value is None:
+            raise ValueError()
+
+        return cls(pos, code=bytes([value.value]))
 
     def create_constraints_(self, model, var_list: list, s):
-        model.Add(sum(var_list) == self.value).OnlyEnforceIf(s)
+        model.Add(sum(var_list) == self.value.value).OnlyEnforceIf(s)

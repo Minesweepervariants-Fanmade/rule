@@ -5,6 +5,8 @@
 from typing import List, Dict
 
 from minesweepervariants.impl.summon.solver import Switch
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
 
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
 from minesweepervariants.board import Board, Position
@@ -86,16 +88,21 @@ class Rule3G(AbstractMinesClueRule):
 
 
 class MinesValue3G(AbstractMinesValue):
+    id = "3G"
     def __init__(self, pos: 'Position', code: bytes = None):
-        self.value = code[0]
         self.pos = pos
-
-    def __repr__(self):
-        return str(self.value)
+        self.value = SingleIntValue(code[0], is_mine=True)
 
     @classmethod
-    def type(cls) -> bytes:
-        return Rule3G.id.encode("ascii")
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
 
-    def code(self) -> bytes:
-        return bytes([self.value])
+        if not is_value_template(_data):
+            raise TypeError()
+
+        value = SingleIntValue.try_from(_data)
+
+        if value is None:
+            raise ValueError()
+
+        return cls(pos, code=bytes([value.value]))

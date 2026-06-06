@@ -9,6 +9,9 @@
 """
 from typing import List, Dict
 
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
+
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
 from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
@@ -33,28 +36,33 @@ class Rule3F(AbstractMinesClueRule):
 
 
 class MinesValue3F(AbstractMinesValue):
+    id = "3F"
     def __init__(self, pos: 'Position', code: bytes = None):
         self.nei = pos.neighbors(2)
-        self.value = code[0]
         self.pos = pos
+        self.value = SingleIntValue(code[0], is_mine=True)
 
-    def __repr__(self):
-        return str(self.value)
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError()
+
+        value = SingleIntValue.try_from(_data)
+
+        if value is None:
+            raise ValueError()
+
+        return cls(pos, code=bytes([value.value]))
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.nei
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule3F.id.encode("ascii")
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         logger = get_logger()
         var_list = board.batch(self.nei, mode="variable", drop_none=True)
-        model.Add(sum(var_list) == (len(var_list) - self.value)).OnlyEnforceIf(s)
+        model.Add(sum(var_list) == (len(var_list) - self.value.value)).OnlyEnforceIf(s)
         logger.trace(f"[4F]{self.value}")
-
-    def code(self) -> bytes:
-        return bytes([self.value])

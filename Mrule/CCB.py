@@ -10,6 +10,8 @@
 from minesweepervariants.abs.Mrule import AbstractMinesValue, AbstractMinesClueRule
 from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
 
 
 class RuleCB(AbstractMinesClueRule):
@@ -47,17 +49,21 @@ class ValueCB(AbstractMinesValue):
     id = "CB"
     def __init__(self, pos: 'Position', code: bytes = None):
         self.pos = pos
-        self.value = code[0]
-
-    def __repr__(self):
-        return str(self.value)
-
-    def code(self) -> bytes:
-        return bytes([self.value])
+        self.value = SingleIntValue(code[0], is_mine=True)
 
     @classmethod
-    def type(cls) -> bytes:
-        return RuleCB.id.encode()
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError()
+
+        value = SingleIntValue.try_from(_data)
+
+        if value is None:
+            raise ValueError()
+
+        return cls(pos, code=bytes([value.value]))
 
     def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
@@ -88,4 +94,4 @@ class ValueCB(AbstractMinesValue):
                         model.Add(tmp_bool_var == 0).OnlyEnforceIf(v.Not())
                     model.Add(tmp_bool_var == 1).OnlyEnforceIf(tmp_var_line)
                     var_list.append(tmp_bool_var)
-        model.Add(sum(var_list) == self.value).OnlyEnforceIf(s)
+        model.Add(sum(var_list) == self.value.value).OnlyEnforceIf(s)

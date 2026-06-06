@@ -5,6 +5,9 @@
 """
 
 from ortools.sat.python.cp_model import IntVar
+
+from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
 from minesweepervariants.board import Board, Position
 
@@ -126,19 +129,25 @@ class Value3MAt(AbstractMinesValue):
     def __init__(self, pos: Position, value: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
-            self.value = int.from_bytes(code, 'big')
+            value = int.from_bytes(code, 'big')
         else:
-            self.value = value
+            value = value
 
-    def __repr__(self):
-        return str(self.value)
+        self.value = SingleIntValue(value, is_mine=True)
 
     @classmethod
-    def type(cls) -> bytes:
-        return Rule3MAt.id.encode('ascii')
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
 
-    def code(self) -> bytes:
-        return self.value.to_bytes(2, 'big')
+        if not is_value_template(_data):
+            raise TypeError()
+
+        value = SingleIntValue.try_from(_data)
+
+        if value is None:
+            raise ValueError()
+
+        return cls(pos, code=bytes([value.value]))
 
     def weaker(self, board: Board):
         return self
