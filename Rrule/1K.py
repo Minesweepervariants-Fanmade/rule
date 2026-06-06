@@ -45,7 +45,7 @@ def decode_int(data: bytes) -> int:
     return num
 
 
-class RuleV(AbstractClueRule):
+class Rule1K(AbstractClueRule):
     id = "1K"
     aliases = ("K",)
     name = "Knight"
@@ -60,8 +60,8 @@ class RuleV(AbstractClueRule):
         super().__init__(board, data)
         self.rule = data or "raw"
 
-        class ValueV(AbstractClueValue):
-            id = "V"
+        class Value1K(AbstractClueValue):
+            id = "1K"
             def __init__(self, pos: Position, count: int = 0, code: bytes = None, rule=self.rule):
                 super().__init__(pos, code)
                 self.rule = rule
@@ -98,7 +98,7 @@ class RuleV(AbstractClueRule):
                 if neighbor_vars:
                     model.Add(sum(neighbor_vars) == self.count).OnlyEnforceIf(switch.get(model, self.pos))
 
-        self.ValueV = ValueV
+        self.ValueV = Value1K
 
 
     def fill(self, board: 'Board') -> 'Board':

@@ -63,7 +63,7 @@ class RuleVPlus3D(AbstractClueRule):
 
 
 class ValueV3D(AbstractClueValue):
-   id = "V3D"
+   id = "V+3D"
    def __init__(self, pos: 'Position', value: int = 0, code: bytes = None):
       super().__init__(pos, code if code is not None else b"")
       # 仅保存合并值 S = n + m

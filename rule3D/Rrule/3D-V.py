@@ -30,10 +30,10 @@ class Rule3DV(Abstract3DClueRule):
 
     def __init__(self, board: Board, data: str = None):
         super().__init__(board, data)
-        ValueV.rule = self
+        Value3DV.rule = self
 
     def fill(self, board: 'Board') -> 'Board':
-        ValueV.rule = self
+        Value3DV.rule = self
         logger = get_logger()
         for pos, _ in board("N"):
             positions = []
@@ -42,13 +42,13 @@ class Rule3DV(Abstract3DClueRule):
                     continue
                 positions.extend(_pos.neighbors(0, 2))
             value = board.batch(positions, mode="type").count("F")
-            board.set_value(pos, ValueV(pos, count=value))
+            board.set_value(pos, Value3DV(pos, count=value))
             logger.debug(f"Set {pos} to 3D-V[{value}]")
         return board
 
 
-class ValueV(AbstractClueValue):
-    id = "V"
+class Value3DV(AbstractClueValue):
+    id = "3DV"
     def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         self.neighbor = None
