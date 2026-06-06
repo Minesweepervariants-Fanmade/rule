@@ -12,6 +12,7 @@ from minesweepervariants.board import JSONObject, Board, Position
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
+
 class Rule1Xr(AbstractClueRule):
     id = "1X^"
     aliases = ("X^",)
@@ -27,25 +28,35 @@ class Rule1Xr(AbstractClueRule):
         logger = get_logger()
         for pos, _ in board("N"):
             value = len([_pos for _pos in pos.neighbors(2, 4) if board.get_type(_pos) == "F"])
-            board.set_value(pos, Value1Xr(pos, count=value))
+            board.set_value(pos, Value1Xr(pos, value))
             logger.debug(f"Set {pos} to 1X^[{value}]")
         return board
 
 
 class Value1Xr(AbstractClueValue):
-    id = "1Xr"
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
-        super().__init__(pos, code)
-        if code is not None:
-            # 从字节码解码
-            self.count = code[0]
-        else:
-            # 直接初始化
-            self.count = count
-        self.neighbor = self.pos.neighbors(2, 4)
+    id = Rule1Xr.id
 
-    def __repr__(self):
-        return f"{self.count}"
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.count = value
+        self.pos = pos
+        self.neighbor = pos.neighbors(2)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor

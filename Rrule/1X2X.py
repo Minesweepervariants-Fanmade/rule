@@ -8,7 +8,7 @@ from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from typing import cast
 from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.json_object import deep_unwrap
-from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.utils.value_template import is_value_template, Template, MultiIntValue
 from minesweepervariants.board import JSONObject, Board, Position
 from ....utils.image_template import get_text, get_row
 
@@ -47,23 +47,35 @@ class Rule1X2X(AbstractClueRule):
             value2 = len(
                 [_pos for _pos in cross_neighbors(pos) if board.get_type(_pos) == "F" and not board.get_dyed(_pos)])
             if r.randint(0, 1): value1, value2 = value2, value1
-            board.set_value(pos, Value1X2X(pos, count=value1 * 10 + value2))
+            board.set_value(pos, Value1X2X(pos, [value1, value2]))
             logger.debug(f"Set {pos} to 1X2X[{value1 * 10 + value2}]")
         return board
 
 
 class Value1X2X(AbstractClueValue):
-    id = "1X2X"
-    def __init__(self, pos: 'Position', count: int = 0, code: bytes = None):
-        super().__init__(pos, code)
-        if code is not None:
-            self.count = code[0]
-        else:
-            self.count = count
-        self.neighbor = cross_neighbors(pos)
+    id = Rule1X2X.id
 
-    def __repr__(self) -> str:
-        return f"{self.count // 10} {self.count % 10}"
+    def __init__(self, pos: 'Position', value: list[int], *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: MultiIntValue = MultiIntValue(value)
+        self.count = value[0] * 10 + value[1]
+        self.pos = pos
+        self.neighbor = pos.neighbors(2)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = MultiIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
@@ -82,13 +94,6 @@ class Value1X2X(AbstractClueValue):
             text_a,
             text_b
         )
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1X2X.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.count])
 
     def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 周围染色格雷数等于两个染色格的数量"""

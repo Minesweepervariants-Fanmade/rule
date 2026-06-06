@@ -20,11 +20,11 @@ def _get_diagonal_positions(board: 'Board', pos: Position):
     positions = []
     # 获取棋盘的边界
     boundary = board.boundary()
-    max_x, max_y = boundary.x, boundary.y
+    max_x, max_y = boundary.row, boundary.row
 
     # 右上斜线方向 (x+1, y+1)
     for i in range(1, max(max_x, max_y) + 1):
-        other_pos = type(pos)(pos.x + i, pos.y + i, pos.board_key)
+        other_pos = type(pos)(pos.col + i, pos.row + i, pos.board_key)
         if board.in_bounds(other_pos):
             positions.append(other_pos)
         else:
@@ -32,7 +32,7 @@ def _get_diagonal_positions(board: 'Board', pos: Position):
 
     # 左下斜线方向 (x-1, y-1)
     for i in range(1, max(max_x, max_y) + 1):
-        other_pos = type(pos)(pos.x - i, pos.y - i, pos.board_key)
+        other_pos = type(pos)(pos.col - i, pos.row - i, pos.board_key)
         if board.in_bounds(other_pos):
             positions.append(other_pos)
         else:
@@ -40,7 +40,7 @@ def _get_diagonal_positions(board: 'Board', pos: Position):
 
     # 左上斜线方向 (x-1, y+1)
     for i in range(1, max(max_x, max_y) + 1):
-        other_pos = type(pos)(pos.x - i, pos.y + i, pos.board_key)
+        other_pos = type(pos)(pos.col - i, pos.row + i, pos.board_key)
         if board.in_bounds(other_pos):
             positions.append(other_pos)
         else:
@@ -48,7 +48,7 @@ def _get_diagonal_positions(board: 'Board', pos: Position):
 
     # 右下斜线方向 (x+1, y-1)
     for i in range(1, max(max_x, max_y) + 1):
-        other_pos = type(pos)(pos.x + i, pos.y - i, pos.board_key)
+        other_pos = type(pos)(pos.col + i, pos.row - i, pos.board_key)
         if board.in_bounds(other_pos):
             positions.append(other_pos)
         else:
@@ -73,32 +73,46 @@ class Rule1XX(AbstractClueRule):
             # 计算斜向所有格子中的雷数
             diagonal_positions = _get_diagonal_positions(board, pos)
             value = len([_pos for _pos in diagonal_positions if board.get_type(_pos) == "F"])
-            board.set_value(pos, Value1XX(pos, count=value))
+            board.set_value(pos, Value1XX(pos, value))
             logger.debug(f"Set {pos} to 1XX[{value}]")
         return board
 
 
 class Value1XX(AbstractClueValue):
-    id = "1XX"
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
-        super().__init__(pos, code)
-        if code is not None:
-            # 从字节码解码
-            self.count = code[0]
-        else:
-            # 直接初始化
-            self.count = count
+    id = Rule1XX.id
+
+    def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.count = value
+        self.pos = pos
+        self.neighbor = pos.neighbors(2)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value)
 
     def _get_diagonal_positions(self, board: 'Board'):
         """获取与给定位置斜向的所有位置"""
         positions = []
         # 获取棋盘的边界
         boundary = board.boundary()
-        max_x, max_y = boundary.x, boundary.y
+        max_x, max_y = boundary.col, boundary.row
 
         # 右上斜线方向 (x+1, y+1)
         for i in range(1, max(max_x, max_y) + 1):
-            other_pos = type(self.pos)(self.pos.x + i, self.pos.y + i, self.pos.board_key)
+            other_pos = type(self.pos)(self.pos.col + i, self.pos.row + i, self.pos.board_key)
             if board.in_bounds(other_pos):
                 positions.append(other_pos)
             else:
@@ -106,7 +120,7 @@ class Value1XX(AbstractClueValue):
 
         # 左下斜线方向 (x-1, y-1)
         for i in range(1, max(max_x, max_y) + 1):
-            other_pos = type(self.pos)(self.pos.x - i, self.pos.y - i, self.pos.board_key)
+            other_pos = type(self.pos)(self.pos.col - i, self.pos.row - i, self.pos.board_key)
             if board.in_bounds(other_pos):
                 positions.append(other_pos)
             else:
@@ -114,7 +128,7 @@ class Value1XX(AbstractClueValue):
 
         # 左上斜线方向 (x-1, y+1)
         for i in range(1, max(max_x, max_y) + 1):
-            other_pos = type(self.pos)(self.pos.x - i, self.pos.y + i, self.pos.board_key)
+            other_pos = type(self.pos)(self.pos.col - i, self.pos.row + i, self.pos.board_key)
             if board.in_bounds(other_pos):
                 positions.append(other_pos)
             else:
@@ -122,7 +136,7 @@ class Value1XX(AbstractClueValue):
 
         # 右下斜线方向 (x+1, y-1)
         for i in range(1, max(max_x, max_y) + 1):
-            other_pos = type(self.pos)(self.pos.x + i, self.pos.y - i, self.pos.board_key)
+            other_pos = type(self.pos)(self.pos.col + i, self.pos.row - i, self.pos.board_key)
             if board.in_bounds(other_pos):
                 positions.append(other_pos)
             else:
@@ -130,18 +144,8 @@ class Value1XX(AbstractClueValue):
 
         return positions
 
-    def __repr__(self):
-        return f"{self.count}"
-
     def high_light(self, board: 'Board') -> List['Position']:
         return self._get_diagonal_positions(board)
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1XX.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.count])
 
     def deduce_cells(self, board: 'Board') -> bool:
         diagonal_positions = self._get_diagonal_positions(board)
