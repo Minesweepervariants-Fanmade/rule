@@ -4,7 +4,7 @@
 
 from minesweepervariants.abs import rule
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....config.config import IMAGE_CONFIG
 import requests
 
@@ -163,7 +163,7 @@ class RuleSETU(AbstractMinesRule):
     tags = ["Creative", "Parameter"]
     creation_time = "2026-01-11"
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__(board, data)
         data = data or "default"
         if data not in THEME:

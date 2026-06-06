@@ -5,10 +5,10 @@
 from typing import List, Tuple
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 
 
-def get_hex_neighbors(pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPosition]:
+def get_hex_neighbors(pos: Position, board: Board) -> List[Position]:
     x, y = pos.x, pos.y
     board_key = pos.board_key
     directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # 上下左右
@@ -24,14 +24,14 @@ def get_hex_neighbors(pos: AbstractPosition, board: AbstractBoard) -> List[Abstr
     return neighbors
 
 
-def is_hex_adjacent(a: AbstractPosition, b: AbstractPosition, board: AbstractBoard) -> bool:
+def is_hex_adjacent(a: Position, b: Position, board: Board) -> bool:
     for npos in get_hex_neighbors(a, board):
         if npos == b:
             return True
     return False
 
 
-def triad_key(positions: List[AbstractPosition]) -> Tuple[Tuple[int, int, str], ...]:
+def triad_key(positions: List[Position]) -> Tuple[Tuple[int, int, str], ...]:
     return tuple(sorted((p.x, p.y, p.board_key) for p in positions))
 
 
@@ -46,14 +46,14 @@ class Rule3H1Q(AbstractMinesRule):
     tags = ["Creative", "Local", "Anti-Construction"]
     creation_time = "2026-02-15"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         if board is None:
             return
         for key in board.get_board_keys():
             board.set_config(key, "grid_type", "hex")
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

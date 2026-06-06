@@ -17,7 +17,7 @@ from __future__ import annotations
 import re
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 from .connect import connect
 
@@ -34,7 +34,7 @@ class RuleGT2(AbstractMinesRule):
 
     _COMPARATOR_RE = re.compile(r"^(>=|<=|!=|>|<)\s*(-?\d+)$")
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.mine_area_conditions, self.safe_area_conditions = self._parse_data(data)
 
@@ -159,7 +159,7 @@ class RuleGT2(AbstractMinesRule):
                 else:
                     raise ValueError(f"GT2 不支持的比较符号: {op!r}")
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

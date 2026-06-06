@@ -8,7 +8,7 @@
 [CB]连击（Combo）: 雷线索指示四方向的连击总值和，同方向相邻的n个雷连击值为1-n.例：FXFFFXX这一支连击总值为7
 """
 from minesweepervariants.abs.Mrule import AbstractMinesValue, AbstractMinesClueRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 
@@ -22,7 +22,7 @@ class RuleCB(AbstractMinesClueRule):
     creation_time = "2025-08-21"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, obj in board("F"):
             col = board.get_col_pos(pos)
             row = board.get_row_pos(pos)
@@ -44,7 +44,7 @@ class RuleCB(AbstractMinesClueRule):
 
 
 class ValueCB(AbstractMinesValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None):
         self.pos = pos
         self.value = code[0]
 
@@ -58,7 +58,7 @@ class ValueCB(AbstractMinesValue):
     def type(cls) -> bytes:
         return RuleCB.id.encode()
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
 

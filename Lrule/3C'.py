@@ -8,7 +8,7 @@
 [3C']连通'（Connected'）: 每个雷周围四格中恰有两个雷
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from minesweepervariants.impl.summon.solver import Switch
 
 
@@ -23,7 +23,7 @@ class Rule3C(AbstractMinesRule):
     creation_time = "2025-08-13"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
         for pos, var in board(mode="var"):

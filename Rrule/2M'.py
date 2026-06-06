@@ -8,7 +8,7 @@
 [2M']多雷: 每个下方是雷的雷被视为两个(总雷数不受限制)
 """
 
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_logger
 
@@ -24,7 +24,7 @@ class Rule1M(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard'):
+    def fill(self, board: 'Board'):
         logger = get_logger()
         for pos, _ in board("N"):
             positions = pos.neighbors(2)
@@ -47,7 +47,7 @@ class Rule1M(AbstractClueRule):
 
 
 class Value1M(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = pos.neighbors(2)
@@ -55,7 +55,7 @@ class Value1M(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         positions = self.neighbors[:]
         pos_list = [self.pos.down().left(), self.pos.down(), self.pos.down().right()]
         for pos in pos_list:
@@ -70,7 +70,7 @@ class Value1M(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         vals = []

@@ -4,7 +4,7 @@
 
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
 
 class Rule2K(AbstractClueRule):
@@ -17,7 +17,7 @@ class Rule2K(AbstractClueRule):
     creation_time = "2025-08-27"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             neighbors = self.get_kinsho_neighbors(pos, board)
@@ -26,7 +26,7 @@ class Rule2K(AbstractClueRule):
         return board
 
     @staticmethod
-    def get_kinsho_neighbors(pos: AbstractPosition, board: AbstractBoard):
+    def get_kinsho_neighbors(pos: Position, board: Board):
         x, y = pos.x, pos.y
         board_key = pos.board_key
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (-1, 1), (-1, -1)]
@@ -38,7 +38,7 @@ class Rule2K(AbstractClueRule):
         return neighbors
 
 class Value2K(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.count = code[0]
@@ -48,7 +48,7 @@ class Value2K(AbstractClueValue):
     def __repr__(self):
         return str(self.count)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return Rule2K.get_kinsho_neighbors(self.pos, board)
 
     @classmethod
@@ -58,7 +58,7 @@ class Value2K(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         type_dict = {"N": [], "F": []}
         for pos in self.high_light(board):
             t = board.get_type(pos)
@@ -79,7 +79,7 @@ class Value2K(AbstractClueValue):
             return True
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self.pos)
         neighbor_vars = []

@@ -1,5 +1,5 @@
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import Size
+
 from minesweepervariants.utils.impl_obj import VALUE_CROSS, VALUE_CIRCLE
 from minesweepervariants.impl.rule.Rrule.V import ValueV
 from minesweepervariants.utils.tool import get_random

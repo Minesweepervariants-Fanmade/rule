@@ -7,7 +7,7 @@
 from typing import List
 
 from minesweepervariants.abs.Rrule import AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from .. import Abstract3DClueRule
 
 
@@ -21,10 +21,10 @@ class Rule3D1K(Abstract3DClueRule):
     creation_time = "2025-08-30"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard, data: str = None):
+    def __init__(self, board: Board, data: str = None):
         super().__init__(board, data)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             positions = self.pos_neighbors(board, pos, 5, 5)
             value = board.batch(positions, mode="type").count("F")
@@ -33,7 +33,7 @@ class Rule3D1K(Abstract3DClueRule):
 
 
 class ValueK(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos
 
@@ -47,10 +47,10 @@ class ValueK(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> List['Position'] | None:
         return Rule3D1K.pos_neighbors(board, self.pos, 5, 5)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 周围雷数等于count"""
         model = board.get_model()
         s = switch.get(model, self)

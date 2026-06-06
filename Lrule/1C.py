@@ -8,7 +8,7 @@
 [1C] 八连通 (Connected)：雷区域八连通
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import get_total
 
 from .connect import connect
@@ -25,7 +25,7 @@ class Rule1C(AbstractMinesRule):
     tags = ["Original", "Connectivity", "Global"]
     creation_time = "2025-08-06"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         self.invert = False
         super().__init__(board, data)
         self.nei_values = []
@@ -45,7 +45,7 @@ class Rule1C(AbstractMinesRule):
             else:
                 self.nei_values.append(tuple([int(nei_value)]))
 
-    def nei_pos(self, pos: AbstractPosition):
+    def nei_pos(self, pos: Position):
         positions = []
         for nei_value in self.nei_values:
             if len(nei_value) == 1:

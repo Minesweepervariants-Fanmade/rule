@@ -14,13 +14,13 @@ from typing import List, Dict
 from minesweepervariants.utils.web_template import StrWithArrow
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
 from ....utils.impl_obj import MINES_TAG, VALUE_QUESS
 from ....utils.tool import get_random
 
 
-def put(board, pos: 'AbstractPosition', path):
+def put(board, pos: 'Position', path):
     value = 0
     while board.in_bounds(pos):
         value += 1
@@ -54,7 +54,7 @@ class Rule3A(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         for pos, _ in board("N"):
             board.set_value(pos, Value3A(pos))
@@ -76,7 +76,7 @@ class Rule3A(AbstractClueRule):
 
 
 class Value3A(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         if not code:
             self.value = 0
@@ -153,7 +153,7 @@ class Value3A(AbstractClueValue):
                 )
         return get_text("")
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition']:
+    def high_light(self, board: 'Board') -> List['Position']:
         pos = self.pos.clone()
         path = (self.dir + 1) % 4
         position = []
@@ -232,7 +232,7 @@ class Value3A(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.dir, self.value])
 
-    def bfs_get_states(self, board: 'AbstractBoard') -> List[dict]:
+    def bfs_get_states(self, board: 'Board') -> List[dict]:
         """
         大致思路:
         从方向开始走 如果提前走出边境或者循环就直接丢弃 如果刚好在值内就记录
@@ -341,7 +341,7 @@ class Value3A(AbstractClueValue):
                 b_bfs = []
             return answer_list
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         # 开玩笑 还真能写
         answer_list = self.bfs_get_states(board)
         pos_map = {}
@@ -363,7 +363,7 @@ class Value3A(AbstractClueValue):
                     change = True
         return change
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         answer_list = self.bfs_get_states(board)

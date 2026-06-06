@@ -6,7 +6,7 @@ from typing import List, Dict, Set
 from minesweepervariants.impl.summon.solver import Switch
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ...rule.Lrule.connect import connect
 from ....utils.image_create import get_text, get_row, get_col, get_dummy
 from ....utils.web_template import MultiNumber
@@ -24,8 +24,8 @@ class Rule2A1Wl(AbstractClueRule):
     creation_time = "2026-01-18"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
-        def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int]):
+    def fill(self, board: 'Board') -> 'Board':
+        def dfs(board: Board, pos: Position, from_pos: Position | None, visited: Dict[Position, int]):
             if not board.in_bounds(pos):
                 return
 
@@ -52,7 +52,7 @@ class Rule2A1Wl(AbstractClueRule):
                             visited[p] = prev_id
 
         for pos, _ in board("N"):
-            areas: Dict[AbstractPosition, int] = {}
+            areas: Dict[Position, int] = {}
             dfs(board, pos.left(), None, areas)
             dfs(board, pos.up(), None, areas)
             dfs(board, pos.right(), None, areas)
@@ -70,7 +70,7 @@ class Rule2A1Wl(AbstractClueRule):
 
         return board
 
-    def create_constraints(self, board: AbstractBoard, switch: Switch):
+    def create_constraints(self, board: Board, switch: Switch):
         model = board.get_model()
         positions = [pos for pos, _ in board("always", mode="variable")]
         component_ids = connect(
@@ -112,7 +112,7 @@ class Rule2A1Wl(AbstractClueRule):
 
 
 class Value2A1Wl(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, value: int = 0, code: bytes = None) -> None:
+    def __init__(self, pos: Position, value: int = 0, code: bytes = None) -> None:
         super().__init__(pos, code)
         if code is not None:
             self.value = code[0]

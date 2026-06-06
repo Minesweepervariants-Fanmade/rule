@@ -6,13 +6,13 @@ from typing import List
 
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
 
 
 def pos_shift(
-        board: AbstractBoard,
-        pos: AbstractPosition,
+        board: Board,
+        pos: Position,
         index: int
 ):
     shift = [
@@ -40,7 +40,7 @@ class Rule2QPrime(AbstractClueRule):
     creation_time = "2025-08-27"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             value = 0
             for i in range(8):
@@ -50,7 +50,7 @@ class Rule2QPrime(AbstractClueRule):
         return board
 
 class Value2QPrime(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.count = code[0]
@@ -61,7 +61,7 @@ class Value2QPrime(AbstractClueValue):
     def __repr__(self):
         return str(self.count)
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> List['Position'] | None:
         positions = []
 
         for i in range(8):
@@ -81,7 +81,7 @@ class Value2QPrime(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self.pos)
 

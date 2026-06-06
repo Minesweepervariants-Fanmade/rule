@@ -5,7 +5,7 @@
 from typing import List
 
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from .....utils.tool import get_logger, get_random
 
@@ -26,7 +26,7 @@ class Rule1L1M(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         random = get_random()
         logger = get_logger()
         for pos, _ in board("N"):
@@ -51,7 +51,7 @@ class Value1L1M(AbstractClueValue):
     value: int
     neighbors: list
 
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = pos.neighbors(2)
@@ -59,7 +59,7 @@ class Value1L1M(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbors
 
     @classmethod
@@ -69,7 +69,7 @@ class Value1L1M(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         vals = []

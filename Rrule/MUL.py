@@ -9,7 +9,7 @@ from base64 import b64encode
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.abs.Mrule import AbstractMinesClueRule
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition, JSONObject, ImmutableDict
+from minesweepervariants.board import Board, Position, JSONObject, ImmutableDict
 from minesweepervariants.abs.rule import AbstractValue, AbstractRule
 from minesweepervariants.impl.impl_obj import VALUE_QUESS, add_rule, get_value_type
 
@@ -88,7 +88,7 @@ class RuleMUL(AbstractClueRule):
     creation_time = "2026/5/22 0:42"
     author = ("ekisacik", 0)
 
-    def __init__(self, board: "AbstractBoard | None" = None, data: str | None = None) -> None:
+    def __init__(self, board: "Board | None" = None, data: str | None = None) -> None:
         super().__init__(board, data)
         if data is None:
             raise ValueError("需要传入两个规则")
@@ -121,7 +121,7 @@ class RuleMUL(AbstractClueRule):
             SUB_RULE_CLUE_TYPE.append(type2)
             break
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         _rule1 = add_rule(
             board, self.rule1.split(":", 1)[0],
             self.rule1.split(":", 1)[1] if ":" in self.rule1 else None, False
@@ -163,7 +163,7 @@ class RuleMUL(AbstractClueRule):
 
 
 class ValueMUL(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition') -> None:
+    def __init__(self, pos: 'Position') -> None:
         super().__init__(pos)
         self.value: int = -1
         self.type1: str = ""
@@ -173,7 +173,7 @@ class ValueMUL(AbstractClueValue):
         return ImmutableDict({"value": self.value, "type1": self.type1, "type2": self.type2})
 
     @classmethod
-    def from_json(cls, pos: 'AbstractPosition', data: 'JSONObject') -> 'AbstractClueValue':
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractClueValue':
         obj = cls(pos)
         obj.value = data["value"]
         obj.type1 = data["type1"]
@@ -187,7 +187,7 @@ class ValueMUL(AbstractClueValue):
     def type(cls) -> bytes:
         return RuleMUL.id.encode("ascii")
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         if self.type1 == "" and self.type2 == "":
             raise ValueError("Object uninit")
         model = board.get_model()

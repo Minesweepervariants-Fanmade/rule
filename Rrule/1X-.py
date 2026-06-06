@@ -7,7 +7,7 @@
 from typing import List, Dict
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
 from ....utils.impl_obj import MINES_TAG, VALUE_QUESS
 from ....utils.tool import get_random, get_logger
@@ -25,7 +25,7 @@ class Rule1X_(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         random = get_random()
 
@@ -57,7 +57,7 @@ class Rule1X_(AbstractClueRule):
 
 
 class Value1X_(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, direction: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, direction: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -94,7 +94,7 @@ class Value1X_(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count, self.direction])
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition']:
+    def high_light(self, board: 'Board') -> List['Position']:
         return self.target_positions
 
     def web_component(self, board) -> Dict:
@@ -123,7 +123,7 @@ class Value1X_(AbstractClueValue):
                 get_text(str(self.count))
             )
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         """逻辑推理"""
         # 收集有效的目标格子
         valid_targets = []
@@ -160,7 +160,7 @@ class Value1X_(AbstractClueValue):
 
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束"""
         model = board.get_model()
         s = switch.get(model, self)

@@ -8,7 +8,7 @@
 [3D1B']平衡: 所有平行面的总雷数均相等
 """
 from math import gcd
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from minesweepervariants.impl.summon.solver import Switch
 from .. import Abstract3DMinesRule
 
@@ -23,7 +23,7 @@ class Rule(Abstract3DMinesRule):
     creation_time = "2025-08-30"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s1 = switch.get(model, self, "↔")
         s2 = switch.get(model, self, "↕")

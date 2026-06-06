@@ -2,10 +2,10 @@
 [1N1X] 负雷 + 十字
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
 
-def cross_neighbors(pos : AbstractPosition) -> list[AbstractPosition]:
+def cross_neighbors(pos : Position) -> list[Position]:
     return [
         pos.up(2),
         pos.down(2),
@@ -30,7 +30,7 @@ class Rule1N1X(AbstractClueRule):
     def clue_class(self):
         return Value1N1X
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             value = sum(board.get_type(_pos) == "F" if
@@ -44,7 +44,7 @@ class Rule1N1X(AbstractClueRule):
 
 
 class Value1N1X(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.nei = cross_neighbors(pos)
         self.pos = pos
@@ -52,7 +52,7 @@ class Value1N1X(AbstractClueValue):
     def __repr__(self) -> str:
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.nei
 
     @classmethod
@@ -62,7 +62,7 @@ class Value1N1X(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

@@ -44,7 +44,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class RuleMB(AbstractMinesRule):
@@ -57,7 +57,7 @@ class RuleMB(AbstractMinesRule):
     tags = ["Creative", "Global", "Strict R", "Mine-Position"]
     creation_time = "2026-04-09"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

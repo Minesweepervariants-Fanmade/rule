@@ -8,12 +8,12 @@
 [1M1X]多雷 + 十字
 """
 
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
-def cross_neighbors(pos : AbstractPosition) -> list[AbstractPosition]:
+def cross_neighbors(pos : Position) -> list[Position]:
     return [
         pos.up(2),
         pos.down(2),
@@ -35,7 +35,7 @@ class Rule1M1X(AbstractClueRule):
     creation_time = "2025-08-23"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard'):
+    def fill(self, board: 'Board'):
         logger = get_logger()
         for pos, _ in board("N"):
             positions = cross_neighbors(pos)
@@ -63,7 +63,7 @@ class Value1M1X(AbstractClueValue):
     value: int
     neighbors: list
 
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = cross_neighbors(pos)
@@ -71,7 +71,7 @@ class Value1M1X(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbors
 
     @classmethod
@@ -81,7 +81,7 @@ class Value1M1X(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         vals = []

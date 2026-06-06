@@ -45,7 +45,7 @@
 """
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_random
 
 
@@ -59,7 +59,7 @@ class RuleRAND(AbstractClueRule):
     creation_time = "2026-05-05"
     author = ("雾", 3140864122)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         if data is None:
             self.range_min = 0
@@ -73,7 +73,7 @@ class RuleRAND(AbstractClueRule):
                 self.range_min = 0
                 self.range_max = 8
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         for pos, _ in board("N"):
             value = random.randint(self.range_min, self.range_max)
@@ -82,7 +82,7 @@ class RuleRAND(AbstractClueRule):
 
 
 class ValueRAND(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', value: int = None, code: bytes = None):
+    def __init__(self, pos: 'Position', value: int = None, code: bytes = None):
         super().__init__(pos)
         if code is not None:
             self.value = code[0] if code else 0
@@ -99,7 +99,7 @@ class ValueRAND(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """
         无约束 - RAND 规则的线索值是随机生成的，与雷数无关
         """

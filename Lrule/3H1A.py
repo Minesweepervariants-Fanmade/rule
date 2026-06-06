@@ -9,7 +9,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rule3H1A(AbstractMinesRule):
@@ -23,14 +23,14 @@ class Rule3H1A(AbstractMinesRule):
     tags = ["Creative", "Local", "Anti-Construction"]
     creation_time = "2026-02-15"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         if board is None:
             return
         for key in board.get_board_keys():
             board.set_config(key, "grid_type", "hex")
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         b = switch.get(model, self)
 

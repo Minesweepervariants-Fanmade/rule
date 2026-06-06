@@ -41,8 +41,8 @@ RF Rule Split Definition
 from typing import Dict
 from ortools.sat.python.cp_model import CpModel
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.abs.board import AbstractPosition, AbstractBoard
-def opposite_move(p: AbstractPosition, dx: int, dy: int) -> AbstractPosition:
+from minesweepervariants.board import Position, Board
+def opposite_move(p: Position, dx: int, dy: int) -> Position:
     # 根据相对位移 (dx, dy) 选择相反方向的移动
     if dx == -1 and dy == 0:   # 上方有雷 → 向下
         return p.down()
@@ -74,7 +74,7 @@ class RuleRF(AbstractClueRule):
     creation_time = "2026-04-29"
     author = ("NT", 2201963934)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
 
         for pos, _ in board("N"):
             count = 0
@@ -113,7 +113,7 @@ class ValueRF(AbstractClueValue):
     ``code`` 使用单字节表示该整数，以便在保存/加载时保持兼容。
     """
 
-    def __init__(self, pos: 'AbstractPosition', count: int = 0, code: bytes = None):
+    def __init__(self, pos: 'Position', count: int = 0, code: bytes = None):
         # 兼容已有的 ``code`` 读取方式
         super().__init__(pos, code)
         if code is not None:
@@ -131,7 +131,7 @@ class ValueRF(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         """Return positions that contribute to the clue value.
 
         The clue counts the number of visible non‑mine cells in the opposite
@@ -139,7 +139,7 @@ class ValueRF(AbstractClueValue):
         visualisation we highlight the clue cell itself and all cells that are
         counted as visible.
         """
-        positions: list['AbstractPosition'] = [self.pos]
+        positions: list['Position'] = [self.pos]
         # Iterate over the eight neighboring positions.
         for neighbor in self.pos.neighbors(2):
             if board.get_type(neighbor) == "N":
@@ -158,7 +158,7 @@ class ValueRF(AbstractClueValue):
                 cur = opposite_move(cur, dx, dy)
         return positions
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         # Build CP-SAT constraints that enforce the clue value computed in ``fill``.
         # The clue counts the number of visible non‑mine cells in the opposite
         # direction of each adjacent mine, plus 1 if there is at least one adjacent

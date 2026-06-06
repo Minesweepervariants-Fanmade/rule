@@ -43,7 +43,7 @@
 """
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from minesweepervariants.impl.summon.solver import Switch
 
 
@@ -62,10 +62,10 @@ class RuleMRG(AbstractMinesRule):
   creation_time = "2026-05-16"
   author = ("NT", 2201963934)
 
-  def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+  def __init__(self, board: "Board" = None, data=None) -> None:
     super().__init__(board, data)
 
-  def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+  def create_constraints(self, board: 'Board', switch: 'Switch'):
     model = board.get_model()
     s = switch.get(model, self)
 

@@ -5,7 +5,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....impl.summon.solver import Switch
 
 
@@ -19,7 +19,7 @@ class RuleTP(AbstractMinesRule):
     tags = ["Creative", "Local", "Construction"]
     creation_time = "2026-05-13"
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
         for key in board.get_interactive_keys():

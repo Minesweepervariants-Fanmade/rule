@@ -36,7 +36,7 @@ from ....abs.Lrule import AbstractMinesRule
 from ....utils.tool import get_random
 
 if TYPE_CHECKING:
-  from ....abs.board import AbstractBoard, AbstractPosition
+  from minesweepervariants.board import Board, Position
   from ....impl.summon.solver import Switch
 
 
@@ -54,7 +54,7 @@ class RuleAI(AbstractMinesRule):
   # 顺序: 上, 右上, 右, 右下, 下, 左下, 左, 左上
   DIRS = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
 
-  def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+  def __init__(self, board: "Board" = None, data=None) -> None:
     super().__init__(board, data)
     self.seed = 2201963934
     if data is not None:
@@ -66,7 +66,7 @@ class RuleAI(AbstractMinesRule):
     if board is not None:
       self.onboard_init(board)
 
-  def _populate_dir_cache(self, board: "AbstractBoard", key=None):
+  def _populate_dir_cache(self, board: "Board", key=None):
     random = get_random()
     keys = [key] if key is not None else sorted(board.get_board_keys(), key=lambda k: str(k))
     for board_key in keys:
@@ -76,7 +76,7 @@ class RuleAI(AbstractMinesRule):
         if cache_key not in self._dir_cache:
           self._dir_cache[cache_key] = random.randint(0, 7)
 
-  def _direction_index(self, pos: "AbstractPosition") -> int:
+  def _direction_index(self, pos: "Position") -> int:
     key = (pos.board_key, pos.row, pos.col)
     if key not in self._dir_cache:
       # 缓存缺失时按同一稳定顺序补齐该 key, 避免显示/约束阶段漂移。
@@ -87,17 +87,17 @@ class RuleAI(AbstractMinesRule):
         self._dir_cache[key] = get_random().randint(0, 7)
     return self._dir_cache[key]
 
-  def _next_pos(self, board: "AbstractBoard", pos: "AbstractPosition"):
+  def _next_pos(self, board: "Board", pos: "Position"):
     direction = self._direction_index(pos)
     dx, dy = self.DIRS[direction]
     return board.get_pos(pos.row + dx, pos.col + dy, key=pos.board_key)
 
-  def onboard_init(self, board: "AbstractBoard"):
+  def onboard_init(self, board: "Board"):
     # 方向在初始化阶段一次性写入缓存, 显示与约束统一读取同一映射。
     self._populate_dir_cache(board)
     self._apply_pos_labels(board)
 
-  def _apply_pos_labels(self, board: "AbstractBoard"):
+  def _apply_pos_labels(self, board: "Board"):
     for key in board.get_board_keys():
       labels = {}
       for pos, _ in board(key=key):
@@ -106,11 +106,11 @@ class RuleAI(AbstractMinesRule):
       board.set_config(key, "labels", labels)
       board.set_config(key, "pos_label", True)
 
-  def init_board(self, board: "AbstractBoard"):
+  def init_board(self, board: "Board"):
     # AI 是左线规则: 箭头方向通过 pos_label 显示, 不改格子对象类型。
     self._apply_pos_labels(board)
 
-  def create_constraints(self, board: "AbstractBoard", switch: "Switch"):
+  def create_constraints(self, board: "Board", switch: "Switch"):
     model = board.get_model()
     sw = switch.get(model, self)
 
@@ -143,10 +143,10 @@ class RuleAI(AbstractMinesRule):
       min_y = min(pos.col for pos in positions)
       max_y = max(pos.col for pos in positions)
 
-      candidate_dsts: dict["AbstractPosition", list["AbstractPosition"]] = {
+      candidate_dsts: dict["Position", list["Position"]] = {
         pos: [] for pos in positions
       }
-      pred_map: dict["AbstractPosition", list["AbstractPosition"]] = {
+      pred_map: dict["Position", list["Position"]] = {
         pos: [] for pos in positions
       }
       for src in positions:
@@ -163,7 +163,7 @@ class RuleAI(AbstractMinesRule):
           x += dx
           y += dy
 
-      edges: dict[tuple["AbstractPosition", "AbstractPosition"], object] = {}
+      edges: dict[tuple["Position", "Position"], object] = {}
       for src in positions:
         for dst in candidate_dsts[src]:
           edge = model.NewBoolVar(

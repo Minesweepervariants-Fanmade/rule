@@ -53,7 +53,7 @@
 from typing import TYPE_CHECKING
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 if TYPE_CHECKING:
   from ortools.sat.python.cp_model import IntVar
@@ -76,10 +76,10 @@ class RuleCPV(AbstractClueRule):
     self._visible_clue_positions: dict[str, set[tuple[int, int]]] = {}
 
   @staticmethod
-  def _valid_neighbors(board: "AbstractBoard", pos: "AbstractPosition") -> list["AbstractPosition"]:
+  def _valid_neighbors(board: "Board", pos: "Position") -> list["Position"]:
     return [nei for nei in pos.neighbors(2) if board.in_bounds(nei)]
 
-  def _collect_visible_clues_from_board(self, board: "AbstractBoard") -> dict[str, set[tuple[int, int]]]:
+  def _collect_visible_clues_from_board(self, board: "Board") -> dict[str, set[tuple[int, int]]]:
     result: dict[str, set[tuple[int, int]]] = {}
     for key in board.get_interactive_keys():
       clues: set[tuple[int, int]] = set()
@@ -91,7 +91,7 @@ class RuleCPV(AbstractClueRule):
 
   def _rebuild_visible_clues(
     self,
-    board: "AbstractBoard",
+    board: "Board",
     visibility_state: dict[str, dict[tuple[int, int], bool | None]],
   ) -> None:
     visible_map: dict[str, set[tuple[int, int]]] = {}
@@ -116,7 +116,7 @@ class RuleCPV(AbstractClueRule):
   def dynamic_on_visibility_changed(self, board, visibility_state, changed_positions):
     self._rebuild_visible_clues(board, visibility_state)
 
-  def fill(self, board: "AbstractBoard") -> "AbstractBoard":
+  def fill(self, board: "Board") -> "Board":
     for key in board.get_interactive_keys():
       clue_positions = sorted([(pos.x, pos.y) for pos, _ in board("N", key=key, special="raw")])
       clue_set = set(clue_positions)
@@ -145,7 +145,7 @@ class RuleCPV(AbstractClueRule):
           board.set_value(cpos, ValueCPV(cpos, count=clue_counts[(cx, cy)]))
     return board
 
-  def create_constraints(self, board: "AbstractBoard", switch):
+  def create_constraints(self, board: "Board", switch):
     model = board.get_model()
     rule_switch = switch.get(model, self)
 
@@ -207,7 +207,7 @@ class RuleCPV(AbstractClueRule):
 
 
 class ValueCPV(AbstractClueValue):
-  def __init__(self, pos: "AbstractPosition", count: int = 0, code=None):
+  def __init__(self, pos: "Position", count: int = 0, code=None):
     super().__init__(pos, code if code is not None else b"")
     if code is not None:
       self.count = code[0]
@@ -225,8 +225,8 @@ class ValueCPV(AbstractClueValue):
   def code(self) -> bytes:
     return bytes([self.count])
 
-  def high_light(self, board: "AbstractBoard") -> list["AbstractPosition"]:
+  def high_light(self, board: "Board") -> list["Position"]:
     return [nei for nei in self.neighbor if board.in_bounds(nei)]
 
-  def create_constraints(self, board: "AbstractBoard", switch):
+  def create_constraints(self, board: "Board", switch):
     return

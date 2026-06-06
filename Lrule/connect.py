@@ -9,18 +9,18 @@ from typing import List, Callable, Union
 from ortools.sat.python import cp_model
 from ortools.sat.python.cp_model import IntVar
 
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 def connect(
         model: cp_model.CpModel,
-        board: AbstractBoard,
-        switch: IntVar,     
+        board: Board,
+        switch: IntVar,
         component_num: Union[int, IntVar, None] = 1,   # 允许的连通块数量，填 None 表示不限制
         ub=False, # 最长连通上限
         connect_value=1, # 1 雷连通 0 非雷连通
-        nei_value: Union[int, tuple[int, int], Callable[[AbstractPosition], List[AbstractPosition]]] = 2, # 连通方向定义，1 四连通 2 八连通
+        nei_value: Union[int, tuple[int, int], Callable[[Position], List[Position]]] = 2, # 连通方向定义，1 四连通 2 八连通
         root_vars: List[IntVar] | None = None,
-        positions_vars: List[tuple[AbstractPosition, IntVar]] | None = None,
+        positions_vars: List[tuple[Position, IntVar]] | None = None,
         special='',
 ) -> List[IntVar]: # 返回表示各位置所属连通块 ID 的列表
     # 获取题板上所有位置及其对应的布尔变量
@@ -132,13 +132,13 @@ def connect(
 
 def connect_legacy(
         model: cp_model.CpModel,
-        board: AbstractBoard,
+        board: Board,
         switch: IntVar,     # 连通性选择
         ub=False,  # 可达处的上限
         connect_value=1,  # 1=雷连通，0=非雷连通
         nei_value: Union[int, tuple, Callable] = 2,  # 1=四连通，2=八连通
         root_vars: List[IntVar] = None,  # 允许提供根节点变量
-        positions_vars: List[tuple[AbstractPosition, IntVar]] = None,
+        positions_vars: List[tuple[Position, IntVar]] = None,
         special='',
 ):
     # 获取题板上所有位置及其对应的布尔变量

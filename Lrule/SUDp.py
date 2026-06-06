@@ -6,7 +6,7 @@
 # @FileName: SUD_.py
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from minesweepervariants.impl.summon.solver import Switch
 
 
@@ -20,7 +20,7 @@ class RuleSUD_(AbstractMinesRule):
     author = ("小绿草", 3021857082)
     creation_time = "2026-05-23 18:02:00"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         bound = board.boundary()
         if bound.x != bound.y:
@@ -28,7 +28,7 @@ class RuleSUD_(AbstractMinesRule):
         if (bound.x + 1) % 3 != 0:
             raise ValueError("题板边长必须为3的整数倍")
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
 

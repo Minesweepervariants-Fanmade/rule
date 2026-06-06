@@ -8,7 +8,7 @@
 [2D]偏移: 线索表示上方一格为中心的3x3区域内的总雷数
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 from ....utils.tool import get_logger
@@ -24,7 +24,7 @@ class Rule2D(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             value = len([_pos for _pos in pos.up(1).neighbors(2) if board.get_type(_pos) == "F"])
@@ -35,7 +35,7 @@ class Rule2D(AbstractClueRule):
 
 
 class Value2D(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -48,7 +48,7 @@ class Value2D(AbstractClueValue):
     def __repr__(self):
         return f"{self.count}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
 
     @classmethod
@@ -58,7 +58,7 @@ class Value2D(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         type_dict = {"N": [], "F": []}
         for pos in self.neighbor:
             t = board.get_type(pos)
@@ -79,7 +79,7 @@ class Value2D(AbstractClueValue):
             return True
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 周围雷数等于count"""
         model = board.get_model()
         s = switch.get(model, self)

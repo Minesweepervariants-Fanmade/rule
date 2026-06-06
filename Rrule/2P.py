@@ -10,7 +10,7 @@
 from typing import Dict
 
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from ....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 from ....utils.image_create import get_text, get_image, get_row, get_col, get_dummy
 from ....utils.tool import get_logger
 
@@ -76,7 +76,7 @@ class Rule2P(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         if len([_ for _ in board("F")]) < 2:
             return board
         for pos, _ in board("N"):
@@ -106,7 +106,7 @@ class Rule2P(AbstractClueRule):
 
 
 class Value2P(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         if len(code) == 1:
             self.value = code[0]
@@ -158,7 +158,7 @@ class Value2P(AbstractClueValue):
                 spacing=-0.2
             )
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         n = 1
         v = 0
         positions = []
@@ -187,7 +187,7 @@ class Value2P(AbstractClueValue):
             return bytes([self.value // 255, self.value % 255])
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         logger = get_logger()
         s = switch.get(model, self)

@@ -1,7 +1,7 @@
 from typing import List
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 class Rule3Q(AbstractMinesRule):
@@ -15,7 +15,7 @@ class Rule3Q(AbstractMinesRule):
     creation_time = "2026-01-25"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
 

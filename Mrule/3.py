@@ -10,7 +10,7 @@
 from typing import Dict
 
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
-from ....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 from ....utils.image_create import get_dummy, get_image, get_col, get_row
 from ....utils.image_create import get_text as _get_text
 from ....utils.tool import get_random
@@ -44,7 +44,7 @@ class Rule3P(AbstractMinesClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         for pos, _ in board("F"):
             choise = int(random.random() * 4)
@@ -70,7 +70,7 @@ class Rule3P(AbstractMinesClueRule):
 
 
 class Value3P(AbstractMinesValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None):
         self.dir = code[0] >> 6
         self.pos = pos
         self.value = code[0] & 0x3f
@@ -78,7 +78,7 @@ class Value3P(AbstractMinesValue):
     def __repr__(self):
         return "><V^"[self.dir] + str(self.value)
 
-    def web_component(self, board: 'AbstractBoard') -> Dict:
+    def web_component(self, board: 'Board') -> Dict:
         if self.dir in [0, 1]:
             return get_col(
                 get_text("→←↓↑"[self.dir]),
@@ -148,7 +148,7 @@ class Value3P(AbstractMinesValue):
                 )
         return get_text("")
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         line = []

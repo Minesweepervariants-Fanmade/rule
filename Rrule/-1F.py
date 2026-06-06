@@ -10,7 +10,7 @@
 from typing import List
 
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 from minesweepervariants.impl.summon.solver import Switch
 
 
@@ -24,7 +24,7 @@ class Rulex1F(AbstractClueRule):
     creation_time = "2025-08-07"
     author = ("波常未来", 81500378)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             _pos = pos.clone()
             _pos.x, _pos.y = _pos.y, _pos.x
@@ -34,7 +34,7 @@ class Rulex1F(AbstractClueRule):
 
 
 class Valuex1F(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         self.value = code[0]
 
@@ -44,7 +44,7 @@ class Valuex1F(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> List['Position'] | None:
         pos = self.pos.clone()
         pos.x, pos.y = pos.y, pos.x
         return pos.neighbors(2)
@@ -53,7 +53,7 @@ class Valuex1F(AbstractClueValue):
     def type(cls) -> bytes:
         return Rulex1F.id.encode("ascii")
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
         pos = self.pos.clone()

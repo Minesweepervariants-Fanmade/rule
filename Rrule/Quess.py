@@ -9,7 +9,7 @@
 """
 
 from ....abs.Rrule import AbstractClueRule, ValueQuess
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....utils.impl_obj import VALUE_QUESS
 from ....utils.tool import get_random
 
@@ -24,16 +24,16 @@ class RuleQuess(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.data = -1 if data is None else (int(data) if data else 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             board.set_value(pos, VALUE_QUESS)
         return board
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         if self.data > -1:
             positions = [pos for pos, obj in board("C") if obj is VALUE_QUESS]
             random = get_random()

@@ -10,7 +10,7 @@
 from typing import List, Tuple, Optional
 
 from ....abs.Rrule import AbstractClueRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....abs.rule import AbstractRule
 from ....utils.tool import get_random
 
@@ -25,13 +25,13 @@ class RuleSharp(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def __init__(self, board: AbstractBoard, data: list[AbstractClueRule]):
+    def __init__(self, board: Board, data: list[AbstractClueRule]):
         super().__init__(board, None)
         self.rules = data
         for key in board.get_interactive_keys():
             board.set_config(key, "by_mini", True)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         boards = []
         random = get_random()
         for rule in self.rules:
@@ -50,7 +50,7 @@ class RuleSharp(AbstractClueRule):
         for rule in self.rules:
             rule.suggest_total(info)
 
-    def init_board(self, board: 'AbstractBoard'):
+    def init_board(self, board: 'Board'):
         for rule in self.rules:
             rule.init_board(board)
 
@@ -58,10 +58,10 @@ class RuleSharp(AbstractClueRule):
         for rule in self.rules:
             rule.combine(rules)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for rule in self.rules:
             rule.init_clear(board)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         for rule in self.rules:
             rule.create_constraints(board, switch)

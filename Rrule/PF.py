@@ -8,7 +8,7 @@
 [PF]素因子（Prime Factor）:除0和1外的线索显示真实值的最大素因子
 """
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 PRIME_MAP = {
@@ -31,7 +31,7 @@ class RulePF(AbstractClueRule):
     creation_time = "2025-08-13"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             pos_list = pos.neighbors(2)
             value = board.batch(pos_list, mode="type").count("F")
@@ -45,7 +45,7 @@ class RulePF(AbstractClueRule):
 
 
 class ValuePF(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]
 
@@ -59,7 +59,7 @@ class ValuePF(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
 

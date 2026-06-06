@@ -11,7 +11,7 @@ from typing import Dict
 
 from minesweepervariants.utils.web_template import MultiNumber
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
 from ....utils.image_create import get_text, get_row
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 from ....utils.tool import get_random
@@ -29,7 +29,7 @@ class Rule4Vp(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         size = Size(board.boundary().x + 1, board.boundary().y + 1)
         board.generate_board(NAME_4Vp[0], size)
@@ -43,13 +43,13 @@ class Rule4Vp(AbstractClueRule):
         board.set_config(NAME_4Vp[0], "MINES", MINES_TAG)
         board.set_config(NAME_4Vp[1], "MINES", MINES_TAG)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
 
-        for key in [MASTER_BOARD] + NAME_4Vp:
+        for key in [MASTER_BOARD_KEY] + NAME_4Vp:
             for pos, _ in board("N", key=key):
                 neighbors_list = []
-                for _key in [MASTER_BOARD] + NAME_4Vp:
+                for _key in [MASTER_BOARD_KEY] + NAME_4Vp:
                     _pos = pos.clone()
                     _pos.board_key = _key
                     neighbors_list.append(_pos.neighbors(0, 2))
@@ -62,9 +62,9 @@ class Rule4Vp(AbstractClueRule):
 
 
 class Value4Vp(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.neighbors_list = []
-        for key in [MASTER_BOARD] + NAME_4Vp:
+        for key in [MASTER_BOARD_KEY] + NAME_4Vp:
             _pos = pos.clone()
             _pos.board_key = key
             self.neighbors_list.append(_pos.neighbors(0, 2))
@@ -85,7 +85,7 @@ class Value4Vp(AbstractClueValue):
         value.sort()
         return f"{value[0]} {value[1]}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return (self.neighbors_list[0] +
                 self.neighbors_list[1] +
                 self.neighbors_list[2])
@@ -105,7 +105,7 @@ class Value4Vp(AbstractClueValue):
             text_b
         )
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

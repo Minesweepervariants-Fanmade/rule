@@ -2,7 +2,7 @@
 [3M]对映：线索表示周围八格组成四个正好相对的组合中有且仅有一个是雷的数量（题板外视为非雷）
 """
 
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
@@ -31,7 +31,7 @@ class Rule3M(AbstractClueRule):
     logger = get_logger()
     author = ("", 0)
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         logger = get_logger()
         for pos, _ in board("N"):
             temp = []
@@ -43,7 +43,7 @@ class Rule3M(AbstractClueRule):
         return board
 
 class Value3M(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -56,7 +56,7 @@ class Value3M(AbstractClueValue):
     def __repr__(self):
         return f"{self.count}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
 
     @classmethod
@@ -66,10 +66,10 @@ class Value3M(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def invalid(self, board: 'AbstractBoard') -> bool:
+    def invalid(self, board: 'Board') -> bool:
         return board.batch(self.neighbor, mode="type").count("N") == 0
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         types = []
         for x, y in offsets:
             type_obj = board.get_type(self.pos.shift(x, y))
@@ -108,7 +108,7 @@ class Value3M(AbstractClueValue):
             return True
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
 
         g1 = model.NewBoolVar("3M_g1")

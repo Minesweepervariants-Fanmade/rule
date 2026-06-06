@@ -9,13 +9,13 @@ from typing import List, Callable, Union
 from ortools.sat.python import cp_model
 from ortools.sat.python.cp_model import IntVar
 
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from .. import Abstract3DRule
 
 
 def connect(
         model: cp_model.CpModel,
-        board: AbstractBoard,
+        board: Board,
         switch: IntVar,     # 连通性选择
         ub=False,  # 可达处的上限
         connect_value=1,  # 1=雷连通，0=非雷连通

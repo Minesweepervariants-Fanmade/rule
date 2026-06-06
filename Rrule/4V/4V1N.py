@@ -8,7 +8,7 @@
 [4V1N] 负雷 (Negative)：线索表示数字是两个题板中相同位置的其中一个3x3范围内染色格与非染色格的雷数差
 """
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
 from .....utils.impl_obj import VALUE_QUESS, MINES_TAG
 from .....utils.tool import get_random
 
@@ -25,7 +25,7 @@ class Rule1N(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         size = Size(board.boundary().x + 1, board.boundary().y + 1)
         board.generate_board(BOARD_NAME_4V, size)
@@ -34,11 +34,11 @@ class Rule1N(AbstractClueRule):
         board.set_config(BOARD_NAME_4V, "VALUE", VALUE_QUESS)
         board.set_config(BOARD_NAME_4V, "MINES", MINES_TAG)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         for pos, _ in board("N"):
             values = [-1, -1]
-            pos.board_key = MASTER_BOARD
+            pos.board_key = MASTER_BOARD_KEY
             values[0] = abs(sum(board.get_type(_pos) == "F" if
                             board.get_dyed(_pos)
                             else -(board.get_type(_pos) == "F")
@@ -49,7 +49,7 @@ class Rule1N(AbstractClueRule):
                             else -(board.get_type(_pos) == "F")
                             for _pos in pos.neighbors(0, 2)))
             r_value = 0 if random.random() > 0.7 else 1
-            pos.board_key = MASTER_BOARD
+            pos.board_key = MASTER_BOARD_KEY
             if board.get_type(pos) != "F":
                 obj = Value1N(pos=pos, code=bytes([values[r_value]]))
                 board.set_value(pos, obj)
@@ -62,9 +62,9 @@ class Rule1N(AbstractClueRule):
 
 
 class Value1N(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.neighbors_list = []
-        for key in [MASTER_BOARD, BOARD_NAME_4V]:
+        for key in [MASTER_BOARD_KEY, BOARD_NAME_4V]:
             _pos = pos.clone()
             _pos.board_key = key
             self.neighbors_list.append(_pos.neighbors(0, 2))
@@ -74,7 +74,7 @@ class Value1N(AbstractClueValue):
     def __repr__(self) -> str:
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbors_list[0] + self.neighbors_list[1]
 
     @classmethod
@@ -84,7 +84,7 @@ class Value1N(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         a = model.NewBoolVar("abs_diff")

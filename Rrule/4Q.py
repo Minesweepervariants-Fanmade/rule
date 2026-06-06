@@ -5,7 +5,7 @@ from typing import Dict
 
 from minesweepervariants.utils.web_template import MultiNumber
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.image_create import get_text, get_row
 
 from ....utils.tool import get_logger
@@ -20,7 +20,7 @@ class Rule4Q(AbstractClueRule):
     creation_time = "2025-09-17"
     author = ("", 0)
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         for pos, _ in board("N"):
             grids = [
                 [pos.up(), pos.up().left(), pos.left()],
@@ -34,7 +34,7 @@ class Rule4Q(AbstractClueRule):
         return board
 
 class Value4Q(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = pos.neighbors(2)
@@ -48,7 +48,7 @@ class Value4Q(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbors
 
     @classmethod
@@ -58,7 +58,7 @@ class Value4Q(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         valid_grids = [g for g in self.grids if all(board.in_bounds(p) for p in g)]
         model = board.get_model()
         s = switch.get(model, self)

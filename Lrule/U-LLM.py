@@ -45,7 +45,7 @@ except ImportError:
     pass
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....utils.tool import get_logger
 
 
@@ -107,7 +107,7 @@ class RuleULLM(AbstractMinesRule):
     "方向 距离" \
     "".strip().split()
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__(board, data)
         options = self._parse_data(data)
         noun_count = self._normalize_noun_count(options.get("noun_count", 3))
@@ -245,5 +245,5 @@ class RuleULLM(AbstractMinesRule):
 
         return description
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         return

@@ -14,7 +14,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 

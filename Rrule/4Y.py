@@ -10,7 +10,7 @@
 
 from minesweepervariants.impl.summon.solver import Switch
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 class Rule4Y(AbstractClueRule):
     id = "4Y"
@@ -22,7 +22,7 @@ class Rule4Y(AbstractClueRule):
     creation_time = "2025-08-21"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             max_area = 1
             rows = board.boundary(pos.board_key).row + 1
@@ -46,7 +46,7 @@ class Rule4Y(AbstractClueRule):
         return board
 
 class Value4Y(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes):
+    def __init__(self, pos: 'Position', code: bytes):
         super().__init__(pos, code)
         self.value = code[0]
 
@@ -60,7 +60,7 @@ class Value4Y(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: AbstractBoard, switch: Switch):
+    def create_constraints(self, board: Board, switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
         row0, col0 = self.pos.row, self.pos.col

@@ -12,7 +12,7 @@
 from typing import List, Tuple, Optional
 
 from minesweepervariants.abs.Rrule import AbstractClueRule
-from minesweepervariants.abs.board import AbstractBoard, MASTER_BOARD
+from minesweepervariants.board import Board, MASTER_BOARD_KEY
 from minesweepervariants.abs.rule import AbstractRule
 from minesweepervariants.impl.impl_obj import get_rule
 
@@ -32,7 +32,7 @@ class RuleMate(AbstractClueRule):
     tags = ["Creative", "Multi-Board", "Meta", "Parameter"]
     creation_time = "2025-08-25"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         if data is None:
             raise ValueError("请输入右线id")
@@ -43,7 +43,7 @@ class RuleMate(AbstractClueRule):
             self.rules.append(rule)
         for _ in range(len(board.get_interactive_keys()) - len(self.name)):
             self.rules.append(RuleV())
-        size = board.get_config(MASTER_BOARD, "size")
+        size = board.get_config(MASTER_BOARD_KEY, "size")
         for key in board.get_interactive_keys():
             board.set_config(key, "by_mini", True)
         for i in range(
@@ -57,7 +57,7 @@ class RuleMate(AbstractClueRule):
             board.set_config("MATE" + str(i), "MINES", MINES_TAG)
             board.set_config("MATE" + str(i), "VALUE", VALUE_QUESS)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         if len(board.get_interactive_keys()) < len(self.rules):
             raise ValueError("初始化失败")
         board_dict = {}
@@ -71,8 +71,8 @@ class RuleMate(AbstractClueRule):
                 board[pos] = board_dict[key][pos]
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
-        size = board.get_config(MASTER_BOARD, "size")
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
+        size = board.get_config(MASTER_BOARD_KEY, "size")
         for key in board.get_interactive_keys():
             if board.get_config(key, "size") != size:
                 raise ValueError("题板尺寸不匹配")
@@ -97,11 +97,11 @@ class RuleMate(AbstractClueRule):
             model.AddModuloEquality(0, total, len(self.rules))
         info["hard_fns"].append(a)
 
-    def init_board(self, board: 'AbstractBoard'):
+    def init_board(self, board: 'Board'):
         for rule in self.rules:
             rule.init_board(board)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for rule in self.rules:
             rule.init_clear(board)
 

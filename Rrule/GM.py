@@ -29,7 +29,7 @@
 import time
 
 from ....abs.Rrule import AbstractClueRule, ValueQuess
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....abs.rule import AbstractValue
 from ....utils.tool import get_random
 
@@ -44,16 +44,16 @@ class RuleGM(AbstractClueRule):
     tags = ["Creative", "WIP", "Local"]
     creation_time = "2026-04-09"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.data = -1 if data is None else (int(data) if data else 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             board.set_value(pos, ValueGM(pos))
         return board
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         if self.data > -1:
             positions = [pos for pos, obj in board("C") if isinstance(obj, ValueGM)]
             random = get_random()
@@ -70,11 +70,11 @@ class ValueGM(ValueQuess):
     def __repr__(self) -> str:
         return ""
 
-    def weaker(self, board: AbstractBoard) -> AbstractValue:
+    def weaker(self, board: Board) -> AbstractValue:
         return self
 
     def weaker_times(self) -> int:
         return 0
 
-    def tag(self, board: 'AbstractBoard') -> bytes:
+    def tag(self, board: 'Board') -> bytes:
         return b''

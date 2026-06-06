@@ -1,7 +1,7 @@
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
-def block(a_pos: AbstractPosition, board: AbstractBoard) -> list[AbstractPosition]:
+def block(a_pos: Position, board: Board) -> list[Position]:
     b_pos = a_pos.up()
     c_pos = a_pos.left()
     d_pos = b_pos.left()
@@ -19,7 +19,7 @@ class RuleCL(AbstractMinesRule):
     creation_time = "2026-04-30"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

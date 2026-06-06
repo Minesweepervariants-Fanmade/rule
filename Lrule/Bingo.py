@@ -8,7 +8,7 @@
 from ...impl_obj import get_rule
 from ...summon.solver import Switch
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....config.config import PUZZLE_CONFIG
 from ....utils.tool import get_logger, get_random
 
@@ -28,7 +28,7 @@ class BINGO(AbstractMinesRule):
     tags = ["Creative", "Global", "Meta", "Parameter"]
     creation_time = "2026-01-11"
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__(board, data)
         random = get_random()
         positions = []
@@ -96,7 +96,7 @@ class BINGO(AbstractMinesRule):
             board.set_config(key, "labels", _label_dict)
         get_logger().info(f"Init 4B label_dict {_label_dict}")
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         switch_map = {}
 

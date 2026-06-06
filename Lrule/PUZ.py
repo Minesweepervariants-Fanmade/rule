@@ -36,7 +36,7 @@ from typing import TYPE_CHECKING
 from ....abs.Lrule import AbstractMinesRule
 
 if TYPE_CHECKING:
-  from ....abs.board import AbstractBoard
+  from minesweepervariants.board import Board
   from ....impl.summon.solver import Switch
 
 
@@ -50,10 +50,10 @@ class RulePUZ(AbstractMinesRule):
   tags = ["Creative", "Global", "Construction", "Strong", "Extensive Trial"]
   creation_time = "2026-04-09"
 
-  def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+  def __init__(self, board: "Board" = None, data=None) -> None:
     super().__init__(board, data)
 
-  def create_constraints(self, board: "AbstractBoard", switch: "Switch"):
+  def create_constraints(self, board: "Board", switch: "Switch"):
     model = board.get_model()
     rule_switch = switch.get(model, self)
 

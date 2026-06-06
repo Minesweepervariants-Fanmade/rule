@@ -1,5 +1,5 @@
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from .connect import connect
 
@@ -16,7 +16,7 @@ class Rule1S(AbstractMinesRule):
     author = ("", 0)
 
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.nei_values = []
         if data is None:
@@ -32,7 +32,7 @@ class Rule1S(AbstractMinesRule):
             else:
                 self.nei_values.append(tuple([int(nei_value)]))
 
-    def portalNeighbor(self, pos: AbstractPosition, board: AbstractBoard):
+    def portalNeighbor(self, pos: Position, board: Board):
         boundary = board.boundary(pos.board_key)
         positions = []
         for nei_value in self.nei_values:

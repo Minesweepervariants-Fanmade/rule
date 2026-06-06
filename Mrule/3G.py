@@ -7,7 +7,7 @@ from typing import List, Dict
 from minesweepervariants.impl.summon.solver import Switch
 
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_random
 from ...rule.Lrule.connect import connect
 from ortools.sat.python.cp_model import IntVar
@@ -22,18 +22,18 @@ class Rule3G(AbstractMinesClueRule):
     creation_time = "2026-01-07"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         mines = [pos for pos, _ in board("F")]
         mine_set = set(mines)
         visited = set()
-        components: List[List[AbstractPosition]] = []
+        components: List[List[Position]] = []
 
         for start in mines:
             if start in visited:
                 continue
 
             stack = [start]
-            component: List[AbstractPosition] = []
+            component: List[Position] = []
 
             while stack:
                 current = stack.pop()
@@ -60,7 +60,7 @@ class Rule3G(AbstractMinesClueRule):
 
         return board
 
-    def create_constraints(self, board: AbstractBoard, switch: Switch):
+    def create_constraints(self, board: Board, switch: Switch):
         model = board.get_model()
         positions = [pos for pos, _ in board("always", mode="variable")]
         component_ids = connect(
@@ -86,7 +86,7 @@ class Rule3G(AbstractMinesClueRule):
 
 
 class MinesValue3G(AbstractMinesValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None):
         self.value = code[0]
         self.pos = pos
 

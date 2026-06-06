@@ -9,7 +9,7 @@ from typing import Tuple, List, Optional
 
 from minesweepervariants.abs.Rrule import AbstractClueRule
 from minesweepervariants.abs.Mrule import AbstractMinesClueRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from minesweepervariants.abs.rule import AbstractRule
 from minesweepervariants.impl.impl_obj import get_rule
 from minesweepervariants.impl.rule.Rrule.sharp import RuleSharp as ClueSharp
@@ -19,7 +19,7 @@ from minesweepervariants.utils.tool import get_logger
 
 
 class AbstractMinesSharp(AbstractMinesClueRule, ABC):
-    def __init__(self, rules: list[str], board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, rules: list[str], board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         rule_list = []
         for name in rules:
@@ -30,19 +30,19 @@ class AbstractMinesSharp(AbstractMinesClueRule, ABC):
                 get_logger().warn(f"ERROR: {e}")
         self.shape_rule = MinesSharp(board=board, data=rule_list)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         return self.shape_rule.fill(board=board)
 
-    def init_board(self, board: 'AbstractBoard'):
+    def init_board(self, board: 'Board'):
         return self.shape_rule.init_board(board=board)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         return self.shape_rule.init_clear(board=board)
 
     def combine(self, rules: List[Tuple['AbstractRule', Optional[str]]]):
         return self.shape_rule.combine(rules=rules)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         return self.shape_rule.create_constraints(board=board, switch=switch)
 
     def suggest_total(self, info: dict):
@@ -50,7 +50,7 @@ class AbstractMinesSharp(AbstractMinesClueRule, ABC):
 
 
 class AbstractClueSharp(AbstractClueRule, ABC):
-    def __init__(self, rules: list[str], board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, rules: list[str], board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         rule_list = []
 
@@ -62,19 +62,19 @@ class AbstractClueSharp(AbstractClueRule, ABC):
                 get_logger().warn(f"ERROR: {e}")
         self.shape_rule = ClueSharp(board=board, data=rule_list)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         return self.shape_rule.fill(board=board)
 
-    def init_board(self, board: 'AbstractBoard'):
+    def init_board(self, board: 'Board'):
         return self.shape_rule.init_board(board=board)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         return self.shape_rule.init_clear(board=board)
 
     def combine(self, rules: List[Tuple['AbstractRule', Optional[str]]]):
         return self.shape_rule.combine(rules=rules)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         return self.shape_rule.create_constraints(board=board, switch=switch)
 
     def suggest_total(self, info: dict):

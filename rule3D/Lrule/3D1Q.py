@@ -12,10 +12,10 @@
 from typing import List
 
 from .. import Abstract3DMinesRule
-from .....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 
 
-def block(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPosition]:
+def block(a_pos: Position, board: Board) -> List[Position]:
     b_pos = a_pos.up()
     c_pos = a_pos.left()
     d_pos = b_pos.left()
@@ -43,7 +43,7 @@ class Rule1Q(Abstract3DMinesRule):
     creation_time = "2025-08-30"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

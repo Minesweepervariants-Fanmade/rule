@@ -1,5 +1,5 @@
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 class RuleSG(AbstractClueRule):
     id = "SG"
@@ -11,7 +11,7 @@ class RuleSG(AbstractClueRule):
     tags = ["Creative", "Local", "Number Clue", "Construction"]
     creation_time = "2026-04-28"
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         for pos, _ in board("N"):
             value = 0
             for i in [-1, 0, 1]:
@@ -23,7 +23,7 @@ class RuleSG(AbstractClueRule):
         return board
 
 class ValueSG(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, code: bytes = b''):
+    def __init__(self, pos: Position, code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]
 
@@ -42,7 +42,7 @@ class ValueSG(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         model = board.get_model()
         s = switch.get(model, self)
 

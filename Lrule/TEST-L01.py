@@ -2,7 +2,7 @@
 [TEST-L01]
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from .connect import connect
 
 
@@ -16,7 +16,7 @@ class RuleTESTL01(AbstractMinesRule):
     tags = ["Creative", "Local", "Connectivity"]
     creation_time = "2026-01-11"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

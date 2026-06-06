@@ -14,7 +14,7 @@ Rule: ascii
 from ortools.sat.python.cp_model import CpModel, IntVar
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.impl_obj import VALUE_QUESS
 
@@ -39,7 +39,7 @@ class RuleAscii(AbstractClueRule):
     author = ("NT", 2201963934)
 
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         """Populate the board with ValueAscii objects for each clue cell (type 'N')."""
         for pos, _ in board("N"):
             byte_val = 0
@@ -82,7 +82,7 @@ class RuleAscii(AbstractClueRule):
 class ValueAscii(AbstractClueValue):
     """Clue value storing the raw byte and providing a printable representation."""
 
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         # code is a single byte representing the ASCII value
         self.value = code[0] if code else 0
@@ -102,7 +102,7 @@ class ValueAscii(AbstractClueValue):
     def type(cls) -> bytes:
         return RuleAscii.id.encode("ascii")
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         """Create CP‑SAT constraints that enforce the ASCII value derived from mines."""
         model = board.get_model()
 

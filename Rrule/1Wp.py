@@ -9,7 +9,7 @@
 """
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.utils.tool import get_random
 
 
@@ -24,7 +24,7 @@ class Rule1Wp(AbstractClueRule):
     creation_time = "2026-05-19"
     author = ("雾", 3140864122)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         """为每个有完整8个邻居的格子设置十六进制线索"""
         RANDOM = get_random()
         for pos, _ in board("N"):
@@ -47,7 +47,7 @@ class Rule1Wp(AbstractClueRule):
 
 
 class Value1Wp(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.high = code[0]     # 0-15
         self.low = code[1]      # 0-15
         self.pos = pos
@@ -58,14 +58,14 @@ class Value1Wp(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.high, self.low])
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.pos.neighbors(2)
 
     @classmethod
     def type(cls) -> bytes:
         return Rule1Wp.id.encode("ascii")
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """添加约束：周围8个格子的雷状态必须与线索值一致"""
         model = board.get_model()
         s = switch.get(model, self)

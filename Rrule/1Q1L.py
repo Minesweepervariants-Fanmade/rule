@@ -11,11 +11,11 @@
 from typing import List
 
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_random
 
 
-def block(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPosition]:
+def block(a_pos: Position, board: Board) -> List[Position]:
     b_pos = a_pos.up()
     c_pos = a_pos.left()
     d_pos = b_pos.left()
@@ -38,7 +38,7 @@ class Rule1Q1L(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         for pos, _ in board("N"):
             value = len([_pos for _pos in pos.neighbors(2) if board.get_type(_pos) == "F"])
@@ -66,7 +66,7 @@ class Rule1Q1L(AbstractClueRule):
                 board.set_value(pos, Value1Q1L(pos, count=value))
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch) -> bool:
+    def create_constraints(self, board: 'Board', switch) -> bool:
         block_map = {}
         model = board.get_model()
         for pos, _ in board():
@@ -93,7 +93,7 @@ class Rule1Q1L(AbstractClueRule):
 
 
 class Value1Q1L(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -106,7 +106,7 @@ class Value1Q1L(AbstractClueValue):
     def __repr__(self):
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
 
     @classmethod
@@ -116,7 +116,7 @@ class Value1Q1L(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints_(self, board: 'AbstractBoard', var_list: list, switch):
+    def create_constraints_(self, board: 'Board', var_list: list, switch):
         """创建CP-SAT约束：周围雷数等于count"""
         model = board.get_model()
         s = switch.get(model, self)

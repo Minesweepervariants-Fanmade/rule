@@ -11,7 +11,7 @@ from typing import Dict
 
 from minesweepervariants.utils.web_template import MultiNumber
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.image_create import get_text, get_row
 
 from ....utils.tool import get_logger
@@ -27,7 +27,7 @@ class Rule3S(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             value1 = 0
@@ -59,7 +59,7 @@ class Rule3S(AbstractClueRule):
 
 
 class Value3S(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', count: int = 0, code: bytes = None):
+    def __init__(self, pos: 'Position', count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.count = code[0]
@@ -71,7 +71,7 @@ class Value3S(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.count // 10} {self.count % 10}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor[0] + self.neighbor[1]
 
     def web_component(self, board) -> Dict:
@@ -96,7 +96,7 @@ class Value3S(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 符合Shell"""
         model = board.get_model()
         s = switch.get(model, self)

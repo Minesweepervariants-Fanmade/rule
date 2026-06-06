@@ -2,7 +2,7 @@
 [RAW]原始雷值
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
@@ -17,13 +17,13 @@ class RuleRAW(AbstractMinesRule):
     tags = ["Variant", "Local", "Mine-Value"]
     creation_time = "2026-01-11"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.onboard_init(board)
         self.rule = data or "raw"
 
-    def onboard_init(self, board: 'AbstractBoard'):
-        def get_type(board: 'AbstractBoard', pos: 'AbstractPosition', *args, **kwargs):
+    def onboard_init(self, board: 'Board'):
+        def get_type(board: 'Board', pos: 'Position', *args, **kwargs):
             value = board.get_type(pos, special=self.rule)
 
             if self.rule == 'raw':
@@ -36,7 +36,7 @@ class RuleRAW(AbstractMinesRule):
         board.register_type_special('RAW', get_type)
 
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
         s = switch.get(model, self)
         for key in board.get_interactive_keys():

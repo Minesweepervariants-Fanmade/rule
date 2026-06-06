@@ -8,7 +8,7 @@
 [*3T]:雷线索指示包含自身的雷三连数量。雷三连允许部分重合
 """
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
-from ....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 
 COUNT = 0
 
@@ -23,7 +23,7 @@ class Rule4T(AbstractMinesClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for _pos, _ in board("F"):
             board.set_value(_pos, Value4T(_pos))
         for _pos, _ in board("F"):
@@ -40,7 +40,7 @@ class Rule4T(AbstractMinesClueRule):
                     board[pos].value += 1
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         global COUNT
         COUNT += 1
         model = board.get_model()
@@ -84,7 +84,7 @@ class Rule4T(AbstractMinesClueRule):
 
 
 class Value4T(AbstractMinesValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None):
         self.value = code[0] if code else 0
         self.pos = pos
 

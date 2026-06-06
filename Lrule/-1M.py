@@ -8,7 +8,7 @@
 [*1M]: 雷分布将随机按照下述方式对称 [水平/垂直/对角/副对角/中心/旋转90度]对称
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rulen1M(AbstractMinesRule):
@@ -25,11 +25,11 @@ class Rulen1M(AbstractMinesRule):
     tags = ["Creative", "Fun", "Global"]
     creation_time = "2025-08-06"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.choose = int(data) if data and data.isdigit() else -1
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         choose_list = []

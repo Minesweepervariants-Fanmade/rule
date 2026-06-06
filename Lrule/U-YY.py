@@ -6,7 +6,7 @@ import json
 from urllib import error, request
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class UYYError(Exception):
@@ -48,7 +48,7 @@ class RuleUYY(AbstractMinesRule):
     tags = ["Creative", "Parameter"]
     creation_time = "2026-04-11"
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__(board, data)
         info = self._fetch_hitokoto(data)
         raise UYYHitokotoError(info)
@@ -107,5 +107,5 @@ class RuleUYY(AbstractMinesRule):
 
         return info
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         return

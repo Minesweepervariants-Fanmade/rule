@@ -8,7 +8,7 @@
 [2B] 桥 (Bridge)：所有雷构成若干组桥。桥是从题版左边界八连通连接（水平或斜角连接）到右边界，宽度为 1、长度与题版相等的一条路径
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rule2B(AbstractMinesRule):
@@ -21,7 +21,7 @@ class Rule2B(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def create_constraints_(self, board: 'AbstractBoard', switch):
+    def create_constraints_(self, board: 'Board', switch):
         def get_line_pos(pos):
             col = board.get_col_pos(pos)
             print("pos:", pos, "col:", col)
@@ -139,7 +139,7 @@ class Rule2B(AbstractMinesRule):
                             x_pos.down(2) if line_mode else x_pos.up(2)
                         ) == 1).OnlyEnforceIf([tmp_c, var, s])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """
         约束建议提供:哈嘿袁
         """

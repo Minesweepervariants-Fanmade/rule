@@ -2,13 +2,13 @@
 [2P']旅程: 线索表示距离最近的 2 个雷的曼哈顿距离之和
 """
 
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_logger
 
 
 
-def manhattan_neighbors(pos: AbstractPosition, distance: int) -> list[AbstractPosition]:
+def manhattan_neighbors(pos: Position, distance: int) -> list[Position]:
     neighbors = []
     for dx in range(distance + 1):
         dy = distance - dx
@@ -26,7 +26,7 @@ def manhattan_neighbors(pos: AbstractPosition, distance: int) -> list[AbstractPo
     return neighbors
 
 
-def manhattan_neighbors_range(pos: AbstractPosition, from_distance: int, to_distance: int) -> list[AbstractPosition]:
+def manhattan_neighbors_range(pos: Position, from_distance: int, to_distance: int) -> list[Position]:
     neighbors = []
     for d in range(from_distance, to_distance + 1):
         neighbors.extend(manhattan_neighbors(pos, d))
@@ -43,7 +43,7 @@ class Rule2P(AbstractClueRule):
     creation_time = "2025-08-21"
     author = ("", 0)
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         if len([_ for _ in board("F")]) < 2:
             return board
         for pos, _ in board("N"):
@@ -68,7 +68,7 @@ class Rule2P(AbstractClueRule):
 
 
 class Value2P(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes):
+    def __init__(self, pos: 'Position', code: bytes):
         super().__init__(pos, code)
         self.value = code[0]
         self.pos = pos
@@ -83,7 +83,7 @@ class Value2P(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         n = 1
         v = 0
         positions = []
@@ -103,7 +103,7 @@ class Value2P(AbstractClueValue):
             n += 1
         return positions
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         logger = get_logger()
         s = switch.get(model, self)

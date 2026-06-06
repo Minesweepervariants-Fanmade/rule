@@ -8,7 +8,7 @@
 [2L'] 误差' (Liar')：每行每列恰有一个非误差线索。误差线索的值比真实值大 1 或小 1 [副版规则]
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition, Size
+from minesweepervariants.board import Board, Position, Size
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 from ....utils.tool import get_random, get_logger
 
@@ -58,7 +58,7 @@ class Rule2L(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         bound = board.boundary()
         if bound.x != bound.y:
@@ -70,7 +70,7 @@ class Rule2L(AbstractClueRule):
                 raise ValueError("请保证其他题板尺寸均一致")
         board.generate_board(NAME_2L, Size(bound.x + 1, bound.y + 1))
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         self.init_clear(board)
         random = get_random()
         logger = get_logger()
@@ -116,11 +116,11 @@ class Rule2L(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, _ in board(key=NAME_2L):
             board.set_value(pos, None)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         bound = board.boundary(key=NAME_2L)
@@ -147,7 +147,7 @@ class Rule2L(AbstractClueRule):
 
 
 class Value2L(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.nei = pos.neighbors(2)
         self.pos = pos.clone()
@@ -167,7 +167,7 @@ class Value2L(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         nei_vars = board.batch(self.nei, mode="variable", drop_none=True)

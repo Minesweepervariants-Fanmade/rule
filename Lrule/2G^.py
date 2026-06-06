@@ -2,7 +2,7 @@
 [2G^] 互异连块：四连通雷区域面积为 1 到 N 各一个。(N = 题板尺寸 - 1)
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY
 from ...rule.Lrule.connect import connect
 
 from itertools import permutations
@@ -18,11 +18,11 @@ class Rule2G(AbstractMinesRule):
     creation_time = "2026-01-20"
     author = ("波常未来", 81500378)
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         positions = [pos for pos, _ in board("always", mode="variable")]
         model = board.get_model()
         s = switch.get(model, self)
-        size = board.get_config(MASTER_BOARD, "size")[0]
+        size = board.get_config(MASTER_BOARD_KEY, "size")[0]
         n = len(positions)
         areas = size - 1
         root_vars = [model.NewBoolVar(f'root_{i}') for i in range(n)]
@@ -58,7 +58,7 @@ class Rule2G(AbstractMinesRule):
                 model.Add(component_sizes[i] != component_sizes[j]).OnlyEnforceIf([root_vars[i], root_vars[j], s])
 
     def suggest_total(self, info: dict):
-        size = info["size"][MASTER_BOARD][0]
+        size = info["size"][MASTER_BOARD_KEY][0]
         expected_total = (size - 1) * size // 2  # 1 + 2 + ... + (N-1)
         def hard_constraint(m, total):
             m.Add(total == expected_total)

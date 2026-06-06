@@ -8,7 +8,7 @@
 [2X'] 十字' (Cross')：线索表示 3x3 范围内染色格或非染色格的雷数
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from ....utils.tool import get_logger, get_random
 
@@ -23,7 +23,7 @@ class Rule2X(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         r = get_random()
         for pos, _ in board("N"):
@@ -37,7 +37,7 @@ class Rule2X(AbstractClueRule):
 
 
 class Value2X(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None):
         super().__init__(pos, code)
         self.neighbor = self.pos.neighbors(2)
         self.value = code[0]
@@ -45,7 +45,7 @@ class Value2X(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
 
     @classmethod
@@ -55,7 +55,7 @@ class Value2X(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 周围染色格雷数等于两个染色格的数量"""
         model = board.get_model()
         s = switch.get(model, self)

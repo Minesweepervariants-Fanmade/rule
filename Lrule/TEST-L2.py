@@ -2,7 +2,7 @@
 [EST-L2] TEST-L2: 每一行各有一组连续的雷，且各行数量均不同
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rule(AbstractMinesRule):
@@ -15,7 +15,7 @@ class Rule(AbstractMinesRule):
     tags = ["Creative", "Local", "Construction"]
     creation_time = "2026-01-11"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

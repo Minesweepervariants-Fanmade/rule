@@ -7,7 +7,7 @@
 """
 [1S] 蛇 (Snake)：所有雷构成一条蛇。蛇是一条宽度为 1 的四连通路径，不存在分叉、环、交叉
 """
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 
 
@@ -22,7 +22,7 @@ class Rule1S(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.nei_values = []
         if data is None:
@@ -38,7 +38,7 @@ class Rule1S(AbstractMinesRule):
             else:
                 self.nei_values.append(tuple([int(nei_value)]))
 
-    def nei_pos(self, board: AbstractBoard, pos: AbstractPosition):
+    def nei_pos(self, board: Board, pos: Position):
         positions = []
         for nei_value in self.nei_values:
             if len(nei_value) == 1:

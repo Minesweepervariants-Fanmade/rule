@@ -9,7 +9,7 @@
 """
 from typing import List
 
-from .....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 from .. import Abstract3DClueRule
 from .....abs.Rrule import AbstractClueValue
 
@@ -24,11 +24,11 @@ class Rule3D1X(Abstract3DClueRule):
     creation_time = "2025-08-30"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard, data: str = None):
+    def __init__(self, board: Board, data: str = None):
         super().__init__(board, data)
         # print(board.show_board())
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             nei = Rule3D1X.pos_neighbors(board, pos, 1)
             nei += Rule3D1X.pos_neighbors(board, pos, 4, 4)
@@ -41,14 +41,14 @@ class Rule3D1X(Abstract3DClueRule):
 
 class Value3D1X(AbstractClueValue):
 
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos
 
     def __repr__(self) -> str:
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> List['Position'] | None:
         nei = Rule3D1X.pos_neighbors(board, self.pos, 1)
         nei += Rule3D1X.pos_neighbors(board, self.pos, 4, 4)
         return nei
@@ -60,7 +60,7 @@ class Value3D1X(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

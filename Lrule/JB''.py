@@ -60,7 +60,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Tuple
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from .connect import connect
 
@@ -75,7 +75,7 @@ class RectTemplate:
     x2: int
     y1: int
     y2: int
-    cells: Tuple[AbstractPosition, ...]
+    cells: Tuple[Position, ...]
     square: bool
 
     @property
@@ -87,7 +87,7 @@ class RectTemplate:
         return self.x2 - self.x1 + 1
 
 
-def _build_templates(board: AbstractBoard, key: str) -> List[RectTemplate]:
+def _build_templates(board: Board, key: str) -> List[RectTemplate]:
     """枚举所有轴对齐矩形模板（O(W²·H²)）。"""
     boundary = board.boundary(key=key)
     max_x = boundary.x
@@ -155,7 +155,7 @@ class RuleJBpp(AbstractMinesRule):
     # -------------------------------------------------------------------------
     #  主入口
     # -------------------------------------------------------------------------
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         """
         对所有交互棋盘建立 JB'' 约束。
 
@@ -181,7 +181,7 @@ class RuleJBpp(AbstractMinesRule):
     # -------------------------------------------------------------------------
     def _key_constraints(
         self,
-        board: AbstractBoard,
+        board: Board,
         model,
         s,
         key: str,

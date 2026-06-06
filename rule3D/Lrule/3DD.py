@@ -4,7 +4,7 @@
 """
 
 from .. import Abstract3DMinesRule
-from .....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rule3DD(Abstract3DMinesRule):  # type: ignore
@@ -17,7 +17,7 @@ class Rule3DD(Abstract3DMinesRule):  # type: ignore
     creation_time = "2025-08-30"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         for pos, var in board(mode="variable"):
@@ -35,7 +35,7 @@ class Rule3DD(Abstract3DMinesRule):  # type: ignore
             sum_vals = sum(six_neighbor_vars)
             model.Add(sum_vals == 1).OnlyEnforceIf([var, s])
 
-    def _get_six_connected_neighbors(self, board: 'AbstractBoard', pos):
+    def _get_six_connected_neighbors(self, board: 'Board', pos):
         """获取六连通邻域：同层四连通 + 上下层对应位置"""
         neighbors = []
 

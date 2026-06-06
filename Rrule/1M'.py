@@ -8,7 +8,7 @@
 [1M']多雷': 每个线索的多雷位置相对于线索固定 且位置全盘共享(总雷数不受限制)
 """
 
-from ....abs.board import AbstractBoard, AbstractPosition, Size
+from minesweepervariants.board import Board, Position, Size
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.tool import get_random
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
@@ -28,7 +28,7 @@ class Rule1M(AbstractClueRule):
     creation_time = "2025-08-13"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         board.generate_board(BOARD_NAME, Size(3, 3))
         if data is None:
@@ -36,9 +36,9 @@ class Rule1M(AbstractClueRule):
         else:
             self.value = data
 
-    def fill(self, board: 'AbstractBoard'):
+    def fill(self, board: 'Board'):
         self.init_clear(board)
-        def apply_offsets(_pos: AbstractPosition):
+        def apply_offsets(_pos: Position):
             nonlocal offsets
             result = []
             for dpos in offsets:
@@ -76,7 +76,7 @@ class Rule1M(AbstractClueRule):
             board.set_value(pos, obj)
         return board
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, obj in board(mode="object", key=BOARD_NAME):
             if isinstance(obj, Value2I_7):
                 continue
@@ -87,7 +87,7 @@ class Value1M(AbstractClueValue):
     value: int
     neighbors: list
 
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = pos.neighbors(2)
@@ -95,7 +95,7 @@ class Value1M(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         positions = self.neighbors[:]
         neighbors = []
         for pos2, obj in board(key=BOARD_NAME):
@@ -114,7 +114,7 @@ class Value1M(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         var_list = board.batch(self.neighbors, mode="variable", drop_none=True)
@@ -145,7 +145,7 @@ class Value1M(AbstractClueValue):
 
 
 class Value2I_7(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.neighbors = pos.neighbors(2)
         self.value = code[0]
@@ -160,7 +160,7 @@ class Value2I_7(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         if self.value > 8:
             return
         model = board.get_model()

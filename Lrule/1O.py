@@ -10,12 +10,12 @@
 from typing import List
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
-from ....impl.board.version3 import Board
+from minesweepervariants.board import Board, Position
+from minesweepervariants.board import Board
 from .connect import connect_legacy as connect
 
 
-def block(a_pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPosition]:
+def block(a_pos: Position, board: Board) -> List[Position]:
     b_pos = a_pos.up()
     c_pos = a_pos.left()
     d_pos = b_pos.left()
@@ -35,7 +35,7 @@ class Rule1O(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         for key in board.get_interactive_keys():
             if len(board.get_config(key, "mask")) > 0:
                 raise ValueError("1O 不支持异形题板")

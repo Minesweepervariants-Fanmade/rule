@@ -14,7 +14,7 @@ from fractions import Fraction
 import math
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.image_create import get_dummy, get_text, get_col, get_row, get_image
 
 
@@ -28,7 +28,7 @@ class Rule6L(AbstractClueRule):
     creation_time = "2026-05-20"
     author = ("Jsky单推人", 2638680527)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for key in board.get_interactive_keys():
             mines = [pos for pos, _ in board("F", key=key)]
             for pos, _ in board("N", key=key):
@@ -43,7 +43,7 @@ class Rule6L(AbstractClueRule):
                 board.set_value(pos, Value6L(pos, value=total))
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -102,7 +102,7 @@ class Rule6L(AbstractClueRule):
 
 
 class Value6L(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', value: Fraction | int | tuple[int, int] | None = None, code: bytes | None = None):
+    def __init__(self, pos: 'Position', value: Fraction | int | tuple[int, int] | None = None, code: bytes | None = None):
         super().__init__(pos, code or b'')
         if code is not None:
             text = code.decode("ascii")

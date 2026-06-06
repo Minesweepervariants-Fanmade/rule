@@ -2,7 +2,7 @@
 [3I]反相(Inverted): 染色格中非雷视为雷，雷视为非雷
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
@@ -16,21 +16,21 @@ class Rule3I(AbstractMinesRule):
     creation_time = "2025-09-14"
     author = ("NT", 2201963934)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.enforce = False
         if data == '!':
             self.enforce = True
         self.onboard_init(board)
 
-    def onboard_init(self, board: 'AbstractBoard'):
+    def onboard_init(self, board: 'Board'):
         board.register_type_special('3I', self.get_type)
 
         if self.enforce and board.default_special != "3I":
             board.set_default_special('3I')
 
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
         s = switch.get(model, self)
         for key in board.get_interactive_keys():
@@ -42,7 +42,7 @@ class Rule3I(AbstractMinesRule):
                     model.Add(inverted_var == board.get_variable(pos, special='raw'))
 
     @staticmethod
-    def get_type(board: 'AbstractBoard', pos: 'AbstractPosition', *args, **kwargs) -> str:
+    def get_type(board: 'Board', pos: 'Position', *args, **kwargs) -> str:
         value = board.get_type(pos, special='raw')
         if board.get_dyed(pos):
             if value == "C":

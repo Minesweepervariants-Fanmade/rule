@@ -8,11 +8,11 @@
 [2Z']零和'(Zero-Sum'):每个4x4方块内的染色格和非染色格雷数相等
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 
-def block4(board: AbstractBoard, pos: AbstractPosition):
+def block4(board: Board, pos: Position):
     positions = []
     pos_list = [pos.right(i) for i in range(4)]
     for pos in pos_list:
@@ -33,7 +33,7 @@ class Rule2Zp(AbstractMinesRule):
     creation_time = "2025-08-13"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
         for pos, _ in board():

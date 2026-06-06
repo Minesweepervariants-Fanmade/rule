@@ -2,7 +2,7 @@
 [1M1N] 多雷 + 负雷
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
 
 class Rule1M1N(AbstractClueRule):
@@ -18,7 +18,7 @@ class Rule1M1N(AbstractClueRule):
     def clue_class(self):
         return Value1M1N
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             dyed = undyed = 0
@@ -36,7 +36,7 @@ class Rule1M1N(AbstractClueRule):
         return board
 
 class Value1M1N(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.nei = pos.neighbors(2)
         self.pos = pos
@@ -44,7 +44,7 @@ class Value1M1N(AbstractClueValue):
     def __repr__(self) -> str:
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.nei
 
     @classmethod
@@ -54,7 +54,7 @@ class Value1M1N(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

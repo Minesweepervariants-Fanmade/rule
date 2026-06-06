@@ -9,7 +9,7 @@
 """
 
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from ....abs.board import AbstractPosition, AbstractBoard, Size
+from minesweepervariants.board import Position, Board, Size
 from ....utils.impl_obj import VALUE_CROSS, VALUE_CIRCLE
 from ....utils.tool import get_random, get_logger
 
@@ -26,13 +26,13 @@ class Rule2I(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         board.generate_board(NAME_2I, Size(3, 3))
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         self.init_clear(board)  # 如果需要共用2I副板那么就注释该行
-        def apply_offsets(_pos: AbstractPosition):
+        def apply_offsets(_pos: Position):
             nonlocal offsets
             result = []
             for dpos in offsets:
@@ -65,7 +65,7 @@ class Rule2I(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, obj in board(mode="object", key=NAME_2I):
             if type(obj) not in (
                 type(VALUE_CIRCLE),
@@ -77,14 +77,14 @@ class Rule2I(AbstractClueRule):
 
 
 class Value2I(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         self.value = code[0]
 
     def __repr__(self):
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         positions = []
         for pos, _ in board("NF", key=NAME_2I):
             _pos = self.pos.deviation(pos.shift(1, -1))
@@ -103,7 +103,7 @@ class Value2I(AbstractClueValue):
     def code(self):
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         logger = get_logger()
@@ -140,7 +140,7 @@ class Value2I(AbstractClueValue):
 
 
 class Value2I_7(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.neighbors = pos.neighbors(2)
 
@@ -155,7 +155,7 @@ class Value2I_7(AbstractClueValue):
     def type(cls) -> bytes:
         return Rule2I.id.encode("ascii") + b"_7"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         model.Add(sum(board.batch(self.neighbors, mode="variable")) == 7).OnlyEnforceIf(s)

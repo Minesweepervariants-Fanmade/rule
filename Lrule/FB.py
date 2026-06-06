@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, Size
+from minesweepervariants.board import Board, Size
 from minesweepervariants.utils.impl_obj import VALUE_CROSS
 
 if TYPE_CHECKING:
@@ -29,7 +29,7 @@ class RuleFB(AbstractMinesRule):
     tags = ["Creative", "Global", "Mine-Counting"]
     creation_time = "2026-05-24"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         pos_bound = board.boundary()
         if pos_bound.col % 3 != 2:
@@ -40,15 +40,15 @@ class RuleFB(AbstractMinesRule):
         )
         board.set_config(FB_BOARD_NAME, "pos_label", True)
 
-    def init_board(self, board: 'AbstractBoard') -> None:
+    def init_board(self, board: 'Board') -> None:
         for pos, _ in board("N", key=FB_BOARD_NAME):
             board[pos] = VALUE_CROSS
 
-    def init_clear(self, board: 'AbstractBoard') -> None:
+    def init_clear(self, board: 'Board') -> None:
         for pos, _ in board(key=FB_BOARD_NAME):
             board[pos] = None
 
-    def create_constraints(self, board: "AbstractBoard", switch: "Switch") -> None:
+    def create_constraints(self, board: "Board", switch: "Switch") -> None:
         model = board.get_model()
         rule_switchs = []
         for i in range(board.boundary().row + 1):

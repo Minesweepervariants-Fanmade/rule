@@ -7,12 +7,12 @@
 from typing import Union, List
 
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.abs.board import AbstractBoard, JSONObject, ImmutableDict, AbstractPosition, Size
+from minesweepervariants.board import Board, JSONObject, ImmutableDict, Position, Size
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 
 
-def get_nei(pos: AbstractPosition, board: AbstractBoard) -> List[AbstractPosition]:
+def get_nei(pos: Position, board: Board) -> List[Position]:
     """
     获取 pos 的八邻域坐标（包含对角线），超出 bound 范围时循环到另一侧。
 
@@ -53,7 +53,7 @@ class RuleFN(AbstractClueRule):
     author = ("雾", 3140864122)
     creation_time = "2026-05-26 16:37:56"
 
-    def __init__(self, board: "AbstractBoard | None" = None, data: str | None = None) -> None:
+    def __init__(self, board: "Board | None" = None, data: str | None = None) -> None:
         super().__init__(board, data)
         num_size = min(9, max(board.boundary(key).row + 1 for key in board.get_interactive_keys()))
         self.num_range = NUM_RANGE(num_size)
@@ -61,16 +61,16 @@ class RuleFN(AbstractClueRule):
         board.set_config(FN_NAME, "pos_label", True)
         self.total = 0
 
-    def init_board(self, board: 'AbstractBoard') -> None:
+    def init_board(self, board: 'Board') -> None:
         for pos, _ in board(key=FN_NAME):
             board[pos] = VALUE_CROSS
         board[board.get_col_pos(board.boundary(FN_NAME))[self.total - self.num_range[0]]] = VALUE_CIRCLE
 
-    def init_clear(self, board: 'AbstractBoard') -> None:
+    def init_clear(self, board: 'Board') -> None:
         for pos, _ in board(key=FN_NAME):
             board[pos] = None
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         sum_num = 0
         len_num = 0
         for pos, _ in board("N", mode="none"):
@@ -83,25 +83,25 @@ class RuleFN(AbstractClueRule):
             board[pos] = obj
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
         model.add(sum(board.batch(board.get_col_pos(board.boundary(FN_NAME)), 'var')) == 1).OnlyEnforceIf(
             switch.get(model, self))
 
 
 class ValueFN(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', value: int) -> None:
+    def __init__(self, pos: 'Position', value: int) -> None:
         super().__init__(pos)
         self.value = value
 
     def __repr__(self) -> str:
         return ("+" + str(self.value)) if self.value > 0 else str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> List['Position'] | None:
         return get_nei(self.pos, board)
 
     @classmethod
-    def from_json(cls, pos: 'AbstractPosition', data: Union['JSONObject', dict]) -> 'ValueFN':
+    def from_json(cls, pos: 'Position', data: Union['JSONObject', dict]) -> 'ValueFN':
         return ValueFN(pos, data["value"])
 
     def json(self) -> 'JSONObject':
@@ -111,7 +111,7 @@ class ValueFN(AbstractClueValue):
     def type(cls) -> bytes:
         return RuleFN.id.encode("ascii")
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
         global_var = model.new_int_var(0, 8, "global")
         s = switch.get(model, self)

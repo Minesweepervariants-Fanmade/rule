@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from minesweepervariants.abs.board import Size
+
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
 
 from ....abs.Lrule import AbstractMinesRule
 from ....utils.tool import get_random
 
 if TYPE_CHECKING:
-  from ....abs.board import AbstractBoard, AbstractPosition
+  from minesweepervariants.board import Board, Position
   from ....impl.summon.solver import Switch
 
 
@@ -23,7 +23,7 @@ class RuleTWpp(AbstractMinesRule):
   tags = ["Creative", "Global"]
   creation_time = "2026-05-30"
 
-  def __init__(self, board: "AbstractBoard", data: str | None = None) -> None:
+  def __init__(self, board: "Board", data: str | None = None) -> None:
     super().__init__(board, data)
     if data is not None:
       try:
@@ -42,7 +42,7 @@ class RuleTWpp(AbstractMinesRule):
     board.set_config("TW''", "MINES", MINES_TAG)
     self.onboard_init(board)
 
-  def _populate_count_cache(self, board: "AbstractBoard", key: str):
+  def _populate_count_cache(self, board: "Board", key: str):
     random = get_random()
     positions = sorted((pos for pos, _ in board(key=key)), key=lambda p: (p.row, p.col))
 
@@ -54,16 +54,16 @@ class RuleTWpp(AbstractMinesRule):
       if cache_key not in self._count_cache:
         self._count_cache[cache_key] = random.randint(0, self._ub(pos, row, col))
 
-  def is_bound(self, pos: "AbstractPosition", row: int, col: int) -> bool:
+  def is_bound(self, pos: "Position", row: int, col: int) -> bool:
     return pos.row == 0 or pos.row == row - 1 or pos.col == 0 or pos.col == col - 1
 
-  def is_corner(self, pos: "AbstractPosition", row: int, col: int) -> bool:
+  def is_corner(self, pos: "Position", row: int, col: int) -> bool:
     return pos.row == 0 and pos.col == 0 or \
            pos.row == 0 and pos.col == col - 1 or \
            pos.row == row - 1 and pos.col == 0 or \
            pos.row == row - 1 and pos.col == col - 1
 
-  def _ub(self, pos: "AbstractPosition", row: int, col: int) -> int:
+  def _ub(self, pos: "Position", row: int, col: int) -> int:
     if self.is_corner(pos, row, col):
       return 3
     elif self.is_bound(pos, row, col):
@@ -71,18 +71,18 @@ class RuleTWpp(AbstractMinesRule):
     else:
       return 8
 
-  def _mine_count(self, pos: "AbstractPosition") -> int:
+  def _mine_count(self, pos: "Position") -> int:
     key = (pos.board_key, pos.row, pos.col)
     return self._count_cache[key]
 
-  def onboard_init(self, board: "AbstractBoard"):
+  def onboard_init(self, board: "Board"):
     # 方向在初始化阶段一次性写入缓存, 显示与约束统一读取同一映射。
     self._populate_count_cache(board, key=board.get_interactive_keys()[0])
     self._populate_count_cache(board, key="TW''")
     self._apply_pos_labels(board, key=board.get_interactive_keys()[0])
     self._apply_pos_labels(board, key="TW''")
 
-  def _apply_pos_labels(self, board: "AbstractBoard", key: str):
+  def _apply_pos_labels(self, board: "Board", key: str):
     labels = {}
     for pos, _ in board(key=key):
       mine_count = self._mine_count(pos)
@@ -91,7 +91,7 @@ class RuleTWpp(AbstractMinesRule):
     board.set_config(key, "pos_label", True)
 
 
-  def create_constraints(self, board: "AbstractBoard", switch: "Switch"):
+  def create_constraints(self, board: "Board", switch: "Switch"):
     model = board.get_model()
     s = switch.get(model, self)
 

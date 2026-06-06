@@ -1,4 +1,4 @@
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....abs.Lrule import AbstractMinesRule
 
 
@@ -30,7 +30,7 @@ class RuleFORCE(AbstractMinesRule):
     tags = ["Creative", "Local", "Parameter"]
     creation_time = "2026-05-25"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.values = []
         self.values_not = []

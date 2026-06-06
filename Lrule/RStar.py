@@ -48,7 +48,7 @@ from typing import TYPE_CHECKING, List, Tuple
 from ....abs.Lrule import AbstractMinesRule
 
 if TYPE_CHECKING:
-    from ....abs.board import AbstractBoard
+    from minesweepervariants.board import Board
     from ....impl.summon.solver import Switch
 
 
@@ -100,7 +100,7 @@ class RuleRStar(AbstractMinesRule):
     tags = ["Global", "Strict R", "Parameter", "Original"]
     creation_time = "2026-05-24"
 
-    def __init__(self, board: 'AbstractBoard' = None, data=None) -> None:
+    def __init__(self, board: 'Board' = None, data=None) -> None:
         super().__init__(board, data)
         self.constraints = _parse_comparisons(data)
 
@@ -123,7 +123,7 @@ class RuleRStar(AbstractMinesRule):
         else:
             raise ValueError(f"不支持的比较符号: {op}")
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         rule_switch = switch.get(model, self)
 

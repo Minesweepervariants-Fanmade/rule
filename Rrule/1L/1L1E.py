@@ -1,5 +1,5 @@
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from .....utils.tool import get_random
 
 def liar_1E(value: int, random, sizx: int, sizy: int) -> int:
@@ -27,7 +27,7 @@ class Rule1L1E(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         sizx, sizy = board.get_config("1", "size")
         for pos, _ in board("N"):
@@ -60,14 +60,14 @@ class Rule1L1E(AbstractClueRule):
 
 
 class Value1E(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos
 
     def __repr__(self):
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         positions = []
         for i in [
             (1, 0), (0, 1),
@@ -86,7 +86,7 @@ class Value1E(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         def dfs(value: int, index=0, info: dict = None):
             if info is None:
                 info = {"T": [], "F": []}

@@ -106,7 +106,7 @@ from typing import List, Tuple
 from collections import defaultdict
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 @dataclass(frozen=True)
 class Pattern:
@@ -131,7 +131,7 @@ class RuleJBp(AbstractMinesRule):
     tags = ["Variant", "Global", "Construction", "Strong"]
     creation_time = "2026-05-03"
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         model = board.get_model()
         s = switch.get(model, self)
 

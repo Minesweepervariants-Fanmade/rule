@@ -10,10 +10,10 @@
 """
 from minesweepervariants.impl.summon.solver import Switch
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
-def put(pos: 'AbstractPosition', board: 'AbstractBoard'):
+def put(pos: 'Position', board: 'Board'):
     clue = board.get_value(pos)
 
 
@@ -25,12 +25,12 @@ class Rule3Ap(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         pass
 
 
 class Value3Ap(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
 
     def __repr__(self) -> str:
@@ -43,13 +43,13 @@ class Value3Ap(AbstractClueValue):
     def code(self) -> bytes:
         pass
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         pass
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         pass
 
-    def check(self, board: 'AbstractBoard') -> bool:
+    def check(self, board: 'Board') -> bool:
         pass
 
     @classmethod

@@ -18,7 +18,7 @@ from typing import List, Tuple
 from ortools.sat.python.cp_model import CpModel, IntVar
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 class Rule1Dpp(AbstractMinesRule):
@@ -32,10 +32,10 @@ class Rule1Dpp(AbstractMinesRule):
     creation_time = "2026-04-05"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard = None, data=None) -> None:
+    def __init__(self, board: Board = None, data=None) -> None:
         super().__init__(board, data)
 
-    def create_constraints(self, board: 'AbstractBoard', switch) -> None:
+    def create_constraints(self, board: 'Board', switch) -> None:
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -45,7 +45,7 @@ class Rule1Dpp(AbstractMinesRule):
             cols = bound.y + 1
 
             # 收集所有可能的形状及其包含的格子
-            shapes: List[Tuple[List[AbstractPosition], IntVar]] = []
+            shapes: List[Tuple[List[Position], IntVar]] = []
 
             # 1. 水平矩形 (宽度1，长度1~4)
             for length in range(1, 5):
@@ -79,7 +79,7 @@ class Rule1Dpp(AbstractMinesRule):
                 # 可选：如果某个格子不是雷，则形状不能选中（但由覆盖约束自动保证，无需额外）
 
             # 记录每个格子被哪些形状覆盖
-            pos_to_shapes: dict[AbstractPosition, List[IntVar]] = {}
+            pos_to_shapes: dict[Position, List[IntVar]] = {}
             for shape_var, (positions, _) in zip(shape_vars, shapes):
                 for pos in positions:
                     pos_to_shapes.setdefault(pos, []).append(shape_var)
@@ -99,8 +99,8 @@ class Rule1Dpp(AbstractMinesRule):
                         model.AddBoolOr([shape_vars[i].Not(), shape_vars[j].Not()]).OnlyEnforceIf(s)
 
     @staticmethod
-    def _shapes_touch(shape_a: List[AbstractPosition], shape_b: List[AbstractPosition],
-                      board: AbstractBoard) -> bool:
+    def _shapes_touch(shape_a: List[Position], shape_b: List[Position],
+                      board: Board) -> bool:
         """
         判断两个形状是否八连通接触（包括对角相邻）。
         即是否存在格子 p in A, q in B 使得 max(|dx|,|dy|) <= 1。

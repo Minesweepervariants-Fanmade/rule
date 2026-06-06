@@ -4,7 +4,7 @@
 """
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
 
 class Rule3H(AbstractClueRule):
@@ -19,14 +19,14 @@ In a square grid, the clue indicates the number of mines in the surrounding cell
     creation_time = "2025-08-24"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         if board is None:
             return
         for key in board.get_board_keys():
             board.set_config(key, "grid_type", "hex")
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             neighbors = self.get_hex_neighbors(pos, board)
@@ -35,7 +35,7 @@ In a square grid, the clue indicates the number of mines in the surrounding cell
         return board
 
     @staticmethod
-    def get_hex_neighbors(pos: AbstractPosition, board: AbstractBoard):
+    def get_hex_neighbors(pos: Position, board: Board):
         x, y = pos.x, pos.y
         board_key = pos.board_key
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]  # 上下左右
@@ -51,7 +51,7 @@ In a square grid, the clue indicates the number of mines in the surrounding cell
         return neighbors
 
 class Value3H(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.count = code[0]
@@ -63,7 +63,7 @@ class Value3H(AbstractClueValue):
     def __repr__(self):
         return str(self.count)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return Rule3H.get_hex_neighbors(self.pos, board)
 
     @classmethod
@@ -74,7 +74,7 @@ class Value3H(AbstractClueValue):
         return bytes([self.count])
 
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         type_dict = {"N": [], "F": []}
         for pos in Rule3H.get_hex_neighbors(self.pos, board):
             t = board.get_type(pos)
@@ -95,7 +95,7 @@ class Value3H(AbstractClueValue):
             return True
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 六角邻居雷数等于count"""
         model = board.get_model()
         s = switch.get(model, self.pos)

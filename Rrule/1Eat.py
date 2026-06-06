@@ -12,7 +12,9 @@ from fractions import Fraction
 from ortools.sat.python.cp_model import CpModel, IntVar
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, ImmutableDict, JSONObject
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY
+from minesweepervariants.immutable_dict import ImmutableDict
+from minesweepervariants.json_object import JSONObject
 from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.image_create import get_dummy, get_text, get_col, get_row, get_image
@@ -195,8 +197,8 @@ class EdgePoint:
 
 
 def link_pos2gridPoint(
-    board: "AbstractBoard",
-    pos: 'AbstractPosition',
+    board: "Board",
+    pos: 'Position',
     point: GridPoint
 ) -> Optional[GridPoint]:
     # 连接两点并形成射线 检查他的落点 若落点范围在两点之间 则返回None 否则返回落点
@@ -263,7 +265,7 @@ def link_pos2gridPoint(
     return GridPoint(check_x, check_y)
 
 
-def _get_all_point(board: 'AbstractBoard', pos: 'AbstractPosition') -> Set[GridPoint]:
+def _get_all_point(board: 'Board', pos: 'Position') -> Set[GridPoint]:
     checked = {pos}
     visited = set()
 
@@ -321,7 +323,7 @@ def _get_all_point(board: 'AbstractBoard', pos: 'AbstractPosition') -> Set[GridP
     return checked_points
 
 
-def _get_edges(board: 'AbstractBoard', checked_points: Set[GridPoint]) -> Set[EdgePoint]:
+def _get_edges(board: 'Board', checked_points: Set[GridPoint]) -> Set[EdgePoint]:
     edge_list = set()
     for point in checked_points:
         on_edge = []
@@ -385,7 +387,7 @@ def _get_edges(board: 'AbstractBoard', checked_points: Set[GridPoint]) -> Set[Ed
     return edge_list
 
 
-def _get_area(pos: 'AbstractPosition', edge_list: Set[EdgePoint]) -> List[Fraction]:
+def _get_area(pos: 'Position', edge_list: Set[EdgePoint]) -> List[Fraction]:
     area = []
     for edge in edge_list:
         pos_value, is_y = edge.on()
@@ -407,24 +409,24 @@ class Rule1Eat(AbstractClueRule):
     creation_time = "2026-04-30 00:21:47"
     author = ("NT", 2201963934)
 
-    def __init__(self, board: AbstractBoard = None, data=None) -> None:
+    def __init__(self, board: Board = None, data=None) -> None:
         super().__init__(board, data)
         self.all_integer = False
         if isinstance(data, str):
             if "!" in data:
                 self.all_integer = True
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for key in board.get_interactive_keys():
             for pos, _ in board("N", key=key):
                 obj = self.get_obj(board, pos)
                 board[pos] = obj
         return board
 
-    def get_obj(self, board: 'AbstractBoard', pos: 'AbstractPosition') -> AbstractClueValue:
+    def get_obj(self, board: 'Board', pos: 'Position') -> AbstractClueValue:
         logger = get_logger()
         checked_points = _get_all_point(board, pos)
-        size = board.get_config(MASTER_BOARD, "size")[0]
+        size = board.get_config(MASTER_BOARD_KEY, "size")[0]
         edge_list = _get_edges(board, checked_points)
         area_list = _get_area(pos, edge_list)
         approx_area = sum([int((1 << EXPONENT) * area) for area in area_list])
@@ -456,7 +458,7 @@ class Rule1Eat(AbstractClueRule):
 
 class Value1Eat(AbstractClueValue):
     def __init__(
-        self, pos: 'AbstractPosition',
+        self, pos: 'Position',
         numerator: int,
         denominator: int,
         appro_area: int,
@@ -606,7 +608,7 @@ class Value1Eat(AbstractClueValue):
         )
 
     @classmethod
-    def from_json(cls, pos: 'AbstractPosition', data: 'JSONObject') -> 'AbstractValue':
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
         return cls(pos, data["numerator"], data["denominator"], data["appro_area"], data["exponent"])
 
     def json(self) -> 'JSONObject':
@@ -615,7 +617,7 @@ class Value1Eat(AbstractClueValue):
             "appro_area": self.appro_area, "exponent": self.exponent
         })
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
         intvar_list: List[IntVar] = []
@@ -653,8 +655,8 @@ class Value1Eat(AbstractClueValue):
             model.add(intvar_sum == self.appro_area).OnlyEnforceIf(s)
 
     def _get_edge_area(
-        self, board: 'AbstractBoard', point: 'GridPoint',
-        model: CpModel, edge: 'EdgePoint', board_tmp: 'AbstractBoard'
+        self, board: 'Board', point: 'GridPoint',
+        model: CpModel, edge: 'EdgePoint', board_tmp: 'Board'
     ) -> IntVar:
         ub = 1 << (self.exponent - 1)
         pos_value, is_y = edge.on()
@@ -664,7 +666,7 @@ class Value1Eat(AbstractClueValue):
         positions_list, on_flag = self._get_edge_range(board, edge, point)
         get_logger().trace(f"{self.pos}, {positions_list}")
 
-        kill_map: List[AbstractPosition] = []
+        kill_map: List[Position] = []
 
         if len(positions_list) == 0:
             raise ValueError("empty positions")

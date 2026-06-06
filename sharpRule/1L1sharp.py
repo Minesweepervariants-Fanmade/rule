@@ -1,4 +1,4 @@
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from . import AbstractClueSharp
 
 class Rule1L1sharp(AbstractClueSharp):
@@ -13,7 +13,7 @@ class Rule1L1sharp(AbstractClueSharp):
     creation_time = "2025-08-30"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         rules_name = ["1L", "1L1M", "1L1L", "1L1N", "1L1N", "1L1X", "1L1P", "1L1E"]
         if data is None:
             rules_name += ["1L1W"]

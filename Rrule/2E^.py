@@ -8,7 +8,7 @@
 [2E^] 加密^ (Encrypted^)：线索被字母替代，每个数字与字母两两对应 [副版规则]
 """
 
-from ....abs.board import AbstractBoard, AbstractPosition, Size
+from minesweepervariants.board import Board, Position, Size
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.impl_obj import VALUE_QUESS, VALUE_CROSS, VALUE_CIRCLE
 from ....utils.tool import get_random
@@ -27,14 +27,14 @@ class Rule2Eq(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, data=None, board: 'AbstractBoard' = None):
+    def __init__(self, data=None, board: 'Board' = None):
         super().__init__(board, data)
         pos = board.boundary()
         size = min(pos.x + 1, 9)
         board.generate_board(NAME_2Eq, Size(size, size))
         board.set_config(NAME_2Eq, "pos_label", True)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         self.init_clear(board)
         while True:
@@ -72,7 +72,7 @@ class Rule2Eq(AbstractClueRule):
 
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         bound = board.boundary(key=NAME_2Eq)
@@ -89,13 +89,13 @@ class Rule2Eq(AbstractClueRule):
             var = board.batch(line, mode="variable")
             model.Add(sum(var) == 2).OnlyEnforceIf(s)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, _ in board(key=NAME_2Eq):
             board.set_value(pos, None)
 
 
 class Value2Eq(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.neighbors = pos.neighbors(2)
         self.pos = pos
@@ -103,7 +103,7 @@ class Value2Eq(AbstractClueValue):
     def __repr__(self) -> str:
         return "ABCDEFGHI"[self.value]
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbors
 
     @classmethod
@@ -113,7 +113,7 @@ class Value2Eq(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

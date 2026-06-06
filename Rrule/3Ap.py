@@ -10,11 +10,11 @@ from typing import List, Dict, Set, Tuple
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import MINES_TAG, VALUE_QUESS
 
 
-def put(board, pos: 'AbstractPosition', path):
+def put(board, pos: 'Position', path):
     value = 0
     while board.in_bounds(pos):
         value += 1
@@ -49,7 +49,7 @@ class Rule3Ap(AbstractClueRule):
     tags = ["Variant", "Local", "Number Clue", "Extensive Trial", "Cryptic"]
     creation_time = "2026-04-19"
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             board.set_value(pos, Value3Ap(pos))
         lines = [
@@ -71,7 +71,7 @@ class Rule3Ap(AbstractClueRule):
 
 
 class Value3Ap(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         if not code:
             self.value = 0
@@ -85,7 +85,7 @@ class Value3Ap(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition']:
+    def high_light(self, board: 'Board') -> List['Position']:
         pos = self.pos.clone()
         position = []
         for path_dir in range(4):
@@ -140,7 +140,7 @@ class Value3Ap(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value + 128])
 
-    # def bfs_get_states(self, board: 'AbstractBoard') -> List[dict]:
+    # def bfs_get_states(self, board: 'Board') -> List[dict]:
     #     """
     #     大致思路:
     #     从方向开始走 如果提前走出边境或者循环就直接丢弃 如果刚好在值内就记录
@@ -249,7 +249,7 @@ class Value3Ap(AbstractClueValue):
     #             b_bfs = []
     #         return answer_list
     #
-    # def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    # def deduce_cells(self, board: 'Board') -> bool:
     #     # 开玩笑 还真能写
     #     answer_list = self.bfs_get_states(board)
     #     pos_map = {}
@@ -272,11 +272,11 @@ class Value3Ap(AbstractClueValue):
     #     return change
 
     def _enumerate_direction(
-        self, board: 'AbstractBoard',
-        pos_main: 'AbstractPosition', init_dir: int,
+        self, board: 'Board',
+        pos_main: 'Position', init_dir: int,
         direction: int, steps: int,
-        constraints: Dict['AbstractPosition', int],
-        visited: Set[Tuple['AbstractPosition', int]],
+        constraints: Dict['Position', int],
+        visited: Set[Tuple['Position', int]],
         result: Dict[int, List[IntVar]],
         all_switch: IntVar
     ):
@@ -358,7 +358,7 @@ class Value3Ap(AbstractClueValue):
                 all_switch
             )
 
-    def _move(self, pos, direction) -> 'AbstractPosition':
+    def _move(self, pos, direction) -> 'Position':
         if direction == 0:
             return pos.up()
         elif direction == 1:
@@ -368,7 +368,7 @@ class Value3Ap(AbstractClueValue):
         else:  # direction == 3
             return pos.left()
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         result: dict[int, dict[int, list[IntVar]]] = dict()

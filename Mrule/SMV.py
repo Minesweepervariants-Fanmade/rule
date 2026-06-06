@@ -77,7 +77,7 @@ from collections import deque
 from typing import Optional
 
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 class RuleSMV(AbstractMinesClueRule):
@@ -89,7 +89,7 @@ class RuleSMV(AbstractMinesClueRule):
   author = ("", 0)
   creation_time = "2026-04-08"
 
-  def __init__(self, board: "AbstractBoard" = None, data=None) -> None:  # type: ignore[assignment]
+  def __init__(self, board: "Board" = None, data=None) -> None:  # type: ignore[assignment]
     super().__init__(board, data)
     # 可通过 data 微调候选枚举规模，避免组合爆炸。
     self.window_radius = 2
@@ -114,7 +114,7 @@ class RuleSMV(AbstractMinesClueRule):
     self.max_candidates = max(1, self.max_candidates)
 
   @staticmethod
-  def _neighbors4(board: "AbstractBoard", pos: "AbstractPosition") -> list["AbstractPosition"]:
+  def _neighbors4(board: "Board", pos: "Position") -> list["Position"]:
     res = []
     for nxt in [pos.up(), pos.down(), pos.left(), pos.right()]:
       if board.in_bounds(nxt):
@@ -124,10 +124,10 @@ class RuleSMV(AbstractMinesClueRule):
   @classmethod
   def _collect_region_by_type(
       cls,
-      board: "AbstractBoard",
-      start: "AbstractPosition",
+      board: "Board",
+      start: "Position",
       target_type: str = "F"
-  ) -> set["AbstractPosition"]:
+  ) -> set["Position"]:
     if board.get_type(start) != target_type:
       return set()
     q = deque([start])
@@ -145,9 +145,9 @@ class RuleSMV(AbstractMinesClueRule):
 
   @staticmethod
   def _symmetric_targets(
-      board: "AbstractBoard",
-      region: set["AbstractPosition"]
-  ) -> set["AbstractPosition"]:
+      board: "Board",
+      region: set["Position"]
+  ) -> set["Position"]:
     if not region:
       return set()
     xs = [p.x for p in region]
@@ -167,10 +167,10 @@ class RuleSMV(AbstractMinesClueRule):
 
   @staticmethod
   def _window_positions(
-      board: "AbstractBoard",
-      center: "AbstractPosition",
+      board: "Board",
+      center: "Position",
       radius: int
-  ) -> list["AbstractPosition"]:
+  ) -> list["Position"]:
     out = []
     for dx in range(-radius, radius + 1):
       for dy in range(-radius, radius + 1):
@@ -182,19 +182,19 @@ class RuleSMV(AbstractMinesClueRule):
   @classmethod
   def _enumerate_connected_candidates(
       cls,
-      board: "AbstractBoard",
-      anchor: "AbstractPosition",
-      window: list["AbstractPosition"],
+      board: "Board",
+      anchor: "Position",
+      window: list["Position"],
       max_cells: int,
       max_candidates: int
-  ) -> list[set["AbstractPosition"]]:
+  ) -> list[set["Position"]]:
     window_set = set(window)
     if anchor not in window_set:
       return []
 
     queue = deque([frozenset([anchor])])
     visited = {frozenset([anchor])}
-    candidates: list[set["AbstractPosition"]] = []
+    candidates: list[set["Position"]] = []
     # 为避免 BFS 只在小形状层被截断，优先向深层扩展并在末端按规模筛选。
     expand_limit = max(max_candidates * 12, max_candidates)
 
@@ -218,7 +218,7 @@ class RuleSMV(AbstractMinesClueRule):
         queue.append(new_subset)
 
     if len(candidates) > max_candidates:
-      bucket: dict[int, list[set["AbstractPosition"]]] = {}
+      bucket: dict[int, list[set["Position"]]] = {}
       for region in candidates:
         bucket.setdefault(len(region), []).append(region)
 
@@ -229,7 +229,7 @@ class RuleSMV(AbstractMinesClueRule):
         )
 
       sizes = sorted(bucket.keys(), reverse=True)
-      selected: list[set["AbstractPosition"]] = []
+      selected: list[set["Position"]] = []
       changed = True
       while changed and len(selected) < max_candidates:
         changed = False
@@ -247,10 +247,10 @@ class RuleSMV(AbstractMinesClueRule):
   @classmethod
   def _local_boundary(
       cls,
-      board: "AbstractBoard",
-      region: set["AbstractPosition"],
-      window_set: set["AbstractPosition"]
-  ) -> set["AbstractPosition"]:
+      board: "Board",
+      region: set["Position"],
+      window_set: set["Position"]
+  ) -> set["Position"]:
     boundary = set()
     for p in region:
       for nxt in cls._neighbors4(board, p):
@@ -258,9 +258,9 @@ class RuleSMV(AbstractMinesClueRule):
           boundary.add(nxt)
     return boundary
 
-  def fill(self, board: "AbstractBoard") -> "AbstractBoard":
+  def fill(self, board: "Board") -> "Board":
     for key in board.get_interactive_keys():
-      comp_map: dict[AbstractPosition, set[AbstractPosition]] = {}
+      comp_map: dict[Position, set[Position]] = {}
       for pos, _ in board("F", key=key):
         if pos in comp_map:
           continue
@@ -277,7 +277,7 @@ class RuleSMV(AbstractMinesClueRule):
 
 
 class ValueSMV(AbstractMinesValue):
-  def __init__(self, pos: "AbstractPosition", code: Optional[bytes] = None):
+  def __init__(self, pos: "Position", code: Optional[bytes] = None):
     self.pos = pos
     if code is None:
       self.value = 0
@@ -296,13 +296,13 @@ class ValueSMV(AbstractMinesValue):
   def type(cls) -> bytes:
     return RuleSMV.id.encode("ascii")
 
-  def weaker(self, board: "AbstractBoard"):
+  def weaker(self, board: "Board"):
     return self
 
   def weaker_times(self):
     return 0
 
-  def create_constraints(self, board: "AbstractBoard", switch):
+  def create_constraints(self, board: "Board", switch):
     model = board.get_model()
     s = switch.get(model, self)
     self_var = board.get_variable(self.pos)

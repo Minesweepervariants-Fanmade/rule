@@ -11,7 +11,7 @@
 其中b只能=1,2,3，1为行失衡，2为列平衡，3为行失衡+列平衡，不填则不加条件。
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from minesweepervariants.impl.summon.solver import Switch
 
 
@@ -25,7 +25,7 @@ class Rule3W(AbstractMinesRule):
     creation_time = "2025-08-15"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         data = "1:0" if data is None else data
         self.a = int(data.split(":")[0])
@@ -33,7 +33,7 @@ class Rule3W(AbstractMinesRule):
             data += ":0"
         self.b = int(data.split(":")[1])
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
 

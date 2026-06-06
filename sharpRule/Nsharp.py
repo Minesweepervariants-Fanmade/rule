@@ -4,7 +4,7 @@
 from typing import List, Tuple, Optional
 
 from ....abs.Rrule import AbstractClueRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....abs.rule import AbstractRule
 from ....utils.tool import get_random, get_logger
 from ...impl_obj import get_rule
@@ -22,7 +22,7 @@ class RuleNSharp(AbstractClueSharp):
     creation_time = "2025-08-29"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data: str =None) -> None:
+    def __init__(self, board: "Board" = None, data: str =None) -> None:
         if data.__contains__(";"):
             self.value = int(data.split(";")[0])
             rules_name = data.split(";")[1:]
@@ -34,8 +34,8 @@ class RuleNSharp(AbstractClueSharp):
                 rules_name = ["V", "1M", "1L", "1W", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "1E'", "1M1N", "1L1M", "1M1X", "1N1X", "2X", "2D", "2P", "2M", "2A", "2X'"]
         super().__init__(rules_name, board, None)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
-        boards : list[AbstractBoard] = []
+    def fill(self, board: 'Board') -> 'Board':
+        boards : list[Board] = []
         random = get_random()
         for rule in self.shape_rule.rules:
             boards.append(rule.fill(board.clone()))

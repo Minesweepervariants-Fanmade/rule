@@ -6,13 +6,13 @@
 from typing import List
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 
-def _get_row_col_positions(board: 'AbstractBoard', pos: AbstractPosition):
+def _get_row_col_positions(board: 'Board', pos: Position):
     """获取与给定位置同行或同列的所有位置"""
     positions = []
     # 获取棋盘的边界
@@ -45,7 +45,7 @@ class Rule1XPlus(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             # 计算同行和同列所有格子中的雷数
@@ -57,7 +57,7 @@ class Rule1XPlus(AbstractClueRule):
 
 
 class Value1XPlus(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -66,7 +66,7 @@ class Value1XPlus(AbstractClueValue):
             # 直接初始化
             self.count = count
 
-    def _get_row_col_positions(self, board: 'AbstractBoard'):
+    def _get_row_col_positions(self, board: 'Board'):
         """获取与给定位置同行或同列的所有位置"""
         positions = []
         # 获取棋盘的边界
@@ -87,7 +87,7 @@ class Value1XPlus(AbstractClueValue):
 
         return positions
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition']:
+    def high_light(self, board: 'Board') -> List['Position']:
         return self._get_row_col_positions(board)
 
     def __repr__(self):
@@ -100,7 +100,7 @@ class Value1XPlus(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         row_col_positions = self._get_row_col_positions(board)
         type_dict = {"N": [], "F": []}
 
@@ -130,7 +130,7 @@ class Value1XPlus(AbstractClueValue):
 
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束：同行或同列的雷数等于count"""
         model = board.get_model()
         s = switch.get(model, self)

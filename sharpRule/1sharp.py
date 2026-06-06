@@ -8,7 +8,7 @@
 [1#']包含以下规则:
 [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E]
 """
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from . import AbstractClueSharp
 
 
@@ -22,6 +22,6 @@ class Rule1sharp(AbstractClueSharp):
     creation_time = "2025-08-26"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         rules_name = ["V", "1M", "1L", "1W", "1N", "1X", "1P", "1E"]
         super().__init__(rules_name, board, data)

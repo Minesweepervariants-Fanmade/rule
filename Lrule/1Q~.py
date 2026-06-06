@@ -5,7 +5,7 @@
 from typing import List
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 
 def parse(s: str) -> list[tuple[int, int]]:
     result = [(0,0)]
@@ -15,7 +15,7 @@ def parse(s: str) -> list[tuple[int, int]]:
         result.append((x, y))
     return result
 
-def block(a_pos: AbstractPosition, offsets: list[tuple[int, int]], board: AbstractBoard) -> List[AbstractPosition]:
+def block(a_pos: Position, offsets: list[tuple[int, int]], board: Board) -> List[Position]:
     positions = []
     for offset in offsets:
         new_pos = a_pos.shift(offset[1], offset[0])  # 注意这里行列顺序
@@ -37,7 +37,7 @@ class Rule1Q(AbstractMinesRule):
     creation_time = "2025-08-15"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.nei_values = []
         self._3I = False
@@ -57,7 +57,7 @@ class Rule1Q(AbstractMinesRule):
 
         self.nei_values = parse(data)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

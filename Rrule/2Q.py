@@ -10,14 +10,14 @@
 from typing import List
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 
 
 def pos_shift(
-        board: AbstractBoard,
-        pos: AbstractPosition,
+        board: Board,
+        pos: Position,
         index: int
 ):
     shift = [
@@ -45,7 +45,7 @@ class Rule2Q(AbstractClueRule):
     creation_time = "2025-08-13"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             value = 0
             for i in range(8):
@@ -56,14 +56,14 @@ class Rule2Q(AbstractClueRule):
 
 
 class Value2Q(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]
 
     def __repr__(self):
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> List['Position'] | None:
         positions = []
 
         for i in range(8):
@@ -83,7 +83,7 @@ class Value2Q(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
 

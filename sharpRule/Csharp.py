@@ -1,10 +1,10 @@
 from typing import Dict, List
-from minesweepervariants.abs.board import AbstractBoard, Size
+from minesweepervariants.board import Board, Size
 from . import AbstractClueSharp
 from minesweepervariants.impl.summon.solver import Switch
 from ....utils.tool import get_random, get_logger
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 from ....impl.impl_obj import get_value
 from ....utils.image_create import get_text, get_image, get_dummy, get_col
@@ -32,7 +32,7 @@ class RuleCSharp(AbstractClueSharp):
     creation_time = "2025-08-31"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         if not data:
             size = board.boundary().x + 1
             self.rules = get_random().sample(main_rules, k=min(size, len(main_rules)))
@@ -52,7 +52,7 @@ class RuleCSharp(AbstractClueSharp):
     def label_y(self, y: int) -> str:
         return self.rules[y] if 0 <= y < len(self.rules) else ''
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         self.init_clear(board)
         random = get_random()
         shuffled_nums = [i for i in range(len(self.rules))]
@@ -63,7 +63,7 @@ class RuleCSharp(AbstractClueSharp):
         for pos, _ in board("N", key="C#"):
             board.set_value(pos, VALUE_CROSS)
 
-        boards : list[AbstractBoard] = []
+        boards : list[Board] = []
         for rule in self.shape_rule.rules:
             boards.append(rule.fill(board.clone()))
         for key in board.get_interactive_keys():
@@ -78,7 +78,7 @@ class RuleCSharp(AbstractClueSharp):
                     board.set_value(pos, ValueCsharp(pos, value=self.get_clue_number(clue), rule=shuffled_nums[rule_index]))
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s_row = switch.get(model, self, '↔')
         s_col = switch.get(model, self, '↕')
@@ -96,7 +96,7 @@ class RuleCSharp(AbstractClueSharp):
             var = board.batch(line, mode="variable")
             model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, _ in board(key=NAME_C_SHARP):
             board.set_value(pos, None)
 
@@ -111,7 +111,7 @@ class RuleCSharp(AbstractClueSharp):
 
 
 class ValueCsharp(AbstractClueValue):
-    def __init__(self, pos: "AbstractPosition", value: int = 0, rule: int = 0, code: bytes = None) -> None:
+    def __init__(self, pos: "Position", value: int = 0, rule: int = 0, code: bytes = None) -> None:
         super().__init__(pos)
         if not code:
             self.value = value
@@ -138,7 +138,7 @@ class ValueCsharp(AbstractClueValue):
         # TODO
         return Number(str(self.value))
 
-    def tag(self, board: AbstractBoard) -> bytes:
+    def tag(self, board: Board) -> bytes:
         line = board.batch(board.get_col_pos(
             board.get_pos(0, self.rule, NAME_C_SHARP)
         ), mode="type")
@@ -149,8 +149,8 @@ class ValueCsharp(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value, self.rule])
 
-    def high_light(self, board: AbstractBoard) -> List[AbstractPosition] | None:
-        positions: set[AbstractPosition] = set()
+    def high_light(self, board: Board) -> List[Position] | None:
+        positions: set[Position] = set()
         line = board.batch(board.get_col_pos(
             board.get_pos(0, self.rule, NAME_C_SHARP)
         ), mode="type")
@@ -165,7 +165,7 @@ class ValueCsharp(AbstractClueValue):
         return list(positions)
 
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         rules: list[str] = board.get_config(NAME_C_SHARP, "labels")
         s = switch.get(board.get_model(), self)
         model = board.get_model()

@@ -1,16 +1,16 @@
 from typing import Dict, List
 from importlib import import_module
-from minesweepervariants.abs.board import AbstractBoard, Size
+from minesweepervariants.board import Board, Size
 from . import AbstractClueSharp
 from minesweepervariants.impl.summon.solver import Switch
 from ....utils.tool import get_random, get_logger
 from ....abs.Rrule import AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS, VALUE_QUESS
 from ....impl.impl_obj import get_value
 from ....utils.image_create import get_text, get_image, get_dummy, get_col, get_row
 from ....utils.web_template import Number, MultiNumber, StrWithArrow
-from minesweepervariants.abs.board import ImmutableDict, JSONObject
+
 from base64 import b64encode
 
 NAME_2E = "2E"
@@ -32,7 +32,7 @@ class Rule2ESharp(AbstractClueSharp):
     creation_time = "2025-09-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         self.rules = set()
         if not data:
             self.rules.update(["V", "2X", "2D", "2P", "2M", "2A"])
@@ -57,7 +57,7 @@ class Rule2ESharp(AbstractClueSharp):
         board.generate_board(NAME_2E, Size(size, size))
         board.set_config(NAME_2E, "pos_label", True)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         self.init_clear(board)
         random = get_random()
         shuffled_nums = [i for i in range(min(9, board.boundary().x + 1))]
@@ -68,7 +68,7 @@ class Rule2ESharp(AbstractClueSharp):
 
         for pos, _ in board("N", key=NAME_2E):
             board.set_value(pos, VALUE_CROSS)
-        boards : list[AbstractBoard] = []
+        boards : list[Board] = []
         for rule in self.shape_rule.rules:
             boards.append(rule.fill(board.clone()))
         for pos, _ in board("N"):
@@ -143,7 +143,7 @@ class Rule2ESharp(AbstractClueSharp):
 
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s_row = switch.get(model, self, '↔')
         s_col = switch.get(model, self, '↕')
@@ -161,13 +161,13 @@ class Rule2ESharp(AbstractClueSharp):
             var = board.batch(line, mode="variable")
             model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, _ in board(key=NAME_2E):
             board.set_value(pos, None)
 
 
 class Value2ESharp(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, value: int = 0, rule: str = '', code: bytes = None) -> None:
+    def __init__(self, pos: Position, value: int = 0, rule: str = '', code: bytes = None) -> None:
         super().__init__(pos)
         if code:
             self.value = code[0]
@@ -203,7 +203,7 @@ class Value2ESharp(AbstractClueValue):
                 get_dummy(height=0.3),
             )
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> List['Position'] | None:
         return self.get_clue(1).high_light(board)
 
     @classmethod
@@ -216,7 +216,7 @@ class Value2ESharp(AbstractClueValue):
     def tag(self, board) -> bytes:
         return self.rule.encode("ascii")
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -240,7 +240,7 @@ class Value2ESharp(AbstractClueValue):
         }))
 
 class Value2E2A(Value2ESharp):
-    def __init__(self, pos: AbstractPosition, value: int = 0, code: bytes = None, flag = 4) -> None:
+    def __init__(self, pos: Position, value: int = 0, code: bytes = None, flag = 4) -> None:
         super().__init__(pos, value, '2A', code)
         self.flag = flag
 
@@ -261,7 +261,7 @@ class Value2E2A(Value2ESharp):
 
 
 class Value2E2X(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', count: int = 0, code: bytes = None):
+    def __init__(self, pos: 'Position', count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.count = code[0]
@@ -273,7 +273,7 @@ class Value2E2X(AbstractClueValue):
         map = "ABCDEFGHI"
         return f"{map[self.count // 10]} {map[self.count % 10]}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
 
     @classmethod
@@ -307,7 +307,7 @@ class Value2E2X(AbstractClueValue):
         texts.sort()
         return texts
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -355,7 +355,7 @@ class Value2E2P(AbstractClueValue):
         else:
             return x
 
-    def __init__(self, pos: 'AbstractPosition', a: int = -1, b: int = -1, code: bytes = None):
+    def __init__(self, pos: 'Position', a: int = -1, b: int = -1, code: bytes = None):
         """
         A√B, -1 为缺失值
         """
@@ -454,7 +454,7 @@ class Value2E2P(AbstractClueValue):
                 part_b = map[self.value_b]
         return part_a, part_b
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         s = switch.get(board.get_model(), self)
         model = board.get_model()
         if self.value_a != -1 and self.value_b != -1:
@@ -500,7 +500,7 @@ class Value2E2P(AbstractClueValue):
 
 class Value2E1EN(AbstractClueValue):
     # arrow True 上下箭头，False 左右箭头
-    def __init__(self, pos: 'AbstractPosition', value: int = 0, arrow: bool = True, code: bytes = None):
+    def __init__(self, pos: 'Position', value: int = 0, arrow: bool = True, code: bytes = None):
         super().__init__(pos)
         if code:
             self.value = code[0]
@@ -526,7 +526,7 @@ class Value2E1EN(AbstractClueValue):
     def tag(self, board) -> bytes:
         return "1E'".encode("ascii")
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> list['Position'] | None:
         return self.create1EN(0).high_light(board)
 
     def web_component(self, board) -> Dict:
@@ -572,7 +572,7 @@ class Value2E1EN(AbstractClueValue):
                     get_dummy(width=0.15),
             )
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

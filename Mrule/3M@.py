@@ -6,7 +6,7 @@
 
 from ortools.sat.python.cp_model import IntVar
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 class Rule3MAt(AbstractMinesClueRule):
@@ -19,7 +19,7 @@ class Rule3MAt(AbstractMinesClueRule):
     tags = ["Creative", "Local", "Mine-Position"]
     creation_time = "2026-03-01"
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         for key in board.get_interactive_keys():
             # 预计算每列的雷位置范围
             col_mins = {}
@@ -43,7 +43,7 @@ class Rule3MAt(AbstractMinesClueRule):
                     board.set_value(pos, Value3MAt(pos, value))
         return board
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         model = board.get_model()
         rule_switch = switch.get(model, self)
         for key in board.get_interactive_keys():
@@ -122,7 +122,7 @@ class Rule3MAt(AbstractMinesClueRule):
 
 
 class Value3MAt(AbstractMinesValue):
-    def __init__(self, pos: AbstractPosition, value: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, value: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.value = int.from_bytes(code, 'big')
@@ -139,12 +139,12 @@ class Value3MAt(AbstractMinesValue):
     def code(self) -> bytes:
         return self.value.to_bytes(2, 'big')
 
-    def weaker(self, board: AbstractBoard):
+    def weaker(self, board: Board):
         return self
 
     def weaker_times(self) -> int:
         return 0
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         # 约束已在规则类中统一实现，此处留空
         pass

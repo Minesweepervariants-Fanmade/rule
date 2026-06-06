@@ -5,7 +5,7 @@
 # @Author  : Wu_RH
 # @FileName: Fshape.py
 
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from . import AbstractMinesSharp
 
 
@@ -19,6 +19,6 @@ class RuleFsharp(AbstractMinesSharp):
     creation_time = "2025-08-26"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         rules_name = ["*3T", "3", "3F"]
         super().__init__(rules_name, board, data)

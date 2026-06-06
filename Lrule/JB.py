@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Tuple
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 TL = 0
@@ -27,7 +27,7 @@ class RectTemplate:
     x2: int
     y1: int
     y2: int
-    cells: tuple[AbstractPosition, ...]
+    cells: tuple[Position, ...]
     square: bool
 
     @property
@@ -39,7 +39,7 @@ class RectTemplate:
         return self.x2 - self.x1 + 1
 
 
-def _build_templates(board: AbstractBoard, key: str) -> List[RectTemplate]:
+def _build_templates(board: Board, key: str) -> List[RectTemplate]:
     boundary = board.boundary(key=key)
     max_x = boundary.x
     max_y = boundary.y
@@ -104,7 +104,7 @@ class RuleJB(AbstractMinesRule):
     tags = ["Creative", "Global", "Construction", "Strong"]
     creation_time = "2026-04-08"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

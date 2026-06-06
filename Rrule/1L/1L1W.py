@@ -1,7 +1,7 @@
 from typing import Dict, Generator
 
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 from .....utils.image_create import get_text, get_row, get_col
 from .....utils.image_create import get_dummy
 from .....utils.tool import get_logger, get_random
@@ -154,7 +154,7 @@ class Rule1L1W(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         random = get_random()
         for pos, _ in board("N"):
@@ -186,14 +186,14 @@ class Rule1L1W(AbstractClueRule):
 
 
 class Value1L1W(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.values: list[int] = decode(code)
         self.pos = pos
 
     def __repr__(self):
         return ".".join([str(i) for i in self.values]) if len(self.values) > 0 else "0"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.pos.neighbors(2)
 
     def web_component(self, board) -> Dict:
@@ -260,7 +260,7 @@ class Value1L1W(AbstractClueValue):
     def code(self) -> bytes:
         return encode(self.values)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

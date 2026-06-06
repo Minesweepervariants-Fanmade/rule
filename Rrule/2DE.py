@@ -7,7 +7,7 @@
 from typing import List, Callable, Optional
 
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition, JSONObject, ImmutableDict
+from minesweepervariants.board import Board, Position, JSONObject, ImmutableDict
 from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.tool import get_logger
@@ -24,11 +24,11 @@ class Rule2DE(AbstractClueRule):
     author = ("NT", 2201963934)
     creation_time = "2026-04-29 23:33:04"
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             indexs = []
             for fc in [pos.up, pos.down, pos.right, pos.left]:
-                fc: Callable[[int], Optional[AbstractPosition]]
+                fc: Callable[[int], Optional[Position]]
                 index = 1
                 _pos = fc(index)
                 while _pos is not None and board.is_valid(_pos):
@@ -47,7 +47,7 @@ class Rule2DE(AbstractClueRule):
 
 
 class Value2DE(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', value: int, *args, **kwargs) -> None:
+    def __init__(self, pos: 'Position', value: int, *args, **kwargs) -> None:
         super().__init__(pos, *args, **kwargs)
         self.value = value
 
@@ -59,13 +59,13 @@ class Value2DE(AbstractClueValue):
         return Rule2DE.id.encode("ascii")
 
     @classmethod
-    def from_json(cls, pos: 'AbstractPosition', data: 'JSONObject') -> 'AbstractValue':
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
         return cls(pos, value=data["value"])
 
     def json(self) -> 'JSONObject':
         return ImmutableDict({"value": self.value})
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -89,4 +89,3 @@ class Value2DE(AbstractClueValue):
             for _var in var_list:
                 model.add(map_var == 0).OnlyEnforceIf(_var)
         model.add(self.value == sum(map_var_list)).OnlyEnforceIf(s)
-

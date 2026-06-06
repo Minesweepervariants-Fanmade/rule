@@ -3,7 +3,7 @@
 """
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 class RuleFirst(AbstractMinesRule):
@@ -17,13 +17,13 @@ class RuleFirst(AbstractMinesRule):
     lib_only = True
     author = ("Artless", 2452944138)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.onboard_init(board)
         self.rule = data or "raw"
 
-    def onboard_init(self, board: 'AbstractBoard'):
-        def get_type(board: 'AbstractBoard', pos: 'AbstractPosition', *args, **kwargs):
+    def onboard_init(self, board: 'Board'):
+        def get_type(board: 'Board', pos: 'Position', *args, **kwargs):
             """Return the effective mine value for *pos* based only on board state.
 
             The rule: *the left‑most mine in each row counts as two*.  This
@@ -61,7 +61,7 @@ class RuleFirst(AbstractMinesRule):
             return 2
         board.register_type_special('First', get_type)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
 
         model = board.get_model()
         s = switch.get(model, self)

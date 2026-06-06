@@ -8,7 +8,7 @@
 [OR]或:你可以在后面输入多个左线来表示或关系(题板将按照A规则或B规则)(规则间使用":"隔开)
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from minesweepervariants.config.config import PUZZLE_CONFIG
 
 from ...impl_obj import get_rule
@@ -28,7 +28,7 @@ class RuleOR(AbstractMinesRule):
     creation_time = "2025-08-08"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.n = 1
         rule_list = [""]
@@ -65,7 +65,7 @@ class RuleOR(AbstractMinesRule):
                 continue
             self.rules.append(rule)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         var_list = []
         for rule in self.rules:

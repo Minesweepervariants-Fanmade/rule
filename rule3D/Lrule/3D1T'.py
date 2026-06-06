@@ -10,7 +10,7 @@
 """
 
 from .. import Abstract3DMinesRule
-from .....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from .....utils.tool import get_logger
 
 
@@ -24,7 +24,7 @@ class Rule3D1Tp(Abstract3DMinesRule):
     creation_time = "2025-08-30"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         logger = get_logger()

@@ -8,7 +8,7 @@
 [2Z] 零和 (Zero-Sum)：每行的染色格与非染色格的雷数相等
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rule2Z(AbstractMinesRule):
@@ -21,7 +21,7 @@ class Rule2Z(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         for key in board.get_interactive_keys():

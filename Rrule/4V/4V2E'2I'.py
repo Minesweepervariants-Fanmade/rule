@@ -9,7 +9,7 @@
 (注:生成不知道是不是概率问题 会出现大量的生成失败 不过也不是人玩的反正 加个-r估计会好)
 """
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
 from .....utils.impl_obj import VALUE_QUESS, MINES_TAG, VALUE_CIRCLE, VALUE_CROSS
 from .....utils.tool import get_random, get_logger
 from . import BOARD_NAME_4V
@@ -29,7 +29,7 @@ class Rule4V2Ep2Ip(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         size = Size(board.boundary().x + 1, board.boundary().y + 1)
         board.generate_board(NAME, size)
@@ -38,11 +38,11 @@ class Rule4V2Ep2Ip(AbstractClueRule):
         board.set_config(NAME, "VALUE", VALUE_QUESS)
         board.set_config(NAME, "MINES", MINES_TAG)
         board.set_config(NAME, "pos_label", True)
-        board.set_config(MASTER_BOARD, "pos_label", True)
+        board.set_config(MASTER_BOARD_KEY, "pos_label", True)
         board.generate_board(NAME_4V_2Ip, Size(3, 3))
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
-        def apply_offsets(_pos: AbstractPosition):
+    def fill(self, board: 'Board') -> 'Board':
+        def apply_offsets(_pos: Position):
             nonlocal offsets
             result = []
             for dpos in offsets:
@@ -62,7 +62,7 @@ class Rule4V2Ep2Ip(AbstractClueRule):
             board[pos] = VALUE_CROSS
 
         letter_map_a = {i: [] for i in range(10)}
-        for pos, _ in board("F", key=MASTER_BOARD):
+        for pos, _ in board("F", key=MASTER_BOARD_KEY):
             if pos.y > 9:
                 continue
             letter = ALPHABET[pos.y]
@@ -79,9 +79,9 @@ class Rule4V2Ep2Ip(AbstractClueRule):
                 letter_map_b[pos.x] = []
             letter_map_b[pos.x].append(letter)
 
-        for pos, _ in board(key=MASTER_BOARD):
+        for pos, _ in board(key=MASTER_BOARD_KEY):
             neighbors_list = []
-            for _key in [MASTER_BOARD, NAME]:
+            for _key in [MASTER_BOARD_KEY, NAME]:
                 _pos = pos.clone()
                 _pos.board_key = _key
                 neighbors_list.append(apply_offsets(_pos))
@@ -89,7 +89,7 @@ class Rule4V2Ep2Ip(AbstractClueRule):
             values[0] = ALPHABET.index(random.choice(letter_map_a[values[0]])) if letter_map_a[values[0]] else -1
             values[1] = ALPHABET.index(random.choice(letter_map_b[values[1]])) if letter_map_b[values[1]] else -1
             r_value = 0 if random.random() > 0.7 else 1
-            _pos.board_key = MASTER_BOARD
+            _pos.board_key = MASTER_BOARD_KEY
             if board.get_type(_pos) != "F":
                 obj = Value4V2Ep2Ip(pos=_pos, code=bytes([values[r_value]])) if values[r_value] != -1 else VALUE_QUESS
                 board.set_value(_pos, obj)
@@ -107,13 +107,13 @@ class Rule4V2Ep2Ip(AbstractClueRule):
             ub += size[0] * size[1]
         info["soft_fn"](ub * 0.4)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, obj in board(mode="object", key=NAME_4V_2Ip):
             board[pos] = None
 
 
 class Value4V2Ep2Ip(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos
 
@@ -124,9 +124,9 @@ class Value4V2Ep2Ip(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{ALPHABET[self.value]}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         positions = []
-        for pos_key in [MASTER_BOARD, BOARD_NAME_4V]:
+        for pos_key in [MASTER_BOARD_KEY, BOARD_NAME_4V]:
             self_pos = self.pos.clone()
             self_pos.board_key = pos_key
             for pos, _ in board("NF", key=NAME_4V_2Ip):
@@ -135,7 +135,7 @@ class Value4V2Ep2Ip(AbstractClueValue):
                     positions.append(_pos)
         return positions
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         # 初始化模型
         model = board.get_model()
         s = switch.get(model, self)
@@ -143,7 +143,7 @@ class Value4V2Ep2Ip(AbstractClueValue):
         logger = get_logger()
 
         sum_var = []
-        for key in [MASTER_BOARD, NAME]:
+        for key in [MASTER_BOARD_KEY, NAME]:
             _pos = self.pos.clone()
             _pos.board_key = key
 

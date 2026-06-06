@@ -3,24 +3,24 @@
 """
 from typing import Callable
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ..sharpRule.Csharp import FakeSwitch
 from importlib import import_module
 
 rule2G = import_module("minesweepervariants.impl.rule.Lrule.2G")
 
-def nei_pos_I(pos: AbstractPosition) -> list[list[AbstractPosition]]:
+def nei_pos_I(pos: Position) -> list[list[Position]]:
     return [
         [pos.down(1), pos.down(2), pos.down(3)],
         [pos.right(1), pos.right(2), pos.right(3)],
     ]
 
-def nei_pos_O(pos: AbstractPosition) -> list[list[AbstractPosition]]:
+def nei_pos_O(pos: Position) -> list[list[Position]]:
     return [
         [pos.down(1), pos.down(1).right(1), pos.right(1)],
     ]
 
-def nei_pos_T(pos: AbstractPosition) -> list[list[AbstractPosition]]:
+def nei_pos_T(pos: Position) -> list[list[Position]]:
     return [
         [pos.down(1), pos.down(2), pos.down(1).right(1)],
         [pos.down(1), pos.down(2), pos.down(1).left(1)],
@@ -28,7 +28,7 @@ def nei_pos_T(pos: AbstractPosition) -> list[list[AbstractPosition]]:
         [pos.right(1), pos.right(2), pos.right(1).down(1)],
     ]
 
-def nei_pos_L(pos: AbstractPosition) -> list[list[AbstractPosition]]:
+def nei_pos_L(pos: Position) -> list[list[Position]]:
     return [
         [pos.down(1), pos.down(2), pos.right(1)],
         [pos.down(1), pos.down(2), pos.left(1)],
@@ -40,7 +40,7 @@ def nei_pos_L(pos: AbstractPosition) -> list[list[AbstractPosition]]:
         [pos.right(1), pos.right(2), pos.right(2).down(1)],
     ]
 
-def nei_pos_S(pos: AbstractPosition) -> list[list[AbstractPosition]]:
+def nei_pos_S(pos: Position) -> list[list[Position]]:
     return [
         [pos.right(1), pos.right(1).down(1), pos.right(2).down(1)],
         [pos.right(1), pos.right(1).up(1), pos.right(2).up(1)],
@@ -59,11 +59,11 @@ class Rule2GStar(AbstractMinesRule):
     creation_time = "2026-01-25"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
 
-    def create_constraints(self, board: AbstractBoard, switch):
-        def at_most_one_shape(board: AbstractBoard, nei_pos_func: Callable[[AbstractPosition], list[list[AbstractPosition]]], switch_var):
+    def create_constraints(self, board: Board, switch):
+        def at_most_one_shape(board: Board, nei_pos_func: Callable[[Position], list[list[Position]]], switch_var):
             vars = []
             model = board.get_model()
             for pos, mine_var in board("always", mode="variable"):

@@ -5,7 +5,7 @@
 from typing import Dict, Literal
 
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from ....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 from ....utils.image_create import get_text, get_image, get_row, get_col, get_dummy
 from ....utils.tool import get_random
 
@@ -76,12 +76,12 @@ class BaseRule3N(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard, data: list[AbstractClueRule] = None):
+    def __init__(self, board: Board, data: list[AbstractClueRule] = None):
         super().__init__(None, None)
         for key in board.get_interactive_keys():
             board.set_config(key, "by_mini", True)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         boards = []
         for rule in [Rule3N0(board), Rule3N1(board),
                      Rule3N2(board), Rule3NInf(board)]:
@@ -97,7 +97,7 @@ class BaseRule3N(AbstractClueRule):
         return board
 
     #
-    def _fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def _fill(self, board: 'Board') -> 'Board':
         if len([_ for _ in board("F")]) < 1:
             return board
 
@@ -133,7 +133,7 @@ class BaseRule3N(AbstractClueRule):
 class BaseValue3N(AbstractClueValue):
     id = "3N"
 
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         if len(code) >= 3:
             self.n = (code[0], code[1])  # (数值, 根次数)
@@ -210,7 +210,7 @@ class BaseValue3N(AbstractClueValue):
             p_val = int(self.p)
         return bytes([self.n[0], self.n[1], p_val])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

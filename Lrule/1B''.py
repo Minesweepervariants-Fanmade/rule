@@ -10,10 +10,10 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
-def get_line(board: AbstractBoard, pos: AbstractPosition):
+def get_line(board: Board, pos: Position):
     result = []
     for move in range(4):
         _pos = pos.clone()
@@ -58,14 +58,14 @@ class Rule1Bpp(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         if data:
             self.value = int(data)
         else:
             self.value = -1
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

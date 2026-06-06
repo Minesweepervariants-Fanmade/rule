@@ -15,7 +15,7 @@
 from ortools.sat.python.cp_model import IntVar
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.utils.tool import get_logger
 
 
@@ -29,7 +29,7 @@ class RuleFR(AbstractMinesRule):
     tags = ["Variant", "Global", "Construction"]
     creation_time = "2026-05-27 17:24:00"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         rule_switch = switch.get(model, self)
 

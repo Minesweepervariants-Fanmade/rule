@@ -1,5 +1,5 @@
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY
 
 from .connect import connect
 
@@ -14,12 +14,12 @@ class Rule1C(AbstractMinesRule):
     creation_time = "2025-10-24"
     author = ("波常未来", 81500378)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 
-        col = board.get_config(config_name="size", board_key=MASTER_BOARD)[0]
-        row = board.get_config(config_name="size", board_key=MASTER_BOARD)[1]
+        col = board.get_config(config_name="size", board_key=MASTER_BOARD_KEY)[0]
+        row = board.get_config(config_name="size", board_key=MASTER_BOARD_KEY)[1]
 
         root_vars = [model.NewBoolVar(f"root_{i}") for i in range(col * row)]
 

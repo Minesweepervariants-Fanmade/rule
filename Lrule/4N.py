@@ -1,5 +1,5 @@
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 class Rule4N(AbstractMinesRule):
     id = "4N"
@@ -11,7 +11,7 @@ class Rule4N(AbstractMinesRule):
     creation_time = "2025-08-23"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self._3I = False
         if data is not None:

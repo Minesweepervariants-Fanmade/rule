@@ -2,7 +2,7 @@ from typing import Dict
 
 from minesweepervariants.utils.web_template import MultiNumber
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from .....utils.image_create import get_text, get_row
 
 from .....utils.tool import get_logger, get_random
@@ -26,7 +26,7 @@ class Rule1L2X(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         random = get_random()
         for pos, _ in board("N"):
             value1 = len([_pos for _pos in pos.neighbors(2) if board.get_type(_pos) == "F" and board.get_dyed(_pos)])
@@ -39,7 +39,7 @@ class Value1L2X(AbstractClueValue):
     value: int
     neighbors: list
 
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]
         self.neighbors = pos.neighbors(2)
@@ -47,7 +47,7 @@ class Value1L2X(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.value // 10} {self.value % 10}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbors
 
     def web_component(self, board) -> Dict:
@@ -72,7 +72,7 @@ class Value1L2X(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

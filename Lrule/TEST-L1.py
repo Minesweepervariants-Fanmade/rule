@@ -2,7 +2,7 @@
 [TEST-L1] TEST-L1：如果一个格子是雷，其水平对称格不是雷
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rule1HX(AbstractMinesRule):
@@ -15,7 +15,7 @@ class Rule1HX(AbstractMinesRule):
     tags = ["Creative", "Local"]
     creation_time = "2026-01-11"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

@@ -11,12 +11,12 @@ from typing import List, Optional
 from ....abs.Lrule import AbstractMinesRule
 from ....abs.Mrule import AbstractMinesClueRule
 from ....abs.Rrule import AbstractClueRule
-from ....abs.board import AbstractBoard, AbstractPosition, Size
+from minesweepervariants.board import Board, Position, Size
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 
 class Abstract3DRule:
-    def __init__(self, board: AbstractBoard, data: str = None):
+    def __init__(self, board: Board, data: str = None):
         if data == "":
             return
         size = Size(board.boundary().x + 1, board.boundary().y + 1)
@@ -29,11 +29,11 @@ class Abstract3DRule:
             board.set_config(key, "MINES", MINES_TAG)
 
     @staticmethod
-    def pos_index(board: AbstractBoard, pos):
+    def pos_index(board: Board, pos):
         return board.get_interactive_keys().index(pos.board_key)
 
     @classmethod
-    def down(cls, board: AbstractBoard, pos: AbstractPosition, n=1):
+    def down(cls, board: Board, pos: Position, n=1):
         keys = board.get_interactive_keys()
         if pos.board_key not in keys:
             return None
@@ -45,7 +45,7 @@ class Abstract3DRule:
         return None
 
     @classmethod
-    def up(cls, board: AbstractBoard, pos: AbstractPosition, n=1):
+    def up(cls, board: Board, pos: Position, n=1):
         keys = board.get_interactive_keys()
         if pos.board_key not in keys:
             return None
@@ -57,7 +57,7 @@ class Abstract3DRule:
         return None
 
     @staticmethod
-    def pos_neighbors(board, pos: AbstractPosition, *args: int) -> List[AbstractPosition]:
+    def pos_neighbors(board, pos: Position, *args: int) -> List[Position]:
         """
         按照欧几里得距离从小到大逐层扩散，筛选范围由距离平方控制（不包含当前位置）。
 
@@ -92,8 +92,8 @@ class Abstract3DRule:
 
         # 定义移动函数（单位向量移动）
         def move_by_vector(
-                _p: AbstractPosition, _dx: int, _dy: int, _dz: int
-        ) -> Optional[AbstractPosition]:
+                _p: Position, _dx: int, _dy: int, _dz: int
+        ) -> Optional[Position]:
             """按向量(dx, dy, dz)移动位置（每步移动1格）"""
             temp = _p
 
@@ -193,18 +193,18 @@ class Abstract3DRule:
 
 
 class Abstract3DMinesRule(AbstractMinesRule, ABC, Abstract3DRule):
-    def __init__(self, board: AbstractBoard, data: str = None):
+    def __init__(self, board: Board, data: str = None):
         Abstract3DRule.__init__(self, board, data)
         super().__init__(board, data)
 
 
 class Abstract3DClueRule(AbstractClueRule, ABC, Abstract3DRule):
-    def __init__(self, board: AbstractBoard, data: str = None):
+    def __init__(self, board: Board, data: str = None):
         Abstract3DRule.__init__(self, board, data)
         super().__init__(board, data)
 
 
 class Abstract3DMinesClueRule(AbstractMinesClueRule, ABC, Abstract3DRule):
-    def __init__(self, board: AbstractBoard, data: str = None):
+    def __init__(self, board: Board, data: str = None):
         Abstract3DRule.__init__(self, board, data)
         super().__init__(board, data)

@@ -34,7 +34,7 @@ from typing import List
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, Size
+from minesweepervariants.board import Board, Size
 from ....impl.summon.solver import Switch
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 
@@ -52,7 +52,7 @@ class RuleLD(AbstractMinesRule):
     tags = ["Creative", "Global", "Construction", "Strict R"]
     creation_time = "2026-05-13"
 
-    def __init__(self, board: AbstractBoard = None, data=None) -> None:
+    def __init__(self, board: Board = None, data=None) -> None:
         super().__init__(board, data)
         # 解析 data 参数：以 ! 开头时启用副板模式
         self.use_auxiliary = False
@@ -87,7 +87,7 @@ class RuleLD(AbstractMinesRule):
             board.generate_board(NAME_LD_AUXILIARY, Size(3 * n, 3 * n))
             board.set_config(NAME_LD_AUXILIARY, "pos_label", True)
 
-    def init_board(self, board: AbstractBoard):
+    def init_board(self, board: Board):
         if not board.get_interactive_keys():
             return
         if not self.use_auxiliary:
@@ -144,7 +144,7 @@ class RuleLD(AbstractMinesRule):
         board.set_config(NAME_LD_AUXILIARY, "labels", labels)
         return board
 
-    def init_clear(self, board: AbstractBoard):
+    def init_clear(self, board: Board):
         if not self.use_auxiliary:
             return
         for key in board.get_interactive_keys():
@@ -182,7 +182,7 @@ class RuleLD(AbstractMinesRule):
                         labels[pos] = "R=X"
                     board.set_config(NAME_LD_AUXILIARY, "labels", labels)
 
-    def create_constraints(self, board: AbstractBoard, switch: Switch) -> None:
+    def create_constraints(self, board: Board, switch: Switch) -> None:
         model = board.get_model()
 
         max_n = max([(board.boundary(key).x + 1) //2  for key in board.get_interactive_keys()])

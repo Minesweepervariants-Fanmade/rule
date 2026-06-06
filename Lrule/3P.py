@@ -10,7 +10,7 @@
 [3P]游行(Parade):可以通过从某格雷出发每次走马步格随后一笔画完所有雷
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.tool import get_logger
 
@@ -25,7 +25,7 @@ class Rule3P(AbstractMinesRule):
     creation_time = "2025-08-14"
     author = ("对映", 3242525312)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.nei_values = []
         if data is None:
@@ -41,7 +41,7 @@ class Rule3P(AbstractMinesRule):
             else:
                 self.nei_values.append(tuple([int(nei_value)]))
 
-    def nei_pos(self, board: AbstractBoard, pos: AbstractPosition):
+    def nei_pos(self, board: Board, pos: Position):
         positions = []
         for nei_value in self.nei_values:
             if len(nei_value) == 1:
@@ -54,7 +54,7 @@ class Rule3P(AbstractMinesRule):
                 )
         return [pos for pos in positions if board.is_valid(pos)]
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
 

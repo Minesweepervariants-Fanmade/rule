@@ -4,7 +4,7 @@
 
 from typing import List
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 from ....utils.tool import get_logger
@@ -19,7 +19,7 @@ class Rule2D(AbstractClueRule):
     creation_time = "2025-10-19"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             counts = []
@@ -32,7 +32,7 @@ class Rule2D(AbstractClueRule):
         return board
 
 class Value2D(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -54,13 +54,13 @@ class Value2D(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def high_light(self, board: AbstractBoard) -> List[AbstractPosition] | None:
+    def high_light(self, board: Board) -> List[Position] | None:
         highlight_positions = []
         for neighbor in self.neighbors:
             highlight_positions.extend(neighbor)
         return highlight_positions
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

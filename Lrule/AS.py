@@ -13,7 +13,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ortools.sat.python.cp_model import CpModel
 
 
@@ -27,7 +27,7 @@ class RuleAS(AbstractMinesRule):
     tags = ["Creative", "Local", "Dyed"]
     creation_time = "2026-04-05"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

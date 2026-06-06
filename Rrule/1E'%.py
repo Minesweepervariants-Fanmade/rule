@@ -1,7 +1,7 @@
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 
@@ -15,7 +15,7 @@ class Rule1E(AbstractClueRule):
     creation_time = "2026-05-30"
     author = ("NT", 2201963934)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             up = get_line(board, pos, 'up')
             down = get_line(board, pos, 'down')
@@ -43,8 +43,8 @@ class Rule1E(AbstractClueRule):
         return board
 
 
-def get_line(board: 'AbstractBoard', pos: 'AbstractPosition', direction: str) -> list['AbstractPosition']:
-    line: list['AbstractPosition'] = []
+def get_line(board: 'Board', pos: 'Position', direction: str) -> list['Position']:
+    line: list['Position'] = []
     while True:
         if direction == 'up':
             next_pos = pos.up()
@@ -65,7 +65,7 @@ def get_line(board: 'AbstractBoard', pos: 'AbstractPosition', direction: str) ->
 
 
 class Value1E(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos
 
@@ -79,7 +79,7 @@ class Value1E(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

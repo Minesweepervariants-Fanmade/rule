@@ -10,7 +10,7 @@
 from typing import List
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
 
 
@@ -71,7 +71,7 @@ class Rule3B(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             col = board.get_col_pos(pos)
@@ -86,7 +86,7 @@ class Rule3B(AbstractClueRule):
 
 
 class Value3B(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.bools = decode_bools_7bit(code)
         self.__code = code
@@ -97,7 +97,7 @@ class Value3B(AbstractClueValue):
             result = (result << 1) | int(b)
         return f"{result}"
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition']:
+    def high_light(self, board: 'Board') -> List['Position']:
         return board.get_row_pos(self.pos) + board.get_col_pos(self.pos)
 
     @classmethod
@@ -107,7 +107,7 @@ class Value3B(AbstractClueValue):
     def code(self) -> bytes:
         return self.__code
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

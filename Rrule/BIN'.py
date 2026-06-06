@@ -1,6 +1,6 @@
 from typing import Dict, List
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ..sharpRule.Csharp import FakeSwitch
 from ....utils.tool import get_random
 from ....impl.impl_obj import get_value
@@ -18,7 +18,7 @@ class RuleBIN(AbstractClueRule):
     creation_time = "2026-01-02"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard = None, data: str = "") -> None:
+    def __init__(self, board: Board = None, data: str = "") -> None:
         super().__init__(board, data)
         data_parts = data.split(";")
         if len(data_parts) != 2:
@@ -26,11 +26,11 @@ class RuleBIN(AbstractClueRule):
         self.rule = (data_parts[0], data_parts[1])
 
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         rules = [board.get_rule_instance(self.rule[0]), board.get_rule_instance(self.rule[1])]
         if not all(rules):
             raise ValueError("Sub-rules for BIN are not properly defined")
-        boards: List[AbstractBoard] = []
+        boards: List[Board] = []
         for rule in rules:
             boards.append(rule.fill(board.clone()))
         for key in board.get_board_keys():
@@ -41,7 +41,7 @@ class RuleBIN(AbstractClueRule):
 
 
 class ValueBIN(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', value: int = 0, rule: tuple[str, str] = ("", ""), code: bytes | None = None):
+    def __init__(self, pos: 'Position', value: int = 0, rule: tuple[str, str] = ("", ""), code: bytes | None = None):
         super().__init__(pos)
         if not code:
             self.value = value
@@ -63,7 +63,7 @@ class ValueBIN(AbstractClueValue):
         rule_bytes_2 = self.rule[1].encode("ascii")
         return bytes([self.value]) + rule_bytes_1 + b',' + rule_bytes_2
 
-    def high_light(self, board: AbstractBoard) -> List[AbstractPosition]:
+    def high_light(self, board: Board) -> List[Position]:
         positions = set()
         for i in range(2):
             clue = self.get_clue(self.value, self.rule[i])
@@ -80,7 +80,7 @@ class ValueBIN(AbstractClueValue):
         clue_code.extend(bytes([value]))
         return get_value(self.pos, bytes(clue_code))
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         model = board.get_model()
         s = switch.get(model, self)
 

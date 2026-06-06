@@ -10,7 +10,7 @@
 最后编辑时间:2026-03-05 00:39
 """
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 OPPSITE_PAIRS = [
@@ -31,7 +31,7 @@ class RuleDUIYINGHEBING(AbstractClueRule):
     tags = ["Variant", "Local", "Number Clue", "Construction"]
     creation_time = "2026-03-05"
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N", special='raw'):
             value = 0
             for opposite in OPPSITE_PAIRS:
@@ -44,7 +44,7 @@ class RuleDUIYINGHEBING(AbstractClueRule):
 
 
 class ValueDUIYINGHEBING(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None):
         super().__init__(pos, code)
         self.count = code[0]
         self.neighbor = self.pos.neighbors(2)
@@ -59,13 +59,13 @@ class ValueDUIYINGHEBING(AbstractClueValue):
     def __repr__(self):
         return f"{self.count}"
 
-    def invalid(self, board: 'AbstractBoard') -> bool:
+    def invalid(self, board: 'Board') -> bool:
         return board.batch(self.neighbor, mode="type", special='raw').count("N") == 0
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 周围雷数等于count"""
         model = board.get_model()
 

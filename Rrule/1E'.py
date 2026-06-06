@@ -8,7 +8,7 @@ from typing import Dict
 
 from minesweepervariants.utils.web_template import Number, StrWithArrow
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from ....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
 
@@ -24,7 +24,7 @@ class Rule1E(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             value = 0
             # 四方向的函数
@@ -63,7 +63,7 @@ class Rule1E(AbstractClueRule):
 
 
 class Value1E(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.value = self.value - 128
         self.pos = pos
@@ -71,7 +71,7 @@ class Value1E(AbstractClueValue):
     def __repr__(self):
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         positions = []
         for i in [
             (1, 0), (-1, 0),
@@ -90,7 +90,7 @@ class Value1E(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value+128])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

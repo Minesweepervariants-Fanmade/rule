@@ -1,7 +1,7 @@
 from minesweepervariants.impl.summon.solver import Switch
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 class RuleSp(AbstractClueRule):
     id = "Sp"
@@ -13,13 +13,13 @@ class RuleSp(AbstractClueRule):
     tags = ["Creative", "Local", "Number Clue", "Construction"]
     creation_time = "2026-04-16"
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             clue_value = ValueSp(pos, value=self._get_span_length(board, pos))
             board.set_value(pos, clue_value)
         return board
 
-    def _get_span_length(self, board: AbstractBoard, pos: AbstractPosition) -> int:
+    def _get_span_length(self, board: Board, pos: Position) -> int:
         nei = [pos.right(), pos.right().down(), pos.down(), pos.left().down(),
                pos.left(), pos.left().up(), pos.up(), pos.right().up()]
         nei_var = [board.get_type(p) == 'F' for p in nei]
@@ -35,7 +35,7 @@ class RuleSp(AbstractClueRule):
         return -1
 
 class ValueSp(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, value: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, value: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -47,7 +47,7 @@ class ValueSp(AbstractClueValue):
     def __repr__(self):
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.pos.neighbors(2)
 
     @classmethod
@@ -57,7 +57,7 @@ class ValueSp(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: AbstractBoard, switch: Switch):
+    def create_constraints(self, board: Board, switch: Switch):
         pos = self.pos
         nei = [pos.right(), pos.right().down(), pos.down(), pos.left().down(),
                pos.left(), pos.left().up(), pos.up(), pos.right().up()]

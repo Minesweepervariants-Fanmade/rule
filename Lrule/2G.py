@@ -8,7 +8,7 @@
 [2G] 四连块 (Group)：所有四连通雷区域的面积为 4
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 class Rule2G(AbstractMinesRule):
@@ -21,7 +21,7 @@ class Rule2G(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.nei_values = []
         if data is None:
@@ -46,7 +46,7 @@ class Rule2G(AbstractMinesRule):
             else:
                 self.nei_values.append(tuple([int(nei_value)]))
 
-    def nei_pos(self, pos: AbstractPosition):
+    def nei_pos(self, pos: Position):
         positions = []
         for nei_value in self.nei_values:
             if len(nei_value) == 1:
@@ -59,11 +59,11 @@ class Rule2G(AbstractMinesRule):
                 )
         return positions
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         model = board.get_model()
         s = switch.get(model, self)
 
-        def dfs(_board: AbstractBoard, _valides: list, step=0, checked=None, _possible_list=None):
+        def dfs(_board: Board, _valides: list, step=0, checked=None, _possible_list=None):
             if _possible_list is None:
                 _possible_list = set()
             if checked is None:

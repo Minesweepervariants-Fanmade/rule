@@ -3,7 +3,7 @@ from typing import List, Tuple, Optional
 
 from minesweepervariants.abs.rule import AbstractRule
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from .....utils.tool import get_logger, get_random
 
@@ -33,7 +33,7 @@ class Rule1L2A(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def __init__(self, board: "AbstractBoard" = None, data=None):
+    def __init__(self, board: "Board" = None, data=None):
         super().__init__(board, data)
         self.flag_1S = None
 
@@ -56,7 +56,7 @@ class Rule1L2A(AbstractClueRule):
                (data is None or all(x == "1" or "1:1" in x for x in data.split(";")))):
                 self.flag_1S = True
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         random = get_random()
         for pos, _ in board("N"):
@@ -66,7 +66,7 @@ class Rule1L2A(AbstractClueRule):
                 continue
             checked = [[False for _ in range(20)] for _ in range(20)]
 
-            def dfs(p: 'AbstractPosition', _checked):
+            def dfs(p: 'Position', _checked):
                 if not board.in_bounds(p): return None
                 if board.get_type(p) != "F": return None
                 if _checked[p.x][p.y]: return None
@@ -93,7 +93,7 @@ class Rule1L2A(AbstractClueRule):
 
 
 class Value1L2A(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None):
         super().__init__(pos, code)
         self.value = code[0] if len(code) == 1 else None
         self.neighbor = pos.neighbors(1)
@@ -113,7 +113,7 @@ class Value1L2A(AbstractClueValue):
             return b'\x00\x00'
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         # 跳过已有的线索格
         model = board.get_model()
         s = switch.get(model, self)

@@ -16,7 +16,7 @@ from typing import List, Tuple
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 class RuleASp(AbstractMinesRule):
@@ -29,7 +29,7 @@ class RuleASp(AbstractMinesRule):
     creation_time = "2026-04-05"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """添加约束：每个2x2方块内不能四种状态都出现。"""
 
         model = board.get_model()

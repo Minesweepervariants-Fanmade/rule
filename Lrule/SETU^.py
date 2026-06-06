@@ -1,7 +1,7 @@
 """SETU^: 将参数图片作为A图并与SETU背景图融合。"""
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from minesweepervariants.utils.convert_images_to_rgba import convert_images_to_rgba
 from minesweepervariants.utils.image_create import register_final_image_postprocess_callback
 from minesweepervariants.utils.tool import get_logger
@@ -23,7 +23,7 @@ class RuleSETUHat(AbstractMinesRule):
     tags = ["Variant", "Parameter"]
     creation_time = "2026-04-11"
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__(board, data)
 
         self.image_a_source = None

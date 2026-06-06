@@ -43,7 +43,7 @@ from collections import deque
 from fractions import Fraction
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ...rule.Lrule.connect import connect
 
 
@@ -61,25 +61,25 @@ class RuleAVG(AbstractClueRule):
   creation_time = "2026-04-10"
 
   @staticmethod
-  def _neighbors4(pos: "AbstractPosition") -> list["AbstractPosition"]:
+  def _neighbors4(pos: "Position") -> list["Position"]:
     return [pos.up(), pos.down(), pos.left(), pos.right()]
 
   @staticmethod
-  def _valid_neighbors(board: "AbstractBoard", pos: "AbstractPosition") -> list["AbstractPosition"]:
+  def _valid_neighbors(board: "Board", pos: "Position") -> list["Position"]:
     return [nei for nei in pos.neighbors(2) if board.in_bounds(nei)]
 
   @classmethod
   def _collect_component(
     cls,
-    board: "AbstractBoard",
-    start: "AbstractPosition",
-  ) -> list["AbstractPosition"]:
+    board: "Board",
+    start: "Position",
+  ) -> list["Position"]:
     if board.get_type(start, special="raw") == "F":
       return []
 
     queue = deque([start])
     seen = {start}
-    component: list[AbstractPosition] = []
+    component: list[Position] = []
 
     while queue:
       current = queue.popleft()
@@ -94,10 +94,10 @@ class RuleAVG(AbstractClueRule):
 
     return component
 
-  def fill(self, board: "AbstractBoard") -> "AbstractBoard":
+  def fill(self, board: "Board") -> "Board":
     for key in board.get_interactive_keys():
       raw_positions = [pos for pos, _ in board("N", key=key, special="raw")]
-      visited: set[AbstractPosition] = set()
+      visited: set[Position] = set()
 
       for start in raw_positions:
         if start in visited:
@@ -119,7 +119,7 @@ class RuleAVG(AbstractClueRule):
 
     return board
 
-  def create_constraints(self, board: "AbstractBoard", switch):
+  def create_constraints(self, board: "Board", switch):
     model = board.get_model()
     s = switch.get(model, self)
 
@@ -183,7 +183,7 @@ class RuleAVG(AbstractClueRule):
 
   @staticmethod
   def _build_key_cache(
-    board: "AbstractBoard",
+    board: "Board",
     key: str,
     model,
     s,
@@ -226,7 +226,7 @@ class RuleAVG(AbstractClueRule):
 
 
 class ValueAVG(AbstractClueValue):
-  def __init__(self, pos: "AbstractPosition", avg: Fraction | int | tuple[int, int] | None = None, code: bytes = None):
+  def __init__(self, pos: "Position", avg: Fraction | int | tuple[int, int] | None = None, code: bytes = None):
     super().__init__(pos, code)
     if code is not None:
       text = code.decode("ascii")
@@ -250,7 +250,7 @@ class ValueAVG(AbstractClueValue):
     self.neighbor4 = self._neighbors4(self.pos)
 
   @staticmethod
-  def _neighbors4(pos: "AbstractPosition") -> list["AbstractPosition"]:
+  def _neighbors4(pos: "Position") -> list["Position"]:
     return [pos.up(), pos.down(), pos.left(), pos.right()]
 
   def __repr__(self):
@@ -267,7 +267,7 @@ class ValueAVG(AbstractClueValue):
       return str(self.value.numerator).encode("ascii")
     return f"{self.value.numerator}/{self.value.denominator}".encode("ascii")
 
-  def high_light(self, board: "AbstractBoard") -> list["AbstractPosition"]:
+  def high_light(self, board: "Board") -> list["Position"]:
     component = [self.pos]
     queue = deque([self.pos])
     seen = {self.pos}

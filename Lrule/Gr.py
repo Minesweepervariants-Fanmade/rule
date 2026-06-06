@@ -4,7 +4,7 @@
 [Gr] Agreement: For each row, there is exactly one column that has the same mine count.
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class RuleGr(AbstractMinesRule):
@@ -17,7 +17,7 @@ class RuleGr(AbstractMinesRule):
     tags = ["Creative", "Global", "Mine-Counting", "Strict R"]
     creation_time = "2026-05-13"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         for key in board.get_interactive_keys():

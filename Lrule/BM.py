@@ -8,7 +8,7 @@
 [BM]多雷平衡(扫联会2)：每行每列的“多雷雷值”相同。(线索格不一定是多雷规则)
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class RuleBM(AbstractMinesRule):
@@ -21,11 +21,11 @@ class RuleBM(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__(board, data)
         self.R_1M = None if data is None else int(data)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s1 = switch.get(model, self)
         s2 = switch.get(model, self)

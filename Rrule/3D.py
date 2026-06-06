@@ -2,12 +2,12 @@
 [3D] 辞典：所有雷从左到右，从上到下依次标号。线索表示周围八格的雷的标号之和
 """
 
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....utils.tool import get_logger
 
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
@@ -23,13 +23,13 @@ class Rule3D(AbstractMinesRule):
     creation_time = "2025-08-23"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.onboard_init(board)
 
-    def onboard_init(self, board: 'AbstractBoard'):
+    def onboard_init(self, board: 'Board'):
         self.dict = {}
-        def get_type(board: 'AbstractBoard', pos: 'AbstractPosition', *args, **kwargs):
+        def get_type(board: 'Board', pos: 'Position', *args, **kwargs):
             if self.dict:
                 return self.dict.get(str(pos), 0)
             for key in board.get_interactive_keys():
@@ -48,7 +48,7 @@ class Rule3D(AbstractMinesRule):
 
 
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         key = board.get_interactive_keys()[0]  # 仅支持单板规则

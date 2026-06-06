@@ -34,7 +34,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard, Size
+from minesweepervariants.board import Board, Size
 
 
 class RuleXS(AbstractMinesRule):
@@ -52,7 +52,7 @@ class RuleXS(AbstractMinesRule):
    def _sub_key(key: str) -> str:
       return f"XS_{key}"
 
-   def _ensure_sub_board(self, board: "AbstractBoard", key: str) -> tuple[int, int, str]:
+   def _ensure_sub_board(self, board: "Board", key: str) -> tuple[int, int, str]:
       size = board.get_config(key, "size")
       if not isinstance(size, tuple) or len(size) != 2:
          return 0, 0, self._sub_key(key)
@@ -63,7 +63,7 @@ class RuleXS(AbstractMinesRule):
       board.generate_board(sub_key, size=Size(h, seg_w))
       return h, w, sub_key
 
-   def init_clear(self, board: "AbstractBoard"):
+   def init_clear(self, board: "Board"):
       board_data = getattr(board, "board_data", {})
       for key in board.get_interactive_keys():
          sub_key = self._sub_key(key)
@@ -72,7 +72,7 @@ class RuleXS(AbstractMinesRule):
          for pos, _ in board(key=sub_key):
             board.set_value(pos, None)
 
-   def create_constraints(self, board: "AbstractBoard", switch):
+   def create_constraints(self, board: "Board", switch):
       # 先创建所有互动副板，再初始化 model，避免缺失 variable 层
       board_infos = [
          (key, *self._ensure_sub_board(board, key))

@@ -3,7 +3,7 @@
 [3D1U] 三维一元 (Unary)：所有雷不能与其他雷相邻
 (3维一元?那你这一维多少元)
 """
-from .....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from .. import Abstract3DMinesRule
 
 
@@ -17,7 +17,7 @@ class Rule3D1U(Abstract3DMinesRule):
     creation_time = "2025-08-30"
     author = ("", 0)
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         model = board.get_model()
         s = switch.get(model, self)
 

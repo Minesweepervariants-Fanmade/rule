@@ -1,5 +1,5 @@
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 class RulePM(AbstractMinesRule):
@@ -12,7 +12,7 @@ class RulePM(AbstractMinesRule):
     creation_time = "2026-01-28"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
         for key in board.get_interactive_keys():

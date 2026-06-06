@@ -8,16 +8,16 @@ import time
 from typing import List, Tuple
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.impl_obj import MINES_TAG, VALUE_QUESS
 
 
 def grid_cells_between(
-    board:AbstractBoard,
-    start: AbstractPosition,
-    end: AbstractPosition
-) -> List[AbstractPosition]:
+    board:Board,
+    start: Position,
+    end: Position
+) -> List[Position]:
     """
     返回从 start 方格中心到 end 方格中心连线所经过的所有方格（包含两端）。
     start, end = (row, col) 整数索引。
@@ -95,7 +95,7 @@ class Rule1EatStar(AbstractClueRule):
     tags = ["Creative", "Local", "Extensive Trial", "Number Clue"]
     author = ("NT", 2201963934)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for board_key in board.get_interactive_keys():
             line_map = {}
             positions = [pos for pos, _ in board(key=board_key)]
@@ -111,7 +111,7 @@ class Rule1EatStar(AbstractClueRule):
 
 
 class Value1EatStar(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]
 
@@ -125,7 +125,7 @@ class Value1EatStar(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> List['Position'] | None:
         high_lights = []
         for pos, _ in board(mode="var", key=self.pos.board_key):
             line = grid_cells_between(board, self.pos, pos)
@@ -134,7 +134,7 @@ class Value1EatStar(AbstractClueValue):
             high_lights.extend(line + [pos])
         return list(set(high_lights))
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)
 

@@ -2,7 +2,7 @@ from typing import List, Dict
 
 from ortools.sat.python.cp_model import CpModel
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 from ....utils.tool import get_random, get_logger
 from ....utils.image_create import get_image, get_text, get_row, get_col, get_dummy
 from ....utils.web_template import StrWithArrow
@@ -17,7 +17,7 @@ class Rule1F(AbstractClueRule):
     creation_time = "2025-09-09"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         for pos, _ in board("N"):
             # 随机选择一个方向 (0:上, 1:右, 2:下, 3:左)
@@ -59,7 +59,7 @@ class Rule1F(AbstractClueRule):
         return board
 
 class Value1F(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', direction: int = 0, count: int = 0, code: bytes = None):
+    def __init__(self, pos: 'Position', direction: int = 0, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if (code is not None):
             self.direction = code[0]
@@ -105,7 +105,7 @@ class Value1F(AbstractClueValue):
                 get_text(str(self.count))
             )
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> list['Position'] | None:
         path = [self.pos]
         path_defined = True
         moves = [
@@ -137,8 +137,8 @@ class Value1F(AbstractClueValue):
                     curr = move(curr)
             return perpendicular_path + path[1:-1]
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
-        def add_perpendicular_constraints(model: CpModel, board: AbstractBoard, start_pos, d, target, cond_var, switch_var):
+    def create_constraints(self, board: 'Board', switch):
+        def add_perpendicular_constraints(model: CpModel, board: Board, start_pos, d, target, cond_var, switch_var):
             # 方向 d 的垂直方向
             if d in (0, 2):  # 上下走，检查左右
                 moves = [lambda p: p.left(), lambda p: p.right()]

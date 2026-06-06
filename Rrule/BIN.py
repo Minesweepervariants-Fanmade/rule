@@ -1,13 +1,13 @@
 from typing import Dict, List, Optional
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ..sharpRule.Csharp import FakeSwitch
 from ....utils.impl_obj import VALUE_QUESS
 from ....utils.tool import get_random
 from ....impl.impl_obj import get_value
 from ....utils.image_create import get_text, get_row
 from ....utils.web_template import MultiNumber
-from ....abs.board import ImmutableDict
+from ....immutable_dict import ImmutableDict
 from base64 import b64encode
 
 VALUE_SPLIT: bytes = b'BIN_SPLIT_FLAG'
@@ -23,7 +23,7 @@ class RuleBIN(AbstractClueRule):
     creation_time = "2026-01-02"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard = None, data: str = "") -> None:
+    def __init__(self, board: Board = None, data: str = "") -> None:
         super().__init__(board, data)
         data_parts = data.split(";")
         if len(data_parts) != 2:
@@ -47,10 +47,10 @@ class RuleBIN(AbstractClueRule):
         data = parts[1] if len(parts) == 2 else None
         return rule_id, data
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         if not all(self.rules):
             raise ValueError("Sub-rules for BIN are not properly defined")
-        boards: List[AbstractBoard] = []
+        boards: List[Board] = []
         for rule in self.rules:
             boards.append(rule.fill(board.clone()))
         for key in board.get_interactive_keys():
@@ -72,7 +72,7 @@ class RuleBIN(AbstractClueRule):
 
 class ValueBIN(AbstractClueValue):
     def __init__(
-        self, pos: 'AbstractPosition',
+        self, pos: 'Position',
         value: Optional[tuple[bytes, bytes]] = None,
         rule: Optional[tuple[bytes, bytes]] = None,
         code: bytes | None = None
@@ -102,7 +102,7 @@ class ValueBIN(AbstractClueValue):
         type_b = self.rule[1]
         return VALUE_SPLIT.join([code_a, code_b, type_a, type_b])
 
-    def high_light(self, board: AbstractBoard) -> List[AbstractPosition]:
+    def high_light(self, board: Board) -> List[Position]:
         positions = set()
         for i in range(2):
             for j in range(2):
@@ -141,7 +141,7 @@ class ValueBIN(AbstractClueValue):
         except:
             return VALUE_QUESS
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         clue1 = self.get_clue(self.value[0], self.rule[0])
         clue2 = self.get_clue(self.value[1], self.rule[1])
 

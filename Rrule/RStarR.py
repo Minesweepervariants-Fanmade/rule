@@ -36,7 +36,7 @@
 """
 
 from minesweepervariants.abs.Rrule import AbstractClueRule
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class RuleRStarR(AbstractClueRule):
@@ -49,7 +49,7 @@ class RuleRStarR(AbstractClueRule):
     creation_time = "2026-05-24"
     author = ("NT", 2201963934)
 
-    def fill(self, board: "AbstractBoard") -> "AbstractBoard":
+    def fill(self, board: "Board") -> "Board":
         total = sum(1 for _, value in board(target="F", mode="type") if value == "F")
         if not isinstance(total, int) or total < 0:
             raise ValueError("R*R 需要在总雷数已确定后才能派生 R*")
@@ -58,5 +58,5 @@ class RuleRStarR(AbstractClueRule):
         board.get_rule_instance("R*", data=data, add=True)
         return board
 
-    def create_constraints(self, board: "AbstractBoard", switch):
+    def create_constraints(self, board: "Board", switch):
         return None

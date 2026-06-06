@@ -12,7 +12,7 @@ from typing import List
 from .. import Abstract3DClueRule
 
 from .....abs.Rrule import AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from .....utils.tool import get_logger
 from .....utils.impl_obj import VALUE_QUESS, MINES_TAG
@@ -28,11 +28,11 @@ class Rule3DV(Abstract3DClueRule):
     creation_time = "2025-08-30"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard, data: str = None):
+    def __init__(self, board: Board, data: str = None):
         super().__init__(board, data)
         ValueV.rule = self
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         ValueV.rule = self
         logger = get_logger()
         for pos, _ in board("N"):
@@ -48,7 +48,7 @@ class Rule3DV(Abstract3DClueRule):
 
 
 class ValueV(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         self.neighbor = None
         if code is not None:
@@ -61,7 +61,7 @@ class ValueV(AbstractClueValue):
     def __repr__(self):
         return f"{self.count}"
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition']:
+    def high_light(self, board: 'Board') -> List['Position']:
         if self.neighbor:
             return self.neighbor
         self.neighbor = []
@@ -78,7 +78,7 @@ class ValueV(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def invalid(self, board: 'AbstractBoard') -> bool:
+    def invalid(self, board: 'Board') -> bool:
         self.neighbor = []
         for _pos in [self.pos, Rule3DV.up(board, self.pos), Rule3DV.down(board, self.pos)]:
             if _pos is None:
@@ -86,7 +86,7 @@ class ValueV(AbstractClueValue):
             self.neighbor.extend(_pos.neighbors(0, 2))
         return board.batch(self.neighbor, mode="type").count("N") == 0
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         type_dict = {"N": [], "F": []}
         self.neighbor = []
         for _pos in [self.pos, Rule3DV.up(board, self.pos), Rule3DV.down(board, self.pos)]:
@@ -112,7 +112,7 @@ class ValueV(AbstractClueValue):
             return True
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 周围雷数等于count"""
         model = board.get_model()
         s = switch.get(model, self)

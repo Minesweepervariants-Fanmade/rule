@@ -3,7 +3,7 @@
 """
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
@@ -56,12 +56,12 @@ class RuleV(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.rule = data or "raw"
 
         class ValueV(AbstractClueValue):
-            def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None, rule=self.rule):
+            def __init__(self, pos: Position, count: int = 0, code: bytes = None, rule=self.rule):
                 super().__init__(pos, code)
                 self.rule = rule
                 if code is not None:
@@ -82,7 +82,7 @@ class RuleV(AbstractClueRule):
             def code(self) -> bytes:
                 return encode_int(self.count)
 
-            def create_constraints(self, board: 'AbstractBoard', switch):
+            def create_constraints(self, board: 'Board', switch):
                 """创建CP-SAT约束: 周围雷数等于count"""
                 model = board.get_model()
 
@@ -100,7 +100,7 @@ class RuleV(AbstractClueRule):
         self.ValueV = ValueV
 
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         def val(s):
             if isinstance(s, str):

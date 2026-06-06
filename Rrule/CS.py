@@ -6,7 +6,7 @@ from typing import List, Dict, Set
 from minesweepervariants.impl.summon.solver import Switch
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue, AbstractValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ...rule.Lrule.connect import connect
 
 from ....utils.tool import get_logger, get_random
@@ -30,8 +30,8 @@ class RuleCS(AbstractClueRule):
     creation_time = "2026-04-05"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
-        def dfs(board: AbstractBoard, pos: AbstractPosition, from_pos: AbstractPosition | None, visited: Dict[AbstractPosition, int], check_mine: bool):
+    def fill(self, board: 'Board') -> 'Board':
+        def dfs(board: Board, pos: Position, from_pos: Position | None, visited: Dict[Position, int], check_mine: bool):
             if not board.in_bounds(pos):
                 return
             if check_mine and board.get_type(pos) != "F":
@@ -58,7 +58,7 @@ class RuleCS(AbstractClueRule):
                         if visited[p] == curr_id:
                             visited[p] = prev_id
         for pos, _ in board("N"):
-            areas: Dict[AbstractPosition, int] = {}
+            areas: Dict[Position, int] = {}
             check_mine = True # 别改，约束目前只考虑雷区
             dfs(board, pos.left(), None, areas, check_mine)
             dfs(board, pos.up(), None, areas, check_mine)
@@ -79,7 +79,7 @@ class RuleCS(AbstractClueRule):
         return board
 
 class ValueCS(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, values: list[int] = [MISSING_VALUE, MISSING_VALUE, MISSING_VALUE, MISSING_VALUE], code: bytes = None):
+    def __init__(self, pos: Position, values: list[int] = [MISSING_VALUE, MISSING_VALUE, MISSING_VALUE, MISSING_VALUE], code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.values: list[int] = list(code)
@@ -122,7 +122,7 @@ class ValueCS(AbstractClueValue):
     def code(self) -> bytes:
         return bytes(self.values)
 
-    def weaker(self, board: AbstractBoard) -> AbstractValue:
+    def weaker(self, board: Board) -> AbstractValue:
         if self.weaker_times() == 1:
             return VALUE_QUESS
 
@@ -134,7 +134,7 @@ class ValueCS(AbstractClueValue):
     def weaker_times(self) -> int:
         return sum(1 for v in self.values if v != MISSING_VALUE)
 
-    def create_constraints(self, board: AbstractBoard, switch: Switch):
+    def create_constraints(self, board: Board, switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
         positions = [pos for pos, _ in board("always", mode="variable")]

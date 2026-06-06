@@ -14,11 +14,11 @@ from typing import Dict, List, Tuple
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
 
 
-def manhattan_neighbors(pos: AbstractPosition, distance: int) -> List[AbstractPosition]:
+def manhattan_neighbors(pos: Position, distance: int) -> List[Position]:
     """返回曼哈顿距离恰好等于 distance 的所有有效格子"""
     neighbors = []
     for dx in range(distance + 1):
@@ -72,7 +72,7 @@ class Rule2P2(AbstractClueRule):
                 pairs.append((a, b))
         return pairs
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         """根据答案板填充所有非雷格的线索值"""
         mines = [pos for pos, _ in board("F", special='raw')]
         if len(mines) < 2:
@@ -92,14 +92,14 @@ class Rule2P2(AbstractClueRule):
             board.set_value(pos, Value2P2(pos, code=product.to_bytes(2, 'big')))
         return board
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         """为每个 Value2P2 线索添加约束"""
         # 这个规则没有全局约束，单个线索的约束统一在 Value2P2 中实现
         pass
 
 
 class Value2P2(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None):
         super().__init__(pos, code)
         if code is None:
             self.value = 0
@@ -121,7 +121,7 @@ class Value2P2(AbstractClueValue):
     def type(cls) -> bytes:
         return Rule2P2.id.encode('ascii')
 
-    def high_light(self, board: AbstractBoard) -> List[AbstractPosition]:
+    def high_light(self, board: Board) -> List[Position]:
         # 高亮距离最近的两个雷所在的环（用于前端展示）
         if self.value == 0:
             return []
@@ -133,7 +133,7 @@ class Value2P2(AbstractClueValue):
             highlights.extend(manhattan_neighbors(self.pos, d))
         return highlights
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         """
         编码约束：当前线索格周围雷的曼哈顿距离中，最小的两个距离之乘积等于 self.value。
         使用“候选距离对”枚举法，对每一对 (a,b) 满足 a*b == value 且 a≤b，建立如下约束：

@@ -37,7 +37,7 @@
 """
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 class Rule6V(AbstractClueRule):
@@ -51,18 +51,18 @@ class Rule6V(AbstractClueRule):
 
     dynamic_dig_enabled = True
     dynamic_dig_use_visibility_optimizer = True
-    author = ("", 0)
+    author = ("NT", 2201963934)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self._visible_clue_values: set[int] = set()
 
     @staticmethod
-    def _valid_neighbors(board: "AbstractBoard", pos: "AbstractPosition") -> list["AbstractPosition"]:
+    def _valid_neighbors(board: "Board", pos: "Position") -> list["Position"]:
         return [nei for nei in pos.neighbors(2) if board.in_bounds(nei)]
 
     @staticmethod
-    def _collect_visible_values_from_board(board: "AbstractBoard") -> set[int]:
+    def _collect_visible_values_from_board(board: "Board") -> set[int]:
         values: set[int] = set()
         for key in board.get_interactive_keys():
             for _, obj in board(key=key):
@@ -72,7 +72,7 @@ class Rule6V(AbstractClueRule):
 
     def _rebuild_visible_values(
         self,
-        board: "AbstractBoard",
+        board: "Board",
         visibility_state: dict[str, dict[tuple[int, int], bool | None]],
     ) -> None:
         values: set[int] = set()
@@ -93,7 +93,7 @@ class Rule6V(AbstractClueRule):
     def dynamic_on_visibility_changed(self, board, visibility_state, changed_positions):
         self._rebuild_visible_values(board, visibility_state)
 
-    def fill(self, board: "AbstractBoard") -> "AbstractBoard":
+    def fill(self, board: "Board") -> "Board":
         for key in board.get_interactive_keys():
             for pos, _ in board("N", key=key, special="raw"):
                 neighbors = self._valid_neighbors(board, pos)
@@ -101,7 +101,7 @@ class Rule6V(AbstractClueRule):
                 board.set_value(pos, Value6V(pos, count=mine_count))
         return board
 
-    def create_constraints(self, board: "AbstractBoard", switch):
+    def create_constraints(self, board: "Board", switch):
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -130,7 +130,7 @@ class Rule6V(AbstractClueRule):
 
 
 class Value6V(AbstractClueValue):
-    def __init__(self, pos: "AbstractPosition", count: int = 0, code: bytes = None):
+    def __init__(self, pos: "Position", count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.count = code[0]
@@ -148,10 +148,10 @@ class Value6V(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def high_light(self, board: "AbstractBoard") -> list["AbstractPosition"]:
+    def high_light(self, board: "Board") -> list["Position"]:
         return [nei for nei in self.neighbor if board.in_bounds(nei)]
 
-    def create_constraints(self, board: "AbstractBoard", switch):
+    def create_constraints(self, board: "Board", switch):
         model = board.get_model()
         s = switch.get(model, self.pos)
 

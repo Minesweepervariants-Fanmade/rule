@@ -14,10 +14,10 @@
 from typing import List
 
 from .. import Abstract3DMinesRule
-from .....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 
 
-def get_vertical_column(board: AbstractBoard, pos: AbstractPosition) -> List[AbstractPosition]:
+def get_vertical_column(board: Board, pos: Position) -> List[Position]:
     """获取给定x,y坐标在所有层中的位置列表"""
     positions = []
     keys = board.get_interactive_keys()
@@ -32,7 +32,7 @@ def get_vertical_column(board: AbstractBoard, pos: AbstractPosition) -> List[Abs
     return positions
 
 
-def get_3d_neighbors(board: AbstractBoard, center_pos: AbstractPosition) -> List[AbstractPosition]:
+def get_3d_neighbors(board: Board, center_pos: Position) -> List[Position]:
     """获取3D空间中的27邻域(3x3x3立方体)内的所有位置"""
     neighbors = []
 
@@ -92,7 +92,7 @@ class Rule3DW(Abstract3DMinesRule):
         info["hard_fns"].append(lambda model, total: model.Add(total == int(total_cells)))
         info["soft_fn"](total_cells, 3)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s1 = switch.get(model, self)
         s2 = switch.get(model, self)

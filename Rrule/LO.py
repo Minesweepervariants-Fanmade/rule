@@ -11,7 +11,7 @@ from ortools.sat.python import cp_model
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.abs.Mrule import AbstractMinesValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.summon import GenerateError
 from minesweepervariants.utils.impl_obj import VALUE_CROSS, VALUE_CIRCLE
 from minesweepervariants.utils.tool import get_logger
@@ -21,12 +21,12 @@ if TYPE_CHECKING:
 
 
 def solver_lightsOut(
-    game_state: Dict[AbstractPosition, bool],
-    board: AbstractBoard
+    game_state: Dict[Position, bool],
+    board: Board
 ) -> Tuple[
     Optional[cp_model.CpModel],
     Optional[cp_model.CpSolver],
-    Dict[AbstractPosition, cp_model.IntVar]
+    Dict[Position, cp_model.IntVar]
 ]:
     model = cp_model.CpModel()
     # 为每个位置创建一个布尔变量，表示是否按下该按钮
@@ -92,7 +92,7 @@ class RuleLO(AbstractClueRule):
     tags = ["Global", "Local", "Creative", "Construction", "Vanilla Variant"]
     creation_time = "2026-05-05"
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         state = {pos: isinstance(obj, AbstractMinesValue) for pos, obj in board("always")}
         model, solver, switch_var = solver_lightsOut(state, board)
         result = {pos: solver.Value(var) for pos, var in switch_var.items()}
@@ -107,7 +107,7 @@ class RuleLO(AbstractClueRule):
             board.set_value(pos, obj)
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         s = switch.get(model, self)  # 规则激活条件
 
@@ -138,7 +138,7 @@ class ValueL0(AbstractClueValue):
     def type(cls) -> bytes:
         return RuleLO.id.encode("ascii")
 
-    def __init__(self, pos: AbstractPosition, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None):
         super().__init__(pos, code)
         self.value = code[0]
         self.neighbor = self.pos.neighbors(0, 2)
@@ -146,15 +146,15 @@ class ValueL0(AbstractClueValue):
     def __repr__(self):
         return f"{self.value}"
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board') -> List['Position'] | None:
         return self.neighbor
 
     def code(self) -> bytes:
         return bytes([self.value])
 
     def create_constraints_(
-        self, switch_vars: Dict[AbstractPosition, cp_model.IntVar],
-        switch: 'Switch', board: AbstractBoard
+        self, switch_vars: Dict[Position, cp_model.IntVar],
+        switch: 'Switch', board: Board
     ):
         model = board.get_model()
         s = switch.get(model, self)

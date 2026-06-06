@@ -1,7 +1,7 @@
 import re
 from typing import Tuple, List, Any
 
-from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY
 from ....abs.Lrule import AbstractMinesRule
 
 import re
@@ -10,7 +10,7 @@ import base64
 from ....utils.tool import get_logger
 
 
-def _parse_binary_string(bin_str: str, bound: "AbstractPosition"):
+def _parse_binary_string(bin_str: str, bound: "Position"):
     """
     根据二进制串（仅含 '0'/'1'）填充 result 与 result_not。
     按行优先顺序遍历，二进制串长度可以小于等于总单元格数。
@@ -37,7 +37,7 @@ def _parse_binary_string(bin_str: str, bound: "AbstractPosition"):
     return result, result_not
 
 
-def parse(s: str, bound: "AbstractPosition") -> tuple[list[tuple[int, int]], list[tuple[int, int]]]:
+def parse(s: str, bound: "Position") -> tuple[list[tuple[int, int]], list[tuple[int, int]]]:
     total_cells = (bound.row + 1) * (bound.col + 1)
 
     # ----- 1. 尝试纯 01 串（仅含 '0'/'1'）-----
@@ -94,7 +94,7 @@ class RuleA2(AbstractMinesRule):
     tags = ["Creative", "Local", "Parameter"]
     creation_time = "2025-09-10"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.values = []
         self.values_not = []
@@ -103,8 +103,8 @@ class RuleA2(AbstractMinesRule):
             return
 
         self.values, self.values_not = parse(data, board.boundary())
-        get_logger().debug(f"values: {[board.get_pos(*pos, MASTER_BOARD) for pos in self.values]}")
-        get_logger().debug(f"values_not: {[board.get_pos(*pos, MASTER_BOARD) for pos in self.values_not]}")
+        get_logger().debug(f"values: {[board.get_pos(*pos, MASTER_BOARD_KEY) for pos in self.values]}")
+        get_logger().debug(f"values_not: {[board.get_pos(*pos, MASTER_BOARD_KEY) for pos in self.values_not]}")
 
     def create_constraints(self, board, switch):
         model = board.get_model()
@@ -118,7 +118,7 @@ class RuleA2(AbstractMinesRule):
 
     def suggest_total(self, info: dict[str, Any]) -> None:
 
-        ub = info["total"][MASTER_BOARD]
+        ub = info["total"][MASTER_BOARD_KEY]
         # info["soft_fn"](len(self.values), 8)
 
         def a(model, total):

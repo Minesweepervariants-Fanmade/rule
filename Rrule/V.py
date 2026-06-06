@@ -8,7 +8,7 @@
 [V]标准扫雷：每个数字标明周围八格内雷的数量。
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from typing import Any, cast, List
 
@@ -26,7 +26,7 @@ class RuleV(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N", special='raw'):
             # `batch` has a dynamic return type; cast to the expected runtime type here
             value_list = cast(List[str], board.batch(pos.neighbors(2), "type"))
@@ -36,7 +36,7 @@ class RuleV(AbstractClueRule):
 
 
 class ValueV(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes | None = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes | None = None):
         # AbstractValue expects bytes for `code`; normalize None -> b'' when delegating
         super().__init__(pos, code or b'')
         if code is not None:
@@ -50,7 +50,7 @@ class ValueV(AbstractClueValue):
     def __repr__(self):
         return f"{self.count}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
 
     @classmethod
@@ -60,11 +60,11 @@ class ValueV(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def invalid(self, board: 'AbstractBoard') -> bool:
+    def invalid(self, board: 'Board') -> bool:
         return cast(List[str], board.batch(self.neighbor, mode="type", special='raw')).count("N") == 0
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
-        type_dict: dict[str, list[AbstractPosition]] = {"N": [], "F": []}
+    def deduce_cells(self, board: 'Board') -> bool:
+        type_dict: dict[str, list[Position]] = {"N": [], "F": []}
         for pos in self.neighbor:
             t = board.get_type(pos)
             if t in ("", "C"):
@@ -84,7 +84,7 @@ class ValueV(AbstractClueValue):
             return True
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch: Any):
+    def create_constraints(self, board: 'Board', switch: Any):
         """创建CP-SAT约束: 周围雷数等于count"""
         model = cast(Any, board.get_model())
         logger = get_logger()

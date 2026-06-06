@@ -3,7 +3,7 @@
 """
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 # The CP‑SAT model used by the solver is provided by OR‑Tools.
 from ortools.sat.python import cp_model
@@ -33,14 +33,14 @@ class RuleRH(AbstractMinesRule):
         self.onboard_init(board)
         self.rule = data or "raw"
 
-    def onboard_init(self, board: 'AbstractBoard'):
+    def onboard_init(self, board: 'Board'):
         """Register a special type function for the rule.
 
         The function inspects the *raw* board state only (no CP‑SAT variables)
         and returns the effective mine value according to the rule description.
         """
 
-        def get_type(board: 'AbstractBoard', pos: 'AbstractPosition', *args, **kwargs):
+        def get_type(board: 'Board', pos: 'Position', *args, **kwargs):
             # Determine whether the current cell is a mine.
             raw = board.get_type(pos, special=self.rule)
             if self.rule == 'raw':
@@ -80,7 +80,7 @@ class RuleRH(AbstractMinesRule):
 
         board.register_type_special('RH', get_type)
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         """#sym:create_constraints
         Create CP‑SAT constraints that are semantically equivalent to the
         ``get_type`` function defined in ``onboard_init``.

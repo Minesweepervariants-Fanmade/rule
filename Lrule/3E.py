@@ -10,7 +10,7 @@
 """
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, Size
+from minesweepervariants.board import Board, Size
 from minesweepervariants.utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 NAME_3E = ["3E_x", "3E_y"]
@@ -26,14 +26,14 @@ class Rule3E(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__(board, data)
         board.generate_board(NAME_3E[0], size=Size(3, 8))
         board.generate_board(NAME_3E[1], size=Size(1, 8))
         board.set_config(NAME_3E[1], "VALUE", VALUE_QUESS)
         board.set_config(NAME_3E[1], "MINES", MINES_TAG)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
 
         vals_list = []
@@ -68,7 +68,7 @@ class Rule3E(AbstractMinesRule):
                         model.Add(y_variables == var_y).OnlyEnforceIf([cond, s])
                         bool_var_index += 1
 
-    def init_board(self, board: 'AbstractBoard'):
+    def init_board(self, board: 'Board'):
         for index, pos in enumerate(board.get_col_pos(
                 board.get_pos(0, 0, NAME_3E[0]))):
             pos1, pos2, pos3 = board.get_row_pos(pos)
@@ -90,6 +90,6 @@ class Rule3E(AbstractMinesRule):
                     index += 1 if types[2] == "F" else 0
                     board.set_value(y_col[index], MINES_TAG if y_type == "F" else VALUE_QUESS)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, _ in board(key=NAME_3E[1]):
             board.set_value(pos, None)

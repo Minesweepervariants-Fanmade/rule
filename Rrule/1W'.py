@@ -8,7 +8,7 @@
 [1W'] 最长数墙 (Longest Wall)：线索表示 3x3 范围内最长的连续雷的长度
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 def MineStatus_1W(clue: list) -> list[int]:
@@ -68,7 +68,7 @@ class Rule1Wp(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             pos_list = [pos.right(), pos.right().down(), pos.down(), pos.left().down(),
                         pos.left(), pos.left().up(), pos.up(), pos.right().up()] * 2
@@ -88,14 +88,14 @@ class Rule1Wp(AbstractClueRule):
 
 
 class Value1Wp(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos
 
     def __repr__(self) -> str:
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.pos.neighbors(2)
 
     @classmethod
@@ -105,7 +105,7 @@ class Value1Wp(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
 
         def get_values(_value: int, _length=3):
             if _length <= 0:

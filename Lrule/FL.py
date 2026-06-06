@@ -7,7 +7,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from ....board import Board
 
 
 class RuleAtLeastOneFullLine(AbstractMinesRule):
@@ -20,7 +20,7 @@ class RuleAtLeastOneFullLine(AbstractMinesRule):
     tags = ["Creative", "Global", "Construction"]
     creation_time = "2026-06-02"
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         model = board.get_model()
         rule_switch = switch.get(model, self)
 

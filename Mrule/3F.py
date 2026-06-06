@@ -10,7 +10,7 @@
 from typing import List, Dict
 
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
 
 
@@ -24,7 +24,7 @@ class Rule3F(AbstractMinesClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("F"):
             nei_type = board.batch(pos.neighbors(2), mode="type", drop_none=True)
             value = len(nei_type) - nei_type.count("F")
@@ -33,7 +33,7 @@ class Rule3F(AbstractMinesClueRule):
 
 
 class MinesValue3F(AbstractMinesValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None):
         self.nei = pos.neighbors(2)
         self.value = code[0]
         self.pos = pos
@@ -41,14 +41,14 @@ class MinesValue3F(AbstractMinesValue):
     def __repr__(self):
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.nei
 
     @classmethod
     def type(cls) -> bytes:
         return Rule3F.id.encode("ascii")
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         logger = get_logger()

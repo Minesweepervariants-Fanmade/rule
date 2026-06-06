@@ -13,7 +13,7 @@ from typing import List, Tuple, Optional
 
 from minesweepervariants.abs.rule import AbstractRule
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from ....utils.tool import get_logger
 
@@ -34,7 +34,7 @@ class Rule2A(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None):
+    def __init__(self, board: "Board" = None, data=None):
         super().__init__(board, data)
         self.flag = UN_FLAG
 
@@ -63,7 +63,7 @@ class Rule2A(AbstractClueRule):
             if name == "2G'" and data is None:
                 self.flag = GROUP_3
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             if self.flag == CONNECT:
@@ -75,7 +75,7 @@ class Rule2A(AbstractClueRule):
                 continue
             checked = [[False for _ in range(20)] for _ in range(20)]
 
-            def dfs(p: 'AbstractPosition', _checked):
+            def dfs(p: 'Position', _checked):
                 if not board.in_bounds(p): return None
                 if board.get_type(p) != "F": return None
                 if _checked[p.x][p.y]: return None
@@ -101,7 +101,7 @@ class Rule2A(AbstractClueRule):
 
 
 class Value2A(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None):
         super().__init__(pos, code)
         self.flag = code[0]
         self.value = code[1]
@@ -201,7 +201,7 @@ class Value2A(AbstractClueValue):
 
         model.Add(sum(var_dict.values()) == value).OnlyEnforceIf(s)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         # 跳过已有的线索格
         model = board.get_model()
         s = switch.get(model, self)

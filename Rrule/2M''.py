@@ -2,7 +2,7 @@
 [2M''] 多雷：每行每列恰有一个雷被视为两个(总雷数不受限制)
 """
 
-from ....abs.board import AbstractBoard, AbstractPosition, Size
+from minesweepervariants.board import Board, Position, Size
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 from ....utils.tool import get_random, get_logger
@@ -53,7 +53,7 @@ class Rule2M(AbstractClueRule):
     creation_time = "2025-08-22"
     author = ("", 0)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         bound = board.boundary()
         if bound.x != bound.y:
@@ -65,7 +65,7 @@ class Rule2M(AbstractClueRule):
                 raise ValueError("请保证其他题板尺寸均一致")
         board.generate_board(NAME_2M, Size(bound.x + 1, bound.y + 1))
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         boundary = board.boundary()
         keys = board.get_interactive_keys()
@@ -108,11 +108,11 @@ class Rule2M(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, _ in board(key=NAME_2M):
             board.set_value(pos, None)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         bound = board.boundary(key=NAME_2M)
@@ -139,7 +139,7 @@ class Rule2M(AbstractClueRule):
 
 
 class Value2M(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.nei = pos.neighbors(2)
         self.pos = pos
@@ -154,10 +154,10 @@ class Value2M(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.nei
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         vals = []

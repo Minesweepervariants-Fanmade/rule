@@ -11,7 +11,7 @@ from .....utils.impl_obj import VALUE_QUESS
 from .....utils.tool import get_random, get_logger
 
 from .....abs.Rrule import AbstractClueValue, AbstractClueRule
-from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY
 
 ALPHABET = "ABCDEFGHI"
 
@@ -26,11 +26,11 @@ class Rule1K2Ep(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__()
-        board.set_config(MASTER_BOARD, "pos_label", True)
+        board.set_config(MASTER_BOARD_KEY, "pos_label", True)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         letter_map = {i: [] for i in range(9)}
         logger = get_logger()
@@ -56,7 +56,7 @@ class Rule1K2Ep(AbstractClueRule):
 
 
 class Value1K2Ep(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]    # 实际为第几列的字母
         self.neighbors = pos.neighbors(5, 5)
@@ -65,7 +65,7 @@ class Value1K2Ep(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{ALPHABET[self.value]}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbors
 
     @classmethod
@@ -75,7 +75,7 @@ class Value1K2Ep(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         pos = board.get_pos(0, self.value)

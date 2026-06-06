@@ -1,11 +1,11 @@
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 from ....utils.tool import get_logger
 
 
-def get_pos_box(board: AbstractBoard, top_left: AbstractPosition, bottom_right: AbstractPosition) -> list[AbstractPosition]:
+def get_pos_box(board: Board, top_left: Position, bottom_right: Position) -> list[Position]:
         positions = []
         for x in range(top_left.x, bottom_right.x + 1):
             for y in range(top_left.y, bottom_right.y + 1):
@@ -24,7 +24,7 @@ class Rule2D(AbstractClueRule):
     creation_time = "2026-01-13"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             upwards = 0
@@ -38,7 +38,7 @@ class Rule2D(AbstractClueRule):
 
 
 class Value2D(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -57,8 +57,8 @@ class Value2D(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def create_constraints(self, board: AbstractBoard, switch):
-        def collect_side_vars(board: AbstractBoard, pos: AbstractPosition, step: int, cont_var, switch):
+    def create_constraints(self, board: Board, switch):
+        def collect_side_vars(board: Board, pos: Position, step: int, cont_var, switch):
             for i, _pos in enumerate([pos.left(), pos.right()]):
                 if not board.in_bounds(_pos):
                     model.Add(collect_vars[step * 2 + i] == 0).OnlyEnforceIf(switch)

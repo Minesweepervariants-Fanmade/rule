@@ -11,7 +11,7 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 from ....utils.tool import get_random, get_logger
 
 from ....abs.Rrule import AbstractClueValue, AbstractClueRule
-from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
 
 ALPHABET = "ABCDEFGHI"
 NAME_2Epp = "2E''"
@@ -28,10 +28,10 @@ class Rule2Ep(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__()
         size = Size(board.boundary().row + 1, board.boundary().col + 1)
-        board.set_config(MASTER_BOARD, "pos_label", True)
+        board.set_config(MASTER_BOARD_KEY, "pos_label", True)
         board.generate_board(NAME_2Epp, size)
         board.set_config(NAME_2Epp, "pos_label", True)
         board.set_config(NAME_2Epp, "interactive", True)
@@ -39,12 +39,12 @@ class Rule2Ep(AbstractClueRule):
         board.set_config(NAME_2Epp, "VALUE", VALUE_QUESS)
         board.set_config(NAME_2Epp, "MINES", MINES_TAG)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         random = get_random()
         logger = get_logger()
         for (key_a, key_b) in [
-            (MASTER_BOARD, NAME_2Epp),
-            (NAME_2Epp, MASTER_BOARD)
+            (MASTER_BOARD_KEY, NAME_2Epp),
+            (NAME_2Epp, MASTER_BOARD_KEY)
         ]:
             letter_map = {i: [] for i in range(9)}
             for pos, _ in board("F", key=key_a):
@@ -69,7 +69,7 @@ class Rule2Ep(AbstractClueRule):
 
 
 class Value2Ep(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]    # 实际为第几列的字母
         self.neighbors = pos.neighbors(2)
@@ -78,7 +78,7 @@ class Value2Ep(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{ALPHABET[self.value]}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbors
 
     @classmethod
@@ -88,13 +88,13 @@ class Value2Ep(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
-        if self.pos.board_key == MASTER_BOARD:
+        if self.pos.board_key == MASTER_BOARD_KEY:
             board_key = NAME_2Epp
         else:
-            board_key = MASTER_BOARD
+            board_key = MASTER_BOARD_KEY
         pos = board.get_pos(0, self.value, board_key)
         line = board.get_col_pos(pos)
         # print(self.pos, self, pos)

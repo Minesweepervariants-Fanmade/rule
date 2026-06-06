@@ -38,7 +38,7 @@ from typing import List
 from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....impl.summon.solver import Switch
 
 
@@ -61,7 +61,7 @@ class RuleSD(AbstractMinesRule):
     tags = ["Creative", "Global", "Construction", "Strict R"]
     creation_time = "2026-05-15"
 
-    def __init__(self, board: AbstractBoard = None, data=None) -> None:
+    def __init__(self, board: Board = None, data=None) -> None:
         super().__init__(board, data)
         if board is None:
             return
@@ -75,7 +75,7 @@ class RuleSD(AbstractMinesRule):
             if rows not in (8, 27):
                 raise ValueError(f"SD 规则要求边长只能是 8 或 27, 但当前边长为 {rows}")
 
-    def create_constraints(self, board: AbstractBoard, switch: Switch) -> None:
+    def create_constraints(self, board: Board, switch: Switch) -> None:
         model = board.get_model()
         s = switch.get(model, self)
 

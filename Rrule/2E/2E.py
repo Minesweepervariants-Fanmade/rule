@@ -12,7 +12,7 @@ from typing import List, Dict
 
 from minesweepervariants.utils.image_create import get_text, get_col, get_dummy
 from minesweepervariants.utils.web_template import Number
-from .....abs.board import AbstractBoard, AbstractPosition, Size
+from minesweepervariants.board import Board, Position, Size
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
 from .....utils.impl_obj import VALUE_QUESS, VALUE_CROSS, VALUE_CIRCLE
 from .....utils.tool import get_random
@@ -30,14 +30,14 @@ class Rule2E(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def __init__(self, data=None, board: 'AbstractBoard' = None):
+    def __init__(self, data=None, board: 'Board' = None):
         super().__init__(board, data)
         pos = board.boundary()
         size = min(pos.x + 1, 9)
         board.generate_board(NAME_2E, Size(size, size))
         board.set_config(NAME_2E, "pos_label", True)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         self.init_clear(board)
         random = get_random()
         shuffled_nums = [i for i in range(min(9, board.boundary().x + 1))]
@@ -60,7 +60,7 @@ class Rule2E(AbstractClueRule):
 
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         bound = board.boundary(key=NAME_2E)
@@ -77,13 +77,13 @@ class Rule2E(AbstractClueRule):
             var = board.batch(line, mode="variable")
             model.Add(sum(var) == 1).OnlyEnforceIf(s)
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, _ in board(key=NAME_2E):
             board.set_value(pos, None)
 
 
 class Value2E(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos
         self.neighbors = pos.neighbors(2)
@@ -115,7 +115,7 @@ class Value2E(AbstractClueValue):
                 get_dummy(height=0.3),
             )
 
-    def high_light(self, board: 'AbstractBoard') -> List['AbstractPosition']:
+    def high_light(self, board: 'Board') -> List['Position']:
         return self.neighbors
 
     @classmethod
@@ -125,7 +125,7 @@ class Value2E(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

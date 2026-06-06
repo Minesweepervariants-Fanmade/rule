@@ -1,4 +1,4 @@
-from minesweepervariants.abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from minesweepervariants.impl.summon.solver import Switch
 
 from ....abs.Lrule import AbstractMinesRule
@@ -32,7 +32,7 @@ class RuleFS(AbstractMinesRule):
         self.n = int(width ** 0.5)
 
 
-    def create_constraints(self, board: "AbstractBoard", switch: "Switch"):
+    def create_constraints(self, board: "Board", switch: "Switch"):
         model = board.get_model()
         s = switch.get(model, self)
 

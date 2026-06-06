@@ -11,7 +11,7 @@ import math
 from typing import List
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 
@@ -25,7 +25,7 @@ class RuleUP(AbstractClueRule):
     creation_time = "2025-08-07"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for key in board.get_interactive_keys():
             root_pos = board.boundary(key)
             for col_pos in board.get_col_pos(root_pos)[::-1]:
@@ -46,7 +46,7 @@ class RuleUP(AbstractClueRule):
                     board[pos] = obj
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
         pos_var_map = {}
         for key in board.get_interactive_keys():
@@ -75,14 +75,14 @@ class RuleUP(AbstractClueRule):
 
 
 class ValueUP(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         self.value = code[0]
 
     def __repr__(self):
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard', pos=None) -> List['AbstractPosition'] | None:
+    def high_light(self, board: 'Board', pos=None) -> List['Position'] | None:
         if pos is None:
             pos = self.pos
         if board.get_type(pos) != "C":
@@ -101,6 +101,6 @@ class ValueUP(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints_(self, board: 'AbstractBoard', var, switch: 'Switch'):
+    def create_constraints_(self, board: 'Board', var, switch: 'Switch'):
         model = board.get_model()
         model.Add(var == self.value).OnlyEnforceIf(switch.get(model, self))

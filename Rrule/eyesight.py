@@ -4,13 +4,13 @@ from typing import List, Callable, Optional
 from ortools.sat.python.cp_model import IntVar
 
 from minesweepervariants.utils.tool import get_logger
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 
 
 def eyesight_var(
-    board: AbstractBoard, switch: IntVar,
-    move_funcs: List[Callable[[int], Optional[AbstractPosition]]] = None
+    board: Board, switch: IntVar,
+    move_funcs: List[Callable[[int], Optional[Position]]] = None
 ) -> List[IntVar]:
     if move_funcs is None:
         move_funcs = []
@@ -54,7 +54,7 @@ class AbstractEyesightClueRule(AbstractClueRule, ABC):
         需要返回线索对象类型
         """
 
-    def fill(self, board: AbstractBoard):
+    def fill(self, board: Board):
         for pos, _ in board("N"):
             value = 1  # 包括自身
             # 四个斜向方向的函数
@@ -77,7 +77,7 @@ class AbstractEyesightClueRule(AbstractClueRule, ABC):
 
 
 class AbstractEyesightClueValue(AbstractClueValue, ABC):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b'', *args, **kwargs):
+    def __init__(self, pos: 'Position', code: bytes = b'', *args, **kwargs):
         super().__init__(pos, *args, **kwargs)
         self.value = code[0]
 
@@ -85,7 +85,7 @@ class AbstractEyesightClueValue(AbstractClueValue, ABC):
         return str(self.value)
 
     @abstractmethod
-    def direction_funcs(self) -> List[Callable[[int], AbstractPosition]]:
+    def direction_funcs(self) -> List[Callable[[int], Position]]:
         """
         需要返回所有方向的函数
         """
@@ -93,7 +93,7 @@ class AbstractEyesightClueValue(AbstractClueValue, ABC):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         positions = []
         for direction_func in self.direction_funcs():
             n = 0
@@ -102,7 +102,7 @@ class AbstractEyesightClueValue(AbstractClueValue, ABC):
                 positions.append(pos)
         return positions
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

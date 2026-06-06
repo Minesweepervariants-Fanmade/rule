@@ -8,7 +8,7 @@
 [2E'2I]自指残缺:字母X周围8格中某7格的雷数如果有N个 则标有X=N的格子必定是雷 7格的方位被当前题板所有线索共享
 """
 from .....abs.Rrule import AbstractClueRule, AbstractClueValue
-from .....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
 from .....utils.impl_obj import VALUE_QUESS, VALUE_CROSS, VALUE_CIRCLE
 from .....utils.tool import get_logger, get_random
 
@@ -26,13 +26,13 @@ class Rule2Ep2I(AbstractClueRule):
     author = ("", 0)
     creation_time = ""
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__()
         board.generate_board(NAME_2I, Size(3, 3))
-        board.set_config(MASTER_BOARD, "pos_label", True)
+        board.set_config(MASTER_BOARD_KEY, "pos_label", True)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
-        def apply_offsets(_pos: AbstractPosition):
+    def fill(self, board: 'Board') -> 'Board':
+        def apply_offsets(_pos: Position):
             nonlocal offsets
             result = []
             for dpos in offsets:
@@ -77,7 +77,7 @@ class Rule2Ep2I(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, obj in board(mode="object", key=NAME_2I):
             if isinstance(obj, Value2Ep2I_7):
                 continue
@@ -85,14 +85,14 @@ class Rule2Ep2I(AbstractClueRule):
 
 
 class Value2Ep2I(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]  # 实际为第几列的字母
         self.pos = pos
 
     def __repr__(self) -> str:
         return f"{ALPHABET[self.value]}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         positions = []
         for pos, _ in board("NF", key=NAME_2I):
             _pos = self.pos.deviation(pos.shift(1, -1))
@@ -111,7 +111,7 @@ class Value2Ep2I(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         # 初始化日志
         logger = get_logger()
         # 初始化模型
@@ -157,7 +157,7 @@ class Value2Ep2I(AbstractClueValue):
 
 
 class Value2Ep2I_7(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.neighbors = pos.neighbors(2)
         self.pos = pos
 
@@ -172,6 +172,6 @@ class Value2Ep2I_7(AbstractClueValue):
     def type(cls) -> bytes:
         return Rule2Ep2I.id.encode("ascii") + b"_7"
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         model.Add(sum(board.batch(self.neighbors, mode="variable")) == 7).OnlyEnforceIf(switch.get(model, self))

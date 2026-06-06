@@ -10,7 +10,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rule1B(AbstractMinesRule):
@@ -24,7 +24,7 @@ class Rule1B(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("波常未来", 81500378)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s1 = switch.get(model, self)
         s2 = switch.get(model, self)

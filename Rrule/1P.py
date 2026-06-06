@@ -8,7 +8,7 @@
 [1P] 分组 (Partition)：线索表示 3x3 范围内连续雷的组数
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractPosition, AbstractBoard
+from minesweepervariants.board import Position, Board
 from ....utils.tool import get_logger
 
 
@@ -67,7 +67,7 @@ class Rule1P(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             nei = [pos.right(), pos.right().down(), pos.down(), pos.left().down(),
@@ -89,14 +89,14 @@ class Rule1P(AbstractClueRule):
 
 
 class Value1P(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos
 
     def __repr__(self):
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.pos.neighbors(2)
 
     @classmethod
@@ -106,7 +106,7 @@ class Value1P(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

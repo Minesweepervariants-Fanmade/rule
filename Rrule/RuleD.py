@@ -10,7 +10,7 @@
 from ortools.sat.python.cp_model import IntVar, CpModel
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 
 
@@ -24,7 +24,7 @@ class RuleC(AbstractClueRule):
     creation_time = "2025-08-17"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         mines_map = {}
         for pos, _ in board("F"):
             mines_map[pos] = board.batch(pos.neighbors(1, 2), "type").count("F") < 4
@@ -37,7 +37,7 @@ class RuleC(AbstractClueRule):
             board[pos] = ValueC(pos, bytes([value]))
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch'):
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
         model = board.get_model()
 
         var_map = {}
@@ -57,7 +57,7 @@ class RuleC(AbstractClueRule):
 
 class ValueC(AbstractClueValue):
 
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]
 

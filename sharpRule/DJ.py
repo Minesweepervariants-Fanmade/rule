@@ -1,11 +1,11 @@
 from ortools.sat.python.cp_model import CpModel, IntVar
 from typing import Any, Generator, List
 
-from ....abs.board import MASTER_BOARD, AbstractPosition, Size
+from minesweepervariants.position import Position
 
 from ....abs.Rrule import AbstractClueRule
 from ....impl.rule.Rrule.V import RuleV
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ..Rrule.sharp import RuleSharp as ClueSharp
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
@@ -19,7 +19,7 @@ class RuleDJ(AbstractClueRule):
     tags = ["Creative", "Global", "Multi-Board"]
     creation_time = "2026-04-19"
 
-    def __init__(self, board: AbstractBoard = None, data: str = 'V;V') -> None:
+    def __init__(self, board: Board = None, data: str = 'V;V') -> None:
         super().__init__(board, data)
         size = Size(board.boundary().x + 1, board.boundary().y + 1)
         board.generate_board('2', size)
@@ -53,7 +53,7 @@ class RuleDJ(AbstractClueRule):
         board.set_config('2', "by_mini", sum(1 for rule in self.right_rules if isinstance(rule, AbstractClueRule)) > 1)
 
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         _board = board.clone()
         self.left_rule.fill(_board)
         for pos, _ in board('N', key='1'):
@@ -64,7 +64,7 @@ class RuleDJ(AbstractClueRule):
             board.set_value(pos, _board.get_value(pos))
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         sub_board_1 = SubBoard(board, '1')
         sub_board_2 = SubBoard(board, '2')
         for pos, _ in board(key='1'):
@@ -76,12 +76,12 @@ class RuleDJ(AbstractClueRule):
         for rule in self.right_rules:
             rule.create_constraints(sub_board_2, switch)
 
-class SubBoard(AbstractBoard):
-    def __init__(self, board: AbstractBoard, key: str):
+class SubBoard:
+    def __init__(self, board: Board, key: str):
         self.board = board
         self.key = key
 
-    def __call__(self, target: str | None = "always", mode: str = "object", key: str | None = '1', *args, **kwargs) -> Generator[tuple[AbstractPosition, Any], Any, None]:
+    def __call__(self, target: str | None = "always", mode: str = "object", key: str | None = '1', *args, **kwargs) -> Generator[tuple[Position, Any], Any, None]:
         for pos, value in self.board(target=target, mode=mode, key=self.key, *args, **kwargs):
             yield pos, value
 
@@ -95,7 +95,7 @@ class SubBoard(AbstractBoard):
         _pos.board_key = self.key
         self.board.set_value(_pos, value)
 
-    def get_variable(self, pos: AbstractPosition, special: str = '') -> IntVar:
+    def get_variable(self, pos: Position, special: str = '') -> IntVar:
         _pos = pos.clone()
         _pos.board_key = self.key
         return self.board.get_variable(_pos, special)
@@ -118,25 +118,25 @@ class SubBoard(AbstractBoard):
     def get_model(self) -> CpModel:
         return self.board.get_model()
 
-    def get_pos(self, x, y, key='1') -> AbstractPosition:
+    def get_pos(self, x, y, key='1') -> Position:
         return self.board.get_pos(x, y, key)
 
-    def get_pos_box(self, pos1: AbstractPosition, pos2: AbstractPosition) -> List[AbstractPosition]:
+    def get_pos_box(self, pos1: Position, pos2: Position) -> List[Position]:
         return self.board.get_pos_box(pos1, pos2)
 
-    def get_col_pos(self, pos: AbstractPosition) -> List[AbstractPosition]:
+    def get_col_pos(self, pos: Position) -> List[Position]:
         return self.board.get_col_pos(pos)
 
-    def get_row_pos(self, pos: AbstractPosition) -> List[AbstractPosition]:
+    def get_row_pos(self, pos: Position) -> List[Position]:
         return self.board.get_row_pos(pos)
 
-    def get_dyed(self, pos: AbstractPosition) -> bool:
+    def get_dyed(self, pos: Position) -> bool:
         return self.board.get_dyed(pos)
 
-    def get_type(self, pos: AbstractPosition) -> str:
+    def get_type(self, pos: Position) -> str:
         return self.board.get_type(pos)
 
-    def batch(self, positions: List[AbstractPosition], mode: str, drop_none: bool = False, *args, **kwargs) -> List[Any]:
+    def batch(self, positions: List[Position], mode: str, drop_none: bool = False, *args, **kwargs) -> List[Any]:
         result = []
         for pos in positions:
             if drop_none and not self.in_bounds(pos):
@@ -157,7 +157,7 @@ class SubBoard(AbstractBoard):
                 raise ValueError(f"Unsupported mode: {mode}")
         return result
 
-    def boundary(self, key='1') -> AbstractPosition:
+    def boundary(self, key='1') -> Position:
         return self.board.boundary(key=self.key)
 
     def generate_board(self, board_key: str, size: tuple = (), labels: List[str] = [], code: bytes = None) -> None:
@@ -176,7 +176,7 @@ class SubBoard(AbstractBoard):
     def clear_board(self):
         raise NotImplementedError
 
-    def set_dyed(self, pos: AbstractPosition, dyed: bool):
+    def set_dyed(self, pos: Position, dyed: bool):
         raise NotImplementedError
 
     def clear_variable(self):
@@ -185,5 +185,5 @@ class SubBoard(AbstractBoard):
     def show_board(self, show_tag: bool = False):
         raise NotImplementedError
 
-    def pos_label(self, pos: AbstractPosition) -> str:
+    def pos_label(self, pos: Position) -> str:
         raise NotImplementedError

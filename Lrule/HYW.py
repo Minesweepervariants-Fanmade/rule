@@ -24,5 +24,5 @@ class Rule1D(AbstractMinesRule):
     creation_time = "2025-10-26"
 
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         raise 何意味("何意味")

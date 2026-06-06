@@ -14,7 +14,7 @@ from typing import List, Optional, Tuple
 
 from ....abs.Mrule import AbstractMinesValue
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition, MASTER_BOARD, Size
+from minesweepervariants.board import Board, Position, MASTER_BOARD_KEY, Size
 from ....utils.impl_obj import VALUE_QUESS, VALUE_CROSS
 from ....utils.tool import get_random, get_logger
 from ....impl.impl_obj import get_rule, get_value
@@ -36,7 +36,7 @@ class RuleDollar(AbstractClueRule):
     creation_time = "2026-05-11"
     author = ("Boi", 0)
 
-    def __init__(self, board: AbstractBoard = None, data: str = None):
+    def __init__(self, board: Board = None, data: str = None):
         super().__init__(board, data)
         self.onrandom = False
         base_rule_name, base_rule_data = self._parse_rule_part(data, 0)
@@ -47,7 +47,7 @@ class RuleDollar(AbstractClueRule):
         if base_rule_name is None:
             raise ValueError("Snowflake rule requires a base rule")
 
-        bound = board.boundary(MASTER_BOARD)
+        bound = board.boundary(MASTER_BOARD_KEY)
         if bound.x != bound.y:
             raise ValueError("Snowflake rule requires a square board")
 
@@ -75,15 +75,15 @@ class RuleDollar(AbstractClueRule):
             return rule_id, rule_data
         return part, None
 
-    def init_clear(self, board: 'AbstractBoard'):
+    def init_clear(self, board: 'Board'):
         for pos, _ in board(key=NAME_SNOW):
             board[pos] = None
 
-    def init_board(self, board: 'AbstractBoard'):
+    def init_board(self, board: 'Board'):
         for pos, _ in board("N", key=NAME_SNOW):
             board[pos] = VALUE_CROSS
 
-    def fill(self, board: AbstractBoard) -> AbstractBoard:
+    def fill(self, board: Board) -> Board:
         # 获取基础规则的 fill 结果
         base_board = board.clone()
         base_board = self.base_rule.fill(base_board)
@@ -91,7 +91,7 @@ class RuleDollar(AbstractClueRule):
         snow_board = self.snow_rule.fill(snow_board)
 
         # 遍历所有非雷格，填充线索
-        for pos, _ in board("N", key=MASTER_BOARD):
+        for pos, _ in board("N", key=MASTER_BOARD_KEY):
             x, y = pos.x, pos.y
             snow_pos = board.get_pos(x, y, key=NAME_SNOW)
             is_snow = isinstance(board[snow_pos], AbstractMinesValue)
@@ -108,7 +108,7 @@ class RuleDollar(AbstractClueRule):
             board.set_value(pos, val)
         return board
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         bound = board.boundary(key=NAME_SNOW)
@@ -151,7 +151,7 @@ class RuleDollar(AbstractClueRule):
 
 
 class ValueDollar(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, code: Optional[bytes] = None):
+    def __init__(self, pos: Position, code: Optional[bytes] = None):
         super().__init__(pos, code)
         parts = code.split(SPLIT_SNOW.encode("ascii"))
         self.base_rule = parts[0]
@@ -168,7 +168,7 @@ class ValueDollar(AbstractClueValue):
     def code(self) -> bytes:
         return SPLIT_SNOW.encode("ascii").join([self.base_rule, self.snow_rule, self.code_value])
 
-    def high_light(self, board: AbstractBoard) -> List[AbstractPosition]:
+    def high_light(self, board: Board) -> List[Position]:
         # 返回邻居区域（简化：高亮所有邻居，实际可能更复杂）
         snow_pos = board.get_pos(self.pos.x, self.pos.y, key=NAME_SNOW)
         is_snow = None if board[snow_pos] is None else isinstance(board[snow_pos], AbstractMinesValue)
@@ -189,7 +189,7 @@ class ValueDollar(AbstractClueValue):
         except:
             return VALUE_QUESS
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         # 实际约束由 RuleDollar.create_constraints 统一处理
         model = board.get_model()
         s = switch.get(model, self)

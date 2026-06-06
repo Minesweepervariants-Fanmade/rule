@@ -2,7 +2,7 @@
 [4S']阶梯': 雷值等于行号与列号之和, 但从0开始
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
@@ -18,15 +18,15 @@ class Rule3I(AbstractMinesRule):
     tags = ["Variant", "Global", "Mine-Value"]
     creation_time = "2025-10-26"
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
         self.onboard_init(board)
 
-    def onboard_init(self, board: 'AbstractBoard'):
+    def onboard_init(self, board: 'Board'):
         board.register_type_special('4S\'', self.get_type)
 
 
-    def create_constraints(self, board: 'AbstractBoard', switch: 'Switch') -> None:
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
         s = switch.get(model, self)
         for key in board.get_interactive_keys():
@@ -37,7 +37,7 @@ class Rule3I(AbstractMinesRule):
                 model.Add(det == 0).OnlyEnforceIf(raw.Not())
 
     @staticmethod
-    def get_type(board: 'AbstractBoard', pos: 'AbstractPosition', *args, **kwargs):
+    def get_type(board: 'Board', pos: 'Position', *args, **kwargs):
         value = board.get_type(pos, special='raw')
 
         if value == "F":

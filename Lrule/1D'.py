@@ -8,7 +8,7 @@
 [1D'] 战舰 (Battleship)：每个雷区域为宽度为 1、长度不超过 4 的矩形，矩形不能对角相邻
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rule1Dp(AbstractMinesRule):
@@ -22,7 +22,7 @@ class Rule1Dp(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         # 获取求解器模型
         model = board.get_model()
         s = switch.get(model, self)

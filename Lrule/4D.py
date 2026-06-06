@@ -1,5 +1,5 @@
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 from .connect import connect
 
@@ -13,7 +13,7 @@ class Rule4D(AbstractMinesRule):
     creation_time = "2025-12-31"
     author = ("", 0)
 
-    def create_constraints(self, board: AbstractBoard, switch):
+    def create_constraints(self, board: Board, switch):
         model = board.get_model()
         s = switch.get(model, self)
 

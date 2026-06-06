@@ -1,5 +1,5 @@
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class RuleSK(AbstractMinesRule):
@@ -12,7 +12,7 @@ class RuleSK(AbstractMinesRule):
     creation_time = "2026-05-27"
     author = ("NT", 2201963934)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 

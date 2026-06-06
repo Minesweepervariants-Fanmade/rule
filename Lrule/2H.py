@@ -8,7 +8,7 @@
 [2H] 横向 (Horizontal)：所有雷必须存在横向相邻的雷
 """
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class Rule2H(AbstractMinesRule):
@@ -21,7 +21,7 @@ class Rule2H(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
         for pos, var in board(mode="variable"):

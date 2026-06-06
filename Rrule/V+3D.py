@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 if TYPE_CHECKING:
    from ortools.sat.python.cp_model import IntVar
@@ -17,13 +17,13 @@ class RuleVPlus3D(AbstractClueRule):
    tags = ["Creative", "Local", "Number Clue"]
    creation_time = "2026-05-24"
 
-   def __init__(self, board: 'AbstractBoard' = None, data=None) -> None:
+   def __init__(self, board: 'Board' = None, data=None) -> None:
       super().__init__(board, data)
 
    @staticmethod
-   def _empty_neighbors(board: 'AbstractBoard', pos: 'AbstractPosition') -> list['AbstractPosition']:
+   def _empty_neighbors(board: 'Board', pos: 'Position') -> list['Position']:
       # 空格定义：非雷格（只要不是 'F' 都算）
-      result: list[AbstractPosition] = []
+      result: list[Position] = []
       for nei in pos.neighbors(2):
          if not board.in_bounds(nei):
             continue
@@ -32,7 +32,7 @@ class RuleVPlus3D(AbstractClueRule):
          result.append(nei)
       return result
 
-   def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+   def fill(self, board: 'Board') -> 'Board':
       # 按用户要求的算法：遍历整张题板，记录到达每个格时遇到的非雷格数量 an（只要不是 'F' 都算）
       # 然后为每个非雷格赋值：count = an + 周围八格雷数
       for key in board.get_interactive_keys():
@@ -63,7 +63,7 @@ class RuleVPlus3D(AbstractClueRule):
 
 
 class ValueV3D(AbstractClueValue):
-   def __init__(self, pos: 'AbstractPosition', value: int = 0, code: bytes = None):
+   def __init__(self, pos: 'Position', value: int = 0, code: bytes = None):
       super().__init__(pos, code if code is not None else b"")
       # 仅保存合并值 S = n + m
       if code is not None and len(code) >= 1:
@@ -83,10 +83,10 @@ class ValueV3D(AbstractClueValue):
       # 只编码合并值 S
       return bytes([self.value])
 
-   def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+   def high_light(self, board: 'Board') -> list['Position']:
       return [nei for nei in self.neighbor if board.in_bounds(nei)]
 
-   def create_constraints(self, board: 'AbstractBoard', switch):
+   def create_constraints(self, board: 'Board', switch):
          model = board.get_model()
          s = switch.get(model, self.pos)
          # 全盘遍历以重现 fill 的 an 顺序

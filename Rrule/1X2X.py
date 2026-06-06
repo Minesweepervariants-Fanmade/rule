@@ -5,12 +5,12 @@ from typing import List, Dict
 
 from minesweepervariants.utils.web_template import MultiNumber
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.image_create import get_text, get_row
 
 from ....utils.tool import get_logger, get_random
 
-def cross_neighbors(pos : AbstractPosition) -> list[AbstractPosition]:
+def cross_neighbors(pos : Position) -> list[Position]:
     return [
         pos.up(2),
         pos.down(2),
@@ -35,7 +35,7 @@ class Rule1X2X(AbstractClueRule):
     def clue_class(self):
         return Value1X2X
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         r = get_random()
         for pos, _ in board("N"):
@@ -49,7 +49,7 @@ class Rule1X2X(AbstractClueRule):
 
 
 class Value1X2X(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', count: int = 0, code: bytes = None):
+    def __init__(self, pos: 'Position', count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.count = code[0]
@@ -60,7 +60,7 @@ class Value1X2X(AbstractClueValue):
     def __repr__(self) -> str:
         return f"{self.count // 10} {self.count % 10}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
 
     def web_component(self, board) -> Dict:
@@ -85,7 +85,7 @@ class Value1X2X(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 周围染色格雷数等于两个染色格的数量"""
         model = board.get_model()
         s = switch.get(model, self)

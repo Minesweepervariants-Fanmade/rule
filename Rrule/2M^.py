@@ -10,7 +10,7 @@
 
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from ....utils.tool import get_logger
 
@@ -26,7 +26,7 @@ class Rule2M(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         logger = get_logger()
         for pos, _ in board("N"):
             value = len([_pos for _pos in pos.neighbors(2)
@@ -37,7 +37,7 @@ class Rule2M(AbstractClueRule):
 
 
 class Value2M(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -50,7 +50,7 @@ class Value2M(AbstractClueValue):
     def __repr__(self):
         return f"{self.count}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
 
     @classmethod
@@ -60,10 +60,10 @@ class Value2M(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
+    def deduce_cells(self, board: 'Board') -> bool:
         return False        # 123123
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束：周围雷数等于count"""
         model = board.get_model()
         s = switch.get(model, self)

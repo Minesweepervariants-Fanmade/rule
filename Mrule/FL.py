@@ -39,7 +39,7 @@
 from collections import deque
 
 from ....abs.Mrule import AbstractMinesClueRule, AbstractMinesValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ...rule.Lrule.connect import connect
 
 
@@ -57,16 +57,16 @@ class RuleFL(AbstractMinesClueRule):
 
     author = ("", 0)
     @staticmethod
-    def _neighbors4(pos: AbstractPosition) -> list[AbstractPosition]:
+    def _neighbors4(pos: Position) -> list[Position]:
         return [pos.up(), pos.down(), pos.left(), pos.right()]
 
     @classmethod
     def _collect_region(
         cls,
-        board: AbstractBoard,
-        mine_set: set[AbstractPosition],
-        start: AbstractPosition,
-    ) -> set[AbstractPosition]:
+        board: Board,
+        mine_set: set[Position],
+        start: Position,
+    ) -> set[Position]:
         if start not in mine_set:
             return set()
 
@@ -88,8 +88,8 @@ class RuleFL(AbstractMinesClueRule):
     @classmethod
     def _region_perimeter(
         cls,
-        board: AbstractBoard,
-        region: set[AbstractPosition],
+        board: Board,
+        region: set[Position],
     ) -> int:
         perimeter = 0
         region_set = set(region)
@@ -105,11 +105,11 @@ class RuleFL(AbstractMinesClueRule):
                     perimeter += 1
         return perimeter
 
-    def fill(self, board: "AbstractBoard") -> "AbstractBoard":
+    def fill(self, board: "Board") -> "Board":
         for key in board.get_interactive_keys():
             mines = [pos for pos, _ in board("F", key=key)]
             mine_set = set(mines)
-            visited: set[AbstractPosition] = set()
+            visited: set[Position] = set()
 
             for start in mines:
                 if start in visited:
@@ -130,7 +130,7 @@ class RuleFL(AbstractMinesClueRule):
 
     @staticmethod
     def _build_key_cache(
-        board: AbstractBoard,
+        board: Board,
         key: str,
         model,
         s,
@@ -162,7 +162,7 @@ class RuleFL(AbstractMinesClueRule):
             "raw_vars": [var for _, var in positions_vars],
         }
 
-    def create_constraints(self, board: "AbstractBoard", switch):
+    def create_constraints(self, board: "Board", switch):
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -238,7 +238,7 @@ class RuleFL(AbstractMinesClueRule):
 
 
 class ValueFL(AbstractMinesValue):
-    def __init__(self, pos: AbstractPosition, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None):
         self.pos = pos
         if code is None:
             self.value = 0

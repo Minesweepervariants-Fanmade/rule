@@ -6,7 +6,7 @@ from typing import Dict
 
 from minesweepervariants.impl.summon.solver import Switch
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from ....utils.image_create import get_dummy, get_image, get_col, get_row, get_text
 
 class Rule4O(AbstractClueRule):
@@ -19,7 +19,7 @@ class Rule4O(AbstractClueRule):
     creation_time = "2026-02-03"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             # 上方向
             current = pos.up()
@@ -80,7 +80,7 @@ class Rule4O(AbstractClueRule):
         return board
 
 class Value4O(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes):
+    def __init__(self, pos: 'Position', code: bytes):
         super().__init__(pos, code)
         self.directions = code[0] # 位掩码：1-上，2-下，4-左，8-右
 
@@ -239,7 +239,7 @@ class Value4O(AbstractClueValue):
     def compose(self, board) -> Dict:
         return Value4O.composes[self.directions]
 
-    def create_constraints(self, board: AbstractBoard, switch: Switch):
+    def create_constraints(self, board: Board, switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
         n = board.boundary(self.pos.board_key).x + 1

@@ -5,7 +5,7 @@
 # @Author  : Wu_RH
 # @FileName: V.py
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 from typing import Any, cast, List
 
@@ -13,7 +13,7 @@ from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 
-def get_nei(pos : AbstractPosition, board: AbstractBoard):
+def get_nei(pos : Position, board: Board):
     directions = [
         (1, 1), (1, 0), (1, -1),
         (0, 1),         (0, -1),
@@ -38,7 +38,7 @@ class RuleURBV(AbstractClueRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N", special='raw'):
             value_list = cast(List[str], board.batch(get_nei(pos, board), "type"))
             count_val = value_list.count("F")
@@ -47,7 +47,7 @@ class RuleURBV(AbstractClueRule):
 
 
 class ValueURBV(AbstractClueValue):
-    def __init__(self, pos: AbstractPosition, count: int = 0, code: bytes | None = None):
+    def __init__(self, pos: Position, count: int = 0, code: bytes | None = None):
         # AbstractValue expects bytes for `code`; normalize None -> b'' when delegating
         super().__init__(pos, code or b'')
         if code is not None:
@@ -60,7 +60,7 @@ class ValueURBV(AbstractClueValue):
     def __repr__(self):
         return f"{self.count}"
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         return get_nei(self.pos, board)
 
     @classmethod
@@ -70,11 +70,11 @@ class ValueURBV(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.count])
 
-    def invalid(self, board: 'AbstractBoard') -> bool:
+    def invalid(self, board: 'Board') -> bool:
         return cast(List[str], board.batch(get_nei(self.pos, board), mode="type", special='raw')).count("N") == 0
 
-    def deduce_cells(self, board: 'AbstractBoard') -> bool:
-        type_dict: dict[str, list[AbstractPosition]] = {"N": [], "F": []}
+    def deduce_cells(self, board: 'Board') -> bool:
+        type_dict: dict[str, list[Position]] = {"N": [], "F": []}
         for pos in get_nei(self.pos, board):
             t = board.get_type(pos)
             if t in ("", "C"):
@@ -94,7 +94,7 @@ class ValueURBV(AbstractClueValue):
             return True
         return False
 
-    def create_constraints(self, board: 'AbstractBoard', switch: Any):
+    def create_constraints(self, board: 'Board', switch: Any):
         """创建CP-SAT约束: 周围雷数等于count"""
         model = cast(Any, board.get_model())
         logger = get_logger()

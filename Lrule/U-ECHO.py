@@ -3,7 +3,7 @@
 """
 
 from ....abs.Lrule import AbstractMinesRule
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 
 
 class UEchoError(Exception):
@@ -20,9 +20,9 @@ class RuleUECHO(AbstractMinesRule):
     tags = ["Creative", "Parameter", "WIP"]
     creation_time = "2026-04-11"
 
-    def __init__(self, board: AbstractBoard, data=None):
+    def __init__(self, board: Board, data=None):
         super().__init__(board, data)
         raise UEchoError(data)
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         return

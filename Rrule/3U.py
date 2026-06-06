@@ -2,12 +2,12 @@
 [3U] 上上：每列最高的雷视为两个雷（总雷数不受其影响）
 """
 
-from ....abs.board import AbstractBoard
+from minesweepervariants.board import Board
 from ....utils.tool import get_logger
 
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
-from minesweepervariants.abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from ortools.sat.python.cp_model import CpModel
 
@@ -22,13 +22,13 @@ class Rule3U(AbstractMinesRule):
     creation_time = "2025-12-28"
     author = ("", 0)
 
-    def __init__(self, board: AbstractBoard = None, data=None) -> None:
+    def __init__(self, board: Board = None, data=None) -> None:
         super().__init__(board, data)
         self.onboard_init(board)
 
-    def onboard_init(self, board: 'AbstractBoard'):
+    def onboard_init(self, board: 'Board'):
         self.dict = {}
-        def get_type(board: 'AbstractBoard', pos: 'AbstractPosition', *args, **kwargs):
+        def get_type(board: 'Board', pos: 'Position', *args, **kwargs):
             origin = board.get_type(pos, 'raw') == 'F'
             up_pos = pos.up()
             while board.in_bounds(up_pos):
@@ -39,7 +39,7 @@ class Rule3U(AbstractMinesRule):
 
         board.register_type_special('3U', get_type)
 
-    def create_constraints(self, board: AbstractBoard, switch: Switch):
+    def create_constraints(self, board: Board, switch: Switch):
         model = board.get_model()
         for key in board.get_interactive_keys():
             for pos, _ in board(key=key):

@@ -5,7 +5,7 @@
 [TV] Tapa View: 线索表示四方向上能看到的雷格数量，空格会阻挡视线
 """
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
-from ....abs.board import AbstractBoard, AbstractPosition
+from minesweepervariants.board import Board, Position
 
 
 class RuleTV(AbstractClueRule):
@@ -17,7 +17,7 @@ class RuleTV(AbstractClueRule):
     tags = ["Creative", "Local", "Number Clue", "Construction"]
     creation_time = "2025-10-24"
 
-    def fill(self, board: 'AbstractBoard') -> 'AbstractBoard':
+    def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N"):
             value = 0
             # 四方向的函数
@@ -45,14 +45,14 @@ class RuleTV(AbstractClueRule):
 
 
 class ValueTV(AbstractClueValue):
-    def __init__(self, pos: 'AbstractPosition', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos
 
     def __repr__(self):
         return str(self.value)
 
-    def high_light(self, board: 'AbstractBoard') -> list['AbstractPosition']:
+    def high_light(self, board: 'Board') -> list['Position']:
         positions = []
         for i in [
             (1, 0), (0, 1),
@@ -71,7 +71,7 @@ class ValueTV(AbstractClueValue):
     def code(self) -> bytes:
         return bytes([self.value])
 
-    def create_constraints(self, board: 'AbstractBoard', switch):
+    def create_constraints(self, board: 'Board', switch):
         def dfs(value: int, index=0, info: dict = None):
             if info is None:
                 info = {"T": [], "F": []}

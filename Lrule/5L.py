@@ -3,7 +3,7 @@
 """
 [5L] 回路: 雷格八连通构成哈密顿回路
 """
-from minesweepervariants.abs.board import AbstractPosition
+from minesweepervariants.position import Position
 
 from ....abs.Lrule import AbstractMinesRule
 
@@ -18,7 +18,7 @@ class Rule5L(AbstractMinesRule):
     creation_time = "2026-05-05"
     author = ("NT", 2201963934)
 
-    def __init__(self, board: "AbstractBoard" = None, data=None) -> None:
+    def __init__(self, board: "Board" = None, data=None) -> None:
         self.invert = False
         super().__init__(board, data)
         self.nei_values = []
@@ -38,7 +38,7 @@ class Rule5L(AbstractMinesRule):
             else:
                 self.nei_values.append(tuple([int(nei_value)]))
 
-    def nei_pos(self, pos: AbstractPosition):
+    def nei_pos(self, pos: Position):
         positions = []
         for nei_value in self.nei_values:
             if len(nei_value) == 1:
