@@ -842,7 +842,7 @@ class Value1Eat(AbstractClueValue):
     def _get_edge_range(
         self, board: 'AbstractBoard',
         edge: 'EdgePoint', pointr: 'GridPoint'
-    ) -> Tuple[List[List[AbstractPosition]], bool]:
+    ) -> Tuple[List[List[Position]], bool]:
         _, is_y = edge.on()
         point1, point2 = edge
         point1_x, point1_y = point1
@@ -874,7 +874,7 @@ class Value1Eat(AbstractClueValue):
             else:
                 range_tuple = (self.pos.row, int(point1_x))
 
-        result_poslist: List[List[AbstractPosition]] = []
+        result_poslist: List[List[Position]] = []
 
         for x in range(*range_tuple):
             result_poslist.append([])
