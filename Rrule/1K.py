@@ -70,7 +70,6 @@ class Rule1K(AbstractClueRule):
             def __init__(self, pos: 'Position', value: int, rule, *args: object, **kwargs: object):
                 super().__init__(pos, value, *args, **kwargs)
                 self.value: SingleIntValue = SingleIntValue(value)
-                self.value["rule"] = rule
                 self.pos = pos
                 self.rule = rule
 
