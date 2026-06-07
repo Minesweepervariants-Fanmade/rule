@@ -45,15 +45,10 @@ class RuleV(AbstractClueRule):
 
         class ValueV(AbstractClueValue):
             id = "V'"
-            def __init__(self, pos: Position, count: int = 0, code: bytes = None, rule=self.rule):
+            def __init__(self, pos: Position, code: bytes = None, rule=self.rule):
                 super().__init__(pos, code)
                 self.rule = rule
-                if code is not None:
-                    # 从字节码解码
-                    self.count = decode_bytes_7bit(code)
-                else:
-                    # 直接初始化
-                    self.count = count
+                self.count = decode_bytes_7bit(code)
                 self.neighbor = self.pos.neighbors(2)
 
             def __repr__(self):
@@ -95,5 +90,5 @@ class RuleV(AbstractClueRule):
         for pos, _ in board("N", special='raw'):
             value = board.batch(pos.neighbors(2), "type", special=self.rule)
             value = sum(v or 0 for v in value)
-            board.set_value(pos, self.ValueV(pos, count=value, rule=self.rule))
+            board.set_value(pos, self.ValueV(pos, code=encode_int_7bit(value), rule=self.rule))
         return board
