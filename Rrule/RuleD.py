@@ -60,7 +60,7 @@ class RuleC(AbstractClueRule):
 
 
 class ValueC(AbstractClueValue):
-
+    id = "RuleD"
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]

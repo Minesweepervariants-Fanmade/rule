@@ -16,7 +16,7 @@ from ....utils.tool import get_random
 
 
 class RuleSharp(AbstractMinesClueRule):
-    id = "#"
+    id = "M#"
     name = "Tag"
     name.zh_CN = "标签"
     doc = "Clues have different rules, each clue's rule will be marked separately"

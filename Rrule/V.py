@@ -7,10 +7,12 @@
 """
 [V]标准扫雷：每个数字标明周围八格内雷的数量。
 """
+from functools import cache
 from ortools.sat.python.cp_model import IntVar
 from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.json_object import JSONObject, deep_unwrap
+from minesweepervariants.position_set import PositionSet
 from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
@@ -18,6 +20,10 @@ from minesweepervariants.board import Board, Position
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
+
+@cache
+def neighbors() -> PositionSet:
+    return PositionSet(Position(0, 0).neighbors(2))
 
 class RuleV(AbstractClueRule):
     id = "V"
@@ -31,7 +37,11 @@ class RuleV(AbstractClueRule):
 
     def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N", special='raw'):
-            value_list = board.batch(pos.neighbors(2), "type")
+            neis = neighbors().deviation(pos)
+            neis.to_board(pos.board_key)
+            value_list: list[str] = board.batch(
+                positions=neis,
+                mode="type")
             count_val = value_list.count("F")
             board.set_value(pos, ValueV(pos, count=count_val))
         return board
@@ -43,7 +53,9 @@ class ValueV(AbstractClueValue):
     def __init__(self, pos: Position, count: int = 0):
         super().__init__(pos, b'')
         self.count = count
-        self.neighbor = self.pos.neighbors(2)
+        neis = neighbors().deviation(pos)
+        neis.to_board(pos.board_key)
+        self.neighbor = neis
 
         self.value = SingleIntValue(self.count)
 
@@ -63,7 +75,7 @@ class ValueV(AbstractClueValue):
         return cls(pos, count=value.value)
 
     def high_light(self, board: 'Board') -> list['Position']:
-        return self.neighbor
+        return list(self.neighbor)
 
     def invalid(self, board: 'Board') -> bool:
         return board.batch(self.neighbor, mode="type", special='raw').count("N") == 0

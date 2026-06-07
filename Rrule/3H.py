@@ -35,7 +35,7 @@ In a square grid, the clue indicates the number of mines in the surrounding cell
         for pos, _ in board("N"):
             neighbors = self.get_hex_neighbors(pos, board)
             mine_count = sum(1 for n in neighbors if board.get_type(n) == "F")
-            board.set_value(pos, Value3H(pos, count=mine_count))
+            board.set_value(pos, Value3H(pos, code=bytes([mine_count])))
         return board
 
     @staticmethod
@@ -56,12 +56,10 @@ In a square grid, the clue indicates the number of mines in the surrounding cell
 
 class Value3H(AbstractClueValue):
     id = "3H"
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:
             self.count = code[0]
-        else:
-            self.count = count
 
         self.col = (pos.y % 2 == 1)
 

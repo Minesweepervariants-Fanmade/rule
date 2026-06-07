@@ -25,7 +25,7 @@ class Rule3H(AbstractClueRule):
         for pos, _ in board("N"):
             neighbors = self.get_neighbors(pos, board)
             mine_count = sum(1 for n in neighbors if board.get_type(n) == "F")
-            board.set_value(pos, Value3H(pos, count=mine_count))
+            board.set_value(pos, Value3H(pos, code=bytes([mine_count])))
         return board
 
     @staticmethod
@@ -45,13 +45,10 @@ class Rule3H(AbstractClueRule):
         return neighbors
 
 class Value3H(AbstractClueValue):
-    id = "3H"
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
+    id = "3H'"
+    def __init__(self, pos: Position, code: bytes = None):
         super().__init__(pos, code)
-        if code is not None:
-            self.count = code[0]
-        else:
-            self.count = count
+        self.count = code[0]
 
         self.col = (pos.y % 2 == 1)
 

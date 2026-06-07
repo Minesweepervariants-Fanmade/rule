@@ -7,6 +7,7 @@
 """
 [V']雷值：每个数字标明周围八格内雷值之和。
 """
+from minesweepervariants.impl.summon.solver import Switch
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from typing import cast
 from minesweepervariants.abs.rule import AbstractValue
@@ -65,7 +66,7 @@ class RuleV(AbstractClueRule):
             def code(self) -> bytes:
                 return encode_int_7bit(self.count)
 
-            def create_constraints(self, board: 'Board', switch):
+            def create_constraints(self, board: 'Board', switch: Switch):
                 """创建CP-SAT约束: 周围雷数等于count"""
                 model = board.get_model()
                 s = switch.get(model, self.pos)

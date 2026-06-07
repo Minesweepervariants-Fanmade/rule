@@ -125,6 +125,7 @@ class RuleGallery(AbstractClueRule):
         info["soft_fn"]((size[0] - 1) * (size[1] - 1) * 0.4, 0)
 
 class RuleRuleTag(AbstractClueValue):
+    id = "RuleRuleTag"
     def __init__(self, pos: Position, code: bytes):
         super().__init__(pos, code)
         self.value = code.decode("ascii")
