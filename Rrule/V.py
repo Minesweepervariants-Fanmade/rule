@@ -7,13 +7,13 @@
 """
 [V]标准扫雷：每个数字标明周围八格内雷的数量。
 """
+from ortools.sat.python.cp_model import IntVar
 from minesweepervariants.abs.rule import AbstractValue
+from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.json_object import JSONObject, deep_unwrap
-from minesweepervariants.utils.value_template import SingleIntValue, is_value_template, Template
+from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
-
-from typing import Any, cast, List
 
 from ....utils.tool import get_logger
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
@@ -31,8 +31,7 @@ class RuleV(AbstractClueRule):
 
     def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N", special='raw'):
-            # `batch` has a dynamic return type; cast to the expected runtime type here
-            value_list = cast(List[str], board.batch(pos.neighbors(2), "type"))
+            value_list = board.batch(pos.neighbors(2), "type")
             count_val = value_list.count("F")
             board.set_value(pos, ValueV(pos, count=count_val))
         return board
@@ -55,7 +54,7 @@ class ValueV(AbstractClueValue):
         if not is_value_template(_data):
             raise TypeError()
 
-        template_data = cast(Template, _data)
+        template_data = _data
         value = SingleIntValue.try_from(template_data)
 
         if value is None:
@@ -67,7 +66,7 @@ class ValueV(AbstractClueValue):
         return self.neighbor
 
     def invalid(self, board: 'Board') -> bool:
-        return cast(List[str], board.batch(self.neighbor, mode="type", special='raw')).count("N") == 0
+        return board.batch(self.neighbor, mode="type", special='raw').count("N") == 0
 
     def deduce_cells(self, board: 'Board') -> bool:
         type_dict: dict[str, list[Position]] = {"N": [], "F": []}
@@ -90,21 +89,20 @@ class ValueV(AbstractClueValue):
             return True
         return False
 
-    def create_constraints(self, board: 'Board', switch: Any):
+    def create_constraints(self, board: 'Board', switch: Switch):
         """创建CP-SAT约束: 周围雷数等于count"""
-        model = cast(Any, board.get_model())
+        model = board.get_model()
         logger = get_logger()
 
         # 收集周围格子的布尔变量
-        neighbor_vars: list[Any] = []
+        neighbor_vars: list[IntVar] = []
         for neighbor in self.neighbor:  # 8方向相邻格子
-            if board.in_bounds(neighbor):
-                var = board.get_variable(neighbor)
+            if (var := board.get_variable(neighbor)) is not None:
                 neighbor_vars.append(var)
 
         # 添加约束：周围雷数等于count
-        s = cast(Any, switch).get(model, self.pos)
+        s = switch.get(model, self.pos)
         if neighbor_vars:
             # model and neighbor variables are dynamically typed (ortools objects)
-            model.Add(cast(Any, sum(neighbor_vars)) == self.count).OnlyEnforceIf(s)
-            cast(Any, logger).trace(f"[V] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")
+            model.add(sum(neighbor_vars) == self.count).OnlyEnforceIf(s)
+            logger.trace(f"[V] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")
