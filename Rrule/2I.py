@@ -149,6 +149,7 @@ class Value2I_7(AbstractClueValue):
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.neighbors = pos.neighbors(2)
+        self.value = SingleIntValue(7)
 
     def __repr__(self) -> str:
         return "7"

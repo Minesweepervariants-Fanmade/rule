@@ -11,7 +11,7 @@ from ....abs.Rrule import AbstractClueValue, AbstractClueRule
 from typing import cast
 from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.json_object import deep_unwrap
-from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.utils.value_template import SingleValue, is_value_template, Template, SingleIntValue
 from minesweepervariants.board import JSONObject, Position, Board, Size
 from ....utils.impl_obj import VALUE_CROSS, VALUE_CIRCLE
 from ....utils.tool import get_random, get_logger
@@ -86,7 +86,7 @@ class Rule2I(AbstractClueRule):
 
 
 class Value2I(AbstractClueValue):
-    id = "2I"
+    id = "2I'"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         self.value = code[0]
@@ -146,9 +146,8 @@ class Value2I_Quess(AbstractClueValue):
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.neighbors = pos.neighbors(2)
+        self.value = SingleValue('?')
 
-    def __repr__(self) -> str:
-        return "?"
 
     @classmethod
     def method_choose(cls) -> int:
