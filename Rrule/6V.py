@@ -102,7 +102,7 @@ class Rule6V(AbstractClueRule):
             for pos, _ in board("N", key=key, special="raw"):
                 neighbors = self._valid_neighbors(board, pos)
                 mine_count = board.batch(neighbors, mode="type", special="raw").count("F")
-                board.set_value(pos, Value6V(pos, count=mine_count))
+                board.set_value(pos, Value6V(pos, code=bytes([mine_count])))
         return board
 
     def create_constraints(self, board: "Board", switch):
@@ -135,12 +135,9 @@ class Rule6V(AbstractClueRule):
 
 class Value6V(AbstractClueValue):
     id = "6V"
-    def __init__(self, pos: "Position", count: int = 0, code: bytes = None):
+    def __init__(self, pos: "Position", code: bytes = None):
         super().__init__(pos, code)
-        if code is not None:
-            self.count = code[0]
-        else:
-            self.count = count
+        self.count = code[0]
         self.neighbor = self.pos.neighbors(2)
 
     def __repr__(self):
