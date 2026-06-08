@@ -135,7 +135,7 @@ class BaseRule3N(AbstractClueRule):
 
 
 class BaseValue3N(AbstractClueValue):
-    id = "3N"
+    id = BaseRule3N.id
 
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos

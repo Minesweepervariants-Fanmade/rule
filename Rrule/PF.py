@@ -49,7 +49,7 @@ class RulePF(AbstractClueRule):
 
 
 class ValuePF(AbstractClueValue):
-    id = "PF"
+    id = RulePF.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]

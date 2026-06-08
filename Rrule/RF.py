@@ -111,7 +111,7 @@ class RuleRF(AbstractClueRule):
 
 
 class ValueRF(AbstractClueValue):
-    id = "RF"
+    id = RuleRF.id
     """RF 规则对应的线索值对象。
 
     ``count`` 为在 ``fill`` 阶段统计得到的可见非雷格数量。

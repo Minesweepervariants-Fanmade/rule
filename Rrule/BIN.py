@@ -75,7 +75,7 @@ class RuleBIN(AbstractClueRule):
 
 
 class ValueBIN(AbstractClueValue):
-    id = "BIN"
+    id = RuleBIN.id
     def __init__(
         self, pos: 'Position',
         value: Optional[tuple[bytes, bytes]] = None,

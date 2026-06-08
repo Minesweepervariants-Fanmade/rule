@@ -42,7 +42,7 @@ class Rule2K(AbstractClueRule):
         return neighbors
 
 class Value2K(AbstractClueValue):
-    id = "2K"
+    id = Rule2K.id
     def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

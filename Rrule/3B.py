@@ -90,7 +90,7 @@ class Rule3B(AbstractClueRule):
 
 
 class Value3B(AbstractClueValue):
-    id = "3B"
+    id = Rule3B.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.bools = decode_bools_7bit(code)

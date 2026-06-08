@@ -32,7 +32,7 @@ class Rule1EX(AbstractEyesightClueRule):
 
 
 class Value1EX(AbstractEyesightClueValue):
-    id = "1EB"
+    id = Rule1EX.id
 
     def direction_funcs(self):
         return Rule1EX.direction_funcs(self.pos)

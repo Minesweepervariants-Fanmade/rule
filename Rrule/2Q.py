@@ -60,7 +60,7 @@ class Rule2Q(AbstractClueRule):
 
 
 class Value2Q(AbstractClueValue):
-    id = "2Q"
+    id = Rule2Q.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]

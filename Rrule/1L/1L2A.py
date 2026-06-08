@@ -97,7 +97,7 @@ class Rule1L2A(AbstractClueRule):
 
 
 class Value1L2A(AbstractClueValue):
-    id = "1L2A"
+    id = Rule1L2A.id
     def __init__(self, pos: 'Position', code: bytes = None):
         super().__init__(pos, code)
         self.value = code[0] if len(code) == 1 else None

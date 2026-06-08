@@ -82,7 +82,7 @@ class Rule3A(AbstractClueRule):
 
 
 class Value3A(AbstractClueValue):
-    id = "3A"
+    id = Rule3A.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         if not code:

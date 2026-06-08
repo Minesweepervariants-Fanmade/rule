@@ -134,7 +134,7 @@ class Rule6V(AbstractClueRule):
 
 
 class Value6V(AbstractClueValue):
-    id = "6V"
+    id = Rule6V.id
     def __init__(self, pos: "Position", code: bytes = None):
         super().__init__(pos, code)
         self.count = code[0]

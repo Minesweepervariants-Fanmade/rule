@@ -49,7 +49,7 @@ class RuleTV(AbstractClueRule):
 
 
 class ValueTV(AbstractClueValue):
-    id = "TV"
+    id = RuleTV.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.pos = pos

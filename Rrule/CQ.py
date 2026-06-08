@@ -92,7 +92,7 @@ class Rule1XStar(AbstractClueRule):
 
 
 class Value1XStar(AbstractClueValue):
-    id = "1XStar"
+    id = Rule1XStar.id
     def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

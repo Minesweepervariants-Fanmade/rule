@@ -111,7 +111,7 @@ class RuleCSharp(AbstractClueSharp):
 
 
 class ValueCsharp(AbstractClueValue):
-    id = "Csharp"
+    id = RuleCSharp.id
     def __init__(self, pos: "Position", value: int = 0, rule: int = 0, code: bytes = None) -> None:
         super().__init__(pos)
         if not code:

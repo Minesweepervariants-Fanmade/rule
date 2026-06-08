@@ -39,7 +39,7 @@ class RuleMC(AbstractClueRule):
 
 
 class ValueMC(AbstractClueValue):
-    id = "MC"
+    id = RuleMC.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]

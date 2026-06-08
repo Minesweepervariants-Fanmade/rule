@@ -60,7 +60,7 @@ class Rule1K2Ep(AbstractClueRule):
 
 
 class Value1K2Ep(AbstractClueValue):
-    id = "1K2Ep"
+    id = Rule1K2Ep.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos)
         self.value = code[0]    # 实际为第几列的字母

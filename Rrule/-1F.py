@@ -38,7 +38,7 @@ class Rulex1F(AbstractClueRule):
 
 
 class Valuex1F(AbstractClueValue):
-    id = "x1F"
+    id = Rulex1F.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         self.value = code[0]

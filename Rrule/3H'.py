@@ -45,7 +45,7 @@ class Rule3H(AbstractClueRule):
         return neighbors
 
 class Value3H(AbstractClueValue):
-    id = "3H'"
+    id = Rule3H.id
     def __init__(self, pos: Position, code: bytes = None):
         super().__init__(pos, code)
         self.count = code[0]

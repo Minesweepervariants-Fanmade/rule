@@ -457,7 +457,7 @@ class Rule1Eat(AbstractClueRule):
 
 
 class Value1Eat(AbstractClueValue):
-    id = "1Eat"
+    id = Rule1Eat.id
     def __init__(
         self, pos: 'Position',
         numerator: int,

@@ -50,7 +50,7 @@ class Rule4Y(AbstractClueRule):
         return board
 
 class Value4Y(AbstractClueValue):
-    id = "4Y"
+    id = Rule4Y.id
     def __init__(self, pos: 'Position', code: bytes):
         super().__init__(pos, code)
         self.value = code[0]

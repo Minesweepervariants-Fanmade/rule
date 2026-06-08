@@ -51,7 +51,7 @@ class RuleURBV(AbstractClueRule):
 
 
 class ValueURBV(AbstractClueValue):
-    id = "URBV"
+    id = RuleURBV.id
     def __init__(self, pos: Position, count: int = 0, code: bytes | None = None):
         # AbstractValue expects bytes for `code`; normalize None -> b'' when delegating
         super().__init__(pos, code or b'')

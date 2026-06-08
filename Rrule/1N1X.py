@@ -51,7 +51,7 @@ class Rule1N1X(AbstractClueRule):
 
 
 class Value1N1X(AbstractClueValue):
-    id = "1N1X"
+    id = Rule1N1X.id
 
     def __init__(self, pos: 'Position', value: int, *args: object, **kwargs: object):
         super().__init__(pos, value, *args, **kwargs)

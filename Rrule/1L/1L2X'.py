@@ -38,7 +38,7 @@ class Rule1L2Xp(AbstractClueRule):
         return board
 
 class Value1L2Xp(AbstractClueValue):
-    id = "1L2Xp"
+    id = Rule1L2Xp.id
     value: int
     neighbors: list
 

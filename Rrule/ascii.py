@@ -84,7 +84,7 @@ class RuleAscii(AbstractClueRule):
         return board
 
 class ValueAscii(AbstractClueValue):
-    id = "Ascii"
+    id = RuleAscii.id
     """Clue value storing the raw byte and providing a printable representation."""
 
     def __init__(self, pos: 'Position', code: bytes = b''):

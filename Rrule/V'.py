@@ -44,7 +44,7 @@ class RuleV(AbstractClueRule):
         self.rule = data or "V'"
 
         class ValueV(AbstractClueValue):
-            id = "V'"
+            id = RuleV.id
             def __init__(self, pos: Position, code: bytes = None, rule=self.rule):
                 super().__init__(pos, code)
                 self.rule = rule

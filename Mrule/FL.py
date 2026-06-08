@@ -238,7 +238,7 @@ class RuleFL(AbstractMinesClueRule):
 
 
 class ValueFL(AbstractMinesValue):
-    id = "FL"
+    id = RuleFL.id
     def __init__(self, pos: Position, code: bytes = None):
         self.pos = pos
         if code is None:

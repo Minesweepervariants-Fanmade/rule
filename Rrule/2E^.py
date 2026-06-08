@@ -99,7 +99,7 @@ class Rule2Eq(AbstractClueRule):
 
 
 class Value2Eq(AbstractClueValue):
-    id = "2Eq"
+    id = Rule2Eq.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.neighbors = pos.neighbors(2)

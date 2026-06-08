@@ -137,8 +137,8 @@ class RuleLO(AbstractClueRule):
             obj.create_constraints_(switch_vars, switch, board)
 
 
-class ValueL0(AbstractClueValue):
-    id = "L0"
+class ValueLO(AbstractClueValue):
+    id = RuleLO.id
     @classmethod
     def type(cls) -> bytes:
         return RuleLO.id.encode("ascii")

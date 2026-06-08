@@ -48,7 +48,7 @@ class RuleV(AbstractClueRule):
 
 
 class ValueV(AbstractClueValue):
-    id = "V"
+    id = RuleV.id
 
     def __init__(self, pos: Position, count: int = 0):
         super().__init__(pos, b'')

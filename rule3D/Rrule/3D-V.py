@@ -48,7 +48,7 @@ class Rule3DV(Abstract3DClueRule):
 
 
 class Value3DV(AbstractClueValue):
-    id = "3DV"
+    id = Rule3DV.id
     def __init__(self, pos: Position, count: int = 0, code: bytes = None):
         super().__init__(pos, code)
         self.neighbor = None

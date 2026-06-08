@@ -79,7 +79,7 @@ class RuleUP(AbstractClueRule):
 
 
 class ValueUP(AbstractClueValue):
-    id = "UP"
+    id = RuleUP.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         self.value = code[0]

@@ -27,7 +27,7 @@ class RuleSG(AbstractClueRule):
         return board
 
 class ValueSG(AbstractClueValue):
-    id = "SG"
+    id = RuleSG.id
     def __init__(self, pos: Position, code: bytes = b''):
         super().__init__(pos, code)
         self.value = code[0]

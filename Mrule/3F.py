@@ -36,7 +36,7 @@ class Rule3F(AbstractMinesClueRule):
 
 
 class MinesValue3F(AbstractMinesValue):
-    id = "3F"
+    id = Rule3F.id
     def __init__(self, pos: 'Position', code: bytes = None):
         self.nei = pos.neighbors(2)
         self.pos = pos

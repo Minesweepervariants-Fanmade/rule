@@ -153,7 +153,7 @@ class Rule2L(AbstractClueRule):
 
 
 class Value2L(AbstractClueValue):
-    id = "2L"
+    id = Rule2L.id
 
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = SingleIntValue(code[0])

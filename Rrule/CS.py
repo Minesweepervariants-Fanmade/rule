@@ -83,7 +83,7 @@ class RuleCS(AbstractClueRule):
         return board
 
 class ValueCS(AbstractClueValue):
-    id = "CS"
+    id = RuleCS.id
     def __init__(self, pos: Position, values: list[int] = [MISSING_VALUE, MISSING_VALUE, MISSING_VALUE, MISSING_VALUE], code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

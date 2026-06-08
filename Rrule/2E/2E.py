@@ -87,7 +87,7 @@ class Rule2E(AbstractClueRule):
 
 
 class Value2E(AbstractClueValue):
-    id = "2E"
+    id = Rule2E.id
 
     def __init__(self, pos: 'Position', code: bytes = b''):
         value = "ABCDEFGHI"[code[0]]

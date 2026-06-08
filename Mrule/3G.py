@@ -88,7 +88,7 @@ class Rule3G(AbstractMinesClueRule):
 
 
 class MinesValue3G(AbstractMinesValue):
-    id = "3G"
+    id = Rule3G.id
     def __init__(self, pos: 'Position', code: bytes = None):
         self.pos = pos
         self.value = SingleIntValue(code[0], is_mine=True)

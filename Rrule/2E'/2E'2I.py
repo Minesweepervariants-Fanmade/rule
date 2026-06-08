@@ -89,7 +89,7 @@ class Rule2Ep2I(AbstractClueRule):
 
 
 class Value2Ep2I(AbstractClueValue):
-    id = "2Ep2I"
+    id = Rule2Ep2I.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]  # 实际为第几列的字母
         self.pos = pos
@@ -162,7 +162,7 @@ class Value2Ep2I(AbstractClueValue):
 
 
 class Value2Ep2I_7(AbstractClueValue):
-    id = "2Ep2I_7"
+    id = Rule2Ep2I.id + "_7"
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.neighbors = pos.neighbors(2)
         self.pos = pos

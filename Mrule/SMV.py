@@ -277,7 +277,7 @@ class RuleSMV(AbstractMinesClueRule):
 
 
 class ValueSMV(AbstractMinesValue):
-  id = "SMV"
+  id = RuleSMV.id
   def __init__(self, pos: "Position", code: Optional[bytes] = None):
     self.pos = pos
     if code is None:

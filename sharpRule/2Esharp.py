@@ -168,7 +168,7 @@ class Rule2ESharp(AbstractClueSharp):
 
 
 class Value2ESharp(AbstractClueValue):
-    id = "2ESharp"
+    id = Rule2ESharp.id
     def __init__(self, pos: Position, value: int = 0, rule: str = '', code: bytes = None) -> None:
         super().__init__(pos)
         if code:
@@ -504,7 +504,7 @@ class Value2E2P(AbstractClueValue):
         return rule2P.Value2P(pos=self.pos, code=bytes([value]))
 
 class Value2E1EN(AbstractClueValue):
-    id = "2E1EN"
+    id = "2E1E'"
     # arrow True 上下箭头，False 左右箭头
     def __init__(self, pos: 'Position', value: int = 0, arrow: bool = True, code: bytes = None):
         super().__init__(pos)

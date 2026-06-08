@@ -68,7 +68,7 @@ class Rule1L1Ep(AbstractClueRule):
 
 
 class Value1L1Ep(AbstractClueValue):
-    id = "1L1Ep"
+    id = Rule1L1Ep.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.value = self.value - 128

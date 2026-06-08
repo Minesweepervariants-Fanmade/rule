@@ -81,7 +81,7 @@ class Rule2I(AbstractClueRule):
 
 
 class Value2I(AbstractClueValue):
-    id = "2I"
+    id = Rule2I.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.pos = pos
         self.value = code[0]
@@ -145,7 +145,7 @@ class Value2I(AbstractClueValue):
 
 
 class Value2I_7(AbstractClueValue):
-    id = "2I_7"
+    id = Rule2I.id + "_7"
     def __init__(self, pos: 'Position', code: bytes = b''):
         super().__init__(pos, code)
         self.neighbors = pos.neighbors(2)

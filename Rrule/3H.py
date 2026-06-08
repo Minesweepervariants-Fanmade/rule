@@ -55,7 +55,7 @@ In a square grid, the clue indicates the number of mines in the surrounding cell
         return neighbors
 
 class Value3H(AbstractClueValue):
-    id = "3H"
+    id = Rule3H.id
     def __init__(self, pos: Position, code: bytes = None):
         super().__init__(pos, code)
         if code is not None:

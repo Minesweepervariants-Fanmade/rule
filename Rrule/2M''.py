@@ -143,7 +143,7 @@ class Rule2M(AbstractClueRule):
 
 
 class Value2M(AbstractClueValue):
-    id = "2M''"
+    id = Rule2M.id
     def __init__(self, pos: 'Position', code: bytes = b''):
         self.value = code[0]
         self.nei = pos.neighbors(2)
