@@ -107,7 +107,7 @@ class Rule6L(AbstractClueRule):
 
 class Value6L(AbstractClueValue):
     id = Rule6L.id
-    def __init__(self, pos: 'Position', value: Fraction | int | tuple[int, int] | None = None, code: bytes | None = None):
+    def __init__(self, pos: 'Position', code: bytes | None = None, value: Fraction | int | tuple[int, int] | None = None):
         super().__init__(pos, code or b'')
         if code is not None:
             text = code.decode("ascii")

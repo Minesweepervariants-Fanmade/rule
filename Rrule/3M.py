@@ -48,7 +48,7 @@ class Rule3M(AbstractClueRule):
 
 class Value3M(AbstractClueValue):
     id = Rule3M.id
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None, count: int = 0):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码

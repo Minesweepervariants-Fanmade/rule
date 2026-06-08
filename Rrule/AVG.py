@@ -231,7 +231,7 @@ class RuleAVG(AbstractClueRule):
 
 class ValueAVG(AbstractClueValue):
   id = "AVG"
-  def __init__(self, pos: "Position", avg: Fraction | int | tuple[int, int] | None = None, code: bytes = None):
+  def __init__(self, pos: "Position", code: bytes = None, avg: Fraction | int | tuple[int, int] | None = None):
     super().__init__(pos, code)
     if code is not None:
       text = code.decode("ascii")

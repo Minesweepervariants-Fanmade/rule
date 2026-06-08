@@ -46,7 +46,7 @@ class Rule3H(AbstractClueRule):
 
 class Value3H(AbstractClueValue):
     id = Rule3H.id
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None, count: int = 0):
         super().__init__(pos, code)
         if code is not None:
             self.count = code[0]

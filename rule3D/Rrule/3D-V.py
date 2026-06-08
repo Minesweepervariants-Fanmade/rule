@@ -49,7 +49,7 @@ class Rule3DV(Abstract3DClueRule):
 
 class Value3DV(AbstractClueValue):
     id = Rule3DV.id
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None, count: int = 0):
         super().__init__(pos, code)
         self.neighbor = None
         if code is not None:

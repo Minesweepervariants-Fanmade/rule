@@ -81,13 +81,13 @@ class RuleRAND(AbstractClueRule):
         random = get_random()
         for pos, _ in board("N"):
             value = random.randint(self.range_min, self.range_max)
-            board.set_value(pos, ValueRAND(pos, value))
+            board.set_value(pos, ValueRAND(pos, value=value))
         return board
 
 
 class ValueRAND(AbstractClueValue):
     id = RuleRAND.id
-    def __init__(self, pos: 'Position', value: int = None, code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None, value: int = None):
         super().__init__(pos)
         if code is not None:
             self.value = code[0] if code else 0

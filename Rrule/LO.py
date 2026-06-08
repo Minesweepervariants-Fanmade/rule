@@ -107,7 +107,7 @@ class RuleLO(AbstractClueRule):
         get_logger().info("\n" + str(_board))
         for pos, _ in board("N"):
             value = sum(result[_pos] for _pos in pos.neighbors(0, 2) if board.is_valid(_pos))
-            obj = ValueL0(pos, code=bytes([value]))
+            obj = ValueLO(pos, code=bytes([value]))
             board.set_value(pos, obj)
         return board
 
@@ -130,10 +130,10 @@ class RuleLO(AbstractClueRule):
 
         # 处理数字格子 ValueL0 的约束
         for pos, obj in board("always", mode="obj"):
-            if not isinstance(obj, ValueL0):
+            if not isinstance(obj, ValueLO):
                 continue
             # 计算 3x3 范围内的开关变量
-            obj: ValueL0
+            obj: ValueLO
             obj.create_constraints_(switch_vars, switch, board)
 
 

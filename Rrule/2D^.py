@@ -13,6 +13,8 @@ def get_pos_box(board: Board, top_left: Position, bottom_right: Position) -> lis
         positions = []
         for x in range(top_left.x, bottom_right.x + 1):
             for y in range(top_left.y, bottom_right.y + 1):
+                if x < 0 or y < 0:
+                    continue
                 pos = board.get_pos(x, y, top_left.board_key)
                 if pos is not None:
                     positions.append(pos)
@@ -43,7 +45,7 @@ class Rule2D(AbstractClueRule):
 
 class Value2D(AbstractClueValue):
     id = Rule2D.id
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None, count: int = 0):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码

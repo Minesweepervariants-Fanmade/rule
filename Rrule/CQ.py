@@ -93,7 +93,8 @@ class Rule1XStar(AbstractClueRule):
 
 class Value1XStar(AbstractClueValue):
     id = Rule1XStar.id
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
+
+    def __init__(self, pos: Position, code: bytes = None, count: int = 0):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
@@ -101,6 +102,9 @@ class Value1XStar(AbstractClueValue):
         else:
             # 直接初始化
             self.count = count
+
+    def __repr__(self):
+        return f"{self.count}"
 
     def _get_queen_positions(self, board: 'Board'):
         """获取与给定位置在王后移动范围内的所有位置（横纵+斜向）"""
@@ -154,9 +158,6 @@ class Value1XStar(AbstractClueValue):
                 break
 
         return positions
-
-    def __repr__(self):
-        return f"{self.count}"
 
     def high_light(self, board: 'Board') -> List['Position']:
         return self._get_queen_positions(board)

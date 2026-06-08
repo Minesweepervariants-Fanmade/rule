@@ -118,7 +118,7 @@ class ValueRF(AbstractClueValue):
     ``code`` 使用单字节表示该整数，以便在保存/加载时保持兼容。
     """
 
-    def __init__(self, pos: 'Position', count: int = 0, code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None, count: int = 0):
         # 兼容已有的 ``code`` 读取方式
         super().__init__(pos, code)
         if code is not None:

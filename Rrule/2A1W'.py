@@ -68,9 +68,9 @@ class Rule2A1Wl(AbstractClueRule):
                     areas_rev[id_] = 0
                 areas_rev[id_] += 1
             if areas_rev:
-                board.set_value(pos, Value2A1Wl(pos, max(list(areas_rev.values()))))
+                board.set_value(pos, Value2A1Wl(pos, value=max(list(areas_rev.values()))))
             else:
-                board.set_value(pos, Value2A1Wl(pos, 0))
+                board.set_value(pos, Value2A1Wl(pos, value=0))
 
         return board
 
@@ -117,7 +117,7 @@ class Rule2A1Wl(AbstractClueRule):
 
 class Value2A1Wl(AbstractClueValue):
     id = Rule2A1Wl.id
-    def __init__(self, pos: Position, value: int = 0, code: bytes = None) -> None:
+    def __init__(self, pos: Position, code: bytes = None, value: int = 0) -> None:
         super().__init__(pos, code)
         if code is not None:
             self.value = code[0]

@@ -170,6 +170,9 @@ class Value2Ep2I_Quess(AbstractClueValue):
     def __repr__(self) -> str:
         return "?"
 
+    def code(self) -> bytes:
+        return b''
+
     @classmethod
     def type(cls) -> bytes:
         return Rule2Ep2I.id.encode("ascii") + b"_?"

@@ -41,7 +41,7 @@ class Value1Xr(AbstractClueValue):
         self.value: SingleIntValue = SingleIntValue(value)
         self.count = value
         self.pos = pos
-        self.neighbor = pos.neighbors(2)
+        self.neighbor = pos.neighbors(2, 4)
 
     @classmethod
     def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':

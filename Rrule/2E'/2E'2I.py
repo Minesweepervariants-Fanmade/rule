@@ -174,6 +174,9 @@ class Value2Ep2I_7(AbstractClueValue):
     def method_choose(cls) -> int:
         return 1
 
+    def code(self) -> bytes:
+        return b''
+
     @classmethod
     def type(cls) -> bytes:
         return Rule2Ep2I.id.encode("ascii") + b"_7"

@@ -63,7 +63,7 @@ class Rule2A1P(AbstractClueRule):
                 if id_ not in areas_rev:
                     areas_rev[id_] = 0
                 areas_rev[id_] += 1
-            board.set_value(pos, Value2A1P(pos, len(areas_rev)))
+            board.set_value(pos, Value2A1P(pos, value=len(areas_rev)))
 
         return board
 
@@ -110,7 +110,7 @@ class Rule2A1P(AbstractClueRule):
 
 class Value2A1P(AbstractClueValue):
     id = Rule2A1P.id
-    def __init__(self, pos: Position, value: int = 0, code: bytes = None) -> None:
+    def __init__(self, pos: Position, code: bytes = None, value: int = 0) -> None:
         super().__init__(pos, code)
         if code is not None:
             self.value = code[0]

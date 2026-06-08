@@ -38,10 +38,12 @@ class Rule2DE(AbstractClueRule):
                     _pos = fc(index)
                 indexs.append(index)
             value = 0
-            for dx in range(1 - indexs[1], indexs[0]):
+            nei = []
+            for dx in range(1 - indexs[0], indexs[1]):
                 for dy in range(1 - indexs[3], indexs[2]):
-                    if board.get_type(pos.shift(dx, dy)) == "F":
-                        value += 1
+                    nei.append((dy, dx))
+            nei = [pos.shift(*s) for s in nei]
+            value = board.batch(nei, mode='type').count('F')
             board[pos] = Value2DE(pos, value)
         return board
 
@@ -54,10 +56,6 @@ class Value2DE(AbstractClueValue):
 
     def __repr__(self) -> str:
         return str(self.value)
-
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule2DE.id.encode("ascii")
 
     @classmethod
     def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':

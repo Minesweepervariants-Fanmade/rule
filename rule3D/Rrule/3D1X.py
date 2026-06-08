@@ -40,8 +40,10 @@ class Rule3D1X(Abstract3DClueRule):
 
 
 class Value3D1X(AbstractClueValue):
+    id = Rule3D1X.id
 
-    def __init__(self, pos: 'Position', code: bytes = b''):
+    def __init__(self, pos: 'Position', code: bytes = b'', *args: object, **kwargs: object):
+        super().__init__(pos, *args, **kwargs)
         self.value = code[0]
         self.pos = pos
 

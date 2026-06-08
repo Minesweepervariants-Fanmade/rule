@@ -60,178 +60,179 @@ from minesweepervariants.utils.value_template import is_value_template, Template
 from minesweepervariants.board import JSONObject, Board, Position
 
 if TYPE_CHECKING:
-  from ortools.sat.python.cp_model import IntVar
+    from ortools.sat.python.cp_model import IntVar
 
 
 class RuleCPV(AbstractClueRule):
-  id = "CPV"
-  name = "Clue Partition Value"
-  name.zh_CN = "划分雷值"
-  doc = "Clue cells show the number of mines belonging to them in the 8 adjacent cells, and each cell must belong to exactly one visible clue."
-  doc.zh_CN = "线索格表示周围八格雷数, 且每个格子在其可见候选线索集合中必须唯一归属。"
-  author = ("", 0)
-  tags = ["Creative", "Local", "Number Clue", "Extensive Trial"]
-  creation_time = "2026-04-10"
+    id = "CPV"
+    name = "Clue Partition Value"
+    name.zh_CN = "划分雷值"
+    doc = "Clue cells show the number of mines belonging to them in the 8 adjacent cells, and each cell must belong to exactly one visible clue."
+    doc.zh_CN = "线索格表示周围八格雷数, 且每个格子在其可见候选线索集合中必须唯一归属。"
+    author = ("", 0)
+    tags = ["Creative", "Local", "Number Clue", "Extensive Trial"]
+    creation_time = "2026-04-10"
 
-  dynamic_dig_enabled = True
+    dynamic_dig_enabled = True
 
-  def __init__(self, board=None, data=None) -> None:
-    super().__init__(board, data)
-    self._visible_clue_positions: dict[str, set[tuple[int, int]]] = {}
+    def __init__(self, board=None, data=None) -> None:
+        super().__init__(board, data)
+        self._visible_clue_positions: dict[str, set[tuple[int, int]]] = {}
 
-  @staticmethod
-  def _valid_neighbors(board: "Board", pos: "Position") -> list["Position"]:
-    return [nei for nei in pos.neighbors(2) if board.in_bounds(nei)]
+    @staticmethod
+    def _valid_neighbors(board: "Board", pos: "Position") -> list["Position"]:
+        return [nei for nei in pos.neighbors(2) if board.in_bounds(nei)]
 
-  def _collect_visible_clues_from_board(self, board: "Board") -> dict[str, set[tuple[int, int]]]:
-    result: dict[str, set[tuple[int, int]]] = {}
-    for key in board.get_interactive_keys():
-      clues: set[tuple[int, int]] = set()
-      for pos, obj in board(key=key, mode="obj"):
-        if isinstance(obj, ValueCPV):
-          clues.add((pos.x, pos.y))
-      result[key] = clues
-    return result
+    def _collect_visible_clues_from_board(self, board: "Board") -> dict[str, set[tuple[int, int]]]:
+        result: dict[str, set[tuple[int, int]]] = {}
+        for key in board.get_interactive_keys():
+            clues: set[tuple[int, int]] = set()
+            for pos, obj in board(key=key, mode="obj"):
+                if isinstance(obj, ValueCPV):
+                    clues.add((pos.x, pos.y))
+            result[key] = clues
+        return result
 
-  def _rebuild_visible_clues(
-    self,
-    board: "Board",
-    visibility_state: dict[str, dict[tuple[int, int], bool | None]],
-  ) -> None:
-    visible_map: dict[str, set[tuple[int, int]]] = {}
-    for key in board.get_interactive_keys():
-      visible: set[tuple[int, int]] = set()
-      key_state = visibility_state.get(key, {})
-      for (x, y), is_visible in key_state.items():
-        if is_visible is not True:
-          continue
-        pos = board.get_pos(x, y, key)
-        if pos is None:
-          continue
-        obj = board.get_value(pos)
-        if isinstance(obj, ValueCPV):
-          visible.add((x, y))
-      visible_map[key] = visible
-    self._visible_clue_positions = visible_map
+    def _rebuild_visible_clues(
+            self,
+            board: "Board",
+            visibility_state: dict[str, dict[tuple[int, int], bool | None]],
+    ) -> None:
+        visible_map: dict[str, set[tuple[int, int]]] = {}
+        for key in board.get_interactive_keys():
+            visible: set[tuple[int, int]] = set()
+            key_state = visibility_state.get(key, {})
+            for (x, y), is_visible in key_state.items():
+                if is_visible is not True:
+                    continue
+                pos = board.get_pos(x, y, key)
+                if pos is None:
+                    continue
+                obj = board.get_value(pos)
+                if isinstance(obj, ValueCPV):
+                    visible.add((x, y))
+            visible_map[key] = visible
+        self._visible_clue_positions = visible_map
 
-  def dynamic_init_visibility(self, board, visibility_state):
-    self._rebuild_visible_clues(board, visibility_state)
+    def dynamic_init_visibility(self, board, visibility_state):
+        self._rebuild_visible_clues(board, visibility_state)
 
-  def dynamic_on_visibility_changed(self, board, visibility_state, changed_positions):
-    self._rebuild_visible_clues(board, visibility_state)
+    def dynamic_on_visibility_changed(self, board, visibility_state, changed_positions):
+        self._rebuild_visible_clues(board, visibility_state)
 
-  def fill(self, board: "Board") -> "Board":
-    for key in board.get_interactive_keys():
-      clue_positions = sorted([(pos.x, pos.y) for pos, _ in board("N", key=key, special="raw")])
-      clue_set = set(clue_positions)
+    def fill(self, board: "Board") -> "Board":
+        for key in board.get_interactive_keys():
+            clue_positions = sorted([(pos.x, pos.y) for pos, _ in board("N", key=key, special="raw")])
+            clue_set = set(clue_positions)
 
-      belong_target: dict[tuple[int, int], tuple[int, int]] = {}
-      for pos, _ in board(key=key):
-        candidates: list[tuple[int, int]] = []
-        for nei in self._valid_neighbors(board, pos):
-          clue_key = (nei.x, nei.y)
-          if clue_key in clue_set:
-            candidates.append(clue_key)
-        if candidates:
-          belong_target[(pos.x, pos.y)] = sorted(candidates)[0]
+            belong_target: dict[tuple[int, int], tuple[int, int]] = {}
+            for pos, _ in board(key=key):
+                candidates: list[tuple[int, int]] = []
+                for nei in self._valid_neighbors(board, pos):
+                    clue_key = (nei.x, nei.y)
+                    if clue_key in clue_set:
+                        candidates.append(clue_key)
+                if candidates:
+                    belong_target[(pos.x, pos.y)] = sorted(candidates)[0]
 
-      clue_counts = {clue: 0 for clue in clue_positions}
-      for pos, obj_type in board(mode="type", key=key, special="raw"):
-        if obj_type != "F":
-          continue
-        target = belong_target.get((pos.x, pos.y))
-        if target is not None:
-          clue_counts[target] += 1
+            clue_counts = {clue: 0 for clue in clue_positions}
+            for pos, obj_type in board(mode="type", key=key, special="raw"):
+                if obj_type != "F":
+                    continue
+                target = belong_target.get((pos.x, pos.y))
+                if target is not None:
+                    clue_counts[target] += 1
 
-      for cx, cy in clue_positions:
-        cpos = board.get_pos(cx, cy, key)
-        if cpos is not None:
-          board.set_value(cpos, ValueCPV(cpos, count=clue_counts[(cx, cy)]))
-    return board
+            for cx, cy in clue_positions:
+                cpos = board.get_pos(cx, cy, key)
+                if cpos is not None:
+                    board.set_value(cpos, ValueCPV(cpos, count=clue_counts[(cx, cy)]))
+        return board
 
-  def create_constraints(self, board: "Board", switch):
-    model = board.get_model()
-    rule_switch = switch.get(model, self)
+    def create_constraints(self, board: "Board", switch):
+        model = board.get_model()
+        rule_switch = switch.get(model, self)
 
-    visible_clues = self._visible_clue_positions
-    if not visible_clues:
-      visible_clues = self._collect_visible_clues_from_board(board)
+        visible_clues = self._visible_clue_positions
+        if not visible_clues:
+            visible_clues = self._collect_visible_clues_from_board(board)
 
-    for key in board.get_interactive_keys():
-      key_visible = visible_clues.get(key, set())
-      if not key_visible:
-        continue
+        for key in board.get_interactive_keys():
+            key_visible = visible_clues.get(key, set())
+            if not key_visible:
+                continue
 
-      valid_visible_clues: dict[tuple[int, int], ValueCPV] = {}
-      for cx, cy in key_visible:
-        cpos = board.get_pos(cx, cy, key)
-        if cpos is None:
-          continue
-        cobj = board.get_value(cpos)
-        if isinstance(cobj, ValueCPV):
-          valid_visible_clues[(cx, cy)] = cobj
-      if not valid_visible_clues:
-        continue
+            valid_visible_clues: dict[tuple[int, int], ValueCPV] = {}
+            for cx, cy in key_visible:
+                cpos = board.get_pos(cx, cy, key)
+                if cpos is None:
+                    continue
+                cobj = board.get_value(cpos)
+                if isinstance(cobj, ValueCPV):
+                    valid_visible_clues[(cx, cy)] = cobj
+            if not valid_visible_clues:
+                continue
 
-      clue_terms: dict[tuple[int, int], list[IntVar]] = {clue: [] for clue in valid_visible_clues}
-      for pos, _ in board(key=key):
-        if not board.in_bounds(pos):
-          continue
+            clue_terms: dict[tuple[int, int], list[IntVar]] = {clue: [] for clue in valid_visible_clues}
+            for pos, _ in board(key=key):
+                if not board.in_bounds(pos):
+                    continue
 
-        m = board.get_variable(pos, special="raw")
-        if m is None:
-          continue
+                m = board.get_variable(pos, special="raw")
+                if m is None:
+                    continue
 
-        candidate_clues: list[tuple[int, int]] = []
-        for nei in self._valid_neighbors(board, pos):
-          clue_key = (nei.x, nei.y)
-          if clue_key in valid_visible_clues:
-            candidate_clues.append(clue_key)
+                candidate_clues: list[tuple[int, int]] = []
+                for nei in self._valid_neighbors(board, pos):
+                    clue_key = (nei.x, nei.y)
+                    if clue_key in valid_visible_clues:
+                        candidate_clues.append(clue_key)
 
-        if not candidate_clues:
-          continue
+                if not candidate_clues:
+                    continue
 
-        belong_vars: list[IntVar] = []
-        for cx, cy in candidate_clues:
-          b = model.NewBoolVar(f"CPV_belong_{key}_{pos.x}_{pos.y}_{cx}_{cy}")
-          t = model.NewBoolVar(f"CPV_mine_and_belong_{key}_{pos.x}_{pos.y}_{cx}_{cy}")
+                belong_vars: list[IntVar] = []
+                for cx, cy in candidate_clues:
+                    b = model.NewBoolVar(f"CPV_belong_{key}_{pos.x}_{pos.y}_{cx}_{cy}")
+                    t = model.NewBoolVar(f"CPV_mine_and_belong_{key}_{pos.x}_{pos.y}_{cx}_{cy}")
 
-          model.Add(t <= m).OnlyEnforceIf(rule_switch)
-          model.Add(t <= b).OnlyEnforceIf(rule_switch)
-          model.Add(t >= m + b - 1).OnlyEnforceIf(rule_switch)
+                    model.Add(t <= m).OnlyEnforceIf(rule_switch)
+                    model.Add(t <= b).OnlyEnforceIf(rule_switch)
+                    model.Add(t >= m + b - 1).OnlyEnforceIf(rule_switch)
 
-          belong_vars.append(b)
-          clue_terms[(cx, cy)].append(t)
+                    belong_vars.append(b)
+                    clue_terms[(cx, cy)].append(t)
 
-        model.Add(sum(belong_vars) <= 1).OnlyEnforceIf(rule_switch)
-        model.Add(sum(belong_vars) == 1).OnlyEnforceIf(rule_switch)
+                model.Add(sum(belong_vars) <= 1).OnlyEnforceIf(rule_switch)
+                model.Add(sum(belong_vars) == 1).OnlyEnforceIf(rule_switch)
 
-      for clue_key, cobj in valid_visible_clues.items():
-        model.Add(sum(clue_terms[clue_key]) == cobj.count).OnlyEnforceIf(rule_switch)
+            for clue_key, cobj in valid_visible_clues.items():
+                model.Add(sum(clue_terms[clue_key]) == cobj.count).OnlyEnforceIf(rule_switch)
 
 
 class ValueCPV(AbstractClueValue):
-  id = RuleCPV.id
-  def __init__(self, pos: "Position", count: int = 0, code=None):
-    super().__init__(pos, code if code is not None else b"")
-    if code is not None:
-      self.count = code[0]
-    else:
-      self.count = count
-    self.neighbor = self.pos.neighbors(2)
+    id = RuleCPV.id
 
-  def __repr__(self):
-    return str(self.count)
+    def __init__(self, pos: "Position", code=None, count: int = 0):
+        super().__init__(pos, code if code is not None else b"")
+        if code is not None:
+            self.count = code[0]
+        else:
+            self.count = count
+        self.neighbor = self.pos.neighbors(2)
 
-  @classmethod
-  def type(cls) -> bytes:
-    return RuleCPV.id.encode("ascii")
+    def __repr__(self):
+        return str(self.count)
 
-  def code(self) -> bytes:
-    return bytes([self.count])
+    @classmethod
+    def type(cls) -> bytes:
+        return RuleCPV.id.encode("ascii")
 
-  def high_light(self, board: "Board") -> list["Position"]:
-    return [nei for nei in self.neighbor if board.in_bounds(nei)]
+    def code(self) -> bytes:
+        return bytes([self.count])
 
-  def create_constraints(self, board: "Board", switch):
-    return
+    def high_light(self, board: "Board") -> list["Position"]:
+        return [nei for nei in self.neighbor if board.in_bounds(nei)]
+
+    def create_constraints(self, board: "Board", switch):
+        return

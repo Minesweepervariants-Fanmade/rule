@@ -40,7 +40,7 @@ class Rule2M(AbstractClueRule):
 
 class Value2M(AbstractClueValue):
     id = Rule2M.id
-    def __init__(self, pos: Position, count: int = 0, code: bytes = None):
+    def __init__(self, pos: Position, code: bytes = None, count: int = 0):
         super().__init__(pos, code)
         if code is not None:
             # 从字节码解码
