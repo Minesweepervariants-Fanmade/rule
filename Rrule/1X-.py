@@ -4,18 +4,43 @@
 """
 [1X-] 残缺十字 (Pawn)：线索表示朝向一个方向的两个格子中的雷数，线索会标注出方向
 """
-from typing import List, Dict
+from typing import List, Dict, Self
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from typing import cast
 from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.json_object import deep_unwrap
-from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleValue
 from minesweepervariants.board import JSONObject, Board, Position
 from ....utils.image_template import get_image, get_text, get_row, get_col, get_dummy
 from ....utils.impl_obj import MINES_TAG, VALUE_QUESS
 from ....utils.tool import get_random, get_logger
 from ....utils.web_template import StrWithArrow
+
+
+class IntValueArrow(SingleValue):
+    def __init__(self, value: int, direction, is_mine: bool = False):
+        super().__init__(value, is_mine)
+        self.value = value
+        self.direction = direction
+
+    def _template(self) -> Template:
+        result = super()._template()
+        result['_SingleIntValueArrow'] = True
+        result['data'] = self.value
+        result['direction'] = self.direction
+
+        return result
+
+    @classmethod
+    def try_from(cls, data: Template) -> Self | None:
+        if not data.get("_SingleIntValueArrow", False):
+            return None
+
+        value = cast(int, data["data"])
+        direction = data["direction"]
+
+        return cls(value, direction)
 
 
 class Rule1X_(AbstractClueRule):
@@ -62,16 +87,12 @@ class Rule1X_(AbstractClueRule):
 
 class Value1X_(AbstractClueValue):
     id = Rule1X_.id
-    def __init__(self, pos: Position, count: int = 0, direction: int = 0, code: bytes = None):
-        super().__init__(pos, code)
-        if code is not None:
-            # 从字节码解码
-            self.count = code[0]
-            self.direction = code[1]  # 0:上, 1:右, 2:下, 3:左
-        else:
-            # 直接初始化
-            self.count = count
-            self.direction = direction
+
+    def __init__(self, pos: 'Position', direction: int, count: int, *args: object, **kwargs: object) -> None:
+        super().__init__(pos, *args, **kwargs)
+        self.count = count
+        self.direction = direction
+        self.value = IntValueArrow(count, direction)
 
         # 计算目标格子位置
         self.target_positions = []
@@ -84,6 +105,21 @@ class Value1X_(AbstractClueValue):
         elif self.direction == 3:  # 左
             self.target_positions = [self.pos.left(), self.pos.left().left()]
 
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = IntValueArrow.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.direction, value.value)
+
     def __repr__(self):
         direction_symbols = ['↑', '→', '↓', '←']
         return f"{self.count}{direction_symbols[self.direction]}"
@@ -91,13 +127,6 @@ class Value1X_(AbstractClueValue):
     def __str__(self):
         direction_symbols = ['↑', '→', '↓', '←']
         return f"{self.count}{direction_symbols[self.direction]}"
-
-    @classmethod
-    def type(cls) -> bytes:
-        return b'1X-'
-
-    def code(self) -> bytes:
-        return bytes([self.count, self.direction])
 
     def high_light(self, board: 'Board') -> List['Position']:
         return self.target_positions

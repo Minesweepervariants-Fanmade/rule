@@ -208,7 +208,7 @@ class Value1W(AbstractClueValue):
 
         possible_list = [[]]
 
-        for value in MineStatus_1W(self.values):
+        for value in MineStatus_1W(list(self.values)):
             bool_list = [(value >> i) & 1 == 1 for i in reversed(range(8))]
             flag = False
             for index, var in enumerate(var_list):

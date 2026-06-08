@@ -43,9 +43,16 @@ class Rule1X2X(AbstractClueRule):
         logger = get_logger()
         r = get_random()
         for pos, _ in board("N"):
-            value1 = len([_pos for _pos in cross_neighbors(pos) if board.get_type(_pos) == "F" and board.get_dyed(_pos)])
-            value2 = len(
-                [_pos for _pos in cross_neighbors(pos) if board.get_type(_pos) == "F" and not board.get_dyed(_pos)])
+            value1 = len([
+                _pos for _pos in cross_neighbors(pos)
+                if board.get_type(_pos) == "F" and
+                board.get_dyed(_pos)
+            ])
+            value2 = len([
+                _pos for _pos in cross_neighbors(pos)
+                if board.get_type(_pos) == "F" and
+                not board.get_dyed(_pos)
+            ])
             if r.randint(0, 1): value1, value2 = value2, value1
             board.set_value(pos, Value1X2X(pos, [value1, value2]))
             logger.debug(f"Set {pos} to 1X2X[{value1 * 10 + value2}]")
@@ -58,9 +65,9 @@ class Value1X2X(AbstractClueValue):
     def __init__(self, pos: 'Position', value: list[int], *args: object, **kwargs: object):
         super().__init__(pos, value, *args, **kwargs)
         self.value: MultiIntValue = MultiIntValue(value)
-        self.count = value[0] * 10 + value[1]
+        self.counts = value
         self.pos = pos
-        self.neighbor = pos.neighbors(2)
+        self.neighbor = cross_neighbors(pos)
 
     @classmethod
     def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
@@ -81,12 +88,12 @@ class Value1X2X(AbstractClueValue):
         return self.neighbor
 
     def web_component(self, board) -> Dict:
-        value = [self.count // 10, self.count % 10]
+        value = self.counts
         value.sort()
         return MultiNumber(value)
 
     def compose(self, board) -> Dict:
-        value = [self.count // 10, self.count % 10]
+        value = self.counts
         value.sort()
         text_a = get_text(str(value[0]))
         text_b = get_text(str(value[1]))
@@ -116,7 +123,7 @@ class Value1X2X(AbstractClueValue):
             # 定义变量
             t = model.NewBoolVar('t')
             # 设置A B C D的值
-            model.Add(sum(neighbor_vars1) == self.count // 10).OnlyEnforceIf([t, s])
-            model.Add(sum(neighbor_vars2) == self.count % 10).OnlyEnforceIf([t, s])
-            model.Add(sum(neighbor_vars1) == self.count % 10).OnlyEnforceIf([t.Not(), s])
-            model.Add(sum(neighbor_vars2) == self.count // 10).OnlyEnforceIf([t.Not(), s])
+            model.Add(sum(neighbor_vars1) == self.counts[0]).OnlyEnforceIf([t, s])
+            model.Add(sum(neighbor_vars2) == self.counts[1]).OnlyEnforceIf([t, s])
+            model.Add(sum(neighbor_vars1) == self.counts[1]).OnlyEnforceIf([t.Not(), s])
+            model.Add(sum(neighbor_vars2) == self.counts[0]).OnlyEnforceIf([t.Not(), s])

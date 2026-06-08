@@ -1,15 +1,41 @@
-from typing import List, Dict
+from typing import List, Dict, Self
 
 from ortools.sat.python.cp_model import CpModel
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
 from minesweepervariants.board import Position, Board, JSONObject
 from typing import cast
 from minesweepervariants.abs.rule import AbstractValue
-from minesweepervariants.json_object import deep_unwrap
-from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
+from minesweepervariants.json_object import deep_unwrap, JSONScalar
+from minesweepervariants.utils.value_template import is_value_template, Template, SingleValue
 from ....utils.tool import get_random, get_logger
 from ....utils.image_template import get_image, get_text, get_row, get_col, get_dummy
 from ....utils.web_template import StrWithArrow
+
+
+class IntValue1F(SingleValue):
+    def __init__(self, value: int, direction, is_mine: bool = False):
+        super().__init__(value, is_mine)
+        self.value = value
+        self.direction = direction
+
+    def _template(self) -> Template:
+        result = super()._template()
+        result['_SingleIntValue1F'] = True
+        result['data'] = self.value
+        result['direction'] = self.direction
+
+        return result
+
+    @classmethod
+    def try_from(cls, data: Template) -> Self | None:
+        if not data.get("_SingleIntValue1F", False):
+            return None
+
+        value = cast(int, data["data"])
+        direction = data["direction"]
+
+        return cls(value, direction)
+
 
 class Rule1F(AbstractClueRule):
     id = "1F"
@@ -57,24 +83,40 @@ class Rule1F(AbstractClueRule):
                     lower_scan_pos = lower_scan_pos.left()
                 else:
                     lower_scan_pos = lower_scan_pos.down()
-            count = abs(upper_scan_pos.x - lower_scan_pos.x) + abs(upper_scan_pos.y - lower_scan_pos.y) - 1
+            count = abs(upper_scan_pos.row - lower_scan_pos.row) + abs(upper_scan_pos.y - lower_scan_pos.y) - 1
             board.set_value(pos, Value1F(pos, direction=direction, count=count))
 
         return board
 
+
 class Value1F(AbstractClueValue):
     id = Rule1F.id
+
+    def __init__(self, pos: 'Position', direction: int, count: int, *args: object, **kwargs: object) -> None:
+        super().__init__(pos, *args, **kwargs)
+        self.count = count
+        self.direction = direction
+        self.value = IntValue1F(count, direction)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = IntValue1F.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.direction, value.value)
 
     def __repr__(self):
         direction_symbols = ['↑', '→', '↓', '←']
         return f"{self.count}{direction_symbols[self.direction]}"
 
-    @classmethod
-    def type(cls) -> bytes:
-        return Rule1F.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.direction, self.count])
 
     def web_component(self, board) -> Dict:
         """生成可视化组件"""
