@@ -57,7 +57,36 @@ class Rule2B(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def create_constraints(self, board: 'Board', switch: Switch):
+    def __init__(self, board: "Board | None" = None, data: str | None = None) -> None:
+        super().__init__(board, data)
+        if data:
+            data = data.lower()
+        match data:
+            case None:
+                self.constraints_choose = 0
+            case "nt":
+                self.constraints_choose = 0
+            case "wu" | "雾":
+                self.constraints_choose = 1
+            case "xqbk":
+                self.constraints_choose = 2
+            case "hhy" | "哈嘿袁":
+                self.constraints_choose = 3
+            case _:
+                raise ValueError("未知的规则实现者")
+
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
+        match self.constraints_choose:
+            case 0:
+                return self.create_constraints_nt(board, switch)
+            case 1:
+                return self.create_constraints_real(board, switch)
+            case 2:
+                return self.create_constraints_xqbk(board, switch)
+            case 3:
+                return self.create_constraints_hhy(board, switch)
+
+    def create_constraints_nt(self, board: 'Board', switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -90,7 +119,135 @@ class Rule2B(AbstractMinesRule):
             for i in range(1, len(row_sums)):
                 model.Add(row_sums[i] == row_sums[0]).OnlyEnforceIf(s)
 
-    def create_constraints_(self, board: 'Board', switch):
+    def create_constraints_real(self, board: 'Board', switch):
+        """真·2B"""
+        model = board.get_model()
+        s = switch.get(model, self)
+        flag_index_map = {
+            pos: model.new_int_var(0, 2, f"2B[{pos}]_flag_index")
+            for pos, _ in board()
+        }
+        for board_key in board.get_interactive_keys():
+            pos_bound = board.boundary(board_key)
+            for col_pos in board.get_row_pos(pos_bound):
+                col = board.get_col_pos(col_pos)
+                for index_a in range(len(col)):
+                    pos_a = col[index_a]
+                    for index_b in range(index_a + 1, len(col)):
+                        pos_b = col[index_b]
+                        var_not_list = [
+                            _var.Not() for _var in
+                            board.batch(col[index_a + 1: index_b], "var")
+                        ]
+                        model.add_modulo_equality(
+                            flag_index_map[pos_a], flag_index_map[pos_b] + 1, 3
+                        ).OnlyEnforceIf(var_not_list + [
+                            board.get_variable(pos_a),
+                            board.get_variable(pos_b),
+                        ])
+                for pos in col:
+                    root_var = flag_index_map[pos]
+                    r_flag_pos = [
+                        pos.right(),
+                        pos.right().up(),
+                        pos.right().down(),
+                    ]
+                    tmp_list = []
+                    for flag_pos in r_flag_pos:
+                        if flag_pos not in flag_index_map:
+                            continue
+                        flag_tmp_var = flag_index_map[flag_pos]
+                        tmp_var = model.new_bool_var("")
+                        tmp_list.append(tmp_var)
+                        model.add(
+                            flag_tmp_var == root_var
+                        ).OnlyEnforceIf(
+                            tmp_var, s
+                        )
+                        model.add_bool_and([
+                            board.get_variable(flag_pos)
+                        ]).OnlyEnforceIf(tmp_var, s)
+                    if len(tmp_list):
+                        model.add_bool_or(tmp_list).OnlyEnforceIf(board.get_variable(pos), s)
+                    l_flag_pos = [
+                        pos.left(),
+                        pos.left().up(),
+                        pos.left().down(),
+                    ]
+                    tmp_list = []
+                    for flag_pos in l_flag_pos:
+                        if flag_pos not in flag_index_map:
+                            continue
+                        flag_tmp_var = flag_index_map[flag_pos]
+                        tmp_var = model.new_bool_var("")
+                        tmp_list.append(tmp_var)
+                        model.add(
+                            flag_tmp_var == root_var
+                        ).OnlyEnforceIf(
+                            tmp_var, s
+                        )
+                        model.add_bool_and([
+                            board.get_variable(flag_pos)
+                        ]).OnlyEnforceIf(tmp_var, s)
+                    if len(tmp_list):
+                        model.add_bool_or(tmp_list).OnlyEnforceIf(board.get_variable(pos), s)
+
+    def create_constraints_xqbk(self, board: 'Board', switch: 'Switch'):
+        """xqbk提供的规则约束建议"""
+        model = board.get_model()
+        s = switch.get(model, self)
+
+        for key in board.get_interactive_keys():
+            pos_bound = board.boundary(key=key)
+
+            row_positions = board.get_row_pos(pos_bound)
+            row_sums = [
+                sum(board.get_variable(_pos) for _pos in board.get_col_pos(pos))
+                for pos in row_positions
+            ]
+            # 所有 col_sums 相等
+            for i in range(1, len(row_sums)):
+                model.Add(row_sums[i] == row_sums[0]).OnlyEnforceIf(s)
+
+            for col_index_a in range(pos_bound.col):
+                col_index_b = col_index_a + 1
+                col_a = board.get_col_pos(pos_bound.left(col_index_a))
+                col_b = board.get_col_pos(pos_bound.left(col_index_b))
+                for col_pos_a in col_a:
+                    for col_pos_b in col_b:
+                        diff = col_a.index(col_pos_a) - col_b.index(col_pos_b)
+                        if diff < 0:
+                            model.add(
+                                sum(board.batch(col_b[:col_b.index(col_pos_b)], "var")) -
+                                sum(board.batch(col_a[:col_a.index(col_pos_a)], "var")) <= - diff
+                            ).only_enforce_if(
+                                board.get_variable(col_pos_b).Not(),
+                                board.get_variable(col_pos_a).Not(), s
+                            )
+                            model.add(
+                                sum(board.batch(col_b[:col_b.index(col_pos_b)], "var")) >=
+                                sum(board.batch(col_a[:col_a.index(col_pos_a)], "var"))
+                            ).only_enforce_if(
+                                board.get_variable(col_pos_b).Not(),
+                                board.get_variable(col_pos_a).Not(), s
+                            )
+                        else:
+                            model.add(
+                                sum(board.batch(col_a[:col_a.index(col_pos_a)], "var")) -
+                                sum(board.batch(col_b[:col_b.index(col_pos_b)], "var")) <= diff
+                            ).only_enforce_if(
+                                board.get_variable(col_pos_b).Not(),
+                                board.get_variable(col_pos_a).Not(), s
+                            )
+                            model.add(
+                                sum(board.batch(col_a[:col_a.index(col_pos_a)], "var")) >=
+                                sum(board.batch(col_b[:col_b.index(col_pos_b)], "var"))
+                            ).only_enforce_if(
+                                board.get_variable(col_pos_b).Not(),
+                                board.get_variable(col_pos_a).Not(), s
+                            )
+
+    def create_constraints_hhy(self, board: 'Board', switch):
         """
         约束建议提供:哈嘿袁
         """
@@ -182,7 +339,6 @@ class Rule2B(AbstractMinesRule):
             # 所有 row_sums 相等
             for i in range(1, len(row_sums)):
                 model.Add(row_sums[i] == row_sums[0]).OnlyEnforceIf(s)
-
 
     def suggest_total(self, info: dict):
         size_list = [info["size"][key] for key in info["interactive"]]
