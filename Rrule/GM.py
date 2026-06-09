@@ -68,10 +68,14 @@ class RuleGM(AbstractClueRule):
 
 class ValueGM(ValueQuess):
     id = "GM"
+
+    def __init__(self, pos: 'Position', code: bytes = b'') -> None:
+        super().__init__(pos, code)
+        self.value = SingleValue("")
+  
     @classmethod
     def type(cls) -> bytes:
         return RuleGM.id.encode("ascii")
-        self.value = SingleValue("")
 
     def __repr__(self) -> str:
         return ""
