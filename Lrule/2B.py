@@ -7,9 +7,36 @@
 """
 [2B] 桥 (Bridge)：所有雷构成若干组桥。桥是从题版左边界八连通连接（水平或斜角连接）到右边界，宽度为 1、长度与题版相等的一条路径
 """
+from minesweepervariants.impl.summon.solver import Switch
+
 from ....abs.Lrule import AbstractMinesRule
 from minesweepervariants.board import Board
+from ortools.sat.python.cp_model import IntVar, CpModel
 
+
+def _get_index(line: list[IntVar], model: CpModel, col_name: str = "") -> list[IntVar]:
+    n = len(line)
+
+    a = line + [True]
+    b = [model.new_int_var(0, n, f'col_idx_{col_name}_{i}') for i in range(n)]
+
+    s = [model.new_int_var(0, n + 1, f's_{col_name}_{j}') for j in range(n + 2)]
+    model.add(s[0] == 0)
+    for j in range(n + 1):
+        model.add(s[j+1] == s[j] + a[j])
+
+    for i in range(n):
+        # 约束 A：a[b[i]] == 1
+        model.add_element(b[i], a, 1)
+
+        # 约束 B：前 n+1 个元素来自 s，最后一个元素直接填入目标值 i + 1
+        s_lookup = [s[j] for j in range(n + 1)] + [i + 1]
+
+        b_plus_one = model.new_int_var(1, n + 1, f'b_plus_one_{col_name}_{i}')
+        model.add(b_plus_one == b[i] + 1)
+        model.add_element(b_plus_one, s_lookup, i + 1)
+
+    return b
 
 class Rule2B(AbstractMinesRule):
     id = "2B"
@@ -21,123 +48,28 @@ class Rule2B(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def create_constraints_(self, board: 'Board', switch):
-        def get_line_pos(pos):
-            col = board.get_col_pos(pos)
-            print("pos:", pos, "col:", col)
-            if len(col) / 2 > col.index(pos):
-                return col[:col.index(pos)][::-1], True
-            else:
-                return col[col.index(pos)+1:], False
-
+    def create_constraints_new(self, board: 'Board', switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
 
         for key in board.get_interactive_keys():
-            pos_boundary = board.boundary(key=key)
+            boundary = board.boundary(key)
+            cols, rows = boundary.col + 1, boundary.row + 1
 
-            # 列平衡
-            row_positions = board.get_row_pos(pos_boundary)
-            row_sums = [
-                sum(board.get_variable(_pos) for _pos in board.get_col_pos(pos))
-                for pos in row_positions
-            ]
-            for i in range(1, len(row_sums)):
-                model.Add(row_sums[i] == row_sums[0]).OnlyEnforceIf(s)
+            col_idx: list[list[IntVar]] = []
+            for col_pos in board.get_row_pos(boundary):
+                column = board.get_col_pos(col_pos)
+                line = [var for pos in column if (var := board.get_variable(pos)) is not None]
+                idx_vars = _get_index(line, model, f"{key}_{col_pos}")
+                col_idx.append(idx_vars)
 
-            for pos_row in board.get_row_pos(pos_boundary):
-                print(board.get_col_pos(pos_row))
-                for pos in board.get_col_pos(pos_row):
-                    print("looking at", pos)
-                    var = board.get_variable(pos)
-                    col_pos, line_mode = get_line_pos(pos)
-                    print(col_pos, line_mode)
-                    if (
-                        not col_pos and
-                        not board.is_valid(pos.right().up() if line_mode else pos.right().down()) and
-                        not board.is_valid(pos.left().up() if line_mode else pos.left().down())
-                    ):
-                        # 位置处于边界
-                        if line_mode:
-                            # 该位置位于上边界
-                            # 正中心为雷 或者正中心不是雷那么就下方是雷
-                            if board.is_valid(pos.right()):
-                                model.Add(board.get_variable(pos.right().down()) == 1).OnlyEnforceIf([
-                                    var, s, board.get_variable(pos.right()).Not()
-                                ])
-                            elif board.is_valid(pos.right().down()):
-                                model.Add(board.get_variable(pos.right().down()) == 1).OnlyEnforceIf([var, s])
-                            if board.is_valid(pos.left()):
-                                model.Add(board.get_variable(pos.left().down()) == 1).OnlyEnforceIf([
-                                    var, s, board.get_variable(pos.left()).Not()
-                                ])
-                            elif board.is_valid(pos.left().down()):
-                                model.Add(board.get_variable(pos.left().down()) == 1).OnlyEnforceIf([var, s])
-                        else:
-                            # 该位置位于下边界
-                            # 正中心为雷 或者正中心不是雷那么就上方是雷
-                            if board.is_valid(pos.right()):
-                                model.Add(board.get_variable(pos.right().up()) == 1).OnlyEnforceIf([
-                                    var, s, board.get_variable(pos.right()).Not()
-                                ])
-                            elif board.is_valid(pos.right().up()):
-                                model.Add(board.get_variable(pos.right().up()) == 1).OnlyEnforceIf([var, s])
-                            if board.is_valid(pos.left()):
-                                model.Add(board.get_variable(pos.left().up()) == 1).OnlyEnforceIf([
-                                    var, s, board.get_variable(pos.left()).Not()
-                                ])
-                            elif board.is_valid(pos.left().up()):
-                                model.Add(board.get_variable(pos.left().up()) == 1).OnlyEnforceIf([var, s])
-                        continue
+            for r in range(rows):
+                for c in range(cols - 1):
+                    this_idx = col_idx[c][r]
+                    next_idx = col_idx[c + 1][r]
 
-                    for x_pos in [
-                        col_pos[0].left(),
-                        col_pos[0].right()
-                    ]:
-                        if not board.is_valid(x_pos):
-                            continue
-                        tmp_a = model.NewBoolVar(f"tmp_a_{x_pos}")
-                        tmp_b = model.NewBoolVar(f"tmp_b_{x_pos}")
-                        tmp_c = model.NewBoolVar(f"tmp_c_{x_pos}")
-                        x_col_pos, _ = get_line_pos(x_pos)
-                        print(x_col_pos)
-                        col_var = board.batch(col_pos, mode="variable")
-                        x_col_var = board.batch(x_col_pos, mode="variable")
-                        model.AddBoolOr([tmp_a, tmp_b, tmp_c]).OnlyEnforceIf([var, s])
-                        model.Add(sum(col_var) == sum(x_col_var)).OnlyEnforceIf([tmp_a, var, s])
-                        model.Add(
-                            sum(col_var) == (
-                                sum(x_col_var) +
-                                board.get_variable(x_pos.down() if line_mode else x_pos.up())
-                            )
-                        ).OnlyEnforceIf([tmp_b, var, s])
-                        model.Add(
-                            sum(col_var) == (
-                                sum(x_col_var) +
-                                board.get_variable(
-                                    x_pos.down() if line_mode else x_pos.up()
-                                ) +
-                                board.get_variable(
-                                    x_pos.down(2) if line_mode else x_pos.up(2)
-                                )
-                            )
-                        ).OnlyEnforceIf([tmp_c, var, s])
-                        model.Add(tmp_a == 0).OnlyEnforceIf([board.get_variable(x_pos).Not()])
-                        model.Add(tmp_b == 0).OnlyEnforceIf([
-                            board.get_variable(x_pos.down() if line_mode else x_pos.up()).Not()
-                        ])
-                        model.Add(tmp_c == 0).OnlyEnforceIf([
-                            board.get_variable(x_pos.down(2) if line_mode else x_pos.up(2)).Not()
-                        ])
-                        model.Add(
-                            board.get_variable(x_pos) == 1
-                        ).OnlyEnforceIf([tmp_a, var, s])
-                        model.Add(board.get_variable(
-                            x_pos.down() if line_mode else x_pos.up()
-                        ) == 1).OnlyEnforceIf([tmp_b, var, s])
-                        model.Add(board.get_variable(
-                            x_pos.down(2) if line_mode else x_pos.up(2)
-                        ) == 1).OnlyEnforceIf([tmp_c, var, s])
+                    diff = model.new_int_var(-1, 1, f'diff_{key}_{r}_{c}')
+                    model.add(diff == next_idx - this_idx).OnlyEnforceIf(s)
 
     def create_constraints(self, board: 'Board', switch):
         """
@@ -231,6 +163,7 @@ class Rule2B(AbstractMinesRule):
             # 所有 row_sums 相等
             for i in range(1, len(row_sums)):
                 model.Add(row_sums[i] == row_sums[0]).OnlyEnforceIf(s)
+
 
     def suggest_total(self, info: dict):
         size_list = [info["size"][key] for key in info["interactive"]]
