@@ -44,11 +44,6 @@ def _get_index(a: list[cp_model.IntVar], model: cp_model.CpModel, name: str = ""
     for i in range(n - 1):
         model.add(b[i+1] >= b[i])
 
-    for i in range(n - 1):
-        model.add(b[i+1] >= b[i])
-
-    model.add_element(s[n], b +[n], n)
-    
     return b
 
 
@@ -84,6 +79,16 @@ class Rule2B(AbstractMinesRule):
 
                     diff = model.new_int_var(-1, 1, f'diff_{key}_{r}_{c}')
                     model.add(diff == next_idx - this_idx).OnlyEnforceIf(s)
+
+            # 列平衡
+            row_positions = board.get_row_pos(boundary)
+            row_sums = [
+                sum(board.get_variable(_pos) for _pos in board.get_col_pos(pos))
+                for pos in row_positions
+            ]
+            # 所有 row_sums 相等
+            for i in range(1, len(row_sums)):
+                model.Add(row_sums[i] == row_sums[0]).OnlyEnforceIf(s)
 
     def create_constraints_(self, board: 'Board', switch):
         """
