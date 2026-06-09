@@ -36,6 +36,11 @@ def _get_index(line: list[IntVar], model: CpModel, col_name: str = "") -> list[I
         model.add(b_plus_one == b[i] + 1)
         model.add_element(b_plus_one, s_lookup, i + 1)
 
+    for i in range(n - 1):
+        model.add(b[i+1] >= b[i])
+
+    model.add_element(s[n], b +[n], n)
+    
     return b
 
 class Rule2B(AbstractMinesRule):
@@ -48,7 +53,7 @@ class Rule2B(AbstractMinesRule):
     creation_time = "2025-08-06"
     author = ("", 0)
 
-    def create_constraints_new(self, board: 'Board', switch: Switch):
+    def create_constraints(self, board: 'Board', switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -71,7 +76,7 @@ class Rule2B(AbstractMinesRule):
                     diff = model.new_int_var(-1, 1, f'diff_{key}_{r}_{c}')
                     model.add(diff == next_idx - this_idx).OnlyEnforceIf(s)
 
-    def create_constraints(self, board: 'Board', switch):
+    def create_constraints_(self, board: 'Board', switch):
         """
         约束建议提供:哈嘿袁
         """
