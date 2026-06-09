@@ -14,27 +14,35 @@ from minesweepervariants.board import Board
 from ortools.sat.python.cp_model import IntVar, CpModel
 
 
-def _get_index(line: list[IntVar], model: CpModel, col_name: str = "") -> list[IntVar]:
-    n = len(line)
+from ortools.sat.python import cp_model
 
-    a = line + [True]
-    b = [model.new_int_var(0, n, f'col_idx_{col_name}_{i}') for i in range(n)]
+def _get_index(a: list[cp_model.IntVar], model: cp_model.CpModel, name: str = "") -> list[cp_model.IntVar]:
+    n = len(a)
 
-    s = [model.new_int_var(0, n + 1, f's_{col_name}_{j}') for j in range(n + 2)]
+    # 1. 创建前缀和数组 s
+    # s[j] 表示 a 到 a[j-1] 中 1 的总数。它的取值范围是 0 到 n
+    s = [model.new_int_var(0, n, f's_{name}_{j}') for j in range(n + 1)]
     model.add(s[0] == 0)
-    for j in range(n + 1):
+    for j in range(n):
         model.add(s[j+1] == s[j] + a[j])
 
-    for i in range(n):
-        # 约束 A：a[b[i]] == 1
-        model.add_element(b[i], a, 1)
+    # 2. 创建目标输出数组 b
+    # b[i] 代表第 i+1 个 1 出现的索引位置
+    # 【核心技巧】：如果 a 中 1 的个数不够（小于 i+1 个），我们用一个虚拟位置 n 来表示不存在
+    b = [model.new_int_var(0, n, f'b_{name}_{i}') for i in range(n)]
 
-        # 约束 B：前 n+1 个元素来自 s，最后一个元素直接填入目标值 i + 1
-        s_lookup = [s[j] for j in range(n + 1)] + [i + 1]
+    # 3. 建立对偶映射（Channeling）
+    # 逻辑：如果 a[j] 是一个 1，那么此时它前面的 1 的个数恰好是 s[j]。
+    # 也就是说，a[j] 就是整个数组中的第 s[j] 个 1（以 0 为起始计数）。
+    # 因此，目标数组中第 s[j] 个位置，必须记录当前的索引 j，即：b[s[j]] == j
+    for j in range(n):
+        # 只有当 a[j] == 1 时，才强制执行这个元素查找约束
+        model.add_element(s[j], b, j).only_enforce_if(a[j])
 
-        b_plus_one = model.new_int_var(1, n + 1, f'b_plus_one_{col_name}_{i}')
-        model.add(b_plus_one == b[i] + 1)
-        model.add_element(b_plus_one, s_lookup, i + 1)
+    # 4. 处理 1 的数量不够时的边界情况
+    # 确保 b 数组是递增的。如果某个 b[i] 变成了虚拟位置 n，后面所有的 b[i+1] 也必须是 n
+    for i in range(n - 1):
+        model.add(b[i+1] >= b[i])
 
     for i in range(n - 1):
         model.add(b[i+1] >= b[i])
@@ -42,6 +50,7 @@ def _get_index(line: list[IntVar], model: CpModel, col_name: str = "") -> list[I
     model.add_element(s[n], b +[n], n)
     
     return b
+
 
 class Rule2B(AbstractMinesRule):
     id = "2B"
