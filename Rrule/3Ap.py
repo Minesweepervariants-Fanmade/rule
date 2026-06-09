@@ -5,7 +5,7 @@
 # @Author  : xxx
 # @FileName: 3Ap.py
 from itertools import product
-from typing import List, Dict, Set, Tuple, Optional, Self
+from typing import List, Dict, Set, Tuple, Optional, Self, Mapping
 
 from ortools.sat.python.cp_model import IntVar
 
@@ -84,6 +84,9 @@ class Value3Ap(AbstractClueValue):
 
     def __repr__(self):
         return str(self.count)
+
+    def compose(self, board: 'Board') -> Mapping[str, object]:
+        return SingleIntValue(self.count).compose()
 
     def high_light(self, board: 'Board') -> List['Position']:
         pos = self.pos.clone()
