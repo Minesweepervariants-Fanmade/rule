@@ -71,6 +71,7 @@ class ValueGM(ValueQuess):
     @classmethod
     def type(cls) -> bytes:
         return RuleGM.id.encode("ascii")
+        self.value = SingleValue("")
 
     def __repr__(self) -> str:
         return ""
