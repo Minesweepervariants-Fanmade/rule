@@ -83,12 +83,7 @@ class RuleFN(AbstractClueRule):
             obj = ValueFN(pos, value)
             board[pos] = obj
         return board
-
-    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
-        model = board.get_model()
-        model.add(sum(board.batch(board.get_col_pos(board.boundary(FN_NAME)), 'var')) == 1).OnlyEnforceIf(
-            switch.get(model, self))
-
+        
 
 class ValueFN(AbstractClueValue):
     id = RuleFN.id
@@ -123,3 +118,5 @@ class ValueFN(AbstractClueValue):
             taget_num = range_start + i
             model.add(global_var == taget_num).OnlyEnforceIf(col_var[i], s)
             model.add(global_var != taget_num).OnlyEnforceIf(col_var[i].Not(), s)
+        model.add(sum(board.batch(board.get_col_pos(board.boundary(FN_NAME)), 'var')) == 1).OnlyEnforceIf(s)
+
