@@ -4,13 +4,13 @@
 # @Time    : 2026/05/26 16:44
 # @Author  : Wu_RH
 # @FileName: FN.py
-from typing import Union, List, Self
+from typing import Union, List, Self, cast
 
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
 from minesweepervariants.board import Board, Position, Size
 from minesweepervariants.utils.value_template import SingleIntValue, Template
 from minesweepervariants.impl.summon.solver import Switch
-from minesweepervariants.utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
+from minesweepervariants.utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS, VALUE_QUESS
 
 
 def get_nei(pos: Position, board: Board) -> List[Position]:
@@ -44,6 +44,23 @@ FN_NAME = "FN"
 NUM_RANGE = lambda x: ((9 - x) // 2, 9 - (10 - x) // 2)
 
 
+class DataFN(SingleIntValue):
+    def __init__(self, value: int, flag: bool, is_mine: bool = False):
+        super().__init__(value, is_mine)
+        self.flag = flag
+
+    def _template(self) -> Template:
+        result = super()._template()
+        result["flag"] = self.flag
+        return result
+
+    @classmethod
+    def try_from(cls, data: Template) -> Self | None:
+        value = cast(int, data["data"])
+        flag = cast(bool, data["flag"])
+        return cls(value, flag)
+
+
 class RuleFN(AbstractClueRule):
     id = "FN"
     name = "FloatNumber"
@@ -56,6 +73,11 @@ class RuleFN(AbstractClueRule):
 
     def __init__(self, board: "Board | None" = None, data: str | None = None) -> None:
         super().__init__(board, data)
+        if data is not None and any(i not in "NFC" for i in data):
+            raise ValueError("N:不使用循环题板;F:禁止在题板的角落放置线索;C:禁止在题板贴边放置线索")
+        self.fn_flag = data is not None and "N" not in data
+        self.put_F_flag = data is not None and "F" in data
+        self.put_C_flag = data is not None and "C" in data
         num_size = min(9, max(board.boundary(key).row + 1 for key in board.get_interactive_keys()))
         self.num_range = NUM_RANGE(num_size)
         board.generate_board(FN_NAME, size=Size(1, num_size), labels=[str(i) for i in range(*self.num_range)])
@@ -72,35 +94,57 @@ class RuleFN(AbstractClueRule):
             board[pos] = None
 
     def fill(self, board: 'Board') -> 'Board':
+        def check_pos(_pos: Position, _board: 'Board') -> bool:
+            flag = 0
+            if _pos.row in [0, _board.boundary(_pos.board_key).row]:
+                flag += 1
+            if _pos.col in [0, _board.boundary(_pos.board_key).col]:
+                flag += 1
+            if flag == 2 and self.put_F_flag:
+                return True
+            if flag == 1 and self.put_C_flag:
+                return True
+            return False
         sum_num = 0
         len_num = 0
         for pos, _ in board("N", mode="none"):
-            sum_num += board.batch(get_nei(pos, board), "type").count("F")
+            if check_pos(pos, board):
+                continue
+            sum_num += board.batch(
+                get_nei(pos, board) if self.fn_flag else pos.neighbors(2),
+                "type").count("F")
             len_num += 1
         self.total = max(min(self.num_range[1] - 1, int(sum_num / len_num)), self.num_range[0])
         for pos, _ in board("N", mode="none"):
-            value = board.batch(get_nei(pos, board), "type").count("F") - self.total
-            obj = ValueFN(pos, value)
+            if check_pos(pos, board):
+                board[pos] = VALUE_QUESS
+                continue
+            value = board.batch(
+                get_nei(pos, board) if self.fn_flag else pos.neighbors(2),
+                "type").count("F") - self.total
+            obj = ValueFN(pos, value, self.fn_flag)
             board[pos] = obj
         return board
-        
+
 
 class ValueFN(AbstractClueValue):
     id = RuleFN.id
 
-    def __init__(self, pos: 'Position', value: int) -> None:
+    def __init__(self, pos: 'Position', value: int, flag: bool) -> None:
         super().__init__(pos)
-        self.value: SingleIntValue = SingleIntValue(value)
+        self.value: DataFN = DataFN(value, flag)
+        self.flag = flag
 
     def __repr__(self) -> str:
         return ("+" + str(self.value.value)) if self.value.value > 0 else str(self.value.value)
 
     @classmethod
     def from_json(cls, pos: 'Position', data: 'Template') -> Self:
-        return cls(pos, SingleIntValue.try_from(data).value)
+        value_data = DataFN.try_from(data)
+        return cls(pos, value_data.value, value_data.flag)
 
     def high_light(self, board: 'Board') -> List['Position'] | None:
-        return get_nei(self.pos, board)
+        return get_nei(self.pos, board) if self.flag else self.pos.neighbors(2)
 
     def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
@@ -108,7 +152,9 @@ class ValueFN(AbstractClueValue):
         s = switch.get(model, self)
         model.add(
             sum(
-                board.batch(get_nei(self.pos, board), "var", drop_none=True)
+                board.batch(
+                    get_nei(self.pos, board) if self.flag else self.pos.neighbors(2),
+                    "var", drop_none=True)
             ) == global_var + self.value.value
         ).only_enforce_if(s)
         FN_Bound = board.boundary(FN_NAME)
