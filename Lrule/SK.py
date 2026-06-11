@@ -49,6 +49,11 @@ class RuleSK(AbstractMinesRule):
                     row_end_sk_pos.to_board("SK")
                     row_sk_var: list[IntVar] = [var for pos in (board.get_row_pos(row_end_sk_pos))
                                                     if (var := board.get_variable(pos)) is not None]
+                    for v1, v2, v3 in zip(row_sk_var, row_sk_var[1:], row_sk_var[2:]):
+                        model.add_bool_xor([v1, v3]).only_enforce_if(v2)
+                    model.add(row_sk_var[1] == 1).only_enforce_if(row_sk_var[0])
+                    model.add(row_sk_var[-2] == 1).only_enforce_if(row_sk_var[-1])
+
                     if i < len(col_positions) - 1:
                         model.add(sum(row_sk_var) == 2)
                     else:
