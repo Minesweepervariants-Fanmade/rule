@@ -41,7 +41,7 @@ def get_nei(pos: Position, board: Board) -> List[Position]:
 
 
 FN_NAME = "FN"
-NUM_RANGE: Callable[[int], Tuple[int, int]] = lambda x: ((7 - x) // 2, 3 + (x - 1) // 2) if x < 7 else (0, x - 1)
+NUM_RANGE: Callable[[int], Tuple[int, int]] = lambda x: ((7 - x) // 2, 4 + (x - 1) // 2) if x < 7 else (0, x)
 
 
 class DataFN(SingleIntValue):
