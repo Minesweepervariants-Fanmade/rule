@@ -4,10 +4,11 @@
 # @Time    : 2026/05/26 16:44
 # @Author  : Wu_RH
 # @FileName: FN.py
-from typing import Union, List
+from typing import Union, List, Self
 
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
-from minesweepervariants.board import Board, JSONObject, ImmutableDict, Position, Size
+from minesweepervariants.board import Board, Position, Size
+from minesweepervariants.utils.value_template import SingleIntValue, Template
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
 
@@ -79,7 +80,7 @@ class RuleFN(AbstractClueRule):
         self.total = max(min(self.num_range[1] - 1, int(sum_num / len_num)), self.num_range[0])
         for pos, _ in board("N", mode="none"):
             value = board.batch(get_nei(pos, board), "type").count("F") - self.total
-            obj = ValueFN.from_json(pos, {"value": value})
+            obj = ValueFN(pos, value)
             board[pos] = obj
         return board
 
@@ -91,26 +92,20 @@ class RuleFN(AbstractClueRule):
 
 class ValueFN(AbstractClueValue):
     id = RuleFN.id
+
     def __init__(self, pos: 'Position', value: int) -> None:
         super().__init__(pos)
-        self.value = value
+        self.value: SingleIntValue = SingleIntValue(value)
 
     def __repr__(self) -> str:
-        return ("+" + str(self.value)) if self.value > 0 else str(self.value)
+        return ("+" + str(self.value.value)) if self.value.value > 0 else str(self.value.value)
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'Template') -> Self:
+        return cls(pos, SingleIntValue.try_from(data).value)
 
     def high_light(self, board: 'Board') -> List['Position'] | None:
         return get_nei(self.pos, board)
-
-    @classmethod
-    def from_json(cls, pos: 'Position', data: Union['JSONObject', dict]) -> 'ValueFN':
-        return ValueFN(pos, data["value"])
-
-    def json(self) -> 'JSONObject':
-        return ImmutableDict({"value": self.value})
-
-    @classmethod
-    def type(cls) -> bytes:
-        return RuleFN.id.encode("ascii")
 
     def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
@@ -119,7 +114,7 @@ class ValueFN(AbstractClueValue):
         model.add(
             sum(
                 board.batch(get_nei(self.pos, board), "var", drop_none=True)
-            ) == global_var + self.value
+            ) == global_var + self.value.value
         ).only_enforce_if(s)
         FN_Bound = board.boundary(FN_NAME)
         col_var = board.batch(board.get_col_pos(FN_Bound), "var")
