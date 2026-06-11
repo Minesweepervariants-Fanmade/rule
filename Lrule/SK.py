@@ -43,6 +43,17 @@ class RuleSK(AbstractMinesRule):
             _row, col = boundary_pos.row + 1, boundary_pos.col + 1
             col_positions = board.get_col_pos(boundary_pos)
 
+            if self.sub_board:
+                for i, row_end in enumerate(col_positions):
+                    row_end_sk_pos = row_end.clone()
+                    row_end_sk_pos.to_board("SK")
+                    row_sk_var: list[IntVar] = [var for pos in (board.get_row_pos(row_end_sk_pos))
+                                                    if (var := board.get_variable(pos)) is not None]
+                    if i < len(col_positions) - 1:
+                        model.add(sum(row_sk_var) == 2)
+                    else:
+                        model.add(sum(row_sk_var) == 0)
+
             for row_end in col_positions[:-1]:
                 next_row_end = row_end.down()
                 row_var: list[IntVar] = [
