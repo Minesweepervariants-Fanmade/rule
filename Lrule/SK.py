@@ -30,8 +30,9 @@ class RuleSK(AbstractMinesRule):
             self.sub_board = False
 
     def init_clear(self, board: "Board"):
-        for pos, _ in board(key="SK"):
-            board.set_value(pos, None)
+        if self.sub_board:
+            for pos, _ in board(key="SK"):
+                board.set_value(pos, None)
 
     def create_constraints(self, board: 'Board', switch: Switch):
         model = board.get_model()
