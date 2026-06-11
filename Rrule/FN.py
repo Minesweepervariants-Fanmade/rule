@@ -4,7 +4,7 @@
 # @Time    : 2026/05/26 16:44
 # @Author  : Wu_RH
 # @FileName: FN.py
-from typing import Union, List, Self, cast
+from typing import Union, List, Self, cast, Callable, Tuple
 
 from minesweepervariants.abs.Rrule import AbstractClueValue, AbstractClueRule
 from minesweepervariants.board import Board, Position, Size
@@ -41,7 +41,7 @@ def get_nei(pos: Position, board: Board) -> List[Position]:
 
 
 FN_NAME = "FN"
-NUM_RANGE = lambda x: (4 // (x + 1), x - 1 + 4 // (x + 1))
+NUM_RANGE: Callable[[int], Tuple[int, int]] = lambda x: ((7 - x) // 2, 3 + (x - 1) // 2) if x < 7 else (0, x - 1)
 
 
 class DataFN(SingleIntValue):
