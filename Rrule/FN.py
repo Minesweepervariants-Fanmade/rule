@@ -41,7 +41,7 @@ def get_nei(pos: Position, board: Board) -> List[Position]:
 
 
 FN_NAME = "FN"
-NUM_RANGE = lambda x: ((9 - x) // 2, 9 - (10 - x) // 2)
+NUM_RANGE = lambda x: (4 // (x + 1), x - 1 + 4 // (x + 1))
 
 
 class DataFN(SingleIntValue):
@@ -75,7 +75,7 @@ class RuleFN(AbstractClueRule):
         super().__init__(board, data)
         if data is not None and any(i not in "NFC" for i in data):
             raise ValueError("参数选项:N:不使用循环题板;F:禁止在题板的角落放置线索;C:禁止在题板贴边放置线索")
-        self.fn_flag = data is not None and "N" not in data
+        self.fn_flag = data is None or (data is not None and "N" not in data)
         self.put_F_flag = data is not None and "F" in data
         self.put_C_flag = data is not None and "C" in data
         num_size = min(9, max(board.boundary(key).row + 1 for key in board.get_interactive_keys()))
