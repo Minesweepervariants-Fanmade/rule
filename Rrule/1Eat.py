@@ -623,9 +623,9 @@ class Value1Eat(AbstractClueValue):
         s = switch.get(model, self)
         intvar_list: List[IntVar] = []
         start_point = GridPoint(self.pos.row + Fraction(1, 2), self.pos.col + Fraction(1, 2))
-        board_tmp = board.clone()
-        board_tmp.clear_board()
-        board_tmp.clear_variable()
+        board_tmp = board.__class__()
+        for board_key in board.get_interactive_keys():
+            board_tmp.generate_board(board_key , size=board.get_config(board_key, "size"))
         for pos_row, pos_col in itertools.product(
             range(0, board.boundary(self.pos.board_key).row + 2),
             range(0, board.boundary(self.pos.board_key).col + 2)
@@ -841,7 +841,7 @@ class Value1Eat(AbstractClueValue):
         return result_var
 
     def _get_edge_range(
-        self, board: 'AbstractBoard',
+        self, board: 'Board',
         edge: 'EdgePoint', pointr: 'GridPoint'
     ) -> Tuple[List[List[Position]], bool]:
         _, is_y = edge.on()
