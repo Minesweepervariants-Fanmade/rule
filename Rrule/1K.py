@@ -9,45 +9,6 @@ from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.json_object import deep_unwrap
 from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
 
-from ....utils.tool import get_logger
-from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
-
-BYTE_LENGTH = 3
-
-
-def encode_int(num: int) -> bytes:
-    """将整数编码为固定长度（BYTE_LENGTH）的字节串，不含 0xFF。小端序，高位补 0。"""
-    if num < 0:
-        raise ValueError("只支持非负整数")
-    # 计算 255 进制表示（低位在前）
-    digits = []
-    temp = num
-    while temp > 0:
-        temp, r = divmod(temp, 255)
-        digits.append(r)
-    # 如果数字太大，超过固定长度则报错
-    if len(digits) > BYTE_LENGTH:
-        raise OverflowError(f"数字太大，需要至少 {len(digits)} 字节，当前 BYTE_LENGTH={BYTE_LENGTH}")
-    # 补足到固定长度（末尾补 0，相当于高位补 0）
-    digits += [0] * (BYTE_LENGTH - len(digits))
-    return bytes(digits)[::-1]   # 每个元素 0~254，不会出现 255
-
-
-def decode_int(data: bytes) -> int:
-    """将固定长度的字节串解码为整数。data 长度必须等于 BYTE_LENGTH。"""
-    if len(data) < BYTE_LENGTH:
-        data = (BYTE_LENGTH - len(data)) * b'\x00' + data
-    if len(data) > BYTE_LENGTH:
-        raise ValueError(f"输入字节串长度必须为 {BYTE_LENGTH}，实际 {len(data)}")
-    data = data[::-1]
-    # 小端序：第 i 字节乘以 255^i
-    num = 0
-    for i, b in enumerate(data):
-        if b > 254:
-            raise ValueError(f"非法字节值 {b}（最大应为 254）")
-        num += b * (255 ** i)
-    return num
-
 
 class Rule1K(AbstractClueRule):
     id = "1K"
@@ -64,62 +25,54 @@ class Rule1K(AbstractClueRule):
         super().__init__(board, data)
         self.rule = data or "raw"
 
-        class Value1K(AbstractClueValue):
-            id = Rule1K.id
-
-            def __init__(self, pos: 'Position', value: int, rule, *args: object, **kwargs: object):
-                super().__init__(pos, value, *args, **kwargs)
-                self.value: SingleIntValue = SingleIntValue(value)
-                self.pos = pos
-                self.rule = rule
-
-            @classmethod
-            def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
-                _data = deep_unwrap(data)
-
-                if not is_value_template(_data):
-                    raise TypeError("value is not template")
-
-                template_data = cast(Template, _data)
-                value = SingleIntValue.try_from(template_data)
-
-                if value is None:
-                    raise ValueError("value is empty")
-
-                return cls(pos, value.value, _data.get("rule", "raw"))
-
-            def create_constraints(self, board: 'Board', switch):
-                """创建CP-SAT约束: 周围雷数等于count"""
-                model = board.get_model()
-
-                # 收集周围格子的布尔变量
-                neighbor_vars = []
-                for neighbor in self.pos.neighbors(5, 5):  # 8方向相邻格子
-                    if board.in_bounds(neighbor):
-                        var = board.get_variable(neighbor, special=self.rule)
-                        neighbor_vars.append(var)
-
-                # 添加约束：周围雷数等于count
-                if neighbor_vars:
-                    model.Add(sum(neighbor_vars) == self.value.value).OnlyEnforceIf(switch.get(model, self.pos))
-
-        self.ValueV = Value1K
-
-
     def fill(self, board: 'Board') -> 'Board':
-        logger = get_logger()
-        def val(s):
-            if isinstance(s, str):
-                return 1 if s == 'F' else 0
-            return s
-
         for pos, _ in board("N", special='raw'):
             value = board.batch(pos.neighbors(5, 5), "type", special=self.rule)
-            value = sum(val(v) for v in value)
-            board.set_value(pos, self.ValueV(pos, value=value, rule=self.rule))
+            value = value.count("F")
+            board.set_value(pos, Value1K(pos, value=value, rule=self.rule))
         return board
 
     def get_deps(self) -> list[str]:
         if self.rule == 'raw':
             return []
         return [self.rule]
+
+
+class Value1K(AbstractClueValue):
+    id = Rule1K.id
+
+    def __init__(self, pos: 'Position', value: int, rule, *args: object, **kwargs: object):
+        super().__init__(pos, value, *args, **kwargs)
+        self.value: SingleIntValue = SingleIntValue(value)
+        self.pos = pos
+        self.rule = rule
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+
+        template_data = cast(Template, _data)
+        value = SingleIntValue.try_from(template_data)
+
+        if value is None:
+            raise ValueError("value is empty")
+
+        return cls(pos, value.value, _data.get("rule", "raw"))
+
+    def create_constraints(self, board: 'Board', switch):
+        """创建CP-SAT约束: 周围雷数等于count"""
+        model = board.get_model()
+
+        # 收集周围格子的布尔变量
+        neighbor_vars = []
+        for neighbor in self.pos.neighbors(5, 5):  # 8方向相邻格子
+            if board.in_bounds(neighbor):
+                var = board.get_variable(neighbor, special=self.rule)
+                neighbor_vars.append(var)
+
+        # 添加约束：周围雷数等于count
+        if neighbor_vars:
+            model.Add(sum(neighbor_vars) == self.value.value).OnlyEnforceIf(switch.get(model, self.pos))
