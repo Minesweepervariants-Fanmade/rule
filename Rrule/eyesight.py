@@ -8,6 +8,7 @@ from minesweepervariants.json_object import deep_unwrap
 
 from minesweepervariants.board import Board, Position, JSONObject
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
+from minesweepervariants.utils.tool import get_logger
 from minesweepervariants.utils.value_template import SingleIntValue, is_value_template, Template
 
 
@@ -27,18 +28,19 @@ def eyesight_var(
             index += 1
         if not tmp_vars:
             continue
-        tmp_var = model.new_int_var(0, index, "")
+        tmp_var = model.new_int_var(0, len(tmp_vars), "")
         result_vars.append(tmp_var)
         pos_vars = board.batch(tmp_vars, "var")
-        for index in range(len(tmp_vars)):
+        for index in range(len(tmp_vars) + 1):
             false_var = [var.Not() for var in pos_vars[:index]]
-            true_var = pos_vars[index]
+            true_var = None if index == len(pos_vars) else pos_vars[index]
             tmp_bool = model.new_bool_var("")
             model.add(tmp_var == index).OnlyEnforceIf(tmp_bool)
             model.add(tmp_var != index).OnlyEnforceIf(tmp_bool.Not())
             if false_var:
                 model.add_bool_and(false_var).OnlyEnforceIf(tmp_bool, switch)
-            model.add_bool_and(true_var).OnlyEnforceIf(tmp_bool, switch)
+            if true_var is not None:
+                model.add_bool_and(true_var).OnlyEnforceIf(tmp_bool, switch)
     return result_vars
 
 
@@ -123,5 +125,4 @@ class AbstractEyesightClueValue(AbstractClueValue, ABC):
             board, s,
             self.direction_funcs()
         )
-        # print(self.pos, var_list)
         model.add(sum(var_list) == self.value.value - 1).OnlyEnforceIf(s)
