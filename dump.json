@@ -6854,6 +6854,33 @@
         },
         {
             "rule_line": "R",
+            "id": "5T",
+            "name": {
+                "default": "Triangle",
+                "zh_CN": "\u4e09\u89d2\u5f62"
+            },
+            "doc": {
+                "default": "Clue value indicates the area of the triangle formed by the three nearest mines, decimal rounded to one decimal place.",
+                "zh_CN": "\u7ebf\u7d22\u503c\u8868\u793a\u8ddd\u79bb\u5b83\u6700\u8fd1\u7684\u4e09\u4e2a\u96f7\u56f4\u6210\u7684\u4e09\u89d2\u5f62\u9762\u79ef\uff0c\u5341\u8fdb\u5236\u7cbe\u786e\u5230\u5c0f\u6570\u70b9\u540e\u4e00\u4f4d\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [
+                "Triangle"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Extensive Trial",
+                "Creative"
+            ],
+            "creation_time": "2026-06-04"
+        },
+        {
+            "rule_line": "R",
             "id": "2E''",
             "name": {
                 "default": "Mutual Indication",
