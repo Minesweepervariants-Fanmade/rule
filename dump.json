@@ -2710,6 +2710,32 @@
         },
         {
             "rule_line": "L",
+            "id": "OQ'",
+            "name": {
+                "default": "Even Power Quad",
+                "zh_CN": "\u5076\u6570\u5e42\u65b9\u9635"
+            },
+            "doc": {
+                "default": "Every square with side length a power of 2 (>=2) contains an even number of mines",
+                "zh_CN": "\u6bcf\u4e00\u4e2a\u8fb9\u957f\u4e3a2\u7684\u5e42\uff08\u4e0d\u5305\u62ec1\uff09\u7684\u6b63\u65b9\u5f62\u8303\u56f4\u4e2d\u90fd\u6709\u5076\u6570\u4e2a\u96f7"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [
+                "OQ'"
+            ],
+            "tags": [
+                "Original",
+                "Local",
+                "Construction"
+            ],
+            "creation_time": "2026-07-05"
+        },
+        {
+            "rule_line": "L",
             "id": "SETU^",
             "name": {
                 "default": "SETUH",
