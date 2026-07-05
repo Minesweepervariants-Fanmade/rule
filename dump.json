@@ -2382,6 +2382,32 @@
         },
         {
             "rule_line": "L",
+            "id": "OQ",
+            "name": {
+                "default": "Odd Quad",
+                "zh_CN": "\u5947\u6570\u65b9\u9635"
+            },
+            "doc": {
+                "default": "Every odd-length (>=3) square contains an odd number of mines",
+                "zh_CN": "\u6bcf\u4e00\u4e2a\u8fb9\u957f\u4e3a\u5947\u6570\uff08\u4e0d\u4e3a1\uff09\u7684\u6b63\u65b9\u5f62\u8303\u56f4\u4e2d\u90fd\u6709\u5947\u6570\u4e2a\u96f7"
+            },
+            "author": {
+                "name": "\u54b8\u9c7c",
+                "id": "3898637422"
+            },
+            "image": "",
+            "aliases": [
+                "OQ"
+            ],
+            "tags": [
+                "Original",
+                "Local",
+                "Construction"
+            ],
+            "creation_time": "2026-03-01"
+        },
+        {
+            "rule_line": "L",
             "id": "1S^",
             "name": {
                 "default": "Bicursal Snake",
