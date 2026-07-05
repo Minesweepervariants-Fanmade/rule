@@ -5422,6 +5422,30 @@
         },
         {
             "rule_line": "R",
+            "id": "RS",
+            "name": {
+                "default": "RedStone",
+                "zh_CN": "\u7ea2\u77f3"
+            },
+            "doc": {
+                "default": "Mines are redstone wires, clues are solid blocks, clue shows number of redstone connections on edges",
+                "zh_CN": "\u96f7\u89c6\u4e3a\u7ea2\u77f3\u7ebf\uff0c\u7ebf\u7d22\u89c6\u4e3a\u5b9e\u4f53\u65b9\u5757\uff0c\u7ebf\u7d22\u8868\u793a\u8be5\u683c\u88ab\u7ea2\u77f3\u8fde\u63a5\u7684\u8fb9\u6570"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2026-06-26"
+        },
+        {
+            "rule_line": "R",
             "id": "2A'",
             "name": {
                 "default": "Area'",
