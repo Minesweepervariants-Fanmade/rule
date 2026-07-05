@@ -3397,6 +3397,33 @@
         },
         {
             "rule_line": "L",
+            "id": "5S",
+            "name": {
+                "default": "5-Step Snake",
+                "zh_CN": "5\u6b65\u86c7"
+            },
+            "doc": {
+                "default": "The snake has exactly 5 straight segments",
+                "zh_CN": "\u86c7\u6070\u597d\u67095\u6bb5\u76f4\u7ebf\u6bb5"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [
+                "5StepSnake"
+            ],
+            "tags": [
+                "Original",
+                "Connectivity",
+                "Construction",
+                "Global"
+            ],
+            "creation_time": "2026-04-22"
+        },
+        {
+            "rule_line": "L",
             "id": "LD",
             "name": {
                 "default": "Latin Square",
