@@ -3274,6 +3274,32 @@
         },
         {
             "rule_line": "L",
+            "id": "1B\u00b1",
+            "name": {
+                "default": "Weak Balance",
+                "zh_CN": "\u5f31\u5e73\u8861"
+            },
+            "doc": {
+                "default": "The difference in mine counts between adjacent rows or columns does not exceed 1",
+                "zh_CN": "\u76f8\u90bb\u4e24\u884c\u6216\u4e24\u5217\u4e2d\u7684\u96f7\u6570\u4e4b\u5dee\u4e0d\u8d85\u8fc71"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [
+                "B\u00b1"
+            ],
+            "tags": [
+                "Variant",
+                "Global",
+                "Weak"
+            ],
+            "creation_time": "2026-05-26"
+        },
+        {
+            "rule_line": "L",
             "id": "TW''",
             "name": {
                 "default": "Twin''",
