@@ -26,10 +26,6 @@ class RuleRS(AbstractClueRule):
     tags = ["Original", "Local", "Number Clue"]
     creation_time = "2026-06-26"
 
-    @classmethod
-    def clue_type(cls):
-        return ValueRS
-
     def fill(self, board):
         for pos, _ in board("N", mode='obj'):
             count = self._compute_connections(board, pos)
@@ -67,36 +63,21 @@ class ValueRS(AbstractClueValue):
         # 调用父类构造，但不依赖它设置 self.value
         super().__init__(pos, value, *args, **kwargs)
         self.pos = pos
-        # 显式设置 value 属性为 SingleIntValue 对象，以便框架使用
-        self.value = SingleIntValue(value)
-        # 设置序列化必需的 code
-        self.code = RuleRS.id.encode('ascii')
-        self.var = None
-        self.board = None
-
-    @classmethod
-    def from_json(cls, pos: Position, data):
-        _data = deep_unwrap(data)
-        if not is_value_template(_data):
-            raise TypeError("value is not template")
-        template_data = cast(Template, _data)
-        value_obj = SingleIntValue.try_from(template_data)
-        if value_obj is None:
-            raise ValueError("value is empty")
-        return cls(pos, value_obj.value)
+        self.value: SingleIntValue = SingleIntValue(value)
 
     def create_constraints(self, board, switch):
+        # 四格相邻的任意一侧雷 若该侧为雷且该侧的两格对角均不为雷才被计入雷数
         model = board.get_model()
-        s = switch.get(model, self)
-        clue_var = model.NewIntVar(0, 4, f'clue_{self.pos.row}_{self.pos.col}')
-        # 确保值等于计算值
-        model.Add(clue_var == self.value.value).OnlyEnforceIf(s)
-        self.var = clue_var
-        self.board = board
-
-    @classmethod
-    def type(cls) -> bytes:
-        return RuleRS.id.encode("ascii")
-
-    def tag(self, board=None):
-        return str(self.value.value)
+        switch_var = switch.get(model, self)
+        adjacent_positions = self.pos.neighbors(1, 1)
+        distance2_positions = self.pos.neighbors(1, 2)
+        side_vars = []
+        for pos in adjacent_positions:
+            overlapping_positions = [_pos for _pos in pos.neighbors(1, 1) if _pos in distance2_positions]
+            negated_overlap_vars = [var.Not() for var in board.batch(overlapping_positions, mode="var")]
+            condition_var = model.new_bool_var("")
+            model.add(condition_var == board.get_variable(pos)).OnlyEnforceIf(negated_overlap_vars)
+            for neg_var in negated_overlap_vars:
+                model.add(condition_var == 0).OnlyEnforceIf(neg_var)
+            side_vars.append(condition_var)
+        model.add(sum(side_vars) == self.value.value).OnlyEnforceIf(switch_var)
