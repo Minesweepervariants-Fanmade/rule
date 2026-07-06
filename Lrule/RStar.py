@@ -157,6 +157,10 @@ class RuleRStar(AbstractMinesRule):
         target_value = []
         for _, operator, target in self.constraints:
             if operator == "~=":
+                total_size = info["size"]
+                total_max = sum((size[0] * size[1]) for size in total_size.values())
+                if target > total_max:
+                    target = total_max
                 target_value.append(target)
         if target_value:
             info["soft_fn"](int(sum(target_value) / len(target_value)), 5)
