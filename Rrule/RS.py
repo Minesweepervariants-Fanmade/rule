@@ -65,19 +65,30 @@ class ValueRS(AbstractClueValue):
         self.pos = pos
         self.value: SingleIntValue = SingleIntValue(value)
 
+    @classmethod
+    def from_json(cls, pos: Position, data):
+        _data = deep_unwrap(data)
+        if not is_value_template(_data):
+            raise TypeError("value is not template")
+        template_data = cast(Template, _data)
+        value_obj = SingleIntValue.try_from(template_data)
+        if value_obj is None:
+            raise ValueError("value is empty")
+        return cls(pos, value_obj.value)
+
     def create_constraints(self, board, switch):
         # 四格相邻的任意一侧雷 若该侧为雷且该侧的两格对角均不为雷才被计入雷数
         model = board.get_model()
         switch_var = switch.get(model, self)
-        adjacent_positions = self.pos.neighbors(1, 1)
+        adjacent_positions = [pos for pos in self.pos.neighbors(1, 1) if board.in_bounds(pos)]
         distance2_positions = self.pos.neighbors(1, 2)
         side_vars = []
         for pos in adjacent_positions:
             overlapping_positions = [_pos for _pos in pos.neighbors(1, 1) if _pos in distance2_positions]
-            negated_overlap_vars = [var.Not() for var in board.batch(overlapping_positions, mode="var")]
+            negated_overlap_vars = [var.Not() for var in board.batch(overlapping_positions, mode="var", drop_none=True)]
             condition_var = model.new_bool_var("")
             model.add(condition_var == board.get_variable(pos)).OnlyEnforceIf(negated_overlap_vars)
             for neg_var in negated_overlap_vars:
-                model.add(condition_var == 0).OnlyEnforceIf(neg_var)
+                model.add(condition_var == 0).OnlyEnforceIf(neg_var.Not())
             side_vars.append(condition_var)
         model.add(sum(side_vars) == self.value.value).OnlyEnforceIf(switch_var)
