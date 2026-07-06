@@ -77,17 +77,29 @@ class ValueRS(AbstractClueValue):
         return cls(pos, value_obj.value)
 
     def high_light(self, board: 'Board') -> List['Position'] | None:
-        positions = self.pos.neighbors(1, 1)
+        nei1 = self.pos.neighbors(1, 1)
         nei2 = self.pos.neighbors(2, 2)
-        for pos in positions:
-            if board.get_type(pos) != "F":
+        positions = []
+        pass_positions = []
+        for pos in nei2:
+            if board.get_type(pos) == "F":
+                for _pos in pos.neighbors(1, 1):
+                    if _pos in nei1:
+                        pass_positions.append(_pos)
                 continue
+        for pos in nei2:
+            tmp_positions = []
             for _pos in pos.neighbors(1, 1):
-                if _pos not in nei2:
+                if _pos not in nei1:
+                    continue
+                if _pos in pass_positions:
                     continue
                 if board.get_type(_pos) == "C":
                     continue
-                positions.append(_pos)
+                tmp_positions.append(_pos)
+            if tmp_positions:
+                positions.append(pos)
+                positions.extend(tmp_positions)
         return positions
 
     def create_constraints(self, board, switch):
