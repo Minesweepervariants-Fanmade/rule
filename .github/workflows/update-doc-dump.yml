@@ -44,7 +44,7 @@ jobs:
           python -m pip install "${tmp_dir}/upstream"
 
           pushd "${tmp_dir}/upstream" >/dev/null
-          python -m minesweepervariants list --json > "${tmp_raw}"
+          python -m minesweepervariants list --json -F "${tmp_raw}"
           popd >/dev/null
 
           if ! python -m json.tool "${tmp_raw}" > "${tmp_json}"; then
