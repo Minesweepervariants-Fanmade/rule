@@ -3743,6 +3743,31 @@
         },
         {
             "rule_line": "L",
+            "id": "URB-2G'",
+            "name": {
+                "default": "URB-Group'",
+                "zh_CN": "\u73af\u9762\u4e09\u8fde\u5757"
+            },
+            "doc": {
+                "default": "All torus four-connected mine areas have an area of 3",
+                "zh_CN": "\u6240\u6709\u73af\u9762\u56db\u8fde\u901a\u96f7\u533a\u57df\u7684\u9762\u79ef\u4e3a3"
+            },
+            "author": {
+                "name": "",
+                "id": ""
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Global",
+                "Connectivity",
+                "Construction"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
             "id": "PM",
             "name": {
                 "default": "Pure Matrix",
