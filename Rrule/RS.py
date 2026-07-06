@@ -5,7 +5,7 @@
 [RS] RedStone: 雷视为红石线，线索表示被红石连接的边数
 """
 
-from typing import cast
+from typing import cast, List
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
@@ -75,6 +75,20 @@ class ValueRS(AbstractClueValue):
         if value_obj is None:
             raise ValueError("value is empty")
         return cls(pos, value_obj.value)
+
+    def high_light(self, board: 'Board') -> List['Position'] | None:
+        positions = self.pos.neighbors(1, 1)
+        nei2 = self.pos.neighbors(2, 2)
+        for pos in positions:
+            if board.get_type(pos) != "F":
+                continue
+            for _pos in pos.neighbors(1, 1):
+                if _pos not in nei2:
+                    continue
+                if board.get_type(_pos) == "C":
+                    continue
+                positions.append(_pos)
+        return positions
 
     def create_constraints(self, board, switch):
         # 四格相邻的任意一侧雷 若该侧为雷且该侧的两格对角均不为雷才被计入雷数
