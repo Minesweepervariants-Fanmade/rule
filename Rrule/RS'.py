@@ -18,7 +18,6 @@ from minesweepervariants.utils.tool import get_logger
 from minesweepervariants.utils.value_template import SingleIntValue, is_value_template, Template
 
 logger = get_logger(__name__)
-DEBUG = True
 
 
 class RuleRSPrime(AbstractClueRule):
@@ -62,56 +61,45 @@ class RuleRSPrime(AbstractClueRule):
         max_var = len([pos for pos, _ in board()])
         id_vars = {pos: model.new_int_var(0, max_var, f"id_{pos}") for pos, _ in board()}
         step_vars = {pos: model.new_int_var(0, max_var, f"step_{pos}") for pos, _ in board()}
-        edge_vars = {}
-        for pos, _ in board():
-            for nei_pos in [pos.down(), pos.right()]:
-                if nei_pos not in id_vars:
-                    continue
-                is_from = model.new_bool_var(f"{nei_pos}>{pos}(Bool)")
-                is_to = model.new_bool_var(f"{pos}>{nei_pos}(Bool)")
-                edge_vars[(nei_pos, pos)] = is_from
-                edge_vars[(pos, nei_pos)] = is_to
-                model.add_bool_and([
-                    board.get_variable(pos),
-                    board.get_variable(nei_pos)
-                ]).only_enforce_if(is_from)
-                model.add_bool_and([
-                    board.get_variable(pos),
-                    board.get_variable(nei_pos)
-                ]).only_enforce_if(is_to)
-                model.add_bool_or([
-                    board.get_variable(pos).Not(),
-                    board.get_variable(nei_pos).Not()
-                ]).only_enforce_if([is_from.Not(), is_to.Not()])
-
-        for (pos_from, pos_to), edge_var in edge_vars.items():
-            from_var = board.get_variable(pos_from)
-            to_var = board.get_variable(pos_to)
-            model.add(
-                step_vars[pos_from] - 1 == step_vars[pos_to]
-            ).only_enforce_if(
-                edge_var, from_var, to_var
-            )
-            model.add(
-                id_vars[pos_from] == id_vars[pos_to]
-            ).only_enforce_if(
-                edge_var, from_var, to_var
-            )
 
         for pos, _ in board():
             pos_var = board.get_variable(pos)
             is_root = model.new_bool_var(f"{pos}_is_root")
             nei1_poses = [nei_pos for nei_pos in pos.neighbors(1, 1) if nei_pos in id_vars]
-            in_edge = [edge_vars[(nei_pos, pos)] for nei_pos in nei1_poses]
-            model.add(sum(in_edge) == 1).only_enforce_if(pos_var, is_root.Not())
-            model.add(sum(in_edge) == 0).only_enforce_if(pos_var, is_root)
-            model.add(step_vars[pos] == 25).only_enforce_if(pos_var, is_root)
+            for nei_pos in nei1_poses:
+                # 相邻两格必须id相同
+                model.add(id_vars[nei_pos] == id_vars[pos]).OnlyEnforceIf(
+                    board.get_variable(pos), board.get_variable(nei_pos)
+                )
+
+            # 如果该格是雷
+            model.add(id_vars[pos] > 0).only_enforce_if(pos_var)
+            model.add(step_vars[pos] > 0).only_enforce_if(pos_var)
+            model.add(pos_var == 1).only_enforce_if(is_root)
+
+            # 该格是雷且是root
+            model.add(step_vars[pos] == max_var).only_enforce_if(pos_var, is_root)
             model.add(id_vars[pos] == pos2seed(pos, pos_bound)).only_enforce_if(pos_var, is_root)
+
+            # 该格是雷且不是root
             model.add(id_vars[pos] > pos2seed(pos, pos_bound)).only_enforce_if(pos_var, is_root.Not())
 
+            # 取周围最大的step-1
+            model.add_max_equality(
+                step_vars[pos],
+                [step_vars[nei_pos] - 1 for nei_pos in nei1_poses],
+            ).OnlyEnforceIf(pos_var, is_root.Not())
+            for nei_pos in nei1_poses:
+                tmp_var = model.new_bool_var("")
+                model.add(step_vars[pos] == step_vars[nei_pos] - 1).OnlyEnforceIf(tmp_var)
+                model.add(step_vars[pos] != step_vars[nei_pos] - 1).OnlyEnforceIf(tmp_var.Not())
+                model.add(id_vars[pos] == id_vars[nei_pos]).only_enforce_if(pos_var, tmp_var, is_root.Not())
+
+            # 如果该格非雷
             model.add(id_vars[pos] == 0).only_enforce_if(pos_var.Not())
             model.add(step_vars[pos] == 0).only_enforce_if(pos_var.Not())
             model.add(is_root == 0).only_enforce_if(pos_var.Not())
+            self.debug_vars[is_root.name] = is_root
 
         count_vars = {}
         for seed_id in range(1, max_var + 1):
@@ -137,7 +125,6 @@ class RuleRSPrime(AbstractClueRule):
         self.debug_vars.update({var.name: var for var in id_vars.values()})
         self.debug_vars.update({var.name: var for var in count_vars.values()})
         self.debug_vars.update({var.name: var for var in step_vars.values()})
-        self.debug_vars.update({var.name: var for var in edge_vars.values()})
 
     @staticmethod
     def _compute_area_sum(board, pos):
@@ -193,6 +180,8 @@ class RuleRSPrime(AbstractClueRule):
     def debug(self, solver):
         from ortools.sat.python.cp_model import CpSolver
         solver: CpSolver
+        if not self.debug_vars:
+            print("vars is empty")
         for key, var in self.debug_vars.items():
             print(key, solver.Value(var))
 
@@ -299,17 +288,18 @@ class ValueRSPrime(AbstractClueValue):
         if not sum_vars:
             raise ValueError("RS'传进来个棍木")
 
-        if DEBUG:
-            cond_var = model.new_int_var(0, max_var, "")
-            model.add(cond_var == sum(sum_vars.values()))
-            self.debug_vars[f"{self.pos}_result_var"] = cond_var
-            self.debug_vars.update(sum_vars)
-            self.debug_vars.update(id_vars)
+        cond_var = model.new_int_var(0, max_var, "")
+        model.add(cond_var == sum(sum_vars.values()))
+        self.debug_vars[f"{self.pos}_result_var"] = cond_var
+        self.debug_vars.update(sum_vars)
+        self.debug_vars.update(id_vars)
         # else:
         model.add(sum(sum_vars.values()) == self.value.value).only_enforce_if(s)
 
     def debug(self, solver):
         from ortools.sat.python.cp_model import CpSolver
         solver: CpSolver
+        if not self.debug_vars:
+            print("vars is empty")
         for key, var in self.debug_vars.items():
             print(key, solver.Value(var))
