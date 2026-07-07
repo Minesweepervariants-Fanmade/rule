@@ -179,14 +179,21 @@ class ValueRSPrime(AbstractClueValue):
         positions = []
 
         # 四个方向：左、右、上、下
-        directions = [self.pos.left(1), self.pos.right(1), self.pos.up(1), self.pos.down(1)]
+        directions = self.pos.neighbors(1, 1)
+        cond_directions = self.pos.neighbors(2, 2)
 
         for start in directions:
             if not board.in_bounds(start):
                 continue
-            if board.get_type(start) != 'F':
+            if board.get_type(start) == 'C':
                 continue
             if start in visited:
+                continue
+            if [
+                board.get_type(pos)
+                for pos in start.neighbors(1, 1)
+                if pos in cond_directions
+            ].count("F"):
                 continue
 
             # BFS/DFS遍历该雷组
@@ -196,18 +203,19 @@ class ValueRSPrime(AbstractClueValue):
             while stack:
                 current = stack.pop()
                 positions.append(current)
+                if board.get_type(current) != 'F':
+                    continue
                 # 四方向扩展
-                for neighbor in [current.up(1), current.down(1), current.left(1), current.right(1)]:
+                for neighbor in current.neighbors(1, 1):
                     if not board.in_bounds(neighbor):
                         continue
-                    if board.get_type(neighbor) != 'F':
+                    if board.get_type(neighbor) == 'C':
                         continue
                     if neighbor in visited:
                         continue
                     visited.add(neighbor)
                     stack.append(neighbor)
-
-        return positions if positions else None
+        return positions
 
     def create_constraints_rs(
         self, board: 'Board',
