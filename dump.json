@@ -7314,6 +7314,32 @@
         },
         {
             "rule_line": "R",
+            "id": "RS'",
+            "name": {
+                "default": "RedStone Prime",
+                "zh_CN": "\u7ea2\u77f3'"
+            },
+            "doc": {
+                "default": "Mines are redstone wires, clues are solid blocks, clue shows total number of redstone cells connected to this cell",
+                "zh_CN": "\u96f7\u89c6\u4e3a\u7ea2\u77f3\u7ebf\uff0c\u7ebf\u7d22\u89c6\u4e3a\u5b9e\u4f53\u65b9\u5757\uff0c\u7ebf\u7d22\u8868\u793a\u4e0e\u8be5\u683c\u8fde\u63a5\u7684\u7ea2\u77f3\u603b\u683c\u6570"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial",
+                "Weak"
+            ],
+            "creation_time": "2026-07-06"
+        },
+        {
+            "rule_line": "R",
             "id": "1EK",
             "name": {
                 "default": "Knight Eyesight",
