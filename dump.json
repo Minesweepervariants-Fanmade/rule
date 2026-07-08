@@ -6332,6 +6332,30 @@
         },
         {
             "rule_line": "R",
+            "id": "LI",
+            "name": {
+                "default": "Line",
+                "zh_CN": "\u8fde\u7ebf"
+            },
+            "doc": {
+                "default": "Clue shows the number of lines connecting any two mines that pass through this cell, including boundaries and corners",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5c06\u4efb\u610f\u4e24\u96f7\u8fde\u7ebf\uff0c\u7ecf\u8fc7\u8be5\u683c\u7684\u7ebf\u7684\u6570\u91cf\uff0c\u5305\u542b\u8fb9\u754c\u548c\u56db\u89d2"
+            },
+            "author": {
+                "name": "\u5c0f\u7eff\u8349",
+                "id": "3021857082"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2026-05-25 20:40:27"
+        },
+        {
+            "rule_line": "R",
             "id": "1E@",
             "name": {
                 "default": "Eyesight@",
@@ -7058,6 +7082,29 @@
                 "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "DM",
+            "name": {
+                "default": "Double Mine",
+                "zh_CN": "\u591a\u96f7\uff08\u53cc\u500d\uff09"
+            },
+            "doc": {
+                "default": "Each mine counts as 2, clue number indicates total weight (2 * number of adjacent mines)",
+                "zh_CN": "\u6bcf\u4e2a\u96f7\u8ba1\u4e3a2\uff0c\u7ebf\u7d22\u6570\u5b57\u8868\u793a\u5468\u56f4\u96f7\u7684\u603b\u6743\u91cd\uff082\u500d\u96f7\u6570\uff09"
+            },
+            "author": {
+                "name": "",
+                "id": ""
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Multi-Mine",
+                "Weighted"
+            ],
+            "creation_time": "2026-07-09"
         },
         {
             "rule_line": "R",
