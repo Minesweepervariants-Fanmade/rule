@@ -58,10 +58,25 @@ class Rule1C(AbstractMinesRule):
 
     def create_constraints(self, board, switch):
         model = board.get_model()
-        connect(
-            model=model,
-            board=board,
-            connect_value=0 if self.invert else 1,
-            nei_value=self.nei_pos,
-            switch=switch.get(model, self)
-        )
+        width = board.boundary(board.get_interactive_keys()[0]).col + 1
+        height = board.boundary(board.get_interactive_keys()[0]).row + 1
+
+        if width == height:
+            n = width
+            ub=  (n-2) * (n // 2 + 2)
+            connect(
+                model=model,
+                board=board,
+                ub = ub,
+                connect_value=0 if self.invert else 1,
+                nei_value=self.nei_pos,
+                switch=switch.get(model, self)
+            )
+        else:
+            connect(
+                model=model,
+                board=board,
+                connect_value=0 if self.invert else 1,
+                nei_value=self.nei_pos,
+                switch=switch.get(model, self)
+            )

@@ -128,6 +128,13 @@ def connect(
                 model.Add(component_ids[i] == component_ids[j]).OnlyEnforceIf([active_vars[i], active_vars[j], switch])
                 seen_pairs.add((i, j))
 
+    for i in range(n):
+        for j in adj[i]:
+            model.Add(level_vars[i] <= level_vars[j] + 1).OnlyEnforceIf([active_vars[i], active_vars[j], switch])
+
+    for i in range(n):
+        model.Add(component_ids[i] <= i).OnlyEnforceIf([active_vars[i], switch])
+
     return component_ids
 
 def connect_legacy(
