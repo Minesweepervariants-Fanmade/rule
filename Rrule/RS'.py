@@ -6,25 +6,55 @@
 使用规则2A修改角格约束：线索值为四方向相邻雷区域的面积之和
 """
 
-from typing import List, Tuple, Optional, cast, Dict
-
-from ortools.sat.python.cp_model import IntVar
+from typing import List, cast
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.json_object import deep_unwrap
+from minesweepervariants.utils.impl_obj import POSITION_TAG
 from minesweepervariants.utils.tool import get_logger
 from minesweepervariants.utils.value_template import SingleIntValue, is_value_template, Template
 
 logger = get_logger(__name__)
+DEBUG = True
+RS_ID = "RS'_ID"
+RS_COUNT = "RS'_COUNT"
+
+
+def pos2seed(input_pos: Position, board: Board) -> int:
+    bound = board.boundary(input_pos.board_key)
+    offset = 0
+    for board_key in board.get_board_keys():
+        if board_key == input_pos.board_key:
+            break
+        offset += len([pos for pos, _ in board(key=board_key)])
+    return input_pos.row * (bound.col + 1) + input_pos.col + 1 + offset
+
+
+def seed2pos(input_seed: int, board: Board) -> Position:
+    board_key = None
+    for board_key in board.get_board_keys():
+        total = len([pos for pos, _ in board(key=board_key)])
+        if input_seed < total:
+            break
+        input_seed -= total
+    if board_key is None:
+        return POSITION_TAG
+    bound = board.boundary(board_key)
+    return board.get_pos(
+        (input_seed - 1) // (bound.col + 1),
+        (input_seed - 1) % (bound.col + 1),
+        board_key
+    )
 
 
 class RuleRSPrime(AbstractClueRule):
     id = "RS'"
     name = "RedStone Prime"
     name.zh_CN = "红石'"
-    doc = "Mines are redstone wires, clues are solid blocks, clue shows total number of redstone cells connected to this cell"
+    doc = ("Mines are redstone wires, clues are solid blocks, clue shows total number of redstone cells connected to "
+           "this cell")
     doc.zh_CN = "雷视为红石线，线索视为实体方块，线索表示与该格连接的红石总格数"
     author = ("NT", 2201963934)
     tags = ["Variant", "Local", "Number Clue", "Extensive Trial", "Weak"]
@@ -46,18 +76,7 @@ class RuleRSPrime(AbstractClueRule):
 
     def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
-        clue_map = {}
-        for pos, clue in board(mode="obj"):
-            if not isinstance(clue, ValueRSPrime):
-                continue
-            clue_map[pos] = clue
-        if not clue_map:
-            return
 
-        def pos2seed(input_pos: Position, bound: Position):
-            return input_pos.row * (bound.col + 1) + input_pos.col + 1
-
-        pos_bound = board.boundary()
         max_var = len([pos for pos, _ in board()])
         id_vars = {pos: model.new_int_var(0, max_var, f"id_{pos}") for pos, _ in board()}
         step_vars = {pos: model.new_int_var(0, max_var, f"step_{pos}") for pos, _ in board()}
@@ -79,10 +98,10 @@ class RuleRSPrime(AbstractClueRule):
 
             # 该格是雷且是root
             model.add(step_vars[pos] == max_var).only_enforce_if(pos_var, is_root)
-            model.add(id_vars[pos] == pos2seed(pos, pos_bound)).only_enforce_if(pos_var, is_root)
+            model.add(id_vars[pos] == pos2seed(pos, board)).only_enforce_if(pos_var, is_root)
 
             # 该格是雷且不是root
-            model.add(id_vars[pos] > pos2seed(pos, pos_bound)).only_enforce_if(pos_var, is_root.Not())
+            model.add(id_vars[pos] > pos2seed(pos, board)).only_enforce_if(pos_var, is_root.Not())
 
             # 取周围最大的step-1
             model.add_max_equality(
@@ -99,7 +118,8 @@ class RuleRSPrime(AbstractClueRule):
             model.add(id_vars[pos] == 0).only_enforce_if(pos_var.Not())
             model.add(step_vars[pos] == 0).only_enforce_if(pos_var.Not())
             model.add(is_root == 0).only_enforce_if(pos_var.Not())
-            self.debug_vars[is_root.name] = is_root
+            if DEBUG:
+                self.debug_vars[is_root.name] = is_root
 
         count_vars = {}
         for seed_id in range(1, max_var + 1):
@@ -113,18 +133,16 @@ class RuleRSPrime(AbstractClueRule):
                 sum_vars.append(tmp_var)
             model.add(count_var == sum(sum_vars))
 
-        for pos, clue in clue_map.items():
-            nei1 = [_pos for _pos in pos.neighbors(1, 1) if board.is_valid(_pos)]
-            nei2 = [_pos for _pos in pos.neighbors(2, 2) if board.is_valid(_pos)]
-            clue.create_constraints_rs(
-                board, {_pos: id_vars[_pos] for _pos in nei1},
-                {_pos: board.get_variable(_pos) for _pos in nei2},
-                count_vars, switch
-            )
+        if DEBUG:
+            self.debug_vars.update({var.name: var for var in id_vars.values()})
+            self.debug_vars.update({var.name: var for var in count_vars.values()})
+            self.debug_vars.update({var.name: var for var in step_vars.values()})
 
-        self.debug_vars.update({var.name: var for var in id_vars.values()})
-        self.debug_vars.update({var.name: var for var in count_vars.values()})
-        self.debug_vars.update({var.name: var for var in step_vars.values()})
+        for pos, var in id_vars.items():
+            board.register_variable_special(RS_ID, pos, var)
+
+        for seed, var in count_vars.items():
+            board.register_variable_special(RS_COUNT, seed2pos(seed, board), var)
 
     @staticmethod
     def _compute_area_sum(board, pos):
@@ -252,16 +270,16 @@ class ValueRSPrime(AbstractClueValue):
                     stack.append(neighbor)
         return positions
 
-    def create_constraints_rs(
-        self, board: 'Board',
-        nei1_ids: Dict[Position, IntVar],
-        nei2_vars: Dict[Position, IntVar],
-        count_vars: Dict[int, IntVar],
-        switch: "Switch",
-    ):
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         model = board.get_model()
         s = switch.get(model, self)
+        nei1_pos = [_pos for _pos in self.pos.neighbors(1, 1) if board.is_valid(_pos)]
+        nei2_pos = [_pos for _pos in self.pos.neighbors(2, 2) if board.is_valid(_pos)]
         max_var = len([pos for pos, _ in board()])
+
+        nei1_ids = {k: v for k, v in zip(nei1_pos, board.batch(nei1_pos, mode="var", special=RS_ID))}
+        nei2_vars = {k: v for k, v in zip(nei2_pos, board.batch(nei2_pos, mode="var"))}
+        count_vars = {pos2seed(pos, board): board.get_variable(pos, special=RS_COUNT) for pos, _ in board()}
 
         id_vars = {}
         for pos, id_var in nei1_ids.items():
@@ -290,9 +308,10 @@ class ValueRSPrime(AbstractClueValue):
 
         cond_var = model.new_int_var(0, max_var, "")
         model.add(cond_var == sum(sum_vars.values()))
-        self.debug_vars[f"{self.pos}_result_var"] = cond_var
-        self.debug_vars.update(sum_vars)
-        self.debug_vars.update(id_vars)
+        if DEBUG:
+            self.debug_vars[f"{self.pos}_result_var"] = cond_var
+            self.debug_vars.update(sum_vars)
+            self.debug_vars.update(id_vars)
         # else:
         model.add(sum(sum_vars.values()) == self.value.value).only_enforce_if(s)
 
