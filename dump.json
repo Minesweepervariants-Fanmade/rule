@@ -6657,6 +6657,31 @@
         },
         {
             "rule_line": "R",
+            "id": "2P*",
+            "name": {
+                "default": "Distance Difference",
+                "zh_CN": "\u8ddd\u79bb\u5dee"
+            },
+            "doc": {
+                "default": "Clue shows the difference of Manhattan distances to the nearest two mines",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u8be5\u683c\u6700\u8fd1\u7684\u4e24\u4e2a\u96f7\u4e4b\u95f4\u7684\u66fc\u54c8\u987f\u8ddd\u79bb\u5dee"
+            },
+            "author": {
+                "name": "\u54b8\u9c7c",
+                "id": "3898637422"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2026-03-01"
+        },
+        {
+            "rule_line": "R",
             "id": "3H",
             "name": {
                 "default": "Hexagon",
