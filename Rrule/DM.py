@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 #
-# @Time    : 2025/06/03 05:26
-# @Author  : Wu_RH
-# @FileName: V.py
+# @Time    : 2026/07/09
+# @Author  : DeepSeek Agent
+# @FileName: DM.py
 """
-[V]标准扫雷：每个数字标明周围八格内雷的数量。
+[DM] Double Mine: Each mine counts as 2, clue number indicates total weight of neighboring mines.
 """
 from functools import cache
 from ortools.sat.python.cp_model import IntVar
@@ -25,28 +25,31 @@ from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 def neighbors() -> PositionSet:
     return PositionSet(Position(0, 0).neighbors(2))
 
-class RuleV(AbstractClueRule):
-    id = "V"
-    name = "Vanilla"
-    name.zh_CN = "标准扫雷"  # type: ignore[attr-defined]
-    doc = "Each number indicates the number of mines in the surrounding eight cells"
-    doc.zh_CN = "每个数字标明周围八格内雷的数量。"  # type: ignore[attr-defined]
-    tags = ["Original", "Local", "Vanilla Variant", "Number Clue"]
-    creation_time = "2025-08-06"
+
+class RuleDM(AbstractClueRule):
+    id = "DM"
+    name = "Double Mine"
+    name.zh_CN = "多雷（双倍）"  # type: ignore[attr-defined]
+    doc = "Each mine counts as 2, clue number indicates total weight (2 * number of adjacent mines)"
+    doc.zh_CN = "每个雷计为2，线索数字表示周围雷的总权重（2倍雷数）"  # type: ignore[attr-defined]
+    tags = ["Multi-Mine", "Weighted"]
+    creation_time = "2026-07-09"
     author = ("", 0)
 
     def fill(self, board: 'Board') -> 'Board':
         for pos, _ in board("N", special='raw'):
             neis = neighbors().deviation(pos)
             neis.to_board(pos.board_key)
-            value_list: list[str] = board.batch(positions=neis, mode="type")
-            count_val = value_list.count("F")
-            board.set_value(pos, ValueV(pos, count=count_val))
+            type_list = board.batch(positions=neis, mode="type")
+            mine_count = type_list.count("F")
+            # 每个雷计为2
+            clue_value = mine_count * 2
+            board.set_value(pos, ValueDM(pos, count=clue_value))
         return board
 
 
-class ValueV(AbstractClueValue):
-    id = RuleV.id
+class ValueDM(AbstractClueValue):
+    id = RuleDM.id
 
     def __init__(self, pos: Position, count: int = 0):
         super().__init__(pos, b'')
@@ -89,30 +92,31 @@ class ValueV(AbstractClueValue):
         f_num = len(type_dict["F"])
         if n_num == 0:
             return False
-        if f_num == self.count:
+        # 已知雷的总权重为 2*f_num，未知雷的总权重为 2*未知雷数
+        # 如果已知雷权重已经等于count，则所有未知格不是雷
+        if f_num * 2 == self.count:
             for i in type_dict["N"]:
                 board.set_value(i, VALUE_QUESS)
             return True
-        if f_num + n_num == self.count:
+        # 如果所有未知格都必须是雷（即总雷数权重等于count），则全部标雷
+        if (f_num + n_num) * 2 == self.count:
             for i in type_dict["N"]:
                 board.set_value(i, MINES_TAG)
             return True
         return False
 
     def create_constraints(self, board: 'Board', switch: Switch):
-        """创建CP-SAT约束: 周围雷数等于count"""
+        """创建CP-SAT约束: 周围雷的总权重（2倍雷数）等于count"""
         model = board.get_model()
         logger = get_logger()
 
-        # 收集周围格子的布尔变量
         neighbor_vars: list[IntVar] = []
-        for neighbor in self.neighbor:  # 8方向相邻格子
+        for neighbor in self.neighbor:
             if (var := board.get_variable(neighbor)) is not None:
                 neighbor_vars.append(var)
 
-        # 添加约束：周围雷数等于count
         s = switch.get(model, self.pos)
         if neighbor_vars:
-            # model and neighbor variables are dynamically typed (ortools objects)
-            model.add(sum(neighbor_vars) == self.count).OnlyEnforceIf(s)
-            logger.trace(f"[V] Value[{self.pos}: {self.count}] add: {neighbor_vars} == {self.count}")
+            # 约束：2 * sum(neighbor_vars) == self.count
+            model.add(sum(neighbor_vars) * 2 == self.count).OnlyEnforceIf(s)
+            logger.trace(f"[DM] Value[{self.pos}: {self.count}] add: 2*sum({neighbor_vars}) == {self.count}")
