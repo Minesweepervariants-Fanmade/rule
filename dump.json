@@ -6508,6 +6508,30 @@
         },
         {
             "rule_line": "R",
+            "id": "2P*",
+            "name": {
+                "default": "Two Point Star",
+                "zh_CN": "\u4e24\u70b9\u661f"
+            },
+            "doc": {
+                "default": "Each number indicates the sum of Chebyshev distances to the two nearest mines",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u8ddd\u79bb\u8be5\u683c\u6700\u8fd1\u7684\u4e24\u4e2a\u96f7\u7684\u5207\u6bd4\u96ea\u592b\u8ddd\u79bb\u4e4b\u548c"
+            },
+            "author": {
+                "name": "\u54b8\u9c7c",
+                "id": "3898637422"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Variant"
+            ],
+            "creation_time": "2026-03-01"
+        },
+        {
+            "rule_line": "R",
             "id": "4D'",
             "name": {
                 "default": "Dual Combine",
