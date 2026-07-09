@@ -45,6 +45,7 @@ def count_visible_cells(board: Board, pos: Position) -> int:
     """计算在四个方向上穿过第一个雷后能看到的非雷格子数量（用于填充）"""
     total = 0
     directions = get_directions()
+    logger = get_logger()
     
     for dx, dy in directions:
         cells = get_cells_in_direction(board, pos, dx, dy)
@@ -63,6 +64,7 @@ def count_visible_cells(board: Board, pos: Position) -> int:
                     break
                 total += 1
     
+    logger.debug(f"[1E>] count_visible_cells({pos}) = {total}")
     return total
 
 
@@ -126,59 +128,20 @@ class Value1E(AbstractClueValue):
         return True
 
     def deduce_cells(self, board: 'Board') -> bool:
-        """快速推理：根据当前已知信息进行推断"""
-        unknown_positions = []
-        known_non_mine_count = 0
-        
-        for dx, dy in self.directions:
-            cells = get_cells_in_direction(board, self.pos, dx, dy)
-            
-            # 找到第一个雷的位置
-            first_mine_idx = -1
-            for i, p in enumerate(cells):
-                t = board.get_type(p)
-                if t == "F":
-                    first_mine_idx = i
-                    break
-                elif t == "N":
-                    # 在第一个雷之前出现未知格子，无法确定
-                    break
-            
-            if first_mine_idx != -1:
-                # 统计雷后面的格子（直到第二个雷或边界）
-                for p in cells[first_mine_idx + 1:]:
-                    t = board.get_type(p)
-                    if t == "F":
-                        break
-                    if t == "N":
-                        unknown_positions.append(p)
-                    else:
-                        known_non_mine_count += 1
-        
-        if not unknown_positions:
-            return False
-        
-        needed = self.count - known_non_mine_count
-        
-        if needed == 0:
-            for p in unknown_positions:
-                board.set_value(p, VALUE_QUESS)
-            return True
-        elif needed == len(unknown_positions):
-            for p in unknown_positions:
-                board.set_value(p, MINES_TAG)
-            return True
-        
+        """快速推理：根据当前已知信息进行推断（暂时禁用）"""
         return False
 
     def create_constraints(self, board: 'Board', switch: Switch):
         """创建CP-SAT约束：四个方向上穿过第一个雷后看到的非雷格子总数为count
         
-        使用前缀和方法：
-        - pref[i] = sum(vars[0..i-1]) 表示到位置 i 之前（不含 i）已经看到的雷数
-        - 对于位置 i，如果 pref[i] == 1 且 vars[i] == 0，则计数加1
-        - 这表示已经看到第一个雷，且当前格子不是雷，所以当前格子被计数
-        - 如果 pref[i] >= 2，说明已经看到第二个雷，之后不再计数
+        对于每个方向：
+        1. 找到第一个雷的位置（如果有）
+        2. 从第一个雷后面的格子开始，直到遇到第二个雷或边界，所有非雷格子都可见
+        
+        实现方式：使用前缀和和辅助变量
+        - 对于方向上的每个位置 i，如果前缀和 pref[i] == 1 且 vars_list[i] == 0，
+          且下一个位置（如果有）不是雷，则计数加1（其实只要pref[i]==1且当前不是雷即可）
+        - 但实际上我们需要更精确：从第一个雷后面开始计数，直到第二个雷或边界
         """
         model = board.get_model()
         logger = get_logger()
@@ -199,22 +162,22 @@ class Value1E(AbstractClueValue):
         
         s = switch.get(model, self.pos)
         
+        # 存储每个方向的计数变量
         dir_counts = []
         
         for idx, vars_list in enumerate(direction_vars):
             dx, dy = self.directions[idx]
             n = len(vars_list)
-            if n == 0:
-                # 该方向没有格子，计数固定为0
-                count_var = model.NewIntVar(0, 0, f'count_{self.pos.col}_{self.pos.row}_{dx}_{dy}')
-                dir_counts.append(count_var)
-                continue
             
             # 该方向上的计数变量
             count_var = model.NewIntVar(0, n, f'count_{self.pos.col}_{self.pos.row}_{dx}_{dy}')
             dir_counts.append(count_var)
             
-            # 前缀和 pref[i] = sum(vars_list[0..i-1])，pref[0] = 0
+            if n == 0:
+                model.Add(count_var == 0)
+                continue
+            
+            # 前缀和 pref[i] = sum(vars_list[0..i-1])
             pref = []
             for i in range(n + 1):
                 p = model.NewIntVar(0, i, f'pref_{self.pos.col}_{self.pos.row}_{dx}_{dy}_{i}')
@@ -223,82 +186,36 @@ class Value1E(AbstractClueValue):
             for i in range(n):
                 model.Add(pref[i+1] == pref[i] + vars_list[i])
             
-            # 对于每个位置 i，创建布尔变量 pref_eq_1[i] 表示 pref[i] == 1
-            pref_eq_1 = []
+            # 现在计算可见格子数量
+            # 可见格子必须满足：在第一个雷之后，且在第二个雷之前（或边界）
+            # 即：pref[i] == 1 且 vars_list[i] == 0
+            # 且如果 i+1 < n，则 pref[i+1] <= 1（表示还没有遇到第二个雷）
+            # 但如果 vars_list[i] == 0，pref[i+1] == pref[i] == 1，所以自动满足
+            # 因此只需要条件：pref[i] == 1 且 vars_list[i] == 0
+            
+            conditions = []
             for i in range(n):
-                b = model.NewBoolVar(f'pref1_{self.pos.col}_{self.pos.row}_{dx}_{dy}_{i}')
-                pref_eq_1.append(b)
-                # b == (pref[i] == 1)
-                # 使用两个不等式约束
-                # 当 b 为真时：pref[i] >= 1 且 pref[i] <= 1
-                model.Add(pref[i] >= 1).OnlyEnforceIf(b)
-                model.Add(pref[i] <= 1).OnlyEnforceIf(b)
-                # 当 b 为假时：pref[i] <= 0 或 pref[i] >= 2
-                # 更简单：使用线性约束确保 b 与 pref[i] 的关系
-                # 实际上，用两个约束可能不够，因为 pref[i] 是整数，b 是布尔
-                # 更好的方法是使用加和约束：pref[i] == b + extra，其中 extra 是整数 >= 0
-                # 但为了简化，我采用另一种方法：
-                # 直接使用 channeling 约束：pref[i] == 1 * b + extra，其中 extra 是 0 或 >=2
-                # 但 CP-SAT 不直接支持这种情况，我们使用 Add 约束 + 枚举
-                # 这里简单起见，使用上述两个 OnlyEnforceIf 约束，配合 b 的取值
-                # 对于 b=0，pref[i] 可以是 0 或 >=2，这由条件 pref[i] <= 0 或 pref[i] >= 2 决定
-                # 但我们的约束只有 b=0 时 pref[i] <= 0 或 pref[i] >= 2，这会导致模型无法同时满足两个分支
-                # 所以需要使用重写
+                # pref[i] == 1（恰好有一个雷在当前位置之前）
+                pref_eq_1 = model.NewBoolVar(f'pref_eq_1_{self.pos.col}_{self.pos.row}_{dx}_{dy}_{i}')
+                model.Add(pref[i] == 1).OnlyEnforceIf(pref_eq_1)
+                model.Add(pref[i] != 1).OnlyEnforceIf(pref_eq_1.Not())
+                
+                # not_mine: vars_list[i] == 0 (当前位置不是雷)
+                not_mine = model.NewBoolVar(f'not_mine_{self.pos.col}_{self.pos.row}_{dx}_{dy}_{i}')
+                model.Add(vars_list[i] == 0).OnlyEnforceIf(not_mine)
+                model.Add(vars_list[i] >= 1).OnlyEnforceIf(not_mine.Not())
+                
+                # cond = pref_eq_1 AND not_mine
+                cond = model.NewBoolVar(f'cond_{self.pos.col}_{self.pos.row}_{dx}_{dy}_{i}')
+                model.Add(cond <= pref_eq_1)
+                model.Add(cond <= not_mine)
+                model.Add(cond >= pref_eq_1 + not_mine - 1)
+                conditions.append(cond)
             
-            # 由于上述方法复杂，改用另一种方式：引入变量表示 "pref[i] >= 1" 和 "pref[i] <= 1"
-            # 然后 b = (pref[i] >= 1) AND (pref[i] <= 1)
-            # 但 AND 在 CP-SAT 中需要用辅助变量
-            # 实际上，更简单的方法是直接使用线性约束：
-            # b <= pref[i] (因为如果 b=1，则 pref[i] >= 1)
-            # b >= pref[i] - 1 (因为如果 pref[i] >= 2，则 b 必须为0；如果 pref[i]=0，b=0)
-            # 即 b >= (pref[i] - 1) / 1，但 CP-SAT 支持整数除法，但效率低
-            # 最可靠的方法是枚举所有可能的状态，所以我回到枚举状态方法
+            # 计数 = 所有条件的和
+            model.Add(count_var == sum(conditions))
         
-        # 由于前缀和约束在 CP-SAT 中实现 channeling 比较复杂，
-        # 我们采用枚举状态的方法（第一个雷和第二个雷的位置），这是最可靠的
-        # 重新使用枚举状态方法
-        
-        # 清空 dir_counts 并重新计算
-        dir_counts = []
-        for idx, vars_list in enumerate(direction_vars):
-            dx, dy = self.directions[idx]
-            n = len(vars_list)
-            if n == 0:
-                count_var = model.NewIntVar(0, 0, f'count_{self.pos.col}_{self.pos.row}_{dx}_{dy}')
-                dir_counts.append(count_var)
-                continue
-            
-            count_var = model.NewIntVar(0, n, f'count_{self.pos.col}_{self.pos.row}_{dx}_{dy}')
-            dir_counts.append(count_var)
-            
-            # 状态枚举
-            states = []
-            # 有第一个雷的状态：i 是第一个雷，j 是第二个雷（j==n 表示没有第二个雷）
-            for i in range(n):
-                for j in range(i+1, n+1):
-                    state = model.NewBoolVar(f'state_{self.pos.col}_{self.pos.row}_{dx}_{dy}_{i}_{j}')
-                    states.append(state)
-                    # 约束条件
-                    model.Add(vars_list[i] == 1).OnlyEnforceIf(state)
-                    if i > 0:
-                        model.Add(sum(vars_list[:i]) == 0).OnlyEnforceIf(state)
-                    if j > i+1:
-                        model.Add(sum(vars_list[i+1:j]) == 0).OnlyEnforceIf(state)
-                    if j < n:
-                        model.Add(vars_list[j] == 1).OnlyEnforceIf(state)
-                    model.Add(count_var == (j - i - 1)).OnlyEnforceIf(state)
-            
-            # 无雷状态
-            no_mine = model.NewBoolVar(f'no_mine_{self.pos.col}_{self.pos.row}_{dx}_{dy}')
-            for k in range(n):
-                model.Add(vars_list[k] == 0).OnlyEnforceIf(no_mine)
-            model.Add(count_var == 0).OnlyEnforceIf(no_mine)
-            
-            # 确保恰好一个状态为真
-            all_states = states + [no_mine]
-            model.Add(sum(all_states) == 1)
-        
-        # 总计数等于线索值
+        # 总计数等于线索值，且仅在开关为真时生效
         total_count = sum(dir_counts)
         model.Add(total_count == self.count).OnlyEnforceIf(s)
-        logger.trace(f"[1E>] Value[{self.pos}: {self.count}] add constraint: total_count == {self.count}")
+        logger.trace(f"[1E>] Value[{self.pos}: {self.count}] add constraint: total_count == {self.count} (enforced by switch {s})")
