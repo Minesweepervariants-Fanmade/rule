@@ -74,7 +74,6 @@ class RuleRL3(AbstractClueRule):
             if four_mine_count % 2 == 0:
                 # 偶数：线索值 = 八格雷数
                 clue_value = eight_mine_count
-                four_even = True
             else:
                 # 奇数：线索值 = 八格雷数 ± 1，排除 -1 和 9
                 candidates = [eight_mine_count - 1, eight_mine_count + 1]
@@ -85,9 +84,8 @@ class RuleRL3(AbstractClueRule):
                 else:
                     # 理论上不会发生
                     clue_value = eight_mine_count
-                four_even = False
 
-            board.set_value(pos, ValueRL3(pos, clue_value, four_even))
+            board.set_value(pos, ValueRL3(pos, clue_value))
         return board
 
 
@@ -153,14 +151,14 @@ class ValueRL3(AbstractClueValue):
         model = board.get_model()
         logger = get_logger()
 
-        # 获取四格变量
+        # 获取四格变量（上下左右）
         four_vars: list[IntVar] = []
         for pos in self.four_neighbor:
             var = board.get_variable(pos)
             if var is not None:
                 four_vars.append(var)
 
-        # 获取八格变量
+        # 获取八格变量（周围八格）
         eight_vars: list[IntVar] = []
         for pos in self.eight_neighbor:
             var = board.get_variable(pos)
@@ -170,54 +168,61 @@ class ValueRL3(AbstractClueValue):
         if not eight_vars:
             return
 
-        # 获取开关变量
         s = switch.get(model, self.pos)
 
         # 计算八格雷数之和
         eight_sum = sum(eight_vars)
 
-        if self.four_even:
-            # 四格雷数为偶数：eight_sum == clue_value
+        # 如果没有四格变量，只要求 eight_sum == clue_value
+        if not four_vars:
             model.Add(eight_sum == self.clue_value).OnlyEnforceIf(s)
-            logger.trace(f"[RL3] Value[{self.pos}: {self.clue_value}] even: sum(eight) == {self.clue_value}")
-        else:
-            # 四格雷数为奇数：eight_sum == clue_value ± 1
-            possible_values = [self.clue_value - 1, self.clue_value + 1]
-            possible_values = [v for v in possible_values if 0 <= v <= 8]
+            logger.trace(f"[RL3] Value[{self.pos}: {self.clue_value}] no four vars, eight_sum == {self.clue_value}")
+            return
 
-            if not possible_values:
-                logger.warning(f"[RL3] No valid possible values for clue {self.clue_value} at {self.pos}")
-                return
+        # 计算四格雷数之和
+        four_sum = sum(four_vars)
 
+        # 奇偶性变量: 0=偶数, 1=奇数
+        parity = model.NewIntVar(0, 1, f"rl3_parity_{id(self)}")
+        # four_sum = 2*k + parity
+        max_k = len(four_vars) // 2 + 1
+        k = model.NewIntVar(0, max_k, f"rl3_k_{id(self)}")
+        model.Add(four_sum == 2 * k + parity)
+
+        # 创建 even/odd 布尔变量，用于 OnlyEnforceIf
+        even = model.NewBoolVar(f"rl3_even_{id(self)}")
+        odd = model.NewBoolVar(f"rl3_odd_{id(self)}")
+        model.Add(even + odd == 1)
+        model.Add(parity == 0).OnlyEnforceIf(even)
+        model.Add(parity == 1).OnlyEnforceIf(odd)
+
+        # 偶数情况：eight_sum == clue_value
+        model.Add(eight_sum == self.clue_value).OnlyEnforceIf([s, even])
+
+        # 奇数情况：eight_sum == clue_value ± 1（在0-8范围内）
+        possible_values = [self.clue_value - 1, self.clue_value + 1]
+        possible_values = [v for v in possible_values if 0 <= v <= 8]
+
+        if possible_values:
             if len(possible_values) == 1:
-                model.Add(eight_sum == possible_values[0]).OnlyEnforceIf(s)
-                logger.trace(f"[RL3] Value[{self.pos}: {self.clue_value}] odd: sum(eight) == {possible_values[0]}")
+                model.Add(eight_sum == possible_values[0]).OnlyEnforceIf([s, odd])
+                logger.trace(
+                    f"[RL3] Value[{self.pos}: {self.clue_value}] odd: eight_sum == {possible_values[0]}"
+                )
             else:
-                # 创建辅助布尔变量表示选择哪个值
+                # 两个可能值
                 b1 = model.NewBoolVar(f"rl3_choice_{id(self)}_1")
                 b2 = model.NewBoolVar(f"rl3_choice_{id(self)}_2")
-                # 保证至少选择一个
-                model.Add(b1 + b2 >= 1).OnlyEnforceIf(s)
-                # 如果开关关闭，两个都不选
-                model.Add(b1 + b2 <= 0).OnlyEnforceIf(s.Not())
-                # 约束条件
-                model.Add(eight_sum == possible_values[0]).OnlyEnforceIf(b1)
-                model.Add(eight_sum == possible_values[1]).OnlyEnforceIf(b2)
+                model.Add(eight_sum == possible_values[0]).OnlyEnforceIf([s, odd, b1])
+                model.Add(eight_sum == possible_values[1]).OnlyEnforceIf([s, odd, b2])
+                # 当odd为真时，必须恰好选择一个
+                model.Add(b1 + b2 == 1).OnlyEnforceIf([s, odd])
+                # 当even为真时，两个都不选（保持一致性）
+                model.Add(b1 + b2 == 0).OnlyEnforceIf([s, even])
                 logger.trace(
-                    f"[RL3] Value[{self.pos}: {self.clue_value}] odd: sum(eight) in {possible_values}"
+                    f"[RL3] Value[{self.pos}: {self.clue_value}] odd: eight_sum in {possible_values}"
                 )
-
-        # 添加四格奇偶性的额外约束（确保实际四格雷数奇偶性与self.four_even一致）
-        if four_vars:
-            # 计算四格奇偶性：使用辅助变量
-            four_parity = model.NewIntVar(0, 1, f"rl3_four_parity_{id(self)}")
-            # 四格雷数 = 2*k + four_parity
-            max_k = len(four_vars) // 2 + 1
-            k = model.NewIntVar(0, max_k, f"rl3_k_{id(self)}")
-            model.Add(sum(four_vars) == 2 * k + four_parity)
-            # 奇偶性应与self.four_even一致
-            if self.four_even:
-                model.Add(four_parity == 0).OnlyEnforceIf(s)
-            else:
-                model.Add(four_parity == 1).OnlyEnforceIf(s)
-            logger.trace(f"[RL3] Value[{self.pos}] four parity constraint: {self.four_even}")
+        else:
+            # 没有有效奇数值，禁止奇数情况
+            model.Add(odd == 0).OnlyEnforceIf(s)
+            logger.warning(f"[RL3] No valid odd choices for clue {self.clue_value} at {self.pos}")
