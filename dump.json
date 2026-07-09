@@ -6681,6 +6681,31 @@
         },
         {
             "rule_line": "R",
+            "id": "SG'",
+            "name": {
+                "default": "Tic-Tac-Toe Clue",
+                "zh_CN": "\u4e95\u5b57\u68cb\u7ebf\u7d22"
+            },
+            "doc": {
+                "default": "Clue indicates the number of horizontal, vertical, and diagonal lines of three in the surrounding 3x3 area that are all mines or all non-mines",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u5468\u56f43x3\u6a2a\u7ad6\u659c\u5411\u4e09\u683c\u76f8\u540c\u7684\u6b21\u6570"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Variant"
+            ],
+            "creation_time": "2026-07-09"
+        },
+        {
+            "rule_line": "R",
             "id": "3H",
             "name": {
                 "default": "Hexagon",
