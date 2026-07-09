@@ -6508,6 +6508,32 @@
         },
         {
             "rule_line": "R",
+            "id": "1E>",
+            "name": {
+                "default": "Perspective",
+                "zh_CN": "\u900f\u89c6"
+            },
+            "doc": {
+                "default": "The clue indicates the number of non-mine cells visible in the four cardinal directions after passing through the first mine encountered. Mines block line of sight.",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u56db\u65b9\u5411\u4e0a\u7a7f\u8fc7\u9047\u5230\u7684\u7b2c\u4e00\u4e2a\u96f7\u683c\u540e\u80fd\u770b\u5230\u7684\u975e\u96f7\u683c\u6570\u91cf\u3002\u96f7\u4f1a\u963b\u6321\u89c6\u7ebf\u3002"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Vanilla Variant",
+                "Number Clue",
+                "Arrow Clue"
+            ],
+            "creation_time": "2026-07-09"
+        },
+        {
+            "rule_line": "R",
             "id": "2P*",
             "name": {
                 "default": "Two Point Star",
