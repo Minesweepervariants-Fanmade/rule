@@ -148,64 +148,6 @@ class ValueRL3(AbstractClueValue):
         types = board.batch(positions=self.eight_neighbor, mode="type", special='raw')
         return types.count("N") == 0
 
-    def deduce_cells(self, board: Board) -> bool:
-        """快速推理：根据已知雷数和未知格数推断"""
-        # 分别统计四格和八格的N/F情况
-        four_type_dict = {"N": [], "F": []}
-        for pos in self.four_neighbor:
-            t = board.get_type(pos)
-            if t in ("", "C"):
-                continue
-            four_type_dict[t].append(pos)
-
-        eight_type_dict = {"N": [], "F": []}
-        for pos in self.eight_neighbor:
-            t = board.get_type(pos)
-            if t in ("", "C"):
-                continue
-            eight_type_dict[t].append(pos)
-
-        four_n_num = len(four_type_dict["N"])
-        four_f_num = len(four_type_dict["F"])
-        eight_n_num = len(eight_type_dict["N"])
-        eight_f_num = len(eight_type_dict["F"])
-
-        # 如果八格没有未知格，无法推理
-        if eight_n_num == 0:
-            return False
-
-        # 判断四格雷数的奇偶性
-        four_parity_even = (four_f_num % 2 == 0)
-        # 如果四格还有未知格，无法确定奇偶性
-        if four_n_num > 0:
-            return False
-
-        # 确定四格奇偶性后，推理八格
-        if four_parity_even:
-            # 四格为偶数，八格雷数应等于线索值
-            if eight_f_num == self.clue_value:
-                for p in eight_type_dict["N"]:
-                    board.set_value(p, VALUE_QUESS)
-                return True
-            if eight_f_num + eight_n_num == self.clue_value:
-                for p in eight_type_dict["N"]:
-                    board.set_value(p, MINES_TAG)
-                return True
-        else:
-            # 四格为奇数，八格雷数 = 线索值 ± 1
-            possible_counts = [self.clue_value - 1, self.clue_value + 1]
-            possible_counts = [c for c in possible_counts if 0 <= c <= 8]
-            for target_count in possible_counts:
-                if eight_f_num == target_count:
-                    for p in eight_type_dict["N"]:
-                        board.set_value(p, VALUE_QUESS)
-                    return True
-                if eight_f_num + eight_n_num == target_count:
-                    for p in eight_type_dict["N"]:
-                        board.set_value(p, MINES_TAG)
-                    return True
-        return False
-
     def create_constraints(self, board: Board, switch: Switch):
         """创建CP-SAT约束"""
         model = board.get_model()
