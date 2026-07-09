@@ -7004,6 +7004,31 @@
         },
         {
             "rule_line": "R",
+            "id": "RL3",
+            "name": {
+                "default": "Error Clue",
+                "zh_CN": "\u8bef\u5dee\u7ebf\u7d22"
+            },
+            "doc": {
+                "default": "If the four adjacent cells (up, down, left, right) contain an odd number of mines, the clue value is the total number of mines in the surrounding eight cells plus or minus 1 (but cannot be -1 or 9). If even, the clue value is the total number of mines in the surrounding eight cells.",
+                "zh_CN": "\u5982\u679c\u4e00\u4e2a\u6570\u5b57\u7684\u56db\u683c\uff08\u4e0a\u4e0b\u5de6\u53f3\uff09\u5b58\u5728\u5947\u6570\u4e2a\u96f7\uff0c\u90a3\u4e48\u5b83\u7684\u7ebf\u7d22\u6570\u662f\u5468\u56f4\u516b\u683c\u603b\u96f7\u6570\u7684+1\u6216\u8005-1\uff08\u4e0d\u80fd\u662f-1,9\uff09\uff1b\u5982\u679c\u662f\u5076\u6570\u4e2a\u96f7\uff0c\u90a3\u4e48\u5b83\u662f\u5468\u56f4\u516b\u683c\u7684\u603b\u96f7\u6570\u3002"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Light"
+            ],
+            "creation_time": "2026-06-24"
+        },
+        {
+            "rule_line": "R",
             "id": "6V",
             "name": {
                 "default": "Vanilla(Full Marking)",
