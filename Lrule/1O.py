@@ -7,7 +7,9 @@
 """
 [1O] 外部 (Outside)：非雷区域四连通；每个雷区域以四连通连接到题版边界
 """
-from typing import List
+from typing import List, Tuple, Dict
+
+from ortools.sat.python.cp_model import IntVar
 
 from ....abs.Lrule import AbstractMinesRule
 from minesweepervariants.board import Board, Position
@@ -15,13 +17,19 @@ from minesweepervariants.board import Board
 from .connect import connect_legacy as connect
 
 
-def block(a_pos: Position, board: Board) -> List[Position]:
-    b_pos = a_pos.up()
-    c_pos = a_pos.left()
-    d_pos = b_pos.left()
-    if not board.in_bounds(d_pos):
-        return []
-    return [a_pos, b_pos, c_pos, d_pos]
+def pos2edge(pos: Position, face: int, board: Board) -> Tuple[int, int]:
+    """
+    获取pos的指定面朝情况下的两个格点id
+    face: 0up, 1left, 2right, 3down
+    """
+    row, col = pos.row, pos.col
+    col_count = board.boundary(pos.board_key).col + 2
+    offset_a = (1 - face % 2) * 2 + face // 2
+    offset_b = offset_a if offset_a < face else face
+    offset_a = offset_a if offset_a > face else face
+    point_a = (col + (offset_a // 2)) + (row + (offset_a % 2)) * col_count
+    point_b = (col + (offset_b // 2)) + (row + (offset_b % 2)) * col_count
+    return (point_a, point_b) if point_a < point_b else (point_b, point_a)
 
 
 class Rule1O(AbstractMinesRule):
@@ -36,51 +44,39 @@ class Rule1O(AbstractMinesRule):
     author = ("", 0)
 
     def create_constraints(self, board: 'Board', switch):
-        for key in board.get_interactive_keys():
-            if len(board.get_config(key, "mask")) > 0:
-                raise ValueError("1O 不支持异形题板")
-
         model = board.get_model()
-        s = switch.get(model, self)
+        s = switch(model, self)
 
-        # 非雷四连通
-        connect(
-            model,
-            board,
-            connect_value=0,
-            nei_value=1,
-            switch=s,
-        )
+        def get_var(input_pos: Position):
+            pos_bound = board.boundary(key)
+            row, col = input_pos.row, input_pos.col
+            if row == -1 or row == pos_bound.row + 1:
+                return 1
+            if col == -1 or col == pos_bound.col + 1:
+                return 1
+            return board.get_variable(input_pos)
 
-        positions_vars = [(pos, var) for pos, var in board("always", mode="variable")]
-        root_list = [model.NewBoolVar(f'root_{i}') for i in range(len(positions_vars))]
-        for index, (pos, var) in enumerate(positions_vars):
-            model.Add(var == 1).OnlyEnforceIf(root_list[index])
-            flag = True
-            for _pos in pos.neighbors(1):
-                if not board.in_bounds(_pos):
-                    flag = False
-                    break
-            if flag:
-                model.Add(root_list[index] == 0)
-                continue
-            model.Add(root_list[index] == 1).OnlyEnforceIf(var)
-            model.Add(root_list[index] == 0).OnlyEnforceIf(var.Not())
-        connect(
-            model,
-            board,
-            connect_value=1,
-            nei_value=1,
-            root_vars=root_list,
-            ub=len(positions_vars),
-            switch=s,
-        )
-
-        # 1O大定式
-        for pos, _ in board():
-            pos_list = block(pos, board)
-            if not pos_list:
-                continue
-            a, b, c, d = board.batch(pos_list, mode="variable")
-            model.AddBoolOr([a.Not(), b, c, d.Not()]).OnlyEnforceIf(s)  # 排除 1010
-            model.AddBoolOr([a, b.Not(), c.Not(), d]).OnlyEnforceIf(s)  # 排除 0101
+        for key in board.get_board_keys():
+            arcs: Dict[Tuple[int, int], IntVar] = {}
+            for pos, _ in board(key=key):
+                for face in range(4):
+                    edge = pos2edge(pos, face, board)
+                    if edge in arcs:
+                        continue
+                    side = ['up', 'left', 'right', 'down'][face]
+                    side_pos = getattr(pos, side)(1)
+                    side_var = get_var(side_pos)
+                    edge0_var = model.new_bool_var(f"{pos} {side} 0")
+                    edge1_var = model.new_bool_var(f"{pos} {side} 1")
+                    arcs[edge] = edge0_var
+                    arcs[(edge[1], edge[0])] = edge1_var
+                    pos_var = board.get_variable(pos)
+                    model.add(pos_var == side_var).only_enforce_if(
+                        edge0_var.Not(), edge1_var.Not(), s
+                    )
+                    model.add(pos_var != side_var).only_enforce_if(edge1_var, s)
+                    model.add(pos_var != side_var).only_enforce_if(edge0_var, s)
+            pos_bound = board.boundary(key)
+            for point_id in range((pos_bound.col + 2) * (pos_bound.row + 2)):
+                arcs[(point_id, point_id)] = model.new_bool_var(f"point: {point_id} self edge")
+            model.add_circuit([(key[0], key[1], var) for key, var in arcs.items()]).only_enforce_if(s)
