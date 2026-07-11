@@ -2155,6 +2155,29 @@
         },
         {
             "rule_line": "L",
+            "id": "3C~",
+            "name": {
+                "default": "Row Imbalance",
+                "zh_CN": "\u884c\u5931\u8861"
+            },
+            "doc": {
+                "default": "Each row has a different number of mines",
+                "zh_CN": "\u6bcf\u884c\u96f7\u6570\u5404\u4e0d\u76f8\u540c"
+            },
+            "author": {
+                "name": "\u5c0f\u5c0f\u795e\u4e2d\u533b",
+                "id": "3086842243"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global"
+            ],
+            "creation_time": "2026-03-01"
+        },
+        {
+            "rule_line": "L",
             "id": "TEST-L01",
             "name": {
                 "default": "TEST-L01"
