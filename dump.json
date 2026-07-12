@@ -6998,6 +6998,32 @@
         },
         {
             "rule_line": "R",
+            "id": "2X1K",
+            "name": {
+                "default": "Knight Cross",
+                "zh_CN": "\u9a6c\u6b65\u5341\u5b57"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in dyed and undyed cells within knight-move area (order is not fixed)",
+                "zh_CN": "\u7ebf\u7d22\u8868\u793a\u9a6c\u6b65\u8303\u56f4\u5185\u67d3\u8272\u683c\u548c\u975e\u67d3\u8272\u683c\u7684\u96f7\u6570\uff08\u987a\u5e8f\u4e0d\u786e\u5b9a\uff09"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Dyed",
+                "Untagged"
+            ],
+            "creation_time": "2026-07-12"
+        },
+        {
+            "rule_line": "R",
             "id": "2D''",
             "name": {
                 "default": "Deviation''",
