@@ -358,6 +358,62 @@ def _pick_image_name(rule_key, image_names):
 
 
 def get_all_rules():
+    import inspect
+
+    from minesweepervariants.impl.impl_obj import valid_rule_ids
+    from minesweepervariants.impl.impl_obj import get_all_subclasses
+    from minesweepervariants.abs.rule import AbstractRule
+    from minesweepervariants.abs.Rrule import AbstractClueRule
+    from minesweepervariants.abs.Mrule import AbstractMinesClueRule
+    from minesweepervariants.abs.Lrule import AbstractMinesRule
+
+    valid_rule_ids()
+
+    dir_path = os.path.dirname(os.path.abspath(__file__))
+    image_dir = os.path.join(dir_path, "image")
+    image_names = []
+    if os.path.isdir(image_dir):
+        image_names = sorted(
+            name for name in os.listdir(image_dir)
+            if os.path.isfile(os.path.join(image_dir, name))
+        )
+
+    all_sub_rule = [
+        rule for rule in
+        get_all_subclasses(AbstractRule)
+        if not inspect.isabstract(rule)
+    ]
+    results = {"L": [], "M": [], "R": []}
+    for rule in all_sub_rule:
+        rule: type[AbstractRule]
+        if not hasattr(rule, "id"): continue
+        rule_key = _first_text(rule.id) or _first_text(rule.name)
+        rule_info = {
+            "rule_line": "",
+            "id": _text_from_value(rule.id) or rule_key,
+            "name": _normalize_i18n_map(rule.name, fallback_text=rule_key),
+            "doc": _normalize_i18n_map(rule.doc),
+            "author": _normalize_author(rule.author),
+            "image": _pick_image_name(rule_key, image_names),
+            "aliases": getattr(rule, "aliases", ()),
+            "tags": rule.tags,
+            "creation_time": rule.creation_time,
+        }
+        if issubclass(rule, AbstractMinesClueRule):
+            rule_info["rule_line"] = "M"
+        if issubclass(rule, AbstractClueRule):
+            rule_info["rule_line"] = "R"
+        if issubclass(rule, AbstractMinesRule):
+            rule_info["rule_line"] = "L"
+        if rule_info["rule_line"] == "":
+            from minesweepervariants.utils.tool import LOGGER
+            LOGGER.warning(f"rule [{rule.id}] can't on line")
+            continue
+        results[rule_info["rule_line"]].append(rule_info)
+    return results
+
+
+def get_all_rules_by_dir():
     results = {"L": [], "M": [], "R": []}
     dir_path = os.path.dirname(os.path.abspath(__file__))
     image_dir = os.path.join(dir_path, "image")
