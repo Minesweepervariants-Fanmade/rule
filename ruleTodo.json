@@ -3297,5 +3297,12 @@
         "author_uid": 3140864122,
         "author_name": "雾",
         "doc": "NT"
+    },
+    {
+        "time": 1783946530.9799716,
+        "name": "#reg",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "已创建规则[规则名字]"
     }
 ]
