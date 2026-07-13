@@ -10,18 +10,50 @@
 """
 import itertools
 import time
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Self
+
+from ortools.sat.python.cp_model import IntVar
 
 from minesweepervariants.abs.rule import AbstractRule
-from minesweepervariants.utils.impl_obj import VALUE_QUESS
+from minesweepervariants.impl.summon.solver import Switch
+from minesweepervariants.utils.impl_obj import VALUE_QUESS, POSITION_TAG
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from typing import cast
-from minesweepervariants.abs.rule import AbstractValue
-from minesweepervariants.json_object import deep_unwrap
-from minesweepervariants.utils.value_template import is_value_template, Template, SingleIntValue
-from minesweepervariants.board import JSONObject, Board, Position
+from minesweepervariants.utils.value_template import Template, SingleIntValue
+from minesweepervariants.board import Board, Position
 
 from ....utils.tool import get_logger
+
+ID_2A = "ID_2A'"
+COUNT_2A = "COUNT_2A'"
+DEBUG = False
+
+
+def pos2seed(input_pos: Position, board: Board) -> int:
+    bound = board.boundary(input_pos.board_key)
+    offset = 0
+    for board_key in board.get_board_keys():
+        if board_key == input_pos.board_key:
+            break
+        offset += len([pos for pos, _ in board(key=board_key)])
+    return input_pos.row * (bound.col + 1) + input_pos.col + 1 + offset
+
+
+def seed2pos(input_seed: int, board: Board) -> Position:
+    board_key = None
+    for board_key in board.get_board_keys():
+        total = len([pos for pos, _ in board(key=board_key)])
+        if input_seed < total:
+            break
+        input_seed -= total
+    if board_key is None:
+        return POSITION_TAG
+    bound = board.boundary(board_key)
+    return board.get_pos(
+        (input_seed - 1) // (bound.col + 1),
+        (input_seed - 1) % (bound.col + 1),
+        board_key
+    )
 
 
 class Rule2A(AbstractClueRule):
@@ -36,6 +68,7 @@ class Rule2A(AbstractClueRule):
 
     def __init__(self, board: "Board" = None, data=None):
         super().__init__(board, data)
+        self.debug_vars = {}
         self.flag = None
 
     def combine(self, rules: List[Tuple['AbstractRule', Optional[str]]]):
@@ -88,88 +121,108 @@ class Rule2A(AbstractClueRule):
                     for j in range(size[1]):
                         if checked[i][j]:
                             cnt += 1
-                board.set_value(pos, Value2A(pos, bytes([cnt])))
+                board.set_value(pos, Value2A(pos, cnt))
                 logger.debug(f"Set {pos} to 2A'[{cnt}]")
         return board
+
+    def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
+        model = board.get_model()
+
+        max_var = len([pos for pos, _ in board()])
+        id_vars = {pos: model.new_int_var(0, max_var, f"id_{pos}") for pos, _ in board()}
+        step_vars = {pos: model.new_int_var(0, max_var, f"step_{pos}") for pos, _ in board()}
+
+        for pos, _ in board():
+            pos_var = board.get_variable(pos).Not()
+            is_root = model.new_bool_var(f"{pos}_is_root")
+            nei1_poses = [nei_pos for nei_pos in pos.neighbors(1, 1) if nei_pos in id_vars]
+            for nei_pos in nei1_poses:
+                # 相邻两格必须id相同
+                model.add(id_vars[nei_pos] == id_vars[pos]).OnlyEnforceIf(
+                    board.get_variable(pos), board.get_variable(nei_pos)
+                )
+
+            # 如果该格是雷
+            model.add(id_vars[pos] > 0).only_enforce_if(pos_var)
+            model.add(step_vars[pos] > 0).only_enforce_if(pos_var)
+            model.add(pos_var == 1).only_enforce_if(is_root)
+
+            # 该格是雷且是root
+            model.add(step_vars[pos] == max_var).only_enforce_if(pos_var, is_root)
+            model.add(id_vars[pos] == pos2seed(pos, board)).only_enforce_if(pos_var, is_root)
+
+            # 该格是雷且不是root
+            model.add(id_vars[pos] > pos2seed(pos, board)).only_enforce_if(pos_var, is_root.Not())
+
+            # 取周围最大的step-1
+            model.add_max_equality(
+                step_vars[pos],
+                [step_vars[nei_pos] - 1 for nei_pos in nei1_poses],
+            ).OnlyEnforceIf(pos_var, is_root.Not())
+            for nei_pos in nei1_poses:
+                tmp_var = model.new_bool_var("")
+                model.add(step_vars[pos] == step_vars[nei_pos] - 1).OnlyEnforceIf(tmp_var)
+                model.add(step_vars[pos] != step_vars[nei_pos] - 1).OnlyEnforceIf(tmp_var.Not())
+                model.add(id_vars[pos] == id_vars[nei_pos]).only_enforce_if(pos_var, tmp_var, is_root.Not())
+
+            # 如果该格非雷
+            model.add(id_vars[pos] == 0).only_enforce_if(pos_var.Not())
+            model.add(step_vars[pos] == 0).only_enforce_if(pos_var.Not())
+            model.add(is_root == 0).only_enforce_if(pos_var.Not())
+            if DEBUG:
+                self.debug_vars[is_root.name] = is_root
+
+        count_vars = {}
+        for seed_id in range(1, max_var + 1):
+            count_var = model.new_int_var(0, max_var, f"id{seed_id}Cound")
+            count_vars[seed_id] = count_var
+            sum_vars = []
+            for pos, _ in board():
+                tmp_var = model.new_bool_var(f"{pos}={seed_id}")
+                model.add(id_vars[pos] == seed_id).only_enforce_if(tmp_var)
+                model.add(id_vars[pos] != seed_id).only_enforce_if(tmp_var.Not())
+                sum_vars.append(tmp_var)
+            model.add(count_var == sum(sum_vars))
+
+        if DEBUG:
+            self.debug_vars.update({var.name: var for var in id_vars.values()})
+            self.debug_vars.update({var.name: var for var in count_vars.values()})
+            self.debug_vars.update({var.name: var for var in step_vars.values()})
+
+        for pos, var in id_vars.items():
+            board.register_variable_special(ID_2A, pos, var)
+
+        for seed, var in count_vars.items():
+            board.register_variable_special(COUNT_2A, seed2pos(seed, board), var)
 
 
 class Value2A(AbstractClueValue):
     id = Rule2A.id
-    def __init__(self, pos: 'Position', code: bytes = None):
-        super().__init__(pos, code)
-        self.value = code[0]
-        self.neighbor = pos.neighbors(1)
-        self.pos = pos
 
-    def __repr__(self) -> str:
-        return f"{self.value}"
+    def __init__(self, pos: 'Position', value: int):
+        super().__init__(pos)
+        self.debug_vars = {}
+        self.value: SingleIntValue = SingleIntValue(value)
 
     @classmethod
-    def type(cls) -> bytes:
-        return Rule2A.id.encode("ascii")
-
-    def code(self) -> bytes:
-        return bytes([self.value])
+    def from_json(cls, pos: 'Position', data: 'Template') -> Self:
+        value_data = SingleIntValue.try_from(data)
+        return cls(pos, value_data.value)
 
     def create_constraints(self, board: 'Board', switch):
         # 跳过已有的线索格
         model = board.get_model()
         s = switch.get(model, self)
 
-        def dfs(
-                deep: int,
-                valides: list = None,
-                locked: list = None  # 上级锁定的格子,不允许进行扩展
-        ):
-            if valides is None:
-                valides = [self.pos]
-            if locked is None:
-                locked = []
-            checked = set()
-            for pos in valides:
-                for _pos in pos.neighbors(1):
-                    if _pos in locked:
-                        continue
-                    if _pos in valides:
-                        continue
-                    if not board.in_bounds(_pos):
-                        continue
-                    checked.add(_pos)
-            if deep == 0:
-                if "C" not in board.batch(list(checked), "type"):
-                    yield list(checked) + locked, valides
-            else:
-                for n in range(1, min(deep, len(checked)) + 1):
-                    for combo in itertools.combinations(checked, n):
-                        outside = [pos for pos in checked if pos not in combo]
-                        if "F" in board.batch(combo, "type"):
-                            continue
-                        if "C" in board.batch(outside, "type"):
-                            continue
-                        yield from dfs(deep - n, valides + list(combo), locked + outside)
+        id_var: IntVar = board.get_variable(self.pos, special=ID_2A)
+        count_vars = {pos2seed(pos, board): board.get_variable(pos, special=COUNT_2A) for pos, _ in board()}
 
-        tmp_list = []
-        t = time.time()
-        for vars_f, vars_t in dfs(self.value - 1):
-            vars_t.sort()
-            tmp = model.NewBoolVar(f"{self.pos}[{self}]:C:|{vars_t}| F:|{vars_f}|")
-            vars_t = board.batch(vars_t, mode="variable")
-            vars_f = board.batch(vars_f, mode="variable")
-            model.Add(sum(vars_t) == 0).OnlyEnforceIf(tmp)
-            if vars_f:
-                model.AddBoolAnd(vars_f).OnlyEnforceIf(tmp)
-            tmp_list.append(tmp)
-        model.AddBoolOr(tmp_list).OnlyEnforceIf(s)
-        get_logger().trace(f"position:{self.pos}, value:{self},"
-                           f" used_time:{time.time() - t}s,"
-                           f" 枚举所有可能性共:{len(tmp_list)}个")
-        # print()
-        # print()
-        # print()
-        # print(board)
-        # print(f"position:{self.pos}, value:{self}, used_time:{time.time() - t}s, 枚举所有可能性共:{len(tmp_list)}个")
-        # print(board)
-        [get_logger().trace(tmp) for tmp in tmp_list]
-        #
-        # import sys
-        # sys.exit()
+        all_count_var = model.new_int_var(id_var.domain.min(), id_var.domain.max(), f"{self.pos} id count")
+        for id_num, count_var in count_vars.items():
+            eq_var = model.NewBoolVar(f'{self.pos}_{id_num}={id_var}')
+            model.add(id_var != id_num).only_enforce_if(eq_var.Not(), s)
+            model.add(id_var == id_num).only_enforce_if(eq_var, s)
+            model.add(all_count_var == count_var).only_enforce_if(eq_var, s)
+
+        model.add(all_count_var == self.value.value).only_enforce_if(s)
+
