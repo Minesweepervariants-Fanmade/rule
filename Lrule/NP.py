@@ -1,5 +1,7 @@
 """
-[NP] 负点 (Negative Point)：雷带有正负号，由行列雷数决定。
+[NP] 负点 (Negative Point)
+
+雷带有正负号，该雷所在的行与列中，雷多则该雷的雷值为 1，非雷多则该雷的雷值为 -1。
 """
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
@@ -20,7 +22,7 @@ class RuleNP(AbstractMinesRule):
     doc.zh_CN = "雷带有正负号，该雷所在的行与列中，雷多则为正号，非雷多则为负号。"
     tags = ["Variant", "Mine-Value", "Global", "Local"]
     creation_time = "2026-07-14"
-    lib_only = True
+    lib_only = False
     author = ("740652480", 740652480)
 
     def __init__(self, board: "Board" = None, data=None) -> None:
@@ -29,54 +31,100 @@ class RuleNP(AbstractMinesRule):
         self.onboard_init(board)
 
     def onboard_init(self, board: 'Board'):
-        """注册一个特殊类型函数，用于获取带有符号的雷值。"""
+        """注册 type_special 用于显示符号。"""
+
         def get_type(board: 'Board', pos: 'Position', *args, **kwargs):
-            # 直接使用 pos 自带的键（主键）获取原始类型，不使用 special
-            # 检查该位置是否为雷
-            if board.get_type(pos) == 'F':
-                # 使用 pos 的键作为键
-                key = pos.board_key
-                # 计算该雷所在行和列的雷数
-                boundary_pos = board.boundary(key)
-                if boundary_pos.row < 0 or boundary_pos.col < 0:
-                    return 0
-                width = boundary_pos.col + 1
-                height = boundary_pos.row + 1
+            if board.get_type(pos) != 'F':
+                return 0
 
-                row_mines = 0
-                col_mines = 0
-                r, c = pos.row, pos.col
+            key = pos.board_key
+            boundary = board.boundary(key)
+            if boundary.row < 0 or boundary.col < 0:
+                return 0
+            width = boundary.col + 1
+            height = boundary.row + 1
 
-                # 统计该行的雷数
-                for col_idx in range(width):
-                    p = Position(col_idx, r, key)
-                    if board.get_type(p) == 'F':
-                        row_mines += 1
+            r, c = pos.row, pos.col
+            row_mines = 0
+            col_mines = 0
 
-                # 统计该列的雷数
-                for row_idx in range(height):
-                    p = Position(c, row_idx, key)
-                    if board.get_type(p) == 'F':
-                        col_mines += 1
+            for col_idx in range(width):
+                if board.get_type(Position(col_idx, r, key)) == 'F':
+                    row_mines += 1
+            for row_idx in range(height):
+                if board.get_type(Position(c, row_idx, key)) == 'F':
+                    col_mines += 1
 
-                # 行列中雷的总数（去掉自身重复）
-                total_mines = row_mines + col_mines - 1
-                total_cells = width + height - 1
-                total_non_mines = total_cells - total_mines
+            total_mines = row_mines + col_mines - 1
+            total_cells = width + height - 1
+            total_non_mines = total_cells - total_mines
 
-                # 决定符号：雷多则正，非雷多则负
-                if total_mines > total_non_mines:
-                    return 1   # 正号
-                elif total_mines < total_non_mines:
-                    return -1  # 负号
-                else:
-                    return 1   # 平局时按正号处理
-            return 0
+            if total_mines > total_non_mines:
+                return 1
+            elif total_mines < total_non_mines:
+                return -1
+            else:
+                return 1
 
         board.register_type_special('NP', get_type)
 
     def create_constraints(self, board: 'Board', switch: 'Switch') -> None:
         """
-        此规则不直接添加约束，符号在获取雷值时动态计算。
+        添加 NP 规则的核心约束：
+        对每个位置，若为雷，其带符号雷值 det 由行列雷数决定：
+            det = 1  当且仅当 2*(row_mines + col_mines) - width - height >= 0
+            det = -1 当且仅当 2*(row_mines + col_mines) - width - height < 0
+        若非雷，则 det = 0。
         """
-        pass
+        model = board.get_model()
+        s = switch.get(model, self)
+
+        for key in board.get_interactive_keys():
+            boundary = board.boundary(key)
+            if boundary.row < 0 or boundary.col < 0:
+                continue
+            width = boundary.col + 1
+            height = boundary.row + 1
+
+            # ---- 创建行雷数变量 ----
+            row_mines = {}
+            for r in range(height):
+                row_mines[r] = model.NewIntVar(0, width, f'NP_row_mines_{key}_{r}')
+                model.Add(
+                    row_mines[r] == sum(
+                        board.get_variable(Position(c, r, key), special="raw")
+                        for c in range(width)
+                    )
+                ).OnlyEnforceIf(s)
+
+            # ---- 创建列雷数变量 ----
+            col_mines = {}
+            for c in range(width):
+                col_mines[c] = model.NewIntVar(0, height, f'NP_col_mines_{key}_{c}')
+                model.Add(
+                    col_mines[c] == sum(
+                        board.get_variable(Position(c, r, key), special="raw")
+                        for r in range(height)
+                    )
+                ).OnlyEnforceIf(s)
+
+            # ---- 对每个位置添加符号约束 ----
+            for pos, _ in board(key=key):
+                mine = board.get_variable(pos, special="raw")
+                
+                # 创建带符号的雷值变量 det，值为 -1, 0, 1
+                det = model.NewIntVar(-1, 1, f'NP_det_{key}_{pos}')
+                # 注册为特殊变量，以便后续可以通过 get_variable 获取
+                board.register_variable_special('NP', pos, det)
+
+                # diff = 2*(row_mines + col_mines) - width - height
+                diff = 2 * (row_mines[pos.row] + col_mines[pos.col]) - width - height
+
+                # b = 1 当且仅当 diff >= 0
+                b = model.NewBoolVar(f'NP_b_{key}_{pos}')
+                model.Add(diff >= 0).OnlyEnforceIf(b)
+                model.Add(diff <= -1).OnlyEnforceIf(b.Not())
+
+                # det = 2*b - 1 当且仅当该位置是雷
+                model.Add(det == 2 * b - 1).OnlyEnforceIf(mine)
+                model.Add(det == 0).OnlyEnforceIf(mine.Not())
