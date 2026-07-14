@@ -54,9 +54,11 @@ class Rule1N(AbstractMinesRule):
                     model.Add(det == raw).OnlyEnforceIf(mine)
                 model.Add(det == 0).OnlyEnforceIf(mine.Not())
 
-
     def get_deps(self) -> list[str]:
         if self.rule == 'raw':
             return []
         else:
             return [self.rule]
+
+    def companion_id(self) -> str:
+        return "V''"
