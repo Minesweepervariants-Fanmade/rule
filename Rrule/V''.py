@@ -43,73 +43,72 @@ class RuleV(AbstractClueRule):
         super().__init__(board, data)
         self.rule = data or "V'"
 
-        class ValueV(AbstractClueValue):
-            id = RuleV.id
-
-            def __init__(self, pos: Position, count: int = 0, rule=self.rule):
-                self.rule = rule
-                self.pos = pos
-                self.neighbor = self.pos.neighbors(2)
-                self.value = SingleIntValue(count)
-
-            def json(self):
-                return ImmutableDict({
-                        'rule': self.rule,
-                        'value': self.value.json()
-                    })
-
-            @classmethod
-            def from_json(cls, pos: Position, data: JSONObject):
-                assert isinstance(data, Mapping)
-                assert 'rule' in data and 'value' in data
-                rule = data['rule']
-                assert isinstance(rule, str)
-                assert is_value_template((_value := data['value']))
-
-                value = SingleIntValue.try_from(_value)
-                assert value is not None
-
-                return cls(pos=pos, count=value.value, rule=rule)
-
-
-            def __repr__(self):
-                return f"{self.value}"
-
-            def create_constraints(self, board: 'Board', switch: Switch):
-                """创建CP-SAT约束: 周围雷数等于count"""
-                model = board.get_model()
-                s = switch.get(model, self.pos)
-
-                # 收集周围格子的布尔变量
-                neighbor_vars = []
-                for neighbor in self.neighbor:  # 8方向相邻格子
-                    if board.in_bounds(neighbor):
-                        var = board.get_variable(neighbor, special=self.rule)
-                        neighbor_vars.append(var)
-
-                # 添加约束：周围雷数等于count
-                if neighbor_vars:
-                    ge = model.NewBoolVar('ge')
-                    le = model.NewBoolVar('le')
-
-                    model.Add(sum(neighbor_vars) == self.value.value).OnlyEnforceIf(ge)
-                    model.Add(sum(neighbor_vars) == -self.value.value).OnlyEnforceIf(le)
-
-                    model.AddBoolOr([ge, le]).OnlyEnforceIf(s)
-                    get_logger().trace(f"[V''] Value[{self.pos}: {self.value.value}] add: {neighbor_vars} == ±{self.value.value}")
-
-        self.ValueV = ValueV
-
 
     def fill(self, board: 'Board') -> 'Board':
         # 如果没有注册过特殊类型，则进行初始化
+        logger = get_logger()
         if not board.has_type_special(self.rule):
             add_rule(board, self.rule, add=False)
+        if board.has_type_special(self.rule):
+            for pos, _ in board("N", special='raw'):
+                ps = PositionSet(pos.neighbors(2)).in_bounds(board.boundary())
+                value = board.batch(ps, "type", special=self.rule)
+                value = sum(v or 0 for v in value)
+                board.set_value(pos, ValueV(pos, count=value, rule=self.rule))
+            return board
 
-        logger = get_logger()
-        for pos, _ in board("N", special='raw'):
-            ps = PositionSet(pos.neighbors(2)).in_bounds(board.boundary())
-            value = board.batch(ps, "type", special=self.rule)
-            value = sum(v or 0 for v in value)
-            board.set_value(pos, self.ValueV(pos, count=value, rule=self.rule))
-        return board
+
+class ValueV(AbstractClueValue):
+    id = RuleV.id
+
+    def __init__(self, pos: Position, count: int = 0, rule: str = "raw", *args: object, **kwargs: object):
+        super().__init__(pos, *args, **kwargs)
+        self.rule = rule
+        self.pos = pos
+        self.neighbor = self.pos.neighbors(2)
+        self.value: SingleIntValue = SingleIntValue(count)
+
+    def json(self):
+        return ImmutableDict({
+                'rule': self.rule,
+                'value': self.value.json()
+            })
+
+    @classmethod
+    def from_json(cls, pos: Position, data: JSONObject):
+        assert isinstance(data, Mapping)
+        assert 'rule' in data and 'value' in data
+        rule = data['rule']
+        assert isinstance(rule, str)
+        assert is_value_template((_value := data['value']))
+
+        value = SingleIntValue.try_from(_value)
+        assert value is not None
+
+        return cls(pos=pos, count=value.value, rule=rule)
+
+    def __repr__(self):
+        return f"{self.value}"
+
+    def create_constraints(self, board: 'Board', switch: Switch):
+        """创建CP-SAT约束: 周围雷数等于count"""
+        model = board.get_model()
+        s = switch.get(model, self.pos)
+
+        # 收集周围格子的布尔变量
+        neighbor_vars = []
+        for neighbor in self.neighbor:  # 8方向相邻格子
+            if board.in_bounds(neighbor):
+                var = board.get_variable(neighbor, special=self.rule)
+                neighbor_vars.append(var)
+
+        # 添加约束：周围雷数等于count
+        if neighbor_vars:
+            ge = model.NewBoolVar('ge')
+            le = model.NewBoolVar('le')
+
+            model.Add(sum(neighbor_vars) == self.value.value).OnlyEnforceIf(ge)
+            model.Add(sum(neighbor_vars) == -self.value.value).OnlyEnforceIf(le)
+
+            model.AddBoolOr([ge, le]).OnlyEnforceIf(s)
+        get_logger().trace(f"[V''] Value[{self.pos}: {self.value.value}] add: {neighbor_vars} == ±{self.value.value}")
