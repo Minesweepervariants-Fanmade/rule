@@ -50,6 +50,8 @@ class RuleGM(AbstractClueRule):
 
     def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
+        self.flag = "?" in data
+        data = data.replace("?","")
         self.data = -1 if data is None else (int(data) if data else 0)
 
     def fill(self, board: 'Board') -> 'Board':
@@ -64,6 +66,10 @@ class RuleGM(AbstractClueRule):
             positions = random.sample(positions, k=len(positions) - self.data)
             for pos in positions:
                 board.set_value(pos, None)
+
+    def suggest_total(self, info: dict):
+        if self.flag:
+            info["soft_fn"](0, 0)
 
 
 class ValueGM(ValueQuess):
