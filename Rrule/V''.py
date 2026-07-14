@@ -48,7 +48,8 @@ class RuleV(AbstractClueRule):
         # 如果没有注册过特殊类型，则进行初始化
         logger = get_logger()
         if not board.has_type_special(self.rule):
-            add_rule(board, self.rule, add=False)
+            logger.error(f"未找到{self.rule}的命名域")
+            raise ValueError(f"未在命名空间中找到[{self.rule}]")
         if board.has_type_special(self.rule):
             for pos, _ in board("N", special='raw'):
                 ps = PositionSet(pos.neighbors(2)).in_bounds(board.boundary())
