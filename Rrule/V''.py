@@ -66,7 +66,7 @@ class RuleV(AbstractClueRule):
             for pos, _ in board("N", special='raw'):
                 ps = PositionSet(pos.neighbors(2)).in_bounds(board.boundary())
                 value = board.batch(ps, "type", special=self.rule)
-                value = sum(v or 0 for v in value)
+                value = abs(sum(v or 0 for v in value))
                 board.set_value(pos, ValueV(pos, count=value, rule=self.rule))
             return board
 
