@@ -112,6 +112,8 @@ class Rule7SD(AbstractMinesRule):
         """
         model = board.get_model()
         s = switch.get(model, self)
+        # 强制规则启用
+        model.Add(s == 1)
         logger = get_logger()
 
         main_key = board.get_board_keys()[0]
@@ -153,15 +155,15 @@ class Rule7SD(AbstractMinesRule):
                         pos = Position(r + dr, c + dc, main_key)
                         var = board.get_variable(pos)
                         if SEGMENT_PATTERNS[d][seg_idx] == 1:
-                            model.Add(var == 1).OnlyEnforceIf([digit_switch, s])
+                            model.Add(var == 1).OnlyEnforceIf([digit_switch])
                         else:
-                            model.Add(var == 0).OnlyEnforceIf([digit_switch, s])
+                            model.Add(var == 0).OnlyEnforceIf([digit_switch])
 
                     # 顶点格约束：全部为非雷（0）
                     for dr, dc in VERTEX_OFFSETS:
                         pos = Position(r + dr, c + dc, main_key)
                         var = board.get_variable(pos)
-                        model.Add(var == 0).OnlyEnforceIf([digit_switch, s])
+                        model.Add(var == 0).OnlyEnforceIf([digit_switch])
 
                     # 内面格 + 外面格雷数之和等于数字d（边界外视为非雷）
                     inner_outer_vars = []
@@ -173,24 +175,26 @@ class Rule7SD(AbstractMinesRule):
                         else:
                             # 边界外视为非雷（值为0）
                             inner_outer_vars.append(0)
-                    model.Add(sum(inner_outer_vars) == d).OnlyEnforceIf([digit_switch, s])
+                    model.Add(sum(inner_outer_vars) == d).OnlyEnforceIf([digit_switch])
 
                 # 区域开关为真时，恰好一个数字开关为真
-                model.Add(sum(digit_switches) == 1).OnlyEnforceIf([region_switch, s])
+                model.Add(sum(digit_switches) == 1).OnlyEnforceIf([region_switch])
                 # 区域开关为假时，所有数字开关为假（即 digit_switches 之和为0）
-                model.Add(sum(digit_switches) == 0).OnlyEnforceIf([region_switch.Not(), s])
+                model.Add(sum(digit_switches) == 0).OnlyEnforceIf([region_switch.Not()])
 
                 logger.trace(f"[7SD] 添加区域约束: ({r},{c})")
 
         # 至少存在一个数码管
         if region_switches:
-            model.Add(sum(region_switches) >= 1).OnlyEnforceIf([s])
+            model.Add(sum(region_switches) >= 1)
             logger.trace(f"[7SD] 至少需要一个数码管，共 {len(region_switches)} 个候选区域")
         else:
-            # 如果没有任何有效区域，则规则无法满足（但这种情况在合理尺寸下不会发生）
+            # 如果没有任何有效区域，则规则无法满足
             logger.warning("[7SD] 没有找到任何有效的3x5区域，规则无法满足")
-            # 强制无解：添加一个永假约束
-            model.Add(0 == 1).OnlyEnforceIf([s])
+            # 使用一个简单的线性表达式来强制无解
+            # 创建一个永远为0的变量，然后要求它等于1
+            dummy_var = model.NewIntVar(0, 0, f"7sd_dummy_no_region")
+            model.Add(dummy_var == 1)
 
     def suggest_total(self, info: dict):
         """
