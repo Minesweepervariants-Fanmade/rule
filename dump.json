@@ -1023,28 +1023,6 @@
         },
         {
             "rule_line": "L",
-            "id": "3U",
-            "name": {
-                "default": "Up-Up"
-            },
-            "doc": {
-                "default": "The topmost mine in each column counts as two mines (does not affect the total mine count)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global",
-                "Mine-Value"
-            ],
-            "creation_time": "2025-12-28"
-        },
-        {
-            "rule_line": "L",
             "id": "RAW",
             "name": {
                 "default": "Raw Mine Value"
@@ -1685,6 +1663,28 @@
         },
         {
             "rule_line": "L",
+            "id": "3U",
+            "name": {
+                "default": "Up-Up"
+            },
+            "doc": {
+                "default": "The topmost mine in each column counts as two mines (does not affect the total mine count)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Mine-Value"
+            ],
+            "creation_time": "2025-12-28"
+        },
+        {
+            "rule_line": "L",
             "id": "1K1S",
             "name": {
                 "default": "Knight-Snake"
@@ -1931,28 +1931,6 @@
         },
         {
             "rule_line": "L",
-            "id": "U-ECHO",
-            "name": {
-                "default": "echo"
-            },
-            "doc": {
-                "default": "Echo: outputs the parameter"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Parameter",
-                "WIP"
-            ],
-            "creation_time": "2026-04-11"
-        },
-        {
-            "rule_line": "L",
             "id": "3D2F",
             "name": {
                 "default": "3D Flower Field"
@@ -1972,6 +1950,28 @@
                 "Dyed"
             ],
             "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "L",
+            "id": "U-ECHO",
+            "name": {
+                "default": "echo"
+            },
+            "doc": {
+                "default": "Echo: outputs the parameter"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Parameter",
+                "WIP"
+            ],
+            "creation_time": "2026-04-11"
         },
         {
             "rule_line": "L",
@@ -2426,29 +2426,6 @@
                 "Anti-Construction"
             ],
             "creation_time": "2026-04-05"
-        },
-        {
-            "rule_line": "L",
-            "id": "3D",
-            "name": {
-                "default": "Dict"
-            },
-            "doc": {
-                "default": "All mines are numbered from left to right, top to bottom. Clue indicates the sum of mine indices in the eight surrounding cells"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global",
-                "Number Clue",
-                "Mine-Value"
-            ],
-            "creation_time": "2025-08-23"
         },
         {
             "rule_line": "L",
@@ -3328,6 +3305,29 @@
                 "Global",
                 "Construction",
                 "Connectivity"
+            ],
+            "creation_time": "2025-08-23"
+        },
+        {
+            "rule_line": "L",
+            "id": "3D",
+            "name": {
+                "default": "Dict"
+            },
+            "doc": {
+                "default": "All mines are numbered from left to right, top to bottom. Clue indicates the sum of mine indices in the eight surrounding cells"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Number Clue",
+                "Mine-Value"
             ],
             "creation_time": "2025-08-23"
         },
@@ -4225,12 +4225,56 @@
     "R": [
         {
             "rule_line": "R",
-            "id": "V'",
+            "id": "1N1X",
             "name": {
-                "default": "Value"
+                "default": "Negative + Cross"
+            },
+            "doc": {},
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local",
+                "Number Clue",
+                "Dyed"
+            ],
+            "creation_time": "2025-08-23"
+        },
+        {
+            "rule_line": "R",
+            "id": "4Q",
+            "name": {
+                "default": "Quadrant"
             },
             "doc": {
-                "default": "Each number indicates the sum of mine values in the surrounding eight cells"
+                "default": "Clue shows the number of 2x2 areas containing both the cell and at least one mine"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2025-09-17"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1X",
+            "name": {
+                "default": "Liar + Cross"
+            },
+            "doc": {
+                "default": "Liar + Cross combination rule"
             },
             "author": {
                 "name": "",
@@ -4242,100 +4286,9 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Mine-Value"
-            ],
-            "creation_time": "2025-10-26"
-        },
-        {
-            "rule_line": "R",
-            "id": "2E'2I",
-            "name": {
-                "default": "Self-Referential Incomplete"
-            },
-            "doc": {
-                "default": "If letter X has N mines among 7 of its 8 adjacent cells, then the cell marked with X=N must be a mine. The positions of those 7 cells are shared across all clues on the board"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Cryptic",
                 "Extensive Trial"
             ],
             "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "6L",
-            "name": {
-                "default": "Light"
-            },
-            "doc": {
-                "default": "Mines are light bulbs, and each bulb increases the brightness of any cell on the board by the inverse of the square of the distance. Clues indicate the total brightness of that cell."
-            },
-            "author": {
-                "name": "Jsky\u5355\u63a8\u4eba",
-                "id": "2638680527"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2026-05-20"
-        },
-        {
-            "rule_line": "R",
-            "id": "TV",
-            "name": {
-                "default": "TapaView"
-            },
-            "doc": {
-                "default": "Clue indicates the number of visible mines in the four orthogonal directions; empty cells block visibility"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "TV.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2025-10-24"
-        },
-        {
-            "rule_line": "R",
-            "id": "2D^",
-            "name": {
-                "default": "Deviation^"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines in an Nx3 area, where N is the number of consecutive non-mine cells directly above"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "2D^.png",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Creative"
-            ],
-            "creation_time": "2026-01-13"
         },
         {
             "rule_line": "R",
@@ -4358,6 +4311,465 @@
                 "Number Clue"
             ],
             "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "R",
+            "id": "3N1",
+            "name": {
+                "default": "Norm"
+            },
+            "doc": {
+                "default": "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Parameter"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "V",
+            "name": {
+                "default": "Vanilla"
+            },
+            "doc": {
+                "default": "Each number indicates the number of mines in the surrounding eight cells"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Vanilla Variant",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "3A^",
+            "name": {
+                "default": "Langton's Ant - XOR"
+            },
+            "doc": {
+                "default": "XOR the results of Langton's Ant [3A] in four directions; if the result is infinite, display using complement form"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial",
+                "Cryptic"
+            ],
+            "creation_time": "2026-04-19"
+        },
+        {
+            "rule_line": "R",
+            "id": "1M1N",
+            "name": {
+                "default": "Multiple + Negative"
+            },
+            "doc": {},
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local",
+                "Number Clue",
+                "Parameter"
+            ],
+            "creation_time": "2025-08-23"
+        },
+        {
+            "rule_line": "R",
+            "id": "R*R",
+            "name": {
+                "default": "R*R"
+            },
+            "doc": {
+                "default": "Inject R* as a left-line rule according to the parity of the total mine count"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Global",
+                "Parameter",
+                "Untagged"
+            ],
+            "creation_time": "2026-05-24"
+        },
+        {
+            "rule_line": "R",
+            "id": "*1F",
+            "name": {
+                "default": "Filp"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in the eight cells surrounding the mirror position reflected across the diagonal from top-left to bottom-right of the board, not including the cell itself"
+            },
+            "author": {
+                "name": "\u6ce2\u5e38\u672a\u6765",
+                "id": "81500378"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2025-08-07"
+        },
+        {
+            "rule_line": "R",
+            "id": "2P'2",
+            "name": {
+                "default": "Manhattan Product"
+            },
+            "doc": {
+                "default": "Clue value is the product of Manhattan distances to the two nearest mines"
+            },
+            "author": {
+                "name": "\u6ce2\u5e38\u672a\u6765",
+                "id": "81500378"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2026-03-01"
+        },
+        {
+            "rule_line": "R",
+            "id": "GM",
+            "name": {
+                "default": "OttoMom"
+            },
+            "doc": {
+                "default": "Fill the board with some OttoMom"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "GM.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "WIP",
+                "Local"
+            ],
+            "creation_time": "2026-04-09"
+        },
+        {
+            "rule_line": "R",
+            "id": "2M''",
+            "name": {
+                "default": "Multiple"
+            },
+            "doc": {
+                "default": "Each row and column has exactly one mine counted as two"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Aux Board",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-22"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1M",
+            "name": {
+                "default": "Liar + Multiple"
+            },
+            "doc": {
+                "default": "Liar + Multiple (dyed mines count double) combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Dyed",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "1M1X",
+            "name": {
+                "default": "Multiple + Cross"
+            },
+            "doc": {},
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-23"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L2#",
+            "name": {
+                "default": "Liar + Label'"
+            },
+            "doc": {
+                "default": "Includes the following rules: [1L], [1L2X], [1L2D], [1L2M], [1L2A]\nUse [1L2#:] to exclude [1L2A]"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "R",
+            "id": "RL3",
+            "name": {
+                "default": "Error Clue"
+            },
+            "doc": {
+                "default": "If the four adjacent cells (up, down, left, right) contain an odd number of mines, the clue value is the total number of mines in the surrounding eight cells plus or minus 1 (but cannot be -1 or 9). If even, the clue value is the total number of mines in the surrounding eight cells."
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Light"
+            ],
+            "creation_time": "2026-06-24"
+        },
+        {
+            "rule_line": "R",
+            "id": "1E*",
+            "name": {
+                "default": "Eyesight@*"
+            },
+            "doc": {
+                "default": "The clue value indicates the number of grid cell centers visible from the clue, with line of sight blocked by mines (including boundaries)."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Extensive Trial",
+                "Number Clue"
+            ],
+            "creation_time": "2026-04-30 03:00:53"
+        },
+        {
+            "rule_line": "R",
+            "id": "1ES",
+            "name": {
+                "default": "Spiral Eyesight"
+            },
+            "doc": {
+                "default": "Clue shows the number of non-mine cells visible when looking outward from the current cell in four directions, then rotating clockwise (similar to the swastika pattern); mines block the line of sight"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Arrow Clue",
+                "Aux Board",
+                "Cryptic"
+            ],
+            "creation_time": "2025-09-17"
+        },
+        {
+            "rule_line": "R",
+            "id": "1X^",
+            "name": {
+                "default": "Rhombus"
+            },
+            "doc": {
+                "default": "Clue shows the total number of mines at distance \u221a2 and distance 2"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [
+                "X^"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Vanilla Variant",
+                "Creative"
+            ],
+            "creation_time": "2025-08-24"
+        },
+        {
+            "rule_line": "R",
+            "id": "3H",
+            "name": {
+                "default": "Hexagon"
+            },
+            "doc": {
+                "default": "Clue indicates the number of mines in the cells at distance 1 from the clue in a hexagonal grid.\nIn a square grid, the clue indicates the number of mines in the surrounding cells: up, down, left, right; odd columns (B,D,F,...) additionally include upper left and upper right; even columns (A,C,E,...) additionally include lower left and lower right."
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-24"
+        },
+        {
+            "rule_line": "R",
+            "id": "2A1P",
+            "name": {
+                "default": "Area + Partition"
+            },
+            "doc": {
+                "default": "Clue shows the number of adjacent mine regions in the four directions"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local",
+                "Number Clue",
+                "Connectivity",
+                "Multi-Board"
+            ],
+            "creation_time": "2026-01-18"
+        },
+        {
+            "rule_line": "R",
+            "id": "2P",
+            "name": {
+                "default": "Product"
+            },
+            "doc": {
+                "default": "Clue indicates the product of distances to the two nearest mines"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "2P.png",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "2A",
+            "name": {
+                "default": "Area"
+            },
+            "doc": {
+                "default": "Clue indicates the sum of areas of orthogonally adjacent mine groups"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "2A.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial",
+                "Weak"
+            ],
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
@@ -4384,7 +4796,7 @@
         },
         {
             "rule_line": "R",
-            "id": "3N1",
+            "id": "3N0",
             "name": {
                 "default": "Norm"
             },
@@ -4431,55 +4843,12 @@
         },
         {
             "rule_line": "R",
-            "id": "V",
+            "id": "4V1K",
             "name": {
-                "default": "Vanilla"
+                "default": "Mapping Knight"
             },
             "doc": {
-                "default": "Each number indicates the number of mines in the surrounding eight cells"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Vanilla Variant",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "1M1X",
-            "name": {
-                "default": "Multiple + Cross"
-            },
-            "doc": {},
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-23"
-        },
-        {
-            "rule_line": "R",
-            "id": "4V",
-            "name": {
-                "default": "Mapping"
-            },
-            "doc": {
-                "default": "Clue shows the total number of mines in the center 3x3 area of one of the two board positions"
+                "default": "Clue shows the total number of mines in the knight's move area centered on one of the two board positions"
             },
             "author": {
                 "name": "",
@@ -4495,332 +4864,6 @@
                 "Multi-Board"
             ],
             "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "1E'-",
-            "name": {
-                "default": "Eyesight'-"
-            },
-            "doc": {
-                "default": "Clue shows the variance of vertical and horizontal sight multiplied by 2 and then take the square root. Or in other words, clue shows the difference between vertical and horizontal sight."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Arrow Clue",
-                "Extensive Trial",
-                "Creative"
-            ],
-            "creation_time": "2026-05-30"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1E",
-            "name": {
-                "default": "Liar + Eyesight"
-            },
-            "doc": {
-                "default": "Liar + Eyesight combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Arrow Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "V''",
-            "name": {
-                "default": "Absolute"
-            },
-            "doc": {
-                "default": "Each number shows the absolute value of the sum of mine values in the surrounding eight cells"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Mine-Value"
-            ],
-            "creation_time": "2025-10-26"
-        },
-        {
-            "rule_line": "R",
-            "id": "PF",
-            "name": {
-                "default": "Prime Factor"
-            },
-            "doc": {
-                "default": "For clues other than 0 and 1, displays the largest prime factor of the true value"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "PF.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-13"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1X'",
-            "name": {
-                "default": "Liar + Mini Cross"
-            },
-            "doc": {
-                "default": "Liar + Mini Cross combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "1L2#",
-            "name": {
-                "default": "Liar + Label'"
-            },
-            "doc": {
-                "default": "Includes the following rules: [1L], [1L2X], [1L2D], [1L2M], [1L2A]\nUse [1L2#:] to exclude [1L2A]"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L2A",
-            "name": {
-                "default": "Liar + Area"
-            },
-            "doc": {
-                "default": "Liar + Area combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "2L''",
-            "name": {
-                "default": "Liar"
-            },
-            "doc": {
-                "default": "Each row and column has exactly one error clue. The value of the error clue cannot be the true value."
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Aux Board",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-10-24"
-        },
-        {
-            "rule_line": "R",
-            "id": "2P",
-            "name": {
-                "default": "Product"
-            },
-            "doc": {
-                "default": "Clue indicates the product of distances to the two nearest mines"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "2P.png",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "2E''",
-            "name": {
-                "default": "Mutual Indication"
-            },
-            "doc": {
-                "default": "If clue X has N mines around it, then the cell with X=N on the other board must be a mine"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Aux Board",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "1Wp",
-            "name": {
-                "default": "1Wplus"
-            },
-            "doc": {
-                "default": "Clue shows two hex digits representing mine pattern in 8 neighbors clockwise"
-            },
-            "author": {
-                "name": "\u96fe",
-                "id": "3140864122"
-            },
-            "image": "",
-            "aliases": [
-                "Wp"
-            ],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Creative"
-            ],
-            "creation_time": "2026-05-19"
-        },
-        {
-            "rule_line": "R",
-            "id": "4V2E'2I'",
-            "name": {
-                "default": "Self-Referential Incomplete Mapping"
-            },
-            "doc": {
-                "default": "Letter X is the total number of mines in a certain ? cell in the 3x3 area centered on one of the two board positions. If that position on the corresponding board is marked X=N, then the cell must be a mine, and the ? cell position is shared across all clues"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Aux Board",
-                "Multi-Board",
-                "Extensive Trial",
-                "WIP"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1W'",
-            "name": {
-                "default": "Liar + Longest Wall"
-            },
-            "doc": {
-                "default": "Liar + Longest Wall combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "3N0",
-            "name": {
-                "default": "Norm"
-            },
-            "doc": {
-                "default": "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Parameter"
-            ],
-            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
@@ -4863,27 +4906,6 @@
                 "Local",
                 "Number Clue",
                 "Dyed"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "URB-V",
-            "name": {
-                "default": "Torus Vanilla"
-            },
-            "doc": {
-                "default": "Each number indicates the number of mines in the surrounding eight cells"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue"
             ],
             "creation_time": "2025-08-06"
         },
@@ -4958,120 +4980,97 @@
         },
         {
             "rule_line": "R",
-            "id": "1XX",
+            "id": "6V",
             "name": {
-                "default": "Bishop"
+                "default": "Vanilla(Full Marking)"
             },
             "doc": {
-                "default": "Clue shows the number of mines in all diagonal cells"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "4Q",
-            "name": {
-                "default": "Quadrant"
-            },
-            "doc": {
-                "default": "Clue shows the number of 2x2 areas containing both the cell and at least one mine"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2025-09-17"
-        },
-        {
-            "rule_line": "R",
-            "id": "1LNX",
-            "name": {
-                "default": "Liar + Negative + Cross"
-            },
-            "doc": {
-                "default": "Liar + Negative + Cross combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "SG'",
-            "name": {
-                "default": "Tic-Tac-Toe Clue"
-            },
-            "doc": {
-                "default": "Clue indicates the number of horizontal, vertical, and diagonal lines of three in the surrounding 3x3 area that are all mines or all non-mines"
+                "default": "Clue shows the number of mines in the surrounding 8 cells. All numbers shown on the board are already given. Other cells cannot have any of the shown numbers."
             },
             "author": {
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "",
+            "image": "6V.png",
             "aliases": [],
             "tags": [
-                "Creative",
+                "Variant",
                 "Local",
                 "Number Clue",
-                "Variant"
+                "Extensive Trial"
             ],
-            "creation_time": "2026-07-09"
+            "creation_time": "2026-04-10"
         },
         {
             "rule_line": "R",
-            "id": "1L",
+            "id": "LO",
             "name": {
-                "default": "Liar"
+                "default": "LightsOut"
             },
             "doc": {
-                "default": "All clues are either 1 greater or 1 less than the true value"
+                "default": "The clue represent the number of switches activated within a 3x3 area of the board, after switches activated all board is left empty finally. (The clue also show whether the switch at this clue location is activated.)"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "LO.png",
+            "aliases": [],
+            "tags": [
+                "Global",
+                "Local",
+                "Creative",
+                "Construction",
+                "Vanilla Variant"
+            ],
+            "creation_time": "2026-05-05"
+        },
+        {
+            "rule_line": "R",
+            "id": "1X-",
+            "name": {
+                "default": "Pawn"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in two cells pointing in one direction, with an arrow indicating the direction"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "1L.png",
+            "image": "",
             "aliases": [
-                "L"
+                "X-"
             ],
             "tags": [
-                "Original",
                 "Local",
                 "Number Clue",
-                "Extensive Trial"
+                "Arrow Clue",
+                "Vanilla Variant",
+                "Fun"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "URB-V",
+            "name": {
+                "default": "Torus Vanilla"
+            },
+            "doc": {
+                "default": "Each number indicates the number of mines in the surrounding eight cells"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
@@ -5097,12 +5096,12 @@
         },
         {
             "rule_line": "R",
-            "id": "4V1L",
+            "id": "4V",
             "name": {
-                "default": "Mapping Liar"
+                "default": "Mapping"
             },
             "doc": {
-                "default": "Clue shows the total number of mines in the center 3x3 area of one of the two board positions; each clue is either 1 greater or 1 less than the true value"
+                "default": "Clue shows the total number of mines in the center 3x3 area of one of the two board positions"
             },
             "author": {
                 "name": "",
@@ -5115,19 +5114,18 @@
                 "Local",
                 "Number Clue",
                 "Aux Board",
-                "Multi-Board",
-                "Extensive Trial"
+                "Multi-Board"
             ],
             "creation_time": ""
         },
         {
             "rule_line": "R",
-            "id": "2I'",
+            "id": "2A'",
             "name": {
-                "default": "Incomplete'"
+                "default": "Area'"
             },
             "doc": {
-                "default": "The number indicates the mine count among N of the 8 adjacent cells. The positions of those N cells are shared across all clues on the board"
+                "default": "Clue shows the area of its 4-connected non-mine region"
             },
             "author": {
                 "name": "",
@@ -5141,7 +5139,7 @@
                 "Extensive Trial",
                 "Creative"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2025-08-17"
         },
         {
             "rule_line": "R",
@@ -5168,28 +5166,94 @@
         },
         {
             "rule_line": "R",
-            "id": "1X+",
+            "id": "1L2A",
             "name": {
-                "default": "Castle"
+                "default": "Liar + Area"
             },
             "doc": {
-                "default": "Clue shows the number of mines in all cells in the same row or column"
+                "default": "Liar + Area combination rule"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
             "image": "",
-            "aliases": [
-                "X+"
-            ],
+            "aliases": [],
             "tags": [
+                "Variant",
                 "Local",
                 "Number Clue",
-                "Weak",
-                "Creative"
+                "Extensive Trial"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "FN",
+            "name": {
+                "default": "FloatNumber"
+            },
+            "doc": {
+                "default": "For each cell, displayed +N/-N = (8-neighbor mines(cyclic indices.)) \u2212 (unfixed global standard value (range: [0-8]))."
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Mine-Counting"
+            ],
+            "creation_time": "2026-05-26 16:37:56"
+        },
+        {
+            "rule_line": "R",
+            "id": "2Q",
+            "name": {
+                "default": "Queen"
+            },
+            "doc": {
+                "default": "Clue indicates the number of directions with mines in the eight directions"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-13"
+        },
+        {
+            "rule_line": "R",
+            "id": "2E'2I'",
+            "name": {
+                "default": "Self-Referential Incomplete'"
+            },
+            "doc": {
+                "default": "If letter X has N mines among ? of its 8 adjacent cells, then the cell with X=N must be a mine. The positions of those ? cells are shared across all clues on the board"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Cryptic",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
         },
         {
             "rule_line": "R",
@@ -5216,217 +5280,31 @@
         },
         {
             "rule_line": "R",
-            "id": "QL",
+            "id": "V+3D",
             "name": {
-                "default": "1Q1L"
+                "default": "V+3D"
             },
             "doc": {
-                "default": "Error clue is 1 more or less than the true value; if the clue is in a 2x2 non-mine box, it's an error clue, otherwise it's the true value"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Cryptic",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "2P*",
-            "name": {
-                "default": "Two Point Star"
-            },
-            "doc": {
-                "default": "Each number indicates the sum of Chebyshev distances to the two nearest mines"
-            },
-            "author": {
-                "name": "\u54b8\u9c7c",
-                "id": "3898637422"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Variant"
-            ],
-            "creation_time": "2026-03-01"
-        },
-        {
-            "rule_line": "R",
-            "id": "1EB",
-            "name": {
-                "default": "Bishop Eyesight"
-            },
-            "doc": {
-                "default": "Clue shows the number of non-mine cells visible in the four diagonal directions (including the cell itself); mines block the line of sight"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Arrow Clue",
-                "Aux Board"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "2K'",
-            "name": {
-                "default": "Diamond"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines within a distance of 2 from the cell"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Vanilla Variant",
-                "Fun"
-            ],
-            "creation_time": "2025-08-27"
-        },
-        {
-            "rule_line": "R",
-            "id": "6V",
-            "name": {
-                "default": "Vanilla(Full Marking)"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines in the surrounding 8 cells. All numbers shown on the board are already given. Other cells cannot have any of the shown numbers."
+                "default": "Clue value equals n + number of mines around the n-th empty neighbor"
             },
             "author": {
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "6V.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2026-04-10"
-        },
-        {
-            "rule_line": "R",
-            "id": "1LMN",
-            "name": {
-                "default": "Liar + Multiple + Negative"
-            },
-            "doc": {
-                "default": "Liar + Multiple + Negative combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Dyed",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "4Y",
-            "name": {
-                "default": "Area"
-            },
-            "doc": {
-                "default": "Clue indicates the area of the largest mine-free rectangle containing this cell"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
             "image": "",
             "aliases": [],
             "tags": [
                 "Creative",
                 "Local",
-                "Number Clue",
-                "Construction"
+                "Number Clue"
             ],
-            "creation_time": "2025-08-21"
+            "creation_time": "2026-05-24"
         },
         {
             "rule_line": "R",
-            "id": "3N",
+            "id": "3A'",
             "name": {
-                "default": "Norm"
-            },
-            "doc": {
-                "default": "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Parameter"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1W",
-            "name": {
-                "default": "Liar + Wall"
-            },
-            "doc": {
-                "default": "Liar + Wall combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "1MNX",
-            "name": {
-                "default": "Multiple + Negative + Cross"
+                "default": "3A'"
             },
             "doc": {},
             "author": {
@@ -5436,69 +5314,45 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Meta",
-                "Local",
-                "Number Clue",
-                "Parameter"
-            ],
-            "creation_time": "2025-08-23"
-        },
-        {
-            "rule_line": "R",
-            "id": "2A1P",
-            "name": {
-                "default": "Area + Partition"
-            },
-            "doc": {
-                "default": "Clue shows the number of adjacent mine regions in the four directions"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local",
-                "Number Clue",
-                "Connectivity",
-                "Multi-Board"
-            ],
-            "creation_time": "2026-01-18"
-        },
-        {
-            "rule_line": "R",
-            "id": "2E^",
-            "name": {
-                "default": "Encrypted^"
-            },
-            "doc": {
-                "default": "Clues are replaced by letters, each letter corresponds to two clues, and each clue corresponds to two letters"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "2E^.png",
-            "aliases": [],
-            "tags": [
                 "Variant",
                 "Local",
-                "Cryptic",
-                "Extensive Trial",
-                "Aux Board"
+                "Number Clue",
+                "Arrow Clue",
+                "WIP"
             ],
             "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
-            "id": "1L1L",
+            "id": "CPV",
             "name": {
-                "default": "Liar + Liar"
+                "default": "Clue Partition Value"
             },
             "doc": {
-                "default": "Liar + Liar (double liar, \u00b12) combination rule"
+                "default": "Clue cells show the number of mines belonging to them in the 8 adjacent cells, and each cell must belong to exactly one visible clue."
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2026-04-10"
+        },
+        {
+            "rule_line": "R",
+            "id": "4V1N",
+            "name": {
+                "default": "Mapping Negative"
+            },
+            "doc": {
+                "default": "Clue shows the difference in mine count between dyed and undyed cells in the 3x3 area of one of the two board positions"
             },
             "author": {
                 "name": "",
@@ -5510,24 +5364,74 @@
                 "Variant",
                 "Local",
                 "Number Clue",
+                "Aux Board",
+                "Multi-Board",
+                "Dyed"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "2E'2I",
+            "name": {
+                "default": "Self-Referential Incomplete"
+            },
+            "doc": {
+                "default": "If letter X has N mines among 7 of its 8 adjacent cells, then the cell marked with X=N must be a mine. The positions of those 7 cells are shared across all clues on the board"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Cryptic",
                 "Extensive Trial"
             ],
             "creation_time": ""
         },
         {
             "rule_line": "R",
-            "id": "1L2X",
+            "id": "1W'",
             "name": {
-                "default": "Liar + Cross"
+                "default": "Longest Wall"
             },
             "doc": {
-                "default": "Liar + Cross combination rule (dyed)"
+                "default": "Clue shows the longest continuous mine length in a 3x3 range"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "1L2X.png",
+            "image": "1W'.png",
+            "aliases": [
+                "W'"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Extensive Trial",
+                "Creative"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L2X'",
+            "name": {
+                "default": "Liar + Cross'"
+            },
+            "doc": {
+                "default": "Liar + Cross' combination rule (dyed)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
             "aliases": [],
             "tags": [
                 "Variant",
@@ -5537,6 +5441,29 @@
                 "Extensive Trial"
             ],
             "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "1E@",
+            "name": {
+                "default": "Eyesight@"
+            },
+            "doc": {
+                "default": "The clue indicates that the visible area outside of Ray (including itself) will be obstructed by Ray."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "1E@.png",
+            "aliases": [
+                "1Eat",
+                "Eat"
+            ],
+            "tags": [
+                "Untagged"
+            ],
+            "creation_time": "2026-04-30 00:21:47"
         },
         {
             "rule_line": "R",
@@ -5585,603 +5512,38 @@
         },
         {
             "rule_line": "R",
-            "id": "AVG",
+            "id": "1E'",
             "name": {
-                "default": "Average"
+                "default": "Eyesight'"
             },
             "doc": {
-                "default": "Average of clue values for orthogonally connected non-mine cells"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2026-04-10"
-        },
-        {
-            "rule_line": "R",
-            "id": "RF",
-            "name": {
-                "default": "Reflect"
-            },
-            "doc": {
-                "default": "Clue indicates the number of visible cells in the opposite direction of each adjacent mine; mines block sight."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "RF.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2026-04-29"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1E'",
-            "name": {
-                "default": "Liar + Eyesight'"
-            },
-            "doc": {
-                "default": "Liar + Eyesight' combination rule"
+                "default": "Clue shows the difference between vertical and horizontal eyesight, with an arrow indicating the direction with longer sight"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Arrow Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "2M",
-            "name": {
-                "default": "Modulo"
-            },
-            "doc": {
-                "default": "Clue shows the remainder when the number of surrounding mines is divided by 3"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "2M.png",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "1X",
-            "name": {
-                "default": "Cross"
-            },
-            "doc": {
-                "default": "Clue indicates the number of mines in a cross pattern with radius 2"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1X.png",
+            "image": "1E'.png",
             "aliases": [
-                "X"
+                "E'"
             ],
             "tags": [
-                "Original",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "3H",
-            "name": {
-                "default": "Hexagon"
-            },
-            "doc": {
-                "default": "Clue indicates the number of mines in the cells at distance 1 from the clue in a hexagonal grid.\nIn a square grid, the clue indicates the number of mines in the surrounding cells: up, down, left, right; odd columns (B,D,F,...) additionally include upper left and upper right; even columns (A,C,E,...) additionally include lower left and lower right."
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-24"
-        },
-        {
-            "rule_line": "R",
-            "id": "MUL",
-            "name": {
-                "default": "Multiplication Combination"
-            },
-            "doc": {
-                "default": "Combines two right-side variants via multiplication."
-            },
-            "author": {
-                "name": "ekisacik",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2026/5/22 0:42"
-        },
-        {
-            "rule_line": "R",
-            "id": "*1F",
-            "name": {
-                "default": "Filp"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines in the eight cells surrounding the mirror position reflected across the diagonal from top-left to bottom-right of the board, not including the cell itself"
-            },
-            "author": {
-                "name": "\u6ce2\u5e38\u672a\u6765",
-                "id": "81500378"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2025-08-07"
-        },
-        {
-            "rule_line": "R",
-            "id": "2D''",
-            "name": {
-                "default": "Deviation''"
-            },
-            "doc": {
-                "default": "Clue shows the maximum number of mines among the four 3x3 areas centered at cells offset in the four directions"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Weak",
-                "Creative"
-            ],
-            "creation_time": "2025-10-19"
-        },
-        {
-            "rule_line": "R",
-            "id": "2K",
-            "name": {
-                "default": "Kinsho"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines in the kinsho area (the six cells: up, down, left, right, up-left, up-right)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-27"
-        },
-        {
-            "rule_line": "R",
-            "id": "1W",
-            "name": {
-                "default": "Wall"
-            },
-            "doc": {
-                "default": "Clue indicates the length of each continuous mine group in the 3x3 area"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1W.png",
-            "aliases": [
-                "W"
-            ],
-            "tags": [
-                "Original",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "2#'",
-            "name": {
-                "default": "Label'"
-            },
-            "doc": {
-                "default": "Contains rules: [V], [2X], [2X'], [2D], [2P], [2M], [2A]. Use '2#:' to exclude 2A"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-26"
-        },
-        {
-            "rule_line": "R",
-            "id": "3B",
-            "name": {
-                "default": "Binary"
-            },
-            "doc": {
-                "default": "No mine is 0, has mine is 1, clue represents the bitwise XOR of two binary numbers from the corresponding row (left to right) and column (top to bottom)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "3M",
-            "name": {
-                "default": "Mirror"
-            },
-            "doc": {
-                "default": "Clue shows the number of the four opposite cell pairs where exactly one cell is a mine (cells outside the board are treated as non-mines)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2025-08-21"
-        },
-        {
-            "rule_line": "R",
-            "id": "CPV",
-            "name": {
-                "default": "Clue Partition Value"
-            },
-            "doc": {
-                "default": "Clue cells show the number of mines belonging to them in the 8 adjacent cells, and each cell must belong to exactly one visible clue."
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2026-04-10"
-        },
-        {
-            "rule_line": "R",
-            "id": "CQ",
-            "name": {
-                "default": "Chess-Queen"
-            },
-            "doc": {
-                "default": "Clue indicates the total number of mines in the eight directions"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2025-08-13"
-        },
-        {
-            "rule_line": "R",
-            "id": "1E*",
-            "name": {
-                "default": "Eyesight@*"
-            },
-            "doc": {
-                "default": "The clue value indicates the number of grid cell centers visible from the clue, with line of sight blocked by mines (including boundaries)."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Extensive Trial",
-                "Number Clue"
-            ],
-            "creation_time": "2026-04-30 03:00:53"
-        },
-        {
-            "rule_line": "R",
-            "id": "1N1X",
-            "name": {
-                "default": "Negative + Cross"
-            },
-            "doc": {},
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local",
-                "Number Clue",
-                "Dyed"
-            ],
-            "creation_time": "2025-08-23"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1P",
-            "name": {
-                "default": "Liar + Partition"
-            },
-            "doc": {
-                "default": "Liar + Partition combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "Sp",
-            "name": {
-                "default": "Span"
-            },
-            "doc": {
-                "default": "Clue shows the shortest continuous path length that connects all mines in the surrounding eight cells"
-            },
-            "author": {
-                "name": "Boi",
-                "id": "-1"
-            },
-            "image": "Sp.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2026-04-16"
-        },
-        {
-            "rule_line": "R",
-            "id": "R*R",
-            "name": {
-                "default": "R*R"
-            },
-            "doc": {
-                "default": "Inject R* as a left-line rule according to the parity of the total mine count"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Global",
-                "Parameter",
-                "Untagged"
-            ],
-            "creation_time": "2026-05-24"
-        },
-        {
-            "rule_line": "R",
-            "id": "0#",
-            "name": {
-                "default": "Tag"
-            },
-            "doc": {
-                "default": "Contains rules: [1L], [1N], [1E'], [1M1N], [1N1X], [2M], [2X']. Clue values are only zero."
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local"
-            ],
-            "creation_time": "2025-08-27"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1M",
-            "name": {
-                "default": "Liar + Multiple"
-            },
-            "doc": {
-                "default": "Liar + Multiple (dyed mines count double) combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Dyed",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "1EK",
-            "name": {
-                "default": "Knight Eyesight"
-            },
-            "doc": {
-                "default": "Clue shows the number of non-mine cells visible in the knight's move directions (including the cell itself); mines block the line of sight"
-            },
-            "author": {
-                "name": "\u6ce2\u5e38\u672a\u6765",
-                "id": "81500378"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Arrow Clue",
-                "Aux Board"
-            ],
-            "creation_time": "2025-09-17"
-        },
-        {
-            "rule_line": "R",
-            "id": "3A'",
-            "name": {
-                "default": "3A'"
-            },
-            "doc": {},
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
                 "Local",
                 "Number Clue",
                 "Arrow Clue",
-                "WIP"
+                "Extensive Trial",
+                "Creative"
             ],
             "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
-            "id": "2A'",
+            "id": "1K2E'",
             "name": {
-                "default": "Area'"
+                "default": "Horse Stance Self-Reference"
             },
             "doc": {
-                "default": "Clue shows the area of its 4-connected non-mine region"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Extensive Trial",
-                "Creative"
-            ],
-            "creation_time": "2025-08-17"
-        },
-        {
-            "rule_line": "R",
-            "id": "2Q",
-            "name": {
-                "default": "Queen"
-            },
-            "doc": {
-                "default": "Clue indicates the number of directions with mines in the eight directions"
+                "default": "If letter X has N mines in its 8 knight-move positions, then the cell with X=N must be a mine"
             },
             "author": {
                 "name": "",
@@ -6192,630 +5554,9 @@
             "tags": [
                 "Variant",
                 "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-13"
-        },
-        {
-            "rule_line": "R",
-            "id": "V?",
-            "name": {
-                "default": "Vanilla Question"
-            },
-            "doc": {
-                "default": "Each number indicates either the number of mines or non-mines in the surrounding eight cells"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Vanilla Variant",
-                "Number Clue",
-                "Variant"
-            ],
-            "creation_time": "2026-07-17"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L2X'",
-            "name": {
-                "default": "Liar + Cross'"
-            },
-            "doc": {
-                "default": "Liar + Cross' combination rule (dyed)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Dyed",
-                "Extensive Trial"
+                "Cryptic"
             ],
             "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "Rule-012",
-            "name": {
-                "default": "\u03c4C"
-            },
-            "doc": {
-                "default": "Each mine's value equals the total mine count in its eight surrounding cells (including itself); total mine count is unaffected"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Mine-Value"
-            ],
-            "creation_time": "2025-08-17"
-        },
-        {
-            "rule_line": "R",
-            "id": "2M'",
-            "name": {
-                "default": "Multi-Mine'"
-            },
-            "doc": {
-                "default": "Each mine directly below another mine counts as two (total mine count is unlimited)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Multi-Board"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "1E@",
-            "name": {
-                "default": "Eyesight@"
-            },
-            "doc": {
-                "default": "The clue indicates that the visible area outside of Ray (including itself) will be obstructed by Ray."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "1E@.png",
-            "aliases": [
-                "1Eat",
-                "Eat"
-            ],
-            "tags": [
-                "Untagged"
-            ],
-            "creation_time": "2026-04-30 00:21:47"
-        },
-        {
-            "rule_line": "R",
-            "id": "1P",
-            "name": {
-                "default": "Partition"
-            },
-            "doc": {
-                "default": "Clue indicates the number of continuous mine groups in the 3x3 area"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1P.png",
-            "aliases": [
-                "P"
-            ],
-            "tags": [
-                "Original",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "1X*",
-            "name": {
-                "default": "Queen"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines in all diagonal and orthogonal directions"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [
-                "X*"
-            ],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Strong",
-                "Creative"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "N#",
-            "name": {
-                "default": "Tag"
-            },
-            "doc": {
-                "default": "Clue has only one possible value"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local"
-            ],
-            "creation_time": "2025-08-29"
-        },
-        {
-            "rule_line": "R",
-            "id": "CS",
-            "name": {
-                "default": "Compass"
-            },
-            "doc": {
-                "default": "Clue indicates, for each of the four orthogonal directions, the number of cells in the adjacent mine group that are farther than the clue in that direction"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2026-04-05"
-        },
-        {
-            "rule_line": "R",
-            "id": "RL3",
-            "name": {
-                "default": "Error Clue"
-            },
-            "doc": {
-                "default": "If the four adjacent cells (up, down, left, right) contain an odd number of mines, the clue value is the total number of mines in the surrounding eight cells plus or minus 1 (but cannot be -1 or 9). If even, the clue value is the total number of mines in the surrounding eight cells."
-            },
-            "author": {
-                "name": "\u96fe",
-                "id": "3140864122"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Light"
-            ],
-            "creation_time": "2026-06-24"
-        },
-        {
-            "rule_line": "R",
-            "id": "RAND",
-            "name": {
-                "default": "Random"
-            },
-            "doc": {
-                "default": "Clue is a randomly generated number"
-            },
-            "author": {
-                "name": "\u96fe",
-                "id": "3140864122"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Fun"
-            ],
-            "creation_time": "2026-05-05"
-        },
-        {
-            "rule_line": "R",
-            "id": "++",
-            "name": {
-                "default": "plusplus"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines in the surrounding cells: LL;LU;LD;L;RR;RU;RD;RR"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Strict Shape"
-            ],
-            "creation_time": "2026-01-11"
-        },
-        {
-            "rule_line": "R",
-            "id": "1W'",
-            "name": {
-                "default": "Longest Wall"
-            },
-            "doc": {
-                "default": "Clue shows the longest continuous mine length in a 3x3 range"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1W'.png",
-            "aliases": [
-                "W'"
-            ],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Extensive Trial",
-                "Creative"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "GM",
-            "name": {
-                "default": "OttoMom"
-            },
-            "doc": {
-                "default": "Fill the board with some OttoMom"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "GM.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "WIP",
-                "Local"
-            ],
-            "creation_time": "2026-04-09"
-        },
-        {
-            "rule_line": "R",
-            "id": "LI",
-            "name": {
-                "default": "Line"
-            },
-            "doc": {
-                "default": "Each number indicates the number of lines connecting any two mines that pass through this cell, including boundaries and corners."
-            },
-            "author": {
-                "name": "\u5c0f\u7eff\u8349",
-                "id": "3021857082"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2026-07-09"
-        },
-        {
-            "rule_line": "R",
-            "id": "2A",
-            "name": {
-                "default": "Area"
-            },
-            "doc": {
-                "default": "Clue indicates the sum of areas of orthogonally adjacent mine groups"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "2A.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial",
-                "Weak"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "1M1N",
-            "name": {
-                "default": "Multiple + Negative"
-            },
-            "doc": {},
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local",
-                "Number Clue",
-                "Parameter"
-            ],
-            "creation_time": "2025-08-23"
-        },
-        {
-            "rule_line": "R",
-            "id": "4D'",
-            "name": {
-                "default": "Dual Combine"
-            },
-            "doc": {
-                "default": "Each number indicates the number of mines in the eight surrounding cells. Two mines in opposite positions are counted as one mine."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "4D'.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2026-03-05"
-        },
-        {
-            "rule_line": "R",
-            "id": "V+3D",
-            "name": {
-                "default": "V+3D"
-            },
-            "doc": {
-                "default": "Clue value equals n + number of mines around the n-th empty neighbor"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2026-05-24"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1#",
-            "name": {
-                "default": "Error + Label"
-            },
-            "doc": {
-                "default": "Includes the following rules: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E]\nUse [1L1#:] to exclude [1L1W]"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "R",
-            "id": "1X'",
-            "name": {
-                "default": "Mini Cross"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines in a 1-cell cross range"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1X'.png",
-            "aliases": [
-                "X'"
-            ],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Vanilla Variant",
-                "Fun"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "2M^",
-            "name": {
-                "default": "Mod^"
-            },
-            "doc": {
-                "default": "Clue has the same remainder as the number of mines in the 8 adjacent cells divided by 2"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Vanilla Variant"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "1X2X",
-            "name": {
-                "default": "Cross"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines in dyed and non-dyed cells in a cross pattern within radius 2 (order undefined)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-23"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1#'",
-            "name": {
-                "default": "Liar + Label'"
-            },
-            "doc": {
-                "default": "Includes the following rules: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\nUse [1L1#':] to exclude [1L1W]"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1N",
-            "name": {
-                "default": "Liar + Negative"
-            },
-            "doc": {
-                "default": "Liar + Negative (signed mine count) combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "5T",
-            "name": {
-                "default": "Triangle"
-            },
-            "doc": {
-                "default": "Clue value indicates the area of the triangle formed by the three nearest mines, decimal rounded to one decimal place."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [
-                "Triangle"
-            ],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Extensive Trial",
-                "Creative"
-            ],
-            "creation_time": "2026-06-04"
-        },
-        {
-            "rule_line": "R",
-            "id": "2E#",
-            "name": {
-                "default": "Encrypted + Tag"
-            },
-            "doc": {
-                "default": "Clues are replaced by letters, each letter corresponds to a clue, and each clue corresponds to a letter\nSpecify the rules used and their order through 2E#:<rule1>;<rule2>;...\nDefault is the same as the second generation\nYou can add 1# 1#' 2# 2#' 2#':"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-09-06"
         },
         {
             "rule_line": "R",
@@ -6843,12 +5584,12 @@
         },
         {
             "rule_line": "R",
-            "id": "1L2M",
+            "id": "2D''",
             "name": {
-                "default": "Liar + Modulo"
+                "default": "Deviation''"
             },
             "doc": {
-                "default": "Liar + Modulo combination rule"
+                "default": "Clue shows the maximum number of mines among the four 3x3 areas centered at cells offset in the four directions"
             },
             "author": {
                 "name": "",
@@ -6857,219 +5598,35 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive Trial"
+                "Weak",
+                "Creative"
             ],
-            "creation_time": ""
+            "creation_time": "2025-10-19"
         },
         {
             "rule_line": "R",
-            "id": "2I",
+            "id": "2K'",
             "name": {
-                "default": "Incomplete"
+                "default": "Diamond"
             },
             "doc": {
-                "default": "Number shows the number of mines in 7 of the 8 surrounding cells. The positions of those 7 cells are shared across all clues on the board"
+                "default": "Clue shows the number of mines within a distance of 2 from the cell"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "2I.png",
+            "image": "",
             "aliases": [],
             "tags": [
-                "Variant",
                 "Local",
                 "Number Clue",
-                "Extensive Trial",
-                "Cryptic"
+                "Vanilla Variant",
+                "Fun"
             ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "1F",
-            "name": {
-                "default": "Farsight"
-            },
-            "doc": {
-                "default": "Clue indicates the number of consecutive non-mines perpendicular to the arrow direction from the clue to the mine or board edge"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1F.png",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Arrow Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-09-09"
-        },
-        {
-            "rule_line": "R",
-            "id": "1#'",
-            "name": {
-                "default": "Label'"
-            },
-            "doc": {
-                "default": "Includes the following rules: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E], [1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-26"
-        },
-        {
-            "rule_line": "R",
-            "id": "3S",
-            "name": {
-                "default": "Shell"
-            },
-            "doc": {
-                "default": "Clue shows the number of mines in the upper 5 cells and lower 5 cells of the 8 surrounding cells (order not fixed)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "LO",
-            "name": {
-                "default": "LightsOut"
-            },
-            "doc": {
-                "default": "The clue represent the number of switches activated within a 3x3 area of the board, after switches activated all board is left empty finally. (The clue also show whether the switch at this clue location is activated.)"
-            },
-            "author": {
-                "name": "\u96fe",
-                "id": "3140864122"
-            },
-            "image": "LO.png",
-            "aliases": [],
-            "tags": [
-                "Global",
-                "Local",
-                "Creative",
-                "Construction",
-                "Vanilla Variant"
-            ],
-            "creation_time": "2026-05-05"
-        },
-        {
-            "rule_line": "R",
-            "id": "4V1K",
-            "name": {
-                "default": "Mapping Knight"
-            },
-            "doc": {
-                "default": "Clue shows the total number of mines in the knight's move area centered on one of the two board positions"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Aux Board",
-                "Multi-Board"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1K",
-            "name": {
-                "default": "Liar + Knight"
-            },
-            "doc": {
-                "default": "Liar + Knight combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "2P'2",
-            "name": {
-                "default": "Manhattan Product"
-            },
-            "doc": {
-                "default": "Clue value is the product of Manhattan distances to the two nearest mines"
-            },
-            "author": {
-                "name": "\u6ce2\u5e38\u672a\u6765",
-                "id": "81500378"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": "2026-03-01"
-        },
-        {
-            "rule_line": "R",
-            "id": "3N2",
-            "name": {
-                "default": "Norm"
-            },
-            "doc": {
-                "default": "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Parameter"
-            ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2025-08-27"
         },
         {
             "rule_line": "R",
@@ -7096,12 +5653,12 @@
         },
         {
             "rule_line": "R",
-            "id": "4V'",
+            "id": "1L1E",
             "name": {
-                "default": "Mapping'"
+                "default": "Liar + Eyesight"
             },
             "doc": {
-                "default": "Clue shows the total number of mines in the center 3x3 area of two of the three board positions"
+                "default": "Liar + Eyesight combination rule"
             },
             "author": {
                 "name": "",
@@ -7112,131 +5669,54 @@
             "tags": [
                 "Variant",
                 "Local",
+                "Arrow Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "2L'",
+            "name": {
+                "default": "Liar'"
+            },
+            "doc": {
+                "default": "Each row and column has exactly one non-liar clue. Liar clues have values 1 greater or less than the true value"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "2L'.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
                 "Number Clue",
                 "Aux Board",
-                "Multi-Board"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
-            "id": "1E>",
+            "id": "2M",
             "name": {
-                "default": "Perspective"
+                "default": "Modulo"
             },
             "doc": {
-                "default": "The clue indicates the number of non-mine cells visible in the four cardinal directions after passing through the first mine encountered. Mines block line of sight."
+                "default": "Clue shows the remainder when the number of surrounding mines is divided by 3"
             },
             "author": {
-                "name": "NT",
-                "id": "2201963934"
+                "name": "",
+                "id": "0"
             },
-            "image": "",
+            "image": "2M.png",
             "aliases": [],
             "tags": [
                 "Original",
                 "Local",
-                "Vanilla Variant",
-                "Number Clue",
-                "Arrow Clue"
-            ],
-            "creation_time": "2026-07-09"
-        },
-        {
-            "rule_line": "R",
-            "id": "1X^",
-            "name": {
-                "default": "Rhombus"
-            },
-            "doc": {
-                "default": "Clue shows the total number of mines at distance \u221a2 and distance 2"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [
-                "X^"
-            ],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Vanilla Variant",
-                "Creative"
-            ],
-            "creation_time": "2025-08-24"
-        },
-        {
-            "rule_line": "R",
-            "id": "2D'",
-            "name": {
-                "default": "Four-Direction Offset"
-            },
-            "doc": {
-                "default": "Clue shows the total number of mines in a 3x3 area centered one cell offset in any of the four directions (globally consistent)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Extensive Trial",
-                "Creative"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "2A1W'",
-            "name": {
-                "default": "Area + Largest Wall"
-            },
-            "doc": {
-                "default": "Clue shows the maximum area of the four adjacent mine regions in the four directions"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local",
-                "Number Clue",
-                "Connectivity",
-                "Multi-Board"
-            ],
-            "creation_time": "2026-01-18"
-        },
-        {
-            "rule_line": "R",
-            "id": "1E'",
-            "name": {
-                "default": "Eyesight'"
-            },
-            "doc": {
-                "default": "Clue shows the difference between vertical and horizontal eyesight, with an arrow indicating the direction with longer sight"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1E'.png",
-            "aliases": [
-                "E'"
-            ],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Arrow Clue",
-                "Extensive Trial",
-                "Creative"
+                "Number Clue"
             ],
             "creation_time": "2025-08-06"
         },
@@ -7265,6 +5745,884 @@
         },
         {
             "rule_line": "R",
+            "id": "2#'",
+            "name": {
+                "default": "Label'"
+            },
+            "doc": {
+                "default": "Contains rules: [V], [2X], [2X'], [2D], [2P], [2M], [2A]. Use '2#:' to exclude 2A"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-26"
+        },
+        {
+            "rule_line": "R",
+            "id": "4V'",
+            "name": {
+                "default": "Mapping'"
+            },
+            "doc": {
+                "default": "Clue shows the total number of mines in the center 3x3 area of two of the three board positions"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Aux Board",
+                "Multi-Board"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "LI",
+            "name": {
+                "default": "Line"
+            },
+            "doc": {
+                "default": "Each number indicates the number of lines connecting any two mines that pass through this cell, including boundaries and corners."
+            },
+            "author": {
+                "name": "\u5c0f\u7eff\u8349",
+                "id": "3021857082"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2026-07-09"
+        },
+        {
+            "rule_line": "R",
+            "id": "2A1W'",
+            "name": {
+                "default": "Area + Largest Wall"
+            },
+            "doc": {
+                "default": "Clue shows the maximum area of the four adjacent mine regions in the four directions"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local",
+                "Number Clue",
+                "Connectivity",
+                "Multi-Board"
+            ],
+            "creation_time": "2026-01-18"
+        },
+        {
+            "rule_line": "R",
+            "id": "3B",
+            "name": {
+                "default": "Binary"
+            },
+            "doc": {
+                "default": "No mine is 0, has mine is 1, clue represents the bitwise XOR of two binary numbers from the corresponding row (left to right) and column (top to bottom)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "Sp",
+            "name": {
+                "default": "Span"
+            },
+            "doc": {
+                "default": "Clue shows the shortest continuous path length that connects all mines in the surrounding eight cells"
+            },
+            "author": {
+                "name": "Boi",
+                "id": "-1"
+            },
+            "image": "Sp.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2026-04-16"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1K",
+            "name": {
+                "default": "Liar + Knight"
+            },
+            "doc": {
+                "default": "Liar + Knight combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "1LMNX",
+            "name": {
+                "default": "Liar + Multiple + Negative + Cross"
+            },
+            "doc": {
+                "default": "Liar + Multiple + Negative + Cross combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Dyed",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "1LNX",
+            "name": {
+                "default": "Liar + Negative + Cross"
+            },
+            "doc": {
+                "default": "Liar + Negative + Cross combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "1LMN",
+            "name": {
+                "default": "Liar + Multiple + Negative"
+            },
+            "doc": {
+                "default": "Liar + Multiple + Negative combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Dyed",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "3S",
+            "name": {
+                "default": "Shell"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in the upper 5 cells and lower 5 cells of the 8 surrounding cells (order not fixed)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "2D^",
+            "name": {
+                "default": "Deviation^"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in an Nx3 area, where N is the number of consecutive non-mine cells directly above"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "2D^.png",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Creative"
+            ],
+            "creation_time": "2026-01-13"
+        },
+        {
+            "rule_line": "R",
+            "id": "RF",
+            "name": {
+                "default": "Reflect"
+            },
+            "doc": {
+                "default": "Clue indicates the number of visible cells in the opposite direction of each adjacent mine; mines block sight."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "RF.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2026-04-29"
+        },
+        {
+            "rule_line": "R",
+            "id": "SG'",
+            "name": {
+                "default": "Tic-Tac-Toe Clue"
+            },
+            "doc": {
+                "default": "Clue indicates the number of horizontal, vertical, and diagonal lines of three in the surrounding 3x3 area that are all mines or all non-mines"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Variant"
+            ],
+            "creation_time": "2026-07-09"
+        },
+        {
+            "rule_line": "R",
+            "id": "5T",
+            "name": {
+                "default": "Triangle"
+            },
+            "doc": {
+                "default": "Clue value indicates the area of the triangle formed by the three nearest mines, decimal rounded to one decimal place."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [
+                "Triangle"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Extensive Trial",
+                "Creative"
+            ],
+            "creation_time": "2026-06-04"
+        },
+        {
+            "rule_line": "R",
+            "id": "Rule-013",
+            "name": {
+                "default": "\u03c4D"
+            },
+            "doc": {
+                "default": "If a mine has four or more mines in its eight surrounding cells, then that mine's value is 0; total mine count is unaffected"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Mine-Value"
+            ],
+            "creation_time": "2025-08-17"
+        },
+        {
+            "rule_line": "R",
+            "id": "++",
+            "name": {
+                "default": "plusplus"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in the surrounding cells: LL;LU;LD;L;RR;RU;RD;RR"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Strict Shape"
+            ],
+            "creation_time": "2026-01-11"
+        },
+        {
+            "rule_line": "R",
+            "id": "1MNX",
+            "name": {
+                "default": "Multiple + Negative + Cross"
+            },
+            "doc": {},
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local",
+                "Number Clue",
+                "Parameter"
+            ],
+            "creation_time": "2025-08-23"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1N",
+            "name": {
+                "default": "Liar + Negative"
+            },
+            "doc": {
+                "default": "Liar + Negative (signed mine count) combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "1X",
+            "name": {
+                "default": "Cross"
+            },
+            "doc": {
+                "default": "Clue indicates the number of mines in a cross pattern with radius 2"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1X.png",
+            "aliases": [
+                "X"
+            ],
+            "tags": [
+                "Original",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "QL",
+            "name": {
+                "default": "1Q1L"
+            },
+            "doc": {
+                "default": "Error clue is 1 more or less than the true value; if the clue is in a 2x2 non-mine box, it's an error clue, otherwise it's the true value"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Cryptic",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "0#",
+            "name": {
+                "default": "Tag"
+            },
+            "doc": {
+                "default": "Contains rules: [1L], [1N], [1E'], [1M1N], [1N1X], [2M], [2X']. Clue values are only zero."
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local"
+            ],
+            "creation_time": "2025-08-27"
+        },
+        {
+            "rule_line": "R",
+            "id": "1X2X",
+            "name": {
+                "default": "Cross"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in dyed and non-dyed cells in a cross pattern within radius 2 (order undefined)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-23"
+        },
+        {
+            "rule_line": "R",
+            "id": "3N00",
+            "name": {
+                "default": "Norm"
+            },
+            "doc": {
+                "default": "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Parameter"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "1X'",
+            "name": {
+                "default": "Mini Cross"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in a 1-cell cross range"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1X'.png",
+            "aliases": [
+                "X'"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Vanilla Variant",
+                "Fun"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "3M",
+            "name": {
+                "default": "Mirror"
+            },
+            "doc": {
+                "default": "Clue shows the number of the four opposite cell pairs where exactly one cell is a mine (cells outside the board are treated as non-mines)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2025-08-21"
+        },
+        {
+            "rule_line": "R",
+            "id": "V?",
+            "name": {
+                "default": "Vanilla Question"
+            },
+            "doc": {
+                "default": "Each number indicates either the number of mines or non-mines in the surrounding eight cells"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Vanilla Variant",
+                "Number Clue",
+                "Variant"
+            ],
+            "creation_time": "2026-07-17"
+        },
+        {
+            "rule_line": "R",
+            "id": "1E'-",
+            "name": {
+                "default": "Eyesight'-"
+            },
+            "doc": {
+                "default": "Clue shows the variance of vertical and horizontal sight multiplied by 2 and then take the square root. Or in other words, clue shows the difference between vertical and horizontal sight."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Arrow Clue",
+                "Extensive Trial",
+                "Creative"
+            ],
+            "creation_time": "2026-05-30"
+        },
+        {
+            "rule_line": "R",
+            "id": "1P",
+            "name": {
+                "default": "Partition"
+            },
+            "doc": {
+                "default": "Clue indicates the number of continuous mine groups in the 3x3 area"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1P.png",
+            "aliases": [
+                "P"
+            ],
+            "tags": [
+                "Original",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "1XX",
+            "name": {
+                "default": "Bishop"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in all diagonal cells"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "4V2E'2I'",
+            "name": {
+                "default": "Self-Referential Incomplete Mapping"
+            },
+            "doc": {
+                "default": "Letter X is the total number of mines in a certain ? cell in the 3x3 area centered on one of the two board positions. If that position on the corresponding board is marked X=N, then the cell must be a mine, and the ? cell position is shared across all clues"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Aux Board",
+                "Multi-Board",
+                "Extensive Trial",
+                "WIP"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "2E''",
+            "name": {
+                "default": "Mutual Indication"
+            },
+            "doc": {
+                "default": "If clue X has N mines around it, then the cell with X=N on the other board must be a mine"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Aux Board",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L2X",
+            "name": {
+                "default": "Liar + Cross"
+            },
+            "doc": {
+                "default": "Liar + Cross combination rule (dyed)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1L2X.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Dyed",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "N#",
+            "name": {
+                "default": "Tag"
+            },
+            "doc": {
+                "default": "Clue has only one possible value"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local"
+            ],
+            "creation_time": "2025-08-29"
+        },
+        {
+            "rule_line": "R",
+            "id": "1E'%",
+            "name": {
+                "default": "Eyesight'%"
+            },
+            "doc": {
+                "default": "Clue shows the maximum difference between adjacent two directions among four directions."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Arrow Clue",
+                "Extensive Trial",
+                "Creative"
+            ],
+            "creation_time": "2026-05-30"
+        },
+        {
+            "rule_line": "R",
+            "id": "3H''",
+            "name": {
+                "default": "Big Triangle"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines: 8 adjacent cells plus left-left and right-right; odd rows additionally include top-left-top and top-right-top; even rows additionally include bottom-left-bottom and bottom-right-bottom"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Strict Shape"
+            ],
+            "creation_time": "2025-08-24"
+        },
+        {
+            "rule_line": "R",
+            "id": "MC",
+            "name": {
+                "default": "Mine-Combination"
+            },
+            "doc": {
+                "default": "Clue indicates the number of mines in surrounding eight cells; if there is a mine in a dyed cell, it counts as one mine (total mine count unaffected)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "MC.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Dyed"
+            ],
+            "creation_time": "2025-08-13"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1#",
+            "name": {
+                "default": "Error + Label"
+            },
+            "doc": {
+                "default": "Includes the following rules: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E]\nUse [1L1#:] to exclude [1L1W]"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "R",
             "id": "3A",
             "name": {
                 "default": "Langton's Ant"
@@ -7285,6 +6643,720 @@
                 "Arrow Clue"
             ],
             "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1#'",
+            "name": {
+                "default": "Liar + Label'"
+            },
+            "doc": {
+                "default": "Includes the following rules: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\nUse [1L1#':] to exclude [1L1W]"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "R",
+            "id": "MUL",
+            "name": {
+                "default": "Multiplication Combination"
+            },
+            "doc": {
+                "default": "Combines two right-side variants via multiplication."
+            },
+            "author": {
+                "name": "ekisacik",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2026/5/22 0:42"
+        },
+        {
+            "rule_line": "R",
+            "id": "2E#",
+            "name": {
+                "default": "Encrypted + Tag"
+            },
+            "doc": {
+                "default": "Clues are replaced by letters, each letter corresponds to a clue, and each clue corresponds to a letter\nSpecify the rules used and their order through 2E#:<rule1>;<rule2>;...\nDefault is the same as the second generation\nYou can add 1# 1#' 2# 2#' 2#':"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-09-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "AVG",
+            "name": {
+                "default": "Average"
+            },
+            "doc": {
+                "default": "Average of clue values for orthogonally connected non-mine cells"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2026-04-10"
+        },
+        {
+            "rule_line": "R",
+            "id": "1Wp",
+            "name": {
+                "default": "1Wplus"
+            },
+            "doc": {
+                "default": "Clue shows two hex digits representing mine pattern in 8 neighbors clockwise"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "",
+            "aliases": [
+                "Wp"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Creative"
+            ],
+            "creation_time": "2026-05-19"
+        },
+        {
+            "rule_line": "R",
+            "id": "6L",
+            "name": {
+                "default": "Light"
+            },
+            "doc": {
+                "default": "Mines are light bulbs, and each bulb increases the brightness of any cell on the board by the inverse of the square of the distance. Clues indicate the total brightness of that cell."
+            },
+            "author": {
+                "name": "Jsky\u5355\u63a8\u4eba",
+                "id": "2638680527"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2026-05-20"
+        },
+        {
+            "rule_line": "R",
+            "id": "1F",
+            "name": {
+                "default": "Farsight"
+            },
+            "doc": {
+                "default": "Clue indicates the number of consecutive non-mines perpendicular to the arrow direction from the clue to the mine or board edge"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1F.png",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Arrow Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-09-09"
+        },
+        {
+            "rule_line": "R",
+            "id": "V''",
+            "name": {
+                "default": "Absolute"
+            },
+            "doc": {
+                "default": "Each number shows the absolute value of the sum of mine values in the surrounding eight cells"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Mine-Value"
+            ],
+            "creation_time": "2025-10-26"
+        },
+        {
+            "rule_line": "R",
+            "id": "1W",
+            "name": {
+                "default": "Wall"
+            },
+            "doc": {
+                "default": "Clue indicates the length of each continuous mine group in the 3x3 area"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1W.png",
+            "aliases": [
+                "W"
+            ],
+            "tags": [
+                "Original",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "4D'",
+            "name": {
+                "default": "Dual Combine"
+            },
+            "doc": {
+                "default": "Each number indicates the number of mines in the eight surrounding cells. Two mines in opposite positions are counted as one mine."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "4D'.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2026-03-05"
+        },
+        {
+            "rule_line": "R",
+            "id": "2K",
+            "name": {
+                "default": "Kinsho"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in the kinsho area (the six cells: up, down, left, right, up-left, up-right)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-27"
+        },
+        {
+            "rule_line": "R",
+            "id": "1X+",
+            "name": {
+                "default": "Castle"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in all cells in the same row or column"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [
+                "X+"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Weak",
+                "Creative"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "1#'",
+            "name": {
+                "default": "Label'"
+            },
+            "doc": {
+                "default": "Includes the following rules: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E], [1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-26"
+        },
+        {
+            "rule_line": "R",
+            "id": "Rule-012",
+            "name": {
+                "default": "\u03c4C"
+            },
+            "doc": {
+                "default": "Each mine's value equals the total mine count in its eight surrounding cells (including itself); total mine count is unaffected"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Mine-Value"
+            ],
+            "creation_time": "2025-08-17"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1W'",
+            "name": {
+                "default": "Liar + Longest Wall"
+            },
+            "doc": {
+                "default": "Liar + Longest Wall combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "RS'",
+            "name": {
+                "default": "RedStone Prime"
+            },
+            "doc": {
+                "default": "Mines are redstone wires, clues are solid blocks, clue shows total number of redstone cells connected to this cell"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "RS'.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial",
+                "Weak"
+            ],
+            "creation_time": "2026-07-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "1EK",
+            "name": {
+                "default": "Knight Eyesight"
+            },
+            "doc": {
+                "default": "Clue shows the number of non-mine cells visible in the knight's move directions (including the cell itself); mines block the line of sight"
+            },
+            "author": {
+                "name": "\u6ce2\u5e38\u672a\u6765",
+                "id": "81500378"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Arrow Clue",
+                "Aux Board"
+            ],
+            "creation_time": "2025-09-17"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1E'",
+            "name": {
+                "default": "Liar + Eyesight'"
+            },
+            "doc": {
+                "default": "Liar + Eyesight' combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Arrow Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "2L''",
+            "name": {
+                "default": "Liar"
+            },
+            "doc": {
+                "default": "Each row and column has exactly one error clue. The value of the error clue cannot be the true value."
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Aux Board",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-10-24"
+        },
+        {
+            "rule_line": "R",
+            "id": "2I'",
+            "name": {
+                "default": "Incomplete'"
+            },
+            "doc": {
+                "default": "The number indicates the mine count among N of the 8 adjacent cells. The positions of those N cells are shared across all clues on the board"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Extensive Trial",
+                "Creative"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "2Q'",
+            "name": {
+                "default": "Octopus"
+            },
+            "doc": {
+                "default": "Clue shows the number of directions (out of 8) where the nearest 2 cells contain a mine"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-27"
+        },
+        {
+            "rule_line": "R",
+            "id": "4Y",
+            "name": {
+                "default": "Area"
+            },
+            "doc": {
+                "default": "Clue indicates the area of the largest mine-free rectangle containing this cell"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2025-08-21"
+        },
+        {
+            "rule_line": "R",
+            "id": "?",
+            "name": {
+                "default": "Quess"
+            },
+            "doc": {
+                "default": "Clue indicates that the cell is a non-mine"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "2E^",
+            "name": {
+                "default": "Encrypted^"
+            },
+            "doc": {
+                "default": "Clues are replaced by letters, each letter corresponds to two clues, and each clue corresponds to two letters"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "2E^.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Cryptic",
+                "Extensive Trial",
+                "Aux Board"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "2*1L",
+            "name": {
+                "default": "Double Liar"
+            },
+            "doc": {
+                "default": "All clues are either 2 greater, 2 less than, or equal to the true value"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "SG",
+            "name": {
+                "default": "Singleton"
+            },
+            "doc": {
+                "default": "Clue indicates the sum of rows and columns in the 3x3 area that have exactly one mine"
+            },
+            "author": {
+                "name": "Boi",
+                "id": "-1"
+            },
+            "image": "SG.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2026-04-28"
+        },
+        {
+            "rule_line": "R",
+            "id": "1X''",
+            "name": {
+                "default": "X''"
+            },
+            "doc": {
+                "default": "Clue shows the total mines in distance 1 and distance 2\u221a2 regions"
+            },
+            "author": {
+                "name": "\u6ce2\u5e38\u672a\u6765",
+                "id": "81500378"
+            },
+            "image": "",
+            "aliases": [
+                "X''"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Vanilla Variant",
+                "Fun"
+            ],
+            "creation_time": "2025-08-07"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1P",
+            "name": {
+                "default": "Liar + Partition"
+            },
+            "doc": {
+                "default": "Liar + Partition combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "1E>",
+            "name": {
+                "default": "Perspective"
+            },
+            "doc": {
+                "default": "The clue indicates the number of non-mine cells visible in the four cardinal directions after passing through the first mine encountered. Mines block line of sight."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Vanilla Variant",
+                "Number Clue",
+                "Arrow Clue"
+            ],
+            "creation_time": "2026-07-09"
+        },
+        {
+            "rule_line": "R",
+            "id": "RM2",
+            "name": {
+                "default": "Remote Sensing 2"
+            },
+            "doc": {
+                "default": "A clue cell contains several numbers, each corresponding to a row, indicating the number of mines in the four-connected region of the clue cell located in that row. The order of these numbers is uncertain."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Variant"
+            ],
+            "creation_time": "2026-07-09"
+        },
+        {
+            "rule_line": "R",
+            "id": "RS",
+            "name": {
+                "default": "RedStone"
+            },
+            "doc": {
+                "default": "Mines are redstone wires, clues are solid blocks, clue shows number of redstone connections on edges"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "RS.png",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2026-06-26"
         },
         {
             "rule_line": "R",
@@ -7314,12 +7386,34 @@
         },
         {
             "rule_line": "R",
-            "id": "Rule-013",
+            "id": "2DE",
             "name": {
-                "default": "\u03c4D"
+                "default": "spread"
             },
             "doc": {
-                "default": "If a mine has four or more mines in its eight surrounding cells, then that mine's value is 0; total mine count is unaffected"
+                "default": "The clue indicates that the area within its rectangular grid expands in four directions until it encounters a mine within the mine's range."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "2DE.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Number Clue",
+                "Mine-Counting"
+            ],
+            "creation_time": "2026-04-29 23:33:04"
+        },
+        {
+            "rule_line": "R",
+            "id": "V'",
+            "name": {
+                "default": "Value"
+            },
+            "doc": {
+                "default": "Each number indicates the sum of mine values in the surrounding eight cells"
             },
             "author": {
                 "name": "",
@@ -7328,45 +7422,46 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
+                "Variant",
                 "Local",
                 "Number Clue",
                 "Mine-Value"
             ],
-            "creation_time": "2025-08-17"
+            "creation_time": "2025-10-26"
         },
         {
             "rule_line": "R",
-            "id": "1LMNX",
+            "id": "1L",
             "name": {
-                "default": "Liar + Multiple + Negative + Cross"
+                "default": "Liar"
             },
             "doc": {
-                "default": "Liar + Multiple + Negative + Cross combination rule"
+                "default": "All clues are either 1 greater or 1 less than the true value"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "",
-            "aliases": [],
+            "image": "1L.png",
+            "aliases": [
+                "L"
+            ],
             "tags": [
-                "Variant",
+                "Original",
                 "Local",
                 "Number Clue",
-                "Dyed",
                 "Extensive Trial"
             ],
             "creation_time": ""
         },
         {
             "rule_line": "R",
-            "id": "2E'2I'",
+            "id": "2D'",
             "name": {
-                "default": "Self-Referential Incomplete'"
+                "default": "Four-Direction Offset"
             },
             "doc": {
-                "default": "If letter X has N mines among ? of its 8 adjacent cells, then the cell with X=N must be a mine. The positions of those ? cells are shared across all clues on the board"
+                "default": "Clue shows the total number of mines in a 3x3 area centered one cell offset in any of the four directions (globally consistent)"
             },
             "author": {
                 "name": "",
@@ -7375,12 +7470,12 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Variant",
                 "Local",
-                "Cryptic",
-                "Extensive Trial"
+                "Number Clue",
+                "Extensive Trial",
+                "Creative"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
@@ -7407,12 +7502,12 @@
         },
         {
             "rule_line": "R",
-            "id": "1E'%",
+            "id": "CG",
             "name": {
-                "default": "Eyesight'%"
+                "default": "Charge"
             },
             "doc": {
-                "default": "Clue shows the maximum difference between adjacent two directions among four directions."
+                "default": "Mines can have positive/negative/zero charge. Clues give counts of three types (order unknown). Total charge of each 4-connected mine region is zero."
             },
             "author": {
                 "name": "NT",
@@ -7421,22 +7516,22 @@
             "image": "",
             "aliases": [],
             "tags": [
+                "Variant",
                 "Local",
-                "Number Clue",
-                "Arrow Clue",
-                "Extensive Trial",
-                "Creative"
+                "Mine-Value",
+                "Connectivity",
+                "Number Clue"
             ],
-            "creation_time": "2026-05-30"
+            "creation_time": "2026-04-30 00:13:13"
         },
         {
             "rule_line": "R",
-            "id": "2*1L",
+            "id": "3N",
             "name": {
-                "default": "Double Liar"
+                "default": "Norm"
             },
             "doc": {
-                "default": "All clues are either 2 greater, 2 less than, or equal to the true value"
+                "default": "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)"
             },
             "author": {
                 "name": "",
@@ -7445,10 +7540,10 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Variant",
+                "Creative",
                 "Local",
                 "Number Clue",
-                "Extensive Trial"
+                "Parameter"
             ],
             "creation_time": "2025-08-06"
         },
@@ -7478,118 +7573,119 @@
         },
         {
             "rule_line": "R",
-            "id": "2L",
+            "id": "4V1L",
             "name": {
-                "default": "Liar"
+                "default": "Mapping Liar"
             },
             "doc": {
-                "default": "Each row and column has exactly one error clue. Error clues have values 1 greater or 1 less than the true value"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "2L.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial",
-                "Cryptic"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "2Q'",
-            "name": {
-                "default": "Octopus"
-            },
-            "doc": {
-                "default": "Clue shows the number of directions (out of 8) where the nearest 2 cells contain a mine"
+                "default": "Clue shows the total number of mines in the center 3x3 area of one of the two board positions; each clue is either 1 greater or 1 less than the true value"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
             "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-27"
-        },
-        {
-            "rule_line": "R",
-            "id": "2E'",
-            "name": {
-                "default": "Self-Referential"
-            },
-            "doc": {
-                "default": "If letter X has N mines in its 3x3 area, then the cell with X=N must be a mine"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "2E'.png",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Cryptic"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "3N00",
-            "name": {
-                "default": "Norm"
-            },
-            "doc": {
-                "default": "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Parameter"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "2L'",
-            "name": {
-                "default": "Liar'"
-            },
-            "doc": {
-                "default": "Each row and column has exactly one non-liar clue. Liar clues have values 1 greater or less than the true value"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "2L'.png",
             "aliases": [],
             "tags": [
                 "Variant",
                 "Local",
                 "Number Clue",
                 "Aux Board",
+                "Multi-Board",
                 "Extensive Trial"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "TV",
+            "name": {
+                "default": "TapaView"
+            },
+            "doc": {
+                "default": "Clue indicates the number of visible mines in the four orthogonal directions; empty cells block visibility"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "TV.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2025-10-24"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1W",
+            "name": {
+                "default": "Liar + Wall"
+            },
+            "doc": {
+                "default": "Liar + Wall combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "PF",
+            "name": {
+                "default": "Prime Factor"
+            },
+            "doc": {
+                "default": "For clues other than 0 and 1, displays the largest prime factor of the true value"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "PF.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-13"
+        },
+        {
+            "rule_line": "R",
+            "id": "CS",
+            "name": {
+                "default": "Compass"
+            },
+            "doc": {
+                "default": "Clue indicates, for each of the four orthogonal directions, the number of cells in the adjacent mine group that are farther than the clue in that direction"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2026-04-05"
         },
         {
             "rule_line": "R",
@@ -7659,58 +7755,12 @@
         },
         {
             "rule_line": "R",
-            "id": "3H''",
+            "id": "1L2M",
             "name": {
-                "default": "Big Triangle"
+                "default": "Liar + Modulo"
             },
             "doc": {
-                "default": "Clue shows the number of mines: 8 adjacent cells plus left-left and right-right; odd rows additionally include top-left-top and top-right-top; even rows additionally include bottom-left-bottom and bottom-right-bottom"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Strict Shape"
-            ],
-            "creation_time": "2025-08-24"
-        },
-        {
-            "rule_line": "R",
-            "id": "SG",
-            "name": {
-                "default": "Singleton"
-            },
-            "doc": {
-                "default": "Clue indicates the sum of rows and columns in the 3x3 area that have exactly one mine"
-            },
-            "author": {
-                "name": "Boi",
-                "id": "-1"
-            },
-            "image": "SG.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Construction"
-            ],
-            "creation_time": "2026-04-28"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1X",
-            "name": {
-                "default": "Liar + Cross"
-            },
-            "doc": {
-                "default": "Liar + Cross combination rule"
+                "default": "Liar + Modulo combination rule"
             },
             "author": {
                 "name": "",
@@ -7728,12 +7778,60 @@
         },
         {
             "rule_line": "R",
-            "id": "4V1N",
+            "id": "3N2",
             "name": {
-                "default": "Mapping Negative"
+                "default": "Norm"
             },
             "doc": {
-                "default": "Clue shows the difference in mine count between dyed and undyed cells in the 3x3 area of one of the two board positions"
+                "default": "Clue (a_p) indicates the lp norm distance to the nearest mine as a. (p=0,1,2,00)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Parameter"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "1X*",
+            "name": {
+                "default": "Queen"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in all diagonal and orthogonal directions"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [
+                "X*"
+            ],
+            "tags": [
+                "Local",
+                "Number Clue",
+                "Strong",
+                "Creative"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "2M^",
+            "name": {
+                "default": "Mod^"
+            },
+            "doc": {
+                "default": "Clue has the same remainder as the number of mines in the 8 adjacent cells divided by 2"
             },
             "author": {
                 "name": "",
@@ -7745,33 +7843,54 @@
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Aux Board",
-                "Multi-Board",
-                "Dyed"
+                "Vanilla Variant"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
-            "id": "FN",
+            "id": "2P*",
             "name": {
-                "default": "FloatNumber"
+                "default": "Two Point Star"
             },
             "doc": {
-                "default": "For each cell, displayed +N/-N = (8-neighbor mines(cyclic indices.)) \u2212 (unfixed global standard value (range: [0-8]))."
+                "default": "Each number indicates the sum of Chebyshev distances to the two nearest mines"
             },
             "author": {
-                "name": "\u96fe",
-                "id": "3140864122"
+                "name": "\u54b8\u9c7c",
+                "id": "3898637422"
             },
             "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
-                "Global",
-                "Mine-Counting"
+                "Local",
+                "Number Clue",
+                "Variant"
             ],
-            "creation_time": "2026-05-26 16:37:56"
+            "creation_time": "2026-03-01"
+        },
+        {
+            "rule_line": "R",
+            "id": "1EB",
+            "name": {
+                "default": "Bishop Eyesight"
+            },
+            "doc": {
+                "default": "Clue shows the number of non-mine cells visible in the four diagonal directions (including the cell itself); mines block the line of sight"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Arrow Clue",
+                "Aux Board"
+            ],
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
@@ -7798,82 +7917,12 @@
         },
         {
             "rule_line": "R",
-            "id": "3A^",
+            "id": "1L1L",
             "name": {
-                "default": "Langton's Ant - XOR"
+                "default": "Liar + Liar"
             },
             "doc": {
-                "default": "XOR the results of Langton's Ant [3A] in four directions; if the result is infinite, display using complement form"
-            },
-            "author": {
-                "name": "\u96fe",
-                "id": "3140864122"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial",
-                "Cryptic"
-            ],
-            "creation_time": "2026-04-19"
-        },
-        {
-            "rule_line": "R",
-            "id": "RS'",
-            "name": {
-                "default": "RedStone Prime"
-            },
-            "doc": {
-                "default": "Mines are redstone wires, clues are solid blocks, clue shows total number of redstone cells connected to this cell"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "RS'.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial",
-                "Weak"
-            ],
-            "creation_time": "2026-07-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "RM2",
-            "name": {
-                "default": "Remote Sensing 2"
-            },
-            "doc": {
-                "default": "A clue cell contains several numbers, each corresponding to a row, indicating the number of mines in the four-connected region of the clue cell located in that row. The order of these numbers is uncertain."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Variant"
-            ],
-            "creation_time": "2026-07-09"
-        },
-        {
-            "rule_line": "R",
-            "id": "?",
-            "name": {
-                "default": "Quess"
-            },
-            "doc": {
-                "default": "Clue indicates that the cell is a non-mine"
+                "default": "Liar + Liar (double liar, \u00b12) combination rule"
             },
             "author": {
                 "name": "",
@@ -7882,33 +7931,12 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Meta",
+                "Variant",
                 "Local",
-                "Number Clue"
+                "Number Clue",
+                "Extensive Trial"
             ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "RS",
-            "name": {
-                "default": "RedStone"
-            },
-            "doc": {
-                "default": "Mines are redstone wires, clues are solid blocks, clue shows number of redstone connections on edges"
-            },
-            "author": {
-                "name": "\u96fe",
-                "id": "3140864122"
-            },
-            "image": "RS.png",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2026-06-26"
+            "creation_time": ""
         },
         {
             "rule_line": "R",
@@ -7935,26 +7963,26 @@
         },
         {
             "rule_line": "R",
-            "id": "MC",
+            "id": "RAND",
             "name": {
-                "default": "Mine-Combination"
+                "default": "Random"
             },
             "doc": {
-                "default": "Clue indicates the number of mines in surrounding eight cells; if there is a mine in a dyed cell, it counts as one mine (total mine count unaffected)"
+                "default": "Clue is a randomly generated number"
             },
             "author": {
-                "name": "",
-                "id": "0"
+                "name": "\u96fe",
+                "id": "3140864122"
             },
-            "image": "MC.png",
+            "image": "",
             "aliases": [],
             "tags": [
                 "Variant",
                 "Local",
                 "Number Clue",
-                "Dyed"
+                "Fun"
             ],
-            "creation_time": "2025-08-13"
+            "creation_time": "2026-05-05"
         },
         {
             "rule_line": "R",
@@ -7981,74 +8009,49 @@
         },
         {
             "rule_line": "R",
-            "id": "1ES",
+            "id": "2I",
             "name": {
-                "default": "Spiral Eyesight"
+                "default": "Incomplete"
             },
             "doc": {
-                "default": "Clue shows the number of non-mine cells visible when looking outward from the current cell in four directions, then rotating clockwise (similar to the swastika pattern); mines block the line of sight"
+                "default": "Number shows the number of mines in 7 of the 8 surrounding cells. The positions of those 7 cells are shared across all clues on the board"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "",
+            "image": "2I.png",
             "aliases": [],
             "tags": [
                 "Variant",
                 "Local",
-                "Arrow Clue",
-                "Aux Board",
+                "Number Clue",
+                "Extensive Trial",
                 "Cryptic"
             ],
-            "creation_time": "2025-09-17"
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "R",
-            "id": "1K2E'",
+            "id": "2E'",
             "name": {
-                "default": "Horse Stance Self-Reference"
+                "default": "Self-Referential"
             },
             "doc": {
-                "default": "If letter X has N mines in its 8 knight-move positions, then the cell with X=N must be a mine"
+                "default": "If letter X has N mines in its 3x3 area, then the cell with X=N must be a mine"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "",
+            "image": "2E'.png",
             "aliases": [],
             "tags": [
-                "Variant",
+                "Original",
                 "Local",
                 "Cryptic"
             ],
             "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "1X''",
-            "name": {
-                "default": "X''"
-            },
-            "doc": {
-                "default": "Clue shows the total mines in distance 1 and distance 2\u221a2 regions"
-            },
-            "author": {
-                "name": "\u6ce2\u5e38\u672a\u6765",
-                "id": "81500378"
-            },
-            "image": "",
-            "aliases": [
-                "X''"
-            ],
-            "tags": [
-                "Local",
-                "Number Clue",
-                "Vanilla Variant",
-                "Fun"
-            ],
-            "creation_time": "2025-08-07"
         },
         {
             "rule_line": "R",
@@ -8074,27 +8077,25 @@
         },
         {
             "rule_line": "R",
-            "id": "1X-",
+            "id": "2L",
             "name": {
-                "default": "Pawn"
+                "default": "Liar"
             },
             "doc": {
-                "default": "Clue shows the number of mines in two cells pointing in one direction, with an arrow indicating the direction"
+                "default": "Each row and column has exactly one error clue. Error clues have values 1 greater or 1 less than the true value"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "",
-            "aliases": [
-                "X-"
-            ],
+            "image": "2L.png",
+            "aliases": [],
             "tags": [
+                "Variant",
                 "Local",
                 "Number Clue",
-                "Arrow Clue",
-                "Vanilla Variant",
-                "Fun"
+                "Extensive Trial",
+                "Cryptic"
             ],
             "creation_time": "2025-08-06"
         },
@@ -8122,52 +8123,6 @@
         },
         {
             "rule_line": "R",
-            "id": "2DE",
-            "name": {
-                "default": "spread"
-            },
-            "doc": {
-                "default": "The clue indicates that the area within its rectangular grid expands in four directions until it encounters a mine within the mine's range."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "2DE.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Number Clue",
-                "Mine-Counting"
-            ],
-            "creation_time": "2026-04-29 23:33:04"
-        },
-        {
-            "rule_line": "R",
-            "id": "2M''",
-            "name": {
-                "default": "Multiple"
-            },
-            "doc": {
-                "default": "Each row and column has exactly one mine counted as two"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Aux Board",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-22"
-        },
-        {
-            "rule_line": "R",
             "id": "3DV",
             "name": {
                 "default": "3D Vanilla"
@@ -8188,6 +8143,75 @@
                 "Vanilla Variant"
             ],
             "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "R",
+            "id": "1L1X'",
+            "name": {
+                "default": "Liar + Mini Cross"
+            },
+            "doc": {
+                "default": "Liar + Mini Cross combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
+            "id": "2M'",
+            "name": {
+                "default": "Multi-Mine'"
+            },
+            "doc": {
+                "default": "Each mine directly below another mine counts as two (total mine count is unlimited)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Multi-Board"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "CQ",
+            "name": {
+                "default": "Chess-Queen"
+            },
+            "doc": {
+                "default": "Clue indicates the total number of mines in the eight directions"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Construction"
+            ],
+            "creation_time": "2025-08-13"
         }
     ]
 }
