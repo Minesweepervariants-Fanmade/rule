@@ -21,7 +21,7 @@ try:
     from minesweepervariants.impl.rule.Lrule.SL_loop import SL_loop
 except ImportError:
     SL_loop = None
-    get_logger().warning("SL_loop not found, loop connectivity constraint will be skipped")
+    # get_logger().warning("SL_loop not found, loop connectivity constraint will be skipped")
 
 
 # ============================================================================
