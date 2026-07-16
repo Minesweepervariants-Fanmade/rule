@@ -5,7 +5,7 @@
 # @Author  : DeepSeek Agent
 # @FileName: V？.py
 """
-[V?]经典扫雷？：数字线索表示周围八格中的雷或非雷数。即数字可能是明雷数也可能是安全格数，玩家需要自行推理。
+[V?]经典扫雷？：数字线索表示周围八格中的雷或非雷数。即数字可能是雷数也可能是安全格数，玩家需要自行推理。
 """
 from functools import cache
 from ortools.sat.python.cp_model import IntVar
@@ -17,7 +17,7 @@ from minesweepervariants.utils.value_template import SingleIntValue, is_value_te
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 
-from ....utils.tool import get_logger
+from ....utils.tool import get_logger, get_random
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
 
 
@@ -41,8 +41,11 @@ class RuleV(AbstractClueRule):
             neis = neighbors().deviation(pos)
             neis.to_board(pos.board_key)
             value_list: list[str] = board.batch(positions=neis, mode="type")
-            count_val = value_list.count("F")
-            board.set_value(pos, ValueV(pos, count=count_val))
+            mine_count = value_list.count("F")
+            total = len(neis)
+            # 随机选雷数或非雷数作为显示值
+            count = get_random().choice([mine_count, total - mine_count])
+            board.set_value(pos, ValueV(pos, count=count))
         return board
 
 
@@ -75,6 +78,12 @@ class ValueV(AbstractClueValue):
     def invalid(self, board: 'Board') -> bool:
         return board.batch(self.neighbor, mode="type", special='raw').count("N") == 0
 
+    def weaker_times(self) -> int:
+        return 1
+
+    def weaker(self, board: 'Board') -> 'AbstractValue':
+        return VALUE_QUESS
+
     def deduce_cells(self, board: 'Board') -> bool:
         type_dict: dict[str, list[Position]] = {"N": [], "F": []}
         for pos in self.neighbor:
@@ -86,7 +95,6 @@ class ValueV(AbstractClueValue):
         f_num = len(type_dict["F"])
         if n_num == 0:
             return False
-        # V? 允许两种解释：count是雷数，或者count是非雷数(总邻格-count是雷数)
         total = len([p for p in self.neighbor if board.in_bounds(p)])
         if f_num == self.count or f_num == total - self.count:
             for i in type_dict["N"]:
@@ -103,7 +111,6 @@ class ValueV(AbstractClueValue):
         model = board.get_model()
         logger = get_logger()
 
-        # 收集周围格子的布尔变量
         neighbor_vars: list[IntVar] = []
         for neighbor in self.neighbor:
             if (var := board.get_variable(neighbor)) is not None:
@@ -112,9 +119,6 @@ class ValueV(AbstractClueValue):
         s = switch.get(model, self.pos)
         if neighbor_vars:
             total = len(neighbor_vars)
-            # count可能是雷数也可能是安全格数
-            # 即: sum == count 或者 total - sum == count
-            #    → sum == count 或者 sum == total - count
             is_mine_count = model.NewBoolVar(f'vmc_{self.pos}')
             model.add(sum(neighbor_vars) == self.count).OnlyEnforceIf([is_mine_count, s])
             model.add(sum(neighbor_vars) == total - self.count).OnlyEnforceIf([is_mine_count.Not(), s])
