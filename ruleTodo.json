@@ -3346,5 +3346,12 @@
         "author_uid": 2513946475,
         "author_name": "Indiebard (Alith)",
         "doc": "游戏会在每天调用ds实现一个随机规则，玩家需要猜是什么规则"
+    },
+    {
+        "time": 1784231286.9015763,
+        "name": "3DS",
+        "author_uid": 2513946475,
+        "author_name": "Indiebard (Alith)",
+        "doc": "14扫雷的3DS移植版本"
     }
 ]
