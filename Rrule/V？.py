@@ -5,7 +5,7 @@
 # @Author  : DeepSeek Agent
 # @FileName: V？.py
 """
-[V?]经典扫雷？：数字线索取周围八格中雷数和安全格数中较小的那个。玩家需要推理数字代表的是雷数还是安全格数。
+[V?]经典扫雷？：数字线索表示周围八格中雷数和安全格数中较小的那个。玩家需要推理这个数代表的是雷数还是安全格数。
 """
 from functools import cache
 from ortools.sat.python.cp_model import IntVar
@@ -29,8 +29,8 @@ class RuleV(AbstractClueRule):
     id = "V?"
     name = "Vanilla?"
     name.zh_CN = "经典扫雷？"
-    doc = "The clue is the smaller of the mine count and safe cell count among the 8 neighbors; the player must deduce which it represents"
-    doc.zh_CN = "线索取周围八格中雷数和安全格数中较小的值，玩家需要推理这个数代表的是雷数还是安全格数"
+    doc = "The clue is the smaller of the mine count and safe cell count among the 8 neighbors"
+    doc.zh_CN = "线索取周围八格中雷数和安全格数中较小的值"
     tags = ["Variant", "Local", "Number Clue"]
     creation_time = "2026-07-16"
     author = ("NT", 2201963934)
@@ -94,8 +94,6 @@ class ValueV(AbstractClueValue):
             return False
         total = len([p for p in self.neighbor if board.in_bounds(p)])
         c = self.count
-        # count = min(mines, non-mines)
-        # 实际雷数可能是 c 或 total - c
         if f_num == c or f_num == total - c:
             for i in type_dict["N"]:
                 board.set_value(i, VALUE_QUESS)
@@ -108,8 +106,6 @@ class ValueV(AbstractClueValue):
 
     def create_constraints(self, board: 'Board', switch: Switch):
         model = board.get_model()
-        logger = get_logger()
-
         neighbor_vars: list[IntVar] = []
         for neighbor in self.neighbor:
             if (var := board.get_variable(neighbor)) is not None:
