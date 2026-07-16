@@ -82,26 +82,7 @@ class ValueV(AbstractClueValue):
         return VALUE_QUESS
 
     def deduce_cells(self, board: 'Board') -> bool:
-        type_dict: dict[str, list[Position]] = {"N": [], "F": []}
-        for pos in self.neighbor:
-            t = board.get_type(pos)
-            if t in ("", "C"):
-                continue
-            type_dict[t].append(pos)
-        n_num = len(type_dict["N"])
-        f_num = len(type_dict["F"])
-        if n_num == 0:
-            return False
-        total = len([p for p in self.neighbor if board.in_bounds(p)])
-        c = self.count
-        if f_num == c or f_num == total - c:
-            for i in type_dict["N"]:
-                board.set_value(i, VALUE_QUESS)
-            return True
-        if f_num + n_num == c or f_num + n_num == total - c:
-            for i in type_dict["N"]:
-                board.set_value(i, MINES_TAG)
-            return True
+        # V? 线索有歧义，无法通过简单计数推理确定雷/安全格
         return False
 
     def create_constraints(self, board: 'Board', switch: Switch):
