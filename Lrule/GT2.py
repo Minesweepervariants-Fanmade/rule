@@ -21,6 +21,12 @@ from minesweepervariants.board import Board
 
 from .connect import connect
 
+GT2_HELP = (
+    "GT2约束语法: GT2:<子句1>,<子句2>,... 子句前缀: #仅雷格, ?仅安全格, "
+    "无前缀同时约束,子句格式: 比较表达式(操作符: > < >= <= =)或区间([下限,上限]"
+    "或(下限,上限)), 示例: '>1' '#<3' '?>=2' '>1,<5' '#[2,4],?[0,1]'"
+)
+
 
 class RuleGT2(AbstractMinesRule):
     id = "GT2"
@@ -36,6 +42,8 @@ class RuleGT2(AbstractMinesRule):
 
     def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
+        if data == "h":
+            raise ValueError("GT2HELP" + GT2_HELP)
         self.mine_area_conditions, self.safe_area_conditions = self._parse_data(data)
 
     @staticmethod
