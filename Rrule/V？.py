@@ -55,12 +55,14 @@ class RuleV(AbstractClueRule):
 class ValueV(AbstractClueValue):
     id = RuleV.id
 
-    def __init__(self, pos: Position, values: list[int] | None = None, code: bytes | None = None):
+    def __init__(self, pos: Position, values: list[int] | bytes | None = None, code: bytes | None = None):
         super().__init__(pos, code if code else b'')
-        if code is not None:
-            self.values: list[int] = list(code)
+        if isinstance(values, bytes):
+            self.values: list[int] = list(values)
+        elif values is not None:
+            self.values = list(values)
         else:
-            self.values = values if values is not None else [MISSING_VALUE, MISSING_VALUE]
+            self.values = [MISSING_VALUE, MISSING_VALUE]
         neis = neighbors().deviation(pos)
         neis.to_board(pos.board_key)
         self.neighbor = neis
