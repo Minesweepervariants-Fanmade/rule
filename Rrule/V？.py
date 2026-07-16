@@ -5,7 +5,7 @@
 # @Author  : DeepSeek Agent
 # @FileName: V？.py
 """
-[V?]经典扫雷？：数字线索表示周围八格中的雷或非雷数。即数字可能是雷数也可能是安全格数，玩家需要自行推理。
+[V?]经典扫雷？：数字线索表示周围八格中的雷或非雷数。两个数字分别表示雷数和安全格数，但哪个是哪个不确定。
 """
 from functools import cache
 from ortools.sat.python.cp_model import IntVar
@@ -13,12 +13,17 @@ from minesweepervariants.abs.rule import AbstractValue
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.json_object import JSONObject, deep_unwrap
 from minesweepervariants.position_set import PositionSet
-from minesweepervariants.utils.value_template import SingleIntValue, is_value_template
+from minesweepervariants.utils.value_template import is_value_template, Template
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 
 from ....utils.tool import get_logger, get_random
 from ....utils.impl_obj import VALUE_QUESS, MINES_TAG
+from ....utils.image_template import get_text, get_row
+from ....utils.web_template import MultiNumber
+from typing import cast
+
+MISSING_VALUE = 250
 
 
 @cache
@@ -30,8 +35,8 @@ class RuleV(AbstractClueRule):
     id = "V?"
     name = "Vanilla?"
     name.zh_CN = "经典扫雷？"
-    doc = "Each number indicates either the mine count or safe cell count in the surrounding eight cells"
-    doc.zh_CN = "每个数字标明周围八格中雷或非雷的数量，玩家需要自行推理是雷数还是安全格数"
+    doc = "Two numbers indicate the mine count and safe cell count in the surrounding eight cells, but which is which is unknown"
+    doc.zh_CN = "两个数字分别表示周围八格中的雷数和非雷数，但哪个是哪个不确定"
     tags = ["Variant", "Local", "Number Clue"]
     creation_time = "2026-07-16"
     author = ("NT", 2201963934)
@@ -43,34 +48,49 @@ class RuleV(AbstractClueRule):
             value_list: list[str] = board.batch(positions=neis, mode="type")
             mine_count = value_list.count("F")
             total = len(neis)
-            # 随机选雷数或非雷数作为显示值
-            count = get_random().choice([mine_count, total - mine_count])
-            board.set_value(pos, ValueV(pos, count=count))
+            board.set_value(pos, ValueV(pos, [mine_count, total - mine_count]))
         return board
 
 
 class ValueV(AbstractClueValue):
     id = RuleV.id
 
-    def __init__(self, pos: Position, count: int = 0):
-        super().__init__(pos, b'')
-        self.count = count
+    def __init__(self, pos: Position, values: list[int] | None = None, code: bytes | None = None):
+        super().__init__(pos, code if code else b'')
+        if code is not None:
+            self.values: list[int] = list(code)
+        else:
+            self.values = values if values is not None else [MISSING_VALUE, MISSING_VALUE]
         neis = neighbors().deviation(pos)
         neis.to_board(pos.board_key)
         self.neighbor = neis
 
-        self.value = SingleIntValue(self.count)
+    def __repr__(self):
+        return "/".join([str(v) if v != MISSING_VALUE else "?" for v in self.values])
+
+    def compose(self, board) -> dict:
+        a, b = self.values
+        return get_row(
+            get_text(str(a) if a != MISSING_VALUE else "?"),
+            get_text(str(b) if b != MISSING_VALUE else "?"),
+            spacing=0
+        )
+
+    def web_component(self, board) -> dict:
+        a, b = self.values
+        return MultiNumber([
+            str(a) if a != MISSING_VALUE else "?",
+            "",
+            str(b) if b != MISSING_VALUE else "?",
+            ""
+        ])
 
     @classmethod
-    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
-        _data = deep_unwrap(data)
-        if not is_value_template(_data):
-            raise TypeError()
-        template_data = _data
-        value = SingleIntValue.try_from(template_data)
-        if value is None:
-            raise ValueError()
-        return cls(pos, count=value.value)
+    def type(cls) -> bytes:
+        return RuleV.id.encode("ascii")
+
+    def code(self) -> bytes:
+        return bytes(self.values)
 
     def high_light(self, board: 'Board') -> list['Position']:
         return list(self.neighbor)
@@ -79,10 +99,15 @@ class ValueV(AbstractClueValue):
         return board.batch(self.neighbor, mode="type", special='raw').count("N") == 0
 
     def weaker_times(self) -> int:
-        return 1
+        return sum(1 for v in self.values if v != MISSING_VALUE)
 
     def weaker(self, board: 'Board') -> 'AbstractValue':
-        return VALUE_QUESS
+        if self.weaker_times() == 1:
+            return VALUE_QUESS
+        valid_idx = [i for i, v in enumerate(self.values) if v != MISSING_VALUE]
+        new_values = self.values[:]
+        new_values[get_random().choice(valid_idx)] = MISSING_VALUE
+        return ValueV(self.pos, new_values)
 
     def deduce_cells(self, board: 'Board') -> bool:
         type_dict: dict[str, list[Position]] = {"N": [], "F": []}
@@ -95,19 +120,28 @@ class ValueV(AbstractClueValue):
         f_num = len(type_dict["F"])
         if n_num == 0:
             return False
+        a, b = self.values
         total = len([p for p in self.neighbor if board.in_bounds(p)])
-        if f_num == self.count or f_num == total - self.count:
+        if a == MISSING_VALUE and b == MISSING_VALUE:
+            return False
+        if a == MISSING_VALUE:
+            valid_counts = {b, total - b}
+        elif b == MISSING_VALUE:
+            valid_counts = {a, total - a}
+        else:
+            valid_counts = {a, b, total - a, total - b}
+        if f_num in valid_counts:
             for i in type_dict["N"]:
                 board.set_value(i, VALUE_QUESS)
             return True
-        if f_num + n_num == self.count or f_num + n_num == total - self.count:
+        if f_num + n_num in valid_counts:
             for i in type_dict["N"]:
                 board.set_value(i, MINES_TAG)
             return True
         return False
 
     def create_constraints(self, board: 'Board', switch: Switch):
-        """创建CP-SAT约束: 周围雷数等于count或总邻格数-count"""
+        """创建CP-SAT约束: 周围雷数等于两个值之一"""
         model = board.get_model()
         logger = get_logger()
 
@@ -118,8 +152,12 @@ class ValueV(AbstractClueValue):
 
         s = switch.get(model, self.pos)
         if neighbor_vars:
-            total = len(neighbor_vars)
-            is_mine_count = model.NewBoolVar(f'vmc_{self.pos}')
-            model.add(sum(neighbor_vars) == self.count).OnlyEnforceIf([is_mine_count, s])
-            model.add(sum(neighbor_vars) == total - self.count).OnlyEnforceIf([is_mine_count.Not(), s])
-            logger.trace(f"[V?] Value[{self.pos}: {self.count}] add: sum=={self.count} or sum=={total-self.count}")
+            a, b = self.values
+            if a != MISSING_VALUE and b != MISSING_VALUE:
+                is_a = model.NewBoolVar(f'vma_{self.pos}')
+                model.add(sum(neighbor_vars) == a).OnlyEnforceIf([is_a, s])
+                model.add(sum(neighbor_vars) == b).OnlyEnforceIf([is_a.Not(), s])
+            elif a != MISSING_VALUE:
+                model.add(sum(neighbor_vars) == a).OnlyEnforceIf(s)
+            elif b != MISSING_VALUE:
+                model.add(sum(neighbor_vars) == b).OnlyEnforceIf(s)
