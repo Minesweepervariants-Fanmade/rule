@@ -64,7 +64,7 @@ class Rule7SD(AbstractMinesRule):
         15: (1, 0, 0, 0, 1, 1, 1),  # F
     }
 
-    # 预计算每个数字的7段图案
+    # 预计算每个数字的7+6=13位图案 (7段 + 6顶点)
     PATTERNS: Dict[int, Tuple[int, ...]] = {}
 
     # 顶点到连接段的映射 (顶点索引 -> 连接的段索引列表)
@@ -79,11 +79,13 @@ class Rule7SD(AbstractMinesRule):
 
     @classmethod
     def _build_patterns(cls):
-        """构建每个数字的7段图案"""
+        """构建每个数字的13位图案 (7段+6顶点)"""
         if cls.PATTERNS:
             return
         for digit, seg_code in cls.SEVEN_SEGMENT_CODES.items():
-            cls.PATTERNS[digit] = seg_code  # 7个元素
+            vertex_code = tuple(1 if any(seg_code[si] for si in vm) else 0
+                                for vm in cls.VERTEX_SEGMENT_MAP)
+            cls.PATTERNS[digit] = seg_code + vertex_code  # 13个元素
 
     def __init__(self, board: "Board | None" = None, data: str | None = None):
         super().__init__(board, data)
@@ -190,25 +192,29 @@ class Rule7SD(AbstractMinesRule):
 
         # 为每个区域创建约束
         for seg_vars, vertex_vars, inner_vars, outer_vars, r, c in regions:
-            # 7段格的状态变量 (匹配0-F数码管标准图案)
-            pattern_vars = seg_vars
+            # 13格状态变量 (7段 + 6顶点) — 匹配0-F数码管标准图案
+            pattern_vars = seg_vars + vertex_vars
 
-            # 创建数字变量 digit (0-15)，仅在是数码管时有效
+            # 创建数字变量 digit (0-15)
             digit = model.NewIntVar(0, 15, f'digit_{r}_{c}')
+
+            # 计算外面格变量和
+            sum_outer = sum(outer_vars)
 
             # 为每个数字d创建匹配标志 is_digit_d
             is_d_vars = []
             for d, pattern in self.PATTERNS.items():
                 is_d = model.NewBoolVar(f'is_digit_{r}_{c}_{d}')
 
-                # 构建匹配条件: 所有要求为1的位置变量为1，所有要求为0的位置变量为0
+                # 构建匹配条件: 13位(段+顶点) + 内面格共同决定数码管
                 conditions = []
                 for var, state in zip(pattern_vars, pattern):
                     if state == 1:
                         conditions.append(var)
                     else:
-                        # 要求为0，即 (1 - var) 为真
                         conditions.append(var.Not())
+                for v in inner_vars:
+                    conditions.append(v.Not())
 
                 # is_d => AND(conditions)
                 for cond in conditions:
@@ -230,21 +236,12 @@ class Rule7SD(AbstractMinesRule):
             # digit 等于匹配的数字
             model.Add(digit == sum(d * is_d for d, is_d in enumerate(is_d_vars)))
 
-            # 数码管的内面格必须为非雷 (is_segment=1且rule_switch=1时激活)
+            # 数码管的内面格必须为非雷 (is_segment=1时激活)
             for v in inner_vars:
-                model.Add(v == 0).OnlyEnforceIf([is_segment, rule_switch])
+                model.Add(v == 0).OnlyEnforceIf(is_segment)
 
-            # 外面格的雷数之和 == digit (is_segment=1且rule_switch=1时激活)
-            sum_outer = sum(outer_vars)
-            model.Add(sum_outer == digit).OnlyEnforceIf([is_segment, rule_switch])
-
-            # 顶点格约束 (is_segment=1且rule_switch=1时激活)
-            for v_idx, seg_indices in enumerate(self.VERTEX_SEGMENT_MAP):
-                v = vertex_vars[v_idx]
-                connected_segs = [seg_vars[si] for si in seg_indices]
-                for s in connected_segs:
-                    model.AddImplication(s, v).OnlyEnforceIf([is_segment, rule_switch])
-                model.AddBoolOr([v.Not()] + connected_segs).OnlyEnforceIf([is_segment, rule_switch])
+            # 外面格的雷数之和 == digit (is_segment=1时激活)
+            model.Add(sum_outer == digit).OnlyEnforceIf(is_segment)
 
             # 收集该区域的 is_segment 变量，用于确保至少有一个数码管
             segment_vars.append(is_segment)
