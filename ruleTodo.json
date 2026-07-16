@@ -3276,5 +3276,12 @@
         "author_uid": 2012930469,
         "author_name": "Xqbk",
         "doc": "规则介绍"
+    },
+    {
+        "time": 1784191150.8386195,
+        "name": "5U",
+        "author_uid": 81500378,
+        "author_name": "mabopei1",
+        "doc": "连体：相同四连通的染色格区域中要么都为雷、要么都为非雷。"
     }
 ]
