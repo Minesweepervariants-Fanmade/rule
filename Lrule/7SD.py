@@ -1,4 +1,4 @@
-from typing import List, Tuple, Dict, Set
+from typing import List, Tuple, Dict
 from ortools.sat.python.cp_model import CpModel, IntVar
 
 from ....abs.Lrule import AbstractMinesRule
@@ -91,10 +91,12 @@ class Rule7SD(AbstractMinesRule):
         self.mine_placement = False  # 默认不加雷排布约束
         if data is not None:
             import re
-            m = re.match(r'^(\d+)(!?)$', data)
-            if m:
+            m = re.match(r'^(\d+)?(!?)$', data)
+            if not m:
+                raise ValueError(f"Invalid 7SD parameter: '{data}'. Format: [count][!], e.g. '2' or '3!' or '!'")
+            if m.group(1):
                 self.min_segments = int(m.group(1))
-                self.mine_placement = (m.group(2) == '!')
+            self.mine_placement = (m.group(2) == '!')
 
     def create_constraints(self, board: 'Board', switch):
         """
@@ -177,8 +179,14 @@ class Rule7SD(AbstractMinesRule):
 
                 regions.append((seg_vars, vertex_vars, inner_vars, outer_vars, r, c))
 
+        # 获取规则开关
+        rule_switch = switch.get(model, self)
+
         # 用于收集所有区域的is_segment变量，确保至少有一个数码管
         segment_vars = []
+        # 位置到 is_segment 的映射 (用于!约束)
+        if self.mine_placement:
+            pos_to_segments: dict[Position, list[IntVar]] = {}
 
         # 为每个区域创建约束
         for seg_vars, vertex_vars, inner_vars, outer_vars, r, c in regions:
@@ -202,11 +210,11 @@ class Rule7SD(AbstractMinesRule):
                         # 要求为0，即 (1 - var) 为真
                         conditions.append(var.Not())
 
-                # is_d => AND(conditions): 每个条件 -> AddBoolOr([Not(is_d), cond])
+                # is_d => AND(conditions)
                 for cond in conditions:
                     model.AddBoolOr([is_d.Not(), cond])
 
-                # AND(conditions) => is_d: 如果所有条件满足, 则必须是数字d
+                # AND(conditions) => is_d
                 not_conds = [cond.Not() for cond in conditions]
                 model.AddBoolOr(not_conds + [is_d])
 
@@ -222,65 +230,61 @@ class Rule7SD(AbstractMinesRule):
             # digit 等于匹配的数字
             model.Add(digit == sum(d * is_d for d, is_d in enumerate(is_d_vars)))
 
-            # 数码管的内面格必须为非雷 (非数码管时无约束)
+            # 数码管的内面格必须为非雷 (is_segment=1且rule_switch=1时激活)
             for v in inner_vars:
-                model.Add(v <= 1 - is_segment)
+                model.Add(v == 0).OnlyEnforceIf([is_segment, rule_switch])
 
-            # 外面格的雷数之和 == digit (Big-M)
+            # 外面格的雷数之和 == digit (is_segment=1且rule_switch=1时激活)
             sum_outer = sum(outer_vars)
-            M = len(outer_vars) + 15
-            model.Add(sum_outer <= digit + M * (1 - is_segment))
-            model.Add(sum_outer >= digit - M * (1 - is_segment))
+            model.Add(sum_outer == digit).OnlyEnforceIf([is_segment, rule_switch])
 
-            # 数码管的顶点格由连接的段决定 (非数码管时约束不激活)
+            # 顶点格约束 (is_segment=1且rule_switch=1时激活)
             for v_idx, seg_indices in enumerate(self.VERTEX_SEGMENT_MAP):
                 v = vertex_vars[v_idx]
                 connected_segs = [seg_vars[si] for si in seg_indices]
-                # 正向: 任何连接的段是雷 → 顶点必须是雷
                 for s in connected_segs:
-                    model.AddBoolOr([s.Not(), v, is_segment.Not()])
-                # 反向: 顶点是雷 → 至少一个连接的段是雷
-                model.AddBoolOr([is_segment.Not(), v.Not()] + connected_segs)
+                    model.AddImplication(s, v).OnlyEnforceIf([is_segment, rule_switch])
+                model.AddBoolOr([v.Not()] + connected_segs).OnlyEnforceIf([is_segment, rule_switch])
 
             # 收集该区域的 is_segment 变量，用于确保至少有一个数码管
             segment_vars.append(is_segment)
 
-        # 确保至少 self.min_segments 个数码管 (无区域时 sum=0, 自动不可满足)
-        model.Add(sum(segment_vars) >= self.min_segments)
-
-        # 雷排布约束: 雷只能在段格/顶点格/外面格中
-        if self.mine_placement:
-            allowed: set[Position] = set()
-            for seg_vars, vertex_vars, inner_vars, outer_vars, r, c in regions:
+            # 收集位置到 is_segment 的映射 (用于!约束: 雷只能在数码管区域的段/顶点/外面格中)
+            if self.mine_placement:
                 for dr, dc in self.SEGMENT_POSITIONS:
-                    allowed.add(Position(c + dc, r + dr, main_key))
+                    pos_to_segments.setdefault(Position(c + dc, r + dr, main_key), []).append(is_segment)
                 for dr, dc in self.VERTEX_POSITIONS:
-                    allowed.add(Position(c + dc, r + dr, main_key))
-                # 外面格
+                    pos_to_segments.setdefault(Position(c + dc, r + dr, main_key), []).append(is_segment)
                 for j in range(3):
                     p = Position(c + j, r - 1, main_key)
                     if board.is_valid(p):
-                        allowed.add(p)
+                        pos_to_segments.setdefault(p, []).append(is_segment)
                 for j in range(3):
                     p = Position(c + j, r + 5, main_key)
                     if board.is_valid(p):
-                        allowed.add(p)
+                        pos_to_segments.setdefault(p, []).append(is_segment)
                 for i in range(5):
                     p = Position(c - 1, r + i, main_key)
                     if board.is_valid(p):
-                        allowed.add(p)
+                        pos_to_segments.setdefault(p, []).append(is_segment)
                 for i in range(5):
                     p = Position(c + 3, r + i, main_key)
                     if board.is_valid(p):
-                        allowed.add(p)
-            # 禁止在允许集之外的格放雷
+                        pos_to_segments.setdefault(p, []).append(is_segment)
+
+        # 确保至少 min_segments 个数码管 (rule_switch=0时自动满足)
+        model.Add(sum(segment_vars) >= self.min_segments).OnlyEnforceIf(rule_switch)
+
+        # 雷排布约束: 雷只能在数码管区域的段/顶点/外面格中
+        if self.mine_placement:
             row_max = board.boundary(main_key).row + 1
             col_max = board.boundary(main_key).col + 1
             for row in range(row_max):
                 for col in range(col_max):
                     p = Position(col, row, main_key)
-                    if p not in allowed and board.is_valid(p):
-                        model.Add(board.get_variable(p) == 0)
+                    if board.is_valid(p):
+                        seg_list = pos_to_segments.get(p, [])
+                        model.Add(board.get_variable(p) <= sum(seg_list)).OnlyEnforceIf(rule_switch)
 
     def suggest_total(self, info: dict):
         """
