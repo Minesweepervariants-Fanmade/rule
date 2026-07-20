@@ -3391,8 +3391,8 @@
     {
         "time": 1784554978.6775303,
         "name": "杀",
-        "author_uid": 3140864122,
-        "author_name": "雾",
+        "author_uid": -1,
+        "author_name": "Indiebard",
         "doc": "最新最高指令",
         "image": "杀.png"
     }
