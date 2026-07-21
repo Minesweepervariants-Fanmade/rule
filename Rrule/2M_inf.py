@@ -55,7 +55,9 @@ class Rule2M_inf(AbstractClueRule):
         from minesweepervariants.impl.summon.solver import solver_model
         from ortools.sat.python.cp_model import INFEASIBLE, CpSolver
         logger = get_logger()
-        model = board.get_model()
+        model = board.get_model().clone()
+        for _, var in board("N", mode="var"):
+            model.add(var == 0)
         status, solver = solver_model(model, True)
         solver: CpSolver
         if not status:
