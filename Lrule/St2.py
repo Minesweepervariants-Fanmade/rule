@@ -155,7 +155,7 @@ class St2(_St2Base):
     """
     id = "St2"
     doc = "For a mine, left/right same iff up/down same. (No constraint for column A, last column, row 1, last row)"
-    doc.zh_CN = "一个雷的左右和上下的状态相同与否的状态相同。（第A列，最后一列，第1行，最后一行的雷/非雷无约束）"
+    doc.zh_CN = "一个雷的左右和上下的状态相同与否的状态相同。（前加~改成非雷，后加~改成不同，可以都加）（第A列，最后一列，第1行，最后一行的雷/非雷无约束）"
 
     def __init__(self, board: "Board" = None, data: str = None) -> None:
         super().__init__(board, data)
