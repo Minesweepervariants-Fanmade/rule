@@ -3500,5 +3500,12 @@
         "author_uid": 2943562293,
         "author_name": "QuirkyStorm7988（备战高考）",
         "doc": "对于任意非雷格，其周围4格雷数不为1"
+    },
+    {
+        "time": 1784814941.4723346,
+        "name": "~C1T",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "任意四雷上的点不能共线"
     }
 ]
