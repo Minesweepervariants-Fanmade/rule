@@ -62,6 +62,10 @@ class Rule2ECSharp(AbstractClueSharp):
                         _add(r)
                 else:
                     _add(rule)
+        pos = board.boundary()
+        size = min(pos.x + 1, 9)
+        if len(self.rules) > size:
+            self.rules = get_random().sample(list(self.rules), k=size)
         super().__init__(self.rules, board)
         pos = board.boundary()
         size = min(pos.x + 1, 9)
@@ -95,7 +99,7 @@ class Rule2ECSharp(AbstractClueSharp):
             for col in range(size):
                 p = Position(col, row, NAME_2EC)
                 if rname:
-                    labels_dict[p] = f"{chr(65 + col)}={row}\n{chr(65 + col)}={rname}"
+                    labels_dict[p] = f"{chr(65 + col)}={row}\n{chr(65 + row)}={rname}"
                 else:
                     labels_dict[p] = f"{chr(65 + col)}={row}\n"
         board.set_config(NAME_2EC, "labels", labels_dict)
@@ -213,37 +217,22 @@ class Value2ECSharp(AbstractClueValue):
         return chr(97 + self.rule_enc % 26).encode("ascii")
 
     def create_constraints(self, board: 'Board', switch):
+        """Value decryption via sub-board column (like 2E#); rule used directly from self.rule."""
         model = board.get_model()
         s = switch.get(model, self)
 
         temp_list = []
         value_line = board.batch(board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC)), mode="variable")
-        rule_line = board.batch(board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_2EC)), mode="variable")
-        labels = board.get_config(NAME_2EC, "labels")
         for value_index, value_var in enumerate(value_line):
-            for rule_index, rule_var in enumerate(rule_line):
-                rule = self.rule_at(labels, rule_index)
-                if not rule:
-                    continue
-                temp = model.NewBoolVar(f"temp_{self.pos}_{value_index}_{rule_index}")
-                model.Add(temp == 1).OnlyEnforceIf([value_var, rule_var, s])
-                clue = self.get_clue(rule, value_index)
-                if clue is None:
-                    continue
-                clue.create_constraints(board, FakeSwitch(temp))
-                temp_list.append(temp)
+            temp = model.NewBoolVar(f"temp_{self.pos}_{value_index}")
+            model.Add(temp == 1).OnlyEnforceIf([value_var, s])
+            clue = self.get_clue(self.rule, value_index)
+            if clue is None:
+                continue
+            clue.create_constraints(board, FakeSwitch(temp))
+            temp_list.append(temp)
         if temp_list:
             model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
-
-    @staticmethod
-    def rule_at(labels, row: int) -> str:
-        prefix = "A="
-        pos = Position(0, row, NAME_2EC)
-        text = labels.get(pos, '') if hasattr(labels, 'get') else ''
-        parts = text.splitlines()
-        if len(parts) < 2:
-            return ''
-        return parts[1][len(prefix):] if parts[1].startswith(prefix) else ''
 
     def get_clue(self, rule: str, value: int | None = None) -> AbstractClueValue:
         from minesweepervariants.utils.value_template import SingleIntValue
