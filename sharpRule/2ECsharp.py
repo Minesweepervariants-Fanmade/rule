@@ -15,6 +15,7 @@ from ....utils.web_template import Number, MultiNumber, StrWithArrow
 from base64 import b64encode
 
 NAME_2EC = "2EC"
+NAME_RULE = "C"
 rule2P = import_module("minesweepervariants.impl.rule.Rrule.2P")
 
 class Rule2ECSharp(AbstractClueSharp):
@@ -70,6 +71,7 @@ class Rule2ECSharp(AbstractClueSharp):
         pos = board.boundary()
         size = min(pos.x + 1, 9)
         board.generate_board(NAME_2EC, Size(size, size))
+        board.generate_board(NAME_RULE, Size(size, size))
         for key in board.get_interactive_keys():
             board.set_config(key, "by_mini", True)
 
@@ -90,20 +92,38 @@ class Rule2ECSharp(AbstractClueSharp):
         for pos, _ in board("N", key=NAME_2EC):
             board.set_value(pos, VALUE_CROSS)
 
+        # Rule encryption sub-board (like C#)
+        for x, y in enumerate(shuffled_rules):
+            pos = board.get_pos(x, y, NAME_RULE)
+            board.set_value(pos, VALUE_CIRCLE)
+
+        for pos, _ in board("N", key=NAME_RULE):
+            board.set_value(pos, VALUE_CROSS)
+
         boards: list[Board] = []
         boards = [r.fill(board.clone()) for r in fill_rules]
         labels_dict = {}
+        rule_labels = {}
         for row in range(size):
             rule_index = shuffled_rules.index(row) if row in shuffled_rules else -1
             rname = getattr(fill_rules[rule_index], 'id', '') if rule_index >= 0 else ''
             for col in range(size):
                 p = Position(col, row, NAME_2EC)
                 if rname:
-                    labels_dict[p] = f"{chr(65 + col)}={row}\n{chr(65 + row)}={rname}"
-                else:
-                    labels_dict[p] = f"{chr(65 + col)}={row}\n"
+                    labels_dict[p] = f"{chr(65 + col)}={row}\n{chr(97 + row)}={rname}"
+
+        # Rule sub-board labels: only at O positions
+        for ci in range(ns):
+            ri = shuffled_rules[ci] if ci < len(shuffled_rules) else -1
+            if 0 <= ri < len(fill_rules):
+                rname = getattr(fill_rules[ri], 'id', '')
+                if rname:
+                    rp = Position(ci, ri, NAME_RULE)
+                    rule_labels[rp] = f"{chr(97 + ci)}={rname}"
         board.set_config(NAME_2EC, "labels", labels_dict)
         board.set_config(NAME_2EC, "pos_label", True)
+        board.set_config(NAME_RULE, "labels", rule_labels)
+        board.set_config(NAME_RULE, "pos_label", True)
 
         for pos, _ in board("N"):
             valid = []
@@ -158,8 +178,24 @@ class Rule2ECSharp(AbstractClueSharp):
             var = board.batch(line, mode="variable")
             model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
 
+        # Rule sub-board constraints
+        bound_r = board.boundary(key=NAME_RULE)
+        row_r = board.get_row_pos(bound_r)
+        for pos in row_r:
+            line = board.get_col_pos(pos)
+            var = board.batch(line, mode="variable")
+            model.Add(sum(var) == 1).OnlyEnforceIf(s_col)
+
+        col_r = board.get_col_pos(bound_r)
+        for pos in col_r:
+            line = board.get_row_pos(pos)
+            var = board.batch(line, mode="variable")
+            model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
+
     def init_clear(self, board: 'Board'):
         for pos, _ in board(key=NAME_2EC):
+            board.set_value(pos, None)
+        for pos, _ in board(key=NAME_RULE):
             board.set_value(pos, None)
 
 
@@ -211,7 +247,7 @@ class Value2ECSharp(AbstractClueValue):
         return bytes([self.enc, self.rule_enc, self.value]) + self.rule.encode("ascii")
 
     def tag(self, board) -> bytes:
-        line = board.batch(board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_2EC)), mode="type")
+        line = board.batch(board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_RULE)), mode="type")
         if "F" in line:
             return self.rule.encode("ascii")
         return chr(97 + self.rule_enc % 26).encode("ascii")
