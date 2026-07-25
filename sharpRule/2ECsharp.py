@@ -34,25 +34,35 @@ class Rule2ECSharp(AbstractClueSharp):
     author = ("NT", 2201963934)
 
     def __init__(self, board: "Board" = None, data=None) -> None:
-        self.rules = set()
+        self.rules = []
+        _seen = set()
+        def _add(r):
+            if r not in _seen:
+                self.rules.append(r)
+                _seen.add(r)
         if not data:
-            self.rules.update(["V", "1M", "1L", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "2X'", "2X", "2D", "2P", "2M", "2A"])
+            for r in ["V", "1M", "1L", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "2X'", "2X", "2D", "2P", "2M", "2A"]:
+                _add(r)
         else:
-            rules = data.split(";")
-            for rule in rules:
+            for rule in data.split(";"):
                 if rule == "1#":
-                    self.rules.update(["V", "1M", "1L", "1W", "1N", "1X", "1P", "1E"])
+                    for r in ["V", "1M", "1L", "1W", "1N", "1X", "1P", "1E"]:
+                        _add(r)
                 elif rule == "1#'":
-                    self.rules.update(["V", "1M", "1L", "1W", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "1E'", "1L1M", "1M1N", "1M1X", "1N1X"])
+                    for r in ["V", "1M", "1L", "1W", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "1E'", "1L1M", "1M1N", "1M1X", "1N1X"]:
+                        _add(r)
                 elif rule == "2#":
-                    self.rules.update(["V", "2X", "2D", "2P", "2M", "2A"])
+                    for r in ["V", "2X", "2D", "2P", "2M", "2A"]:
+                        _add(r)
                 elif rule == "2#'":
-                    self.rules.update(["V", "2X", "2D", "2P", "2M", "2A", "2X'"])
+                    for r in ["V", "2X", "2D", "2P", "2M", "2A", "2X'"]:
+                        _add(r)
                 elif rule == "2#':":
-                    self.rules.update(["V", "2X", "2D", "2P", "2M", "2X'"])
+                    for r in ["V", "2X", "2D", "2P", "2M", "2X'"]:
+                        _add(r)
                 else:
-                    self.rules.add(rule)
-        super().__init__(list(self.rules), board)
+                    _add(rule)
+        super().__init__(self.rules, board)
         pos = board.boundary()
         size = min(pos.x + 1, 9)
         board.generate_board(NAME_2EC, Size(size, size))
@@ -62,9 +72,13 @@ class Rule2ECSharp(AbstractClueSharp):
     def fill(self, board: 'Board') -> 'Board':
         self.init_clear(board)
         random = get_random()
+        fill_rules = [r for r in self.shape_rule.rules if hasattr(r, 'fill')]
         size = min(9, board.boundary().x + 1)
+        ns = min(size, len(fill_rules))
         shuffled_nums = [i for i in range(size)]
+        shuffled_rules = [i for i in range(ns)]
         random.shuffle(shuffled_nums)
+        random.shuffle(shuffled_rules)
         for x, y in enumerate(shuffled_nums):
             pos = board.get_pos(x, y, NAME_2EC)
             board.set_value(pos, VALUE_CIRCLE)
@@ -73,12 +87,11 @@ class Rule2ECSharp(AbstractClueSharp):
             board.set_value(pos, VALUE_CROSS)
 
         boards: list[Board] = []
-        # Limit to sub-board size
-        fill_rules = [r for r in self.shape_rule.rules if hasattr(r, 'fill')]
         boards = [r.fill(board.clone()) for r in fill_rules]
         labels_dict = {}
         for row in range(size):
-            rname = getattr(fill_rules[row], 'id', '') if row < len(fill_rules) else ''
+            rule_index = shuffled_rules.index(row) if row in shuffled_rules else -1
+            rname = getattr(fill_rules[rule_index], 'id', '') if rule_index >= 0 else ''
             for col in range(size):
                 p = Position(col, row, NAME_2EC)
                 if rname:
@@ -101,7 +114,9 @@ class Rule2ECSharp(AbstractClueSharp):
 
             if valid:
                 rule_idx, type, val = random.choice(valid)
-                board.set_value(pos, Value2ECSharp(pos, value=shuffled_nums[val], rule=type, rule_idx=rule_idx))
+                e_col = shuffled_nums.index(val)
+                rule_enc = shuffled_rules[rule_idx]
+                board.set_value(pos, Value2ECSharp(pos, value=val, rule=type, enc=e_col, rule_enc=rule_enc))
             else:
                 board.set_value(pos, VALUE_QUESS)
 
@@ -146,35 +161,40 @@ class Rule2ECSharp(AbstractClueSharp):
 
 class Value2ECSharp(AbstractClueValue):
     id = Rule2ECSharp.id
-    def __init__(self, pos: Position, value: int = 0, rule: str = '', rule_idx: int = 0, code: bytes = None) -> None:
+    def __init__(self, pos: Position, value: int = 0, rule: str = '', rule_idx: int = 0, shuffled_rule: int = 0, enc: int = 0, rule_enc: int | None = None, code: bytes = None) -> None:
         super().__init__(pos)
-        if isinstance(value, (bytes, bytearray)) and len(value) >= 3:
-            self.value = value[0]
-            self.rule_idx = value[1]
-            self.rule = value[2:].decode("ascii", "ignore")
-        elif code and isinstance(code, (bytes, bytearray)) and len(code) >= 3:
-            self.value = code[0]
-            self.rule_idx = code[1]
-            self.rule = code[2:].decode("ascii", "ignore")
+        if isinstance(value, (bytes, bytearray)):
+            self.enc = value[0] if len(value) >= 1 else 0
+            self.rule_enc = value[1] if len(value) >= 2 else 0
+            self.value = value[2] if len(value) >= 3 else 0
+            self.rule = value[3:].decode("ascii", "ignore") if len(value) >= 4 else ''
+        elif code and isinstance(code, (bytes, bytearray)):
+            self.enc = code[0] if len(code) >= 1 else 0
+            self.rule_enc = code[1] if len(code) >= 2 else 0
+            self.value = code[2] if len(code) >= 3 else 0
+            self.rule = code[3:].decode("ascii", "ignore") if len(code) >= 4 else ''
         else:
             self.value = int(value)
             self.rule = rule
-            self.rule_idx = rule_idx
+            self.enc = enc
+            self.rule_enc = rule_enc if rule_enc is not None else (shuffled_rule or rule_idx)
+        self.rule_idx = self.rule_enc
+        self.shuffled_rule = self.rule_enc
 
     def __str__(self) -> str:
-        return f"{'ABCDEFGHI'[self.value]}{chr(97 + self.rule_idx % 26)}"
+        return f"{'ABCDEFGHI'[self.enc]}{chr(97 + self.rule_enc % 26)}"
 
     def web_component(self, board) -> Dict:
-        line = board.batch(board.get_col_pos(board.get_pos(0, self.value, NAME_2EC)), mode="type")
+        line = board.batch(board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC)), mode="type")
         if "F" in line:
             return Number(str(line.index("F")))
-        return Number("ABCDEFGHI"[self.value])
+        return Number("ABCDEFGHI"[self.enc])
 
     def compose(self, board) -> Dict:
-        line = board.batch(board.get_col_pos(board.get_pos(0, self.value, NAME_2EC)), mode="type")
+        line = board.batch(board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC)), mode="type")
         if "F" in line:
             return get_col(get_dummy(height=0.3), get_text(str(line.index("F"))), get_dummy(height=0.3))
-        return get_col(get_dummy(height=0.3), get_text("ABCDEFGHI"[self.value]), get_dummy(height=0.3))
+        return get_col(get_dummy(height=0.3), get_text("ABCDEFGHI"[self.enc]), get_dummy(height=0.3))
 
     def high_light(self, board: 'Board') -> List['Position'] | None:
         return self.get_clue(self.rule).high_light(board)
@@ -184,37 +204,51 @@ class Value2ECSharp(AbstractClueValue):
         return Rule2ECSharp.id.encode("ascii")
 
     def code(self) -> bytes:
-        return bytes([self.value, self.rule_idx]) + self.rule.encode("ascii")
+        return bytes([self.enc, self.rule_enc, self.value]) + self.rule.encode("ascii")
 
     def tag(self, board) -> bytes:
-        line = board.batch(board.get_col_pos(board.get_pos(0, self.value, NAME_2EC)), mode="type")
+        line = board.batch(board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_2EC)), mode="type")
         if "F" in line:
             return self.rule.encode("ascii")
-        return chr(97 + self.rule_idx % 26).encode("ascii")
+        return chr(97 + self.rule_enc % 26).encode("ascii")
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
         s = switch.get(model, self)
 
-        line = board.batch(board.get_col_pos(
-            board.get_pos(0, self.value, NAME_2EC)
-        ), mode="variable")
-
         temp_list = []
-        for index in range(len(line)):
-            temp = model.NewBoolVar(f"temp_{self.pos}_{index}")
-            model.Add(temp == 1).OnlyEnforceIf([line[index], s])
-            try:
-                self.get_clue(index).create_constraints(board, FakeSwitch(temp))
-            except Exception:
-                continue
-            temp_list.append(temp)
+        value_line = board.batch(board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC)), mode="variable")
+        rule_line = board.batch(board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_2EC)), mode="variable")
+        labels = board.get_config(NAME_2EC, "labels")
+        for value_index, value_var in enumerate(value_line):
+            for rule_index, rule_var in enumerate(rule_line):
+                rule = self.rule_at(labels, rule_index)
+                if not rule:
+                    continue
+                temp = model.NewBoolVar(f"temp_{self.pos}_{value_index}_{rule_index}")
+                model.Add(temp == 1).OnlyEnforceIf([value_var, rule_var, s])
+                clue = self.get_clue(rule, value_index)
+                if clue is None:
+                    continue
+                clue.create_constraints(board, FakeSwitch(temp))
+                temp_list.append(temp)
         if temp_list:
             model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
 
-    def get_clue(self, value) -> AbstractClueValue:
+    @staticmethod
+    def rule_at(labels, row: int) -> str:
+        prefix = "A="
+        pos = Position(0, row, NAME_2EC)
+        text = labels.get(pos, '') if hasattr(labels, 'get') else ''
+        parts = text.splitlines()
+        if len(parts) < 2:
+            return ''
+        return parts[1][len(prefix):] if parts[1].startswith(prefix) else ''
+
+    def get_clue(self, rule: str, value: int | None = None) -> AbstractClueValue:
         from minesweepervariants.utils.value_template import SingleIntValue
-        return get_value(self.pos, self.rule, SingleIntValue(value).json())
+        clue_value = self.value if value is None else value
+        return get_value(self.pos, rule, SingleIntValue(clue_value).json())
 
 class Value2EC2A(Value2ECSharp):
     id = "2EC2A"
