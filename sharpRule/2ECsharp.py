@@ -98,10 +98,9 @@ class Rule2ECSharp(AbstractClueSharp):
             for row in range(size):
                 p = Position(col, row, NAME_2EC)
                 txt = f"{chr(65 + col)}={row}"
-                if col < ns:
-                    rule_idx = shuffled_nums.index(col)
-                    if rule_idx < len(fill_rules):
-                        txt += f"\n{chr(97 + col)}={getattr(fill_rules[rule_idx], 'id', '')}"
+                if row < ns:
+                    rule_name = getattr(fill_rules[row], 'id', '')
+                    txt += f"\n{chr(97 + col)}={rule_name}"
                 labels_dict[p] = txt
 
         board.set_config(NAME_2EC, "labels", labels_dict)
