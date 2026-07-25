@@ -92,7 +92,6 @@ class Rule2ECSharp(AbstractClueSharp):
         for pos, _ in board("N", key=NAME_2EC):
             board.set_value(pos, VALUE_CROSS)
 
-        # Rule encryption sub-board (like C#)
         for x, y in enumerate(shuffled_rules):
             pos = board.get_pos(x, y, NAME_RULE)
             board.set_value(pos, VALUE_CIRCLE)
@@ -103,25 +102,21 @@ class Rule2ECSharp(AbstractClueSharp):
         boards: list[Board] = []
         boards = [r.fill(board.clone()) for r in fill_rules]
         labels_dict = {}
-        rule_labels = {}
-        for row in range(size):
-            rule_index = shuffled_rules.index(row) if row in shuffled_rules else -1
-            rname = getattr(fill_rules[rule_index], 'id', '') if rule_index >= 0 else ''
-            for col in range(size):
+        for col in range(size):
+            for row in range(size):
                 p = Position(col, row, NAME_2EC)
-                if rname:
-                    labels_dict[p] = f"{chr(65 + col)}={row}\n{chr(97 + row)}={rname}"
+                labels_dict[p] = f"{chr(65 + col)}={row}"
 
-        # Rule sub-board labels: only at O positions
-        for ci in range(ns):
-            ri = shuffled_rules[ci] if ci < len(shuffled_rules) else -1
-            if 0 <= ri < len(fill_rules):
-                rname = getattr(fill_rules[ri], 'id', '')
-                if rname:
-                    rp = Position(ci, ri, NAME_RULE)
-                    rule_labels[rp] = f"{chr(97 + ci)}={rname}"
         board.set_config(NAME_2EC, "labels", labels_dict)
         board.set_config(NAME_2EC, "pos_label", True)
+
+        rule_labels = {}
+        for col in range(ns):
+            rule_idx = shuffled_rules.index(col)
+            rule_name = getattr(fill_rules[rule_idx], 'id', '')
+            for row in range(size):
+                p = Position(col, row, NAME_RULE)
+                rule_labels[p] = f"{chr(65 + col)}={rule_name}"
         board.set_config(NAME_RULE, "labels", rule_labels)
         board.set_config(NAME_RULE, "pos_label", True)
 
@@ -162,8 +157,8 @@ class Rule2ECSharp(AbstractClueSharp):
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
-        s_row = switch.get(model, self, '↔')
-        s_col = switch.get(model, self, '↕')
+        s_row = switch.get(model, self, '\u2194')
+        s_col = switch.get(model, self, '\u2195')
         bound = board.boundary(key=NAME_2EC)
 
         row = board.get_row_pos(bound)
@@ -178,7 +173,6 @@ class Rule2ECSharp(AbstractClueSharp):
             var = board.batch(line, mode="variable")
             model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
 
-        # Rule sub-board constraints
         bound_r = board.boundary(key=NAME_RULE)
         row_r = board.get_row_pos(bound_r)
         for pos in row_r:
@@ -253,7 +247,6 @@ class Value2ECSharp(AbstractClueValue):
         return chr(97 + self.rule_enc % 26).encode("ascii")
 
     def create_constraints(self, board: 'Board', switch):
-        """Value decryption via sub-board column (like 2E#); rule used directly from self.rule."""
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -351,10 +344,9 @@ class Value2EC2X(AbstractClueValue):
             board.get_pos(0, self.count % 10, NAME_2EC)
         ), mode="variable")
 
-        # 收集周围格子的布尔变量
         neighbor_vars1 = []
         neighbor_vars2 = []
-        for neighbor in self.neighbor:  # 8方向相邻格子
+        for neighbor in self.neighbor:
             if board.in_bounds(neighbor):
                 if board.get_dyed(neighbor):
                     var = board.get_variable(neighbor)
@@ -364,7 +356,6 @@ class Value2EC2X(AbstractClueValue):
                     neighbor_vars2.append(var)
 
         if neighbor_vars1 or neighbor_vars2:
-            # 定义变量
             t = model.NewBoolVar('t')
             for a in range(len(line_a)):
                 for b in range(len(line_b)):
@@ -390,9 +381,6 @@ class Value2EC2P(AbstractClueValue):
             return x
 
     def __init__(self, pos: 'Position', a: int = -1, b: int = -1, code: bytes = None):
-        """
-        A√B, -1 为缺失值
-        """
         super().__init__(pos)
         if isinstance(a, (bytes, bytearray)) and len(a) >= 2:
             self.value_a = Value2EC2P.convert_missing_value(a[0])
@@ -410,7 +398,7 @@ class Value2EC2P(AbstractClueValue):
         if self.value_a != -1:
             r += map[self.value_a]
         if self.value_b != -1:
-            r += f"√{map[self.value_b]}"
+            r += f"\u221a{map[self.value_b]}"
         return r
 
     @classmethod
@@ -537,7 +525,6 @@ class Value2EC2P(AbstractClueValue):
 
 class Value2EC1EN(AbstractClueValue):
     id = "2EC1E'"
-    # arrow True 上下箭头，False 左右箭头
     def __init__(self, pos: 'Position', value: int = 0, arrow: bool = True, code: bytes = None):
         super().__init__(pos)
         if isinstance(value, (bytes, bytearray)) and len(value) >= 2:
