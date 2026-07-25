@@ -82,9 +82,8 @@ class Rule2ECSharp(AbstractClueSharp):
         size = min(9, board.boundary().x + 1)
         ns = min(size, len(fill_rules))
         shuffled_nums = [i for i in range(size)]
-        shuffled_rules = [i for i in range(ns)]
         random.shuffle(shuffled_nums)
-        random.shuffle(shuffled_rules)
+        shuffled_rules = list(shuffled_nums[:ns])
         for x, y in enumerate(shuffled_nums):
             pos = board.get_pos(x, y, NAME_2EC)
             board.set_value(pos, VALUE_CIRCLE)
