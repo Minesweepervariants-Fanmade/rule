@@ -56,7 +56,7 @@ class AbstractClueSharp(AbstractClueRule, ABC):
 
         for name in rules:
             try:
-                rule_list.append(board.get_rule_instance(name, data))
+                rule_list.append(get_rule(name)(board=board, data=data))
             except Exception as e:
                 get_logger().warn(f"加载规则:[{name}]失败")
                 get_logger().warn(f"ERROR: {e}")

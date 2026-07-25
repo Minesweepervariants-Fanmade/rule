@@ -49,6 +49,7 @@ class Value2M(AbstractClueValue):
             # 直接初始化
             self.count = count
         self.neighbor = self.pos.neighbors(2)
+        self.value = SingleIntValue(self.count)
 
     def __repr__(self):
         return f"{self.count}"
@@ -62,6 +63,17 @@ class Value2M(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.count])
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+        if not is_value_template(_data):
+            raise TypeError()
+        template_data = _data
+        value = SingleIntValue.try_from(template_data)
+        if value is None:
+            raise ValueError()
+        return cls(pos, count=value.value)
 
     def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束：周围雷数等于count"""

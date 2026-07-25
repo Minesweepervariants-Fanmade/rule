@@ -58,6 +58,7 @@ class Value1L(AbstractClueValue):
         else:
             # 直接初始化
             self.count = count
+        self.value = SingleIntValue(self.count)
         self.neighbor = self.pos.neighbors(2)
         self.pos = pos
 
@@ -73,6 +74,16 @@ class Value1L(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.count])
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+        if not is_value_template(_data):
+            raise TypeError()
+        value = SingleIntValue.try_from(_data)
+        if value is None:
+            raise ValueError()
+        return cls(pos, count=value.value)
 
     def deduce_cells(self, board: 'Board') -> bool:
         type_dict = {"N": [], "F": []}

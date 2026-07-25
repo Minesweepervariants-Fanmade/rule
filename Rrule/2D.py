@@ -49,6 +49,7 @@ class Value2D(AbstractClueValue):
             # 直接初始化
             self.count = count
         self.neighbor = self.pos.up(1).neighbors(0, 2)
+        self.value = SingleIntValue(self.count)
 
     def __repr__(self):
         return f"{self.count}"
@@ -62,6 +63,17 @@ class Value2D(AbstractClueValue):
 
     def code(self) -> bytes:
         return bytes([self.count])
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+        if not is_value_template(_data):
+            raise TypeError()
+        template_data = _data
+        value = SingleIntValue.try_from(template_data)
+        if value is None:
+            raise ValueError()
+        return cls(pos, count=value.value)
 
     def deduce_cells(self, board: 'Board') -> bool:
         type_dict = {"N": [], "F": []}
