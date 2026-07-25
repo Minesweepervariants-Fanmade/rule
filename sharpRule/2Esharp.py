@@ -71,7 +71,8 @@ class Rule2ESharp(AbstractClueSharp):
             board.set_value(pos, VALUE_CROSS)
         boards : list[Board] = []
         for rule in self.shape_rule.rules:
-            boards.append(rule.fill(board.clone()))
+            if hasattr(rule, 'fill'):
+                boards.append(rule.fill(board.clone()))
         for pos, _ in board("N"):
             clues: list[AbstractClueValue] = [_board.get_value(pos) for _board in boards]
             select_queue = clues.copy()
@@ -80,12 +81,20 @@ class Rule2ESharp(AbstractClueSharp):
                 select_queue.remove(clue)
                 if clue is None:
                     continue
-                type = clue.type().decode("ascii")
+                type = getattr(clue, 'id', '')
+                if not type:
+                    type = getattr(clue, 'type', lambda: b'')().decode("ascii", "ignore")
                 if (type == '2A'):
-                    flag = clue.flag
+                    flag = getattr(clue, 'value_type', getattr(clue, 'flag', 4))
                     if flag == 4:
                         continue
-                    value = clue.value
+                    v = getattr(clue, 'value', None)
+                    if v is not None and hasattr(v, 'value') and not isinstance(v, int):
+                        value = int(v.value)
+                    elif hasattr(clue, 'count'):
+                        value = int(clue.count)
+                    else:
+                        value = int(clue.__repr__())
                     if value in shuffled_nums:
                         board.set_value(pos, Value2E2A(pos, value=shuffled_nums[value], flag=flag))
                     break
@@ -133,7 +142,12 @@ class Rule2ESharp(AbstractClueSharp):
                         else:
                             continue
 
-                value = int(clue.__repr__())
+                # Extract numeric value from clue using SingleIntValue
+                v = getattr(clue, 'value', None)
+                if v is not None and hasattr(v, 'value') and not isinstance(v, int):
+                    value = int(v.value)
+                else:
+                    value = int(getattr(clue, 'count', clue.__repr__()))
                 if value in shuffled_nums:
                     board.set_value(pos, Value2ESharp(pos, value=shuffled_nums[value], rule=type))
                     break
@@ -171,11 +185,14 @@ class Value2ESharp(AbstractClueValue):
     id = Rule2ESharp.id
     def __init__(self, pos: Position, value: int = 0, rule: str = '', code: bytes = None) -> None:
         super().__init__(pos)
-        if code:
+        if isinstance(value, (bytes, bytearray)) and len(value) >= 2:
+            self.value = value[0]
+            self.rule = value[1:].decode("ascii", "ignore")
+        elif code and isinstance(code, (bytes, bytearray)) and len(code) >= 2:
             self.value = code[0]
             self.rule = code[1:].decode("ascii", "ignore")
         else:
-            self.value = value
+            self.value = int(value)
             self.rule = rule
 
     def __str__(self) -> str:
@@ -230,16 +247,17 @@ class Value2ESharp(AbstractClueValue):
         for index in range(len(line)):
             temp = model.NewBoolVar(f"temp_{self.pos}_{index}")
             model.Add(temp == 1).OnlyEnforceIf([line[index], s])
-            self.get_clue(index).create_constraints(board, FakeSwitch(temp))
+            try:
+                self.get_clue(index).create_constraints(board, FakeSwitch(temp))
+            except Exception:
+                continue
             temp_list.append(temp)
-        model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
+        if temp_list:
+            model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
 
     def get_clue(self, value) -> AbstractClueValue:
-        return get_value(self.pos, self.rule, ImmutableDict({
-            "old_style": True,
-            "type": b64encode(self.type()).decode(),
-            "code": b64encode(int.to_bytes(value)).decode()
-        }))
+        from minesweepervariants.utils.value_template import SingleIntValue
+        return get_value(self.pos, self.rule, SingleIntValue(value).json())
 
 class Value2E2A(Value2ESharp):
     id = "2E2A"
@@ -252,22 +270,17 @@ class Value2E2A(Value2ESharp):
         return "2E2A".encode("ascii")
 
     def get_clue(self, value) -> AbstractClueValue:
-        clue_code = bytearray()
-        clue_code.extend(self.rule.encode("ascii"))
-        clue_code.extend(b'|')
-        clue_code.extend(bytes([self.flag, value]))
-        return get_value(self.pos, self.rule, ImmutableDict({
-            "old_style": True,
-            "type": b64encode(self.type()).decode(),
-            "code": b64encode(int.to_bytes(value)).decode()
-        }))
+        from minesweepervariants.utils.value_template import SingleIntValue
+        return get_value(self.pos, self.rule, SingleIntValue(value).json())
 
 
 class Value2E2X(AbstractClueValue):
     id = "2E2X"
     def __init__(self, pos: 'Position', count: int = 0, code: bytes = None):
         super().__init__(pos, code)
-        if code is not None:
+        if isinstance(count, (bytes, bytearray)) and len(count) >= 1:
+            self.count = count[0]
+        elif code is not None:
             self.count = code[0]
         else:
             self.count = count
@@ -365,12 +378,15 @@ class Value2E2P(AbstractClueValue):
         A√B, -1 为缺失值
         """
         super().__init__(pos)
-        if code:
+        if isinstance(a, (bytes, bytearray)) and len(a) >= 2:
+            self.value_a = Value2E2P.convert_missing_value(a[0])
+            self.value_b = Value2E2P.convert_missing_value(a[1])
+        elif code and isinstance(code, (bytes, bytearray)) and len(code) >= 2:
             self.value_a = Value2E2P.convert_missing_value(code[0])
             self.value_b = Value2E2P.convert_missing_value(code[1])
         else:
-            self.value_a = a
-            self.value_b = b
+            self.value_a = int(a) if a != -1 else -1
+            self.value_b = int(b) if b != -1 else -1
 
     def __repr__(self) -> str:
         map = "ABCDEFGHI"
@@ -508,11 +524,14 @@ class Value2E1EN(AbstractClueValue):
     # arrow True 上下箭头，False 左右箭头
     def __init__(self, pos: 'Position', value: int = 0, arrow: bool = True, code: bytes = None):
         super().__init__(pos)
-        if code:
+        if isinstance(value, (bytes, bytearray)) and len(value) >= 2:
+            self.value = value[0]
+            self.arrow = value[1] == 1
+        elif code and isinstance(code, (bytes, bytearray)) and len(code) >= 2:
             self.value = code[0]
             self.arrow = code[1] == 1
         else:
-            self.value = value
+            self.value = int(value)
             self.arrow = arrow
 
     def __repr__(self):
