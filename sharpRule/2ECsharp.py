@@ -13,8 +13,9 @@ from ....utils.web_template import Number
 
 main_rules = ["V", "1M", "1L", "1N", "1X", "1P", "1E", "1X'", "1K", "1W'", "2D", "2M", "2X'"]
 
-NAME_2EC_VALUE = "2EC"
-NAME_2EC_RULE = "2EC_R"
+NAME_2EC = "2EC#"
+NAME_2EC_VALUE = "2E"
+NAME_2EC_RULE = "C#"
 VALUE_LABELS = "ABCDEFGHI"
 
 
@@ -36,7 +37,13 @@ class Rule2ECSharp(AbstractClueSharp):
     creation_time = "2026-07-26"
     author = ("", 0)
 
-    def __init__(self, board: Board = None, data=None) -> None:
+    def __init__(self, board: Board = None, data: str=None) -> None:
+        single_board = True
+        if data is not None and data.startswith('!;'):
+            data = data[2:]
+            single_board= False
+        self.single_board = single_board
+
         if not data:
             size = board.boundary().x + 1
             valid = [rule for rule in main_rules if hasattr(get_rule(rule), "fill")]
@@ -47,10 +54,18 @@ class Rule2ECSharp(AbstractClueSharp):
         get_logger().info(f"Init 2EC# with rules {self.rules}")
         size = max(min(board.boundary().x + 1, len(VALUE_LABELS)), len(self.rules))
         value_labels = [str(i) for i in range(size)]
-        board.generate_board(NAME_2EC_VALUE, size=Size(size, size), labels=value_labels)
-        board.generate_board(NAME_2EC_RULE, size=Size(len(self.rules), len(self.rules)), labels=self.rules)
-        board.set_config(NAME_2EC_VALUE, "pos_label", True)
-        board.set_config(NAME_2EC_RULE, "pos_label", True)
+
+        if self.single_board:
+            labels_dict = self._pack_labels_dict(size)
+            board.generate_board(NAME_2EC, size=Size(size, size), labels=labels_dict)
+            board.set_config(NAME_2EC, "pos_label", True)
+        else:
+            board.generate_board(NAME_2EC_VALUE, size=Size(size, size), labels=value_labels)
+            board.set_config(NAME_2EC_VALUE, "pos_label", True)
+
+            board.generate_board(NAME_2EC_RULE, size=Size(len(self.rules), len(self.rules)), labels=self.rules)
+            board.set_config(NAME_2EC_RULE, "pos_label", True)
+
         for key in board.get_interactive_keys():
             board.set_config(key, "by_mini", True)
 
@@ -60,22 +75,53 @@ class Rule2ECSharp(AbstractClueSharp):
             return VALUE_LABELS[x]
         return chr(96 + x // 26) + chr(97 + x % 26)
 
+    def _pack_labels_dict(self, size: int) -> dict[Position, str]:
+        rule_objs = [get_rule(r) for r in self.rules]
+        labels_dict: dict[Position, str] = {}
+        for row in range(size):
+            rname = getattr(rule_objs[row], 'id', '') if row < len(rule_objs) else ''
+            for col in range(size):
+                p = Position(col, row, NAME_2EC)
+                if rname:
+                    labels_dict[p] = f"{chr(65 + col)}={row}\n{chr(65 + col)}={rname}"
+                else:
+                    labels_dict[p] = f"{chr(65 + col)}={row}\n"
+        return labels_dict
+
+    @staticmethod
+    def _unpack_rule_names(labels_dict: dict) -> list[str]:
+        rule_map: dict[int, str] = {}
+        for pos, text in labels_dict.items():
+            lines = text.split("\n")
+            for line in lines:
+                if "=" in line:
+                    _, right = line.split("=", 1)
+                    right = right.strip()
+                    if right and not right.isdigit():
+                        rule_map[pos.row] = right
+        return [rule_map[i] for i in sorted(rule_map)]
+
     def fill(self, board: Board) -> Board:
         self.init_clear(board)
         random = get_random()
-        value_size = board.boundary(key=NAME_2EC_VALUE).x + 1
+        value_size = board.boundary(key=NAME_2EC if self.single_board else NAME_2EC_VALUE).x + 1
         value_columns = [i for i in range(value_size)]
         rule_columns = [i for i in range(len(self.rules))]
         random.shuffle(value_columns)
-        random.shuffle(rule_columns)
+        if self.single_board:
+            rule_columns = value_columns[: len(rule_columns)]
+        else:
+            random.shuffle(rule_columns)
         for value, enc in enumerate(value_columns):
-            board.set_value(board.get_pos(value, enc, NAME_2EC_VALUE), VALUE_CIRCLE)
-        for rule_index, rule_enc in enumerate(rule_columns):
-            board.set_value(board.get_pos(rule_index, rule_enc, NAME_2EC_RULE), VALUE_CIRCLE)
-        for pos, _ in board("N", key=NAME_2EC_VALUE):
+            board.set_value(board.get_pos(value, enc, NAME_2EC if self.single_board else NAME_2EC_VALUE), VALUE_CIRCLE)
+        if not self.single_board:
+            for rule_index, rule_enc in enumerate(rule_columns):
+                board.set_value(board.get_pos(rule_index, rule_enc, NAME_2EC_RULE), VALUE_CIRCLE)
+        for pos, _ in board("N", key=NAME_2EC if self.single_board else NAME_2EC_VALUE):
             board.set_value(pos, VALUE_CROSS)
-        for pos, _ in board("N", key=NAME_2EC_RULE):
-            board.set_value(pos, VALUE_CROSS)
+        if not self.single_board:
+            for pos, _ in board("N", key=NAME_2EC_RULE):
+                board.set_value(pos, VALUE_CROSS)
 
         boards: list[Board] = []
         for rule in self.shape_rule.rules:
@@ -101,6 +147,7 @@ class Rule2ECSharp(AbstractClueSharp):
                         value=value,
                         enc=value_columns[value],
                         rule_enc=rule_columns[rule_index],
+                        single_board=self.single_board,
                     ),
                 )
         return board
@@ -109,8 +156,11 @@ class Rule2ECSharp(AbstractClueSharp):
         model = board.get_model()
         s_row = switch.get(model, self, "↔")
         s_col = switch.get(model, self, "↕")
-        self.create_permutation_constraints(board, NAME_2EC_VALUE, s_row, s_col)
-        self.create_permutation_constraints(board, NAME_2EC_RULE, s_row, s_col)
+        if self.single_board:
+            self.create_permutation_constraints(board, NAME_2EC, s_row, s_col)
+        else:
+            self.create_permutation_constraints(board, NAME_2EC_VALUE, s_row, s_col)
+            self.create_permutation_constraints(board, NAME_2EC_RULE, s_row, s_col)
 
     def create_permutation_constraints(self, board: Board, key: str, s_row, s_col):
         model = board.get_model()
@@ -123,10 +173,14 @@ class Rule2ECSharp(AbstractClueSharp):
             model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
 
     def init_clear(self, board: Board):
-        for pos, _ in board(key=NAME_2EC_VALUE):
-            board.set_value(pos, None)
-        for pos, _ in board(key=NAME_2EC_RULE):
-            board.set_value(pos, None)
+        if self.single_board:
+            for pos, _ in board(key=NAME_2EC):
+                board.set_value(pos, None)
+        else:
+            for pos, _ in board(key=NAME_2EC_VALUE):
+                board.set_value(pos, None)
+            for pos, _ in board(key=NAME_2EC_RULE):
+                board.set_value(pos, None)
 
     def get_clue_number(self, clue: AbstractClueValue) -> int:
         v = getattr(clue, "value", None)
@@ -148,20 +202,24 @@ class Value2ECSharp(AbstractClueValue):
         enc: int = 0,
         rule_enc: int = 0,
         code: bytes = None,
+        single_board: bool = True,
     ) -> None:
         super().__init__(pos)
         if isinstance(value, (bytes, bytearray)) and len(value) >= 3:
             self.value = value[0]
             self.enc = value[1]
             self.rule_enc = value[2]
+            self.single_board = len(value) < 4 or bool(value[3])
         elif code and isinstance(code, (bytes, bytearray)) and len(code) >= 3:
             self.value = code[0]
             self.enc = code[1]
             self.rule_enc = code[2]
+            self.single_board = len(code) < 4 or bool(code[3])
         else:
             self.value = int(value)
             self.enc = int(enc)
             self.rule_enc = int(rule_enc)
+            self.single_board = single_board
 
     def __repr__(self):
         return Rule2ECSharp.label_x(self.enc)
@@ -171,7 +229,7 @@ class Value2ECSharp(AbstractClueValue):
         return Rule2ECSharp.id.encode("ascii")
 
     def code(self) -> bytes:
-        return bytes([int(self.value), int(self.enc), int(self.rule_enc)])
+        return bytes([int(self.value), int(self.enc), int(self.rule_enc), 1 if self.single_board else 0])
 
     def compose(self, board) -> Dict:
         return get_col(
@@ -199,18 +257,24 @@ class Value2ECSharp(AbstractClueValue):
         return list(positions)
 
     def create_constraints(self, board: Board, switch):
-        rules: list[str] = board.get_config(NAME_2EC_RULE, "labels")
+        board_key = NAME_2EC if self.single_board else NAME_2EC_RULE
+        labels = board.get_config(board_key, "labels")
+        if isinstance(labels, dict):
+            rules: list[str] = Rule2ECSharp._unpack_rule_names(labels)
+        else:
+            rules: list[str] = labels
         model = board.get_model()
         s = switch.get(model, self)
+
         value_line = board.batch(
-            board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC_VALUE)),
+            board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC if self.single_board else NAME_2EC_VALUE)),
             mode="variable",
         )
         temp_list = []
         for value_index in range(len(value_line)):
             for rule_index, rule in enumerate(rules):
                 temp = model.NewBoolVar(f"2EC_temp_{self.pos}_{value_index}_{rule_index}")
-                rule_var = board.get_variable(board.get_pos(rule_index, self.rule_enc, NAME_2EC_RULE))
+                rule_var = board.get_variable(board.get_pos(rule_index, self.rule_enc, NAME_2EC if self.single_board else NAME_2EC_RULE))
                 model.AddBoolAnd([value_line[value_index], rule_var, s]).OnlyEnforceIf(temp)
                 model.AddBoolOr([
                     value_line[value_index].Not(),
@@ -224,7 +288,7 @@ class Value2ECSharp(AbstractClueValue):
 
     def get_value_text(self, board: Board) -> str:
         line = board.batch(
-            board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC_VALUE)),
+            board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC if self.single_board else NAME_2EC_VALUE)),
             mode="type",
         )
         if "F" in line:
@@ -233,26 +297,26 @@ class Value2ECSharp(AbstractClueValue):
 
     def get_decoded_rule(self, board: Board) -> str:
         line = board.batch(
-            board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_2EC_RULE)),
+            board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_2EC if self.single_board else NAME_2EC_RULE)),
             mode="type",
         )
         if "F" in line:
-            return board.get_config(NAME_2EC_RULE, "labels")[line.index("F")]
+            return board.get_config(NAME_2EC if self.single_board else NAME_2EC_RULE, "labels")[line.index("F")]
         return ""
 
     def get_possible_values(self, board: Board) -> list[int]:
         line = board.batch(
-            board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC_VALUE)),
+            board.get_col_pos(board.get_pos(0, self.enc, NAME_2EC if self.single_board else NAME_2EC_VALUE)),
             mode="type",
         )
         return [index for index, item in enumerate(line) if item in {"N", "F"}]
 
     def get_possible_rules(self, board: Board) -> list[str]:
         line = board.batch(
-            board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_2EC_RULE)),
+            board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_2EC if self.single_board else NAME_2EC_RULE)),
             mode="type",
         )
-        rules: list[str] = board.get_config(NAME_2EC_RULE, "labels")
+        rules: list[str] = board.get_config(NAME_2EC if self.single_board else NAME_2EC_RULE, "labels")
         return [rule for index, rule in enumerate(rules) if line[index] in {"N", "F"}]
 
     def get_clue(self, rule: str, value: int) -> AbstractClueValue:
