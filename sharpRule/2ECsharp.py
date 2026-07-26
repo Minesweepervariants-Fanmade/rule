@@ -256,13 +256,16 @@ class Value2ECSharp(AbstractClueValue):
                     positions.update(high_light)
         return list(positions)
 
-    def create_constraints(self, board: Board, switch):
+    def _rules_from_labels(self, board: Board) -> list[str]:
         board_key = NAME_2EC if self.single_board else NAME_2EC_RULE
         labels = board.get_config(board_key, "labels")
         if isinstance(labels, dict):
-            rules: list[str] = Rule2ECSharp._unpack_rule_names(labels)
-        else:
-            rules: list[str] = labels
+            return Rule2ECSharp._unpack_rule_names(labels)
+        return labels
+
+    def create_constraints(self, board: Board, switch):
+        board_key = NAME_2EC if self.single_board else NAME_2EC_RULE
+        rules = self._rules_from_labels(board)
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -301,7 +304,8 @@ class Value2ECSharp(AbstractClueValue):
             mode="type",
         )
         if "F" in line:
-            return board.get_config(NAME_2EC if self.single_board else NAME_2EC_RULE, "labels")[line.index("F")]
+            rules = self._rules_from_labels(board)
+            return rules[line.index("F")]
         return ""
 
     def get_possible_values(self, board: Board) -> list[int]:
@@ -316,7 +320,7 @@ class Value2ECSharp(AbstractClueValue):
             board.get_col_pos(board.get_pos(0, self.rule_enc, NAME_2EC if self.single_board else NAME_2EC_RULE)),
             mode="type",
         )
-        rules: list[str] = board.get_config(NAME_2EC if self.single_board else NAME_2EC_RULE, "labels")
+        rules = self._rules_from_labels(board)
         return [rule for index, rule in enumerate(rules) if line[index] in {"N", "F"}]
 
     def get_clue(self, rule: str, value: int) -> AbstractClueValue:
