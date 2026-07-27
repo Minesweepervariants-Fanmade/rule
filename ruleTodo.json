@@ -3563,5 +3563,12 @@
         "author_uid": 1357674351,
         "author_name": "…",
         "doc": "这是规则描述"
+    },
+    {
+        "time": 1785132438.2280812,
+        "name": "5K",
+        "author_uid": 2513946475,
+        "author_name": "Indiebard (Alith)",
+        "doc": "场上恰有5组雷构成马步，且这5组马步有一个共享雷"
     }
 ]
