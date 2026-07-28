@@ -57,3 +57,17 @@ class Rule2U(AbstractMinesRule):
     def init_clear(self, board: 'Board') -> None:
         for pos in board(mode="pos", key=NAME_2U):
             board[pos] = None
+
+    def suggest_total(self, info: dict):
+        sizes = [info["size"][interactive] for interactive in info["interactive"]]
+
+        total = 0
+
+        for size in sizes:
+            total += int((size[0] - 1) * size[1] / 2)
+
+        def a(model, total_var):
+            model.Add(total == total_var)
+
+        info["hard_fns"].append(a)
+
