@@ -3703,5 +3703,12 @@
         "author_uid": 3898637422,
         "author_name": "咸鱼isbvoh",
         "doc": "单调桥：每一个桥的雷都是单调的"
+    },
+    {
+        "time": 1785260521.9263995,
+        "name": "3U",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "U形：雷区可以划分成若干组U形。"
     }
 ]
