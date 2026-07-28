@@ -3717,5 +3717,12 @@
         "author_uid": 3898637422,
         "author_name": "咸鱼isbvoh",
         "doc": "单调桥：每一个桥的雷都是单调的"
+    },
+    {
+        "time": 1785264604.3263702,
+        "name": "HYW'",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "左线，约束为一组开presolve就无解的模型"
     }
 ]
