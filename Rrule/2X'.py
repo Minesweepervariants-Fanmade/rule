@@ -42,13 +42,17 @@ class Rule2X(AbstractClueRule):
 
 class Value2X(AbstractClueValue):
     id = Rule2X.id
-    def __init__(self, pos: 'Position', code: bytes = None):
+    def __init__(self, pos: 'Position', code: bytes = None, count: int = 0):
         super().__init__(pos, code)
         self.neighbor = self.pos.neighbors(2)
-        self.value = code[0]
+        if code is not None:
+            self.count = code[0]
+        else:
+            self.count = count
+        self.value = SingleIntValue(self.count)
 
     def __repr__(self) -> str:
-        return f"{self.value}"
+        return f"{self.count}"
 
     def high_light(self, board: 'Board') -> list['Position']:
         return self.neighbor
@@ -58,7 +62,18 @@ class Value2X(AbstractClueValue):
         return Rule2X.id.encode("ascii")
 
     def code(self) -> bytes:
-        return bytes([self.value])
+        return bytes([self.count])
+
+    @classmethod
+    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'AbstractValue':
+        _data = deep_unwrap(data)
+        if not is_value_template(_data):
+            raise TypeError()
+        template_data = _data
+        value = SingleIntValue.try_from(template_data)
+        if value is None:
+            raise ValueError()
+        return cls(pos, count=value.value)
 
     def create_constraints(self, board: 'Board', switch):
         """创建CP-SAT约束: 周围染色格雷数等于两个染色格的数量"""
@@ -79,6 +94,6 @@ class Value2X(AbstractClueValue):
 
         var_a = model.NewBoolVar("[2X]")
         var_b = model.NewBoolVar("[2X]")
-        model.Add(sum(var_a_list) == self.value).OnlyEnforceIf([var_a, s])
-        model.Add(sum(var_b_list) == self.value).OnlyEnforceIf([var_b, s])
+        model.Add(sum(var_a_list) == self.count).OnlyEnforceIf([var_a, s])
+        model.Add(sum(var_b_list) == self.count).OnlyEnforceIf([var_b, s])
         model.AddBoolOr([var_a, var_b]).OnlyEnforceIf(s)

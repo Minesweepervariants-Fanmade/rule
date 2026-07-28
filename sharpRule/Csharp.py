@@ -6,7 +6,7 @@ from ....utils.tool import get_random, get_logger
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position
 from ....utils.impl_obj import VALUE_CIRCLE, VALUE_CROSS
-from ....impl.impl_obj import get_value
+from ....impl.impl_obj import get_value, get_rule
 from ....utils.image_template import get_text, get_image, get_dummy, get_col
 from ....utils.web_template import Number
 
@@ -35,7 +35,9 @@ class RuleCSharp(AbstractClueSharp):
     def __init__(self, board: "Board" = None, data=None) -> None:
         if not data:
             size = board.boundary().x + 1
-            self.rules = get_random().sample(main_rules, k=min(size, len(main_rules)))
+            from minesweepervariants.abs.Rrule import AbstractClueRule as _ACR
+            valid = [r for r in main_rules if hasattr(get_rule(r), 'fill')]
+            self.rules = get_random().sample(valid, k=min(size, len(valid)))
         else:
             self.rules = data.split(";")
         super().__init__(self.rules, board)
@@ -65,7 +67,8 @@ class RuleCSharp(AbstractClueSharp):
 
         boards : list[Board] = []
         for rule in self.shape_rule.rules:
-            boards.append(rule.fill(board.clone()))
+            if hasattr(rule, 'fill'):
+                boards.append(rule.fill(board.clone()))
         for key in board.get_interactive_keys():
             for pos, _ in board("N", key=key):
                 values = [_board.get_value(pos) for _board in boards]
@@ -73,9 +76,8 @@ class RuleCSharp(AbstractClueSharp):
                     continue
                 else:
                     rule_index = random.randint(0, len(values) - 1)
-                    clue = values[rule_index]
-                    clue_type = clue.type().decode("utf-8", "ignore")
-                    board.set_value(pos, ValueCsharp(pos, value=self.get_clue_number(clue), rule=shuffled_nums[rule_index]))
+                clue = values[rule_index]
+                board.set_value(pos, ValueCsharp(pos, value=self.get_clue_number(clue), rule=shuffled_nums[rule_index]))
         return board
 
     def create_constraints(self, board: 'Board', switch):
@@ -101,25 +103,28 @@ class RuleCSharp(AbstractClueSharp):
             board.set_value(pos, None)
 
     def get_clue_number(self, clue: AbstractClueValue) -> int:
-        try:
-            return clue.value
-        except AttributeError:
-            try:
-                return clue.count
-            except AttributeError:
-                raise RuntimeError("Unsupported clue " + clue.type().decode("utf-8", "ignore"))
+        v = getattr(clue, 'value', None)
+        if v is not None and hasattr(v, 'value') and not isinstance(v, int):
+            return int(v.value)  # SingleIntValue / SingleNumberValue
+        raise TypeError(
+            f"C# requires SingleIntValue, but {clue.__class__.__name__} "
+            f"(id={getattr(clue, 'id', '?')}) does not use it"
+        )
 
 
 class ValueCsharp(AbstractClueValue):
     id = RuleCSharp.id
-    def __init__(self, pos: "Position", value: int = 0, rule: int = 0, code: bytes = None) -> None:
+    def __init__(self, pos: "Position", value: int | bytes = 0, rule: int = 0, code: bytes = None) -> None:
         super().__init__(pos)
-        if not code:
-            self.value = value
-            self.rule = rule
-        else:
+        if isinstance(value, (bytes, bytearray)) and len(value) >= 2:
+            self.value = value[0]
+            self.rule = value[1]
+        elif code and isinstance(code, (bytes, bytearray)) and len(code) >= 2:
             self.value = code[0]
             self.rule = code[1]
+        else:
+            self.value = int(value)
+            self.rule = int(rule)
 
     def __repr__(self):
         return f"{self.value}_{RuleCSharp.label_x(self.rule)}"
@@ -148,7 +153,7 @@ class ValueCsharp(AbstractClueValue):
         return RuleCSharp.label_x(self.rule).encode("ascii")
 
     def code(self) -> bytes:
-        return bytes([self.value, self.rule])
+        return bytes([int(self.value), int(self.rule)])
 
     def high_light(self, board: Board) -> List[Position] | None:
         positions: set[Position] = set()
@@ -179,14 +184,19 @@ class ValueCsharp(AbstractClueValue):
             )
             clue.create_constraints(board, FakeSwitch(temp))
             temp_list.append(temp)
-        model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
+        if temp_list:
+            model.Add(sum(temp_list) == 1).OnlyEnforceIf(s)
 
     def get_clue(self, rule: str) -> AbstractClueValue:
-        clue_code = bytearray()
-        clue_code.extend(rule.encode("ascii"))
-        clue_code.extend(b'|')
-        clue_code.extend(bytes([self.value]))
-        return get_value(self.pos, bytes(clue_code))
+        from minesweepervariants.utils.value_template import SingleIntValue
+        data = SingleIntValue(self.value).json()
+        clue = get_value(self.pos, rule, data)
+        if clue is None:
+            raise TypeError(
+                f"C# cannot reconstruct clue for rule '{rule}' "
+                f"(id={self.id}) — check that the rule uses SingleIntValue format"
+            )
+        return clue
 
 
 class FakeSwitch(Switch):

@@ -48,7 +48,7 @@ class SingleIntValue1X(SingleIntValue):
         # 告诉类型检查器 data 实际符合 IntValueTemplate 结构
         concrete = cast(IntValueTemplate, data)
         value: int = concrete["data"]
-        bool_list: list[bool] = concrete["bool_list"]
+        bool_list: list[bool] = concrete.get("bool_list", [True, False, False, True])
 
         match value:
             case int():
