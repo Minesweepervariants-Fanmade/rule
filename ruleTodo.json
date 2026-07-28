@@ -1716,8 +1716,8 @@
     {
         "time": 1785262170.0150774,
         "name": "2U",
-        "author_uid": 2201963934,
-        "author_name": "NT",
+        "author_uid": 0,
+        "author_name": "原作",
         "doc": "每行的雷数不相同(从0至n-1)"
     },
     {
