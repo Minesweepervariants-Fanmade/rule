@@ -2,94 +2,46 @@
     "L": [
         {
             "rule_line": "L",
-            "id": "AND",
+            "id": "4U",
             "name": {
-                "default": "AND"
+                "default": "Cell"
             },
             "doc": {
-                "default": "You can input multiple left rules separated by ':' to express AND relationship (board will follow both rule A and rule B)"
+                "default": "Mine distribution in the first row equals the last row, and mine distribution in the first column equals the last column"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "",
+            "image": "4U.png",
             "aliases": [],
-            "tags": [
-                "Meta",
-                "Global",
-                "Parameter"
-            ],
-            "creation_time": "2025-08-08"
-        },
-        {
-            "rule_line": "L",
-            "id": "1S^",
-            "name": {
-                "default": "Bicursal Snake"
-            },
-            "doc": {
-                "default": "All mines form a double-headed snake. A snake is a width-1 four-connected path with no loops or crossings, only one branch"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1S^.png",
-            "aliases": [
-                "S^"
-            ],
             "tags": [
                 "Variant",
                 "Global",
-                "Construction",
-                "Connectivity"
+                "Anti-Construction"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2026-03-05"
         },
         {
             "rule_line": "L",
-            "id": "3D2T",
+            "id": "St2",
             "name": {
-                "default": "3D No Triple 2"
+                "default": "\u72b6\u60012"
             },
             "doc": {
-                "default": "(1) Mines cannot form a triple in horizontal, vertical, or up-down directions; (2) Non-mines cannot form a triple in horizontal, vertical, or up-down directions."
+                "default": "For a mine, left/right same iff up/down same. (No constraint for column A, last column, row 1, last row)"
             },
             "author": {
-                "name": "",
-                "id": "0"
+                "name": "\u5c0f\u4e2d\u533b (3086842243)",
+                "id": "3086842243"
             },
             "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
                 "Local",
-                "Strict Shape"
+                "Mine-Position"
             ],
-            "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "L",
-            "id": "1H2H",
-            "name": {
-                "default": "Horizontal-Horizontal"
-            },
-            "doc": {
-                "default": "In each row, either there are no horizontally adjacent mines, or all have at least one horizontally adjacent mine."
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Construction",
-                "Local"
-            ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2026-07-11"
         },
         {
             "rule_line": "L",
@@ -159,6 +111,28 @@
                 "Construction"
             ],
             "creation_time": "2026-07-05"
+        },
+        {
+            "rule_line": "L",
+            "id": "1K1C",
+            "name": {
+                "default": "Knight-Connected"
+            },
+            "doc": {
+                "default": "Mine areas are connected via knight's moves (8-connectivity via knight's move pattern)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Global",
+                "Connectivity"
+            ],
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "L",
@@ -254,6 +228,53 @@
         },
         {
             "rule_line": "L",
+            "id": "AI",
+            "name": {
+                "default": "Arrow"
+            },
+            "doc": {
+                "default": "Generates fixed 8-direction arrow diagram, mine cells must be traversed along arrows without missing or repeating"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "AI.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Extensive Trial",
+                "Connectivity",
+                "Construction",
+                "Parameter"
+            ],
+            "creation_time": "2026-04-09"
+        },
+        {
+            "rule_line": "L",
+            "id": "3DJ",
+            "name": {
+                "default": "Jujubecake"
+            },
+            "doc": {
+                "default": "All non-mine cells form 1x2x1, 2x1x1, or 1x1x2 3D rectangles, i.e., each non-mine cell has exactly one 6-connected neighbor (all holes!!!)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "L",
             "id": "SM",
             "name": {
                 "default": "???"
@@ -276,48 +297,26 @@
         },
         {
             "rule_line": "L",
-            "id": "1K1C",
+            "id": "3C",
             "name": {
-                "default": "Knight-Connected"
+                "default": "Connected"
             },
             "doc": {
-                "default": "Mine areas are connected via knight's moves (8-connectivity via knight's move pattern)"
+                "default": "Exactly two mines around each mine in the eight surrounding cells"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Global",
-                "Connectivity"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "L",
-            "id": "XS",
-            "name": {
-                "default": "Segment Split"
-            },
-            "doc": {
-                "default": "Uses sub-board to represent row segment boundaries: no boundary means same value, different sides must be boundary, boundary count increases from bottom up with row inheritance"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "XS.png",
+            "image": "3C.png",
             "aliases": [],
             "tags": [
                 "Creative",
+                "Connectivity",
                 "Local",
-                "Aux Board",
-                "Construction"
+                "Strong"
             ],
-            "creation_time": "2026-04-07"
+            "creation_time": "2025-08-13"
         },
         {
             "rule_line": "L",
@@ -459,6 +458,29 @@
         },
         {
             "rule_line": "L",
+            "id": "3Y",
+            "name": {
+                "default": "Yin-Yang"
+            },
+            "doc": {
+                "default": "All mines are orthogonally connected, all non-mines are orthogonally connected, no 2x2 block of mines or non-mines exists"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "3Y.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Connectivity",
+                "Anti-Construction"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
             "id": "2S",
             "name": {
                 "default": "Segment"
@@ -504,49 +526,47 @@
         },
         {
             "rule_line": "L",
-            "id": "*1M",
+            "id": "~St2",
             "name": {
-                "default": "Mirror"
+                "default": "~\u72b6\u60012"
             },
             "doc": {
-                "default": "Mine distribution is randomly symmetric in one of the following ways: [horizontal/vertical/diagonal/anti-diagonal/center/Rotate 90 degrees] (arg: number, zero\u2011based index to choose fixed symmetry: [horizontal/vertical/diagonal/anti-diagonal/center/Rotate 90 degrees])"
+                "default": "For a non-mine, left/right same iff up/down same."
             },
             "author": {
-                "name": "\u96fe",
-                "id": "3140864122"
+                "name": "\u5c0f\u4e2d\u533b (3086842243)",
+                "id": "3086842243"
             },
-            "image": "-a1M.png",
+            "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
-                "Fun",
-                "Global"
+                "Local",
+                "Mine-Position"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2026-07-11"
         },
         {
             "rule_line": "L",
-            "id": "1C",
+            "id": "2C'",
             "name": {
                 "default": "Connected"
             },
             "doc": {
-                "default": "Mine areas are connected diagonally (8-connectivity)"
+                "default": "(1) All four-connected mine areas are 1xn or nx1 rectangles; (2) All mine areas are diagonally adjacent"
             },
             "author": {
-                "name": "14 Minesweeper Variants",
-                "id": "-1"
+                "name": "",
+                "id": "0"
             },
-            "image": "1C.png",
-            "aliases": [
-                "C"
-            ],
+            "image": "",
+            "aliases": [],
             "tags": [
-                "Original",
+                "Variant",
+                "Local",
                 "Connectivity",
-                "Global"
+                "Construction"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2025-08-23"
         },
         {
             "rule_line": "L",
@@ -570,29 +590,6 @@
                 "Strict R"
             ],
             "creation_time": "2025-08-15"
-        },
-        {
-            "rule_line": "L",
-            "id": "JB''",
-            "name": {
-                "default": "entangledick"
-            },
-            "doc": {
-                "default": "1 snake + 2 square rectangles = exact full cover. One snake endpoint diagonally touches two different square corners, the other endpoint touches none. No other contact (overlap/ortho/diag) between snake and squares."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "JB''.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Global",
-                "Construction",
-                "Strong"
-            ],
-            "creation_time": "2026-05-03"
         },
         {
             "rule_line": "L",
@@ -621,28 +618,6 @@
         },
         {
             "rule_line": "L",
-            "id": "3D1S",
-            "name": {
-                "default": "3D-Snake"
-            },
-            "doc": {
-                "default": "All mines form a snake. A snake is a width-1 6-connected path with no branches, loops, or crossings"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Construction"
-            ],
-            "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "L",
             "id": "3U",
             "name": {
                 "default": "Up-Up"
@@ -665,25 +640,26 @@
         },
         {
             "rule_line": "L",
-            "id": "3Q~",
+            "id": "3O^",
             "name": {
-                "default": "3Q~"
+                "default": "Octagonal"
             },
             "doc": {
-                "default": "All 4-connected non-mine regions form solid squares"
+                "default": "Mines connect from any of the eight directions to outside the board"
             },
             "author": {
-                "name": "\u6ce2\u5e38\u672a\u6765",
-                "id": "81500378"
+                "name": "Wu_RH",
+                "id": "3140864122"
             },
             "image": "",
             "aliases": [],
             "tags": [
-                "Variant",
-                "Connectivity",
+                "Creative",
+                "Global",
+                "Construction",
                 "Strict Shape"
             ],
-            "creation_time": "2026-03-01"
+            "creation_time": "2026-07-13"
         },
         {
             "rule_line": "L",
@@ -711,29 +687,6 @@
         },
         {
             "rule_line": "L",
-            "id": "AS'",
-            "name": {
-                "default": "AutoSpin'"
-            },
-            "doc": {
-                "default": "Each 2x2 area cannot contain all four states (dyed mine, undyed mine, dyed non-mine, undyed non-mine) simultaneously"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Dyed",
-                "Anti-Construction"
-            ],
-            "creation_time": "2026-04-05"
-        },
-        {
-            "rule_line": "L",
             "id": "1B|",
             "name": {
                 "default": "Column Balance"
@@ -756,25 +709,24 @@
         },
         {
             "rule_line": "L",
-            "id": "3T",
+            "id": "~St1",
             "name": {
-                "default": "No-Triple"
+                "default": "~\u72b6\u60011"
             },
             "doc": {
-                "default": "No three mines can be equally spaced"
+                "default": "A non-mine's left and down neighbors have the same state."
             },
             "author": {
-                "name": "",
-                "id": "0"
+                "name": "\u5c0f\u4e2d\u533b (3086842243)",
+                "id": "3086842243"
             },
-            "image": "3T.png",
+            "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
-                "Global",
-                "Anti-Construction"
+                "Local",
+                "Mine-Position"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2026-07-11"
         },
         {
             "rule_line": "L",
@@ -802,27 +754,6 @@
         },
         {
             "rule_line": "L",
-            "id": "~St1",
-            "name": {
-                "default": "~\u72b6\u60011"
-            },
-            "doc": {
-                "default": "A non-mine's left and down neighbors have the same state."
-            },
-            "author": {
-                "name": "\u5c0f\u4e2d\u533b (3086842243)",
-                "id": "3086842243"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Mine-Position"
-            ],
-            "creation_time": "2026-07-11"
-        },
-        {
-            "rule_line": "L",
             "id": "*1J",
             "name": {
                 "default": "No Rectangular Mine Region"
@@ -843,6 +774,73 @@
                 "Global"
             ],
             "creation_time": "2026-07-16"
+        },
+        {
+            "rule_line": "L",
+            "id": "1C",
+            "name": {
+                "default": "Connected"
+            },
+            "doc": {
+                "default": "Mine areas are connected diagonally (8-connectivity)"
+            },
+            "author": {
+                "name": "14 Minesweeper Variants",
+                "id": "-1"
+            },
+            "image": "1C.png",
+            "aliases": [
+                "C"
+            ],
+            "tags": [
+                "Original",
+                "Connectivity",
+                "Global"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
+            "id": "3D1T'",
+            "name": {
+                "default": "3DT'"
+            },
+            "doc": {
+                "default": "Mines must form a triple in horizontal, vertical or diagonal directions"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Strict Shape"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "L",
+            "id": "4C",
+            "name": {
+                "default": "Crossing"
+            },
+            "doc": {},
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Construction",
+                "Connectivity"
+            ],
+            "creation_time": "2025-08-13"
         },
         {
             "rule_line": "L",
@@ -912,6 +910,28 @@
         },
         {
             "rule_line": "L",
+            "id": "3D1K1S",
+            "name": {
+                "default": "3D-Knight-Snake"
+            },
+            "doc": {
+                "default": "All mines form a snake. A knight snake is a knight-move connected path with no branches, loops, or crossings"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Construction"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "L",
             "id": "NP",
             "name": {
                 "default": "Negative Point"
@@ -955,48 +975,24 @@
         },
         {
             "rule_line": "L",
-            "id": "3D1K1S",
+            "id": "UC",
             "name": {
-                "default": "3D-Knight-Snake"
+                "default": "UnCross"
             },
             "doc": {
-                "default": "All mines form a snake. A knight snake is a knight-move connected path with no branches, loops, or crossings"
+                "default": "No cell may have mines on all four orthogonal neighbors."
             },
             "author": {
-                "name": "",
-                "id": "0"
+                "name": "\u96fe (3140864122)",
+                "id": "3140864122"
             },
             "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
-                "Local",
-                "Construction"
+                "Anti-Construction",
+                "Local"
             ],
-            "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "L",
-            "id": "3L",
-            "name": {
-                "default": "Loop"
-            },
-            "doc": {
-                "default": "All mines form a loop. A loop is a width-1 diagonal path without branches or intersections, and the loop connects head to tail"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "3L.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Connectivity",
-                "Construction",
-                "Global"
-            ],
-            "creation_time": "2025-08-22"
+            "creation_time": "2026-07-11"
         },
         {
             "rule_line": "L",
@@ -1019,71 +1015,6 @@
                 "Weak"
             ],
             "creation_time": "2026-07-23"
-        },
-        {
-            "rule_line": "L",
-            "id": "RH",
-            "name": {
-                "default": "Enrichment"
-            },
-            "doc": {
-                "default": "Top mine of a vertical consecutive group gets the group size, others get 0"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2452944138"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Mine-Value",
-                "Local"
-            ],
-            "creation_time": "2026-05-17"
-        },
-        {
-            "rule_line": "L",
-            "id": "SUD''",
-            "name": {
-                "default": "Sudoku Box+"
-            },
-            "doc": {
-                "default": "Sudoku Box+: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each row, column, and box must be unique.(V only)"
-            },
-            "author": {
-                "name": "NT",
-                "id": "24073104"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Meta"
-            ],
-            "creation_time": "2026-05-24 02:18:00"
-        },
-        {
-            "rule_line": "L",
-            "id": "CL",
-            "name": {
-                "default": "Coastline"
-            },
-            "doc": {
-                "default": "No straight boundary line of length 2 or more exists between mine and non-mine areas"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global",
-                "Anti-Construction"
-            ],
-            "creation_time": "2026-04-30"
         },
         {
             "rule_line": "L",
@@ -1134,50 +1065,6 @@
         },
         {
             "rule_line": "L",
-            "id": "UC",
-            "name": {
-                "default": "UnCross"
-            },
-            "doc": {
-                "default": "No cell may have mines on all four orthogonal neighbors."
-            },
-            "author": {
-                "name": "\u96fe (3140864122)",
-                "id": "3140864122"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Anti-Construction",
-                "Local"
-            ],
-            "creation_time": "2026-07-11"
-        },
-        {
-            "rule_line": "L",
-            "id": "PM",
-            "name": {
-                "default": "Pure Matrix"
-            },
-            "doc": {
-                "default": "Exactly one way to select exactly one mine from each row and column"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "PM.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global",
-                "Strong",
-                "Extensive Trial"
-            ],
-            "creation_time": "2026-01-28"
-        },
-        {
-            "rule_line": "L",
             "id": "R",
             "name": {
                 "default": "Total Mines"
@@ -1225,12 +1112,36 @@
         },
         {
             "rule_line": "L",
-            "id": "3D1B'",
+            "id": "1T'",
             "name": {
-                "default": "3D Layer Balance"
+                "default": "Triplet'"
             },
             "doc": {
-                "default": "Total mines on all parallel planes are equal"
+                "default": "All mines must be in a triple in horizontal, vertical, or diagonal direction"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1T'.png",
+            "aliases": [
+                "T'"
+            ],
+            "tags": [
+                "Variant",
+                "Global",
+                "Construction"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
+            "id": "2B'",
+            "name": {
+                "default": "Diagonally Bridge"
+            },
+            "doc": {
+                "default": "All the mines form several chains from left to right, with each chain connecting a group of mines diagonally from the left side of the board to the right."
             },
             "author": {
                 "name": "",
@@ -1239,11 +1150,12 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
-                "Local",
-                "Extensive Trial"
+                "Original",
+                "Global",
+                "Construction",
+                "Connectivity"
             ],
-            "creation_time": "2025-08-30"
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "L",
@@ -1335,6 +1247,28 @@
         },
         {
             "rule_line": "L",
+            "id": "OR",
+            "name": {
+                "default": "OR"
+            },
+            "doc": {
+                "default": "You can input multiple left rules separated by ':' to express OR relationship (board will follow either rule A or rule B)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Global",
+                "Parameter"
+            ],
+            "creation_time": "2025-08-08"
+        },
+        {
+            "rule_line": "L",
             "id": "2G'",
             "name": {
                 "default": "Group'"
@@ -1355,28 +1289,6 @@
                 "Construction"
             ],
             "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "L",
-            "id": "4U",
-            "name": {
-                "default": "Cell"
-            },
-            "doc": {
-                "default": "Mine distribution in the first row equals the last row, and mine distribution in the first column equals the last column"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "4U.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Global",
-                "Anti-Construction"
-            ],
-            "creation_time": "2026-03-05"
         },
         {
             "rule_line": "L",
@@ -1402,25 +1314,48 @@
         },
         {
             "rule_line": "L",
-            "id": "RA'",
+            "id": "HYW",
             "name": {
-                "default": "LibraryPrime"
+                "default": "??"
             },
             "doc": {
-                "default": "Library with scrambled mine-values; solver must restore mapping"
+                "default": "\"What does it mean?\""
             },
             "author": {
                 "name": "NT",
                 "id": "2201963934"
             },
-            "image": "",
+            "image": "HYW.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "WIP",
+                "Local"
+            ],
+            "creation_time": "2025-10-26"
+        },
+        {
+            "rule_line": "L",
+            "id": "XS",
+            "name": {
+                "default": "Segment Split"
+            },
+            "doc": {
+                "default": "Uses sub-board to represent row segment boundaries: no boundary means same value, different sides must be boundary, boundary count increases from bottom up with row inheritance"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "XS.png",
             "aliases": [],
             "tags": [
                 "Creative",
                 "Local",
-                "Mine-Value"
+                "Aux Board",
+                "Construction"
             ],
-            "creation_time": "2026-05-24"
+            "creation_time": "2026-04-07"
         },
         {
             "rule_line": "L",
@@ -1557,6 +1492,28 @@
         },
         {
             "rule_line": "L",
+            "id": "AF",
+            "name": {
+                "default": "Falling"
+            },
+            "doc": {
+                "default": "Mine areas are 4-connected to the bottom edge of the board"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "AF.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Connectivity"
+            ],
+            "creation_time": "2026-03-15"
+        },
+        {
+            "rule_line": "L",
             "id": "CT",
             "name": {
                 "default": "Cactus"
@@ -1648,27 +1605,6 @@
         },
         {
             "rule_line": "L",
-            "id": "St2",
-            "name": {
-                "default": "\u72b6\u60012"
-            },
-            "doc": {
-                "default": "For a mine, left/right same iff up/down same. (No constraint for column A, last column, row 1, last row)"
-            },
-            "author": {
-                "name": "\u5c0f\u4e2d\u533b (3086842243)",
-                "id": "3086842243"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Mine-Position"
-            ],
-            "creation_time": "2026-07-11"
-        },
-        {
-            "rule_line": "L",
             "id": "1FL",
             "name": {
                 "default": "AtLeastOneFullLine"
@@ -1688,6 +1624,28 @@
                 "Construction"
             ],
             "creation_time": "2026-06-02"
+        },
+        {
+            "rule_line": "L",
+            "id": "1H2H",
+            "name": {
+                "default": "Horizontal-Horizontal"
+            },
+            "doc": {
+                "default": "In each row, either there are no horizontally adjacent mines, or all have at least one horizontally adjacent mine."
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Construction",
+                "Local"
+            ],
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "L",
@@ -1735,33 +1693,12 @@
         },
         {
             "rule_line": "L",
-            "id": "Qf",
+            "id": "3D1B'",
             "name": {
-                "default": "Squarefree"
+                "default": "3D Layer Balance"
             },
             "doc": {
-                "default": "No four mines form the vertices of a square."
-            },
-            "author": {
-                "name": "Boi",
-                "id": "-1"
-            },
-            "image": "Qf.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Anti-Construction"
-            ],
-            "creation_time": "2026-05-05"
-        },
-        {
-            "rule_line": "L",
-            "id": "3D2F",
-            "name": {
-                "default": "3D Flower Field"
-            },
-            "doc": {
-                "default": "Mines in dyed cells must have exactly 1 mine in their 6 adjacent cells"
+                "default": "Total mines on all parallel planes are equal"
             },
             "author": {
                 "name": "",
@@ -1772,9 +1709,79 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Dyed"
+                "Extensive Trial"
             ],
             "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "L",
+            "id": "3D2T",
+            "name": {
+                "default": "3D No Triple 2"
+            },
+            "doc": {
+                "default": "(1) Mines cannot form a triple in horizontal, vertical, or up-down directions; (2) Non-mines cannot form a triple in horizontal, vertical, or up-down directions."
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Strict Shape"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "L",
+            "id": "GT2",
+            "name": {
+                "default": "Greater Than 2"
+            },
+            "doc": {
+                "default": "All four-connected mine/non-mine areas have size greater than 2"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Connectivity",
+                "Construction",
+                "Parameter"
+            ],
+            "creation_time": "2026-04-09"
+        },
+        {
+            "rule_line": "L",
+            "id": "PUZ",
+            "name": {
+                "default": "Puzzle"
+            },
+            "doc": {
+                "default": "All 4-connected mine blocks can be rearranged by independent translation to form an axis-aligned rectangle"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "PUZ.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Construction",
+                "Strong",
+                "Extensive Trial"
+            ],
+            "creation_time": "2026-04-09"
         },
         {
             "rule_line": "L",
@@ -1799,28 +1806,6 @@
                 "Strong"
             ],
             "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "L",
-            "id": "3D1U",
-            "name": {
-                "default": "3DU"
-            },
-            "doc": {
-                "default": "No two mines can be adjacent to each other"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Strict Shape"
-            ],
-            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -1871,6 +1856,50 @@
         },
         {
             "rule_line": "L",
+            "id": "RA'",
+            "name": {
+                "default": "LibraryPrime"
+            },
+            "doc": {
+                "default": "Library with scrambled mine-values; solver must restore mapping"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Mine-Value"
+            ],
+            "creation_time": "2026-05-24"
+        },
+        {
+            "rule_line": "L",
+            "id": "TP",
+            "name": {
+                "default": "TripleSegment"
+            },
+            "doc": {
+                "default": "Each row is divided into exactly three contiguous segments (Mine-NonMine-Mine or NonMine-Mine-NonMine), each segment at least one cell"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "TP.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Construction"
+            ],
+            "creation_time": "2026-05-13"
+        },
+        {
+            "rule_line": "L",
             "id": "4S",
             "name": {
                 "default": "Staircase"
@@ -1915,46 +1944,88 @@
         },
         {
             "rule_line": "L",
-            "id": "~St2",
+            "id": "3D1T",
             "name": {
-                "default": "~\u72b6\u60012"
+                "default": "3D No Triple"
             },
             "doc": {
-                "default": "For a non-mine, left/right same iff up/down same."
+                "default": "Mines cannot form a triple in horizontal, vertical or diagonal directions"
             },
             "author": {
-                "name": "\u5c0f\u4e2d\u533b (3086842243)",
-                "id": "3086842243"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Mine-Position"
-            ],
-            "creation_time": "2026-07-11"
-        },
-        {
-            "rule_line": "L",
-            "id": "Vwtf",
-            "name": {
-                "default": "Uniform"
-            },
-            "doc": {
-                "default": "For all non-mine cells, the mine count in their 8-neighbours is the same"
-            },
-            "author": {
-                "name": "NT",
+                "name": "",
                 "id": "0"
             },
             "image": "",
             "aliases": [],
             "tags": [
-                "Variant",
+                "Creative",
+                "Local"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "L",
+            "id": "2C",
+            "name": {
+                "default": "Connected"
+            },
+            "doc": {
+                "default": "(1) All orthogonally connected mine areas are rectangles; (2) All mine areas are diagonally adjacent"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "2C.png",
+            "aliases": [],
+            "tags": [
+                "Original",
                 "Local",
+                "Construction"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
+            "id": "3D1Q",
+            "name": {
+                "default": "3DQ"
+            },
+            "doc": {
+                "default": "Every 2x2x2 region must contain at least 2 mines"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "L",
+            "id": "Qf",
+            "name": {
+                "default": "Squarefree"
+            },
+            "doc": {
+                "default": "No four mines form the vertices of a square."
+            },
+            "author": {
+                "name": "Boi",
+                "id": "-1"
+            },
+            "image": "Qf.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
                 "Anti-Construction"
             ],
-            "creation_time": "2026-05-27"
+            "creation_time": "2026-05-05"
         },
         {
             "rule_line": "L",
@@ -2048,6 +2119,30 @@
         },
         {
             "rule_line": "L",
+            "id": "1T",
+            "name": {
+                "default": "Triplet"
+            },
+            "doc": {
+                "default": "No three mines form a line in horizontal, vertical or diagonal directions"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1T.png",
+            "aliases": [
+                "T"
+            ],
+            "tags": [
+                "Original",
+                "Anti-Construction",
+                "Local"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
             "id": "1K1S",
             "name": {
                 "default": "Knight-Snake"
@@ -2067,28 +2162,6 @@
                 "Connectivity"
             ],
             "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "L",
-            "id": "SCREAM",
-            "name": {
-                "default": "Scream"
-            },
-            "doc": {
-                "default": "Mine value equals the factorial of the number of mines in its 4 adjacent cells"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "SCREAM.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Mine-Value"
-            ],
-            "creation_time": "2025-10-28"
         },
         {
             "rule_line": "L",
@@ -2114,35 +2187,34 @@
         },
         {
             "rule_line": "L",
-            "id": "3O^",
+            "id": "CL",
             "name": {
-                "default": "Octagonal"
+                "default": "Coastline"
             },
             "doc": {
-                "default": "Mines connect from any of the eight directions to outside the board"
+                "default": "No straight boundary line of length 2 or more exists between mine and non-mine areas"
             },
             "author": {
-                "name": "Wu_RH",
-                "id": "3140864122"
+                "name": "",
+                "id": "0"
             },
             "image": "",
             "aliases": [],
             "tags": [
                 "Creative",
                 "Global",
-                "Construction",
-                "Strict Shape"
+                "Anti-Construction"
             ],
-            "creation_time": "2026-07-13"
+            "creation_time": "2026-04-30"
         },
         {
             "rule_line": "L",
-            "id": "3DW",
+            "id": "3D1S",
             "name": {
-                "default": "Wave"
+                "default": "3D-Snake"
             },
             "doc": {
-                "default": "For each (x,y), exactly one cell across all layers has a mine. If (x0,y0,z0) has a mine, the number of mines in {(x, y, z)| |x - x0| <= 1, |y - y0| <= 1, |z - z0| <= 1} equals its 2D neighbor count + 1"
+                "default": "All mines form a snake. A snake is a width-1 6-connected path with no branches, loops, or crossings"
             },
             "author": {
                 "name": "",
@@ -2153,30 +2225,9 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive Trial"
+                "Construction"
             ],
             "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "L",
-            "id": "4C",
-            "name": {
-                "default": "Crossing"
-            },
-            "doc": {},
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global",
-                "Construction",
-                "Connectivity"
-            ],
-            "creation_time": "2025-08-13"
         },
         {
             "rule_line": "L",
@@ -2203,35 +2254,34 @@
         },
         {
             "rule_line": "L",
-            "id": "3Y",
+            "id": "AND",
             "name": {
-                "default": "Yin-Yang"
+                "default": "AND"
             },
             "doc": {
-                "default": "All mines are orthogonally connected, all non-mines are orthogonally connected, no 2x2 block of mines or non-mines exists"
+                "default": "You can input multiple left rules separated by ':' to express AND relationship (board will follow both rule A and rule B)"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "3Y.png",
+            "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
+                "Meta",
                 "Global",
-                "Connectivity",
-                "Anti-Construction"
+                "Parameter"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2025-08-08"
         },
         {
             "rule_line": "L",
-            "id": "3D1Q",
+            "id": "3D2F",
             "name": {
-                "default": "3DQ"
+                "default": "3D Flower Field"
             },
             "doc": {
-                "default": "Every 2x2x2 region must contain at least 2 mines"
+                "default": "Mines in dyed cells must have exactly 1 mine in their 6 adjacent cells"
             },
             "author": {
                 "name": "",
@@ -2241,76 +2291,35 @@
             "aliases": [],
             "tags": [
                 "Creative",
-                "Local"
+                "Local",
+                "Dyed"
             ],
             "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
-            "id": "1T",
+            "id": "1S^",
             "name": {
-                "default": "Triplet"
+                "default": "Bicursal Snake"
             },
             "doc": {
-                "default": "No three mines form a line in horizontal, vertical or diagonal directions"
+                "default": "All mines form a double-headed snake. A snake is a width-1 four-connected path with no loops or crossings, only one branch"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "1T.png",
+            "image": "1S^.png",
             "aliases": [
-                "T"
+                "S^"
             ],
             "tags": [
-                "Original",
-                "Anti-Construction",
-                "Local"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "L",
-            "id": "AF",
-            "name": {
-                "default": "Falling"
-            },
-            "doc": {
-                "default": "Mine areas are 4-connected to the bottom edge of the board"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "AF.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
+                "Variant",
                 "Global",
+                "Construction",
                 "Connectivity"
             ],
-            "creation_time": "2026-03-15"
-        },
-        {
-            "rule_line": "L",
-            "id": "3D1T",
-            "name": {
-                "default": "3D No Triple"
-            },
-            "doc": {
-                "default": "Mines cannot form a triple in horizontal, vertical or diagonal directions"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local"
-            ],
-            "creation_time": "2025-08-30"
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "L",
@@ -2387,6 +2396,28 @@
         },
         {
             "rule_line": "L",
+            "id": "3DW",
+            "name": {
+                "default": "Wave"
+            },
+            "doc": {
+                "default": "For each (x,y), exactly one cell across all layers has a mine. If (x0,y0,z0) has a mine, the number of mines in {(x, y, z)| |x - x0| <= 1, |y - y0| <= 1, |z - z0| <= 1} equals its 2D neighbor count + 1"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "L",
             "id": "1H",
             "name": {
                 "default": "Horizontal"
@@ -2433,6 +2464,53 @@
         },
         {
             "rule_line": "L",
+            "id": "1D'",
+            "name": {
+                "default": "Battleship"
+            },
+            "doc": {
+                "default": "Each mine area is a rectangle with width 1 and length no more than 4, rectangles cannot be diagonally adjacent"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1D'.png",
+            "aliases": [
+                "D'"
+            ],
+            "tags": [
+                "Variant",
+                "Local",
+                "Strict R",
+                "Strong"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
+            "id": "SCREAM",
+            "name": {
+                "default": "Scream"
+            },
+            "doc": {
+                "default": "Mine value equals the factorial of the number of mines in its 4 adjacent cells"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "SCREAM.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Mine-Value"
+            ],
+            "creation_time": "2025-10-28"
+        },
+        {
+            "rule_line": "L",
             "id": "JB",
             "name": {
                 "default": "Adick"
@@ -2456,25 +2534,26 @@
         },
         {
             "rule_line": "L",
-            "id": "3D1C",
+            "id": "R*",
             "name": {
-                "default": "3DC"
+                "default": "R*"
             },
             "doc": {
-                "default": "Mine region is 26-connected"
+                "default": "For each interactive key, the total number of mines must satisfy the given comparison string."
             },
             "author": {
-                "name": "",
-                "id": "0"
+                "name": "NT",
+                "id": "2201963934"
             },
             "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
-                "Local",
-                "Connectivity"
+                "Global",
+                "Strict R",
+                "Parameter",
+                "Original"
             ],
-            "creation_time": "2025-08-30"
+            "creation_time": "2026-05-24"
         },
         {
             "rule_line": "L",
@@ -2503,30 +2582,6 @@
         },
         {
             "rule_line": "L",
-            "id": "3P",
-            "name": {
-                "default": "Parade"
-            },
-            "doc": {
-                "default": "Starting from any mine cell, can traverse all mine cells without repetition or omission using knight moves"
-            },
-            "author": {
-                "name": "\u5bf9\u6620",
-                "id": "3242525312"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Connectivity",
-                "Construction",
-                "Global",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-14"
-        },
-        {
-            "rule_line": "L",
             "id": "QQ",
             "name": {
                 "default": "Every 3x3 box has at least 2 mines"
@@ -2547,6 +2602,50 @@
                 "Strong"
             ],
             "creation_time": "2026-07-21"
+        },
+        {
+            "rule_line": "L",
+            "id": "AS'",
+            "name": {
+                "default": "AutoSpin'"
+            },
+            "doc": {
+                "default": "Each 2x2 area cannot contain all four states (dyed mine, undyed mine, dyed non-mine, undyed non-mine) simultaneously"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Dyed",
+                "Anti-Construction"
+            ],
+            "creation_time": "2026-04-05"
+        },
+        {
+            "rule_line": "L",
+            "id": "3DD",
+            "name": {
+                "default": "3D1D"
+            },
+            "doc": {
+                "default": "All mines form 1x2x1, 2x1x1, or 1x1x2 3D rectangles"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local"
+            ],
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -2575,25 +2674,45 @@
         },
         {
             "rule_line": "L",
-            "id": "2H",
+            "id": "SUD'",
             "name": {
-                "default": "Horizontal"
+                "default": "Sudoku Box"
             },
             "doc": {
-                "default": "Every mine must have at least one horizontally adjacent mine"
+                "default": "Sudoku Box: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each box must be unique.(V only)"
             },
             "author": {
-                "name": "",
-                "id": "0"
+                "name": "\u5c0f\u7eff\u8349",
+                "id": "3021857082"
             },
-            "image": "2H.png",
+            "image": "",
             "aliases": [],
             "tags": [
-                "Variant",
-                "Connectivity",
-                "Local"
+                "Original",
+                "Meta"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2026-05-23 18:02:00"
+        },
+        {
+            "rule_line": "L",
+            "id": "St2~",
+            "name": {
+                "default": "\u72b6\u60012~"
+            },
+            "doc": {
+                "default": "For a mine, left/right same iff up/down different."
+            },
+            "author": {
+                "name": "\u5c0f\u4e2d\u533b (3086842243)",
+                "id": "3086842243"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Mine-Position"
+            ],
+            "creation_time": "2026-07-11"
         },
         {
             "rule_line": "L",
@@ -2641,24 +2760,26 @@
         },
         {
             "rule_line": "L",
-            "id": "3DD",
+            "id": "JB''",
             "name": {
-                "default": "3D1D"
+                "default": "entangledick"
             },
             "doc": {
-                "default": "All mines form 1x2x1, 2x1x1, or 1x1x2 3D rectangles"
+                "default": "1 snake + 2 square rectangles = exact full cover. One snake endpoint diagonally touches two different square corners, the other endpoint touches none. No other contact (overlap/ortho/diag) between snake and squares."
             },
             "author": {
-                "name": "",
-                "id": "0"
+                "name": "NT",
+                "id": "2201963934"
             },
-            "image": "",
+            "image": "JB''.png",
             "aliases": [],
             "tags": [
-                "Creative",
-                "Local"
+                "Variant",
+                "Global",
+                "Construction",
+                "Strong"
             ],
-            "creation_time": "2025-08-30"
+            "creation_time": "2026-05-03"
         },
         {
             "rule_line": "L",
@@ -2685,28 +2806,6 @@
         },
         {
             "rule_line": "L",
-            "id": "AA",
-            "name": {
-                "default": "Attraction"
-            },
-            "doc": {
-                "default": "No mine-empty-mine pattern exists horizontally or vertically"
-            },
-            "author": {
-                "name": "botif",
-                "id": "1643337042"
-            },
-            "image": "AA.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Anti-Construction"
-            ],
-            "creation_time": "2026-04-05"
-        },
-        {
-            "rule_line": "L",
             "id": "First",
             "name": {
                 "default": "First"
@@ -2729,24 +2828,24 @@
         },
         {
             "rule_line": "L",
-            "id": "SUD'",
+            "id": "St1",
             "name": {
-                "default": "Sudoku Box"
+                "default": "\u72b6\u60011"
             },
             "doc": {
-                "default": "Sudoku Box: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each box must be unique.(V only)"
+                "default": "A mine's left and down neighbors have the same state. (~ prefix: non-mine, ~ suffix: different) (No constraint for column A and last row)"
             },
             "author": {
-                "name": "\u5c0f\u7eff\u8349",
-                "id": "3021857082"
+                "name": "\u5c0f\u4e2d\u533b (3086842243)",
+                "id": "3086842243"
             },
             "image": "",
             "aliases": [],
             "tags": [
-                "Original",
-                "Meta"
+                "Local",
+                "Mine-Position"
             ],
-            "creation_time": "2026-05-23 18:02:00"
+            "creation_time": "2026-07-11"
         },
         {
             "rule_line": "L",
@@ -2793,6 +2892,29 @@
                 "Anti-Construction"
             ],
             "creation_time": "2025-09-01"
+        },
+        {
+            "rule_line": "L",
+            "id": "PM",
+            "name": {
+                "default": "Pure Matrix"
+            },
+            "doc": {
+                "default": "Exactly one way to select exactly one mine from each row and column"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "PM.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Strong",
+                "Extensive Trial"
+            ],
+            "creation_time": "2026-01-28"
         },
         {
             "rule_line": "L",
@@ -2863,70 +2985,6 @@
         },
         {
             "rule_line": "L",
-            "id": "St1",
-            "name": {
-                "default": "\u72b6\u60011"
-            },
-            "doc": {
-                "default": "A mine's left and down neighbors have the same state. (~ prefix: non-mine, ~ suffix: different) (No constraint for column A and last row)"
-            },
-            "author": {
-                "name": "\u5c0f\u4e2d\u533b (3086842243)",
-                "id": "3086842243"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Mine-Position"
-            ],
-            "creation_time": "2026-07-11"
-        },
-        {
-            "rule_line": "L",
-            "id": "TW'",
-            "name": {
-                "default": "Twin Chimera"
-            },
-            "doc": {
-                "default": "The gray number on the board indicates that if that cell is a mine, it represents the number of mines around it."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global"
-            ],
-            "creation_time": "2026-05-30"
-        },
-        {
-            "rule_line": "L",
-            "id": "3DJ",
-            "name": {
-                "default": "Jujubecake"
-            },
-            "doc": {
-                "default": "All non-mine cells form 1x2x1, 2x1x1, or 1x1x2 3D rectangles, i.e., each non-mine cell has exactly one 6-connected neighbor (all holes!!!)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "L",
             "id": "GL",
             "name": {
                 "default": "Game of Life"
@@ -2967,6 +3025,28 @@
                 "Local"
             ],
             "creation_time": "2025-08-27"
+        },
+        {
+            "rule_line": "L",
+            "id": "3D1C",
+            "name": {
+                "default": "3DC"
+            },
+            "doc": {
+                "default": "Mine region is 26-connected"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Connectivity"
+            ],
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "L",
@@ -3015,70 +3095,70 @@
         },
         {
             "rule_line": "L",
-            "id": "St2~",
+            "id": "2I1C",
             "name": {
-                "default": "\u72b6\u60012~"
+                "default": "Incomplete-Connectivity"
             },
             "doc": {
-                "default": "For a mine, left/right same iff up/down different."
+                "default": "1. All mines must be connected according to the auxiliary board's 4-direction connectivity; 2. Mines have only 3 connection methods (vertical/horizontal/diagonal/anti-diagonal)"
             },
             "author": {
-                "name": "\u5c0f\u4e2d\u533b (3086842243)",
-                "id": "3086842243"
+                "name": "zl",
+                "id": "3547610874"
             },
             "image": "",
             "aliases": [],
             "tags": [
-                "Local",
-                "Mine-Position"
+                "Creative",
+                "Aux Board",
+                "Global",
+                "Connectivity"
             ],
-            "creation_time": "2026-07-11"
+            "creation_time": "2025-09-08"
         },
         {
             "rule_line": "L",
-            "id": "2C'",
+            "id": "3T",
             "name": {
-                "default": "Connected"
+                "default": "No-Triple"
             },
             "doc": {
-                "default": "(1) All four-connected mine areas are 1xn or nx1 rectangles; (2) All mine areas are diagonally adjacent"
+                "default": "No three mines can be equally spaced"
             },
             "author": {
                 "name": "",
                 "id": "0"
+            },
+            "image": "3T.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Anti-Construction"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
+            "id": "LC",
+            "name": {
+                "default": "Land Claim"
+            },
+            "doc": {
+                "default": "All mine cells are on or inside an 8-connected mine ring"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
             },
             "image": "",
             "aliases": [],
             "tags": [
                 "Variant",
-                "Local",
                 "Connectivity",
-                "Construction"
+                "Global"
             ],
-            "creation_time": "2025-08-23"
-        },
-        {
-            "rule_line": "L",
-            "id": "2B'",
-            "name": {
-                "default": "Diagonally Bridge"
-            },
-            "doc": {
-                "default": "All the mines form several chains from left to right, with each chain connecting a group of mines diagonally from the left side of the board to the right."
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Global",
-                "Construction",
-                "Connectivity"
-            ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2026-05-05"
         },
         {
             "rule_line": "L",
@@ -3103,23 +3183,23 @@
         },
         {
             "rule_line": "L",
-            "id": "2C",
+            "id": "2H",
             "name": {
-                "default": "Connected"
+                "default": "Horizontal"
             },
             "doc": {
-                "default": "(1) All orthogonally connected mine areas are rectangles; (2) All mine areas are diagonally adjacent"
+                "default": "Every mine must have at least one horizontally adjacent mine"
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "2C.png",
+            "image": "2H.png",
             "aliases": [],
             "tags": [
-                "Original",
-                "Local",
-                "Construction"
+                "Variant",
+                "Connectivity",
+                "Local"
             ],
             "creation_time": "2025-08-06"
         },
@@ -3151,28 +3231,6 @@
         },
         {
             "rule_line": "L",
-            "id": "TP",
-            "name": {
-                "default": "TripleSegment"
-            },
-            "doc": {
-                "default": "Each row is divided into exactly three contiguous segments (Mine-NonMine-Mine or NonMine-Mine-NonMine), each segment at least one cell"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "TP.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Construction"
-            ],
-            "creation_time": "2026-05-13"
-        },
-        {
-            "rule_line": "L",
             "id": "Gr",
             "name": {
                 "default": "Agreement"
@@ -3196,6 +3254,28 @@
         },
         {
             "rule_line": "L",
+            "id": "RH",
+            "name": {
+                "default": "Enrichment"
+            },
+            "doc": {
+                "default": "Top mine of a vertical consecutive group gets the group size, others get 0"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2452944138"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Mine-Value",
+                "Local"
+            ],
+            "creation_time": "2026-05-17"
+        },
+        {
+            "rule_line": "L",
             "id": "3I",
             "name": {
                 "default": "Inverted"
@@ -3215,6 +3295,49 @@
                 "Local"
             ],
             "creation_time": "2025-09-14"
+        },
+        {
+            "rule_line": "L",
+            "id": "Vwtf",
+            "name": {
+                "default": "Uniform"
+            },
+            "doc": {
+                "default": "For all non-mine cells, the mine count in their 8-neighbours is the same"
+            },
+            "author": {
+                "name": "NT",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Anti-Construction"
+            ],
+            "creation_time": "2026-05-27"
+        },
+        {
+            "rule_line": "L",
+            "id": "SUD''",
+            "name": {
+                "default": "Sudoku Box+"
+            },
+            "doc": {
+                "default": "Sudoku Box+: The board side length must be a multiple of 3. The board is evenly divided into 9 boxes, and numbers in each row, column, and box must be unique.(V only)"
+            },
+            "author": {
+                "name": "NT",
+                "id": "24073104"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Meta"
+            ],
+            "creation_time": "2026-05-24 02:18:00"
         },
         {
             "rule_line": "L",
@@ -3284,51 +3407,6 @@
         },
         {
             "rule_line": "L",
-            "id": "3C",
-            "name": {
-                "default": "Connected"
-            },
-            "doc": {
-                "default": "Exactly two mines around each mine in the eight surrounding cells"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "3C.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Connectivity",
-                "Local",
-                "Strong"
-            ],
-            "creation_time": "2025-08-13"
-        },
-        {
-            "rule_line": "L",
-            "id": "LC",
-            "name": {
-                "default": "Land Claim"
-            },
-            "doc": {
-                "default": "All mine cells are on or inside an 8-connected mine ring"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Connectivity",
-                "Global"
-            ],
-            "creation_time": "2026-05-05"
-        },
-        {
-            "rule_line": "L",
             "id": "1M",
             "name": {
                 "default": "Multiple"
@@ -3351,53 +3429,6 @@
                 "Local"
             ],
             "creation_time": "2025-10-26"
-        },
-        {
-            "rule_line": "L",
-            "id": "OR",
-            "name": {
-                "default": "OR"
-            },
-            "doc": {
-                "default": "You can input multiple left rules separated by ':' to express OR relationship (board will follow either rule A or rule B)"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Global",
-                "Parameter"
-            ],
-            "creation_time": "2025-08-08"
-        },
-        {
-            "rule_line": "L",
-            "id": "AI",
-            "name": {
-                "default": "Arrow"
-            },
-            "doc": {
-                "default": "Generates fixed 8-direction arrow diagram, mine cells must be traversed along arrows without missing or repeating"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "AI.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global",
-                "Extensive Trial",
-                "Connectivity",
-                "Construction",
-                "Parameter"
-            ],
-            "creation_time": "2026-04-09"
         },
         {
             "rule_line": "L",
@@ -3447,49 +3478,6 @@
         },
         {
             "rule_line": "L",
-            "id": "~St2~",
-            "name": {
-                "default": "~\u72b6\u60012~"
-            },
-            "doc": {
-                "default": "For a non-mine, left/right same iff up/down different."
-            },
-            "author": {
-                "name": "\u5c0f\u4e2d\u533b (3086842243)",
-                "id": "3086842243"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Local",
-                "Mine-Position"
-            ],
-            "creation_time": "2026-07-11"
-        },
-        {
-            "rule_line": "L",
-            "id": "HYW",
-            "name": {
-                "default": "??"
-            },
-            "doc": {
-                "default": "\"What does it mean?\""
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "HYW.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "WIP",
-                "Local"
-            ],
-            "creation_time": "2025-10-26"
-        },
-        {
-            "rule_line": "L",
             "id": "LD",
             "name": {
                 "default": "Latin Square"
@@ -3513,30 +3501,6 @@
         },
         {
             "rule_line": "L",
-            "id": "1T'",
-            "name": {
-                "default": "Triplet'"
-            },
-            "doc": {
-                "default": "All mines must be in a triple in horizontal, vertical, or diagonal direction"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1T'.png",
-            "aliases": [
-                "T'"
-            ],
-            "tags": [
-                "Variant",
-                "Global",
-                "Construction"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "L",
             "id": "SD",
             "name": {
                 "default": "Sudoku"
@@ -3557,30 +3521,6 @@
                 "Strict R"
             ],
             "creation_time": "2026-05-15"
-        },
-        {
-            "rule_line": "L",
-            "id": "PUZ",
-            "name": {
-                "default": "Puzzle"
-            },
-            "doc": {
-                "default": "All 4-connected mine blocks can be rearranged by independent translation to form an axis-aligned rectangle"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "PUZ.png",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global",
-                "Construction",
-                "Strong",
-                "Extensive Trial"
-            ],
-            "creation_time": "2026-04-09"
         },
         {
             "rule_line": "L",
@@ -3629,30 +3569,6 @@
         },
         {
             "rule_line": "L",
-            "id": "GT2",
-            "name": {
-                "default": "Greater Than 2"
-            },
-            "doc": {
-                "default": "All four-connected mine/non-mine areas have size greater than 2"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global",
-                "Connectivity",
-                "Construction",
-                "Parameter"
-            ],
-            "creation_time": "2026-04-09"
-        },
-        {
-            "rule_line": "L",
             "id": "2HT",
             "name": {
                 "default": "Vertical"
@@ -3672,29 +3588,6 @@
                 "Weak"
             ],
             "creation_time": "2025-10-20"
-        },
-        {
-            "rule_line": "L",
-            "id": "JB'",
-            "name": {
-                "default": "Some Dick"
-            },
-            "doc": {
-                "default": "Some Dick: The minefield consists of several patterns of 4 cells (minimum) dick, which can intersect and share B cells, but cannot share A cells."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "JB'.png",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Global",
-                "Construction",
-                "Strong"
-            ],
-            "creation_time": "2026-05-03"
         },
         {
             "rule_line": "L",
@@ -3721,48 +3614,49 @@
         },
         {
             "rule_line": "L",
-            "id": "3D1T'",
+            "id": "1O",
             "name": {
-                "default": "3DT'"
+                "default": "Outside"
             },
             "doc": {
-                "default": "Mines must form a triple in horizontal, vertical or diagonal directions"
+                "default": "Non-mine areas are four-connected; each mine area is connected to the board boundary via four-connection."
             },
             "author": {
                 "name": "",
                 "id": "0"
             },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Strict Shape"
+            "image": "1O.png",
+            "aliases": [
+                "O"
             ],
-            "creation_time": "2025-08-30"
+            "tags": [
+                "Original",
+                "Connectivity",
+                "Global",
+                "Construction"
+            ],
+            "creation_time": "2025-08-06"
         },
         {
             "rule_line": "L",
-            "id": "2I1C",
+            "id": "TW'",
             "name": {
-                "default": "Incomplete-Connectivity"
+                "default": "Twin Chimera"
             },
             "doc": {
-                "default": "1. All mines must be connected according to the auxiliary board's 4-direction connectivity; 2. Mines have only 3 connection methods (vertical/horizontal/diagonal/anti-diagonal)"
+                "default": "The gray number on the board indicates that if that cell is a mine, it represents the number of mines around it."
             },
             "author": {
-                "name": "zl",
-                "id": "3547610874"
+                "name": "NT",
+                "id": "2201963934"
             },
             "image": "",
             "aliases": [],
             "tags": [
                 "Creative",
-                "Aux Board",
-                "Global",
-                "Connectivity"
+                "Global"
             ],
-            "creation_time": "2025-09-08"
+            "creation_time": "2026-05-30"
         },
         {
             "rule_line": "L",
@@ -3807,6 +3701,49 @@
                 "Anti-Construction"
             ],
             "creation_time": "2026-01-25"
+        },
+        {
+            "rule_line": "L",
+            "id": "*1M",
+            "name": {
+                "default": "Mirror"
+            },
+            "doc": {
+                "default": "Mine distribution is randomly symmetric in one of the following ways: [horizontal/vertical/diagonal/anti-diagonal/center/Rotate 90 degrees] (arg: number, zero\u2011based index to choose fixed symmetry: [horizontal/vertical/diagonal/anti-diagonal/center/Rotate 90 degrees])"
+            },
+            "author": {
+                "name": "\u96fe",
+                "id": "3140864122"
+            },
+            "image": "-a1M.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Fun",
+                "Global"
+            ],
+            "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "L",
+            "id": "~St2~",
+            "name": {
+                "default": "~\u72b6\u60012~"
+            },
+            "doc": {
+                "default": "For a non-mine, left/right same iff up/down different."
+            },
+            "author": {
+                "name": "\u5c0f\u4e2d\u533b (3086842243)",
+                "id": "3086842243"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Local",
+                "Mine-Position"
+            ],
+            "creation_time": "2026-07-11"
         },
         {
             "rule_line": "L",
@@ -3904,28 +3841,49 @@
         },
         {
             "rule_line": "L",
-            "id": "1D'",
+            "id": "3Q~",
             "name": {
-                "default": "Battleship"
+                "default": "3Q~"
             },
             "doc": {
-                "default": "Each mine area is a rectangle with width 1 and length no more than 4, rectangles cannot be diagonally adjacent"
+                "default": "All 4-connected non-mine regions form solid squares"
             },
             "author": {
-                "name": "",
-                "id": "0"
+                "name": "\u6ce2\u5e38\u672a\u6765",
+                "id": "81500378"
             },
-            "image": "1D'.png",
-            "aliases": [
-                "D'"
-            ],
+            "image": "",
+            "aliases": [],
             "tags": [
                 "Variant",
-                "Local",
-                "Strict R",
-                "Strong"
+                "Connectivity",
+                "Strict Shape"
             ],
-            "creation_time": "2025-08-06"
+            "creation_time": "2026-03-01"
+        },
+        {
+            "rule_line": "L",
+            "id": "3P",
+            "name": {
+                "default": "Parade"
+            },
+            "doc": {
+                "default": "Starting from any mine cell, can traverse all mine cells without repetition or omission using knight moves"
+            },
+            "author": {
+                "name": "\u5bf9\u6620",
+                "id": "3242525312"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Connectivity",
+                "Construction",
+                "Global",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-14"
         },
         {
             "rule_line": "L",
@@ -3998,6 +3956,29 @@
         },
         {
             "rule_line": "L",
+            "id": "3L",
+            "name": {
+                "default": "Loop"
+            },
+            "doc": {
+                "default": "All mines form a loop. A loop is a width-1 diagonal path without branches or intersections, and the loop connects head to tail"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "3L.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Connectivity",
+                "Construction",
+                "Global"
+            ],
+            "creation_time": "2025-08-22"
+        },
+        {
+            "rule_line": "L",
             "id": "3Q",
             "name": {
                 "default": "Square"
@@ -4067,54 +4048,6 @@
         },
         {
             "rule_line": "L",
-            "id": "R*",
-            "name": {
-                "default": "R*"
-            },
-            "doc": {
-                "default": "For each interactive key, the total number of mines must satisfy the given comparison string."
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Global",
-                "Strict R",
-                "Parameter",
-                "Original"
-            ],
-            "creation_time": "2026-05-24"
-        },
-        {
-            "rule_line": "L",
-            "id": "1O",
-            "name": {
-                "default": "Outside"
-            },
-            "doc": {
-                "default": "Non-mine areas are four-connected; each mine area is connected to the board boundary via four-connection."
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1O.png",
-            "aliases": [
-                "O"
-            ],
-            "tags": [
-                "Original",
-                "Connectivity",
-                "Global",
-                "Construction"
-            ],
-            "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "L",
             "id": "Gd",
             "name": {
                 "default": "Descending"
@@ -4157,6 +4090,28 @@
                 "Construction"
             ],
             "creation_time": "2026-04-09"
+        },
+        {
+            "rule_line": "L",
+            "id": "AA",
+            "name": {
+                "default": "Attraction"
+            },
+            "doc": {
+                "default": "No mine-empty-mine pattern exists horizontally or vertically"
+            },
+            "author": {
+                "name": "botif",
+                "id": "1643337042"
+            },
+            "image": "AA.png",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Anti-Construction"
+            ],
+            "creation_time": "2026-04-05"
         },
         {
             "rule_line": "L",
@@ -4204,17 +4159,38 @@
                 "Global"
             ],
             "creation_time": "2025-08-06"
-        }
-    ],
-    "M": [
+        },
         {
-            "rule_line": "M",
-            "id": "FL",
+            "rule_line": "L",
+            "id": "JB'",
             "name": {
-                "default": "Perimeter"
+                "default": "Some Dick"
             },
             "doc": {
-                "default": "Mines clue value represents the perimeter of its mine region"
+                "default": "Some Dick: The minefield consists of several patterns of 4 cells (minimum) dick, which can intersect and share B cells, but cannot share A cells."
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "JB'.png",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Global",
+                "Construction",
+                "Strong"
+            ],
+            "creation_time": "2026-05-03"
+        },
+        {
+            "rule_line": "L",
+            "id": "3D1U",
+            "name": {
+                "default": "3DU"
+            },
+            "doc": {
+                "default": "No two mines can be adjacent to each other"
             },
             "author": {
                 "name": "",
@@ -4225,10 +4201,12 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Construction"
+                "Strict Shape"
             ],
-            "creation_time": "2026-04-09"
-        },
+            "creation_time": "2025-08-30"
+        }
+    ],
+    "M": [
         {
             "rule_line": "M",
             "id": "3M@",
@@ -4253,12 +4231,12 @@
         },
         {
             "rule_line": "M",
-            "id": "F#",
+            "id": "FL",
             "name": {
-                "default": "Mineclue Label"
+                "default": "Perimeter"
             },
             "doc": {
-                "default": "Contains the following rules: [*3T], [3], [3F]"
+                "default": "Mines clue value represents the perimeter of its mine region"
             },
             "author": {
                 "name": "",
@@ -4269,9 +4247,9 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Extensive Trial"
+                "Construction"
             ],
-            "creation_time": "2025-08-26"
+            "creation_time": "2026-04-09"
         },
         {
             "rule_line": "M",
@@ -4403,6 +4381,28 @@
         },
         {
             "rule_line": "M",
+            "id": "F#",
+            "name": {
+                "default": "Mineclue Label"
+            },
+            "doc": {
+                "default": "Contains the following rules: [*3T], [3], [3F]"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-08-26"
+        },
+        {
+            "rule_line": "M",
             "id": "Tu1",
             "name": {
                 "default": "Tu1"
@@ -4514,6 +4514,29 @@
         }
     ],
     "R": [
+        {
+            "rule_line": "R",
+            "id": "1L1X",
+            "name": {
+                "default": "Liar + Cross"
+            },
+            "doc": {
+                "default": "Liar + Cross combination rule"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
         {
             "rule_line": "R",
             "id": "2K'",
@@ -4865,27 +4888,6 @@
         },
         {
             "rule_line": "R",
-            "id": "1L1#'",
-            "name": {
-                "default": "Liar + Label'"
-            },
-            "doc": {
-                "default": "Includes the following rules: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\nUse [1L1#':] to exclude [1L1W]"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "R",
             "id": "V+3D",
             "name": {
                 "default": "V+3D"
@@ -4978,28 +4980,6 @@
                 "Creative"
             ],
             "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "2EC#",
-            "name": {
-                "default": "Encrypted Value + Encrypted Tag"
-            },
-            "doc": {
-                "default": "Clue values and clue tags are both encrypted by the 2EC sub-board.\nSpecify the rules used and their order through 2EC#:<rule1>;<rule2>;...\nOnly rules whose clues use SingleIntValue are supported."
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Extensive Trial"
-            ],
-            "creation_time": "2026-07-26"
         },
         {
             "rule_line": "R",
@@ -5611,12 +5591,12 @@
         },
         {
             "rule_line": "R",
-            "id": "0L#",
+            "id": "1L2#",
             "name": {
-                "default": "Tag"
+                "default": "Liar + Label'"
             },
             "doc": {
-                "default": "Contains rules: [1L], [1L1L], [1L1N], [1L1X], [1L1P], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1L2D], [1L2M], [1L2X']. Clue values are only zero."
+                "default": "Includes the following rules: [1L], [1L2X], [1L2D], [1L2M], [1L2A]\nUse [1L2#:] to exclude [1L2A]"
             },
             "author": {
                 "name": "",
@@ -5625,10 +5605,10 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Meta",
+                "Original",
                 "Local"
             ],
-            "creation_time": "2025-08-31"
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
@@ -5721,6 +5701,28 @@
                 "Untagged"
             ],
             "creation_time": "2026-04-30 00:21:47"
+        },
+        {
+            "rule_line": "R",
+            "id": "DJ",
+            "name": {
+                "default": "Disjoint"
+            },
+            "doc": {
+                "default": "Two main boards exist, cells at the same position on both boards cannot both be mines. DJ:A+B;C+D means left board uses rules A and B, right board uses rules C and D"
+            },
+            "author": {
+                "name": "Boi",
+                "id": "-1"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Global",
+                "Multi-Board"
+            ],
+            "creation_time": "2026-04-19"
         },
         {
             "rule_line": "R",
@@ -5932,27 +5934,6 @@
         },
         {
             "rule_line": "R",
-            "id": "1#",
-            "name": {
-                "default": "Label"
-            },
-            "doc": {
-                "default": "Contains rules: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E]"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-26"
-        },
-        {
-            "rule_line": "R",
             "id": "2M",
             "name": {
                 "default": "Modulo"
@@ -5972,49 +5953,6 @@
                 "Number Clue"
             ],
             "creation_time": "2025-08-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "DJ",
-            "name": {
-                "default": "Disjoint"
-            },
-            "doc": {
-                "default": "Two main boards exist, cells at the same position on both boards cannot both be mines. DJ:A+B;C+D means left board uses rules A and B, right board uses rules C and D"
-            },
-            "author": {
-                "name": "Boi",
-                "id": "-1"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Global",
-                "Multi-Board"
-            ],
-            "creation_time": "2026-04-19"
-        },
-        {
-            "rule_line": "R",
-            "id": "1#'",
-            "name": {
-                "default": "Label'"
-            },
-            "doc": {
-                "default": "Includes the following rules: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E], [1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-26"
         },
         {
             "rule_line": "R",
@@ -6067,6 +6005,28 @@
         },
         {
             "rule_line": "R",
+            "id": "2E#",
+            "name": {
+                "default": "Encrypted + Tag"
+            },
+            "doc": {
+                "default": "Clues are replaced by letters, each letter corresponds to a clue, and each clue corresponds to a letter\nSpecify the rules used and their order through 2E#:<rule1>;<rule2>;...\nDefault is the same as the second generation\nYou can add 1# 1#' 2# 2#' 2#':"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local",
+                "Extensive Trial"
+            ],
+            "creation_time": "2025-09-06"
+        },
+        {
+            "rule_line": "R",
             "id": "1X-",
             "name": {
                 "default": "Pawn"
@@ -6093,27 +6053,6 @@
         },
         {
             "rule_line": "R",
-            "id": "1L2#'",
-            "name": {
-                "default": "Liar + Label'"
-            },
-            "doc": {
-                "default": "Includes the following rules: [1L], [1L2X], [1L2D], [1L2M], [1L2X']\nUse [1L2#':] to exclude [1L2A]"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-30"
-        },
-        {
-            "rule_line": "R",
             "id": "Rule-011",
             "name": {
                 "default": "\u03c4B"
@@ -6134,27 +6073,6 @@
                 "Extensive Trial"
             ],
             "creation_time": "2025-08-17"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L2#",
-            "name": {
-                "default": "Liar + Label'"
-            },
-            "doc": {
-                "default": "Includes the following rules: [1L], [1L2X], [1L2D], [1L2M], [1L2A]\nUse [1L2#:] to exclude [1L2A]"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
@@ -6366,6 +6284,27 @@
         },
         {
             "rule_line": "R",
+            "id": "0#",
+            "name": {
+                "default": "Tag"
+            },
+            "doc": {
+                "default": "Contains rules: [1L], [1N], [1E'], [1M1N], [1N1X], [2M], [2X']. Clue values are only zero."
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local"
+            ],
+            "creation_time": "2025-08-27"
+        },
+        {
+            "rule_line": "R",
             "id": "2D^",
             "name": {
                 "default": "Deviation^"
@@ -6456,29 +6395,6 @@
                 "Extensive Trial"
             ],
             "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "3DV",
-            "name": {
-                "default": "3D Vanilla"
-            },
-            "doc": {
-                "default": "Each number indicates the number of mines in the surrounding 26 cells"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue",
-                "Vanilla Variant"
-            ],
-            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
@@ -6687,6 +6603,27 @@
         },
         {
             "rule_line": "R",
+            "id": "1L1#'",
+            "name": {
+                "default": "Liar + Label'"
+            },
+            "doc": {
+                "default": "Includes the following rules: [1L], [1L1M], [1L1L], [1L1N], [1L1W], [1L1N], [1L1X], [1L1P], [1L1E], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1LMN], [1LMX], [1LNX]\nUse [1L1#':] to exclude [1L1W]"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "R",
             "id": "2P'2",
             "name": {
                 "default": "Manhattan Product"
@@ -6830,6 +6767,27 @@
         },
         {
             "rule_line": "R",
+            "id": "1#'",
+            "name": {
+                "default": "Label'"
+            },
+            "doc": {
+                "default": "Includes the following rules: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E], [1X'], [1K], [1W'], [1E'], [1L1M], [1M1N], [1M1X], [1N1X]"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-26"
+        },
+        {
+            "rule_line": "R",
             "id": "3A^",
             "name": {
                 "default": "Langton's Ant - XOR"
@@ -6851,50 +6809,6 @@
                 "Cryptic"
             ],
             "creation_time": "2026-04-19"
-        },
-        {
-            "rule_line": "R",
-            "id": "2E#",
-            "name": {
-                "default": "Encrypted + Tag"
-            },
-            "doc": {
-                "default": "Clues are replaced by letters, each letter corresponds to a clue, and each clue corresponds to a letter\nSpecify the rules used and their order through 2E#:<rule1>;<rule2>;...\nDefault is the same as the second generation\nYou can add 1# 1#' 2# 2#' 2#':"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local",
-                "Extensive Trial"
-            ],
-            "creation_time": "2025-09-06"
-        },
-        {
-            "rule_line": "R",
-            "id": "3DK",
-            "name": {
-                "default": "3D1K"
-            },
-            "doc": {
-                "default": "Each number indicates the number of mines in the surrounding 26 cells"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Creative",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
@@ -7061,6 +6975,31 @@
         },
         {
             "rule_line": "R",
+            "id": "1L",
+            "name": {
+                "default": "Liar"
+            },
+            "doc": {
+                "default": "All clues are either 1 greater or 1 less than the true value"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "1L.png",
+            "aliases": [
+                "L"
+            ],
+            "tags": [
+                "Original",
+                "Local",
+                "Number Clue",
+                "Extensive Trial"
+            ],
+            "creation_time": ""
+        },
+        {
+            "rule_line": "R",
             "id": "1P",
             "name": {
                 "default": "Partition"
@@ -7083,6 +7022,28 @@
                 "Extensive Trial"
             ],
             "creation_time": "2025-08-06"
+        },
+        {
+            "rule_line": "R",
+            "id": "3D1X",
+            "name": {
+                "default": "3D Cross"
+            },
+            "doc": {
+                "default": "Clue shows the number of mines in a 2-cell cross range (up, down, left, right, front, back)"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
@@ -7198,6 +7159,27 @@
                 "Dyed"
             ],
             "creation_time": "2025-08-23"
+        },
+        {
+            "rule_line": "R",
+            "id": "2#'",
+            "name": {
+                "default": "Label'"
+            },
+            "doc": {
+                "default": "Contains rules: [V], [2X], [2X'], [2D], [2P], [2M], [2A]. Use '2#:' to exclude 2A"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-26"
         },
         {
             "rule_line": "R",
@@ -7388,6 +7370,27 @@
         },
         {
             "rule_line": "R",
+            "id": "1L2#'",
+            "name": {
+                "default": "Liar + Label'"
+            },
+            "doc": {
+                "default": "Includes the following rules: [1L], [1L2X], [1L2D], [1L2M], [1L2X']\nUse [1L2#':] to exclude [1L2A]"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "R",
             "id": "1M1X",
             "name": {
                 "default": "Multiple + Cross"
@@ -7405,70 +7408,6 @@
                 "Number Clue"
             ],
             "creation_time": "2025-08-23"
-        },
-        {
-            "rule_line": "R",
-            "id": "0#",
-            "name": {
-                "default": "Tag"
-            },
-            "doc": {
-                "default": "Contains rules: [1L], [1N], [1E'], [1M1N], [1N1X], [2M], [2X']. Clue values are only zero."
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local"
-            ],
-            "creation_time": "2025-08-27"
-        },
-        {
-            "rule_line": "R",
-            "id": "2#'",
-            "name": {
-                "default": "Label'"
-            },
-            "doc": {
-                "default": "Contains rules: [V], [2X], [2X'], [2D], [2P], [2M], [2A]. Use '2#:' to exclude 2A"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Original",
-                "Local"
-            ],
-            "creation_time": "2025-08-26"
-        },
-        {
-            "rule_line": "R",
-            "id": "V?",
-            "name": {
-                "default": "Vanilla?"
-            },
-            "doc": {
-                "default": "The clue is the smaller of the mine count and safe cell count among the 8 neighbors"
-            },
-            "author": {
-                "name": "NT",
-                "id": "2201963934"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue"
-            ],
-            "creation_time": "2026-07-16"
         },
         {
             "rule_line": "R",
@@ -7491,6 +7430,50 @@
                 "Number Clue"
             ],
             "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "R",
+            "id": "3DK",
+            "name": {
+                "default": "3D1K"
+            },
+            "doc": {
+                "default": "Each number indicates the number of mines in the surrounding 26 cells"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2025-08-30"
+        },
+        {
+            "rule_line": "R",
+            "id": "V?",
+            "name": {
+                "default": "Vanilla?"
+            },
+            "doc": {
+                "default": "The clue is the smaller of the mine count and safe cell count among the 8 neighbors"
+            },
+            "author": {
+                "name": "NT",
+                "id": "2201963934"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Variant",
+                "Local",
+                "Number Clue"
+            ],
+            "creation_time": "2026-07-16"
         },
         {
             "rule_line": "R",
@@ -7727,12 +7710,12 @@
         },
         {
             "rule_line": "R",
-            "id": "Gallery",
+            "id": "N#",
             "name": {
-                "default": "Gallery"
+                "default": "Tag"
             },
             "doc": {
-                "default": "Different rules for each row and column, shown at the top-left boundary. Left rules only affect their row and adjacent rows. (1B affects only row balance) Add parameters after : ? means random order, ! means random rules, then add specified rules separated by ; can specify only left or right rules. Empty : is equivalent to :!."
+                "default": "Clue has only one possible value"
             },
             "author": {
                 "name": "",
@@ -7741,11 +7724,31 @@
             "image": "",
             "aliases": [],
             "tags": [
-                "Creative",
-                "Local",
-                "Extensive Trial"
+                "Meta",
+                "Local"
             ],
-            "creation_time": ""
+            "creation_time": "2025-08-29"
+        },
+        {
+            "rule_line": "R",
+            "id": "1#",
+            "name": {
+                "default": "Label"
+            },
+            "doc": {
+                "default": "Contains rules: [V], [1M], [1L], [1W], [1N], [1X], [1P], [1E]"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Original",
+                "Local"
+            ],
+            "creation_time": "2025-08-26"
         },
         {
             "rule_line": "R",
@@ -7772,6 +7775,27 @@
         },
         {
             "rule_line": "R",
+            "id": "0L#",
+            "name": {
+                "default": "Tag"
+            },
+            "doc": {
+                "default": "Contains rules: [1L], [1L1L], [1L1N], [1L1X], [1L1P], [1L1X'], [1L1K], [1L1W'], [1L1E'], [1L2D], [1L2M], [1L2X']. Clue values are only zero."
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Meta",
+                "Local"
+            ],
+            "creation_time": "2025-08-31"
+        },
+        {
+            "rule_line": "R",
             "id": "6L",
             "name": {
                 "default": "Light"
@@ -7792,6 +7816,29 @@
                 "Construction"
             ],
             "creation_time": "2026-05-20"
+        },
+        {
+            "rule_line": "R",
+            "id": "3DV",
+            "name": {
+                "default": "3D Vanilla"
+            },
+            "doc": {
+                "default": "Each number indicates the number of mines in the surrounding 26 cells"
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Number Clue",
+                "Vanilla Variant"
+            ],
+            "creation_time": "2025-08-30"
         },
         {
             "rule_line": "R",
@@ -7930,6 +7977,28 @@
         },
         {
             "rule_line": "R",
+            "id": "2EC#",
+            "name": {
+                "default": "Encrypted Value + Encrypted Tag"
+            },
+            "doc": {
+                "default": "Clue values and clue tags are both encrypted by the 2EC sub-board.\nSpecify the rules used and their order through 2EC#:<rule1>;<rule2>;...\nOnly rules whose clues use SingleIntValue are supported."
+            },
+            "author": {
+                "name": "",
+                "id": "0"
+            },
+            "image": "",
+            "aliases": [],
+            "tags": [
+                "Creative",
+                "Local",
+                "Extensive Trial"
+            ],
+            "creation_time": "2026-07-26"
+        },
+        {
+            "rule_line": "R",
             "id": "MATE",
             "name": {
                 "default": "Mate"
@@ -8043,27 +8112,6 @@
                 "Creative"
             ],
             "creation_time": "2025-08-24"
-        },
-        {
-            "rule_line": "R",
-            "id": "N#",
-            "name": {
-                "default": "Tag"
-            },
-            "doc": {
-                "default": "Clue has only one possible value"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Meta",
-                "Local"
-            ],
-            "creation_time": "2025-08-29"
         },
         {
             "rule_line": "R",
@@ -8594,12 +8642,12 @@
         },
         {
             "rule_line": "R",
-            "id": "3D1X",
+            "id": "Gallery",
             "name": {
-                "default": "3D Cross"
+                "default": "Gallery"
             },
             "doc": {
-                "default": "Clue shows the number of mines in a 2-cell cross range (up, down, left, right, front, back)"
+                "default": "Different rules for each row and column, shown at the top-left boundary. Left rules only affect their row and adjacent rows. (1B affects only row balance) Add parameters after : ? means random order, ! means random rules, then add specified rules separated by ; can specify only left or right rules. Empty : is equivalent to :!."
             },
             "author": {
                 "name": "",
@@ -8610,9 +8658,9 @@
             "tags": [
                 "Creative",
                 "Local",
-                "Number Clue"
+                "Extensive Trial"
             ],
-            "creation_time": "2025-08-30"
+            "creation_time": ""
         },
         {
             "rule_line": "R",
@@ -8679,54 +8727,6 @@
                 "Number Clue"
             ],
             "creation_time": "2026-06-26"
-        },
-        {
-            "rule_line": "R",
-            "id": "1L",
-            "name": {
-                "default": "Liar"
-            },
-            "doc": {
-                "default": "All clues are either 1 greater or 1 less than the true value"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "1L.png",
-            "aliases": [
-                "L"
-            ],
-            "tags": [
-                "Original",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
-        },
-        {
-            "rule_line": "R",
-            "id": "1L1X",
-            "name": {
-                "default": "Liar + Cross"
-            },
-            "doc": {
-                "default": "Liar + Cross combination rule"
-            },
-            "author": {
-                "name": "",
-                "id": "0"
-            },
-            "image": "",
-            "aliases": [],
-            "tags": [
-                "Variant",
-                "Local",
-                "Number Clue",
-                "Extensive Trial"
-            ],
-            "creation_time": ""
         }
     ]
 }
