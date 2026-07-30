@@ -53,17 +53,6 @@ class Value2X(AbstractClueValue):
             self.count = count
         self.neighbor = self.pos.neighbors(2)
 
-    @classmethod
-    def from_json(cls, pos: 'Position', data: 'JSONObject') -> 'Value2X':
-        _data = deep_unwrap(data)
-        if not is_value_template(_data):
-            raise TypeError("value is not template")
-        template_data = cast(Template, _data)
-        value = SingleIntValue.try_from(template_data)
-        if value is None:
-            raise ValueError("value is empty")
-        return cls(pos, count=value.value)
-
     def __repr__(self) -> str:
         return f"{self.count // 10} {self.count % 10}"
 
