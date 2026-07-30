@@ -44,7 +44,7 @@ class Rule2B(AbstractMinesRule):
     name.zh_CN = "斜桥"
     doc = ("All the mines form several chains from left to right, with each chain connecting a group of mines "
            "diagonally from the left side of the board to the right.")
-    doc.zh_CN = "所有雷构成若干条从左至右的链, 链式一组从题板左侧连接到右侧斜线相连的雷"
+    doc.zh_CN = "所有雷构成若干条从左至右的链, 链是一组从题板左侧连接到右侧斜线相连的雷"
     tags = ["Original", "Global", "Construction", "Connectivity"]
     creation_time = "2025-08-06"
     author = ("", 0)
