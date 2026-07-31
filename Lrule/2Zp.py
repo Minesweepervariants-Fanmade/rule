@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+#
+# @Time    : 2025/08/12 19:40
+# @Author  : Wu_RH
+# @FileName: 2Zp.py
+from minesweepervariants.abs.Lrule import AbstractMinesRule
+from minesweepervariants.board import Board, Position
+from minesweepervariants.impl.summon.solver import Switch
+
+
+def block4(board: Board, pos: Position):
+    positions = []
+    pos_list = [pos.right(i) for i in range(4)]
+    for pos in pos_list:
+        positions.extend([pos.down(i) for i in range(4)])
+    if '' in board.batch(positions, mode="type"):
+        return None
+    return positions
+
+
+class Rule2Zp(AbstractMinesRule):
+    id = "2Z^"
+    name = "Zero-Sum^"
+    name.zh_CN = "零和'"
+    doc = "In each 4x4 block, the number of mines in dyed and non-dyed cells is equal"
+    doc.zh_CN = "每个4x4方块内的染色格和非染色格雷数相等"
+
+    tags = ["Variant", "Local", "Dyed", "Anti-Construction"]
+    creation_time = "2025-08-13"
+    author = ("", 0)
+
+    def create_constraints(self, board: 'Board', switch: 'Switch'):
+        model = board.get_model()
+        s = switch.get(model, self)
+        for pos, _ in board():
+            block = block4(board, pos)
+            if block is None:
+                continue
+            dye_list = board.batch(block, mode="dye")
+            var_list = board.batch(block, mode="var")
+            var1_list = [v for v, d in zip(var_list, dye_list) if d]
+            var2_list = [v for v, d in zip(var_list, dye_list) if not d]
+
+            model.Add(sum(var1_list) == sum(var2_list)).OnlyEnforceIf(s)
