@@ -3825,5 +3825,12 @@
         "author_uid": 740652480,
         "author_name": "未知",
         "doc": "每行每列恰有一个符合1U的雷"
+    },
+    {
+        "time": 1785518110.5152147,
+        "name": "JS",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "定义一个规则, 然后让JS用js实现它"
     }
 ]
