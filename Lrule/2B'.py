@@ -21,6 +21,7 @@ def left(pos: Position, board: Board) -> List[Position]:
         ] if board.is_valid(_pos)
     ]
 
+
 def right(pos: Position, board: Board) -> List[Position]:
     return [
         _pos for _pos in [
@@ -28,6 +29,7 @@ def right(pos: Position, board: Board) -> List[Position]:
             pos.right().down()
         ] if board.is_valid(_pos)
     ]
+
 
 def col(pos: Position, board: Board) -> List[Position]:
     return [
@@ -53,29 +55,29 @@ class Rule2B(AbstractMinesRule):
         model = board.get_model()
         s = switch.get(model, self)
         for key in board.get_interactive_keys():
-            for pos, var in board(mode="var", key=key):
-                left_var = board.batch(left(pos, board), mode="var")
-                right_var = board.batch(right(pos, board), mode="var")
-                col_var = board.batch(col(pos, board), mode="var")
-                if left_var:
-                    model.add_bool_or(left_var).OnlyEnforceIf(s, var)
-                if len(left_var) > 1:
-                    model.add_bool_or(col_var).OnlyEnforceIf(
-                        [s, var] + left_var
-                    )
-                if right_var:
-                    model.add_bool_or(right_var).OnlyEnforceIf(s, var)
-                if len(right_var) > 1:
-                    model.add_bool_or(col_var).OnlyEnforceIf(
-                        [s, var] + right_var
-                    )
-            main_col_sum = None
-            for pos in board.get_row_pos(board.boundary(key)):
-                col_sum_var = board.batch(board.get_col_pos(pos), mode="var")
-                if main_col_sum:
-                    model.add(sum(main_col_sum) == sum(col_sum_var)).OnlyEnforceIf(s)
-                else:
-                    main_col_sum = col_sum_var
+            id_vars = {pos: model.new_bool_var(f"{pos}_id") for pos in board(mode="pos")}
+            for pos, pos_var in board(mode="var", key=key):
+                pos_id = id_vars[pos]
+                col_pos = col(pos, board)
+                col_id = [id_vars[_pos] for _pos in col_pos]
+                col_var = [board.get_variable(_pos) for _pos in col_pos]
+                right_pos = right(pos, board)
+                right_id = [id_vars[_pos] for _pos in right_pos]
+                right_var = [board.get_variable(_pos) for _pos in right_pos]
+                left_pos = left(pos, board)
+                left_id = [id_vars[_pos] for _pos in left_pos]
+                left_var = [board.get_variable(_pos) for _pos in left_pos]
+                for _col_id, _col_var in zip(col_id, col_var):
+                    model.add(_col_id != pos_id).only_enforce_if(_col_var, pos_var, s)
+                for side_id, side_var in [(right_id, right_var), (left_id, left_var)]:
+                    if len(side_id) == 2:
+                        model.add_bool_or(side_var).only_enforce_if(pos_var, s)
+                        model.add(pos_id == side_id[0]).only_enforce_if(pos_var, side_var[0], side_var[1].Not(), s)
+                        model.add(pos_id == side_id[1]).only_enforce_if(pos_var, side_var[0].Not(), side_var[1], s)
+                        model.add(side_id[0] != side_id[1]).only_enforce_if([pos_var, s] + side_var)
+                    if len(side_id) == 1:
+                        model.add(side_var[0] == 1).only_enforce_if(pos_var, s)
+                        model.add(side_id[0] == pos_id).only_enforce_if(pos_var, s)
 
     def suggest_total(self, info: dict):
         size_list = [info["size"][key] for key in info["interactive"]]
