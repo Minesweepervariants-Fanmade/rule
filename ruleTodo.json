@@ -3975,5 +3975,12 @@
         "author_uid": 3898637422,
         "author_name": "咸鱼isbvoh",
         "doc": "雷线索表示被自身挡住的1E线索格数量"
+    },
+    {
+        "time": 1785582644.032628,
+        "name": "@2A",
+        "author_uid": 992600401,
+        "author_name": "Gat",
+        "doc": "雷值为雷所在四连通区域面积"
     }
 ]
