@@ -113,4 +113,4 @@ class Rule2Zp(AbstractMinesRule):
                     dye_sum_vars.append(tmp_var)
                 else:
                     undye_sum_vars.append(tmp_var)
-            model.add(sum(undye_sum_vars) == sum(dye_sum_vars))
+            model.add(sum(undye_sum_vars) == sum(dye_sum_vars)).only_enforce_if(s)
