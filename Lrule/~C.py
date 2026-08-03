@@ -124,11 +124,6 @@ class TildeC(AbstractMinesRule):
         # 软约束：雷数约为总格数的 28%（5x5 下约 7 个）
         info["soft_fn"](total_cells * 0.28, 0)
         
-        # 硬约束：雷数最多 7 个（对于 5x5 棋盘的经验上限）
-        def max_mines_constraint(model, total):
-            model.Add(total <= 7)
-        info["hard_fns"].append(max_mines_constraint)
-
     def init_board(self, board: Board) -> bool:
         """
         初始化题板时无需特殊操作，返回 True。
