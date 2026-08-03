@@ -22,13 +22,14 @@ class Rule2U(AbstractMinesRule):
     name = "Islands"
     name.zh_CN = "孤岛"
     doc = "Exactly one isolated mine per row and column; all non-isolated mines must have at least one adjacent mine."
-    doc.zh_CN = "每行每列恰有一个孤立雷（上下左右无雷）；所有非孤立雷至少有一个相邻雷。"
+    doc.zh_CN = "每行每列恰有一个孤立雷, 所有非孤立雷至少有一个相邻雷"
     tags = ["Creative", "Global", "Strict R"]
     creation_time = "2026-08-01"
     author = ("muratsubo", 0)
 
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
+        s = switch.get(model, self)
         # 每次调用都添加约束，因为 fill_valid 每次尝试都会清除模型并重新调用
 
         interactive_keys = board.get_interactive_keys()
@@ -43,8 +44,7 @@ class Rule2U(AbstractMinesRule):
 
         # 规则要求正方形题板
         if height != width:
-            model.Add(0 == 1)
-            return
+            raise ValueError("规则要求正方形题板")
         n = height
 
         # 为每个位置创建孤立雷辅助变量
@@ -57,12 +57,12 @@ class Rule2U(AbstractMinesRule):
                 unary_vars[pos] = unary
 
                 # unary => var (孤立雷必须是雷)
-                model.AddImplication(unary, var)
+                model.AddImplication(unary, var).OnlyEnforceIf(s)
                 # unary => 邻居不是雷
                 for d in [pos.up(), pos.down(), pos.left(), pos.right()]:
                     if board.in_bounds(d) and d.board_key == main_key:
                         nv = board.get_variable(d)
-                        model.AddImplication(unary, nv.Not())
+                        model.AddImplication(unary, nv.Not()).OnlyEnforceIf(s)
                 # var AND 所有邻居都不是雷 => unary
                 neighbor_vars = []
                 for d in [pos.up(), pos.down(), pos.left(), pos.right()]:
@@ -72,30 +72,24 @@ class Rule2U(AbstractMinesRule):
                     # 如果 var 为真且所有邻居都为假，则 unary 必须为真
                     # 约束: (var) AND (NOT any neighbor) => unary
                     # 转换为 CNF: NOT var OR any_neighbor OR unary
-                    model.AddBoolOr([var.Not()] + neighbor_vars + [unary])
+                    model.AddBoolOr([var.Not()] + neighbor_vars + [unary]).OnlyEnforceIf(s)
                 else:
                     # 如果没有邻居（1x1题板），则 var => unary
-                    model.AddImplication(var, unary)
+                    model.AddImplication(var, unary).OnlyEnforceIf(s)
 
         # 每行恰好一个孤立雷
         for row in range(height):
             row_unaries = [unary_vars[board.get_pos(row, col, main_key)] for col in range(width)]
-            model.Add(sum(row_unaries) == 1)
+            model.Add(sum(row_unaries) == 1).OnlyEnforceIf(s)
 
         # 每列恰好一个孤立雷
         for col in range(width):
             col_unaries = [unary_vars[board.get_pos(row, col, main_key)] for row in range(height)]
-            model.Add(sum(col_unaries) == 1)
+            model.Add(sum(col_unaries) == 1).OnlyEnforceIf(s)
 
         # 非孤立雷必须至少有一个相邻雷这个约束是多余的，因为孤立雷的定义已经隐含了这一点。
         # 但我们保留此约束以增强语义清晰度（虽然它实际上是由 unary 定义保证的）。
         # 但为了模型简洁，这里不再重复添加。
-
-
-
-    def init_clear(self, board: 'Board') -> None:
-        # 无需清除任何内容
-        pass
 
     def suggest_total(self, info: dict):
         for key in info["interactive"]:
