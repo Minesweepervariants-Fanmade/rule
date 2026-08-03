@@ -4081,5 +4081,12 @@
         "author_uid": 3898637422,
         "author_name": "咸鱼isbvoh",
         "doc": "所有雷周围八格中至少有一雷"
+    },
+    {
+        "time": 1785763253.2816849,
+        "name": "2G+",
+        "author_uid": 3898637422,
+        "author_name": "咸鱼isbvoh",
+        "doc": "所有八联通雷区恰有4雷"
     }
 ]
