@@ -4230,5 +4230,12 @@
         "author_uid": 740652480,
         "author_name": "未知",
         "doc": "[规则描述]"
+    },
+    {
+        "time": 1786215422.6503913,
+        "name": "14mvw",
+        "author_uid": 992600401,
+        "author_name": "Gat",
+        "doc": "14 minesweeper variants WORLD"
     }
 ]
