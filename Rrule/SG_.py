@@ -77,8 +77,8 @@ class RuleSGPrime(AbstractClueRule):
                     continue
                 # 统计雷的数量，将'N'视为非雷
                 f_count = types.count('F')
-                # 全非雷（即没有'F'）
-                if f_count == 0:
+                # 三格完全相同：全雷（f_count==3）或全非雷（f_count==0）
+                if f_count == 0 or f_count == 3:
                     count += 1
             board.set_value(pos, ValueSGPrime(pos, count=count))
         return board
@@ -128,18 +128,19 @@ class ValueSGPrime(AbstractClueValue):
 
     def create_constraints(self, board: 'Board', switch: Switch):
         """
-        创建CP-SAT约束：线索值等于8条线中全非雷的线数。
-        对于每条线，三个位置都有变量，中心变量强制为0。
+        创建CP-SAT约束：线索值等于8条线中三格完全相同的线数。
+        对于每条线，三个位置都有变量。
         """
         model = board.get_model()
         logger = get_logger()
 
-        # 强制中心格变量为0（非雷）
+        s = switch.get(model, self.pos)
+
+        # 强制线索格本身为非雷（与fill一致）
         center_var = board.get_variable(self.pos)
         if center_var is not None:
             model.Add(center_var == 0)
 
-        s = switch.get(model, self.pos)
         direction_vars: List[IntVar] = []
 
         for direction in self.directions:
@@ -155,16 +156,24 @@ class ValueSGPrime(AbstractClueValue):
             if not valid or len(vars_3) != 3:
                 continue
 
-            # 创建布尔变量表示该方向是否命中（全0）
+            # 创建布尔变量表示该方向是否命中（三格完全相同）
             dir_var = model.NewBoolVar(f"SG'_dir_{self.pos}_{len(direction_vars)}")
             direction_vars.append(dir_var)
 
-            # 辅助变量：z表示全0
-            z = model.NewBoolVar(f"SG'_zero_{self.pos}_{len(direction_vars)}")
-            # 因为中心强制为0，全雷不可能，所以只需检查全0
-            model.Add(sum(vars_3) == 0).OnlyEnforceIf(z)
-            model.Add(sum(vars_3) != 0).OnlyEnforceIf(z.Not())
-            model.Add(dir_var == z)
+            # 全非雷：sum == 0
+            all_zero = model.NewBoolVar(f"SG'_zero_{self.pos}_{len(direction_vars)}")
+            model.Add(sum(vars_3) == 0).OnlyEnforceIf(all_zero)
+            model.Add(sum(vars_3) != 0).OnlyEnforceIf(all_zero.Not())
+
+            # 全雷：sum == 3
+            all_mine = model.NewBoolVar(f"SG'_mine_{self.pos}_{len(direction_vars)}")
+            model.Add(sum(vars_3) == 3).OnlyEnforceIf(all_mine)
+            model.Add(sum(vars_3) != 3).OnlyEnforceIf(all_mine.Not())
+
+            # dir_var == (all_zero OR all_mine)
+            model.AddBoolOr([all_zero, all_mine]).OnlyEnforceIf(dir_var)
+            model.Add(all_zero == 0).OnlyEnforceIf(dir_var.Not())
+            model.Add(all_mine == 0).OnlyEnforceIf(dir_var.Not())
 
         if direction_vars:
             # 约束：命中方向数等于线索值
