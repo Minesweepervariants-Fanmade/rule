@@ -111,21 +111,6 @@ class ValueSGPrime(AbstractClueValue):
             raise ValueError("Failed to parse count from JSON")
         return cls(pos, count=value.value)
 
-    def high_light(self, board: 'Board') -> list['Position']:
-        all_pos = PositionSet()
-        for d in self.directions:
-            all_pos.update(d)
-        return list(all_pos)
-
-    def invalid(self, board: 'Board') -> bool:
-        all_pos = PositionSet()
-        for d in self.directions:
-            all_pos.update(d)
-        return board.batch(all_pos, mode="type", special='raw').count("N") == 0
-
-    def deduce_cells(self, board: 'Board') -> bool:
-        return False
-
     def create_constraints(self, board: 'Board', switch: Switch):
         """
         创建CP-SAT约束：线索值等于8条线中三格完全相同的线数。
