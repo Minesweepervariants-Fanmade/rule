@@ -208,6 +208,7 @@ plane.data.materials.append(mat)
 bpy.ops.object.camera_add(location=(0, 0, 2))
 camera = bpy.context.object
 camera.rotation_euler = (0, 0, 0)
+bpy.context.scene.camera = camera
 
 # 设置渲染引擎和输出格式
 scene = bpy.context.scene
