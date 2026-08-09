@@ -80,32 +80,82 @@ class RuleRGB(AbstractMinesRule):
         height: int,
     ) -> Image.Image:
         """
-        生成水平三色渐变图，从左到右依次从 color1 渐变到 color2 再到 color3。
-        使用纯 PIL 逐列绘制，不依赖 numpy，适应各类环境。
+        生成随机网格多点渐变图。
+        在图像上随机放置 6~12 个彩色控制点，每个像素的颜色由
+        距离最近的 3 个控制点加权平均决定（基于反距离权重）。
+        生成丰富的色彩过渡效果。
         """
-        r1, g1, b1 = self._hex_to_rgb(self.color1)
-        r2, g2, b2 = self._hex_to_rgb(self.color2)
-        r3, g3, b3 = self._hex_to_rgb(self.color3)
+        import math
+        import random
 
+        rng = random.Random()
+
+        # 使用随机选择的三个颜色作为基础，生成 6~12 个控制点
+        # 控制点颜色从这三个颜色中随机分配，并加入随机亮度微调
+        base_colors = [self.color1, self.color2, self.color3]
+        num_points = rng.randint(6, 12)
+        rgb_colors = []
+        for _ in range(num_points):
+            base = rng.choice(base_colors)
+            r, g, b = self._hex_to_rgb(base)
+            # 加入随机微调 (±20)
+            r = max(0, min(255, r + rng.randint(-20, 20)))
+            g = max(0, min(255, g + rng.randint(-20, 20)))
+            b = max(0, min(255, b + rng.randint(-20, 20)))
+            rgb_colors.append((r, g, b))
+
+        # 生成随机控制点位置 (x, y)
+        margin = 0.1  # 避免点太靠近边缘
+        points = []
+        for _ in range(num_points):
+            x = rng.uniform(margin * width, (1 - margin) * width)
+            y = rng.uniform(margin * height, (1 - margin) * height)
+            points.append((x, y))
+
+        # 预计算每个点的权重缓存（加速）
+        # 使用网格缓存：将图像分成小块，每块预计算最近的几个点
+        # 为了代码简洁且保持良好性能，这里使用直接计算 + 优化：
+        # 对于每个像素，只考虑最近的 3 个点
         img = Image.new("RGB", (width, height))
-        draw = ImageDraw.Draw(img)
+        pixels = img.load()
 
-        for x in range(width):
-            ratio = x / width  # 0.0 ~ 1.0
-            if ratio < 0.5:
-                # 前半段：color1 -> color2
-                t = ratio * 2.0  # 0.0 ~ 1.0
-                r = int(r1 + (r2 - r1) * t)
-                g = int(g1 + (g2 - g1) * t)
-                b = int(b1 + (b2 - b1) * t)
-            else:
-                # 后半段：color2 -> color3
-                t = (ratio - 0.5) * 2.0  # 0.0 ~ 1.0
-                r = int(r2 + (r3 - r2) * t)
-                g = int(g2 + (g3 - g2) * t)
-                b = int(b2 + (b3 - b2) * t)
+        # 可选：分块处理以提高性能
+        # 对于大图，可以分块，但这里直接遍历所有像素
+        for y in range(height):
+            for x in range(width):
+                # 计算到所有点的距离
+                dists = []
+                for idx, (px, py) in enumerate(points):
+                    dx = x - px
+                    dy = y - py
+                    dist = math.hypot(dx, dy)
+                    dists.append((dist, idx))
 
-            draw.line([(x, 0), (x, height)], fill=(r, g, b))
+                # 按距离排序，取最近的 3 个
+                dists.sort(key=lambda d: d[0])
+                nearest = dists[:3]
+
+                # 计算权重（反距离，加微小值防止除零）
+                total_weight = 0.0
+                weights = []
+                for dist, idx in nearest:
+                    if dist < 0.001:
+                        # 正好在点上，直接使用该点颜色
+                        r, g, b = rgb_colors[idx]
+                        pixels[x, y] = (r, g, b)
+                        break
+                    w = 1.0 / (dist + 0.001)
+                    weights.append((w, idx))
+                    total_weight += w
+                else:
+                    # 加权平均
+                    r = g = b = 0.0
+                    for w, idx in weights:
+                        cr, cg, cb = rgb_colors[idx]
+                        r += cr * w / total_weight
+                        g += cg * w / total_weight
+                        b += cb * w / total_weight
+                    pixels[x, y] = (int(r), int(g), int(b))
 
         return img
 
