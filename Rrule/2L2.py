@@ -16,10 +16,10 @@
   1. 副板每行每列恰好两个 CIRCLE
   2. 线索格若为误差（对应副板为 CIRCLE），则真实值 = 显示值 ± 1
   3. 线索格若非误差（对应副板为 CROSS），则真实值 = 显示值
+  4. 误差标记位置的主格必须为非雷
 """
 
 from typing import Self
-from collections import defaultdict
 
 from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.board import Board, Position, Size
@@ -32,45 +32,68 @@ from minesweepervariants.utils.value_template import SingleIntValue, is_value_te
 NAME_2L2 = "2L2"
 
 
-def generate_error_positions(n: int) -> list[tuple[int, int]]:
+def generate_error_positions(n: int, valid_positions: list[tuple[int, int]]) -> list[tuple[int, int]]:
     """
-    生成每行每列恰好两个误差标记的位置。
-    使用两阶段方法：
-    1. 为每一行随机选择两个不同的列
-    2. 验证每列是否恰好被选中两次
-    3. 如果不满足，重新生成
+    从有效位置中生成每行每列恰好两个误差标记的位置。
+    使用二分图匹配算法（Hopcroft-Karp）或简单的随机采样+验证。
     """
     random = get_random()
-    max_attempts = 10000
+    max_attempts = 20000
+    
+    # 构建每行的候选列
+    row_candidates = [[] for _ in range(n)]
+    for r, c in valid_positions:
+        row_candidates[r].append(c)
+    
+    # 如果某行候选少于2个，无法满足要求
+    for r in range(n):
+        if len(row_candidates[r]) < 2:
+            return []
     
     for _ in range(max_attempts):
-        # 为每一行选择两个不同的列
+        # 为每行选择两个不同的列
         row_cols = []
-        for _ in range(n):
-            cols = list(range(n))
-            random.shuffle(cols)
-            row_cols.append((cols[0], cols[1]))
+        valid = True
+        for r in range(n):
+            candidates = row_candidates[r]
+            if len(candidates) < 2:
+                valid = False
+                break
+            selected = random.sample(candidates, 2)
+            row_cols.append(selected)
+        if not valid:
+            continue
         
         # 统计每列被选中的次数
         col_counts = [0] * n
-        for c1, c2 in row_cols:
-            col_counts[c1] += 1
-            col_counts[c2] += 1
+        for cols in row_cols:
+            for c in cols:
+                col_counts[c] += 1
         
-        # 检查是否每列恰好被选中两次
         if all(count == 2 for count in col_counts):
             result = []
-            for row, (c1, c2) in enumerate(row_cols):
-                result.append((row, c1))
-                result.append((row, c2))
+            for r, cols in enumerate(row_cols):
+                for c in cols:
+                    result.append((r, c))
             return result
     
-    # 如果多次尝试失败，使用确定性方法
+    # 确定性方法：逐行选择，尽量平衡列
     result = []
-    for i in range(n):
-        result.append((i, i))
-        result.append((i, (i + n // 2) % n))
-    return result
+    col_counts = [0] * n
+    for r in range(n):
+        candidates = sorted(row_candidates[r], key=lambda c: col_counts[c])
+        # 选择两个计数最小的列
+        selected = candidates[:2]
+        result.append((r, selected[0]))
+        result.append((r, selected[1]))
+        col_counts[selected[0]] += 1
+        col_counts[selected[1]] += 1
+    
+    # 检查是否每列恰好被选中两次
+    if all(count == 2 for count in col_counts):
+        return result
+    
+    return []
 
 
 class Rule2L2(AbstractClueRule):
@@ -89,7 +112,6 @@ class Rule2L2(AbstractClueRule):
         super().__init__(board, data)
         if board is None:
             return
-        # 验证所有交互板尺寸一致且为正方形
         bound = board.boundary()
         if bound.row != bound.col:
             raise ValueError("2L2 要求正方形题板")
@@ -98,10 +120,9 @@ class Rule2L2(AbstractClueRule):
             if _bound.row != bound.row or _bound.col != bound.col:
                 raise ValueError("所有交互题板尺寸必须一致")
 
-        # 生成副板
         size = Size(bound.row + 1, bound.col + 1)
         board.generate_board(NAME_2L2, size)
-        board.set_config(NAME_2L2, "pos_label", True)
+        board.set_config(NAME_2L2, "pos_label", False)
 
     def fill(self, board: 'Board') -> 'Board':
         """填充所有线索格，并为副板设置误差标记"""
@@ -111,11 +132,35 @@ class Rule2L2(AbstractClueRule):
         n = bound.row + 1
         logger = get_logger()
 
-        # 生成每行每列恰好两个误差标记的位置
-        pos_map = generate_error_positions(n)
-        pos_set = set(pos_map)
+        # 1. 收集所有非雷格（类型不为 'F'）及其真实值
+        true_values = {}
+        non_mine_positions = []
+        for key in board.get_interactive_keys():
+            for row in range(n):
+                for col in range(n):
+                    pos = board.get_pos(row, col, key)
+                    if pos is None:
+                        continue
+                    if board.get_type(pos) != "F":
+                        true_value = board.batch(pos.neighbors(2), mode="type").count("F")
+                        true_values[(row, col)] = true_value
+                        non_mine_positions.append((row, col))
 
-        # 在副板上标记误差位置（VALUE_CIRCLE）和非误差位置（VALUE_CROSS）
+        logger.debug(f"[2L2] 非雷格数量: {len(non_mine_positions)}")
+
+        if len(non_mine_positions) < 2 * n:
+            logger.warning("[2L2] 非雷格数量不足，跳过本次填充")
+            return board
+
+        # 2. 使用 generate_error_positions 生成每行每列恰好两个误差标记
+        # 传入非雷格位置作为有效候选
+        pos_list = generate_error_positions(n, non_mine_positions)
+        if not pos_list:
+            logger.warning("[2L2] 无法生成满足条件的误差标记位置，跳过本次填充")
+            return board
+        pos_set = set(pos_list)
+
+        # 3. 标记副板
         for pos, _ in board(key=NAME_2L2):
             if (pos.row, pos.col) in pos_set:
                 board.set_value(pos, VALUE_CIRCLE)
@@ -124,20 +169,21 @@ class Rule2L2(AbstractClueRule):
                 board.set_value(pos, VALUE_CROSS)
                 logger.debug(f"[2L2] put X at {pos}")
 
-        # 为每个非雷格计算真实值并生成线索
+        # 4. 为每个非雷格生成线索值
         for pos, _ in board("N", special='raw'):
-            true_value = board.batch(pos.neighbors(2), mode="type").count("F")
-            # 判断是否为误差位置（副板对应位置为 CIRCLE）
-            is_error = (board.get_value(
-                board.get_pos(pos.row, pos.col, NAME_2L2)
-            ) == VALUE_CIRCLE)
+            true_value = true_values.get((pos.row, pos.col), 0)
+            is_error = (pos.row, pos.col) in pos_set
 
             if is_error:
-                # 误差：真实值 ± 1，但必须在 0..8 之间
                 candidates = [true_value - 1, true_value + 1]
                 candidates = [v for v in candidates if 0 <= v <= 8]
                 if not candidates:
-                    display_value = true_value
+                    if true_value == 0:
+                        display_value = 1
+                    elif true_value == 8:
+                        display_value = 7
+                    else:
+                        display_value = true_value
                 else:
                     display_value = random.choice(candidates)
             else:
@@ -161,21 +207,28 @@ class Rule2L2(AbstractClueRule):
 
         bound = board.boundary(key=NAME_2L2)
 
-        # 行约束：每行恰好两个标记为 CIRCLE（即误差）
+        # 行约束：每行恰好两个 CIRCLE
         for pos in board.get_row_pos(bound):
             line = board.get_col_pos(pos)
             line_vars = board.batch(line, mode="variable", drop_none=True)
             model.Add(sum(line_vars) == 2).OnlyEnforceIf(s)
 
-        # 列约束：每列恰好两个标记为 CIRCLE
+        # 列约束：每列恰好两个 CIRCLE
         for pos in board.get_col_pos(bound):
             line = board.get_row_pos(pos)
             line_vars = board.batch(line, mode="variable", drop_none=True)
             model.Add(sum(line_vars) == 2).OnlyEnforceIf(s)
 
+        # 强制所有副板位置的主格为非雷（因为副板标记位置都对应主板的线索格）
+        for pos, _ in board(key=NAME_2L2):
+            main_pos = board.get_pos(pos.row, pos.col)
+            main_var = board.get_variable(main_pos)
+            if main_var is not None:
+                model.Add(main_var == 0).OnlyEnforceIf(s)
+
 
 class Value2L2(AbstractClueValue):
-    """2L2 线索值类，存储显示值，并约束真实值等于显示值（非误差）或显示值±1（误差）"""
+    """2L2 线索值类"""
 
     id = Rule2L2.id
 
@@ -184,6 +237,7 @@ class Value2L2(AbstractClueValue):
         self.pos = pos
         self.display_value = code[0] if code else 0
         self.value = SingleIntValue(self.display_value)
+        self.neighbor = pos.neighbors(2)
 
     @classmethod
     def from_json(cls, pos: Position, data: JSONObject) -> Self:
@@ -199,28 +253,25 @@ class Value2L2(AbstractClueValue):
         return str(self.display_value)
 
     def high_light(self, board: 'Board') -> list[Position]:
-        """高亮周围八格（用于前端显示）"""
-        return self.pos.neighbors(2)
+        return self.neighbor
 
     def create_constraints(self, board: 'Board', switch: Switch) -> None:
         """约束：真实雷数 = 显示值（非误差） 或 显示值 ± 1（误差）"""
         model = board.get_model()
         s = switch.get(model, self)
 
-        # 获取当前线索的误差标记（副板对应位置）
         marker_pos = board.get_pos(self.pos.row, self.pos.col, NAME_2L2)
         marker_var = board.get_variable(marker_pos)
         if marker_var is None:
             return
 
-        # 周围八格雷数（真实值）
-        neighbor_vars = board.batch(self.pos.neighbors(2), mode="variable", drop_none=True)
+        neighbor_vars = board.batch(self.neighbor, mode="variable", drop_none=True)
         true_sum = sum(neighbor_vars) if neighbor_vars else 0
 
-        # 情况1：非误差（marker_var == 0） -> 真实值 == 显示值
+        # 非误差：真实值 == 显示值
         model.Add(true_sum == self.display_value).OnlyEnforceIf([marker_var.Not(), s])
 
-        # 情况2：误差（marker_var == 1） -> 真实值 == 显示值 + 1 或 显示值 - 1
+        # 误差：真实值 == 显示值 + 1 或 显示值 - 1
         tmp_plus = model.NewBoolVar("tmp_plus")
         tmp_minus = model.NewBoolVar("tmp_minus")
         model.Add(true_sum == self.display_value + 1).OnlyEnforceIf([tmp_plus, s])
