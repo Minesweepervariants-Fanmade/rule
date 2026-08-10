@@ -4356,5 +4356,12 @@
         "author_uid": 2513946475,
         "author_name": "Indiebard (Alith)",
         "doc": "对角线平衡：行，列和两条对角线雷数相等"
+    },
+    {
+        "time": 1786380785.8072507,
+        "name": "BlurBehind",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "将当前屏幕截图作为底图，把生成的题目图片背景透明化，放置在背景中心，对应区域背景模糊"
     }
 ]
