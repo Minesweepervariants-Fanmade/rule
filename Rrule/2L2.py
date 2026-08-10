@@ -116,38 +116,71 @@ def generate_error_positions(n: int, valid_positions: list[tuple[int, int]]) -> 
     if dfs(0):
         return selected
 
-    # ----- 后备方案：随机采样 -----
-    # 如果回溯失败，尝试随机采样
-    max_attempts = 5000
-    for _ in range(max_attempts):
-        # 为每行选择两个列
-        temp_selected = []
-        temp_col_count = [0] * n
-        possible = True
+    # ----- 后备方案1：放宽约束，允许某列超过2个标记 -----
+    # 尝试为每行选择两个列，但只要求每列不超过3个标记
+    selected = []
+    col_count = [0] * n
+    for r in range(n):
+        candidates = row_candidates[r][:]
+        rng.shuffle(candidates)
+        chosen = []
+        for c in candidates:
+            if col_count[c] < 3:
+                chosen.append(c)
+                if len(chosen) == 2:
+                    break
+        if len(chosen) == 2:
+            selected.append((r, chosen[0]))
+            selected.append((r, chosen[1]))
+            col_count[chosen[0]] += 1
+            col_count[chosen[1]] += 1
+        else:
+            # 如果某行无法选择2个列，使用该行的前两个候选列
+            selected.append((r, candidates[0]))
+            selected.append((r, candidates[1] if len(candidates) > 1 else candidates[0]))
+            col_count[candidates[0]] += 1
+            if len(candidates) > 1:
+                col_count[candidates[1]] += 1
+            else:
+                col_count[candidates[0]] += 1
 
-        # 按行顺序选择，但每次从候选列中随机选两个
-        for r in range(n):
-            candidates = row_candidates[r][:]
-            rng.shuffle(candidates)
-            # 找两个可用列
-            chosen = []
-            for c in candidates:
-                if temp_col_count[c] < 2:
-                    chosen.append(c)
-                    if len(chosen) == 2:
-                        break
-            if len(chosen) < 2:
-                possible = False
-                break
-            temp_selected.append((r, chosen[0]))
-            temp_selected.append((r, chosen[1]))
-            temp_col_count[chosen[0]] += 1
-            temp_col_count[chosen[1]] += 1
+    # 检查每列的标记数是否在合理范围内（2-3个）
+    if all(2 <= c <= 3 for c in col_count):
+        return selected
 
-        if possible and all(c == 2 for c in temp_col_count):
-            return temp_selected
+    # ----- 后备方案2：暴力枚举 -----
+    # 如果上述方法仍然失败，尝试暴力枚举所有可能的每行二元组合
+    # 对于 n <= 8，组合数 C(n,2)^n 在 n=5 时为 10^5，可以接受
+    import itertools
+    # 构建每行的二元组合列表
+    row_pairs = [list(itertools.combinations(row_candidates[r], 2)) for r in range(n)]
+    # 遍历所有组合
+    for pairs in itertools.product(*row_pairs):
+        col_count = [0] * n
+        for r, (c1, c2) in enumerate(pairs):
+            col_count[c1] += 1
+            col_count[c2] += 1
+        if all(c == 2 for c in col_count):
+            selected = []
+            for r, (c1, c2) in enumerate(pairs):
+                selected.append((r, c1))
+                selected.append((r, c2))
+            return selected
 
-    return []
+    # ----- 后备方案3：完全随机构建（最后手段） -----
+    # 如果枚举也失败，直接为每行随机选择两个非雷位置（可能列数不均）
+    selected = []
+    for r in range(n):
+        candidates = row_candidates[r][:]
+        rng.shuffle(candidates)
+        if len(candidates) >= 2:
+            selected.append((r, candidates[0]))
+            selected.append((r, candidates[1]))
+        else:
+            c = candidates[0] if candidates else 0
+            selected.append((r, c))
+            selected.append((r, c))
+    return selected
 
 
 class Rule2L2(AbstractClueRule):
@@ -162,36 +195,81 @@ class Rule2L2(AbstractClueRule):
     creation_time = "2026-08-10"
     author = ("Gat", 992600401)
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, board: 'Board' = None, data: str | None = None) -> None:
+        super().__init__(board, data)
+        if board is not None:
+            key = board.get_interactive_keys()[0]
+            bound = board.boundary(key)
+            rows = bound.row + 1
+            cols = bound.col + 1
+            if rows != cols:
+                raise ValueError("2L2 要求正方形题板")
+            # 创建副板
+            board.generate_board(NAME_2L2, size=Size(cols, rows))
+            board.set_config(NAME_2L2, "pos_label", False)
 
     def fill(self, board: 'Board') -> 'Board':
         """填充题板：随机选择每行每列各两个非雷格作为误差标记，并设置线索值"""
         logger = get_logger()
-        size = board.size
-        if size.row != size.col:
-            raise ValueError("2L2 要求正方形题板")
-        n = size.row
-
-        # 获取主板 key
         key = board.get_interactive_keys()[0]
-        board.generate_board(NAME_2L2, size=size)
-        board.set_config(NAME_2L2, "pos_label", False)
+        bound = board.boundary(key)
+        rows = bound.row + 1
+        cols = bound.col + 1
+        if rows != cols:
+            raise ValueError("2L2 要求正方形题板")
+        n = rows
 
-        # 获取所有非雷格的位置
-        non_mine_positions = []
-        for pos, typ in board("N", special='raw'):
-            non_mine_positions.append((pos.row, pos.col))
+        # 清空副板所有位置，避免残留
+        for pos, _ in board(key=NAME_2L2, mode="none"):
+            board.set_value(pos, None)
 
-        # 随机打乱
         rng = get_random()
-        rng.shuffle(non_mine_positions)
+        max_attempts = 20
+        selected = None
+        for attempt in range(max_attempts):
+            # 获取所有非雷格的位置（包括线索格，因为线索格也是非雷）
+            non_mine_positions = []
+            for pos, typ in board("always", mode="type", special='raw'):
+                if typ != "F":  # 所有非雷格（包括 N 和 C）
+                    non_mine_positions.append((pos.row, pos.col))
+            rng.shuffle(non_mine_positions)
+            selected = generate_error_positions(n, non_mine_positions)
+            if selected:
+                break
+            logger.debug(f"[2L2] 尝试 {attempt + 1}/{max_attempts} 生成误差标记位置失败")
 
-        # 生成误差标记位置
-        selected = generate_error_positions(n, non_mine_positions)
         if not selected:
-            logger.warning("[2L2] 无法生成满足条件的误差标记位置，跳过本次填充")
-            return board
+            logger.warning("[2L2] 无法生成满足条件的误差标记位置，返回 None 触发重试")
+            # 清空副板，避免残留
+            for pos, _ in board(key=NAME_2L2, mode="none"):
+                board.set_value(pos, None)
+            return None
+
+        # 验证选中的位置是否每行每列恰好2个
+        row_count = [0] * n
+        col_count = [0] * n
+        for r, c in selected:
+            row_count[r] += 1
+            col_count[c] += 1
+        if not (all(count == 2 for count in row_count) and all(count == 2 for count in col_count)):
+            logger.warning(f"[2L2] 选中的误差标记位置不满足每行每列恰好2个: row_count={row_count}, col_count={col_count}")
+            # 清空副板并返回 None 触发重试
+            for pos, _ in board(key=NAME_2L2, mode="none"):
+                board.set_value(pos, None)
+            return None
+
+        # 验证选中的位置是否每行每列恰好2个
+        row_count = [0] * n
+        col_count = [0] * n
+        for r, c in selected:
+            row_count[r] += 1
+            col_count[c] += 1
+        if not (all(count == 2 for count in row_count) and all(count == 2 for count in col_count)):
+            logger.warning(f"[2L2] 选中的误差标记位置不满足每行每列恰好2个: row_count={row_count}, col_count={col_count}")
+            # 清空副板并返回 None 触发重试
+            for pos, _ in board(key=NAME_2L2, mode="none"):
+                board.set_value(pos, None)
+            return None
 
         # 在副板上标记 CIRCLE 和 CROSS
         for r in range(n):
@@ -210,10 +288,12 @@ class Rule2L2(AbstractClueRule):
             marker_obj = board.get_value(marker_pos)
             is_error = (marker_obj == VALUE_CIRCLE)
 
-            # 计算真实雷数
+            # 计算真实雷数（使用 get_type 检查邻居是否为雷）
             neighbor = pos.neighbors(2)
-            neighbor_vars = board.batch(neighbor, mode="variable", drop_none=True)
-            true_count = sum(neighbor_vars) if neighbor_vars else 0
+            true_count = 0
+            for n in neighbor:
+                if board.in_bounds(n) and board.get_type(n, special='raw') == "F":
+                    true_count += 1
 
             if is_error:
                 # 误差：显示值 = 真实值 ± 1，随机选择加或减，但保证显示值 >= 0
@@ -228,7 +308,10 @@ class Rule2L2(AbstractClueRule):
                 display_value = true_count
 
             # 限制显示值范围 0-8
-            display_value = max(0, min(8, display_value))
+            if display_value < 0:
+                display_value = 0
+            elif display_value > 8:
+                display_value = 8
             obj = Value2L2(pos, code=bytes([display_value]))
             board.set_value(pos, obj)
             logger.debug(f"[2L2] put {obj} to {pos}")
@@ -250,14 +333,19 @@ class Rule2L2(AbstractClueRule):
         # 行约束：每行恰好两个 CIRCLE
         for pos in board.get_row_pos(bound):
             line = board.get_col_pos(pos)
-            line_vars = board.batch(line, mode="variable", drop_none=True)
-            model.Add(sum(line_vars) == 2).OnlyEnforceIf(s)
+            # 只处理有效位置
+            valid_line = [p for p in line if board.is_valid(p)]
+            if valid_line:
+                line_vars = board.batch(valid_line, mode="variable", drop_none=False)
+                model.Add(sum(line_vars) == 2).OnlyEnforceIf(s)
 
         # 列约束：每列恰好两个 CIRCLE
         for pos in board.get_col_pos(bound):
             line = board.get_row_pos(pos)
-            line_vars = board.batch(line, mode="variable", drop_none=True)
-            model.Add(sum(line_vars) == 2).OnlyEnforceIf(s)
+            valid_line = [p for p in line if board.is_valid(p)]
+            if valid_line:
+                line_vars = board.batch(valid_line, mode="variable", drop_none=False)
+                model.Add(sum(line_vars) == 2).OnlyEnforceIf(s)
 
         # 强制副板标记为 CIRCLE 的位置对应的主格为非雷
         for pos, obj in board(key=NAME_2L2, mode="obj"):
