@@ -4356,5 +4356,12 @@
         "author_uid": 2513946475,
         "author_name": "Indiebard (Alith)",
         "doc": "同时满足[1B|]和[1B-]"
+    },
+    {
+        "time": 1786333760.8532186,
+        "name": "1B*",
+        "author_uid": 2513946475,
+        "author_name": "Indiebard (Alith)",
+        "doc": "对角线平衡：行，列和两条对角线雷数相等"
     }
 ]
