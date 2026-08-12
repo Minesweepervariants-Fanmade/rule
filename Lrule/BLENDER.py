@@ -44,6 +44,12 @@ class RuleBLENDER(AbstractMinesRule):
                 "或设置环境变量 BLENDER_EXECUTABLE。"
             )
             return
+        # 检测渲染模板
+        self.template_path = self._find_template()
+        if self.template_path:
+            get_logger().info(f"[BLENDER] 使用渲染模板: {self.template_path}（可在 Blender 中编辑该 .blend 修改场景）")
+        else:
+            get_logger().warning("[BLENDER] 未找到渲染模板，后处理将跳过并返回原图（可设置 BLENDER_TEMPLATE 指定模板）")
         # 注册图片后处理回调
         register_final_image_postprocess_callback(
             self._apply_blender_render,
@@ -75,6 +81,21 @@ class RuleBLENDER(AbstractMinesRule):
                 return p
         return None
 
+    def _find_template(self) -> Optional[str]:
+        """查找可 GUI 编辑的 .blend 渲染模板。
+        优先使用环境变量 BLENDER_TEMPLATE，否则使用包内默认模板。
+        模板要求：场景含一个材质，其节点树中有名为 `InputImage` 的图像纹理节点；
+        渲染相机为场景活动相机；分辨率/引擎/灯光/背景随模板文件保存。
+        """
+        env_path = os.environ.get("BLENDER_TEMPLATE")
+        if env_path and Path(env_path).exists():
+            return str(Path(env_path))
+        import minesweepervariants
+        default = Path(minesweepervariants.__file__).resolve().parent / "assets" / "blender_template.blend"
+        if default.exists():
+            return str(default)
+        return None
+
     def _apply_blender_render(self, image, board=None, config=None):
         """
         将 PIL Image 通过 Blender 渲染后返回新的 PIL Image。
@@ -84,8 +105,8 @@ class RuleBLENDER(AbstractMinesRule):
         3. 调用 Blender 命令行执行脚本。
         4. 读取输出图像并返回。
         """
-        if self.blender_exec is None:
-            return image  # 无 Blender，直接返回原图
+        if self.blender_exec is None or self.template_path is None:
+            return image  # 无 Blender 或模板，直接返回原图
 
         # 确保输入图像为 RGB（忽略 alpha）
         if image.mode == "RGBA":
@@ -102,9 +123,10 @@ class RuleBLENDER(AbstractMinesRule):
             output_path = tmp_out.name
 
         # 生成 Blender Python 脚本
-        script_content = self._generate_blender_script(input_path, output_path)
+        script_content = self._generate_template_script(input_path, output_path, self.template_path)
 
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as tmp_script:
+        # 脚本必须以 UTF-8 写入（Windows 下 tempfile 默认用 GBK，Blender 按 UTF-8 解析会失败）
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False, encoding="utf-8") as tmp_script:
             script_path = tmp_script.name
             tmp_script.write(script_content)
 
@@ -116,13 +138,16 @@ class RuleBLENDER(AbstractMinesRule):
                 "--python", script_path,
                 "--",
                 input_path,
-                output_path
+                output_path,
+                self.template_path,
             ]
             get_logger().debug(f"[BLENDER] 执行命令: {' '.join(cmd)}")
             result = subprocess.run(
                 cmd,
                 capture_output=True,
                 text=True,
+                encoding="utf-8",
+                errors="replace",
                 timeout=120,  # 超时 2 分钟
                 check=False
             )
@@ -157,68 +182,44 @@ class RuleBLENDER(AbstractMinesRule):
                 except OSError:
                     pass
 
-    def _generate_blender_script(self, input_path: str, output_path: str) -> str:
-        """生成用于 Blender 渲染的 Python 脚本。"""
+    def _generate_template_script(self, input_path: str, output_path: str, template_path: str) -> str:
+        """生成基于可编辑模板的 Blender 渲染脚本。
+        打开模板 .blend，将名为 `InputImage` 的图像纹理节点换成输入图片后渲染。
+        场景其余部分（相机/灯光/背景/分辨率/引擎）完全取自模板。
+        """
         return f'''
 import bpy
 import sys
 
-# 接收命令行参数（在 -- 之后）
 argv = sys.argv
 if "--" in argv:
     argv = argv[argv.index("--") + 1:]
 else:
     argv = []
-if len(argv) < 2:
-    raise RuntimeError("需要输入图片路径和输出图片路径")
-input_path = argv[0]
-output_path = argv[1]
+if len(argv) < 3:
+    raise RuntimeError("需要输入图片路径、输出图片路径和模板路径")
+input_path = argv[0].replace("\\\\", "/")
+output_path = argv[1].replace("\\\\", "/")
+template_path = argv[2].replace("\\\\", "/")
 
-# 清空场景
-bpy.ops.object.select_all(action='SELECT')
-bpy.ops.object.delete()
+bpy.ops.wm.open_mainfile(filepath=template_path)
 
-# 创建平面
-bpy.ops.mesh.primitive_plane_add(size=2, location=(0, 0, 0))
-plane = bpy.context.object
+tex_node = None
+for mat in bpy.data.materials:
+    if mat.use_nodes and mat.node_tree:
+        n = mat.node_tree.nodes.get("InputImage")
+        if n is not None:
+            tex_node = n
+            break
+if tex_node is None:
+    raise RuntimeError("模板中未找到名为 InputImage 的图像纹理节点")
 
-# 创建材质并加载图像纹理
-mat = bpy.data.materials.new(name="ImageMaterial")
-mat.use_nodes = True
-nodes = mat.node_tree.nodes
-links = mat.node_tree.links
-# 清除默认节点
-nodes.clear()
-# 图像纹理节点
-tex_image = nodes.new(type='ShaderNodeTexImage')
-try:
-    tex_image.image = bpy.data.images.load(input_path)
-except Exception as e:
-    raise RuntimeError(f"加载图像失败: {{e}}")
-# 原理化 BSDF
-bsdf = nodes.new(type='ShaderNodeBsdfPrincipled')
-# 输出
-output = nodes.new(type='ShaderNodeOutputMaterial')
-# 连接
-links.new(tex_image.outputs['Color'], bsdf.inputs['Base Color'])
-links.new(bsdf.outputs['BSDF'], output.inputs['Surface'])
-plane.data.materials.append(mat)
+img = bpy.data.images.load(input_path, check_existing=False)
+tex_node.image = img
 
-# 设置相机（俯视）
-bpy.ops.object.camera_add(location=(0, 0, 2))
-camera = bpy.context.object
-camera.rotation_euler = (0, 0, 0)
-bpy.context.scene.camera = camera
-
-# 设置渲染引擎和输出格式
 scene = bpy.context.scene
-scene.render.engine = 'BLENDER_EEVEE'  # 快速渲染
-scene.render.resolution_x = 1024
-scene.render.resolution_y = 1024
 scene.render.image_settings.file_format = 'PNG'
 scene.render.filepath = output_path
-
-# 渲染
 bpy.ops.render.render(write_still=True)
 '''
 
