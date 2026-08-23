@@ -18,6 +18,7 @@ from typing import Optional
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.utils.image_create import register_final_image_postprocess_callback
+from minesweepervariants.utils.impl_obj import get_seed
 from minesweepervariants.utils.tool import get_logger
 
 
@@ -35,6 +36,7 @@ class RuleBLENDER(AbstractMinesRule):
 
     def __init__(self, board=None, data=None) -> None:
         super().__init__(board, data)
+        self.template_key = data
         # 检测 Blender 可执行文件
         self.blender_exec = self._find_blender()
         if self.blender_exec is None:
@@ -51,9 +53,10 @@ class RuleBLENDER(AbstractMinesRule):
         else:
             get_logger().warning("[BLENDER] 未找到渲染模板，后处理将跳过并返回原图（可设置 BLENDER_TEMPLATE 指定模板）")
         # 注册图片后处理回调
+        # 以模板为 key，使同一模板重复实例化时覆盖去重，不同模板可共存顺序执行
         register_final_image_postprocess_callback(
             self._apply_blender_render,
-            key="BLENDER",
+            key=f"BLENDER:{self.template_key}",
         )
         get_logger().info(f"[BLENDER] Blender 渲染后处理已注册，使用可执行文件: {self.blender_exec}")
 
@@ -83,7 +86,10 @@ class RuleBLENDER(AbstractMinesRule):
 
     def _find_template(self) -> Optional[str]:
         """查找可 GUI 编辑的 .blend 渲染模板。
-        优先使用环境变量 BLENDER_TEMPLATE，否则使用包内默认模板。
+        优先级：
+        1. 环境变量 BLENDER_TEMPLATE（显式指定模板文件路径）
+        2. 规则 data 参数（如 `BLENDER:monitor` 使用 assets/blender_template/monitor.blend）
+        3. assets/blender_template/ 目录下第一个 .blend 文件（默认）
         模板要求：场景含一个材质，其节点树中有名为 `InputImage` 的图像纹理节点；
         渲染相机为场景活动相机；分辨率/引擎/灯光/背景随模板文件保存。
         """
@@ -91,9 +97,21 @@ class RuleBLENDER(AbstractMinesRule):
         if env_path and Path(env_path).exists():
             return str(Path(env_path))
         import minesweepervariants
-        default = Path(minesweepervariants.__file__).resolve().parent / "assets" / "blender_template.blend"
-        if default.exists():
-            return str(default)
+        template_dir = Path(minesweepervariants.__file__).resolve().parent / "assets" / "blender_template"
+        if not template_dir.is_dir():
+            return None
+        if self.template_key:
+            candidate = template_dir / self.template_key
+            if candidate.suffix.lower() != ".blend":
+                candidate = candidate.with_suffix(".blend")
+            if candidate.exists():
+                return str(candidate)
+            get_logger().warning(
+                f"[BLENDER] 未找到模板 {candidate.name}（data={self.template_key}），回退到默认模板"
+            )
+        blends = sorted(template_dir.glob("*.blend"))
+        if blends:
+            return str(blends[0])
         return None
 
     def _apply_blender_render(self, image, board=None, config=None):
@@ -140,6 +158,7 @@ class RuleBLENDER(AbstractMinesRule):
                 input_path,
                 output_path,
                 self.template_path,
+                str(get_seed()),
             ]
             get_logger().debug(f"[BLENDER] 执行命令: {' '.join(cmd)}")
             result = subprocess.run(
@@ -196,11 +215,12 @@ if "--" in argv:
     argv = argv[argv.index("--") + 1:]
 else:
     argv = []
-if len(argv) < 3:
-    raise RuntimeError("需要输入图片路径、输出图片路径和模板路径")
+if len(argv) < 4:
+    raise RuntimeError("需要输入图片路径、输出图片路径、模板路径和随机种子")
 input_path = argv[0].replace("\\\\", "/")
 output_path = argv[1].replace("\\\\", "/")
 template_path = argv[2].replace("\\\\", "/")
+random_seed = int(argv[3])
 
 bpy.ops.wm.open_mainfile(filepath=template_path)
 
@@ -218,6 +238,7 @@ img = bpy.data.images.load(input_path, check_existing=False)
 tex_node.image = img
 
 scene = bpy.context.scene
+scene["RandomSeed"] = random_seed
 scene.render.image_settings.file_format = 'PNG'
 scene.render.filepath = output_path
 bpy.ops.render.render(write_still=True)
