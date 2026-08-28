@@ -198,16 +198,15 @@ class Rule2A(AbstractClueRule):
             # 该格是雷且不是root
             model.add(id_vars[pos] > pos2seed(pos, board)).only_enforce_if(pos_var, is_root.Not())
 
-            # 取周围最大的step-1
-            model.add_max_equality(
-                step_vars[pos],
-                [step_vars[nei_pos] - 1 for nei_pos in nei1_poses],
-            ).OnlyEnforceIf(pos_var, is_root.Not())
+            # 非根雷 → 存在邻居 step == step-1（层递减链，替代 add_max_equality；
+            # 配合 id > seed 保证无环唯一根，id 传递由上方「相邻两雷同 id」覆盖）
+            nei_lower = []
             for nei_pos in nei1_poses:
-                tmp_var = model.new_bool_var("")
+                tmp_var = model.new_bool_var("step_lower")
                 model.add(step_vars[pos] == step_vars[nei_pos] - 1).OnlyEnforceIf(tmp_var)
                 model.add(step_vars[pos] != step_vars[nei_pos] - 1).OnlyEnforceIf(tmp_var.Not())
-                model.add(id_vars[pos] == id_vars[nei_pos]).only_enforce_if(pos_var, tmp_var, is_root.Not())
+                nei_lower.append(tmp_var)
+            model.add_bool_or(nei_lower).OnlyEnforceIf(pos_var, is_root.Not())
 
             # 如果该格非雷
             model.add(id_vars[pos] == 0).only_enforce_if(pos_var.Not())
