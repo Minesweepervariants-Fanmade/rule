@@ -145,6 +145,42 @@ class Rule1E1D(AbstractMinesRule):
                             # pair_var => NOT mid_var
                             model.Add(pair_var + mid_var <= 1).OnlyEnforceIf(rule_switch)
 
+                    # --- 4. 配对约束：配对必须是彼此最近的雷 ---
+                    # 对于任意其他位置 k（同行/列），如果 k 与 p1 的距离 <= p1与p2的距离，且 k != p2，则 k 必须为非雷
+                    # 同时，如果 k 与 p2 的距离 <= p1与p2的距离，且 k != p1，则 k 必须为非雷
+                    # 这确保配对是彼此最近且唯一
+                    for k in range(n):
+                        if k == i or k == j:
+                            continue
+                        pk = positions[k]
+                        # 检查 pk 是否与 p1 同行或同列
+                        if self._is_same_row_or_col(p1, pk):
+                            # 计算距离
+                            if p1.row == pk.row:
+                                dist1 = abs(p1.col - pk.col)
+                            else:
+                                dist1 = abs(p1.row - pk.row)
+                            # 计算 p1 与 p2 的距离
+                            if p1.row == p2.row:
+                                dist_pair = abs(p1.col - p2.col)
+                            else:
+                                dist_pair = abs(p1.row - p2.row)
+                            if dist1 <= dist_pair:
+                                # 如果距离小于或等于配对距离，则 pk 不能是雷
+                                model.Add(pair_var + mine_vars[pk] <= 1).OnlyEnforceIf(rule_switch)
+                        # 同样检查 pk 与 p2
+                        if self._is_same_row_or_col(p2, pk):
+                            if p2.row == pk.row:
+                                dist2 = abs(p2.col - pk.col)
+                            else:
+                                dist2 = abs(p2.row - pk.row)
+                            if p1.row == p2.row:
+                                dist_pair = abs(p1.col - p2.col)
+                            else:
+                                dist_pair = abs(p1.row - p2.row)
+                            if dist2 <= dist_pair:
+                                model.Add(pair_var + mine_vars[pk] <= 1).OnlyEnforceIf(rule_switch)
+
             # --- 4. 每个雷恰好配对一个雷 ---
             # 对于每个位置 i： sum_j pair[i][j] == mine[i]
             # 如果该位置是雷，则恰好配对一个；如果不是雷，则不配对
