@@ -86,6 +86,8 @@ class Rule1P(AbstractClueRule):
                 _t = t
             if nei_type[-1] == "F" and nei_type[0] != "F":
                 value += 1
+            if all(t == "F" for t in nei_type):
+                value = 1  # 全雷：环形计数为 0，官方语义记 1 段
             obj = Value1P(pos, value)
             board.set_value(pos, obj)
             logger.debug(f"[1P]set {obj} to {pos}")
@@ -120,6 +122,8 @@ class Value1P(AbstractClueValue):
         return self.pos.neighbors(2)
 
     def create_constraints(self, board: 'Board', switch):
+        from ._wall_linear import add_segment_count
+
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -130,24 +134,5 @@ class Value1P(AbstractClueValue):
             self.pos.up(), self.pos.right().up()
         ], mode="variable")
 
-        possible_list = [[]]
-
-        for value in MineStatus_1P(self.value.value):
-            bool_list = [(value >> i) & 1 == 1 for i in reversed(range(8))]
-            flag = False
-            for index, var in enumerate(var_list):
-                if var is None and bool_list[index]:
-                    flag = True
-                    break
-                if var is None:
-                    continue
-                possible_list[-1].append(bool_list[index])
-            if flag:
-                possible_list.pop(-1)
-            possible_list.append([])
-
-        if any(v is None for v in var_list):
-            var_list = [var for var in var_list if var is not None]
-        possible_list.pop(-1)
-
-        model.AddAllowedAssignments(var_list, possible_list).OnlyEnforceIf(s)
+        # 段数 = 环形段起点计数（线性，替代 256 布局表约束）
+        add_segment_count(model, var_list, self.value.value, s)

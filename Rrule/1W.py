@@ -196,6 +196,8 @@ class Value1W(AbstractClueValue):
             return get_text("")
 
     def create_constraints(self, board: 'Board', switch):
+        from ._wall_linear import add_longest_window, add_segment_count, decompose_wall
+
         model = board.get_model()
         s = switch.get(model, self)
 
@@ -206,27 +208,8 @@ class Value1W(AbstractClueValue):
             self.pos.up(), self.pos.right().up()
         ], mode="variable")
 
-        possible_list = [[]]
-
-        for value in MineStatus_1W(list(self.values)):
-            bool_list = [(value >> i) & 1 == 1 for i in reversed(range(8))]
-            flag = False
-            for index, var in enumerate(var_list):
-                if var is None and bool_list[index]:
-                    flag = True
-                    break
-                if var is None:
-                    continue
-                possible_list[-1].append(bool_list[index])
-            if flag:
-                possible_list.pop(-1)
-            possible_list.append([])
-
-        if any(v is None for v in var_list):
-            var_list = [var for var in var_list if var is not None]
-        possible_list.pop(-1)
-
-        if possible_list:
-            model.AddAllowedAssignments(var_list, possible_list).OnlyEnforceIf(s)
-        else:
-            model.Add(sum(var_list) == 0).OnlyEnforceIf(s)
+        # 1W 分解为 (V, 1P, 1W') 三约束合取（三元组与段长串一一对应）
+        v, p, w = decompose_wall(self.values)
+        model.Add(sum(x for x in var_list if x is not None) == v).OnlyEnforceIf(s)
+        add_segment_count(model, var_list, p, s)
+        add_longest_window(model, var_list, w, s)

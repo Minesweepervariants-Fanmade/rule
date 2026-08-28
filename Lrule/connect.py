@@ -40,9 +40,6 @@ def connect(
         else:
             model.Add(active_vars[i] + var_list[i] == 1).OnlyEnforceIf(switch)  # active = not mine
 
-    # component_ids 标识节点归属的连通块，根节点会绑定自身索引
-    component_ids = [model.NewIntVar(0, n - 1, f'component_{i}') for i in range(n)]
-
     # 构造邻接列表
     adj = [[] for _ in range(n)]
     for i, pos_i in enumerate(pos_list):
@@ -59,68 +56,54 @@ def connect(
                 if is_neighbor:
                     adj[i].append(j)
 
-    # 父指针与根标记：每个 active 节点选择恰好一个父（可指向自身表示根）
-    parent_neighbor_bools: List[List[tuple[int, IntVar]]] = []
-    self_parent_bools: List[IntVar] = []
-    for i in range(n):
-        choices = []
-        neighbor_choices: List[tuple[int, IntVar]] = []
-        # 邻居作为父
-        for j in adj[i]:
-            b = model.NewBoolVar(f'parent_{j}_to_{i}')
-            choices.append(b)
-            neighbor_choices.append((j, b))
-            # 父必须是 active
-            model.AddImplication(b, active_vars[j]).OnlyEnforceIf(switch)
-        # 自身作为父（根）
-        self_b = model.NewBoolVar(f'self_parent_{i}')
-        choices.append(self_b)
-        self_parent_bools.append(self_b)
+    # ============ 轻量连通编码（对比实验结论：完整 parent 指针编码在 CP-SAT 上
+    # 比官方 csugar 的 Tarjan 传播器慢 1-2 个数量级，本实现去掉 parent 指针层）====
+    #
+    # - component_ids：分量编号，**根格 id == 自身索引**（调用方契约，如 2G^ 依赖）
+    # - level_vars：BFS 层，非 active 为 0，根为 0；非根 active 存在邻居 layer-1
+    #   （层递减链保证连通到根，配合根计数即得每分量恰一根）
+    # - root_vars：是否为根；root ⟺ (active ∧ level==0)
+    #
+    component_ids: List[IntVar] = [model.NewIntVar(0, n - 1, f'component_{i}') for i in range(n)]
+    level_vars: List[IntVar] = [model.NewIntVar(0, (ub if ub else n + 1), f'level_{i}') for i in range(n)]
 
-        parent_neighbor_bools.append(neighbor_choices)
-
-        # active -> 选 exactly 1 父；非 active -> 不选父
-        model.Add(sum(choices) == 1).OnlyEnforceIf([active_vars[i], switch])
-        model.Add(sum(choices) == 0).OnlyEnforceIf([active_vars[i].Not(), switch])
-
-    # root_vars 处理
     if root_vars is None:
         root_vars = [model.NewBoolVar(f'root_{i}') for i in range(n)]
-    elif len(root_vars) != n:
-        raise ValueError("root_vars 的长度必须与 positions_vars 相同")
 
     for i in range(n):
-        model.Add(root_vars[i] == self_parent_bools[i]).OnlyEnforceIf(switch)
-        model.Add(component_ids[i] == i).OnlyEnforceIf([self_parent_bools[i], switch])
+        active = active_vars[i]
+        root = root_vars[i]
 
-    # 根数量 = component_num
-    if component_num is not None:
-        if isinstance(component_num, int):
-            if component_num < 0 or component_num > n:
-                raise ValueError("component_num 超出可行范围")
-            model.Add(sum(root_vars) == component_num).OnlyEnforceIf(switch)
-        else:
-            model.Add(sum(root_vars) == component_num).OnlyEnforceIf(switch)
+        # 非 active：层 0、非根
+        model.Add(level_vars[i] == 0).OnlyEnforceIf([active.Not(), switch])
+        model.Add(root == 0).OnlyEnforceIf([active.Not(), switch])
+        # 根 ⇒ active（逆否已由「非 active → 非根」覆盖，显式写出更稳）
+        model.Add(active == 1).OnlyEnforceIf([root, switch])
+        # root ⟺ (active ∧ level==0)
+        model.Add(level_vars[i] == 0).OnlyEnforceIf([root, switch])
+        model.Add(level_vars[i] != 0).OnlyEnforceIf([root.Not(), active, switch])
 
-    # 层级变量（用于防环并保证根可达）：非 active 为 0；根为 1；子 = 父 + 1
-    level_vars = [model.NewIntVar(0, (ub if ub else n + 1), f'level_{i}') for i in range(n)]
-    for i in range(n):
-        model.Add(level_vars[i] == 0).OnlyEnforceIf([active_vars[i].Not(), switch])
-        model.Add(level_vars[i] == 1).OnlyEnforceIf([root_vars[i], switch])
-        model.Add(level_vars[i] >= 2).OnlyEnforceIf([active_vars[i], root_vars[i].Not(), switch])
+        # 根 → 分量 id == 自身索引
+        model.Add(component_ids[i] == i).OnlyEnforceIf([root, switch])
+        # active → id <= 自身索引（根 id==i 即等号情形）
+        model.Add(component_ids[i] <= i).OnlyEnforceIf([active, switch])
+        # 非根 active → id != 自身索引（保证分量编号取根索引）
+        model.Add(component_ids[i] != i).OnlyEnforceIf([active, root.Not(), switch])
 
-        # 邻居父指针：level_i = level_parent + 1；组件标签同步
-        for j, b in parent_neighbor_bools[i]:
+        # 非根 active → 存在 active 邻居 level == level-1（层递减链）
+        # 注意：b 是「该边被选为父」的指示变量，只做单向蕴含（b → 层关系 ∧ 父 active），
+        # 不做 ¬b → 非层关系——否则 lv 传播确定后，层恰好匹配的非 active 邻居
+        # 会被强制为父（b 被迫为真 → active[j] 被迫为真）导致误 UNSAT。
+        lower = []
+        for j in adj[i]:
+            b = model.NewBoolVar(f'level_{j}_to_{i}')
             model.Add(level_vars[i] == level_vars[j] + 1).OnlyEnforceIf([b, switch])
-            model.Add(component_ids[i] == component_ids[j]).OnlyEnforceIf([b, switch])
-        # 自身父（根）已经约束 level == 1
+            model.Add(active_vars[j] == 1).OnlyEnforceIf([b, switch])
+            lower.append(b)
+        if lower:
+            model.AddBoolOr(lower).OnlyEnforceIf([active, root.Not(), switch])
 
-    # 连通性一致性：active -> level > 0；非 active -> level == 0
-    for i in range(n):
-        model.Add(level_vars[i] > 0).OnlyEnforceIf([active_vars[i], switch])
-        model.Add(level_vars[i] == 0).OnlyEnforceIf([active_vars[i].Not(), switch])
-
-    # 邻接的激活格必须属于同一连通块，避免环边被拆分到不同根
+    # 相邻的激活格必须属于同一连通块（不同分量被雷/空隔开）
     seen_pairs = set()
     for i in range(n):
         for j in adj[i]:
@@ -128,12 +111,9 @@ def connect(
                 model.Add(component_ids[i] == component_ids[j]).OnlyEnforceIf([active_vars[i], active_vars[j], switch])
                 seen_pairs.add((i, j))
 
-    for i in range(n):
-        for j in adj[i]:
-            model.Add(level_vars[i] <= level_vars[j] + 1).OnlyEnforceIf([active_vars[i], active_vars[j], switch])
-
-    for i in range(n):
-        model.Add(component_ids[i] <= i).OnlyEnforceIf([active_vars[i], switch])
+    # 根数量 = component_num
+    if component_num is not None:
+        model.Add(sum(root_vars) == component_num).OnlyEnforceIf(switch)
 
     return component_ids
 

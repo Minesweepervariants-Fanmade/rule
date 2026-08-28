@@ -119,16 +119,7 @@ class Value1Wp(AbstractClueValue):
         return self.pos.neighbors(2)
 
     def create_constraints(self, board: 'Board', switch):
-
-        def get_values(_value: int, _length=3):
-            if _length <= 0:
-                yield []
-            if _value == 0:
-                return []
-            if _length > 0:
-                for i in range(_value):
-                    for j in get_values(i + 1, _length - 1):
-                        yield [i + 1] + j
+        from ._wall_linear import add_longest_window
 
         model = board.get_model()
         s = switch.get(model, self)
@@ -140,33 +131,5 @@ class Value1Wp(AbstractClueValue):
             self.pos.up(), self.pos.right().up()
         ], mode="variable")
 
-        possible_list = [[]]
-        values = []
-        for length in range(3 - self.value.value // 2):
-            if length == 0:
-                values.extend(MineStatus_1W([self.value.value]))
-            for k in get_values(3, _length=length + 1):
-                values.extend(MineStatus_1W(([self.value.value] + k)[::-1]))
-
-        for value in values:
-            bool_list = [(value >> i) & 1 == 1 for i in reversed(range(8))]
-            flag = False
-            for index, var in enumerate(var_list):
-                if var is None and bool_list[index]:
-                    flag = True
-                    break
-                if var is None:
-                    continue
-                possible_list[-1].append(bool_list[index])
-            if flag:
-                possible_list.pop(-1)
-            possible_list.append([])
-
-        if any(v is None for v in var_list):
-            var_list = [var for var in var_list if var is not None]
-        possible_list.pop(-1)
-
-        if possible_list:
-            model.AddAllowedAssignments(var_list, possible_list).OnlyEnforceIf(s)
-        else:
-            model.Add(sum(var_list) == 0).OnlyEnforceIf(s)
+        # 最长段 = 窗口布尔组合（线性上界 + 存在性析取，替代 256 布局表约束）
+        add_longest_window(model, var_list, self.value.value, s)
