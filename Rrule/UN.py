@@ -64,6 +64,8 @@ class UN(AbstractClueRule):
         rule_list = list(get_all_subclasses(AbstractRule))
         random.shuffle(rule_list)
         for rule_cls in rule_list:
+            if issubclass(rule_cls, AbstractMinesClueRule):
+                continue
             _board = board.clone()
             try:
                 rule = rule_cls(_board, None)
