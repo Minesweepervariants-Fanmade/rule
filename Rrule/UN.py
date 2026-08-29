@@ -1,0 +1,183 @@
+# -*- coding: utf-8 -*-
+import datetime
+import inspect
+import sys
+from typing import Optional, List, Tuple
+
+from minesweepervariants.abs.Rrule import AbstractClueRule
+from minesweepervariants.abs.Lrule import AbstractMinesRule
+from minesweepervariants.abs.Mrule import AbstractMinesClueRule
+from minesweepervariants.abs.rule import AbstractRule
+from minesweepervariants.board import Board
+from minesweepervariants.impl.impl_obj import get_rule
+from minesweepervariants.impl.summon.solver import Switch
+from minesweepervariants.utils.tool import get_random, get_logger
+
+TODAY_RULE_ID: str = "Rule-013"
+TODAY_DATE = "2026-08-29"
+
+
+class UN(AbstractClueRule):
+    """
+    隐藏左线规则 - 每个 2x2 子矩阵中的雷数不为 3。
+    """
+
+    id = "UN"
+
+    aliases = ("Not3In2x2",)
+    name = "Unknown"
+    name.zh_CN = "未知"
+    doc = "Unknown"
+    doc.zh_CN = "每日UTC-12的00:00(GMT-8 4:00)随机选择一个左线规则 需要通过出题/猜测来判断到底是什么规则 当传入任何参数的时候将会抛出异常并输出当前的规则具体内容"
+    author = ("雾", 3140864122)
+    tags = ["Local", "Strict Shape"]
+    creation_time = "2026-07-20"
+
+    def __init__(self, board=None, data=None):
+        """初始化规则，存储 data 参数。"""
+        global TODAY_DATE
+        super().__init__(board, data)
+        if data == "r":
+            TODAY_DATE = ""
+        elif data is not None:
+            raise ValueError(
+                f"实际规则为:[{TODAY_RULE_ID}]"
+            )
+        today_date = datetime.date.today().isoformat()
+        if today_date != TODAY_DATE:
+            rule_line = self.rand_choose_rule(board)
+            self.replace_rule(rule_line)
+
+        rule_id = TODAY_RULE_ID
+        self.rule: AbstractRule = get_rule(rule_id)(board, "")
+
+    def rand_choose_rule(self, board: Board):
+        global TODAY_RULE_ID
+        random = get_random()
+
+        def get_all_subclasses(cls):
+            subclasses = set(cls.__subclasses__())
+            for subclass in list(subclasses):
+                subclasses.update(get_all_subclasses(subclass))
+            return subclasses
+
+        rule_list = list(get_all_subclasses(AbstractRule))
+        random.shuffle(rule_list)
+        for rule_cls in rule_list:
+            _board = board.clone()
+            try:
+                rule = rule_cls(_board, None)
+            except Exception:
+                continue
+            if len(_board.get_board_keys()) > 1:
+                continue
+            if not hasattr(rule, "id"):
+                continue
+            TODAY_RULE_ID = rule.id
+            return "M" if isinstance(rule, AbstractMinesClueRule) else (
+                "L" if isinstance(rule, AbstractMinesRule) else "R"
+            )
+
+    def replace_rule(self, rule_line):
+        """根据规则类型，直接整行替换源文件中的 TODAY_RULE_ID、TODAY_DATE 和类继承。"""
+        global TODAY_DATE
+        logger = get_logger()
+
+        new_rule_id = TODAY_RULE_ID
+        new_date = datetime.date.today().isoformat()
+
+        if rule_line == 'M':
+            base_class = 'AbstractMinesClueRule'
+        elif rule_line == 'L':
+            base_class = 'AbstractMinesRule'
+        elif rule_line == 'R':
+            base_class = 'AbstractClueRule'
+        else:
+            raise ValueError(f"未知的规则线{rule_line}")
+
+        module_file = inspect.getfile(sys.modules[self.__module__])
+
+        with open(module_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+
+        new_lines = []
+        found_rule_id = False
+        found_date = False
+        found_class = False
+
+        for line in lines:
+            stripped = line.lstrip()
+            if stripped.startswith('TODAY_RULE_ID') and not found_rule_id:
+                old_line = line.rstrip('\n')
+                new_line = f'TODAY_RULE_ID: str = "{new_rule_id}"'
+                new_lines.append(new_line + '\n')
+                found_rule_id = True
+                logger.info(f"替换 TODAY_RULE_ID: 旧行 '{old_line}' -> 新行 '{new_line}'")
+            elif stripped.startswith('TODAY_DATE') and not found_date:
+                old_line = line.rstrip('\n')
+                new_line = f'TODAY_DATE = "{new_date}"'
+                new_lines.append(new_line + '\n')
+                found_date = True
+                logger.info(f"替换 TODAY_DATE: 旧行 '{old_line}' -> 新行 '{new_line}'")
+            elif stripped.startswith('class UN(') and not found_class:
+                old_line = line.rstrip('\n')
+                new_line = f'class UN({base_class}):'
+                new_lines.append(new_line + '\n')
+                found_class = True
+                logger.info(f"替换 class UN: 旧行 '{old_line}' -> 新行 '{new_line}'")
+            else:
+                new_lines.append(line)
+
+        if not found_rule_id:
+            logger.warning("未找到 TODAY_RULE_ID 行，未替换")
+        if not found_date:
+            logger.warning("未找到 TODAY_DATE 行，未替换")
+        if not found_class:
+            logger.warning("未找到 class UN( 行，未替换")
+
+        with open(module_file, 'w', encoding='utf-8') as f:
+            f.writelines(new_lines)
+
+        TODAY_DATE = new_date
+        return new_rule_id
+
+    def fill(self, board: 'Board') -> 'Board':
+        if hasattr(self.rule, "fill"):
+            fill_fn = getattr(self.rule, "fill")
+            return fill_fn(board)
+        return board
+
+    def create_constraints(self, board: 'Board', switch) -> None:
+        fake_switch = FakeSwitch(switch)
+        return self.rule.create_constraints(board, fake_switch)
+
+    def suggest_total(self, info: dict) -> None:
+        return self.rule.suggest_total(info)
+
+    def init_board(self, board: 'Board') -> None:
+        return self.rule.init_board(board)
+
+    def init_clear(self, board: 'Board') -> None:
+        return self.rule.init_clear(board)
+
+    def combine(self, rules: List[Tuple['AbstractRule', Optional[str]]]) -> None:
+        return self.rule.combine(rules)
+
+    def onboard_init(self, board: 'Board') -> None:
+        return self.rule.onboard_init(board)
+
+    def get_deps(self) -> List[str]:
+        return self.rule.get_deps()
+
+    def companion_id(self) -> str:
+        return self.rule.companion_id()
+
+
+class FakeSwitch(Switch):
+    def __init__(self, var) -> None:
+        self.var = var
+        super().__init__()
+
+    def get(self, model, obj, index=None):
+        return self.var
+
