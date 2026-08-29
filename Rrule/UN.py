@@ -148,7 +148,7 @@ class UN(AbstractClueRule):
         return board
 
     def create_constraints(self, board: 'Board', switch) -> None:
-        fake_switch = FakeSwitch(switch)
+        fake_switch = FakeSwitch(switch, self)
         return self.rule.create_constraints(board, fake_switch)
 
     def suggest_total(self, info: dict) -> None:
@@ -174,10 +174,13 @@ class UN(AbstractClueRule):
 
 
 class FakeSwitch(Switch):
-    def __init__(self, var) -> None:
-        self.var = var
+    def __init__(self, switch, rule) -> None:
+        self.switch = switch
+        self.rule = rule
         super().__init__()
 
     def get(self, model, obj, index=None):
-        return self.var
+        if isinstance(obj, AbstractRule):
+            obj = self.rule
+        return self.switch.get(model, obj, index)
 
