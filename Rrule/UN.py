@@ -4,7 +4,7 @@ import inspect
 import sys
 from typing import Optional, List, Tuple
 
-from minesweepervariants.abs.Rrule import AbstractClueRule
+from minesweepervariants.abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.abs.Mrule import AbstractMinesClueRule
 from minesweepervariants.abs.rule import AbstractRule
@@ -13,45 +13,49 @@ from minesweepervariants.impl.impl_obj import get_rule
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.tool import get_random, get_logger
 
-TODAY_RULE_ID: str = "Rule-013"
-TODAY_DATE = "2026-08-29"
+TODAY_RULE_ID: str = "NP"
+TODAY_DATE = "2026-09-01"
 
 
-class UN(AbstractClueRule):
+class UN(AbstractMinesRule):
     """
     隐藏左线规则 - 每个 2x2 子矩阵中的雷数不为 3。
     """
 
     id = "UN"
 
-    aliases = ("Not3In2x2",)
     name = "Unknown"
     name.zh_CN = "未知"
     doc = "Unknown"
-    doc.zh_CN = "每日UTC-12的00:00(GMT-8 4:00)随机选择一个左线规则 需要通过出题/猜测来判断到底是什么规则 当传入任何参数的时候将会抛出异常并输出当前的规则具体内容"
+    doc.zh_CN = ("每日00:00(GMT-8)随机选择一个左/右线规则 需要通过出题/猜测来判断到底是什么规则 "
+                 "当传入空值参数的时候将会抛出异常并输出当前的规则具体内容 当传入'r'的时候将会重新随机一个规则")
     author = ("雾", 3140864122)
     tags = ["Local", "Strict Shape"]
+    lib_only = True
     creation_time = "2026-07-20"
 
     def __init__(self, board=None, data=None):
         """初始化规则，存储 data 参数。"""
         global TODAY_DATE
         super().__init__(board, data)
-        if data == "r":
+        if data in ["r"]:
             TODAY_DATE = ""
-        elif data is not None:
+            data = None
+        elif data == "":
             raise ValueError(
                 f"实际规则为:[{TODAY_RULE_ID}]"
             )
         today_date = datetime.date.today().isoformat()
-        if today_date != TODAY_DATE:
-            rule_line = self.rand_choose_rule(board)
-            self.replace_rule(rule_line)
+        if today_date != TODAY_DATE or data is not None:
+            result = self.rand_choose_rule(board, data)
+            self.replace_rule(**result)
 
         rule_id = TODAY_RULE_ID
         self.rule: AbstractRule = get_rule(rule_id)(board, "")
+        # if self.lib_only:
+        #     self.id = self.rule.id
 
-    def rand_choose_rule(self, board: Board):
+    def rand_choose_rule(self, board: Board, specify_rule: Optional[str] = None):
         global TODAY_RULE_ID
         random = get_random()
 
@@ -67,20 +71,25 @@ class UN(AbstractClueRule):
             if issubclass(rule_cls, AbstractMinesClueRule):
                 continue
             _board = board.clone()
+            if not hasattr(rule_cls, "id"):
+                continue
+            if specify_rule is not None and rule_cls.id != specify_rule:
+                continue
             try:
                 rule = rule_cls(_board, None)
             except Exception:
                 continue
             if len(_board.get_board_keys()) > 1:
                 continue
-            if not hasattr(rule, "id"):
-                continue
             TODAY_RULE_ID = rule.id
-            return "M" if isinstance(rule, AbstractMinesClueRule) else (
+            rule_line = "M" if isinstance(rule, AbstractMinesClueRule) else (
                 "L" if isinstance(rule, AbstractMinesRule) else "R"
             )
+            lib_only = rule.lib_only
+            return {"rule_line": rule_line, "lib_only": lib_only}
+        raise ValueError("未找到符合的规则")
 
-    def replace_rule(self, rule_line):
+    def replace_rule(self, rule_line, lib_only):
         """根据规则类型，直接整行替换源文件中的 TODAY_RULE_ID、TODAY_DATE 和类继承。"""
         global TODAY_DATE
         logger = get_logger()
@@ -106,6 +115,7 @@ class UN(AbstractClueRule):
         found_rule_id = False
         found_date = False
         found_class = False
+        found_lib_only = False
 
         for line in lines:
             stripped = line.lstrip()
@@ -127,6 +137,12 @@ class UN(AbstractClueRule):
                 new_lines.append(new_line + '\n')
                 found_class = True
                 logger.info(f"替换 class UN: 旧行 '{old_line}' -> 新行 '{new_line}'")
+            elif stripped.startswith('lib_only = ') and not found_lib_only:
+                old_line = line.rstrip('\n')
+                new_line = line.split("lib_only = ")[0] + "lib_only = " + str(lib_only)
+                new_lines.append(new_line + '\n')
+                found_lib_only = True
+                logger.info(f"替换 lib_only: 旧行 '{old_line}' -> 新行 '{new_line}'")
             else:
                 new_lines.append(line)
 
@@ -135,7 +151,9 @@ class UN(AbstractClueRule):
         if not found_date:
             logger.warning("未找到 TODAY_DATE 行，未替换")
         if not found_class:
-            logger.warning("未找到 class UN( 行，未替换")
+            logger.warning("未找到 class UN 行，未替换")
+        if not found_lib_only:
+            logger.warning("未找到 lib_only 行，未替换")
 
         with open(module_file, 'w', encoding='utf-8') as f:
             f.writelines(new_lines)
@@ -174,6 +192,9 @@ class UN(AbstractClueRule):
     def companion_id(self) -> str:
         return self.rule.companion_id()
 
+    def companion_data(self) -> str:
+        return self.rule.id
+
 
 class FakeSwitch(Switch):
     def __init__(self, switch, rule) -> None:
@@ -185,4 +206,3 @@ class FakeSwitch(Switch):
         if isinstance(obj, AbstractRule):
             obj = self.rule
         return self.switch.get(model, obj, index)
-
