@@ -194,7 +194,7 @@ class UN(AbstractMinesRule):
         return self.rule.companion_id()
 
     def companion_data(self) -> str:
-        return self.rule.id
+        return self.rule.companion_data()
 
 
 class FakeSwitch(Switch):
