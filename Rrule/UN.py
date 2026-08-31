@@ -51,7 +51,7 @@ class UN(AbstractMinesRule):
             self.replace_rule(**result)
 
         rule_id = TODAY_RULE_ID
-        self.rule: AbstractRule = get_rule(rule_id)(board, "")
+        self.rule: AbstractRule = get_rule(rule_id)(board, None)
         # if self.lib_only:
         #     self.id = self.rule.id
 
