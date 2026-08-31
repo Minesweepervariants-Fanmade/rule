@@ -13,7 +13,7 @@ from minesweepervariants.impl.impl_obj import get_rule
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.tool import get_random, get_logger
 
-TODAY_RULE_ID: str = "NP"
+TODAY_RULE_ID: str = "1S~"
 TODAY_DATE = "2026-09-01"
 
 
@@ -31,7 +31,7 @@ class UN(AbstractMinesRule):
                  "当传入空值参数的时候将会抛出异常并输出当前的规则具体内容 当传入'r'的时候将会重新随机一个规则")
     author = ("雾", 3140864122)
     tags = ["Local", "Strict Shape"]
-    lib_only = True
+    lib_only = False
     creation_time = "2026-07-20"
 
     def __init__(self, board=None, data=None):
@@ -86,6 +86,7 @@ class UN(AbstractMinesRule):
                 "L" if isinstance(rule, AbstractMinesRule) else "R"
             )
             lib_only = rule.lib_only
+            self.lib_only = lib_only
             return {"rule_line": rule_line, "lib_only": lib_only}
         raise ValueError("未找到符合的规则")
 
