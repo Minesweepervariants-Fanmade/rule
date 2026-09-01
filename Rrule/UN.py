@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import hashlib
 import inspect
 import sys
 from typing import Optional, List, Tuple
@@ -13,8 +14,12 @@ from minesweepervariants.impl.impl_obj import get_rule
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.tool import get_random, get_logger
 
-TODAY_RULE_ID: str = "1S~"
-TODAY_DATE = "2026-09-01"
+TODAY_RULE_ID: str = "2Z^"
+TODAY_DATE = "2026-09-02"
+
+
+def hash_str(input_str: str) -> str:
+    return hashlib.md5(input_str.encode("utf-8")).hexdigest()[:4]
 
 
 class UN(AbstractMinesRule):
@@ -38,22 +43,21 @@ class UN(AbstractMinesRule):
         """初始化规则，存储 data 参数。"""
         global TODAY_DATE
         super().__init__(board, data)
-        if data in ["r"]:
-            TODAY_DATE = ""
-            data = None
+        today_date = datetime.date.today().isoformat()
+        if data in ["r"] or (today_date != TODAY_DATE):
+            data = "r"
         elif data == "":
             raise ValueError(
-                f"实际规则为:[{TODAY_RULE_ID}]"
+                f"实际规则为:[{TODAY_RULE_ID}](hash:{hash_str(TODAY_RULE_ID)})"
             )
-        today_date = datetime.date.today().isoformat()
-        if today_date != TODAY_DATE or data is not None:
-            result = self.rand_choose_rule(board, data)
+        if data is not None:
+            result = self.rand_choose_rule(board, None if data == "r" else data)
             self.replace_rule(**result)
 
-        rule_id = TODAY_RULE_ID
-        self.rule: AbstractRule = get_rule(rule_id)(board, "")
-        # if self.lib_only:
-        #     self.id = self.rule.id
+        self.rule: AbstractRule = get_rule(TODAY_RULE_ID)(board, "")
+
+    def get_name(self) -> str:
+        return f"{self.id}:{hash_str(TODAY_RULE_ID)}"
 
     def rand_choose_rule(self, board: Board, specify_rule: Optional[str] = None):
         global TODAY_RULE_ID
@@ -160,7 +164,8 @@ class UN(AbstractMinesRule):
             f.writelines(new_lines)
 
         TODAY_DATE = new_date
-        return new_rule_id
+        raise ValueError(f"随机抽取了一个规则(hash:{hash_str(TODAY_RULE_ID)})")
+        # return new_rule_id
 
     def fill(self, board: 'Board') -> 'Board':
         if hasattr(self.rule, "fill"):
