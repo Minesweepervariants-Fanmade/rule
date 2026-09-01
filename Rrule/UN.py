@@ -32,7 +32,7 @@ class UN(AbstractMinesRule):
     name = "Unknown"
     name.zh_CN = "未知"
     doc = "Unknown"
-    doc.zh_CN = ("每日00:00(GMT-8)随机选择一个左/右线规则 需要通过出题/猜测来判断到底是什么规则 "
+    doc.zh_CN = ("每日00:00(UTC+8)随机选择一个左/右线规则 需要通过出题/猜测来判断到底是什么规则 "
                  "当传入空值参数的时候将会抛出异常并输出当前的规则具体内容 当传入'r'的时候将会重新随机一个规则")
     author = ("雾", 3140864122)
     tags = ["Local", "Strict Shape"]
@@ -54,7 +54,7 @@ class UN(AbstractMinesRule):
             result = self.rand_choose_rule(board, None if data == "r" else data)
             self.replace_rule(**result)
 
-        self.rule: AbstractRule = get_rule(TODAY_RULE_ID)(board, "")
+        self.rule: AbstractRule = get_rule(TODAY_RULE_ID)(board, None)
 
     def get_name(self) -> str:
         return f"{self.id}:{hash_str(TODAY_RULE_ID)}"
@@ -165,7 +165,6 @@ class UN(AbstractMinesRule):
 
         TODAY_DATE = new_date
         raise ValueError(f"随机抽取了一个规则(hash:{hash_str(TODAY_RULE_ID)})")
-        # return new_rule_id
 
     def fill(self, board: 'Board') -> 'Board':
         if hasattr(self.rule, "fill"):
@@ -199,7 +198,7 @@ class UN(AbstractMinesRule):
         return self.rule.companion_id()
 
     def companion_data(self) -> str:
-        return self.rule.id
+        return self.rule.companion_data()
 
 
 class FakeSwitch(Switch):
