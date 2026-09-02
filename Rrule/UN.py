@@ -10,11 +10,11 @@ from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.abs.Mrule import AbstractMinesClueRule
 from minesweepervariants.abs.rule import AbstractRule
 from minesweepervariants.board import Board
-from minesweepervariants.impl.impl_obj import get_rule
+from minesweepervariants.impl.impl_obj import get_rule, _resolve_rule_alias
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.tool import get_random, get_logger
 
-TODAY_RULE_ID: str = "2Z^"
+TODAY_RULE_ID: str = "4S"
 TODAY_DATE = "2026-09-02"
 
 
@@ -34,32 +34,43 @@ class UN(AbstractMinesRule):
     doc = "Unknown"
     doc.zh_CN = ("每日00:00(UTC+8)随机选择一个左/右线规则 需要通过出题/猜测来判断到底是什么规则 "
                  "当传入空值参数的时候将会抛出异常并输出当前的规则具体内容 "
-                 "当传入'r'的时候将会重新随机一个规则 当传入以冒号开头的字符串时 将会验证规则是否为传入的字符串")
+                 "当传入'r'的时候将会重新随机一个规则 "
+                 "当传入以冒号开头的字符串时，将强制指定该规则（冒号后的内容为规则ID） "
+                 "当传入其他非空字符串时，将验证当前规则是否与该字符串匹配")
     author = ("雾", 3140864122)
     tags = ["Local", "Strict Shape"]
-    lib_only = False
+    lib_only = True
     creation_time = "2026-07-20"
 
     def __init__(self, board=None, data=None):
-        """初始化规则，存储 data 参数。"""
         global TODAY_DATE
         super().__init__(board, data)
         today_date = datetime.date.today().isoformat()
+
+        # ===== r 和日期变更 → 随机抽取（完全保持原样）=====
         if data in ["r"] or (today_date != TODAY_DATE):
-            data = "r"
-        elif data == "":
+            result = self.rand_choose_rule(board, None)
+            self.replace_rule(**result)
+            raise ValueError("已重新抽取规则")
+        # ================================================
+
+        if data == "":
             raise ValueError(
                 f"实际规则为:[{TODAY_RULE_ID}](hash:{hash_str(TODAY_RULE_ID)})"
             )
+
         if data is not None:
+            # 冒号开头 → 指定规则（原验证逻辑改为指定）
             if data.startswith(":"):
-                from minesweepervariants.impl.impl_obj import _resolve_rule_alias
-                if _resolve_rule_alias(data[1:]) != TODAY_RULE_ID:
-                    raise ValueError(f"验证失败 规则不为{data[1:]}")
+                result = self.rand_choose_rule(board, data[1:])
+                self.replace_rule(**result)
+                raise ValueError("已重新抽取规则")
+            # 普通字符串 → 验证（原指定逻辑改为验证）
+            else:
+                if _resolve_rule_alias(data) != TODAY_RULE_ID:
+                    raise ValueError(f"验证失败 规则不为{data}")
                 else:
                     raise ValueError(f"验证成功 实际规则为:[{TODAY_RULE_ID}](hash:{hash_str(TODAY_RULE_ID)})")
-            result = self.rand_choose_rule(board, None if data == "r" else data)
-            self.replace_rule(**result)
 
         self.rule: AbstractRule = get_rule(TODAY_RULE_ID)(board, None)
 
