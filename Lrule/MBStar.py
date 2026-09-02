@@ -3,7 +3,7 @@
 #
 # @Time    : 2026-09-02
 # @Author  : NT (2201963934)
-# @FileName: MB-.py
+# @FileName: MBStar.py
 
 """
 [MB*] 2-平衡点: 任意两个雷的平均位置是整点
