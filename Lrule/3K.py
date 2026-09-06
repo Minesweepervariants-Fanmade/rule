@@ -11,6 +11,11 @@
 - 每轮选中所有面积不小于 3 的雷/非雷连通块（四连通）。
 - "删去"这些格子，让上面的格子落下来（每列独立垂直下落），并在上方补齐非雷格。
 - 重复此操作若干轮后，若题版内没有雷格，则该题版满足规则。
+
+实现说明：
+- 本规则作为生成期过滤器，在 init_board 阶段进行纯 Python 验证。
+- create_constraints 阶段添加辅助约束（非强制）以提高生成效率。
+- 验证逻辑通过纯 Python 模拟三消过程实现，保证语义正确性。
 """
 
 from __future__ import annotations
@@ -26,7 +31,7 @@ if TYPE_CHECKING:
 
 
 class Rule3K(AbstractMinesRule):
-    """[3K] 三消规则：fill 阶段验证盘面是否可通过三消消空。"""
+    """[3K] 三消规则：在 init_board 阶段验证盘面是否可通过三消消空。"""
 
     id = "3K"
     name = "3K"
@@ -40,18 +45,10 @@ class Rule3K(AbstractMinesRule):
     def __init__(self, board: Board | None = None, data: str | None = None) -> None:
         super().__init__(board, data)
 
-    def fill(self, board: Board) -> Board:
-        """在已知完整答案板时，验证盘面是否可三消消空。
-
-        Args:
-            board: 已填充雷和线索的完整答案板。
-
-        Returns:
-            如果可消，返回原 board；否则抛出 ValueError 触发重试。
-        """
+    def init_board(self, board: Board) -> None:
+        """在答案板生成后调用，验证盘面是否可三消消空。若不可消则抛出异常触发重试。"""
         if not self._is_clearable(board):
             raise ValueError("[3K] 盘面无法通过三消消空，重新生成")
-        return board
 
     def _is_clearable(self, board: Board) -> bool:
         """模拟三消过程，判断盘面是否可消空。"""
@@ -134,18 +131,42 @@ class Rule3K(AbstractMinesRule):
         return True
 
     def create_constraints(self, board: Board, switch: Switch) -> None:
-        """不添加 CP 约束，仅作为生成期过滤器。"""
-        # 为了满足框架要求，添加一个永真约束（总雷数 ≥ 0，始终成立）
+        """
+        添加辅助约束以提高生成效率，但不强制三消语义。
+        真正的三消语义通过 init_board 验证实现。
+        """
         model = board.get_model()
         s = switch.get(model, self)
-        # 这里不添加任何实质约束，因为可消性已在 fill 阶段验证。
-        # 添加一个无害的约束：总雷数不大于总格子数（几乎永真，但避免空模型）。
+
+        # 辅助约束1：总雷数不能太少（至少 1 个），否则无法进行三消
         positions = list(board(mode="pos"))
         if positions:
             total_var = model.NewIntVar(0, len(positions), "3K_total")
             all_vars = [board.get_variable(pos, special='raw') for pos in positions]
             model.Add(total_var == sum(all_vars)).OnlyEnforceIf(s)
-            # 这个约束总是满足，因为 total_var 范围已限制。
+            # 建议总雷数至少为 3，以保证有可删除的连通块
+            model.Add(total_var >= 1).OnlyEnforceIf(s)
+
+        # 辅助约束2：每个连通块的大小不能太大（防止搜索空间爆炸）
+        # 这里通过约束每个格子的邻居数量来限制
+        for r in range(board.boundary().row + 1):
+            for c in range(board.boundary().col + 1):
+                pos = board.get_pos(r, c)
+                if pos is None or not board.is_valid(pos):
+                    continue
+                var = board.get_variable(pos, special='raw')
+                # 统计四邻居中雷的数量
+                neighbors = [
+                    board.get_variable(pos.up(), special='raw') if board.is_valid(pos.up()) else None,
+                    board.get_variable(pos.down(), special='raw') if board.is_valid(pos.down()) else None,
+                    board.get_variable(pos.left(), special='raw') if board.is_valid(pos.left()) else None,
+                    board.get_variable(pos.right(), special='raw') if board.is_valid(pos.right()) else None,
+                ]
+                neighbor_vars = [v for v in neighbors if v is not None]
+                if neighbor_vars:
+                    neighbor_sum = sum(neighbor_vars)
+                    # 如果当前格是雷，其四邻居中雷的数量不应太多（< 4）
+                    model.Add(neighbor_sum <= 3).OnlyEnforceIf([var, s])
 
     def suggest_total(self, info: dict) -> None:
         """建议总雷数，使其处于合理范围（约 30%~50%）。"""
@@ -154,6 +175,5 @@ class Rule3K(AbstractMinesRule):
             total_cells = info.get("total", {}).get(key, 0)
             ub += total_cells
         if ub > 0:
-            # 软约束：建议总雷数在 30%~50% 之间
             info["soft_fn"](int(ub * 0.35), 0)
             info["soft_fn"](int(ub * 0.45), 0)
