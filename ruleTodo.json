@@ -4877,5 +4877,12 @@
         "author_name": "タナトス",
         "doc": "对",
         "image": "傻逼.png"
+    },
+    {
+        "time": 1790096565.4488075,
+        "name": "APNG",
+        "author_uid": 2201963934,
+        "author_name": "NT",
+        "doc": "APNG：使用APNG格式把题目放到第二帧，缩略图显示为第一帧"
     }
 ]
