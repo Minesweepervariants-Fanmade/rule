@@ -4885,5 +4885,12 @@
         "author_name": "NT",
         "doc": "群友每天被ds氣笑",
         "image": "deepseek.png"
+    },
+    {
+        "time": 1790318541.2815518,
+        "name": "SDF",
+        "author_uid": 3086842243,
+        "author_name": "小中医",
+        "doc": "雷值数独：每个雷的雷值可能为1-9，每行每列每宫雷值不重复。"
     }
 ]
