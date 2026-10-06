@@ -24,7 +24,7 @@ class Rule3E(AbstractMinesRule):
     doc.zh_CN = "每个3x1区域决定其中间下方1格是否为雷，演化被当前题板所有区域共享。"
     tags = ["Creative", "Aux Board", "Extensive Trial", "Local"]
     creation_time = "2025-08-06"
-    author = ("", 0)
+    author = ("哈嘿袁", 2977976933)
 
     def __init__(self, board: Board, data=None):
         super().__init__(board, data)
