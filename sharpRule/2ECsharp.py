@@ -102,7 +102,7 @@ class Rule2ECSharp(AbstractClueSharp):
         return [rule_map[i] for i in sorted(rule_map)]
 
     def fill(self, board: Board) -> Board:
-        self.init_clear(board)
+        self.init_clear(board, False)
         random = get_random()
         value_size = board.boundary(key=NAME_2EC if self.single_board else NAME_2EC_VALUE).x + 1
         value_columns = [i for i in range(value_size)]
@@ -172,14 +172,14 @@ class Rule2ECSharp(AbstractClueSharp):
             var = board.batch(board.get_row_pos(pos), mode="variable")
             model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
 
-    def init_clear(self, board: Board):
+    def init_clear(self, board: Board, vice_board):
         if self.single_board:
-            for pos, _ in board(key=NAME_2EC):
+            for pos, _ in board("F" if vice_board else "CF", key=NAME_2EC):
                 board.set_value(pos, None)
         else:
-            for pos, _ in board(key=NAME_2EC_VALUE):
+            for pos, _ in board("F" if vice_board else "CF", key=NAME_2EC_VALUE):
                 board.set_value(pos, None)
-            for pos, _ in board(key=NAME_2EC_RULE):
+            for pos, _ in board("F" if vice_board else "CF", key=NAME_2EC_RULE):
                 board.set_value(pos, None)
 
     def get_clue_number(self, clue: AbstractClueValue) -> int:

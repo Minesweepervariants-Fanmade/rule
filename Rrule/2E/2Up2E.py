@@ -72,8 +72,8 @@ class Rule2E(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'Board'):
-        for pos, _ in board(key=NAME_2E):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_2E):
             board.set_value(pos, None)
 
 

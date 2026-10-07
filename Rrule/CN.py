@@ -2,15 +2,12 @@
 # -*- coding:utf-8 -*-
 #
 # @Time    : 2026/10/05 13:40
-# @Author  : DeepSeek Agent
 # @FileName: CN.py
 """
 [CN] 复数雷值 (Complex Number)：雷的雷值将是(+1,-1,+i,-i)中的一种，
 数字表示周围八格的雷值之和的模长。
 """
-from typing import Dict, List, cast
-
-from ortools.sat.python.cp_model import IntVar
+from typing import List, cast, Dict
 
 from ....abs.Rrule import AbstractClueRule, AbstractClueValue
 from minesweepervariants.abs.rule import AbstractValue
@@ -21,17 +18,15 @@ from minesweepervariants.utils.image_template import get_col, get_dummy, get_ima
 from minesweepervariants.utils.tool import get_logger, get_random
 from minesweepervariants.utils.value_template import SingleIntValue, is_value_template, Template
 
+AXIS = "CN_axis"    # 0=实轴(±1)  1=虚轴(±i)
+SIGN = "CN_sign"    # 0=负        1=正
+
 
 def simplify_sqrt(n: int):
-    """
-    将非负整数 n 写成 a^2 * b 的形式（b 无平方因子），满足 sqrt(n) = a * sqrt(b)。
-    :return: (a, b)
-    """
+    """将非负整数 n 写成 a^2 * b（b 无平方因子），使 sqrt(n) = a*sqrt(b)。"""
     if n <= 0:
         return 0, 1
-    a = 1
-    b = n
-    i = 2
+    a, b, i = 1, n, 2
     while i * i <= b:
         while b % (i * i) == 0:
             b //= i * i
@@ -51,51 +46,45 @@ class RuleCN(AbstractClueRule):
     tags = ["Variant", "Local", "Number Clue", "Mine-Value", "Creative"]
     creation_time = "2026-10-05"
     author = ("雾", 3140864122)
+    special = SIGN
+
+    def __init__(self, board: "Board | None" = None, data: str | None = None) -> None:
+        super().__init__(board, data)
+        board.generate_board(AXIS, )
 
     def fill(self, board: 'Board') -> 'Board':
         random = get_random()
-        # 出题时随机为每个雷分配复数雷值 ±1 / ±i
-        cg: Dict[Position, tuple[int, int]] = {}
+        cg = {}
         for pos, _ in board("F", special='raw'):
-            choice = random.randint(0, 3)
-            re = [1, -1, 0, 0][choice]
-            im = [0, 0, 1, -1][choice]
-            cg[pos] = (re, im)
-        # 计算每个非雷格的线索值 = 周围八格雷值之和的模长平方
+            k = random.randint(0, 3)
+            cg[pos] = ([1, -1, 0, 0][k], [0, 0, 1, -1][k])
         for pos, _ in board("N", special='raw'):
-            s_re = 0
-            s_im = 0
+            sr = si = 0
             for nei in pos.neighbors(2):
                 if not board.in_bounds(nei):
                     continue
                 if nei in cg:
-                    s_re += cg[nei][0]
-                    s_im += cg[nei][1]
-            N = s_re * s_re + s_im * s_im
-            board.set_value(pos, ValueCN(pos, N))
+                    sr += cg[nei][0]
+                    si += cg[nei][1]
+            board.set_value(pos, ValueCN(pos, sr * sr + si * si))
         return board
 
     def create_constraints(self, board: 'Board', switch: Switch):
         model = board.get_model()
         s = switch.get(model, self)
-        # 为每个格子创建并注册复数雷值的四个分量变量
-        # 雷格：恰好一个分量为 True，其余为 False
-        # 非雷格：全部为 False
+        # 每格注册两个 bool 表示雷值（非雷时均为 0，贡献自然为 0）：
+        #   axis: False→实轴(±1)  True→虚轴(±i)
+        #   sign: False→负        True→正
         for key in board.get_interactive_keys():
             for pos, mine_var in board(key=key, mode="var", special='raw'):
                 if mine_var is None:
                     continue
-                re_pos = model.new_bool_var(f"CN_re_pos_{key}_{pos.col}_{pos.row}")
-                re_neg = model.new_bool_var(f"CN_re_neg_{key}_{pos.col}_{pos.row}")
-                im_pos = model.new_bool_var(f"CN_im_pos_{key}_{pos.col}_{pos.row}")
-                im_neg = model.new_bool_var(f"CN_im_neg_{key}_{pos.col}_{pos.row}")
-                board.register_variable_special("CN_re_pos", pos, re_pos)
-                board.register_variable_special("CN_re_neg", pos, re_neg)
-                board.register_variable_special("CN_im_pos", pos, im_pos)
-                board.register_variable_special("CN_im_neg", pos, im_neg)
-                model.add(
-                    re_pos + re_neg + im_pos + im_neg == mine_var
-                ).only_enforce_if(s)
+                axis = model.new_bool_var(f"CN_axis_{key}_{pos.col}_{pos.row}")
+                sign = model.new_bool_var(f"CN_sign_{key}_{pos.col}_{pos.row}")
+                model.add(axis <= mine_var).only_enforce_if(s)
+                model.add(sign <= mine_var).only_enforce_if(s)
+                board.register_variable_special(AXIS, pos, axis)
+                board.register_variable_special(SIGN, pos, sign)
 
 
 class ValueCN(AbstractClueValue):
@@ -104,13 +93,9 @@ class ValueCN(AbstractClueValue):
     def __init__(self, pos: Position, value: int = 0, code: bytes = None):
         super().__init__(pos, b'')
         if code is not None:
-            if len(code) == 1:
-                value = code[0]
-            elif len(code) >= 2:
-                value = int.from_bytes(code[:2], "big")
+            value = code[0] if len(code) == 1 else int.from_bytes(code[:2], "big")
         self.count = int(value)
         self.neighbor = pos.neighbors(2)
-        # 线索值存储为模长平方 N；sqrt(N) 即语义上的模长
         self.value = SingleIntValue(self.count)
 
     def __repr__(self) -> str:
@@ -126,8 +111,7 @@ class ValueCN(AbstractClueValue):
         _data = deep_unwrap(data)
         if not is_value_template(_data):
             raise TypeError("value is not template")
-        template_data = cast(Template, _data)
-        val = SingleIntValue.try_from(template_data)
+        val = SingleIntValue.try_from(cast(Template, _data))
         if val is None:
             raise ValueError("value is empty")
         return cls(pos, value=int(val.value))
@@ -141,23 +125,10 @@ class ValueCN(AbstractClueValue):
     def compose(self, board) -> Dict:
         a, b = simplify_sqrt(self.count)
         if b == 1:
-            return get_col(
-                get_dummy(height=0.175),
-                get_text(str(a)),
-                get_dummy(height=0.175),
-            )
+            return get_col(get_dummy(height=0.175), get_text(str(a)), get_dummy(height=0.175))
         if a == 1:
-            return get_row(
-                get_image("sqrt"),
-                get_text(str(b)),
-                spacing=-0.15,
-            )
-        return get_row(
-            get_text(str(a)),
-            get_image("sqrt"),
-            get_text(str(b)),
-            spacing=-0.2,
-        )
+            return get_row(get_image("sqrt"), get_text(str(b)), spacing=-0.15)
+        return get_row(get_text(str(a)), get_image("sqrt"), get_text(str(b)), spacing=-0.2)
 
     def web_component(self, board) -> Dict:
         a, b = simplify_sqrt(self.count)
@@ -172,36 +143,40 @@ class ValueCN(AbstractClueValue):
         s = switch.get(model, self.pos)
         logger = get_logger()
 
-        # 收集周围 8 格的 re/im 线性表达式
-        neighbor_re: List = []
-        neighbor_im: List = []
+        # 由 axis/sign 得到每格的实部、虚部（m=0 时两者恒为 0）：
+        #   ab = axis AND sign
+        #   re = -m + axis + 2*sign - 2*ab   ∈ {-1, 0, 1}
+        #   im = 2*ab - axis                 ∈ {-1, 0, 1}
+        re_terms: List = []
+        im_terms: List = []
         for nei in self.neighbor:
             if not board.in_bounds(nei):
                 continue
-            re_pos = board.get_variable(nei, special='CN_re_pos')
-            re_neg = board.get_variable(nei, special='CN_re_neg')
-            im_pos = board.get_variable(nei, special='CN_im_pos')
-            im_neg = board.get_variable(nei, special='CN_im_neg')
-            if re_pos is None or re_neg is None or im_pos is None or im_neg is None:
+            m = board.get_variable(nei, special="raw")
+            axis = board.get_variable(nei, special=AXIS)
+            sign = board.get_variable(nei, special=SIGN)
+            if m is None or axis is None or sign is None:
                 continue
-            neighbor_re.append(re_pos - re_neg)
-            neighbor_im.append(im_pos - im_neg)
+            ab = model.new_bool_var(f"CN_ab_{nei.board_key}_{nei.col}_{nei.row}")
+            model.add(ab <= axis)
+            model.add(ab <= sign)
+            model.add(ab >= axis + sign - 1)
+            re_terms.append(-m + axis + 2 * sign - 2 * ab)
+            im_terms.append(2 * ab - axis)
 
-        if not neighbor_re:
-            # 没有有效邻居，模长必须为 0
+        if not re_terms:
             model.add(self.count == 0).only_enforce_if(s)
             return
 
         sr = model.new_int_var(-8, 8, f"CN_sr_{self.pos.col}_{self.pos.row}")
         si = model.new_int_var(-8, 8, f"CN_si_{self.pos.col}_{self.pos.row}")
-        model.add(sr == sum(neighbor_re)).only_enforce_if(s)
-        model.add(si == sum(neighbor_im)).only_enforce_if(s)
+        model.add(sr == sum(re_terms)).only_enforce_if(s)
+        model.add(si == sum(im_terms)).only_enforce_if(s)
 
         sr2 = model.new_int_var(0, 64, f"CN_sr2_{self.pos.col}_{self.pos.row}")
         si2 = model.new_int_var(0, 64, f"CN_si2_{self.pos.col}_{self.pos.row}")
         model.add_multiplication_equality(sr2, [sr, sr]).only_enforce_if(s)
         model.add_multiplication_equality(si2, [si, si]).only_enforce_if(s)
 
-        # 线索值（模长平方）等于实部平方 + 虚部平方
         model.add(sr2 + si2 == self.count).only_enforce_if(s)
         logger.trace(f"[CN] {self.pos}: N={self.count}")

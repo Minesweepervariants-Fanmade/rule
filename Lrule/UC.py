@@ -57,34 +57,3 @@ class UC(AbstractMinesRule):
 
             # 添加约束，并关联到规则开关
             model.AddBoolOr(literals).OnlyEnforceIf(rule_switch)
-
-    def suggest_total(self, info: dict):
-        """
-        建议雷总数。此规则本身不强制特定总数，但可提供软约束或硬约束。
-        """
-        # 此规则不强制总数，留空即可
-        pass
-
-    def init_board(self, board: Board) -> bool:
-        """
-        初始化题板时无需特殊操作，返回 True。
-        """
-        return True
-
-    def init_clear(self, board: Board) -> None:
-        """
-        清除阶段无需特殊操作。
-        """
-        pass
-
-    def combine(self, other) -> Optional['UC']:
-        """
-        规则合并优化：不支持合并，返回 None。
-        """
-        return None
-
-    def get_deps(self) -> list[str]:
-        """
-        返回依赖的其他规则名称列表。此规则无依赖。
-        """
-        return []

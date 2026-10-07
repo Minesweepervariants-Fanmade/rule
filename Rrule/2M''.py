@@ -73,7 +73,7 @@ class Rule2M(AbstractClueRule):
         logger = get_logger()
         boundary = board.boundary()
         keys = board.get_interactive_keys()
-        self.init_clear(board)
+        self.init_clear(board, False)
 
         matrix = []
         for x in range(boundary.x + 1):
@@ -112,8 +112,8 @@ class Rule2M(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'Board'):
-        for pos, _ in board(key=NAME_2M):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_2M):
             board.set_value(pos, None)
 
     def create_constraints(self, board: 'Board', switch):

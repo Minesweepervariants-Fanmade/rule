@@ -43,8 +43,8 @@ class RuleRS(AbstractClueRule):
             board.set_value(pos, ValueRS(pos, count))
         return board
 
-    def init_clear(self, board: 'Board'):
-        for pos, _ in board(key=NAME_RSp):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_RSp):
             board.set_value(pos, None)
 
     def create_constraints(self, board: 'Board', switch):

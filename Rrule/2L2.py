@@ -318,9 +318,9 @@ class Rule2L2(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'Board') -> None:
+    def init_clear(self, board: 'Board', vice_board) -> None:
         """清空副板上的标记"""
-        for pos, _ in board(key=NAME_2L2):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_2L2):
             board.set_value(pos, None)
 
     def create_constraints(self, board: 'Board', switch: Switch) -> None:

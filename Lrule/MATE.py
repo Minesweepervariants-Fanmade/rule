@@ -101,9 +101,9 @@ class RuleMate(AbstractClueRule):
         for rule in self.rules:
             rule.init_board(board)
 
-    def init_clear(self, board: 'Board'):
+    def init_clear(self, board: 'Board', vice_board):
         for rule in self.rules:
-            rule.init_clear(board)
+            rule.init_clear(board, vice_board)
 
     def combine(self, rules: List[Tuple['AbstractRule', Optional[str]]]):
         for rule in self.rules:

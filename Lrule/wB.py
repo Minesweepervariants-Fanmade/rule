@@ -104,27 +104,3 @@ class RuleWB(AbstractMinesRule):
         info["hard_fns"].append(add_constraints)
         # 软约束：建议总雷数约为最大可能的一半
         info["soft_fn"](max_possible // 2, 0)
-
-    def init_board(self, board: Board) -> bool:
-        """
-        初始化题板时无需特殊操作。
-        """
-        return True
-
-    def init_clear(self, board: Board) -> None:
-        """
-        清除阶段无需特殊操作。
-        """
-        pass
-
-    def combine(self, other) -> Optional['RuleWB']:
-        """
-        规则合并优化：不支持合并。
-        """
-        return None
-
-    def get_deps(self) -> list[str]:
-        """
-        返回依赖的其他规则名称列表。此规则无依赖。
-        """
-        return []

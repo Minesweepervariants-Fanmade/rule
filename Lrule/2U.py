@@ -54,8 +54,8 @@ class Rule2U(AbstractMinesRule):
             for index in range(len(row_2u_var)):
                 model.add(sum(row_var) == index).only_enforce_if(row_2u_var[index], s)
 
-    def init_clear(self, board: 'Board') -> None:
-        for pos in board(mode="pos", key=NAME_2U):
+    def init_clear(self, board: 'Board', vice_board) -> None:
+        for pos in board("F" if vice_board else "CF", mode="pos", key=NAME_2U):
             board[pos] = None
 
     def suggest_total(self, info: dict):

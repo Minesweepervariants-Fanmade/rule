@@ -54,7 +54,7 @@ class Rule4V2Ep2Ip(AbstractClueRule):
             return result
 
         random = get_random()
-        self.init_clear(board)
+        self.init_clear(board, False)
 
         pos_list = [pos for pos, _ in board("N", key=NAME_4V_2Ip)]
         pos_list = random.sample(pos_list, int(random.random() * 6 + 3))
@@ -111,8 +111,8 @@ class Rule4V2Ep2Ip(AbstractClueRule):
             ub += size[0] * size[1]
         info["soft_fn"](ub * 0.4)
 
-    def init_clear(self, board: 'Board'):
-        for pos, obj in board(mode="object", key=NAME_4V_2Ip):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, obj in board("F" if vice_board else "CF", mode="object", key=NAME_4V_2Ip):
             board[pos] = None
 
 

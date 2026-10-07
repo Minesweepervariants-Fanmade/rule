@@ -40,7 +40,7 @@ class Rule2Eq(AbstractClueRule):
 
     def fill(self, board: 'Board') -> 'Board':
         random = get_random()
-        self.init_clear(board)
+        self.init_clear(board, False)
         while True:
             shuffled_nums = [i // 2 for i in range(min(18, (board.boundary().x + 1) * 2))]
             number_map = {i: [] for i in range(min(9, (board.boundary().x + 1)))}
@@ -93,8 +93,8 @@ class Rule2Eq(AbstractClueRule):
             var = board.batch(line, mode="variable")
             model.Add(sum(var) == 2).OnlyEnforceIf(s)
 
-    def init_clear(self, board: 'Board'):
-        for pos, _ in board(key=NAME_2Eq):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_2Eq):
             board.set_value(pos, None)
 
 

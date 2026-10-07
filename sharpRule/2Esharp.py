@@ -59,7 +59,7 @@ class Rule2ESharp(AbstractClueSharp):
         board.set_config(NAME_2E, "pos_label", True)
 
     def fill(self, board: 'Board') -> 'Board':
-        self.init_clear(board)
+        self.init_clear(board, False)
         random = get_random()
         shuffled_nums = [i for i in range(min(9, board.boundary().x + 1))]
         random.shuffle(shuffled_nums)
@@ -176,8 +176,8 @@ class Rule2ESharp(AbstractClueSharp):
             var = board.batch(line, mode="variable")
             model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
 
-    def init_clear(self, board: 'Board'):
-        for pos, _ in board(key=NAME_2E):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_2E):
             board.set_value(pos, None)
 
 

@@ -81,33 +81,3 @@ class DF(AbstractMinesRule):
                 # If both are non-mines, require pattern_i != pattern_j
                 model.Add(pattern_vars[pos_i] - pattern_vars[pos_j] >= 1).OnlyEnforceIf([rule_switch, both, b])
                 model.Add(pattern_vars[pos_i] - pattern_vars[pos_j] <= -1).OnlyEnforceIf([rule_switch, both, b.Not()])
-
-    def suggest_total(self, info: dict):
-        """
-        This rule does not suggest a total mine count.
-        """
-        pass
-
-    def init_board(self, board: Board) -> bool:
-        """
-        No special initialisation needed.
-        """
-        return True
-
-    def init_clear(self, board: Board) -> None:
-        """
-        No special clearing needed.
-        """
-        pass
-
-    def combine(self, other) -> Optional['DF']:
-        """
-        No combination optimization.
-        """
-        return None
-
-    def get_deps(self) -> list[str]:
-        """
-        No dependencies.
-        """
-        return []

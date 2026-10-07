@@ -144,7 +144,7 @@ class RuleLD(AbstractMinesRule):
         board.set_config(NAME_LD_AUXILIARY, "labels", labels)
         return board
 
-    def init_clear(self, board: Board):
+    def init_clear(self, board: Board, vice_board):
         if not self.use_auxiliary:
             return
         for key in board.get_interactive_keys():

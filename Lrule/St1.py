@@ -100,26 +100,6 @@ class _St1Base(AbstractMinesRule):
                     else:
                         model.Add(left_var != down_var).OnlyEnforceIf([condition, rule_switch])
 
-    def suggest_total(self, info: dict):
-        """此规则不强制雷总数，留空即可。"""
-        pass
-
-    def init_board(self, board: Board) -> bool:
-        """初始化题板时无需特殊操作。"""
-        return True
-
-    def init_clear(self, board: Board) -> None:
-        """清除阶段无需特殊操作。"""
-        pass
-
-    def combine(self, other) -> Optional['_St1Base']:
-        """规则合并优化：不支持合并。"""
-        return None
-
-    def get_deps(self) -> list[str]:
-        """无依赖。"""
-        return []
-
 
 class St1(_St1Base):
     """

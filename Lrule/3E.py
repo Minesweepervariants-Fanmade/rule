@@ -90,6 +90,6 @@ class Rule3E(AbstractMinesRule):
                     index += 1 if types[2] == "F" else 0
                     board.set_value(y_col[index], MINES_TAG if y_type == "F" else VALUE_QUESS)
 
-    def init_clear(self, board: 'Board'):
-        for pos, _ in board(key=NAME_3E[1]):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_3E[1]):
             board.set_value(pos, None)

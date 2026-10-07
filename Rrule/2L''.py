@@ -69,7 +69,7 @@ class Rule2L(AbstractClueRule):
         board.generate_board(NAME_2L, Size(bound.x + 1, bound.y + 1))
 
     def fill(self, board: 'Board') -> 'Board':
-        self.init_clear(board)
+        self.init_clear(board, False)
         random = get_random()
         logger = get_logger()
         boundary = board.boundary()
@@ -111,8 +111,8 @@ class Rule2L(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'Board'):
-        for pos, _ in board(key=NAME_2L):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_2L):
             board.set_value(pos, None)
 
     def create_constraints(self, board: 'Board', switch):

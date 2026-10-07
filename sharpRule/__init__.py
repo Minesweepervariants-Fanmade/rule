@@ -36,8 +36,8 @@ class AbstractMinesSharp(AbstractMinesClueRule, ABC):
     def init_board(self, board: 'Board'):
         return self.shape_rule.init_board(board=board)
 
-    def init_clear(self, board: 'Board'):
-        return self.shape_rule.init_clear(board=board)
+    def init_clear(self, board: 'Board', vice_board):
+        return self.shape_rule.init_clear(board=board, vice_board=vice_board)
 
     def combine(self, rules: List[Tuple['AbstractRule', Optional[str]]]):
         return self.shape_rule.combine(rules=rules)
@@ -68,8 +68,8 @@ class AbstractClueSharp(AbstractClueRule, ABC):
     def init_board(self, board: 'Board'):
         return self.shape_rule.init_board(board=board)
 
-    def init_clear(self, board: 'Board'):
-        return self.shape_rule.init_clear(board=board)
+    def init_clear(self, board: 'Board', vice_board):
+        return self.shape_rule.init_clear(board=board, vice_board=vice_board)
 
     def combine(self, rules: List[Tuple['AbstractRule', Optional[str]]]):
         return self.shape_rule.combine(rules=rules)

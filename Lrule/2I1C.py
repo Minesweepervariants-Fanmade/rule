@@ -33,8 +33,8 @@ class Rule2I1C(AbstractMinesRule):
         for p, _ in board("N", key=NAME_2I):
             board[p] = VALUE_CROSS
 
-    def init_clear(self, board):
-        for pos, obj in board(key=NAME_2I, mode="obj"):
+    def init_clear(self, board, vice_board):
+        for pos, obj in board("F" if vice_board else "CF", key=NAME_2I, mode="obj"):
             if isinstance(obj, ValueV):
                 continue
             board[pos] = None

@@ -89,8 +89,8 @@ class RuleFN(AbstractClueRule):
             board[pos] = VALUE_CROSS
         board[board.get_col_pos(board.boundary(FN_NAME))[self.total - self.num_range[0]]] = VALUE_CIRCLE
 
-    def init_clear(self, board: 'Board') -> None:
-        for pos, _ in board(key=FN_NAME):
+    def init_clear(self, board: 'Board', vice_board) -> None:
+        for pos, _ in board("F" if vice_board else "CF", key=FN_NAME):
             board[pos] = None
 
     def fill(self, board: 'Board') -> 'Board':

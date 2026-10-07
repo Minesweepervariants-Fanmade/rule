@@ -44,7 +44,7 @@ class Rule2Ep2I(AbstractClueRule):
                 result.append(_pos.deviation(dpos))
             return result
 
-        self.init_clear(board)
+        self.init_clear(board, False)
 
         pos = board.get_pos(1, 1, NAME_2I)
         logger = get_logger()
@@ -82,8 +82,8 @@ class Rule2Ep2I(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'Board'):
-        for pos, obj in board(mode="object", key=NAME_2I):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, obj in board("F" if vice_board else "CF", mode="object", key=NAME_2I):
             if isinstance(obj, Value2Ep2I_Quess):
                 continue
             board[pos] = None

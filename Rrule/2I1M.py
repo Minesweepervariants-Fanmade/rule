@@ -135,9 +135,9 @@ class Rule2I1M(AbstractClueRule):
             # 约束总变量等于线索值
             model.Add(total_var == obj.count).OnlyEnforceIf(s)
 
-    def init_clear(self, board: Board) -> None:
+    def init_clear(self, board: Board, vice_board) -> None:
         # 清除副板
-        for pos, _ in board(key=NAME_SUB):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_SUB):
             board.set_value(pos, None)
 
 

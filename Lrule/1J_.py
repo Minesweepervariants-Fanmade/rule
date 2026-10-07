@@ -116,7 +116,7 @@ class Star1J(AbstractMinesRule):
     def init_board(self, board: Board) -> bool:
         return True
 
-    def init_clear(self, board: Board) -> None:
+    def init_clear(self, board: Board, vice_board) -> None:
         pass
 
     def combine(self, other) -> Optional['Star1J']:

@@ -79,8 +79,8 @@ class RuleDollar(AbstractClueRule):
             return rule_id, rule_data
         return part, None
 
-    def init_clear(self, board: 'Board'):
-        for pos, _ in board(key=NAME_SNOW):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_SNOW):
             board[pos] = None
 
     def init_board(self, board: 'Board'):

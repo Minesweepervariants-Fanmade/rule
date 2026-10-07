@@ -89,19 +89,3 @@ class UD(AbstractMinesRule):
                     model.Add(total_var <= (rows * cols) // 2 + 2)
 
         info["hard_fns"].append(add_constraints)
-
-    def init_board(self, board: Board) -> bool:
-        """初始化题板时无需特殊操作。"""
-        return True
-
-    def init_clear(self, board: Board) -> None:
-        """清除阶段无需特殊操作。"""
-        pass
-
-    def combine(self, other) -> Optional['UD']:
-        """不支持规则合并。"""
-        return None
-
-    def get_deps(self) -> list[str]:
-        """无依赖。"""
-        return []

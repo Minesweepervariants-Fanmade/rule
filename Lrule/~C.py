@@ -120,30 +120,6 @@ class TildeC(AbstractMinesRule):
         total_cells = 0
         for key in info["interactive"]:
             total_cells += info["total"][key]
-        
+
         # 软约束：雷数约为总格数的 28%（5x5 下约 7 个）
         info["soft_fn"](total_cells * 0.28, 0)
-        
-    def init_board(self, board: Board) -> bool:
-        """
-        初始化题板时无需特殊操作，返回 True。
-        """
-        return True
-
-    def init_clear(self, board: Board) -> None:
-        """
-        清除阶段无需特殊操作。
-        """
-        pass
-
-    def combine(self, other) -> Optional['TildeC']:
-        """
-        规则合并优化：不支持合并，返回 None。
-        """
-        return None
-
-    def get_deps(self) -> List[str]:
-        """
-        返回依赖的其他规则名称列表。此规则无依赖。
-        """
-        return []

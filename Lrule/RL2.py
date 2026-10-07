@@ -91,6 +91,6 @@ class RuleRL2(AbstractMinesRule):
                         model.add(var_a == var_b).only_enforce_if(switch_sum, s, tmps_var[n])
                 model.add_bool_or(tmps_var).only_enforce_if(s)
 
-    def init_clear(self, board: 'Board') -> None:
+    def init_clear(self, board: 'Board', vice_board) -> None:
         for pos, _ in board(key=NAME_RL2):
             board[pos] = None

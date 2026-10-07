@@ -29,9 +29,9 @@ class RuleSK(AbstractMinesRule):
         else:
             self.sub_board = False
 
-    def init_clear(self, board: "Board"):
+    def init_clear(self, board: "Board", vice_board):
         if self.sub_board:
-            for pos, _ in board(key="SK"):
+            for pos, _ in board("F" if vice_board else "CF", key="SK"):
                 if pos.row < board.get_config("SK", "size").rows - 1:
                     board.set_value(pos, None)
 

@@ -41,7 +41,7 @@ class Rule1M(AbstractClueRule):
             self.value = data
 
     def fill(self, board: 'Board'):
-        self.init_clear(board)
+        self.init_clear(board, False)
         def apply_offsets(_pos: Position):
             nonlocal offsets
             result = []
@@ -80,8 +80,8 @@ class Rule1M(AbstractClueRule):
             board.set_value(pos, obj)
         return board
 
-    def init_clear(self, board: 'Board'):
-        for pos, obj in board(mode="object", key=BOARD_NAME):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, obj in board("F" if vice_board else "CF", mode="object", key=BOARD_NAME):
             if isinstance(obj, Value2I_7):
                 continue
             board[pos] = None

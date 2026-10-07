@@ -55,7 +55,7 @@ class RuleCSharp(AbstractClueSharp):
         return self.rules[y] if 0 <= y < len(self.rules) else ''
 
     def fill(self, board: 'Board') -> 'Board':
-        self.init_clear(board)
+        self.init_clear(board, False)
         random = get_random()
         shuffled_nums = [i for i in range(len(self.rules))]
         random.shuffle(shuffled_nums)
@@ -98,8 +98,8 @@ class RuleCSharp(AbstractClueSharp):
             var = board.batch(line, mode="variable")
             model.Add(sum(var) == 1).OnlyEnforceIf(s_row)
 
-    def init_clear(self, board: 'Board'):
-        for pos, _ in board(key=NAME_C_SHARP):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, _ in board("F" if vice_board else "CF", key=NAME_C_SHARP):
             board.set_value(pos, None)
 
     def get_clue_number(self, clue: AbstractClueValue) -> int:

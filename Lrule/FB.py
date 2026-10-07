@@ -44,8 +44,8 @@ class RuleFB(AbstractMinesRule):
         for pos, _ in board("N", key=FB_BOARD_NAME):
             board[pos] = VALUE_CROSS
 
-    def init_clear(self, board: 'Board') -> None:
-        for pos, _ in board(key=FB_BOARD_NAME):
+    def init_clear(self, board: 'Board', vice_board) -> None:
+        for pos, _ in board("F" if vice_board else "CF", key=FB_BOARD_NAME):
             board[pos] = None
 
     def create_constraints(self, board: "Board", switch: "Switch") -> None:

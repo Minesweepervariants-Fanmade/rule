@@ -35,7 +35,7 @@ class Rule2I(AbstractClueRule):
         board.generate_board(NAME_2I, Size(3, 3))
 
     def fill(self, board: 'Board') -> 'Board':
-        self.init_clear(board)  # 如果需要共用2I副板那么就注释该行
+        self.init_clear(board, False)  # 如果需要共用2I副板那么就注释该行
         def apply_offsets(_pos: Position):
             nonlocal offsets
             result = []
@@ -69,8 +69,8 @@ class Rule2I(AbstractClueRule):
 
         return board
 
-    def init_clear(self, board: 'Board'):
-        for pos, obj in board(mode="object", key=NAME_2I):
+    def init_clear(self, board: 'Board', vice_board):
+        for pos, obj in board("F" if vice_board else "CF", mode="object", key=NAME_2I):
             if type(obj) not in (
                 type(VALUE_CIRCLE),
                 type(VALUE_CROSS),

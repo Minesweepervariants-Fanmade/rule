@@ -62,9 +62,9 @@ class RuleSharp(AbstractClueRule):
         for rule in self.rules:
             rule.combine(rules)
 
-    def init_clear(self, board: 'Board'):
+    def init_clear(self, board: 'Board', vice_board):
         for rule in self.rules:
-            rule.init_clear(board)
+            rule.init_clear(board, vice_board)
 
     def create_constraints(self, board: 'Board', switch):
         for rule in self.rules:

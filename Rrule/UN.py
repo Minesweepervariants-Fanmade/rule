@@ -14,15 +14,15 @@ from minesweepervariants.impl.impl_obj import get_rule, _resolve_rule_alias
 from minesweepervariants.impl.summon.solver import Switch
 from minesweepervariants.utils.tool import get_random, get_logger
 
-TODAY_RULE_ID: str = "4S"
-TODAY_DATE = "2026-09-02"
+TODAY_RULE_ID: str = "1E**"
+TODAY_DATE = "2026-10-07"
 
 
 def hash_str(input_str: str) -> str:
     return hashlib.md5(input_str.encode("utf-8")).hexdigest()[:4]
 
 
-class UN(AbstractMinesRule):
+class UN(AbstractClueRule):
     """
     隐藏左线规则 - 每个 2x2 子矩阵中的雷数不为 3。
     """
@@ -39,7 +39,7 @@ class UN(AbstractMinesRule):
                  "当传入其他非空字符串时，将验证当前规则是否与该字符串匹配")
     author = ("雾", 3140864122)
     tags = ["Local", "Strict Shape"]
-    lib_only = True
+    lib_only = False
     creation_time = "2026-07-20"
 
     def __init__(self, board=None, data=None):
@@ -200,8 +200,8 @@ class UN(AbstractMinesRule):
     def init_board(self, board: 'Board') -> None:
         return self.rule.init_board(board)
 
-    def init_clear(self, board: 'Board') -> None:
-        return self.rule.init_clear(board)
+    def init_clear(self, board: 'Board', vice_board) -> None:
+        return self.rule.init_clear(board, vice_board)
 
     def combine(self, rules: List[Tuple['AbstractRule', Optional[str]]]) -> None:
         return self.rule.combine(rules)
