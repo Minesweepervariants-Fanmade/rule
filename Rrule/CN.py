@@ -21,7 +21,8 @@ from minesweepervariants.utils.value_template import SingleIntValue, is_value_te
 
 AXIS_BOARD = "CN_AXIS"   # 虚实：0=实轴(±1)  1=虚轴(±i)
 SIGN_BOARD = "CN_SIGN"   # 正负：0=负        1=正
-
+RE_NS = "CN_RE"          # 实部 int 命名空间 ∈ {-1, 0, 1}
+IM_NS = "CN_IM"          # 虚部 int 命名空间 ∈ {-1, 0, 1}
 
 def simplify_sqrt(n: int):
     """将非负整数 n 写成 a^2*b（b 无平方因子），使 sqrt(n)=a*sqrt(b)。"""
@@ -35,7 +36,6 @@ def simplify_sqrt(n: int):
         i += 1
     return a, b
 
-
 class RuleCN(AbstractClueRule):
     id = "CN"
     name = "Complex Number"
@@ -47,6 +47,7 @@ class RuleCN(AbstractClueRule):
     tags = ["Variant", "Local", "Number Clue", "Mine-Value", "Creative"]
     creation_time = "2026-10-05"
     author = ("雾", 3140864122)
+    special = []
 
     def __init__(self, board: "Board" = None, data=None) -> None:
         super().__init__(board, data)
@@ -72,6 +73,8 @@ class RuleCN(AbstractClueRule):
         board.set_config(SIGN_BOARD, "pos_label", True)
         board.set_config(AXIS_BOARD, "interactive", False)
         board.set_config(SIGN_BOARD, "interactive", False)
+        if data is not None:
+            self.special.extend([RE_NS, IM_NS])
 
     def fill(self, board: 'Board') -> 'Board':
         random = get_random()
@@ -79,7 +82,7 @@ class RuleCN(AbstractClueRule):
         # 先给两个副板所有格子清零
         for name in (AXIS_BOARD, SIGN_BOARD):
             for pos, _ in board(key=name, special='raw'):
-                board.set_value(pos, VALUE_CROSS)
+                board.set_value(pos, None)
 
         # 出题时随机给每个雷分配复数雷值 ±1 / ±i，并写入两个副板
         cg: Dict[Position, tuple] = {}
@@ -109,7 +112,13 @@ class RuleCN(AbstractClueRule):
     def create_constraints(self, board: 'Board', switch: Switch) -> None:
         model = board.get_model()
         s = switch.get(model, self)
-        # 非雷格两副板必须为 0；雷格两副板自由（由 fill / 求解决定）
+
+        # 每格：
+        #   1) 副板 bool (axis, sign) 与雷变量保持物理一致（非雷两板必须 0）
+        #   2) 注册 re / im 两个 int 命名空间，把副板 bit 线性化成实部/虚部分量
+        #      ab = axis AND sign
+        #      re = -m + 2*sign + axis - 2*ab  ∈ {-1, 0, +1}
+        #      im = 2*ab - axis                ∈ {-1, 0, +1}
         for key in board.get_interactive_keys():
             for pos, mine_var in board(key=key, mode="var", special='raw'):
                 if mine_var is None:
@@ -121,7 +130,19 @@ class RuleCN(AbstractClueRule):
                 model.add(axis <= mine_var).only_enforce_if(s)
                 model.add(sign <= mine_var).only_enforce_if(s)
 
-    def init_clear(self, board: 'Board', vice_board) -> None:
+                ab = model.new_bool_var(f"CN_ab_{pos.board_key}_{pos.col}_{pos.row}")
+                model.add(ab <= axis)
+                model.add(ab <= sign)
+                model.add(ab >= axis + sign - 1)
+
+                re = model.new_int_var(-1, 1, f"CN_re_{pos.board_key}_{pos.col}_{pos.row}")
+                im = model.new_int_var(-1, 1, f"CN_im_{pos.board_key}_{pos.col}_{pos.row}")
+                model.add(re == -mine_var + 2 * sign + axis - 2 * ab).only_enforce_if(s)
+                model.add(im == 2 * ab - axis).only_enforce_if(s)
+                board.register_variable_special(RE_NS, pos, re)
+                board.register_variable_special(IM_NS, pos, im)
+
+    def init_clear(self, board: 'Board', vice_board=False) -> None:
         if vice_board:
             return
         for name in (AXIS_BOARD, SIGN_BOARD):
@@ -185,35 +206,27 @@ class ValueCN(AbstractClueValue):
         s = switch.get(model, self.pos)
         logger = get_logger()
 
-        # 从两副板读 raw 变量（就是虚实/正负 bit），线性化成 re/im：
-        #   A = 虚实, S = 正负, ab = A AND S
-        #   re = -m + 2S + A - 2ab   ∈ {-1, 0, +1}
-        #   im = 2ab - A             ∈ {-1, 0, +1}
-        re_terms: List = []
-        im_terms: List = []
+        # 直接从 int 命名空间读实部/虚部
+        neighbor_re: List = []
+        neighbor_im: List = []
         for nei in self.neighbor:
             if not board.in_bounds(nei):
                 continue
-            m = board.get_variable(nei, special='raw')
-            A = board.get_variable(Position(nei.col, nei.row, AXIS_BOARD))
-            S = board.get_variable(Position(nei.col, nei.row, SIGN_BOARD))
-            if m is None or A is None or S is None:
+            re = board.get_variable(nei, special=RE_NS)
+            im = board.get_variable(nei, special=IM_NS)
+            if re is None or im is None:
                 continue
-            ab = model.new_bool_var(f"CN_ab_{nei.board_key}_{nei.col}_{nei.row}")
-            model.add(ab <= A)
-            model.add(ab <= S)
-            model.add(ab >= A + S - 1)
-            re_terms.append(-m + 2 * S + A - 2 * ab)
-            im_terms.append(2 * ab - A)
+            neighbor_re.append(re)
+            neighbor_im.append(im)
 
-        if not re_terms:
+        if not neighbor_re:
             model.add(self.count == 0).only_enforce_if(s)
             return
 
         sr = model.new_int_var(-8, 8, f"CN_sr_{self.pos.col}_{self.pos.row}")
         si = model.new_int_var(-8, 8, f"CN_si_{self.pos.col}_{self.pos.row}")
-        model.add(sr == sum(re_terms)).only_enforce_if(s)
-        model.add(si == sum(im_terms)).only_enforce_if(s)
+        model.add(sr == sum(neighbor_re)).only_enforce_if(s)
+        model.add(si == sum(neighbor_im)).only_enforce_if(s)
 
         sr2 = model.new_int_var(0, 64, f"CN_sr2_{self.pos.col}_{self.pos.row}")
         si2 = model.new_int_var(0, 64, f"CN_si2_{self.pos.col}_{self.pos.row}")
