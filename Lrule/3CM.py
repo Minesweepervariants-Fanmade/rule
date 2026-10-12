@@ -11,13 +11,17 @@
 - 这是一个雷值(mine-value)规则，配合 [V'] 使用（lib_only=True）。
 - 每个雷被赋予一个正整数雷值 n。
 - 对每个正整数 n，雷值恰好等于 n 的雷的数量必须是 0 或 n。
-- 生成阶段随机分配（此处采用与雷布局绑定的确定性伪随机分配，保证 clone 一致性）；
-  求解阶段穷举所有合法分配。
+
+生成策略：
+- 使用一个小型 CP-SAT 求解一组满足 3CM 的雷值分配；
+  若当前题板注册了 [MH] 信号，则同时叠加“每行每列雷值互不相同”的约束；
+  若叠加后不可行则回退到仅 3CM；仍不可行则使用确定性的 `_collect_assignment`。
+- 求解阶段 create_constraints 穷举所有合法分配。
 """
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Dict, List, Tuple
+from typing import TYPE_CHECKING, Dict, List, Optional, Tuple
 
 from ....abs.Lrule import AbstractMinesRule
 
@@ -86,8 +90,19 @@ class Rule3CM(AbstractMinesRule):
             return
         board.register_type_special("3CM", self._get_type)
 
+    # -------- 分配缓存 --------
+    @staticmethod
+    def _mines_signature(board: "Board") -> Tuple[Tuple[str, int, int], ...]:
+        result = []
+        for key in board.get_interactive_keys():
+            for pos, t in board(mode="type", key=key, special="raw"):
+                if t == "F":
+                    result.append((key, pos.row, pos.col))
+        result.sort()
+        return tuple(result)
+
     def _collect_assignment(self, board: "Board") -> Dict[Tuple[str, int, int], int]:
-        """基于当前题板的雷布局（逐题板）计算一个确定性雷值分配。"""
+        """确定性回退分配：逐题板按稳定哈希排序后按不重复分段填值。"""
         assignment: Dict[Tuple[str, int, int], int] = {}
         for key in board.get_interactive_keys():
             mines: List[Tuple[int, int]] = [
@@ -108,25 +123,96 @@ class Rule3CM(AbstractMinesRule):
         return assignment
 
     def _get_assignment(self, board: "Board") -> Dict[Tuple[str, int, int], int]:
-        sig = tuple(sorted(
-            (pos.board_key, pos.row, pos.col)
-            for key in board.get_interactive_keys()
-            for pos, t in board(mode="type", key=key, special="raw")
-            if t == "F"
-        ))
+        sig = self._mines_signature(board)
         meta = getattr(board, "_rule_meta", None)
         if meta is None:
             meta = {}
             try:
                 setattr(board, "_rule_meta", meta)
             except Exception:
-                return self._collect_assignment(board)
+                return self._solve_assignment(board, with_mh=False) or self._collect_assignment(board)
+
         cache = meta.get("3CM_assign")
         if cache is not None and cache[0] == sig:
             return cache[1]
-        assignment = self._collect_assignment(board)
+
+        # 3CM 语义为“具体分布未知”，优先选择一个同时满足 [MH]
+        # （每行每列雷值互不相同）的合法分布；若不可行则回退到普通 3CM 分配。
+        # 这样无论是否组合 MH，答案板上显示的雷值都能与 MH 约束保持一致
+        # （clone 后 _rule_meta 会丢失，不能依赖 meta 判断是否叠加 MH）。
+        assignment = self._solve_assignment(board, with_mh=True)
+        if assignment is None:
+            assignment = self._solve_assignment(board, with_mh=False)
+        if assignment is None:
+            assignment = self._collect_assignment(board)
+
         meta["3CM_assign"] = (sig, assignment)
         return assignment
+
+    def _solve_assignment(self, board: "Board", with_mh: bool) -> Optional[Dict[Tuple[str, int, int], int]]:
+        """
+        用 CP-SAT 求一组满足 3CM 的雷值分配；
+        with_mh=True 时额外要求同一行/列内雷值互不相同。
+        """
+        from ortools.sat.python import cp_model
+
+        mines: List[Tuple[str, int, int]] = list(self._mines_signature(board))
+        n = len(mines)
+        if n == 0:
+            return {}
+
+        # 每个 key 内的雷数
+        key_counts: Dict[str, int] = {}
+        for key, _, _ in mines:
+            key_counts[key] = key_counts.get(key, 0) + 1
+
+        model = cp_model.CpModel()
+        val = [
+            model.new_int_var(1, key_counts[key], f"3CM_v_{i}")
+            for i, (key, _, _) in enumerate(mines)
+        ]
+
+        # 3CM 全局约束：每个 key 内，对于每个 n，val==n 的数量为 0 或 n
+        for key, nk in key_counts.items():
+            idxs = [i for i, (k, _, _) in enumerate(mines) if k == key]
+            for nv in range(1, nk + 1):
+                eqs = []
+                for i in idxs:
+                    b = model.new_bool_var(f"3CM_eq_{key}_{i}_{nv}")
+                    model.add(val[i] == nv).only_enforce_if(b)
+                    model.add(val[i] != nv).only_enforce_if(b.Not())
+                    eqs.append(b)
+                cnt = model.new_int_var(0, nk, f"3CM_cnt_{key}_{nv}")
+                model.add(cnt == sum(eqs))
+                is_zero = model.new_bool_var(f"3CM_zero_{key}_{nv}")
+                model.add(cnt == 0).only_enforce_if(is_zero)
+                model.add(cnt != 0).only_enforce_if(is_zero.Not())
+                is_n = model.new_bool_var(f"3CM_isn_{key}_{nv}")
+                model.add(cnt == nv).only_enforce_if(is_n)
+                model.add(cnt != nv).only_enforce_if(is_n.Not())
+                model.add_bool_or([is_zero, is_n])
+
+        # 可选叠加 MH：每行每列内雷值互不相同
+        if with_mh:
+            by_row: Dict[Tuple[str, int], List] = {}
+            by_col: Dict[Tuple[str, int], List] = {}
+            for i, (key, r, c) in enumerate(mines):
+                by_row.setdefault((key, r), []).append(val[i])
+                by_col.setdefault((key, c), []).append(val[i])
+            for group in list(by_row.values()) + list(by_col.values()):
+                if len(group) >= 2:
+                    model.add_all_different(group)
+
+        solver = cp_model.CpSolver()
+        solver.parameters.random_seed = 42
+        solver.parameters.num_search_workers = 1
+        status = solver.solve(model)
+        if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+            return None
+        return {
+            (key, r, c): solver.value(val[i])
+            for i, (key, r, c) in enumerate(mines)
+        }
 
     def _get_type(self, board: "Board", pos: "Position", *args, **kwargs) -> int:
         raw = board.get_type(pos, special=self.rule)
