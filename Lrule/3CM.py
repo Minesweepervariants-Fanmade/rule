@@ -136,23 +136,39 @@ class Rule3CM(AbstractMinesRule):
         if cache is not None and cache[0] == sig:
             return cache[1]
 
-        # 3CM 语义为“具体分布未知”，优先选择一个同时满足 [MH]
-        # （每行每列雷值互不相同）的合法分布；若不可行则回退到普通 3CM 分配。
-        # 这样无论是否组合 MH，答案板上显示的雷值都能与 MH 约束保持一致
-        # （clone 后 _rule_meta 会丢失，不能依赖 meta 判断是否叠加 MH）。
-        assignment = self._solve_assignment(board, with_mh=True)
-        if assignment is None:
-            assignment = self._solve_assignment(board, with_mh=False)
+        # 3CM 语义为“具体分布未知”，在满足 3CM 的基础上，优先叠加当前题板
+        # 实际注册的额外雷值约束（[MH] / [MQ]）。若叠加后不可行则逐级回退。
+        # 注意：必须依据 meta 中实际注册的约束来决定是否叠加，而不能无条件
+        # 叠加 MH——否则用户只组合 MQ 时，答案板会因为优先满足 MH 而破坏 MQ。
+        # （生成阶段 board 的 _rule_meta 保留；渲染/重放阶段 clone 后丢失，
+        #   但缓存按 sig 命中，不会改变已生成的答案板。）
+        has_mh = "MH" in meta
+        has_mq = "MQ" in meta
+        if has_mh and has_mq:
+            combos = [(True, True), (True, False), (False, True), (False, False)]
+        elif has_mh:
+            combos = [(True, False), (False, False)]
+        elif has_mq:
+            combos = [(False, True), (False, False)]
+        else:
+            combos = [(False, False)]
+
+        assignment = None
+        for mh_flag, mq_flag in combos:
+            assignment = self._solve_assignment(board, with_mh=mh_flag, with_mq=mq_flag)
+            if assignment is not None:
+                break
         if assignment is None:
             assignment = self._collect_assignment(board)
 
         meta["3CM_assign"] = (sig, assignment)
         return assignment
 
-    def _solve_assignment(self, board: "Board", with_mh: bool) -> Optional[Dict[Tuple[str, int, int], int]]:
+    def _solve_assignment(self, board: "Board", with_mh: bool, with_mq: bool = False) -> Optional[Dict[Tuple[str, int, int], int]]:
         """
         用 CP-SAT 求一组满足 3CM 的雷值分配；
-        with_mh=True 时额外要求同一行/列内雷值互不相同。
+        with_mh=True 时额外要求同一行/列内雷值互不相同；
+        with_mq=True 时额外要求任意 2x2 内的雷值互不相同。
         """
         from ortools.sat.python import cp_model
 
@@ -202,6 +218,25 @@ class Rule3CM(AbstractMinesRule):
             for group in list(by_row.values()) + list(by_col.values()):
                 if len(group) >= 2:
                     model.add_all_different(group)
+
+        # 可选叠加 MQ：任意 2x2 内的雷值互不相同
+        if with_mq:
+            # 收集每个 key 下所有雷格坐标 -> 索引的映射
+            mines_by_key: Dict[str, Dict[Tuple[int, int], int]] = {}
+            for i, (key, r, c) in enumerate(mines):
+                mines_by_key.setdefault(key, {})[(r, c)] = i
+            # 遍历每个 key 下所有可能的 2x2 左上角 (r, c)，
+            # 覆盖所有实际存在的 2x2，而不仅限于左上角是雷格的那些。
+            for key, cell_map in mines_by_key.items():
+                boundary = board.boundary(key)
+                max_r = boundary.row
+                max_c = boundary.col
+                for r in range(max_r):
+                    for c in range(max_c):
+                        quad = [(r, c), (r, c + 1), (r + 1, c), (r + 1, c + 1)]
+                        idxs = [cell_map[cell] for cell in quad if cell in cell_map]
+                        if len(idxs) >= 2:
+                            model.add_all_different([val[i] for i in idxs])
 
         solver = cp_model.CpSolver()
         solver.parameters.random_seed = 42

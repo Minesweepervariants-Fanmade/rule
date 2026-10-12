@@ -65,14 +65,25 @@ class Rule3CMp(AbstractMinesRule):
         sig = self._mines_signature(board)
         if sig in self._assignment_cache:
             return self._assignment_cache[sig]
-        assignment = self._solve_assignment(board)
+        # 依据当前题板 _rule_meta 中实际注册的额外约束（[MQ]）决定是否叠加。
+        # 生成阶段 board 的 _rule_meta 保留；渲染/重放阶段 clone 后丢失，
+        # 但缓存按 sig 命中，不会改变已生成的答案板。
+        meta = getattr(board, "_rule_meta", None)
+        has_mq = bool(meta) and ("MQ" in meta)
+        if has_mq:
+            assignment = self._solve_assignment(board, with_mq=True)
+            if assignment is None:
+                assignment = self._solve_assignment(board, with_mq=False)
+        else:
+            assignment = self._solve_assignment(board, with_mq=False)
         if len(self._assignment_cache) > 64:
             self._assignment_cache.clear()
         self._assignment_cache[sig] = assignment
         return assignment
 
-    def _solve_assignment(self, board: "Board"):
-        """使用一个小型 CP-SAT 模型求一组满足 3CM' 约束的雷值分配。"""
+    def _solve_assignment(self, board: "Board", with_mq: bool = False):
+        """使用一个小型 CP-SAT 模型求一组满足 3CM' 约束的雷值分配；
+        with_mq=True 时额外要求任意 2x2 内的雷值互不相同。"""
         from ortools.sat.python import cp_model
 
         mines: List[Tuple[str, int, int]] = [
@@ -113,6 +124,22 @@ class Rule3CMp(AbstractMinesRule):
                     model.add(val[j] != nv).only_enforce_if(eq.Not())
                     inds.append(eq)
                 model.add(sum(inds) == nv).only_enforce_if(cond)
+
+        # 可选叠加 MQ：任意 2x2 内的雷值互不相同
+        if with_mq:
+            mines_by_key: Dict[str, Dict[Tuple[int, int], int]] = {}
+            for i, (key, r, c) in enumerate(mines):
+                mines_by_key.setdefault(key, {})[(r, c)] = i
+            for key, cell_map in mines_by_key.items():
+                boundary = board.boundary(key)
+                max_r = boundary.row
+                max_c = boundary.col
+                for r in range(max_r):
+                    for c in range(max_c):
+                        quad = [(r, c), (r, c + 1), (r + 1, c), (r + 1, c + 1)]
+                        idxs = [cell_map[cell] for cell in quad if cell in cell_map]
+                        if len(idxs) >= 2:
+                            model.add_all_different([val[i] for i in idxs])
 
         solver = cp_model.CpSolver()
         solver.parameters.random_seed = 42
