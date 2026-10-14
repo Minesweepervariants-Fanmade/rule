@@ -5,7 +5,7 @@
 # @Author  : NT (2201963934)
 # @FileName: 3XM.py
 """
-[3XM] 十字雷：雷值等于其对角接触的四个格雷数
+[3XM] 十字雷：雷值等于其对角接触的四个格雷数+1
 """
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.board import Board, Position
@@ -16,8 +16,8 @@ class Rule3XM(AbstractMinesRule):
     id = "3XM"
     name = "Cross-Mine"
     name.zh_CN = "十字雷"
-    doc = "Mine value equals the number of mines in the four diagonally adjacent cells"
-    doc.zh_CN = "雷值等于其对角接触的四个格雷数"
+    doc = "Mine value equals the number of mines in the four diagonally adjacent cells plus 1"
+    doc.zh_CN = "雷值等于其对角接触的四个格雷数+1"
     tags = ["Variant", "Mine-Value", "Local"]
     creation_time = "2026-10-14"
     lib_only = True
@@ -53,8 +53,8 @@ class Rule3XM(AbstractMinesRule):
                     drop_none=True,
                     special='raw',
                 )
-                # 雷值 = 对角四格雷数（边界外视为非雷，drop_none 已过滤）
-                model.add(det == sum(diag_vars)).only_enforce_if(mine)
+                # 雷值 = 对角四格雷数 + 1（边界外视为非雷，drop_none 已过滤）
+                model.add(det == sum(diag_vars) + 1).only_enforce_if(mine)
                 # 非雷格雷值为 0
                 model.add(det == 0).only_enforce_if(mine.Not())
 
@@ -67,4 +67,4 @@ class Rule3XM(AbstractMinesRule):
         for _pos in Rule3XM._diagonal_positions(pos):
             if board.in_bounds(_pos) and board.get_type(_pos, special='raw') == "F":
                 count += 1
-        return count
+        return count + 1
