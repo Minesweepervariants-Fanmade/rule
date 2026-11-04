@@ -49,7 +49,8 @@ class RuleAI(AbstractMinesRule):
   author = ("NT", 2201963934)
   tags = ["Creative", "Global", "Extensive Trial", "Connectivity", "Construction", "Parameter"]
   creation_time = "2026-04-09"
-  ARROWS = ["^", "^>", ">", "v>", "v", "v<", "<", "^<"]
+  # 顺序: 上, 右上, 右, 右下, 下, 左下, 左, 左上（使用 Unicode 箭头符号显示）
+  ARROWS = ["\u2191", "\u2197", "\u2192", "\u2198", "\u2193", "\u2199", "\u2190", "\u2196"]
 
   # 顺序: 上, 右上, 右, 右下, 下, 左下, 左, 左上
   DIRS = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
