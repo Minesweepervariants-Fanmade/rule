@@ -257,7 +257,7 @@ class RuleStar1ZHat(AbstractClueRule):
                     dr, dc = DIRECTION_OFFSETS[d]
                     npos = _neighbor(board, pos, dr, dc, key)
                     if npos is None or npos not in pos_index:
-                        model.add(False).only_enforce_if(s)
+                        model.add(0 == 1).only_enforce_if(s)
                         continue
                     add_edge(pos, npos)
                 else:
