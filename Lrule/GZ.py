@@ -7,7 +7,7 @@ from minesweepervariants.board import Board
 from minesweepervariants.impl.summon.solver import Switch
 
 class RuleSC(AbstractMinesRule):
-    id = "SC"
+    id = "GZ"
     name = "Sugar Cane"
     name.zh_CN = "甘蔗"
     doc = "Each mine must have at least one dyed cell among its 4 adjacent cells, and dyed cells cannot be mines"
