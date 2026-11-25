@@ -8,6 +8,7 @@
 """
 [1B']失衡: 每行每列雷数均不相同
 """
+from ortools.sat.python.cp_model import CpModel
 
 from ....abs.Lrule import AbstractMinesRule
 from minesweepervariants.board import Board
@@ -53,15 +54,18 @@ class Rule1B(AbstractMinesRule):
     def suggest_total(self, info: dict):
         sizes = [info["size"][interactive] for interactive in info["interactive"]]
 
-        total = 0
+        total_a = 0
 
         for size in sizes:
             if size[0] != size[1]:
                 raise ValueError("题板不可为非正方矩形")
             else:
-                total += int((size[0] - 1) * size[1] / 2)
+                total_a += int((size[0] - 1) * size[1] / 2)
+            total_b = total_a + size[0]
 
-        def a(model, total_var):
-            model.Add(total == total_var)
+        def a(model: CpModel, total_var):
+            switch = model.new_bool_var("t")
+            model.add(total_var == total_a).only_enforce_if(switch)
+            model.add(total_var == total_b).only_enforce_if(switch.Not())
 
         info["hard_fns"].append(a)
