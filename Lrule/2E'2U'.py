@@ -4,7 +4,6 @@
 
 from minesweepervariants.abs.Lrule import AbstractMinesRule
 from minesweepervariants.board import Board
-from minesweepervariants.utils.tool import get_random
 
 
 class Rule2Ep2Up(AbstractMinesRule):
@@ -22,21 +21,14 @@ class Rule2Ep2Up(AbstractMinesRule):
         if board is None:
             return
         for key in board.get_interactive_keys():
+            pos_bound = board.boundary(key)
             board.set_config(key, "pos_label", True)
+            board.set_config(key, "labels", [str(i) for i in range(1, pos_bound.col + 2)])
 
     def create_constraints(self, board: Board, switch) -> None:
         model = board.get_model()
         rule_switch = switch.get(model, self)
         interactive_keys = board.get_interactive_keys()
-        hint_empty_board = all(
-            cell_type == "N"
-            for key in interactive_keys
-            for _, cell_type in board(mode="type", key=key, special="raw")
-        )
-        random = get_random() if hint_empty_board else None
-        hinted_variables = (
-            set(model.proto.solution_hint.vars) if hint_empty_board else set()
-        )
 
         for key in interactive_keys:
             boundary = board.boundary(key)
@@ -47,34 +39,14 @@ class Rule2Ep2Up(AbstractMinesRule):
                 )
                 column_total = sum(column_vars)
 
-                # N 等于列高时不存在 X=N 格，因此全雷列不满足规则。
-                model.add(column_total != len(column_vars)).only_enforce_if(
+                # N 等于列高时不存在 X=0 格，因此全雷列不满足规则。
+                model.add(column_total != 0).only_enforce_if(
                     rule_switch
                 )
 
                 # 若 X=N 不是雷，则该列雷数不能为 N；这正是
                 # “列雷数为 N => X=N 是雷”的逆否命题。
                 for mine_count, target_var in enumerate(column_vars):
-                    model.add(column_total != mine_count).only_enforce_if(
+                    model.add(column_total != (mine_count + 1)).only_enforce_if(
                         [target_var.Not(), rule_switch]
                     )
-
-                # 提示一个随机的合法列布局，避免高度对称的模型在不同种子下
-                # 总落到同一个解。hint 不属于约束，因此不改变规则的可行解集。
-                if random is not None and len(column_vars) > 1:
-                    hinted_count = min(
-                        max(round(len(column_vars) * 0.4), 1),
-                        len(column_vars) - 1,
-                    )
-                    other_indices = [
-                        index for index in range(len(column_vars))
-                        if index != hinted_count
-                    ]
-                    hinted_mines = {hinted_count}
-                    hinted_mines.update(
-                        random.sample(other_indices, hinted_count - 1)
-                    )
-                    for index, var in enumerate(column_vars):
-                        if var.index not in hinted_variables:
-                            model.add_hint(var, int(index in hinted_mines))
-                            hinted_variables.add(var.index)
