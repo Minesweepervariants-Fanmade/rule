@@ -45,23 +45,26 @@ class Rule3E(AbstractMinesRule):
     def create_constraints(self, board: 'Board', switch):
         model = board.get_model()
 
-        height = board.boundary().row + 1
-        width = board.boundary().col + 1
-
+        # 3 bit 固定对应 8 种状态
         vals_list = []
 
-        for i in range(height):
+        for i in range(8):
             x = model.NewIntVar(i, i, f"[3E]{i}_x")
             y = board.get_variable(board.get_pos(i, 0, NAME_3E[1]))
             s_pos = board.get_pos(i, 1, NAME_3E[0])
             s = switch.get(model, s_pos)
             vals_list.append([x, y, s])
 
+        bool_var_index = 0
+
         for key in board.get_interactive_keys():
             boundary = board.boundary(key=key)
+            height = boundary.row + 1
+            width = boundary.col + 1
 
-            for row_index in range(boundary.row + 1):
+            for row_index in range(height):
                 for col_index in range(width):
+                    # 横向连续三个格子，列方向循环
                     positions = [
                         self.get_wrapped_pos(
                             board, row_index, col_index + offset, key
@@ -71,40 +74,46 @@ class Rule3E(AbstractMinesRule):
 
                     variables = board.batch(positions, mode="variable")
 
+                    # 中间格子的下方，行列均循环
                     target = self.get_wrapped_pos(
                         board, row_index + 1, col_index + 1, key
                     )
+
                     y_variables = board.get_variable(target)
 
                     if y_variables is None:
                         continue
 
+                    expression = (
+                        4 * variables[0]
+                        + 2 * variables[1]
+                        + variables[2]
+                    )
+
                     for var_x, var_y, s in vals_list:
-                        cond = model.NewBoolVar(
-                            f"[3E]{row_index}_{col_index}_{var_x}"
-                        )
+                        cond = model.NewBoolVar(f"[3E]{bool_var_index}")
 
-                        expression = (
-                            4 * variables[0]
-                            + 2 * variables[1]
-                            + variables[2]
-                        )
+                        model.Add(
+                            var_x == expression
+                        ).OnlyEnforceIf([cond, s])
 
-                        model.Add(var_x == expression).OnlyEnforceIf([cond, s])
-                        model.Add(var_x != expression).OnlyEnforceIf(
-                            [cond.Not(), s]
-                        )
-                        model.Add(y_variables == var_y).OnlyEnforceIf(
-                            [cond, s]
-                        )
+                        model.Add(
+                            var_x != expression
+                        ).OnlyEnforceIf([cond.Not(), s])
+
+                        model.Add(
+                            y_variables == var_y
+                        ).OnlyEnforceIf([cond, s])
+
+                        bool_var_index += 1
 
     def init_board(self, board: 'Board'):
-        height = board.boundary().row + 1
-
+        # 初始化 8 种三 bit 状态
         for index, pos in enumerate(
             board.get_col_pos(board.get_pos(0, 0, NAME_3E[0]))
         ):
             pos1, pos2, pos3 = board.get_row_pos(pos)
+
             board.set_value(pos1, MINES_TAG if index & 4 else VALUE_QUESS)
             board.set_value(pos2, MINES_TAG if index & 2 else VALUE_QUESS)
             board.set_value(pos3, MINES_TAG if index & 1 else VALUE_QUESS)
@@ -114,8 +123,11 @@ class Rule3E(AbstractMinesRule):
         for key in board.get_interactive_keys():
             boundary = board.boundary(key=key)
 
-            for row_index in range(boundary.row + 1):
-                for col_index in range(boundary.col + 1):
+            height = boundary.row + 1
+            width = boundary.col + 1
+
+            for row_index in range(height):
+                for col_index in range(width):
                     positions = [
                         self.get_wrapped_pos(
                             board, row_index, col_index + offset, key
@@ -128,14 +140,17 @@ class Rule3E(AbstractMinesRule):
                     target = self.get_wrapped_pos(
                         board, row_index + 1, col_index + 1, key
                     )
+
                     y_type = board.get_type(target)
 
                     if y_type == "":
                         continue
 
-                    index = 4 if types[0] == "F" else 0
-                    index += 2 if types[1] == "F" else 0
-                    index += 1 if types[2] == "F" else 0
+                    index = (
+                        (4 if types[0] == "F" else 0)
+                        + (2 if types[1] == "F" else 0)
+                        + (1 if types[2] == "F" else 0)
+                    )
 
                     board.set_value(
                         y_col[index],
